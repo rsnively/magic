@@ -1,10 +1,5 @@
 import Foundation
 
-class Card: NSObject {
-    var name:NSString
+class Card: Object {
     
-    init(name:NSString) {
-        self.name = name
-        super.init()
-    }
 }

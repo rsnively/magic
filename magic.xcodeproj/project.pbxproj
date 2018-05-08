@@ -18,6 +18,8 @@
 		982F9B32209BAD33009BBD8B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B31209BAD33009BBD8B /* Card.swift */; };
 		982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */; };
 		982F9B37209BC14B009BBD8B /* CardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B36209BC14B009BBD8B /* CardNode.swift */; };
+		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
+		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		982F9B31209BAD33009BBD8B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandNode.swift; sourceTree = "<group>"; };
 		982F9B36209BC14B009BBD8B /* CardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNode.swift; sourceTree = "<group>"; };
+		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +87,9 @@
 			isa = PBXGroup;
 			children = (
 				982F9B31209BAD33009BBD8B /* Card.swift */,
+				986EAA5920A10F0300F3CCDC /* Color.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
+				986EAA5B20A1110000F3CCDC /* Object.swift */,
 				982F9B2F209BACC7009BBD8B /* Player.swift */,
 			);
 			path = model;
@@ -169,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				986EAA5C20A1110000F3CCDC /* Object.swift in Sources */,
 				982F9B1B209BAAFF009BBD8B /* GameScene.swift in Sources */,
 				982F9B37209BC14B009BBD8B /* CardNode.swift in Sources */,
 				982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */,
@@ -177,6 +184,7 @@
 				982F9B1D209BAAFF009BBD8B /* GameViewController.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
+				986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
