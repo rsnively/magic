@@ -24,4 +24,12 @@ class PlayerHandNode: SKNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func touchUp(atPoint pos:CGPoint) {
+        for cardNode in cardNodes {
+            if cardNode.contains(pos) {
+                cardNode.touchUp(atPoint:convert(pos, to:cardNode))
+            }
+        }
+    }
 }
