@@ -18,7 +18,7 @@ class GameScene: SKScene {
                 expandedCardNode = CardNode(card:newExpandedCard!, allowedSize:self.size * 0.9)
                 addChild(expandedCardNode!)
                 expandedCardNode!.zPosition = 2.0
-                expandedCardNode!.position = playerHandNode.convert(CGPoint.zero, to:self)
+                expandedCardNode!.position = expandedCardNode!.convert(CGPoint(x:size.width / 2.0, y:size.height / 2.0), from:self)
             }
         }
     }
@@ -34,18 +34,24 @@ class GameScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
-//        playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.05)
-        playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.5)
+        backgroundColor = UIColor.white
+        playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
 
         addChild(playerHandNode)
     }
     
     func touchDown(atPoint pos : CGPoint) {
-
+        if expandedCard != nil {
+            return
+        }
+        playerHandNode.touchDown(atPoint:convert(pos, to:playerHandNode))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-
+        if expandedCard != nil {
+            return
+        }
+        playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
     }
     
     func touchUp(atPoint pos : CGPoint) {
@@ -53,10 +59,7 @@ class GameScene: SKScene {
             expandedCard = nil
             return
         }
-        
-        if playerHandNode.contains(pos) {
-            playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
-        }
+        playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -6,6 +6,9 @@ class Player: NSObject {
     override init() {
         for _ in 1 ... 7 {
             let c = Card(name:"Island")
+            c.supertypes.append(.Basic)
+            c.types.append(.Land)
+            c.subtypes.append(.Island)
             hand.append(c)
         }
         super.init()

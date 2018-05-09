@@ -25,10 +25,29 @@ class PlayerHandNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUp(atPoint pos:CGPoint) {
+    func touchDown(atPoint pos:CGPoint) {
         for cardNode in cardNodes {
             if cardNode.contains(pos) {
-                cardNode.touchUp(atPoint:convert(pos, to:cardNode))
+                cardNode.touchDown(atPoint:pos)
+                break
+            }
+        }
+    }
+    
+    func touchMoved(toPoint pos: CGPoint) {
+        for cardNode in cardNodes {
+            if cardNode.touching {
+                cardNode.touchMoved(toPoint:pos)
+                break
+            }
+        }
+    }
+    
+    func touchUp(atPoint pos:CGPoint) {
+        for cardNode in cardNodes {
+            if cardNode.touching {
+                cardNode.touchUp(atPoint:pos)
+                break
             }
         }
     }
