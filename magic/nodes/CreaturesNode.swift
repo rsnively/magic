@@ -1,27 +1,28 @@
 import Foundation
 import SpriteKit
 
-class PlayerHandNode: SKNode {
-    var cardNodes:[HandCardNode] = []
+class CreaturesNode: SKNode {
+    var cardNodes:[CreaturesCardNode] = []
     
-    private let cardMargin:CGFloat = 3.0
-    
-    func setHand(cards: [Card], size: CGSize) {
+    func setCreatures(creatures: [Card], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
         let cardSize = CGSize(width:size.width * 0.4, height:size.height)
-        for card in cards {
-            cardNodes.append(HandCardNode(card:card, allowedSize:cardSize))
+        for creature in creatures {
+            cardNodes.append(CreaturesCardNode(card: creature, allowedSize:cardSize))
         }
         for i in 0 ..< cardNodes.count {
-            cardNodes[i].position.x = (CGFloat(i)  - CGFloat(cardNodes.count) / 2.0 + 0.5) * (cardNodes[i].size.width + cardMargin)
+            cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 1.5
             addChild(cardNodes[i])
+            if cardNodes[i].card.isTapped {
+                cardNodes[i].zRotation = -CGFloat.pi / 2.0
+            }
         }
     }
     
-    init(hand:[Card], size:CGSize) {
+    init(creatures:[Card], size:CGSize) {
         super.init()
-        setHand(cards: hand, size: size)
+        setCreatures(creatures: creatures, size: size)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,15 +33,6 @@ class PlayerHandNode: SKNode {
         for cardNode in cardNodes {
             if cardNode.contains(pos) {
                 cardNode.touchDown(atPoint:pos)
-                break
-            }
-        }
-    }
-    
-    func touchMoved(toPoint pos: CGPoint) {
-        for cardNode in cardNodes {
-            if cardNode.touching {
-                cardNode.touchMoved(toPoint:pos)
                 break
             }
         }

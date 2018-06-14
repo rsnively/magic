@@ -18,10 +18,13 @@ enum Type {
 }
 
 enum Subtype {
+    case Cat
+    case Elemental
     case Forest
     case Human
     case Island
     case Mountain
     case Plains
     case Swamp
+    case Warrior
 }

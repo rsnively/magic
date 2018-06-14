@@ -2,8 +2,13 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    var game:Game
     var playerHandNode:PlayerHandNode
+    
+    var playCardHeight:CGFloat
+    var playerLandsNode:LandsNode
+    var playerCreaturesNode:CreaturesNode
+    
+    var manaPoolNode:ManaPoolNode
     
     private var expandedCardNode:CardNode? = nil
     var expandedCard:Card? {
@@ -23,9 +28,30 @@ class GameScene: SKScene {
         }
     }
     
+    static func getAllowedPlayerHandSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width:gameSize.width * 0.6, height:gameSize.height * 0.2)
+    }
+    
+    static func getAllowedPlayerLandsSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width:gameSize.width * 0.4, height: gameSize.height * 0.2)
+    }
+    
+    static func getAllowedPlayerCreaturesSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: gameSize.width, height: gameSize.height * 0.2)
+    }
+    
+    static func getAllowedManaPoolSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width:100, height:50)
+    }
+    
     override init(size:CGSize) {
-        game = Game()
-        playerHandNode = PlayerHandNode(hand:game.player1.hand, size:CGSize(width:size.width * 0.6, height:size.height * 0.2))
+        playCardHeight = size.height * 0.1
+
+        playerHandNode = PlayerHandNode(hand: Game.shared.player1.hand, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
+        playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
+        manaPoolNode = ManaPoolNode()
+        
         super.init(size:size)
     }
     
@@ -36,8 +62,14 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = UIColor.white
         playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
+        playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.3)
+        playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.5)
+        manaPoolNode.position = CGPoint(x:size.width * 0.5, y: (playerLandsNode.position.y + playerHandNode.position.y) / 2.0)
 
         addChild(playerHandNode)
+        addChild(playerLandsNode)
+        addChild(playerCreaturesNode)
+        addChild(manaPoolNode)
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -45,6 +77,8 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchDown(atPoint:convert(pos, to:playerHandNode))
+        playerLandsNode.touchDown(atPoint:convert(pos, to:playerLandsNode))
+        playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -60,6 +94,8 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
+        playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
+        playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -82,5 +118,12 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func redraw() {
+        playerHandNode.setHand(cards: Game.shared.player1.hand, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
+        playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
+        manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
     }
 }

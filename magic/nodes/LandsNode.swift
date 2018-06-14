@@ -1,27 +1,29 @@
 import Foundation
 import SpriteKit
 
-class PlayerHandNode: SKNode {
-    var cardNodes:[HandCardNode] = []
+class LandsNode: SKNode {
+    var cardNodes:[LandsCardNode] = []
     
-    private let cardMargin:CGFloat = 3.0
-    
-    func setHand(cards: [Card], size: CGSize) {
+    func setLands(lands: [Card], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
         let cardSize = CGSize(width:size.width * 0.4, height:size.height)
-        for card in cards {
-            cardNodes.append(HandCardNode(card:card, allowedSize:cardSize))
+        for land in lands {
+            cardNodes.append(LandsCardNode(card: land, allowedSize:cardSize))
         }
         for i in 0 ..< cardNodes.count {
-            cardNodes[i].position.x = (CGFloat(i)  - CGFloat(cardNodes.count) / 2.0 + 0.5) * (cardNodes[i].size.width + cardMargin)
+            cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 0.2
             addChild(cardNodes[i])
+            cardNodes[i].zPosition = CGFloat(i) / CGFloat(cardNodes.count)
+            if cardNodes[i].card.isTapped {
+                cardNodes[i].zRotation = -CGFloat.pi / 2.0
+            }
         }
     }
     
-    init(hand:[Card], size:CGSize) {
+    init(lands:[Card], size:CGSize) {
         super.init()
-        setHand(cards: hand, size: size)
+        setLands(lands: lands, size: size)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,7 +31,7 @@ class PlayerHandNode: SKNode {
     }
     
     func touchDown(atPoint pos:CGPoint) {
-        for cardNode in cardNodes {
+        for cardNode in cardNodes.reversed() {
             if cardNode.contains(pos) {
                 cardNode.touchDown(atPoint:pos)
                 break
@@ -37,17 +39,8 @@ class PlayerHandNode: SKNode {
         }
     }
     
-    func touchMoved(toPoint pos: CGPoint) {
-        for cardNode in cardNodes {
-            if cardNode.touching {
-                cardNode.touchMoved(toPoint:pos)
-                break
-            }
-        }
-    }
-    
     func touchUp(atPoint pos:CGPoint) {
-        for cardNode in cardNodes {
+        for cardNode in cardNodes.reversed() {
             if cardNode.touching {
                 cardNode.touchUp(atPoint:pos)
                 break

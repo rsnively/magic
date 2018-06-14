@@ -2,8 +2,7 @@ import Foundation
 import SpriteKit
 
 class CardNode: SKSpriteNode {
-    var moved = false
-    var card:Card
+    unowned var card:Card
     
     private static let cardAspectRatio:CGFloat = 0.714
     private static func getMaximumCardSize(for size:CGSize) -> CGSize {
@@ -16,7 +15,7 @@ class CardNode: SKSpriteNode {
         var cs = card.colors
         for subtype in card.subtypes {
             let color = getColorForLandType(subtype:subtype)
-            if color != nil { cs.append(color!) }
+            if color != nil { cs.insert(color!) }
         }
         return getUIColor(for:cs)
     }
@@ -33,6 +32,9 @@ class CardNode: SKSpriteNode {
     init(card:Card, allowedSize:CGSize) {
         self.card = card
         super.init(texture:nil, color:CardNode.getBackgroundColor(for:card), size:CardNode.getMaximumCardSize(for:allowedSize))
+        let borderNode = SKShapeNode(rectOf: self.size, cornerRadius: 3.0)
+        borderNode.strokeColor = UIColor.black
+        addChild(borderNode)
         addChild(CardNode.getNameNode(card:self.card, cardSize:self.size))
     }
     
@@ -40,35 +42,11 @@ class CardNode: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var startingPosition = CGPoint.zero
-    private var touchPoint:CGPoint? = nil
+    func touchDown(atPoint pos: CGPoint) { assert(false) }
+    func touchMoved(toPoint pos: CGPoint) { assert(false) }
+    func touchUp(atPoint pos : CGPoint) { assert(false) }
+    public var touchPoint:CGPoint? = nil
     var touching:Bool {
         return self.touchPoint != nil
-    }
-    
-    func touchDown(atPoint pos: CGPoint) {
-        if self.hasActions() {
-            return
-        }
-        touchPoint = convert(pos, from:parent!)
-        moved = false
-        startingPosition = position
-    }
-    
-    func touchMoved(toPoint pos: CGPoint) {
-        assert(touching)
-        moved = true
-        position = pos - touchPoint!
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        touchPoint = nil
-        if !moved {
-            (self.scene as! GameScene).expandedCard = self.card
-        }
-        
-        let moveAction = SKAction.move(to: startingPosition, duration: 0.5)
-        moveAction.timingMode = .easeOut
-        run(moveAction)
     }
 }
