@@ -100,6 +100,8 @@ class GameScene: SKScene {
         playerLandsNode.touchDown(atPoint:convert(pos, to:playerLandsNode))
         playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
         
+        stackNode.touchDown(atPoint:convert(pos, to:stackNode))
+        
         commandButtonsNode.touchDown(atPoint:convert(pos, to:commandButtonsNode))
     }
     
@@ -108,6 +110,7 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
+        stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
     }
     
     func touchUp(atPoint pos : CGPoint) {
@@ -118,6 +121,8 @@ class GameScene: SKScene {
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
         playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
         playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
+        
+        stackNode.touchUp(atPoint:convert(pos, to:stackNode))
         
         commandButtonsNode.touchUp(atPoint:convert(pos, to:commandButtonsNode))
     }
