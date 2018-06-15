@@ -15,6 +15,10 @@ struct Stack<T> {
         return elements.last
     }
     
+    func asArray() -> [T] {
+        return elements
+    }
+    
     mutating func push(_ element: T) {
         elements.append(element)
     }

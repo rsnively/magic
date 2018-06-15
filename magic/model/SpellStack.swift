@@ -2,6 +2,15 @@ import Foundation
 
 class SpellStack: NSObject {
     private var stackObjects:Stack<Object>
+    var count: Int {
+        return stackObjects.count
+    }
+    var isEmpty: Bool {
+        return stackObjects.isEmpty
+    }
+    var asArray: [Object] {
+        return stackObjects.asArray()
+    }
     
     override init() {
         self.stackObjects = Stack<Object>()
@@ -12,8 +21,9 @@ class SpellStack: NSObject {
         stackObjects.push(object)
     }
     
-    func pop() -> Object? {
-        // TODO: resolve? or let caller do that?
-        return stackObjects.pop()
+    func resolveTop() {
+        if let top = stackObjects.pop() {
+            top.controller.resolve(object: top)
+        }
     }
 }

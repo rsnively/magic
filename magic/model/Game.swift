@@ -13,4 +13,10 @@ class Game: NSObject {
         theStack = SpellStack()
         super.init()
     }
+    
+    func advanceGame() {
+        if !theStack.isEmpty {
+            theStack.resolveTop()
+        }
+    }
 }

@@ -36,6 +36,9 @@
 		986D5C9420D1E60B005E944E /* ManaPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9320D1E60B005E944E /* ManaPool.swift */; };
 		986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9520D1ECC5005E944E /* CreaturesNode.swift */; };
 		986D5C9820D1ECFA005E944E /* CreaturesCardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9720D1ECFA005E944E /* CreaturesCardNode.swift */; };
+		986D5C9A20D1F4FE005E944E /* StackNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9920D1F4FE005E944E /* StackNode.swift */; };
+		986D5C9C20D1F656005E944E /* StackObjectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9B20D1F656005E944E /* StackObjectNode.swift */; };
+		986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */; };
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +75,9 @@
 		986D5C9320D1E60B005E944E /* ManaPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaPool.swift; sourceTree = "<group>"; };
 		986D5C9520D1ECC5005E944E /* CreaturesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreaturesNode.swift; sourceTree = "<group>"; };
 		986D5C9720D1ECFA005E944E /* CreaturesCardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreaturesCardNode.swift; sourceTree = "<group>"; };
+		986D5C9920D1F4FE005E944E /* StackNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackNode.swift; sourceTree = "<group>"; };
+		986D5C9B20D1F656005E944E /* StackObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackObjectNode.swift; sourceTree = "<group>"; };
+		986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandButtonsNode.swift; sourceTree = "<group>"; };
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				982F9B36209BC14B009BBD8B /* CardNode.swift */,
+				986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */,
 				986D5C9520D1ECC5005E944E /* CreaturesNode.swift */,
 				986D5C9720D1ECFA005E944E /* CreaturesCardNode.swift */,
 				986D5C8920D1BF55005E944E /* HandCardNode.swift */,
@@ -160,6 +167,8 @@
 				986D5C8B20D1C0E2005E944E /* LandsCardNode.swift */,
 				986D5C8F20D1CDB6005E944E /* ManaPoolNode.swift */,
 				982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */,
+				986D5C9920D1F4FE005E944E /* StackNode.swift */,
+				986D5C9B20D1F656005E944E /* StackObjectNode.swift */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -246,8 +255,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				986D5C8C20D1C0E2005E944E /* LandsCardNode.swift in Sources */,
+				986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */,
 				986EAA5C20A1110000F3CCDC /* Object.swift in Sources */,
 				9818425820CA0B010068DC91 /* Util.swift in Sources */,
+				986D5C9C20D1F656005E944E /* StackObjectNode.swift in Sources */,
 				982F9B1B209BAAFF009BBD8B /* GameScene.swift in Sources */,
 				982F9B37209BC14B009BBD8B /* CardNode.swift in Sources */,
 				985E0F8320A26339006759B3 /* BasicLand.swift in Sources */,
@@ -258,6 +269,7 @@
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
 				982F9B32209BAD33009BBD8B /* Card.swift in Sources */,
 				982F9B2E209BAC81009BBD8B /* Game.swift in Sources */,
+				986D5C9A20D1F4FE005E944E /* StackNode.swift in Sources */,
 				985E0F8920A27852006759B3 /* LandsNode.swift in Sources */,
 				982F9B1D209BAAFF009BBD8B /* GameViewController.swift in Sources */,
 				9840898020CAFE8C005DA8F6 /* SpellStack.swift in Sources */,

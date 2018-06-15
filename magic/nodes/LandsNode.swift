@@ -11,6 +11,7 @@ class LandsNode: SKNode {
         for land in lands {
             cardNodes.append(LandsCardNode(card: land, allowedSize:cardSize))
         }
+        _ = cardNodes.partition(by: { return !$0.card.isTapped })
         for i in 0 ..< cardNodes.count {
             cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 0.2
             addChild(cardNodes[i])

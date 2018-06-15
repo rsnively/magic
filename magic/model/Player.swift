@@ -34,19 +34,29 @@ class Player: NSObject {
     }
     
     func play(card:Card) {
+        if (!Game.shared.theStack.isEmpty && !card.isType(Type.Instant)) {
+            return
+        }
+        
         let cardIndex = hand.index(of: card)!
         hand.remove(at:cardIndex)
-        if card.usesStack() {
-            if manaPool.canAfford(card) {
-                manaPool.payFor(card)
-                permanents.append(card)
+        if manaPool.canAfford(card) {
+            manaPool.payFor(card)
+            if card.usesStack() {
+                Game.shared.theStack.push(card)
             }
             else {
-                hand.append(card)
+                permanents.append(card)
             }
         }
         else {
-            permanents.append(card)
+            hand.append(card)
+        }
+    }
+    
+    func resolve(object: Object) {
+        if object.isPermanent() {
+            permanents.append(object as! Card)
         }
     }
 }

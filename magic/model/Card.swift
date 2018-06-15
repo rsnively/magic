@@ -15,7 +15,7 @@ class Card: Object {
         self.rarity = rarity
         self.tapped = false
         self.markedDamage = 0
-        super.init(name:name)
+        super.init(name: name, controller: owner)
     }
     
     func getOwner() -> Player {
