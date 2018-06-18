@@ -19,6 +19,7 @@ enum Type {
 
 enum Subtype {
     case Cat
+    case Dinosaur
     case Elemental
     case Forest
     case Human
