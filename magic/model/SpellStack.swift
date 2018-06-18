@@ -23,7 +23,7 @@ class SpellStack: NSObject {
     
     func resolveTop() {
         if let top = stackObjects.pop() {
-            top.controller.resolve(object: top)
+            top.getController().resolve(object: top)
         }
     }
 }

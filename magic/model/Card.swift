@@ -1,7 +1,7 @@
 import Foundation
 
 class Card: Object {
-    private unowned var owner: Player
+    private weak var owner: Player?
     private var rarity: Rarity
     private var flavorText: String = ""
     private var collectorsNumber: Int
@@ -11,17 +11,21 @@ class Card: Object {
     }
     private var markedDamage: Int
     
-    init(name: String, owner: Player, rarity: Rarity, number: Int) {
-        self.owner = owner
+    init(name: String, rarity: Rarity, number: Int) {
         self.rarity = rarity
         self.collectorsNumber = number
         self.tapped = false
         self.markedDamage = 0
-        super.init(name: name, controller: owner)
+        super.init(name: name)
+    }
+    
+    func setOwner(owner: Player) {
+        self.owner = owner
+        self.controller = owner
     }
     
     func getOwner() -> Player {
-        return owner
+        return owner!
     }
     
     func usesStack() -> Bool {

@@ -2,20 +2,20 @@ import Foundation
 
 class Player: NSObject {
     private var life = 20
-    var hand: [Card] = []
+    private var library: [Card]
+    private var hand: [Card] = []
     private var permanents: [Card] = []
     private var manaPool: ManaPool = ManaPool()
     
-    override init() {
+    init(deck: [Card]) {
+        self.library = deck
         super.init()
         
-        hand.append(M19.Plains(owner: self))
-        hand.append(M19.Plains(owner: self))
-        hand.append(KLD.Forest(owner: self))
-        hand.append(KLD.Forest(owner: self))
-        hand.append(KLD.Forest(owner: self))
-        hand.append(M19.OreskosSwiftclaw(owner: self))
-        hand.append(KLD.TerrainElemental(owner: self))
+        self.pregameActions()
+    }
+    
+    func getHand() -> [Card] {
+        return hand
     }
     
     func getLands() -> [Card] {
@@ -31,6 +31,22 @@ class Player: NSObject {
     
     func getManaPool() -> ManaPool {
         return manaPool
+    }
+    
+    func pregameActions() {
+        library.shuffle()
+        drawCards(7)
+    }
+    
+    func drawCard() {
+        // todo, milling
+        hand.append(library.popLast()!)
+    }
+    
+    func drawCards(_ amt: Int) {
+        for _ in 0..<amt {
+            drawCard()
+        }
     }
     
     func play(card:Card) {

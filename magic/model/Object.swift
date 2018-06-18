@@ -9,12 +9,19 @@ class Object: NSObject {
     var subtypes:Set<Subtype> = []
     var power:Int?
     var toughness:Int?
-    unowned var controller:Player
+    weak var controller:Player?
     
-    init(name:String, controller:Player) {
+    init(name:String) {
         self.name = name
-        self.controller = controller
         super.init()
+    }
+    
+    func setController(controller: Player) {
+        self.controller = controller
+    }
+    
+    func getController() -> Player {
+        return controller!
     }
     
     func setManaCost(_ manaCostString: String, setColorAccordingly: Bool = true) {

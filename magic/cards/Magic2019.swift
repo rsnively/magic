@@ -4,7 +4,7 @@ enum M19 {
     // 1
     // 2
     // 3 Ajani, Adversary of Tyrants
-    // 4
+    // 4 Ajani's Last Stand
     // 5 Ajani's Pridemate
     // 6
     // 7
@@ -24,8 +24,8 @@ enum M19 {
     // 21
     // 22
     // 23
-    static func LoxodonLineBreaker(owner: Player) -> Card {
-        let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", owner: owner, rarity: Rarity.Common, number: 24)
+    static func LoxodonLineBreaker() -> Card {
+        let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", rarity: Rarity.Common, number: 24)
         loxodonLineBreaker.setManaCost("2W")
         loxodonLineBreaker.addType(Type.Creature)
         loxodonLineBreaker.addType(Subtype.Elephant)
@@ -41,8 +41,8 @@ enum M19 {
     // 28 Mighty Leap
     // 29 Militia Bugler
     // 30
-    static func OreskosSwiftclaw(owner: Player) -> Card {
-        let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", owner: owner, rarity: Rarity.Common, number: 31)
+    static func OreskosSwiftclaw() -> Card {
+        let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", rarity: Rarity.Common, number: 31)
         oreskosSwiftclaw.setManaCost("1W")
         oreskosSwiftclaw.addType(Type.Creature)
         oreskosSwiftclaw.addType(Subtype.Cat)
@@ -100,8 +100,8 @@ enum M19 {
     // 77
     // 78
     // 79
-    static func TolarianScholar(owner: Player) -> Card {
-        let tolarianScholar = Card(name: "Tolarian Scholar", owner: owner, rarity: Rarity.Common, number: 80)
+    static func TolarianScholar() -> Card {
+        let tolarianScholar = Card(name: "Tolarian Scholar", rarity: Rarity.Common, number: 80)
         tolarianScholar.setManaCost("2U")
         tolarianScholar.addType(Type.Creature)
         tolarianScholar.addType(Subtype.Human)
@@ -117,8 +117,8 @@ enum M19 {
     // 84
     // 85 Abnormal Endurance
     // 86 Blood Divination
-    static func Bogstomper(owner: Player) -> Card {
-        let bogstomper = Card(name: "Bogstomper", owner: owner, rarity: Rarity.Common, number: 87)
+    static func Bogstomper() -> Card {
+        let bogstomper = Card(name: "Bogstomper", rarity: Rarity.Common, number: 87)
         bogstomper.setManaCost("4BB")
         bogstomper.addType(Type.Creature)
         bogstomper.addType(Subtype.Beast)
@@ -165,8 +165,8 @@ enum M19 {
     // 123 Two-Headed Zombie
     // 124
     // 125 Vampire Sovereign
-    static func WalkingCorpse(owner: Player) -> Card {
-        let walkingCorpse = Card(name: "Walking Corpse", owner: owner, rarity: Rarity.Common, number: 124)
+    static func WalkingCorpse() -> Card {
+        let walkingCorpse = Card(name: "Walking Corpse", rarity: Rarity.Common, number: 124)
         walkingCorpse.setManaCost("1B")
         walkingCorpse.addType(Type.Creature)
         walkingCorpse.addType(Subtype.Zombie)
@@ -189,8 +189,8 @@ enum M19 {
     // 138
     // 139 Electrify
     // 140 Fiery Finish
-    static func FireElemental(owner: Player) -> Card {
-        let fireElemental = Card(name: "Fire Elemental", owner: owner, rarity: Rarity.Common, number: 141)
+    static func FireElemental() -> Card {
+        let fireElemental = Card(name: "Fire Elemental", rarity: Rarity.Common, number: 141)
         fireElemental.setManaCost("3RR")
         fireElemental.addType(Type.Creature)
         fireElemental.addType(Subtype.Elemental)
@@ -210,8 +210,8 @@ enum M19 {
     // 150 Lava Axe
     // 151
     // 152 Lightning Strike
-    static func OnakkeOgre(owner: Player) -> Card {
-        let onakkeOgre = Card(name: "Onakke Ogre", owner: owner, rarity: Rarity.Common, number: 153)
+    static func OnakkeOgre() -> Card {
+        let onakkeOgre = Card(name: "Onakke Ogre", rarity: Rarity.Common, number: 153)
         onakkeOgre.setManaCost("2R")
         onakkeOgre.addType(Type.Creature)
         onakkeOgre.addType(Subtype.Ogre)
@@ -238,8 +238,8 @@ enum M19 {
     // 168 Volley Veteran
     // 169
     // 170 Bristling Boar
-    static func CentaurCourser(owner: Player) -> Card {
-        let centaurCourser = Card(name: "Centaur Courser", owner: owner, rarity: Rarity.Common, number: 171)
+    static func CentaurCourser() -> Card {
+        let centaurCourser = Card(name: "Centaur Courser", rarity: Rarity.Common, number: 171)
         centaurCourser.setManaCost("2G")
         centaurCourser.addType(Type.Creature)
         centaurCourser.addType(Subtype.Centaur)
@@ -262,8 +262,8 @@ enum M19 {
     // 182
     // 183 Giant Spider
     // 184
-    static func Gigantosaurus(owner: Player) -> Card {
-        let gigantosaurus = Card(name: "Gigantosaurus", owner: owner, rarity: Rarity.Rare, number: 185)
+    static func Gigantosaurus() -> Card {
+        let gigantosaurus = Card(name: "Gigantosaurus", rarity: Rarity.Rare, number: 185)
         gigantosaurus.setManaCost("GGGGG")
         gigantosaurus.addType(Type.Creature)
         gigantosaurus.addType(Subtype.Dinosaur)
@@ -290,8 +290,8 @@ enum M19 {
     // 201 Scapeshift
     // 202
     // 203
-    static func ThornhideWolves(owner: Player) -> Card {
-        let thornhideWolves = Card(name: "Thornhide Wolves", owner: owner, rarity: Rarity.Common, number: 204)
+    static func ThornhideWolves() -> Card {
+        let thornhideWolves = Card(name: "Thornhide Wolves", rarity: Rarity.Common, number: 204)
         thornhideWolves.setManaCost("4G")
         thornhideWolves.addType(Type.Creature)
         thornhideWolves.addType(Subtype.Wolf)
@@ -310,13 +310,13 @@ enum M19 {
     // 212
     // 213 Brawl-Bash Ogre
     // 214
-    // 215
+    // 215 Draconic Disciple
     // 216
     // 217
     // 218 Nicol Bolas, the Ravager // Nicol Bolas, the Arisen
     // 219 Palladia-Mors, the Ruiner
     // 220
-    // 221
+    // 221 Psychic Symbiont
     // 222
     // 223 Satyr Enchanter
     // 224
@@ -329,8 +329,8 @@ enum M19 {
     // 231
     // 232
     // 233
-    static func FieldCreeper(owner: Player) -> Card {
-        let fieldCreeper = Card(name: "Field Creeper", owner: owner, rarity: Rarity.Common, number: 234)
+    static func FieldCreeper() -> Card {
+        let fieldCreeper = Card(name: "Field Creeper", rarity: Rarity.Common, number: 234)
         fieldCreeper.setManaCost("2")
         fieldCreeper.addType(Type.Artifact)
         fieldCreeper.addType(Type.Creature)
@@ -385,8 +385,8 @@ enum M19 {
     // 277
     // 278
     // 279
-    static func Plains(owner: Player) -> Card {
-        let plains = Card(name: "Plains", owner: owner, rarity:Rarity.Common, number: 280) // ?
+    static func Plains() -> Card {
+        let plains = Card(name: "Plains", rarity:Rarity.Common, number: 280) // ?
         plains.setManaCost("")
         plains.addType(Supertype.Basic)
         plains.addType(Type.Land)

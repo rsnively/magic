@@ -59,7 +59,7 @@ class GameScene: SKScene {
     override init(size:CGSize) {
         playCardHeight = size.height * 0.1
 
-        playerHandNode = PlayerHandNode(hand: Game.shared.player1.hand, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode = ManaPoolNode()
@@ -149,7 +149,7 @@ class GameScene: SKScene {
     }
     
     func redraw() {
-        playerHandNode.setHand(cards: Game.shared.player1.hand, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))

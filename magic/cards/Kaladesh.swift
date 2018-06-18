@@ -3,8 +3,8 @@ import Foundation
 // TODO - nowhere near done
 
 enum KLD {
-    static func Forest(owner:Player) -> Card {
-        let forest = Card(name: "Forest", owner: owner, rarity: Rarity.Common, number: 262)
+    static func Forest() -> Card {
+        let forest = Card(name: "Forest", rarity: Rarity.Common, number: 262)
         forest.setManaCost("")
         forest.addType(Supertype.Basic)
         forest.addType(Type.Land)
@@ -12,8 +12,8 @@ enum KLD {
         return forest
     }
     
-    static func TerrainElemental(owner: Player) -> Card {
-        let terrainElemental = Card(name: "Terrain Elemental", owner: owner, rarity: Rarity.Common, number: 272)
+    static func TerrainElemental() -> Card {
+        let terrainElemental = Card(name: "Terrain Elemental", rarity: Rarity.Common, number: 272)
         terrainElemental.setManaCost("1G")
         terrainElemental.addType(Type.Creature)
         terrainElemental.addType(Subtype.Elemental)
