@@ -18,14 +18,23 @@ enum Type {
 }
 
 enum Subtype {
+    case Beast
     case Cat
+    case Centaur
     case Dinosaur
     case Elemental
+    case Elephant
     case Forest
     case Human
     case Island
     case Mountain
+    case Ogre
     case Plains
+    case Scarecrow
+    case Soldier
     case Swamp
     case Warrior
+    case Wizard
+    case Wolf
+    case Zombie
 }

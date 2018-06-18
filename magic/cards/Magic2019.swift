@@ -24,7 +24,17 @@ enum M19 {
     // 21
     // 22
     // 23
-    // 24 Loxodon Line Breaker
+    static func LoxodonLineBreaker(owner: Player) -> Card {
+        let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", owner: owner, rarity: Rarity.Common, number: 24)
+        loxodonLineBreaker.setManaCost("2W")
+        loxodonLineBreaker.addType(Type.Creature)
+        loxodonLineBreaker.addType(Subtype.Elephant)
+        loxodonLineBreaker.addType(Subtype.Soldier)
+        loxodonLineBreaker.setFlavorText("Loxodons are firm in stature and spirit. No matter the odds, they are always first into battle.")
+        loxodonLineBreaker.power = 3
+        loxodonLineBreaker.toughness = 2
+        return loxodonLineBreaker
+    }
     // 25 Luminous Bonds
     // 26
     // 27 Mentor of the Meek
@@ -90,14 +100,33 @@ enum M19 {
     // 77
     // 78
     // 79
-    // 80 Tolarian Scholar
+    static func TolarianScholar(owner: Player) -> Card {
+        let tolarianScholar = Card(name: "Tolarian Scholar", owner: owner, rarity: Rarity.Common, number: 80)
+        tolarianScholar.setManaCost("2U")
+        tolarianScholar.addType(Type.Creature)
+        tolarianScholar.addType(Subtype.Human)
+        tolarianScholar.addType(Subtype.Wizard)
+        tolarianScholar.setFlavorText("The Tolarian Academies embrace a tradition of study and research while discouraging the kinds of experiments that ruined the original island of Tolaria.")
+        tolarianScholar.power = 2
+        tolarianScholar.toughness = 3
+        return tolarianScholar
+    }
     // 81 Totally Lost
     // 82 Uncomfortable Chill
     // 83 Wall of Mist
     // 84
     // 85 Abnormal Endurance
     // 86 Blood Divination
-    // 87 Bogstomper
+    static func Bogstomper(owner: Player) -> Card {
+        let bogstomper = Card(name: "Bogstomper", owner: owner, rarity: Rarity.Common, number: 87)
+        bogstomper.setManaCost("4BB")
+        bogstomper.addType(Type.Creature)
+        bogstomper.addType(Subtype.Beast)
+        bogstomper.setFlavorText("\"They are gental herbivores, despite their size. Approach cautiously, and hum a tune to let them know you mean no harm.\"\n--Vivien Reid")
+        bogstomper.power = 6
+        bogstomper.toughness = 5
+        return bogstomper
+    }
     // 88
     // 89
     // 90 Death Baron
@@ -136,7 +165,16 @@ enum M19 {
     // 123 Two-Headed Zombie
     // 124
     // 125 Vampire Sovereign
-    // 126 Walking Corpse
+    static func WalkingCorpse(owner: Player) -> Card {
+        let walkingCorpse = Card(name: "Walking Corpse", owner: owner, rarity: Rarity.Common, number: 124)
+        walkingCorpse.setManaCost("1B")
+        walkingCorpse.addType(Type.Creature)
+        walkingCorpse.addType(Subtype.Zombie)
+        walkingCorpse.setFlavorText("\"Feeding a normal army is a problem of logistics. With zombies, it is an asset. Feeding is why they fight. Feeding is why they are feared.\"\n--Jadar, ghoulcaller of Nephalia")
+        walkingCorpse.power = 2
+        walkingCorpse.toughness = 2
+        return walkingCorpse
+    }
     // 127 Act of Treason
     // 128
     // 129 Apex of Power
@@ -151,7 +189,16 @@ enum M19 {
     // 138
     // 139 Electrify
     // 140 Fiery Finish
-    // 141 Fire Elemental
+    static func FireElemental(owner: Player) -> Card {
+        let fireElemental = Card(name: "Fire Elemental", owner: owner, rarity: Rarity.Common, number: 141)
+        fireElemental.setManaCost("3RR")
+        fireElemental.addType(Type.Creature)
+        fireElemental.addType(Subtype.Elemental)
+        fireElemental.setFlavorText("It treads on feet of coals and strikes with the force of a volcano.")
+        fireElemental.power = 5
+        fireElemental.toughness = 4
+        return fireElemental
+    }
     // 142 Goblin Instigator
     // 143 Goblin Motivator
     // 144
@@ -163,7 +210,17 @@ enum M19 {
     // 150 Lava Axe
     // 151
     // 152 Lightning Strike
-    // 153 Onakke Ogre
+    static func OnakkeOgre(owner: Player) -> Card {
+        let onakkeOgre = Card(name: "Onakke Ogre", owner: owner, rarity: Rarity.Common, number: 153)
+        onakkeOgre.setManaCost("2R")
+        onakkeOgre.addType(Type.Creature)
+        onakkeOgre.addType(Subtype.Ogre)
+        onakkeOgre.addType(Subtype.Warrior)
+        onakkeOgre.setFlavorText("The ogres you know are nothing like the Onakke. Possessing both intellect and industry, they had brute strength without being brutish.")
+        onakkeOgre.power = 4
+        onakkeOgre.toughness = 2
+        return onakkeOgre
+    }
     // 154
     // 155
     // 156 Shock
@@ -181,7 +238,17 @@ enum M19 {
     // 168 Volley Veteran
     // 169
     // 170 Bristling Boar
-    // 171 Centaur Courser
+    static func CentaurCourser(owner: Player) -> Card {
+        let centaurCourser = Card(name: "Centaur Courser", owner: owner, rarity: Rarity.Common, number: 171)
+        centaurCourser.setManaCost("2G")
+        centaurCourser.addType(Type.Creature)
+        centaurCourser.addType(Subtype.Centaur)
+        centaurCourser.addType(Subtype.Warrior)
+        centaurCourser.setFlavorText("\"The centaurs are truly free. Never will they be tamed by temptation or controlled by fear. They live in total harmony, a feat not yet achieved by our kind.\"\n--Ramal, sage of Westgate")
+        centaurCourser.power = 3
+        centaurCourser.toughness = 3
+        return centaurCourser
+    }
     // 172 Colossal Dreadmaw
     // 173 Colossal Majesty
     // 174
@@ -223,7 +290,16 @@ enum M19 {
     // 201 Scapeshift
     // 202
     // 203
-    // 204 Thornhide Wolves
+    static func ThornhideWolves(owner: Player) -> Card {
+        let thornhideWolves = Card(name: "Thornhide Wolves", owner: owner, rarity: Rarity.Common, number: 204)
+        thornhideWolves.setManaCost("4G")
+        thornhideWolves.addType(Type.Creature)
+        thornhideWolves.addType(Subtype.Wolf)
+        thornhideWolves.setFlavorText("\"Halana grew brambles to create a barricade around our camp, hoping that it would keep the wolves out. That was a mistake for which we almost paid dearly.\"\nAlena, trapper of Kessig")
+        thornhideWolves.power = 4
+        thornhideWolves.toughness = 5
+        return thornhideWolves
+    }
     // 205 Titanic Growth
     // 206
     // 207
@@ -253,7 +329,17 @@ enum M19 {
     // 231
     // 232
     // 233
-    // 234 Field Creeper
+    static func FieldCreeper(owner: Player) -> Card {
+        let fieldCreeper = Card(name: "Field Creeper", owner: owner, rarity: Rarity.Common, number: 234)
+        fieldCreeper.setManaCost("2")
+        fieldCreeper.addType(Type.Artifact)
+        fieldCreeper.addType(Type.Creature)
+        fieldCreeper.addType(Subtype.Scarecrow)
+        fieldCreeper.setFlavorText("As it walks across the fallow field, its awkward, loping gait matches the rattling in its head to create a haunting rhythm that chills the bones.")
+        fieldCreeper.power = 2
+        fieldCreeper.toughness = 1
+        return fieldCreeper
+    }
     // 235 Fountain of Renewal
     // 236
     // 237 Gearsmith Guardian
