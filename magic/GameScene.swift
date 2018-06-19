@@ -154,5 +154,6 @@ class GameScene: SKScene {
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
+        commandButtonsNode.update()
     }
 }

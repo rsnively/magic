@@ -24,7 +24,7 @@ class HandCardNode: CardNode {
         touchPoint = nil
         if !moved {
             (self.scene as! GameScene).expandedCard = self.card
-        } else if pos.y > (self.scene as! GameScene).playCardHeight {
+        } else if pos.y > (self.scene as! GameScene).playCardHeight && card.canPlay() {
             self.card.getOwner().play(card: self.card)
             (self.scene as! GameScene).redraw()
         } else {

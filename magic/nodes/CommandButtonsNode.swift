@@ -3,25 +3,38 @@ import SpriteKit
 
 class CommandButtonsNode: SKNode {
     var okayButton: SKSpriteNode
+    var phaseLabel: SKLabelNode
     
     func getOkayButtonText() -> String {
-        return "Okay"
+        return Game.shared.theStack.isEmpty ? "Next Phase" : "Okay"
     }
     
     init(size: CGSize) {
         okayButton = SKSpriteNode(color: SKColor.green, size:size)
+        phaseLabel = SKLabelNode(text: Game.shared.getCurrentPhase().toString())
         super.init()
         addChild(okayButton)
-        
+        addChild(phaseLabel)
+        update()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func update() {
+        okayButton.removeAllChildren()
         let labelNode = SKLabelNode(text:self.getOkayButtonText())
         labelNode.fontName = "HelveticaNeue"
         labelNode.fontColor = UIColor.black
         labelNode.fontSize = 16
         okayButton.addChild(labelNode)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        phaseLabel.text = Game.shared.getCurrentPhase().toString()
+        phaseLabel.position.y = okayButton.position.y + okayButton.size.height
+        phaseLabel.fontName = "HelveticaNeue"
+        phaseLabel.fontColor = UIColor.black
+        phaseLabel.fontSize = 16
     }
     
     private var touching = false

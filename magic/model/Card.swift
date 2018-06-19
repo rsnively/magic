@@ -32,6 +32,20 @@ class Card: Object {
         return !self.types.contains(Type.Land)
     }
     
+    func canPlay() -> Bool {
+        if let controller = controller {
+            if !controller.hasPriority {
+                return false
+            }
+        }
+        if !isType(Type.Instant) && !Game.shared.theStack.isEmpty {
+            return false
+        }
+        
+        return true
+
+    }
+    
     func setFlavorText(_ flavorText: String) {
         self.flavorText = flavorText
     }

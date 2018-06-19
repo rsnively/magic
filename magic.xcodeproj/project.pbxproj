@@ -42,6 +42,7 @@
 		986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */; };
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
+		98E549A520D88CA200D64482 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E549A420D88CA200D64482 /* Phase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandButtonsNode.swift; sourceTree = "<group>"; };
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		98E549A420D88CA200D64482 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				9818425320CA07050068DC91 /* ManaCost.swift */,
 				986D5C9320D1E60B005E944E /* ManaPool.swift */,
 				986EAA5B20A1110000F3CCDC /* Object.swift */,
+				98E549A420D88CA200D64482 /* Phase.swift */,
 				982F9B2F209BACC7009BBD8B /* Player.swift */,
 				9840897D20CAF562005DA8F6 /* Rarity.swift */,
 				9840897F20CAFE8C005DA8F6 /* SpellStack.swift */,
@@ -277,6 +280,7 @@
 				985E0F8920A27852006759B3 /* LandsNode.swift in Sources */,
 				982F9B1D209BAAFF009BBD8B /* GameViewController.swift in Sources */,
 				9840898020CAFE8C005DA8F6 /* SpellStack.swift in Sources */,
+				98E549A520D88CA200D64482 /* Phase.swift in Sources */,
 				986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,

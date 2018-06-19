@@ -6,10 +6,16 @@ class Player: NSObject {
     private var hand: [Card] = []
     private var permanents: [Card] = []
     private var manaPool: ManaPool = ManaPool()
+
+    var active = false
+    var hasPriority = false
     
     init(deck: [Card]) {
         self.library = deck
         super.init()
+        for card in library {
+            card.setOwner(owner: self)
+        }
         
         self.pregameActions()
     }
