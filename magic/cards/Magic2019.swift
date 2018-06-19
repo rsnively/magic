@@ -57,7 +57,7 @@ enum M19 {
     // 34 Resplendent Angel
     // 35 Revitalize
     // 36 Rustwing Falcon
-    // 37
+    // 37 Shield Mare
     // 38 Star-Crowned Stag
     // 39
     // 40 Take Vengeance
@@ -80,12 +80,12 @@ enum M19 {
     // 57 Gearsmith Prodigy
     // 58 Ghostform
     // 59 Horizon Scholar
-    // 60
+    // 60 Metamorphic Alteration
     // 61 Mirror Image
-    // 62
+    // 62 Mistcaller
     // 63
     // 64
-    // 65
+    // 65 Omniscience
     // 66
     // 67 Patient Rebuilding
     // 68
@@ -97,7 +97,7 @@ enum M19 {
     // 74 Sleep
     // 75 Snapping Drake
     // 76
-    // 77
+    // 77 Surge Mare
     // 78
     // 79
     static func TolarianScholar() -> Card {
@@ -127,8 +127,8 @@ enum M19 {
         bogstomper.toughness = 5
         return bogstomper
     }
-    // 88
-    // 89
+    // 88 Bone Dragon
+    // 89 Child of Night
     // 90 Death Baron
     // 91 Demon of Catastrophes
     // 92 Diregraf Ghoul
@@ -143,17 +143,17 @@ enum M19 {
     // 101
     // 102 Infernal Reckoning
     // 103 Infernal Scarring
-    // 104
+    // 104 Isareth the Awakener
     // 105 Lich's Caress
     // 106
     // 107
     // 108
     // 109
     // 110 Murder
-    // 111
-    // 112
+    // 111 Nightmare's Thirst
+    // 112 Open the Graves
     // 113
-    // 114
+    // 114 Plague Mare
     // 115
     // 116 Reassembling Skeleton
     // 117
@@ -176,7 +176,7 @@ enum M19 {
         return walkingCorpse
     }
     // 127 Act of Treason
-    // 128
+    // 128 Alpine Moon
     // 129 Apex of Power
     // 130
     // 131
@@ -208,7 +208,7 @@ enum M19 {
     // 148
     // 149 Lathliss, Dragon Queen
     // 150 Lava Axe
-    // 151
+    // 151 Lightning Mare
     // 152 Lightning Strike
     static func OnakkeOgre() -> Card {
         let onakkeOgre = Card(name: "Onakke Ogre", rarity: Rarity.Common, number: 153)
@@ -272,7 +272,7 @@ enum M19 {
         gigantosaurus.toughness = 10
         return gigantosaurus
     }
-    // 186
+    // 186 Goreclaw, Terror of Qal Sisma
     // 187
     // 188 Highland Game
     // 189
@@ -302,14 +302,14 @@ enum M19 {
     }
     // 205 Titanic Growth
     // 206
-    // 207
+    // 207 Vine Mare
     // 208 Vivien Reid
     // 209 Vivien's Invocation
     // 210 Wall of Vines
     // 211 Aerial Engineer
     // 212
     // 213 Brawl-Bash Ogre
-    // 214
+    // 214 Chromium, the Mutable
     // 215 Draconic Disciple
     // 216
     // 217
@@ -321,12 +321,12 @@ enum M19 {
     // 223 Satyr Enchanter
     // 224
     // 225 Vaevictis Asmadi, the Dire
-    // 226
+    // 226 Amulet of Safekeeping
     // 227
     // 228
     // 229 Crucible of Worlds
     // 230 Desecrated Tomb
-    // 231
+    // 231 Diamond Mare
     // 232
     // 233
     static func FieldCreeper() -> Card {

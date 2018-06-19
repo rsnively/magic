@@ -25,7 +25,7 @@ class CardNode: SKSpriteNode {
         node.fontName = "HelveticaNeue"
         node.fontColor = UIColor.black
         node.fontSize = cardSize.height * 0.1
-        node.position = CGPoint(x: (node.frame.width * 1.3 - cardSize.width) / 2.0, y: cardSize.height / 2.0 - node.frame.height * 1.3)
+        node.position = CGPoint(x: node.frame.size.width * 0.5 - cardSize.width * 0.45, y: cardSize.height * 0.4)
         return node
     }
     
