@@ -20,6 +20,10 @@ class Player: NSObject {
         self.pregameActions()
     }
     
+    func getLife() -> Int {
+        return life
+    }
+    
     func getHand() -> [Card] {
         return hand
     }

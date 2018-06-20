@@ -3,6 +3,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     var playerHandNode:PlayerHandNode
+    var playerLifeNode:LifeNode
     
     var playCardHeight:CGFloat
     var playerLandsNode:LandsNode
@@ -11,6 +12,8 @@ class GameScene: SKScene {
     var manaPoolNode:ManaPoolNode
     
     var stackNode:StackNode
+    
+    var opponentLifeNode:LifeNode
     
     var commandButtonsNode: CommandButtonsNode
     
@@ -34,6 +37,10 @@ class GameScene: SKScene {
     
     static func getAllowedPlayerHandSize(gameSize: CGSize) -> CGSize {
         return CGSize(width:gameSize.width * 0.6, height:gameSize.height * 0.2)
+    }
+    
+    static func getAllowedLifeNodeSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: gameSize.width * 0.1, height: gameSize.height * 0.06)
     }
     
     static func getAllowedPlayerLandsSize(gameSize: CGSize) -> CGSize {
@@ -60,10 +67,14 @@ class GameScene: SKScene {
         playCardHeight = size.height * 0.1
 
         playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerLifeNode = LifeNode(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode = ManaPoolNode()
         stackNode = StackNode()
+        
+        opponentLifeNode = LifeNode(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        
         commandButtonsNode = CommandButtonsNode(size: GameScene.getCommandButtonSize())
         
         super.init(size:size)
@@ -76,19 +87,24 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = UIColor.white
         playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
+        playerLifeNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.1)
         playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.3)
         playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.5)
         manaPoolNode.position = CGPoint(x:size.width * 0.5, y: (playerLandsNode.position.y + playerHandNode.position.y) / 2.0)
         stackNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
+        opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.9)
+        
         commandButtonsNode.position.x = size.width - GameScene.getCommandButtonSize().width / 2.0
         commandButtonsNode.position.y = GameScene.getCommandButtonSize().height * 2.0
 
         addChild(playerHandNode)
+        addChild(playerLifeNode)
         addChild(playerLandsNode)
         addChild(playerCreaturesNode)
         addChild(manaPoolNode)
         addChild(stackNode)
+        addChild(opponentLifeNode)
         addChild(commandButtonsNode)
     }
     
@@ -150,10 +166,12 @@ class GameScene: SKScene {
     
     func redraw() {
         playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerLifeNode.setLife(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
+        opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         commandButtonsNode.update()
     }
 }

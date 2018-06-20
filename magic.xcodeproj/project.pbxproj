@@ -42,6 +42,7 @@
 		986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */; };
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
+		98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */; };
 		98E549A520D88CA200D64482 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E549A420D88CA200D64482 /* Phase.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandButtonsNode.swift; sourceTree = "<group>"; };
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		98E549A420D88CA200D64482 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 				986D5C8920D1BF55005E944E /* HandCardNode.swift */,
 				985E0F8820A27852006759B3 /* LandsNode.swift */,
 				986D5C8B20D1C0E2005E944E /* LandsCardNode.swift */,
+				98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */,
 				986D5C8F20D1CDB6005E944E /* ManaPoolNode.swift */,
 				982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */,
 				986D5C9920D1F4FE005E944E /* StackNode.swift */,
@@ -271,6 +274,7 @@
 				985E0F8120A25B04006759B3 /* Geometry.swift in Sources */,
 				9818425620CA07580068DC91 /* Mana.swift in Sources */,
 				986D5C9420D1E60B005E944E /* ManaPool.swift in Sources */,
+				98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */,
 				982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */,
 				9862984520D844A100CE8E10 /* Alpha.swift in Sources */,
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
