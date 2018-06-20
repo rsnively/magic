@@ -31,4 +31,8 @@ enum Phase: Int {
         case .Cleanup: return "Cleanup Step"
         }
     }
+    
+    func sorcerySpeed() -> Bool {
+        return (self == .FirstMain) || (self == .SecondMain)
+    }
 }

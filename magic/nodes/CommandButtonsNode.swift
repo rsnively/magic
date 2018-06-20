@@ -30,7 +30,7 @@ class CommandButtonsNode: SKNode {
         labelNode.fontSize = 16
         okayButton.addChild(labelNode)
         
-        phaseLabel.text = Game.shared.getCurrentPhase().toString()
+        phaseLabel.text = (Game.shared.yourTurn() ? "Your " : "Opponent's ") + Game.shared.getCurrentPhase().toString()
         phaseLabel.position.y = okayButton.position.y + okayButton.size.height
         phaseLabel.fontName = "HelveticaNeue"
         phaseLabel.fontColor = UIColor.black

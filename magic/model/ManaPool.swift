@@ -24,6 +24,10 @@ class ManaPool: NSObject {
         assert(false)
     }
     
+    func empty() {
+        manaPool.removeAll()
+    }
+    
     func canAfford(_ card: Card) -> Bool {
         if let manaCost = card.manaCost {
             let white = getColorAmount(.White) - manaCost.getColorAmount(.White)

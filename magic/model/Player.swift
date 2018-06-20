@@ -55,8 +55,19 @@ class Player: NSObject {
         }
     }
     
+    func untapAllPermanents() {
+        for permanent in permanents {
+            if permanent.isTapped {
+                permanent.untap()
+            }
+        }
+    }
+    
     func play(card:Card) {
-        if (!Game.shared.theStack.isEmpty && !card.isType(Type.Instant)) {
+        if !card.isType(Type.Instant) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) {
+            return
+        }
+        if (card.isType(Type.Land) && Game.shared.landWasPlayedThisTurn()) {
             return
         }
         
@@ -73,6 +84,10 @@ class Player: NSObject {
         }
         else {
             hand.append(card)
+        }
+        
+        if (card.isType(Type.Land)) {
+            Game.shared.setLandPlayedThisTurn()
         }
     }
     
