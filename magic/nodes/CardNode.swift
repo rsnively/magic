@@ -11,26 +11,8 @@ class CardNode: SKSpriteNode {
             : CGSize(width:size.width, height:size.width / cardAspectRatio)
     }
     
-    private static func getBackgroundColor(for card:Card) -> UIColor {
-        var cs = card.colors
-        for subtype in card.subtypes {
-            let color = getColorForLandType(subtype:subtype)
-            if color != nil { cs.insert(color!) }
-        }
-        return getUIColor(for:cs)
-    }
-    
-    private static func getNameNode(card:Card, cardSize:CGSize) -> SKLabelNode {
-        let node = SKLabelNode(text:card.name)
-        node.fontName = "HelveticaNeue"
-        node.fontColor = UIColor.black
-        node.fontSize = cardSize.height * 0.1
-        node.position = CGPoint(x: node.frame.size.width * 0.5 - cardSize.width * 0.45, y: cardSize.height * 0.4)
-        return node
-    }
-    
-    private static func getImageNode(card:Card, cardSize: CGSize) -> SKNode {
-        let texture = SKTexture(imageNamed: card.getSetCode() + card.getName())
+    private static func getImageNode(card:Card, cardSize: CGSize, full: Bool) -> SKNode {
+        let texture = SKTexture(imageNamed: card.getSetCode() + String(card.getCollectorsNumber()) + (full ? "full" : ""))
 
         let node = SKSpriteNode(texture: texture)
         let aspectRatio = texture.size().width / texture.size().height
@@ -41,12 +23,8 @@ class CardNode: SKSpriteNode {
     
     init(card:Card, allowedSize:CGSize) {
         self.card = card
-        super.init(texture:nil, color:CardNode.getBackgroundColor(for:card), size:CardNode.getMaximumCardSize(for:allowedSize))
-        let borderNode = SKShapeNode(rectOf: self.size, cornerRadius: 3.0)
-        borderNode.strokeColor = UIColor.black
-        addChild(borderNode)
-        addChild(CardNode.getNameNode(card: self.card, cardSize: self.size))
-        addChild(CardNode.getImageNode(card: self.card, cardSize: self.size))
+        super.init(texture:nil, color: SKColor.clear, size:CardNode.getMaximumCardSize(for:allowedSize))
+        addChild(CardNode.getImageNode(card: self.card, cardSize: self.size, full: true))
     }
     
     required init?(coder aDecoder: NSCoder) {

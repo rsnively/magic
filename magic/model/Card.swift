@@ -52,6 +52,10 @@ class Card: Object {
         return setCode
     }
     
+    func getCollectorsNumber() -> Int {
+        return collectorsNumber
+    }
+    
     func setFlavorText(_ flavorText: String) {
         self.flavorText = flavorText
     }

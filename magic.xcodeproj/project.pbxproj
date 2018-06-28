@@ -30,6 +30,10 @@
 		985E0F8520A26384006759B3 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E0F8420A26384006759B3 /* Type.swift */; };
 		985E0F8920A27852006759B3 /* LandsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E0F8820A27852006759B3 /* LandsNode.swift */; };
 		9862984520D844A100CE8E10 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9862984420D844A100CE8E10 /* Alpha.swift */; };
+		9868005C20E5401400E6E730 /* m19261full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868005B20E5401400E6E730 /* m19261full.png */; };
+		9868005E20E5408500E6E730 /* m19277full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868005D20E5408500E6E730 /* m19277full.png */; };
+		9868006020E5419B00E6E730 /* m19171full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868005F20E5419B00E6E730 /* m19171full.png */; };
+		9868006220E541A100E6E730 /* m19185full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868006120E541A100E6E730 /* m19185full.png */; };
 		986D5C8820D1B853005E944E /* Magic2019.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C8720D1B853005E944E /* Magic2019.swift */; };
 		986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C8920D1BF55005E944E /* HandCardNode.swift */; };
 		986D5C8C20D1C0E2005E944E /* LandsCardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C8B20D1C0E2005E944E /* LandsCardNode.swift */; };
@@ -72,6 +76,10 @@
 		985E0F8420A26384006759B3 /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		985E0F8820A27852006759B3 /* LandsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandsNode.swift; sourceTree = "<group>"; };
 		9862984420D844A100CE8E10 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+		9868005B20E5401400E6E730 /* m19261full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19261full.png; sourceTree = "<group>"; };
+		9868005D20E5408500E6E730 /* m19277full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19277full.png; sourceTree = "<group>"; };
+		9868005F20E5419B00E6E730 /* m19171full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19171full.png; sourceTree = "<group>"; };
+		9868006120E541A100E6E730 /* m19185full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19185full.png; sourceTree = "<group>"; };
 		986D5C8720D1B853005E944E /* Magic2019.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magic2019.swift; sourceTree = "<group>"; };
 		986D5C8920D1BF55005E944E /* HandCardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandCardNode.swift; sourceTree = "<group>"; };
 		986D5C8B20D1C0E2005E944E /* LandsCardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandsCardNode.swift; sourceTree = "<group>"; };
@@ -212,6 +220,10 @@
 		98DFD47420D9DC9700B2EEA1 /* m19 */ = {
 			isa = PBXGroup;
 			children = (
+				9868005F20E5419B00E6E730 /* m19171full.png */,
+				9868006120E541A100E6E730 /* m19185full.png */,
+				9868005B20E5401400E6E730 /* m19261full.png */,
+				9868005D20E5408500E6E730 /* m19277full.png */,
 			);
 			path = m19;
 			sourceTree = "<group>";
@@ -274,9 +286,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
+				9868006220E541A100E6E730 /* m19185full.png in Resources */,
 				982F9B20209BAAFF009BBD8B /* Main.storyboard in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
 				982F9B25209BAB00009BBD8B /* LaunchScreen.storyboard in Resources */,
+				9868006020E5419B00E6E730 /* m19171full.png in Resources */,
+				9868005E20E5408500E6E730 /* m19277full.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
