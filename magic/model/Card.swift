@@ -4,6 +4,7 @@ class Card: Object {
     private weak var owner: Player?
     private var rarity: Rarity
     private var flavorText: String = ""
+    private var setCode: String
     private var collectorsNumber: Int
     private var tapped: Bool
     var isTapped: Bool {
@@ -11,8 +12,9 @@ class Card: Object {
     }
     private var markedDamage: Int
     
-    init(name: String, rarity: Rarity, number: Int) {
+    init(name: String, rarity: Rarity, set: String, number: Int) {
         self.rarity = rarity
+        self.setCode = set
         self.collectorsNumber = number
         self.tapped = false
         self.markedDamage = 0
@@ -46,10 +48,14 @@ class Card: Object {
 
     }
     
+    func getSetCode() -> String {
+        return setCode
+    }
+    
     func setFlavorText(_ flavorText: String) {
         self.flavorText = flavorText
     }
-
+    
     func tap() {
         tapped = true
     }

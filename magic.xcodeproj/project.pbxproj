@@ -139,6 +139,7 @@
 				982F9B21209BAB00009BBD8B /* Assets.xcassets */,
 				982F9B23209BAB00009BBD8B /* LaunchScreen.storyboard */,
 				982F9B26209BAB00009BBD8B /* Info.plist */,
+				98DFD47220D9DC6C00B2EEA1 /* res */,
 			);
 			path = magic;
 			sourceTree = "<group>";
@@ -190,6 +191,29 @@
 				9818425720CA0B010068DC91 /* Util.swift */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		98DFD47220D9DC6C00B2EEA1 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				98DFD47320D9DC8C00B2EEA1 /* card */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		98DFD47320D9DC8C00B2EEA1 /* card */ = {
+			isa = PBXGroup;
+			children = (
+				98DFD47420D9DC9700B2EEA1 /* m19 */,
+			);
+			path = card;
+			sourceTree = "<group>";
+		};
+		98DFD47420D9DC9700B2EEA1 /* m19 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = m19;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

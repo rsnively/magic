@@ -14,8 +14,8 @@ class Game: NSObject {
         var deck1: [Card] = []
         var deck2: [Card] = []
         for _ in 0..<15 {
-            deck1.append(KLD.Forest())
-            deck1.append(KLD.Forest())
+            deck1.append(M19.Forest())
+            deck1.append(M19.Forest())
             deck1.append(M19.CentaurCourser())
             deck1.append(M19.Gigantosaurus())
             

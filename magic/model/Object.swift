@@ -16,6 +16,10 @@ class Object: NSObject {
         super.init()
     }
     
+    func getName() -> String {
+        return name!
+    }
+    
     func setController(controller: Player) {
         self.controller = controller
     }
@@ -31,9 +35,19 @@ class Object: NSObject {
         }
     }
     
+    private func clearTypes() {
+        supertypes.removeAll()
+        types.removeAll()
+        subtypes.removeAll()
+    }
     func addType(_ type: Type) { types.insert(type) }
     func addType(_ supertype: Supertype) { supertypes.insert(supertype) }
     func addType(_ subtype: Subtype) { subtypes.insert(subtype) }
+    func setType(_ type: Type, _ subtype: Subtype) { clearTypes(); addType(type); addType(subtype); }
+    func setType(_ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(type1); addType(type2); addType(subtype); }
+    func setType(_ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(type); addType(subtype1); addType(subtype2); }
+    func setType(_ supertype: Supertype, _ type: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype); }
+    func setType(_ supertype: Supertype, _ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype1); addType(subtype2); }
     func isType(_ type: Type) -> Bool { return types.contains(type) }
     func isType(_ supertype: Supertype) -> Bool { return supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }

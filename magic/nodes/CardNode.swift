@@ -29,13 +29,24 @@ class CardNode: SKSpriteNode {
         return node
     }
     
+    private static func getImageNode(card:Card, cardSize: CGSize) -> SKNode {
+        let texture = SKTexture(imageNamed: card.getSetCode() + card.getName())
+
+        let node = SKSpriteNode(texture: texture)
+        let aspectRatio = texture.size().width / texture.size().height
+        node.scale(to:CGSize(width: cardSize.width, height: cardSize.width / aspectRatio))
+        
+        return node
+    }
+    
     init(card:Card, allowedSize:CGSize) {
         self.card = card
         super.init(texture:nil, color:CardNode.getBackgroundColor(for:card), size:CardNode.getMaximumCardSize(for:allowedSize))
         let borderNode = SKShapeNode(rectOf: self.size, cornerRadius: 3.0)
         borderNode.strokeColor = UIColor.black
         addChild(borderNode)
-        addChild(CardNode.getNameNode(card:self.card, cardSize:self.size))
+        addChild(CardNode.getNameNode(card: self.card, cardSize: self.size))
+        addChild(CardNode.getImageNode(card: self.card, cardSize: self.size))
     }
     
     required init?(coder aDecoder: NSCoder) {
