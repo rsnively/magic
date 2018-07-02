@@ -3,8 +3,8 @@ import Foundation
 enum M19 {
     static var set = "m19"
     static var count = 280
-    // 1
-    // 2
+    // 1 Aegis of the Heavens
+    // 2 Aethershield Artificer
     // 3 Ajani, Adversary of Tyrants
     // 4 Ajani's Last Stand
     // 5 Ajani's Pridemate
@@ -14,18 +14,18 @@ enum M19 {
     // 9 Cleansing Nova
     // 10 Daybreak Chaplain
     // 11 Dwarven Priest
-    // 12
+    // 12 Gallant Cavalry
     // 13 Herald of Faith
-    // 14
+    // 14 Hieromancer's Cage
     // 15 Inspired Charge
     // 16 Invoke the Divine
-    // 17
+    // 17 Isolate
     // 18 Knight of the Tusk
     // 19 Knight's Pledge
-    // 20
+    // 20 Knightly Valor
     // 21 Lena, Selfless Champion
-    // 22
-    // 23
+    // 22 Leonin Vanguard
+    // 23 Leonin Warleader
     static func LoxodonLineBreaker() -> Card {
         let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", rarity: Rarity.Common, set: set, number: 24)
         loxodonLineBreaker.setManaCost("2W")
@@ -36,11 +36,11 @@ enum M19 {
         return loxodonLineBreaker
     }
     // 25 Luminous Bonds
-    // 26
+    // 26 Make a Stand
     // 27 Mentor of the Meek
     // 28 Mighty Leap
     // 29 Militia Bugler
-    // 30
+    // 30 Novice Knight
     static func OreskosSwiftclaw() -> Card {
         let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", rarity: Rarity.Common, set: set, number: 31)
         oreskosSwiftclaw.setManaCost("1W")
@@ -51,28 +51,28 @@ enum M19 {
         return oreskosSwiftclaw
     }
     // 32 Pegasus Courser
-    // 33
+    // 33 Remorseful Cleric
     // 34 Resplendent Angel
     // 35 Revitalize
     // 36 Rustwing Falcon
     // 37 Shield Mare
     // 38 Star-Crowned Stag
-    // 39
+    // 39 Suncleanser
     // 40 Take Vengeance
     // 41 Trusty Packbeast
     // 42 Valiant Knight
-    // 43
-    // 44
+    // 43 Aether Tunnel
+    // 44 Anticipate
     // 45 Aven Wind Mage
     // 46 Aviation Pioneer
-    // 47
-    // 48
-    // 49
-    // 50
+    // 47 Bone to Ash
+    // 48 Cancel
+    // 49 Departed Deckhand
+    // 50 Disperse
     // 51 Divination
-    // 52
+    // 52 Djinn of Wishes
     // 53 Dwindle
-    // 54
+    // 54 Essence Scatter
     // 55 Exclusion Mage
     // 56 Frilled Sea Serpent
     // 57 Gearsmith Prodigy
@@ -81,23 +81,23 @@ enum M19 {
     // 60 Metamorphic Alteration
     // 61 Mirror Image
     // 62 Mistcaller
-    // 63
-    // 64
+    // 63 Mystic Archaeologist
+    // 64 Omenspeaker
     // 65 Omniscience
     // 66 One with the Machine
     // 67 Patient Rebuilding
-    // 68
+    // 68 Psychic Corrosion
     // 69 Sai, Master Thopterist
     // 70 Salvager of Secrets
     // 71 Scholar of Stars
-    // 72
+    // 72 Sift
     // 73 Skilled Animator
     // 74 Sleep
     // 75 Snapping Drake
     // 76 Supreme Phantom
     // 77 Surge Mare
-    // 78
-    // 79
+    // 78 Switcheroo
+    // 79 Tezzeret, Artifice Master
     static func TolarianScholar() -> Card {
         let tolarianScholar = Card(name: "Tolarian Scholar", rarity: Rarity.Common, set: set, number: 80)
         tolarianScholar.setManaCost("2U")
@@ -110,7 +110,7 @@ enum M19 {
     // 81 Totally Lost
     // 82 Uncomfortable Chill
     // 83 Wall of Mist
-    // 84
+    // 84 Windreader Sphinx
     // 85 Abnormal Endurance
     // 86 Blood Divination
     static func Bogstomper() -> Card {
@@ -127,38 +127,38 @@ enum M19 {
     // 90 Death Baron
     // 91 Demon of Catastrophes
     // 92 Diregraf Ghoul
-    // 93
-    // 94
-    // 95
+    // 93 Doomed Dissenter
+    // 94 Duress
+    // 95 Epicure of Blood
     // 96 Fell Specter
-    // 97
+    // 97 Fraying Omnipotence
     // 98 Gravedigger
-    // 99
-    // 100
-    // 101
+    // 99 Graveyard Marshal
+    // 100 Hired Blade
+    // 101 Infectious Horror
     // 102 Infernal Reckoning
     // 103 Infernal Scarring
     // 104 Isareth the Awakener
     // 105 Lich's Caress
-    // 106
-    // 107
-    // 108
-    // 109
+    // 106 Liliana, Untouched by Death
+    // 107 Liliana's Contract
+    // 108 Macabre Waltz
+    // 109 Mind Rot
     // 110 Murder
     // 111 Nightmare's Thirst
     // 112 Open the Graves
     // 113 Phylactery Lich
     // 114 Plague Mare
-    // 115
+    // 115 Ravenous Harpy
     // 116 Reassembling Skeleton
-    // 117
+    // 117 Rise from the Grave
     // 118 Skeleton Archer
     // 119 Skymarch Bloodletter
     // 120 Sovereign's Bite
     // 121 Stitcher's Supplier
     // 122 Strangling Spores
     // 123 Two-Headed Zombie
-    // 124
+    // 124 Vampire Neonate
     // 125 Vampire Sovereign
     static func WalkingCorpse() -> Card {
         let walkingCorpse = Card(name: "Walking Corpse", rarity: Rarity.Common, set: set, number: 124)
@@ -173,14 +173,14 @@ enum M19 {
     // 128 Alpine Moon
     // 129 Apex of Power
     // 130 Banefire
-    // 131
+    // 131 Boggart Brute
     // 132 Catalyst Elemental
-    // 133
+    // 133 Crash Through
     // 134 Dark-Dweller Oracle
     // 135 Demanding Dragon
-    // 136
-    // 137
-    // 138
+    // 136 Dismissive Pyromancer
+    // 137 Doublecast
+    // 138 Dragon Egg
     // 139 Electrify
     // 140 Fiery Finish
     static func FireElemental() -> Card {
@@ -198,7 +198,7 @@ enum M19 {
     // 145 Guttersnipe
     // 146 Havoc Devils
     // 147 Hostile Minotaur
-    // 148
+    // 148 Inferno Hellion
     // 149 Lathliss, Dragon Queen
     // 150 Lava Axe
     // 151 Lightning Mare
@@ -213,21 +213,21 @@ enum M19 {
         return onakkeOgre
     }
     // 154 Sarkhan, Fireblood
-    // 155
+    // 155 Sarkhan's Unsealing
     // 156 Shock
-    // 157
+    // 157 Siegebreaker Giant
     // 158 Smelt
     // 159 Sparktongue Dragon
     // 160 Spit Flame
-    // 161
-    // 162
+    // 161 Sure Strike
+    // 162 Tectonic Rift
     // 163 Thud
-    // 164
+    // 164 Tormenting Voice
     // 165 Trumpet Blast
     // 166 Viashino Pyromancer
     // 167 Volcanic Dragon
     // 168 Volley Veteran
-    // 169
+    // 169 Blanchwood Armor
     // 170 Bristling Boar
     static func CentaurCourser() -> Card {
         let centaurCourser = Card(name: "Centaur Courser", rarity: Rarity.Common, set: set, number: 171)
@@ -240,17 +240,17 @@ enum M19 {
     }
     // 172 Colossal Dreadmaw
     // 173 Colossal Majesty
-    // 174
+    // 174 Daggerback Basilisk
     // 175 Declare Dominance
-    // 176
+    // 176 Druid of Horns
     // 177 Druid of the Cowl
-    // 178
+    // 178 Dryad Greenseeker
     // 179 Elvish Clancaller
     // 180 Elvish Rejuvenator
     // 181 Ghastbark Twins
-    // 182
+    // 182 Ghirapur Guide
     // 183 Giant Spider
-    // 184
+    // 184 Gift of Paradise
     static func Gigantosaurus() -> Card {
         let gigantosaurus = Card(name: "Gigantosaurus", rarity: Rarity.Rare, set: set, number: 185)
         gigantosaurus.setManaCost("GGGGG")
@@ -261,23 +261,23 @@ enum M19 {
         return gigantosaurus
     }
     // 186 Goreclaw, Terror of Qal Sisma
-    // 187
+    // 187 Greenwood Sentinel
     // 188 Highland Game
-    // 189
-    // 190
+    // 189 Hungering Hydra
+    // 190 Naturalize
     // 191 Oakenform
-    // 192
+    // 192 Pelakka Wurm
     // 193 Plummet
     // 194 Prodigious Growth
     // 195 Rabid Bite
     // 196 Reclamation Sage
     // 197 Recollect
-    // 198
+    // 198 Rhox Oracle
     // 199 Root Snare
-    // 200
+    // 200 Runic Armasaur
     // 201 Scapeshift
-    // 202
-    // 203
+    // 202 Talons of Wildwood
+    // 203 Thorn Lieutenant
     static func ThornhideWolves() -> Card {
         let thornhideWolves = Card(name: "Thornhide Wolves", rarity: Rarity.Common, set: set, number: 204)
         thornhideWolves.setManaCost("4G")
@@ -288,7 +288,7 @@ enum M19 {
         return thornhideWolves
     }
     // 205 Titanic Growth
-    // 206
+    // 206 Vigilant Baloth
     // 207 Vine Mare
     // 208 Vivien Reid
     // 209 Vivien's Invocation
@@ -309,13 +309,13 @@ enum M19 {
     // 224 Skyrider Patrol
     // 225 Vaevictis Asmadi, the Dire
     // 226 Amulet of Safekeeping
-    // 227
+    // 227 Arcane Encyclopedia
     // 228 Chaos Wand
     // 229 Crucible of Worlds
     // 230 Desecrated Tomb
     // 231 Diamond Mare
-    // 232
-    // 233
+    // 232 Dragon's Hoard
+    // 233 Explosive Apparatus
     static func FieldCreeper() -> Card {
         let fieldCreeper = Card(name: "Field Creeper", rarity: Rarity.Common, set: set, number: 234)
         fieldCreeper.setManaCost("2")
@@ -326,61 +326,62 @@ enum M19 {
         return fieldCreeper
     }
     // 235 Fountain of Renewal
-    // 236
+    // 236 Gargoyle Sentinel
     // 237 Gearsmith Guardian
     // 238 Magistrate's Scepter
     // 239 Manalith
     // 240 Marauder's Axe
     // 241 Meteor Golem
-    // 242
+    // 242 Millstone
     // 243 Rogue's Gloves
     // 244 Sigiled Sword of Valeron
     // 245 Skyscanner
     // 246 Suspicious Bookcase
-    // 247
-    // 248
-    // 249
-    // 250
-    // 251
-    // 252
-    // 253
+    // 247 Transmogrifying Wand
+    // 248 Cinder Barrens
+    // 249 Detection Tower
+    // 250 Forsaken Sanctuary
+    // 251 Foul Orchard
+    // 252 Highland Lake
+    // 253 Meandering River
     // 254 Reliquary Tower
-    // 255
-    // 256
-    // 257
+    // 255 Rupture Spire
+    // 256 Stone Quarry
+    // 257 Submerged Boneyard
     // 258 Timber Gorge
-    // 259
-    // 260
+    // 259 Tranquil Expanse
+    // 260 Woodland Stream
     static func Plains() -> Card {
         let plains = Card(name: "Plains", rarity:Rarity.Common, set: set, number: 261)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
         return plains
     }
-    // 262
-    // 263
-    // 264
-    // 265
-    // 266
-    // 267
-    // 268
-    // 269
-    // 270
-    // 271
-    // 272
-    // 273
-    // 274
-    // 275
-    // 276
+    // 262 Plains
+    // 263 Plains
+    // 264 Plains
+    // 265 Island
+    // 266 Island
+    // 267 Island
+    // 268 Island
+    // 269 Swamp
+    // 270 Swamp
+    // 271 Swamp
+    // 272 Swamp
+    // 273 Mountain
+    // 274 Mountain
+    // 275 Mountain
+    // 276 Mountain
     static func Forest() -> Card {
         let forest = Card(name: "Forest", rarity:Rarity.Common, set: set, number: 277)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
         return forest;
     }
-    // 278
-    // 279
-    // 280
+    // 278 Forest
+    // 279 Forest
+    // 280 Forest
+    
     // 281 Ajani, Wise Counselor
     // 282
     // 283 Court Cleric
