@@ -24,7 +24,14 @@ class CardNode: SKSpriteNode {
     init(card:Card, allowedSize:CGSize) {
         self.card = card
         super.init(texture:nil, color: SKColor.clear, size:CardNode.getMaximumCardSize(for:allowedSize))
+        if card.attacking {
+            let attackBorder = SKShapeNode(rectOf: self.size * 1.1, cornerRadius: 3.0)
+            attackBorder.strokeColor = SKColor.red
+            attackBorder.fillColor = SKColor.red
+            addChild(attackBorder)
+        }
         addChild(CardNode.getImageNode(card: self.card, cardSize: self.size, full: true))
+
     }
     
     required init?(coder aDecoder: NSCoder) {

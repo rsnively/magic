@@ -6,6 +6,7 @@ class Game: NSObject {
     var theStack: SpellStack
     private var currentPhase: Phase
     private var landPlayedThisTurn: Bool
+    private var declaringAttackers: Bool
     private var turnNumber: Int
     
     static let shared = Game()
@@ -30,6 +31,7 @@ class Game: NSObject {
         theStack = SpellStack()
         currentPhase = Phase.Untap
         landPlayedThisTurn = false
+        declaringAttackers = false
         turnNumber = 0
         super.init()
         player1.active = true
@@ -44,8 +46,17 @@ class Game: NSObject {
         return player1.active ? player2 : player1
     }
     
+    func bothPlayers(_ f: (_ player: Player) -> Void) {
+        f(player1)
+        f(player2)
+    }
+    
     func yourTurn() -> Bool {
         return player1.active
+    }
+    
+    func getCurrentTurn() -> Int {
+        return turnNumber
     }
     
     func getPlayerWithPriority() -> Player {
@@ -68,6 +79,10 @@ class Game: NSObject {
         return landPlayedThisTurn
     }
     
+    func isDeclaringAttackers() -> Bool {
+        return declaringAttackers
+    }
+    
     func setLandPlayedThisTurn() {
         landPlayedThisTurn = true
     }
@@ -76,7 +91,7 @@ class Game: NSObject {
         currentPhase = Phase(rawValue: currentPhase.rawValue + 1) ?? Phase.Untap
         getNonActivePlayer().hasPriority = false
         getActivePlayer().hasPriority = true
-        getActivePlayer().getManaPool().empty()
+        bothPlayers({ $0.getManaPool().empty() })
         
         if currentPhase == .Untap {
             turnNumber = turnNumber + 1
@@ -89,11 +104,27 @@ class Game: NSObject {
                 getActivePlayer().drawCard()
             }
         }
+        else if currentPhase == .Attack {
+            declaringAttackers = true
+            if !yourTurn() { advanceGame() } // TODO: AI
+        }
+        else if currentPhase == .EndCombat {
+            bothPlayers({ $0.dealCombatDamage() })
+        }
+        else if currentPhase == .SecondMain {
+            bothPlayers({ $0.removeCreaturesFromCombat() })
+        }
     }
     
     func advanceGame() {
+        if declaringAttackers {
+            getActivePlayer().declareAttackers()
+            declaringAttackers = false
+            return
+        }
         if !theStack.isEmpty {
             theStack.resolveTop()
+            return
         }
         // todo: priority passing
         nextPhase()

@@ -9,7 +9,11 @@ class Object: NSObject {
     var subtypes:Set<Subtype> = []
     var power:Int?
     var toughness:Int?
-    weak var controller:Player?
+    
+    weak var controller: Player?
+    var attacking: Bool = false
+    
+    private var turnEnteredBattlefield: Int?
     
     init(name:String) {
         self.name = name
@@ -54,7 +58,28 @@ class Object: NSObject {
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     
     func resolve() {
-        
+        if isPermanent() {
+            turnEnteredBattlefield = Game.shared.getCurrentTurn()
+        }
+    }
+    
+    func getPower() -> Int {
+        return power!
+    }
+    
+    func hasSummoningSickness() -> Bool {
+        if !isType(.Creature) {
+            return false
+        }
+        if let turnEnteredBattlefield = turnEnteredBattlefield {
+            let currentTurn = Game.shared.getCurrentTurn()
+            return getController().active ? (turnEnteredBattlefield >= currentTurn) : (turnEnteredBattlefield >= currentTurn - 1)
+        }
+        return false
+    }
+    
+    func canAttack() -> Bool {
+        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness()
     }
     
 }

@@ -126,6 +126,7 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
+        playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
     }
     

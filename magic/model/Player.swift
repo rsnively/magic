@@ -24,6 +24,10 @@ class Player: NSObject {
         return life
     }
     
+    func damage(_ amount: Int) {
+        life -= amount
+    }
+    
     func getHand() -> [Card] {
         return hand
     }
@@ -67,17 +71,36 @@ class Player: NSObject {
         }
     }
     
+    func declareAttackers() {
+        for permanent in permanents {
+            if permanent.attacking {
+                permanent.tap()
+            }
+        }
+    }
+    
+    func dealCombatDamage() {
+        for permanent in permanents {
+            if permanent.attacking {
+                Game.shared.getNonActivePlayer().damage(permanent.getPower())
+            }
+        }
+    }
+    
+    func removeCreaturesFromCombat() {
+        for permanent in permanents {
+            permanent.attacking = false
+        }
+    }
+    
     func play(card:Card) {
-        if !card.isType(Type.Instant) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) {
-            return
-        }
-        if (card.isType(Type.Land) && Game.shared.landWasPlayedThisTurn()) {
-            return
-        }
+        if Game.shared.isDeclaringAttackers() { return }
+        if !card.isType(Type.Instant) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) { return }
+        if (card.isType(Type.Land) && Game.shared.landWasPlayedThisTurn()) { return }
         
         let cardIndex = hand.index(of: card)!
-        hand.remove(at:cardIndex)
         if manaPool.canAfford(card) {
+            hand.remove(at:cardIndex)
             manaPool.payFor(card)
             if card.usesStack() {
                 Game.shared.theStack.push(card)
@@ -87,7 +110,7 @@ class Player: NSObject {
             }
         }
         else {
-            hand.append(card)
+            return
         }
         
         if (card.isType(Type.Land)) {
@@ -98,6 +121,7 @@ class Player: NSObject {
     func resolve(object: Object) {
         if object.isPermanent() {
             permanents.append(object as! Card)
+            object.resolve()
         }
     }
 }
