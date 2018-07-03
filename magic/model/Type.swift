@@ -24,13 +24,16 @@ enum Subtype {
     case Dinosaur
     case Elemental
     case Elephant
+    case Elf
     case Forest
     case Human
     case Island
+    case Knight
     case Mountain
     case Ogre
     case Plains
     case Scarecrow
+    case Scout
     case Soldier
     case Swamp
     case Warrior
@@ -38,20 +41,3 @@ enum Subtype {
     case Wolf
     case Zombie
 }
-//
-//enum TypeBase {
-//    case supertype(st: Supertype)
-//    case type(t: Type)
-//    case subtype(st: Subtype)
-//    
-//    init?(_ theSubtype: Subtype) {
-//        self = .subtype(st: theSubtype)
-//        return nil
-//    }
-//}
-//
-//func foo(a: TypeBase) {
-//    print(a)
-//}
-//
-//var x = foo(a: Subtype.Zombie as! TypeBase)

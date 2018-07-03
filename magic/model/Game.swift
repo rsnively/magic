@@ -17,8 +17,11 @@ class Game: NSObject {
         for _ in 0..<15 {
             deck1.append(M19.Forest())
             deck1.append(M19.Forest())
+            deck1.append(M19.Forest())
             deck1.append(M19.CentaurCourser())
             deck1.append(M19.Gigantosaurus())
+            deck1.append(M19.GreenwoodSentinel())
+            deck1.append(M19.VigilantBaloth())
             
             deck2.append(M19.Plains())
             deck2.append(M19.OreskosSwiftclaw())

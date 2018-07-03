@@ -10,6 +10,8 @@ class Object: NSObject {
     var power:Int?
     var toughness:Int?
     
+    var vigilance: Bool = false
+    
     weak var controller: Player?
     var attacking: Bool = false
     

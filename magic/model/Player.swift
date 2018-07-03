@@ -73,7 +73,7 @@ class Player: NSObject {
     
     func declareAttackers() {
         for permanent in permanents {
-            if permanent.attacking {
+            if permanent.attacking && !permanent.vigilance {
                 permanent.tap()
             }
         }

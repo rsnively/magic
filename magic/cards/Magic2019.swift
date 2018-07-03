@@ -20,14 +20,23 @@ enum M19 {
     // 15 Inspired Charge
     // 16 Invoke the Divine
     // 17 Isolate
-    // 18 Knight of the Tusk
+    static func KnightOfTheTusk() -> Card {
+        let knightOfTheTusk = Card(name: "Knight of the Tusk", rarity: .Common, set: set, number: 18)
+        knightOfTheTusk.setManaCost("4WW")
+        knightOfTheTusk.setType(.Creature, .Human, .Knight)
+        knightOfTheTusk.vigilance = true
+        knightOfTheTusk.setFlavorText("\"Horse? Who needs a horse?\"")
+        knightOfTheTusk.power = 3
+        knightOfTheTusk.toughness = 7
+        return knightOfTheTusk
+    }
     // 19 Knight's Pledge
     // 20 Knightly Valor
     // 21 Lena, Selfless Champion
     // 22 Leonin Vanguard
     // 23 Leonin Warleader
     static func LoxodonLineBreaker() -> Card {
-        let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", rarity: Rarity.Common, set: set, number: 24)
+        let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", rarity: .Common, set: set, number: 24)
         loxodonLineBreaker.setManaCost("2W")
         loxodonLineBreaker.setType(.Creature, .Elephant, .Soldier)
         loxodonLineBreaker.setFlavorText("Loxodons are firm in stature and spirit. No matter the odds, they are always first into battle.")
@@ -42,7 +51,7 @@ enum M19 {
     // 29 Militia Bugler
     // 30 Novice Knight
     static func OreskosSwiftclaw() -> Card {
-        let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", rarity: Rarity.Common, set: set, number: 31)
+        let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", rarity: .Common, set: set, number: 31)
         oreskosSwiftclaw.setManaCost("1W")
         oreskosSwiftclaw.setType(.Creature, .Cat, .Warrior)
         oreskosSwiftclaw.setFlavorText("The leonin of Oreskos are quick to take offense -- not because they are thin-skinned, but because they are always ready for a fight.")
@@ -99,7 +108,7 @@ enum M19 {
     // 78 Switcheroo
     // 79 Tezzeret, Artifice Master
     static func TolarianScholar() -> Card {
-        let tolarianScholar = Card(name: "Tolarian Scholar", rarity: Rarity.Common, set: set, number: 80)
+        let tolarianScholar = Card(name: "Tolarian Scholar", rarity: .Common, set: set, number: 80)
         tolarianScholar.setManaCost("2U")
         tolarianScholar.setType(.Creature, .Human, .Wizard)
         tolarianScholar.setFlavorText("The Tolarian Academies embrace a tradition of study and research while discouraging the kinds of experiments that ruined the original island of Tolaria.")
@@ -114,7 +123,7 @@ enum M19 {
     // 85 Abnormal Endurance
     // 86 Blood Divination
     static func Bogstomper() -> Card {
-        let bogstomper = Card(name: "Bogstomper", rarity: Rarity.Common, set: set, number: 87)
+        let bogstomper = Card(name: "Bogstomper", rarity: .Common, set: set, number: 87)
         bogstomper.setManaCost("4BB")
         bogstomper.setType(.Creature, .Beast)
         bogstomper.setFlavorText("\"They are gental herbivores, despite their size. Approach cautiously, and hum a tune to let them know you mean no harm.\"\n--Vivien Reid")
@@ -161,7 +170,7 @@ enum M19 {
     // 124 Vampire Neonate
     // 125 Vampire Sovereign
     static func WalkingCorpse() -> Card {
-        let walkingCorpse = Card(name: "Walking Corpse", rarity: Rarity.Common, set: set, number: 124)
+        let walkingCorpse = Card(name: "Walking Corpse", rarity: .Common, set: set, number: 124)
         walkingCorpse.setManaCost("1B")
         walkingCorpse.setType(.Creature, .Zombie)
         walkingCorpse.setFlavorText("\"Feeding a normal army is a problem of logistics. With zombies, it is an asset. Feeding is why they fight. Feeding is why they are feared.\"\n--Jadar, ghoulcaller of Nephalia")
@@ -184,7 +193,7 @@ enum M19 {
     // 139 Electrify
     // 140 Fiery Finish
     static func FireElemental() -> Card {
-        let fireElemental = Card(name: "Fire Elemental", rarity: Rarity.Common, set: set, number: 141)
+        let fireElemental = Card(name: "Fire Elemental", rarity: .Common, set: set, number: 141)
         fireElemental.setManaCost("3RR")
         fireElemental.setType(.Creature, .Elemental)
         fireElemental.setFlavorText("It treads on feet of coals and strikes with the force of a volcano.")
@@ -204,7 +213,7 @@ enum M19 {
     // 151 Lightning Mare
     // 152 Lightning Strike
     static func OnakkeOgre() -> Card {
-        let onakkeOgre = Card(name: "Onakke Ogre", rarity: Rarity.Common, set: set, number: 153)
+        let onakkeOgre = Card(name: "Onakke Ogre", rarity: .Common, set: set, number: 153)
         onakkeOgre.setManaCost("2R")
         onakkeOgre.setType(.Creature, .Ogre, .Warrior)
         onakkeOgre.setFlavorText("The ogres you know are nothing like the Onakke. Possessing both intellect and industry, they had brute strength without being brutish.")
@@ -230,7 +239,7 @@ enum M19 {
     // 169 Blanchwood Armor
     // 170 Bristling Boar
     static func CentaurCourser() -> Card {
-        let centaurCourser = Card(name: "Centaur Courser", rarity: Rarity.Common, set: set, number: 171)
+        let centaurCourser = Card(name: "Centaur Courser", rarity: .Common, set: set, number: 171)
         centaurCourser.setManaCost("2G")
         centaurCourser.setType(.Creature, .Centaur, .Warrior)
         centaurCourser.setFlavorText("\"The centaurs are truly free. Never will they be tamed by temptation or controlled by fear. They live in total harmony, a feat not yet achieved by our kind.\"\n--Ramal, sage of Westgate")
@@ -252,7 +261,7 @@ enum M19 {
     // 183 Giant Spider
     // 184 Gift of Paradise
     static func Gigantosaurus() -> Card {
-        let gigantosaurus = Card(name: "Gigantosaurus", rarity: Rarity.Rare, set: set, number: 185)
+        let gigantosaurus = Card(name: "Gigantosaurus", rarity: .Rare, set: set, number: 185)
         gigantosaurus.setManaCost("GGGGG")
         gigantosaurus.setType(.Creature, .Dinosaur)
         gigantosaurus.setFlavorText("\"Each tooth is the length of a horse, and new ones grow in every sixteen days. Let's get a closer look!\"\n--Vivien Reid");
@@ -261,7 +270,16 @@ enum M19 {
         return gigantosaurus
     }
     // 186 Goreclaw, Terror of Qal Sisma
-    // 187 Greenwood Sentinel
+    static func GreenwoodSentinel() -> Card {
+        let greenwoodSentinel = Card(name: "Greenwood Sentinel", rarity: .Common, set: set, number: 187)
+        greenwoodSentinel.setManaCost("1G")
+        greenwoodSentinel.setType(.Creature, .Elf, .Scout)
+        greenwoodSentinel.vigilance = true
+        greenwoodSentinel.setFlavorText("Within a mile of the woodland, you will feel her eyes upon you. Within its borders, you will feel her blade.")
+        greenwoodSentinel.power = 2
+        greenwoodSentinel.toughness = 2
+        return greenwoodSentinel
+    }
     // 188 Highland Game
     // 189 Hungering Hydra
     // 190 Naturalize
@@ -279,7 +297,7 @@ enum M19 {
     // 202 Talons of Wildwood
     // 203 Thorn Lieutenant
     static func ThornhideWolves() -> Card {
-        let thornhideWolves = Card(name: "Thornhide Wolves", rarity: Rarity.Common, set: set, number: 204)
+        let thornhideWolves = Card(name: "Thornhide Wolves", rarity: .Common, set: set, number: 204)
         thornhideWolves.setManaCost("4G")
         thornhideWolves.setType(.Creature, .Wolf)
         thornhideWolves.setFlavorText("\"Halana grew brambles to create a barricade around our camp, hoping that it would keep the wolves out. That was a mistake for which we almost paid dearly.\"\nAlena, trapper of Kessig")
@@ -288,7 +306,16 @@ enum M19 {
         return thornhideWolves
     }
     // 205 Titanic Growth
-    // 206 Vigilant Baloth
+    static func VigilantBaloth() -> Card {
+        let vigilantBaloth = Card(name: "Vigilant Baloth", rarity: .Uncommon, set: set, number: 206)
+        vigilantBaloth.setManaCost("3GG")
+        vigilantBaloth.setType(.Creature, .Beast)
+        vigilantBaloth.vigilance = true
+        vigilantBaloth.setFlavorText("Villagers employ watchdogs as guardians and companions. Druids prefer something a little bigger.")
+        vigilantBaloth.power = 5
+        vigilantBaloth.toughness = 5
+        return vigilantBaloth
+    }
     // 207 Vine Mare
     // 208 Vivien Reid
     // 209 Vivien's Invocation
@@ -317,7 +344,7 @@ enum M19 {
     // 232 Dragon's Hoard
     // 233 Explosive Apparatus
     static func FieldCreeper() -> Card {
-        let fieldCreeper = Card(name: "Field Creeper", rarity: Rarity.Common, set: set, number: 234)
+        let fieldCreeper = Card(name: "Field Creeper", rarity: .Common, set: set, number: 234)
         fieldCreeper.setManaCost("2")
         fieldCreeper.setType(.Artifact, .Creature, .Scarecrow)
         fieldCreeper.setFlavorText("As it walks across the fallow field, its awkward, loping gait matches the rattling in its head to create a haunting rhythm that chills the bones.")
@@ -352,7 +379,7 @@ enum M19 {
     // 259 Tranquil Expanse
     // 260 Woodland Stream
     static func Plains() -> Card {
-        let plains = Card(name: "Plains", rarity:Rarity.Common, set: set, number: 261)
+        let plains = Card(name: "Plains", rarity: .Common, set: set, number: 261)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
         return plains
@@ -373,7 +400,7 @@ enum M19 {
     // 275 Mountain
     // 276 Mountain
     static func Forest() -> Card {
-        let forest = Card(name: "Forest", rarity:Rarity.Common, set: set, number: 277)
+        let forest = Card(name: "Forest", rarity: .Common, set: set, number: 277)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
         return forest;

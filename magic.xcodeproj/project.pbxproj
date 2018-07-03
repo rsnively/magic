@@ -48,6 +48,8 @@
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
 		98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */; };
 		98E549A520D88CA200D64482 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E549A420D88CA200D64482 /* Phase.swift */; };
+		98E8A04E20EAF49900A951DA /* m19187full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A04C20EAF49800A951DA /* m19187full.png */; };
+		98E8A04F20EAF49900A951DA /* m19206full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A04D20EAF49900A951DA /* m19206full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,8 @@
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		98E549A420D88CA200D64482 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
+		98E8A04C20EAF49800A951DA /* m19187full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19187full.png; sourceTree = "<group>"; };
+		98E8A04D20EAF49900A951DA /* m19206full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19206full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,8 @@
 			children = (
 				9868005F20E5419B00E6E730 /* m19171full.png */,
 				9868006120E541A100E6E730 /* m19185full.png */,
+				98E8A04C20EAF49800A951DA /* m19187full.png */,
+				98E8A04D20EAF49900A951DA /* m19206full.png */,
 				9868005B20E5401400E6E730 /* m19261full.png */,
 				9868005D20E5408500E6E730 /* m19277full.png */,
 			);
@@ -289,7 +295,9 @@
 				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
 				9868006220E541A100E6E730 /* m19185full.png in Resources */,
 				982F9B20209BAAFF009BBD8B /* Main.storyboard in Resources */,
+				98E8A04E20EAF49900A951DA /* m19187full.png in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
+				98E8A04F20EAF49900A951DA /* m19206full.png in Resources */,
 				982F9B25209BAB00009BBD8B /* LaunchScreen.storyboard in Resources */,
 				9868006020E5419B00E6E730 /* m19171full.png in Resources */,
 				9868005E20E5408500E6E730 /* m19277full.png in Resources */,
