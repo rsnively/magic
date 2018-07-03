@@ -5,6 +5,7 @@ class Player: NSObject {
     private var library: [Card]
     private var hand: [Card] = []
     private var permanents: [Card] = []
+    private var graveyard: [Card] = []
     private var manaPool: ManaPool = ManaPool()
 
     var active = false
@@ -25,7 +26,15 @@ class Player: NSObject {
     }
     
     func damage(_ amount: Int) {
+        self.loseLife(amount)
+    }
+    
+    func loseLife(_ amount: Int) {
         life -= amount
+    }
+    
+    func gainLife(_ amount: Int) {
+        life += amount
     }
     
     func getHand() -> [Card] {
@@ -37,6 +46,9 @@ class Player: NSObject {
     }
     func getCreatures() -> [Card] {
         return permanents.filter { $0.isType(Type.Creature) }
+    }
+    func getArtifacts() -> [Card] {
+        return permanents.filter { $0.isType(Type.Artifact) }
     }
     
     func addMana(color: Color?) {
@@ -121,7 +133,10 @@ class Player: NSObject {
     func resolve(object: Object) {
         if object.isPermanent() {
             permanents.append(object as! Card)
-            object.resolve()
         }
+        else {
+            graveyard.append(object as! Card)
+        }
+        object.resolve()
     }
 }

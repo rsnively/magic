@@ -50,6 +50,14 @@
 		98E549A520D88CA200D64482 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E549A420D88CA200D64482 /* Phase.swift */; };
 		98E8A04E20EAF49900A951DA /* m19187full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A04C20EAF49800A951DA /* m19187full.png */; };
 		98E8A04F20EAF49900A951DA /* m19206full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A04D20EAF49900A951DA /* m19206full.png */; };
+		98E8A05120EAF79100A951DA /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E8A05020EAF79100A951DA /* Effect.swift */; };
+		98E8A05520EAFBF200A951DA /* m19265full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05220EAFBF100A951DA /* m19265full.png */; };
+		98E8A05620EAFBF200A951DA /* m1951full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05320EAFBF100A951DA /* m1951full.png */; };
+		98E8A05720EAFBF200A951DA /* m1980full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05420EAFBF200A951DA /* m1980full.png */; };
+		98E8A05920EAFFB000A951DA /* m1931full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05820EAFFB000A951DA /* m1931full.png */; };
+		98E8A05B20EAFFBB00A951DA /* m1935full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05A20EAFFBB00A951DA /* m1935full.png */; };
+		98E8A05D20EAFFD000A951DA /* m19234full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05C20EAFFD000A951DA /* m19234full.png */; };
+		98E8A05F20EB01A600A951DA /* m1966full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A05E20EB01A600A951DA /* m1966full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +106,14 @@
 		98E549A420D88CA200D64482 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		98E8A04C20EAF49800A951DA /* m19187full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19187full.png; sourceTree = "<group>"; };
 		98E8A04D20EAF49900A951DA /* m19206full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19206full.png; sourceTree = "<group>"; };
+		98E8A05020EAF79100A951DA /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
+		98E8A05220EAFBF100A951DA /* m19265full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19265full.png; sourceTree = "<group>"; };
+		98E8A05320EAFBF100A951DA /* m1951full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1951full.png; sourceTree = "<group>"; };
+		98E8A05420EAFBF200A951DA /* m1980full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1980full.png; sourceTree = "<group>"; };
+		98E8A05820EAFFB000A951DA /* m1931full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1931full.png; sourceTree = "<group>"; };
+		98E8A05A20EAFFBB00A951DA /* m1935full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1935full.png; sourceTree = "<group>"; };
+		98E8A05C20EAFFD000A951DA /* m19234full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19234full.png; sourceTree = "<group>"; };
+		98E8A05E20EB01A600A951DA /* m1966full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1966full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +178,7 @@
 				985E0F8220A26339006759B3 /* BasicLand.swift */,
 				982F9B31209BAD33009BBD8B /* Card.swift */,
 				986EAA5920A10F0300F3CCDC /* Color.swift */,
+				98E8A05020EAF79100A951DA /* Effect.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
 				9818425520CA07580068DC91 /* Mana.swift */,
 				9818425320CA07050068DC91 /* ManaCost.swift */,
@@ -224,11 +241,18 @@
 		98DFD47420D9DC9700B2EEA1 /* m19 */ = {
 			isa = PBXGroup;
 			children = (
+				98E8A05820EAFFB000A951DA /* m1931full.png */,
+				98E8A05A20EAFFBB00A951DA /* m1935full.png */,
+				98E8A05320EAFBF100A951DA /* m1951full.png */,
+				98E8A05E20EB01A600A951DA /* m1966full.png */,
+				98E8A05420EAFBF200A951DA /* m1980full.png */,
 				9868005F20E5419B00E6E730 /* m19171full.png */,
 				9868006120E541A100E6E730 /* m19185full.png */,
 				98E8A04C20EAF49800A951DA /* m19187full.png */,
 				98E8A04D20EAF49900A951DA /* m19206full.png */,
+				98E8A05C20EAFFD000A951DA /* m19234full.png */,
 				9868005B20E5401400E6E730 /* m19261full.png */,
+				98E8A05220EAFBF100A951DA /* m19265full.png */,
 				9868005D20E5408500E6E730 /* m19277full.png */,
 			);
 			path = m19;
@@ -294,12 +318,19 @@
 			files = (
 				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
 				9868006220E541A100E6E730 /* m19185full.png in Resources */,
+				98E8A05B20EAFFBB00A951DA /* m1935full.png in Resources */,
+				98E8A05920EAFFB000A951DA /* m1931full.png in Resources */,
+				98E8A05D20EAFFD000A951DA /* m19234full.png in Resources */,
 				982F9B20209BAAFF009BBD8B /* Main.storyboard in Resources */,
+				98E8A05F20EB01A600A951DA /* m1966full.png in Resources */,
 				98E8A04E20EAF49900A951DA /* m19187full.png in Resources */,
+				98E8A05520EAFBF200A951DA /* m19265full.png in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
 				98E8A04F20EAF49900A951DA /* m19206full.png in Resources */,
+				98E8A05720EAFBF200A951DA /* m1980full.png in Resources */,
 				982F9B25209BAB00009BBD8B /* LaunchScreen.storyboard in Resources */,
 				9868006020E5419B00E6E730 /* m19171full.png in Resources */,
+				98E8A05620EAFBF200A951DA /* m1951full.png in Resources */,
 				9868005E20E5408500E6E730 /* m19277full.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +357,7 @@
 				982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */,
 				9862984520D844A100CE8E10 /* Alpha.swift in Sources */,
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
+				98E8A05120EAF79100A951DA /* Effect.swift in Sources */,
 				982F9B32209BAD33009BBD8B /* Card.swift in Sources */,
 				982F9B2E209BAC81009BBD8B /* Game.swift in Sources */,
 				986D5C9A20D1F4FE005E944E /* StackNode.swift in Sources */,

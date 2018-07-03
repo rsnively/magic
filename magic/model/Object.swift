@@ -9,6 +9,7 @@ class Object: NSObject {
     var subtypes:Set<Subtype> = []
     var power:Int?
     var toughness:Int?
+    var effects:[Effect] = []
     
     var vigilance: Bool = false
     
@@ -41,6 +42,13 @@ class Object: NSObject {
         }
     }
     
+    func getConvertedManaCost() -> Int {
+        if let manaCost = manaCost {
+            return manaCost.converted()
+        }
+        return 0 // nil?
+    }
+    
     private func clearTypes() {
         supertypes.removeAll()
         types.removeAll()
@@ -49,6 +57,7 @@ class Object: NSObject {
     func addType(_ type: Type) { types.insert(type) }
     func addType(_ supertype: Supertype) { supertypes.insert(supertype) }
     func addType(_ subtype: Subtype) { subtypes.insert(subtype) }
+    func setType(_ type: Type) { clearTypes(); addType(type); }
     func setType(_ type: Type, _ subtype: Subtype) { clearTypes(); addType(type); addType(subtype); }
     func setType(_ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(type1); addType(type2); addType(subtype); }
     func setType(_ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(type); addType(subtype1); addType(subtype2); }
@@ -59,9 +68,18 @@ class Object: NSObject {
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     
+    func addEffect(_ effectFn: @escaping (Object) -> ()) {
+        effects.append(Effect(effectFn))
+    }
+    
     func resolve() {
         if isPermanent() {
             turnEnteredBattlefield = Game.shared.getCurrentTurn()
+        }
+        if !effects.isEmpty {
+            for effect in effects {
+                effect.resolve(source: self)
+            }
         }
     }
     

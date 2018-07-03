@@ -62,7 +62,17 @@ enum M19 {
     // 32 Pegasus Courser
     // 33 Remorseful Cleric
     // 34 Resplendent Angel
-    // 35 Revitalize
+    static func Revitalize() -> Card {
+        let revitalize = Card(name: "Revitalize", rarity: .Common, set: set, number: 35)
+        revitalize.setManaCost("1W")
+        revitalize.setType(.Instant)
+        revitalize.addEffect({
+            $0.getController().gainLife(3)
+            $0.getController().drawCard()
+        })
+        revitalize.setFlavorText("\"A potion is no substitute for a skilled surgeon, but it will hold your bits in.\"\n--Torricks, battlefield medic")
+        return revitalize
+    }
     // 36 Rustwing Falcon
     // 37 Shield Mare
     // 38 Star-Crowned Stag
@@ -78,7 +88,16 @@ enum M19 {
     // 48 Cancel
     // 49 Departed Deckhand
     // 50 Disperse
-    // 51 Divination
+    static func Divination() -> Card {
+        let divination = Card(name: "Divination", rarity: .Common, set: set, number: 51)
+        divination.setManaCost("2U")
+        divination.setType(.Sorcery)
+        divination.addEffect({
+            $0.getController().drawCards(2)
+        })
+        divination.setFlavorText("\"The stars mark your destiny. May you accept the fate thus divulged.\"")
+        return divination
+    }
     // 52 Djinn of Wishes
     // 53 Dwindle
     // 54 Essence Scatter
@@ -93,7 +112,18 @@ enum M19 {
     // 63 Mystic Archaeologist
     // 64 Omenspeaker
     // 65 Omniscience
-    // 66 One with the Machine
+    static func OneWithTheMachine() -> Card {
+        let oneWithTheMachine = Card(name: "One with the Machine", rarity: .Rare, set: set, number: 66)
+        oneWithTheMachine.setManaCost("3U")
+        oneWithTheMachine.setType(.Sorcery)
+        oneWithTheMachine.addEffect({
+            let artifacts = $0.getController().getArtifacts()
+            let maxArtifactCMC = artifacts.map({ return $0.getConvertedManaCost() }).max()
+            $0.getController().drawCards(maxArtifactCMC ?? 0)
+        })
+        oneWithTheMachine.setFlavorText("\"When I grafted the Planar Bridge into myself I felt my Planeswalker spark flare beyond my body. The multiverse was my plaything. It felt... incredible.\"\n--Tezzeret")
+        return oneWithTheMachine
+    }
     // 67 Patient Rebuilding
     // 68 Psychic Corrosion
     // 69 Sai, Master Thopterist
@@ -387,7 +417,12 @@ enum M19 {
     // 262 Plains
     // 263 Plains
     // 264 Plains
-    // 265 Island
+    static func Island() -> Card {
+        let island = Card(name: "Island", rarity: .Common, set: set, number: 265)
+        island.setManaCost("")
+        island.setType(.Basic, .Land, .Island)
+        return island
+    }
     // 266 Island
     // 267 Island
     // 268 Island

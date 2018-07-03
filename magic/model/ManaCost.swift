@@ -38,4 +38,8 @@ class ManaCost: NSObject {
     func getGenericMana() -> Int {
         return genericMana
     }
+    
+    func converted() -> Int {
+        return coloredMana.count + genericMana
+    }
 }
