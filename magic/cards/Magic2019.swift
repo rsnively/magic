@@ -173,7 +173,16 @@ enum M19 {
     // 97 Fraying Omnipotence
     // 98 Gravedigger
     // 99 Graveyard Marshal
-    // 100 Hired Blade
+    static func HiredBlade() -> Card {
+        let hiredBlade = Card(name: "Hired Blade", rarity: .Common, set: set, number: 100)
+        hiredBlade.setManaCost("2B")
+        hiredBlade.setType(.Creature, .Human, .Assassin)
+        hiredBlade.flash = true
+        hiredBlade.setFlavorText("\"If you want them dead, buy some poison. If you want them to have the worst day of their life before dying, then let's talk price.")
+        hiredBlade.power = 3
+        hiredBlade.toughness = 2
+        return hiredBlade
+    }
     // 101 Infectious Horror
     // 102 Infernal Reckoning
     // 103 Infernal Scarring
@@ -426,7 +435,12 @@ enum M19 {
     // 266 Island
     // 267 Island
     // 268 Island
-    // 269 Swamp
+    static func Swamp() -> Card {
+        let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 269)
+        swamp.setManaCost("")
+        swamp.setType(.Basic, .Land, .Swamp)
+        return swamp
+    }
     // 270 Swamp
     // 271 Swamp
     // 272 Swamp

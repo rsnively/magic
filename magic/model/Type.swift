@@ -18,6 +18,7 @@ enum Type {
 }
 
 enum Subtype {
+    case Assassin
     case Beast
     case Cat
     case Centaur

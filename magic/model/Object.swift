@@ -11,6 +11,7 @@ class Object: NSObject {
     var toughness:Int?
     var effects:[Effect] = []
     
+    var flash: Bool = false
     var vigilance: Bool = false
     
     weak var controller: Player?

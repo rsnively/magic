@@ -46,6 +46,9 @@
 		986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */; };
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
+		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
+		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
+		98D0438D20EE87B60009143E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* Opponent.swift */; };
 		98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */; };
 		98E549A520D88CA200D64482 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E549A420D88CA200D64482 /* Phase.swift */; };
 		98E8A04E20EAF49900A951DA /* m19187full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E8A04C20EAF49800A951DA /* m19187full.png */; };
@@ -102,6 +105,9 @@
 		986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandButtonsNode.swift; sourceTree = "<group>"; };
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
+		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
+		98D0438C20EE87B60009143E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
 		98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		98E549A420D88CA200D64482 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		98E8A04C20EAF49800A951DA /* m19187full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19187full.png; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		982F9B13209BAAFF009BBD8B /* magic */ = {
 			isa = PBXGroup;
 			children = (
+				98D0438B20EE87AD0009143E /* ai */,
 				9818425020CA03C40068DC91 /* cards */,
 				985E0F7F20A25AEB006759B3 /* util */,
 				982F9B33209BBFE0009BBD8B /* nodes */,
@@ -222,6 +229,14 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		98D0438B20EE87AD0009143E /* ai */ = {
+			isa = PBXGroup;
+			children = (
+				98D0438C20EE87B60009143E /* Opponent.swift */,
+			);
+			path = ai;
+			sourceTree = "<group>";
+		};
 		98DFD47220D9DC6C00B2EEA1 /* res */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +261,7 @@
 				98E8A05320EAFBF100A951DA /* m1951full.png */,
 				98E8A05E20EB01A600A951DA /* m1966full.png */,
 				98E8A05420EAFBF200A951DA /* m1980full.png */,
+				98D0438720EE86920009143E /* m19100full.png */,
 				9868005F20E5419B00E6E730 /* m19171full.png */,
 				9868006120E541A100E6E730 /* m19185full.png */,
 				98E8A04C20EAF49800A951DA /* m19187full.png */,
@@ -253,6 +269,7 @@
 				98E8A05C20EAFFD000A951DA /* m19234full.png */,
 				9868005B20E5401400E6E730 /* m19261full.png */,
 				98E8A05220EAFBF100A951DA /* m19265full.png */,
+				98D0438920EE87070009143E /* m19269full.png */,
 				9868005D20E5408500E6E730 /* m19277full.png */,
 			);
 			path = m19;
@@ -318,11 +335,13 @@
 			files = (
 				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
 				9868006220E541A100E6E730 /* m19185full.png in Resources */,
+				98D0438A20EE87070009143E /* m19269full.png in Resources */,
 				98E8A05B20EAFFBB00A951DA /* m1935full.png in Resources */,
 				98E8A05920EAFFB000A951DA /* m1931full.png in Resources */,
 				98E8A05D20EAFFD000A951DA /* m19234full.png in Resources */,
 				982F9B20209BAAFF009BBD8B /* Main.storyboard in Resources */,
 				98E8A05F20EB01A600A951DA /* m1966full.png in Resources */,
+				98D0438820EE86920009143E /* m19100full.png in Resources */,
 				98E8A04E20EAF49900A951DA /* m19187full.png in Resources */,
 				98E8A05520EAFBF200A951DA /* m19265full.png in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
@@ -367,6 +386,7 @@
 				98E549A520D88CA200D64482 /* Phase.swift in Sources */,
 				986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
+				98D0438D20EE87B60009143E /* Opponent.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
 				986D5C9820D1ECFA005E944E /* CreaturesCardNode.swift in Sources */,

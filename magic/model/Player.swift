@@ -107,7 +107,7 @@ class Player: NSObject {
     
     func play(card:Card) {
         if Game.shared.isDeclaringAttackers() { return }
-        if !card.isType(Type.Instant) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) { return }
+        if !(card.isType(Type.Instant) || card.flash) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) { return }
         if (card.isType(Type.Land) && Game.shared.landWasPlayedThisTurn()) { return }
         
         let cardIndex = hand.index(of: card)!

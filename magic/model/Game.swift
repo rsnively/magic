@@ -22,15 +22,19 @@ class Game: NSObject {
 //            deck1.append(M19.Gigantosaurus())
 //            deck1.append(M19.GreenwoodSentinel())
 //            deck1.append(M19.VigilantBaloth())
-            deck1.append(M19.Island())
-            deck1.append(M19.Island())
-            deck1.append(M19.Plains())
-            deck1.append(M19.Plains())
-            deck1.append(M19.Divination())
-            deck1.append(M19.Revitalize())
-            deck1.append(M19.OreskosSwiftclaw())
-            deck1.append(M19.FieldCreeper())
-            deck1.append(M19.OneWithTheMachine())
+            
+//            deck1.append(M19.Island())
+//            deck1.append(M19.Island())
+//            deck1.append(M19.Plains())
+//            deck1.append(M19.Plains())
+//            deck1.append(M19.Divination())
+//            deck1.append(M19.Revitalize())
+//            deck1.append(M19.OreskosSwiftclaw())
+//            deck1.append(M19.FieldCreeper())
+//            deck1.append(M19.OneWithTheMachine())
+            
+            deck1.append(M19.Swamp())
+            deck1.append(M19.HiredBlade())
             
             deck2.append(M19.Plains())
             deck2.append(M19.OreskosSwiftclaw())
@@ -110,6 +114,12 @@ class Game: NSObject {
             swap(&player1.active, &player2.active)
             landPlayedThisTurn = false
             getActivePlayer().untapAllPermanents()
+            
+            // would potential untap triggers get pushed to upkeep anyway?
+            if theStack.isEmpty {
+                nextPhase()
+                return
+            }
         }
         else if currentPhase == .Draw {
             if turnNumber > 1 {
@@ -118,13 +128,24 @@ class Game: NSObject {
         }
         else if currentPhase == .Attack {
             declaringAttackers = true
-            if !yourTurn() { advanceGame() } // TODO: AI
+            if player2.hasPriority {
+                Opponent.shared.declareAttackers()
+            }
         }
         else if currentPhase == .EndCombat {
             bothPlayers({ $0.dealCombatDamage() })
         }
         else if currentPhase == .SecondMain {
             bothPlayers({ $0.removeCreaturesFromCombat() })
+        }
+        else if currentPhase == .Cleanup {
+            // todo, discard to hand size
+            nextPhase()
+            return
+        }
+        
+        if player2.hasPriority {
+            Opponent.shared.givePriority()
         }
     }
     
@@ -138,7 +159,13 @@ class Game: NSObject {
             theStack.resolveTop()
             return
         }
-        // todo: priority passing
-        nextPhase()
+        if getNonActivePlayer().hasPriority {
+            nextPhase()
+            return
+        }
+        passPriority()
+        if player2.hasPriority {
+            Opponent.shared.givePriority()
+        }
     }
 }
