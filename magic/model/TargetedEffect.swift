@@ -24,6 +24,7 @@ class TargetedEffect: Effect {
     }
     
     func resolve(source: Object) {
+        // todo only if target is still valid
         if let target = target {
             resolveFunc(source, target)
         }

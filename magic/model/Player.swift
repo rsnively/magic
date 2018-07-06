@@ -21,10 +21,9 @@ class Player: NSObject {
         
         self.pregameActions()
         
-        for _ in 0..<10 {
-//            permanents.append(M19.Plains())
+        for _ in 0..<5 {
             permanents.append(M19.Swamp())
-//            permanents.append(M19.Island())
+            permanents.append(M19.Mountain())
         }
         permanents.forEach({ $0.setOwner(owner: self) })
     }
@@ -145,6 +144,12 @@ class Player: NSObject {
             graveyard.append(object as! Card)
         }
         object.resolve()
+    }
+    
+    func bouncePermanent(_ object: Object) {
+        let index = permanents.index(of: object as! Card)!
+        permanents.remove(at: index)
+        (object as! Card).getOwner().hand.append(object as! Card)
     }
     
     func destroyPermanent(_ object: Object) {

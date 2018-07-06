@@ -26,27 +26,12 @@ class Game: NSObject {
         var deck1: [Card] = []
         var deck2: [Card] = []
         for _ in 0..<15 {
-//            deck1.append(M19.Forest())
-//            deck1.append(M19.Forest())
-//            deck1.append(M19.Forest())
-//            deck1.append(M19.CentaurCourser())
-//            deck1.append(M19.Gigantosaurus())
-//            deck1.append(M19.GreenwoodSentinel())
-//            deck1.append(M19.VigilantBaloth())
-            
-//            deck1.append(M19.Island())
-//            deck1.append(M19.Island())
-//            deck1.append(M19.Plains())
-//            deck1.append(M19.Plains())
-//            deck1.append(M19.Divination())
-//            deck1.append(M19.Revitalize())
-//            deck1.append(M19.OreskosSwiftclaw())
-//            deck1.append(M19.FieldCreeper())
-//            deck1.append(M19.OneWithTheMachine())
-            
-            deck1.append(M19.Swamp())
+
+            deck1.append(M19.OnakkeOgre())
             deck1.append(M19.HiredBlade())
-            deck1.append(M19.Murder())
+            deck1.append(M19.LichsCaress())
+            deck1.append(M19.Swamp())
+            deck1.append(M19.Mountain())
             
             deck2.append(M19.Plains())
             deck2.append(M19.OreskosSwiftclaw())

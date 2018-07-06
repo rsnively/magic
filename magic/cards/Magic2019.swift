@@ -18,7 +18,20 @@ enum M19 {
     // 13 Herald of Faith
     // 14 Hieromancer's Cage
     // 15 Inspired Charge
-    // 16 Invoke the Divine
+    static func InvokeTheDivine() -> Card {
+        let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 16)
+        invokeTheDivine.setManaCost("2W")
+        invokeTheDivine.setType(.Instant)
+        invokeTheDivine.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
+            }, { source, target in
+                target.destroy()
+                source.getController().gainLife(4)
+        }))
+        invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
+        return invokeTheDivine
+    }
     // 17 Isolate
     static func KnightOfTheTusk() -> Card {
         let knightOfTheTusk = Card(name: "Knight of the Tusk", rarity: .Common, set: set, number: 18)
@@ -77,7 +90,19 @@ enum M19 {
     // 37 Shield Mare
     // 38 Star-Crowned Stag
     // 39 Suncleanser
-    // 40 Take Vengeance
+    static func TakeVengeance() -> Card {
+        let takeVengeance = Card(name: "Take Vengeance", rarity: .Common, set: set, number: 40)
+        takeVengeance.setManaCost("1W")
+        takeVengeance.setType(.Sorcery)
+        takeVengeance.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature) && potentialTarget.isTapped
+            }, { source, target in
+                target.destroy()
+        }))
+        takeVengeance.setFlavorText("\"Your death will be a balm, your passing a welcome revision, and all will sigh with peace to know your demise.\"")
+        return takeVengeance
+    }
     // 41 Trusty Packbeast
     // 42 Valiant Knight
     // 43 Aether Tunnel
@@ -87,7 +112,19 @@ enum M19 {
     // 47 Bone to Ash
     // 48 Cancel
     // 49 Departed Deckhand
-    // 50 Disperse
+    static func Disperse() -> Card {
+        let disperse = Card(name: "Disperse", rarity: .Common, set: set, number: 50)
+        disperse.setManaCost("1U")
+        disperse.setType(.Instant)
+        disperse.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return !potentialTarget.isType(.Land)
+            }, { source, target in
+                target.bounce()
+        }))
+        disperse.setFlavorText("It's pointless to hold on when you have nothing to hold on with.")
+        return disperse
+    }
     static func Divination() -> Card {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 51)
         divination.setManaCost("2U")
@@ -187,7 +224,20 @@ enum M19 {
     // 102 Infernal Reckoning
     // 103 Infernal Scarring
     // 104 Isareth the Awakener
-    // 105 Lich's Caress
+    static func LichsCaress() -> Card {
+        let lichsCaress = Card(name: "Lich's Caress", rarity: .Common, set: set, number: 105)
+        lichsCaress.setManaCost("3BB")
+        lichsCaress.setType(.Sorcery)
+        lichsCaress.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+            }, { source, target in
+                target.destroy()
+                source.getController().gainLife(3)
+        }))
+        lichsCaress.setFlavorText("A lich must consume mortal souls to feed its eternal life.")
+        return lichsCaress
+    }
     // 106 Liliana, Untouched by Death
     // 107 Liliana's Contract
     // 108 Macabre Waltz
@@ -199,8 +249,7 @@ enum M19 {
         murder.addEffect(TargetedEffect(
             targetingRestriction: { potentialTarget in
                 return potentialTarget.isType(.Creature)
-        },
-            {source,target in
+        }, { source,target in
                 target.destroy()
         }))
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
@@ -457,7 +506,12 @@ enum M19 {
     // 270 Swamp
     // 271 Swamp
     // 272 Swamp
-    // 273 Mountain
+    static func Mountain() -> Card {
+        let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 273)
+        mountain.setManaCost("")
+        mountain.setType(.Basic, .Land, .Mountain)
+        return mountain;
+    }
     // 274 Mountain
     // 275 Mountain
     // 276 Mountain

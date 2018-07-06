@@ -17,6 +17,11 @@ class Object: NSObject {
     weak var controller: Player?
     var attacking: Bool = false
     
+    private var tapped: Bool = false
+    var isTapped: Bool {
+        return tapped
+    }
+    
     private var turnEnteredBattlefield: Int?
     
     init(name:String) {
@@ -69,6 +74,13 @@ class Object: NSObject {
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     
+    func tap() {
+        tapped = true
+    }
+    func untap() {
+        tapped = false
+    }
+    
     func addEffect(_ effect: Effect) {
         effects.append(effect)
     }
@@ -105,6 +117,10 @@ class Object: NSObject {
     
     func canAttack() -> Bool {
         return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness()
+    }
+    
+    func bounce() {
+        getController().bouncePermanent(self)
     }
     
     func destroy() {
