@@ -12,7 +12,7 @@ class CreaturesNode: SKNode {
             cardNodes.append(CreaturesCardNode(card: creature, allowedSize:cardSize))
         }
         for i in 0 ..< cardNodes.count {
-            cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 1.5
+            cardNodes[i].position.x = (CGFloat(i) - CGFloat(cardNodes.count) / 2.0 + 0.5) * cardNodes[i].size.width * 1.5
             cardNodes[i].zPosition = CGFloat(i) / CGFloat(cardNodes.count)
             addChild(cardNodes[i])
             if cardNodes[i].card.isTapped {
