@@ -326,7 +326,19 @@ enum M19 {
     // 155 Sarkhan's Unsealing
     // 156 Shock
     // 157 Siegebreaker Giant
-    // 158 Smelt
+    static func Smelt() -> Card {
+        let smelt = Card(name: "Smelt", rarity: .Common, set: set, number: 158)
+        smelt.setManaCost("R")
+        smelt.setType(.Instant)
+        smelt.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Artifact)
+            }, { source, target in
+                target.destroy()
+        }))
+        smelt.setFlavorText("The creation of new weapons demands the destruction of others.")
+        return smelt
+    }
     // 159 Sparktongue Dragon
     // 160 Spit Flame
     // 161 Sure Strike

@@ -27,9 +27,8 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
 
-            deck1.append(M19.OnakkeOgre())
-            deck1.append(M19.HiredBlade())
-            deck1.append(M19.LichsCaress())
+            deck1.append(M19.FieldCreeper())
+            deck1.append(M19.Smelt())
             deck1.append(M19.Swamp())
             deck1.append(M19.Mountain())
             
