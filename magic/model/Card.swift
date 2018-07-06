@@ -35,14 +35,10 @@ class Card: Object {
     }
     
     func canPlay() -> Bool {
-        if let controller = controller {
-            if !controller.hasPriority {
-                return false
-            }
-        }
-        if !isType(Type.Instant) && !Game.shared.theStack.isEmpty {
-            return false
-        }
+        if Game.shared.isDeclaringAttackers() || Game.shared.isTargeting { return false }
+        if !getController().hasPriority { return false }
+        if !(isType(.Instant) || flash) && !(Game.shared.theStack.isEmpty && getController().active && Game.shared.getCurrentPhase().sorcerySpeed()) { return false }
+        if (isType(.Land) && Game.shared.landWasPlayedThisTurn()) { return false }
         
         return true
 

@@ -14,11 +14,19 @@ class Player: NSObject {
     init(deck: [Card]) {
         self.library = deck
         super.init()
+        library.forEach({ $0.setOwner(owner: self) })
         for card in library {
             card.setOwner(owner: self)
         }
         
         self.pregameActions()
+        
+        for _ in 0..<10 {
+//            permanents.append(M19.Plains())
+            permanents.append(M19.Swamp())
+//            permanents.append(M19.Island())
+        }
+        permanents.forEach({ $0.setOwner(owner: self) })
     }
     
     func getLife() -> Int {
@@ -105,15 +113,14 @@ class Player: NSObject {
         }
     }
     
-    func play(card:Card) {
-        if Game.shared.isDeclaringAttackers() { return }
-        if !(card.isType(Type.Instant) || card.flash) && (!Game.shared.theStack.isEmpty || !card.controller!.active || !Game.shared.getCurrentPhase().sorcerySpeed()) { return }
-        if (card.isType(Type.Land) && Game.shared.landWasPlayedThisTurn()) { return }
-        
+    func play(card:Card) {        
         let cardIndex = hand.index(of: card)!
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
             manaPool.payFor(card)
+            if (card.requiresTargets()) {
+                Game.shared.targetingEffect = (card.effects.first(where: { return $0.requiresTarget() && ($0 as! TargetedEffect).target == nil })! as! TargetedEffect)
+            }
             if card.usesStack() {
                 Game.shared.theStack.push(card)
             }
@@ -138,5 +145,11 @@ class Player: NSObject {
             graveyard.append(object as! Card)
         }
         object.resolve()
+    }
+    
+    func destroyPermanent(_ object: Object) {
+        let index = permanents.index(of: object as! Card)!
+        permanents.remove(at: index)
+        (object as! Card).getOwner().graveyard.append(object as! Card)
     }
 }

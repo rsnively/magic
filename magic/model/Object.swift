@@ -69,8 +69,12 @@ class Object: NSObject {
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     
-    func addEffect(_ effectFn: @escaping (Object) -> ()) {
-        effects.append(Effect(effectFn))
+    func addEffect(_ effect: Effect) {
+        effects.append(effect)
+    }
+    
+    func requiresTargets() -> Bool {
+        return effects.contains(where: { $0.requiresTarget() })
     }
     
     func resolve() {
@@ -101,6 +105,10 @@ class Object: NSObject {
     
     func canAttack() -> Bool {
         return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness()
+    }
+    
+    func destroy() {
+        getController().destroyPermanent(self)
     }
     
 }

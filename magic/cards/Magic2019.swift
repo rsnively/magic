@@ -66,7 +66,7 @@ enum M19 {
         let revitalize = Card(name: "Revitalize", rarity: .Common, set: set, number: 35)
         revitalize.setManaCost("1W")
         revitalize.setType(.Instant)
-        revitalize.addEffect({
+        revitalize.addEffect(UntargetedEffect{
             $0.getController().gainLife(3)
             $0.getController().drawCard()
         })
@@ -92,7 +92,7 @@ enum M19 {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 51)
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
-        divination.addEffect({
+        divination.addEffect(UntargetedEffect{
             $0.getController().drawCards(2)
         })
         divination.setFlavorText("\"The stars mark your destiny. May you accept the fate thus divulged.\"")
@@ -116,7 +116,7 @@ enum M19 {
         let oneWithTheMachine = Card(name: "One with the Machine", rarity: .Rare, set: set, number: 66)
         oneWithTheMachine.setManaCost("3U")
         oneWithTheMachine.setType(.Sorcery)
-        oneWithTheMachine.addEffect({
+        oneWithTheMachine.addEffect(UntargetedEffect{
             let artifacts = $0.getController().getArtifacts()
             let maxArtifactCMC = artifacts.map({ return $0.getConvertedManaCost() }).max()
             $0.getController().drawCards(maxArtifactCMC ?? 0)
@@ -178,7 +178,7 @@ enum M19 {
         hiredBlade.setManaCost("2B")
         hiredBlade.setType(.Creature, .Human, .Assassin)
         hiredBlade.flash = true
-        hiredBlade.setFlavorText("\"If you want them dead, buy some poison. If you want them to have the worst day of their life before dying, then let's talk price.")
+        hiredBlade.setFlavorText("\"If you want them dead, buy some poison. If you want them to have the worst day of their life before dying, then let's talk price.\"")
         hiredBlade.power = 3
         hiredBlade.toughness = 2
         return hiredBlade
@@ -192,7 +192,20 @@ enum M19 {
     // 107 Liliana's Contract
     // 108 Macabre Waltz
     // 109 Mind Rot
-    // 110 Murder
+    static func Murder() -> Card {
+        let murder = Card(name: "Murder", rarity: .Uncommon, set: set, number: 110)
+        murder.setManaCost("1BB")
+        murder.setType(.Instant)
+        murder.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+        },
+            {source,target in
+                target.destroy()
+        }))
+        murder.setFlavorText("\"It's not work if you enjoy it.\"")
+        return murder
+    }
     // 111 Nightmare's Thirst
     // 112 Open the Graves
     // 113 Phylactery Lich

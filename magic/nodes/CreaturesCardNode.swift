@@ -17,6 +17,13 @@ class CreaturesCardNode: CardNode {
     override func touchUp(atPoint pos : CGPoint) {
         touchPoint = nil
         if !moved {
+            if Game.shared.isTargeting {
+                if Game.shared.targetingEffect!.meetsRestrictions(target: card) {
+                    Game.shared.selectTarget(card)
+                    (self.scene as! GameScene).redraw()
+                    return
+                }
+            }
             (self.scene as! GameScene).expandedCard = self.card
         } else if card.canAttack() {
             card.attacking = !card.attacking

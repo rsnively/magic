@@ -9,6 +9,9 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isDeclaringAttackers() && Game.shared.yourTurn() {
             return "Attack"
         }
+        if Game.shared.isTargeting {
+            return "(Choose targets)"
+        }
         if !Game.shared.theStack.isEmpty {
             return "Okay"
         }

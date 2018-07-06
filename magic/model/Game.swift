@@ -5,8 +5,19 @@ class Game: NSObject {
     var player2: Player
     var theStack: SpellStack
     private var currentPhase: Phase
+    
     private var landPlayedThisTurn: Bool
     private var declaringAttackers: Bool
+    var targetingEffect: TargetedEffect?
+    var isTargeting: Bool {
+        return targetingEffect != nil
+    }
+    func selectTarget(_ target: Object) {
+        assert(isTargeting)
+        targetingEffect?.selectTarget(target)
+        targetingEffect = nil
+    }
+    
     private var turnNumber: Int
     
     static let shared = Game()
@@ -35,6 +46,7 @@ class Game: NSObject {
             
             deck1.append(M19.Swamp())
             deck1.append(M19.HiredBlade())
+            deck1.append(M19.Murder())
             
             deck2.append(M19.Plains())
             deck2.append(M19.OreskosSwiftclaw())
