@@ -1,10 +1,22 @@
 import Foundation
 
 class Opponent {
-    static let shared = Opponent()
+    unowned var player: Player
+    
+    init(player: Player) {
+        self.player = player
+    }
     
     func givePriority() {
-        print("Hmmm... no effects")
+        print("Play land if able")
+        if !Game.shared.landWasPlayedThisTurn() && Game.shared.getCurrentPhase().sorcerySpeed() {
+            let land = player.getHand().first(where: { $0.isType(.Land) })
+            if let land = land {
+                print("Playing land: ", land.getName())
+                player.play(card: land)
+            }
+        }
+        
         Game.shared.advanceGame()
     }
     

@@ -3,6 +3,7 @@ import Foundation
 class Game: NSObject {
     var player1: Player
     var player2: Player
+    var opponent: Opponent
     var theStack: SpellStack
     private var currentPhase: Phase
     
@@ -40,6 +41,7 @@ class Game: NSObject {
         
         player1 = Player(deck: deck1)
         player2 = Player(deck: deck2)
+        opponent = Opponent(player: player2)
         theStack = SpellStack()
         currentPhase = Phase.Untap
         landPlayedThisTurn = false
@@ -125,7 +127,7 @@ class Game: NSObject {
         else if currentPhase == .Attack {
             declaringAttackers = true
             if player2.hasPriority {
-                Opponent.shared.declareAttackers()
+                opponent.declareAttackers()
             }
         }
         else if currentPhase == .EndCombat {
@@ -141,7 +143,7 @@ class Game: NSObject {
         }
         
         if player2.hasPriority {
-            Opponent.shared.givePriority()
+            opponent.givePriority()
         }
     }
     
@@ -161,7 +163,7 @@ class Game: NSObject {
         }
         passPriority()
         if player2.hasPriority {
-            Opponent.shared.givePriority()
+            opponent.givePriority()
         }
     }
 }
