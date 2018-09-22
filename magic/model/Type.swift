@@ -22,6 +22,7 @@ enum Subtype {
     case Beast
     case Cat
     case Centaur
+    case Crab
     case Dinosaur
     case Elemental
     case Elephant
@@ -37,6 +38,7 @@ enum Subtype {
     case Scout
     case Soldier
     case Swamp
+    case Wall
     case Warrior
     case Wizard
     case Wolf

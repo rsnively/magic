@@ -11,6 +11,7 @@ class Object: NSObject {
     var toughness:Int?
     var effects:[Effect] = []
     
+    var defender: Bool = false
     var flash: Bool = false
     var vigilance: Bool = false
     
@@ -120,7 +121,7 @@ class Object: NSObject {
     }
     
     func canAttack() -> Bool {
-        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness()
+        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !defender
     }
     
     func bounce() {
