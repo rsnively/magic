@@ -126,5 +126,34 @@ enum GRN {
         douserOfLights.toughness = 5
         return douserOfLights
     }
+    // 71 Gruesome Menagerie
+    // 72 Hired Poisoner
+    // 73 Kraul Swarm
+    // 74 Lotleth Giant
+    // 75 Mausoleum Secrets
+    // 76 Mephitic Vapors
+    // 77 Midnight Repear
+    // 78 Moodmark Painter
+    // 79 Necrotic Wound
+    // 80 Never Happened
+    // 81 Pilfering Imp
+    // 82 Plaguecrafter
+    // 83 Price of Fame
+    static func RitualOfSoot() -> Card {
+        let ritualOfSoot = Card(name: "Ritual of Soot", rarity: .Rare, set: set, number: 84)
+        ritualOfSoot.setManaCost("2BB")
+        ritualOfSoot.setType(.Sorcery)
+        ritualOfSoot.addEffect(UntargetedEffect({_ in
+            Game.shared.bothPlayers({ player in
+                player.getCreatures().forEach { creature in
+                    if creature.getConvertedManaCost() <= 3 {
+                        player.destroyPermanent(creature)
+                    }
+                }
+            })
+        }))
+        ritualOfSoot.setFlavorText("Only the patrol's armor was found, so tainted with the acrid smell of sudden death that it could never be worn again.")
+        return ritualOfSoot
+    }
     
 }
