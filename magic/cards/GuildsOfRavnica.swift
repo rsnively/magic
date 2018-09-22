@@ -246,5 +246,119 @@ enum GRN {
         wildCeratok.toughness = 3
         return wildCeratok
     }
+    // 151 Artful Takedown
+    // 152 Assassin's Trophy
+    // 153 Aurelia, Exemplar of Justice
+    // 154 Beacon Bolt
+    // 155 Beamsplitter Mage
+    // 156 Boros Challenger
+    // 157 Camaraderie
+    // 158 Centaur Peacemaker
+    // 159 Chance for Glory
+    // 160 Charnel Troll
+    // 161 Conclave Cavalier
+    // 162 Conclave Guildmage
+    // 163 Crackling Drake
+    // 164 Darkblade Agent
+    // 165 Deafening Clarion
+    // 166 Dimir Spybug
+    // 167 Disinformation Campaign
+    // 168 Emmara, Soul of the Accord
+    // 169 Erstwhile Trooper
+    // 170 Etrata, the Silencer
+    // 171 Firemind's Research
+    // 172 Garrison Sergeant
+    // 173 Glowspore Shaman
+    // 174 Goblin Electromancer
+    // 175 Golgari Findbroker
+    // 176 Hammer Dropper
+    // 177 House Guildmage
+    // 178 Hypothesizzle
+    // 179 Ionize
+    // 180 Izoni, Thousand-Eyed
+    // 181 Join Shields
+    // 182 Justice Strike
+    // 183 Knight of Autumn
+    // 184 Lazav, the Multifarious
+    // 185 League Guildmage
+    // 186 Ledev Champion
+    // 187 Legion Guildmage
+    // 188 March of the Multitudes
+    // 189 Mnemonic Betrayal
+    // 190 Molderhulk
+    // 191 Nightveil Predator
+    // 192 Niv-Mizzet, Parun
+    // 193 Notion Rain
+    // 194 Ochran Assassin
+    // 195 Ral, Izzet Viceroy
+    // 196 Rhizome Lurcher
+    // 197 Rosemane Centaur
+    // 198 Skyknight Legionnaire
+    // 199 Sonic Assault
+    // 200 Sumala Woodshaper
+    // 201 Swarm Guildmage
+    // 202 Swathcutter Giant
+    // 203 Swiftblade Vindicator
+    // 204 Tajic, Legion's Edge
+    // 205 Thief of Sanity
+    // 206 Thought Erasure
+    // 207 Thousand-Year Storm
+    // 208 Trostani Discordant
+    // 209 Truefire Captain
+    // 210 Undercity Uprising
+    // 211 Underrealm Lich
+    // 212 Unmoored Ego
+    // 213 Vraska, Golgari Queen
+    // 214 Wee Dragonauts
+    // 215 Worldsoul Colossus
+    // 216 Fresh-Faced Recruit
+    // 217 Piston-Fist Cyclops
+    // 218 Pitiless Gorgon
+    // 219 Vernadi Shieldmate
+    // 220 Whisper Agent
+    // 221 Assure // Assemble
+    // 222 Connive // Concoct
+    // 223 Discovery // Dispersal
+    // 224 Expansion // Explosion
+    // 225 Find // Finality
+    // 226 Flower // Flourish
+    // 227 Integrity // Intervention
+    // 228 Invert // Invent
+    // 229 Response // Resurgence
+    // 230 Status // Statue
+    // 231 Boros Locket
+    // 232 Chamber Sentry
+    // 233 Chromatic Lantern
+    // 234 Dimir Locket
+    // 235 Gatekeeper Gargoyle
+    // 236 Glaive of the Guildpact
+    // 237 Golgari Locket
+    // 238 Izzet Locket
+    // 239 Rampaging Monument
+    // 240 Selsnya Locket
+    // 241 Silent Dart
+    // 242 Wand of Verterae
+    // 243 Boros Guildgate
+    // 244 Boros Guildgate
+    // 245 Dimir Guildgate
+    // 246 Dimir Guildgate
+    // 247 Gateway Plaza
+    // 248 Golgari Guildgate
+    // 249 Golgari Guildgate
+    // 250 Guildmages' Forum
+    // 251 Izzet Guildgate
+    // 252 Izzet Guildgate
+    // 253 Overgrown Tomb
+    // 254 Sacred Foundary
+    // 255 Selesnya Guildgate
+    // 256 Selesnya Guildgate
+    // 257 Steam Vents
+    // 258 Temple Garden
+    // 259 Watery Grave
+    // 260 Plains
+    // 261 Island
+    // 262 Swamp
+    // 263 Mountain
+    // 264 Forest
     
 }
