@@ -155,5 +155,96 @@ enum GRN {
         ritualOfSoot.setFlavorText("Only the patrol's armor was found, so tainted with the acrid smell of sudden death that it could never be worn again.")
         return ritualOfSoot
     }
+    // 85 Severed Strands
+    // 86 Spinal Centipede
+    // 87 Undercity Necrolisk
+    // 88 Veiled Shade
+    // 89 Vicious Rumors
+    // 90 Whispering Snitch
+    // 91 Arclight Phoenix
+    // 92 Barging Sergeant
+    // 93 Book Devourer
+    // 94 Command the Storm
+    // 95 Cosmotronic Wave
+    // 96 Direct Current
+    // 97 Electrostatic Field
+    // 98 Erratic Cyclops
+    // 99 Experimental Frenzy
+    static func FearlessHalberdier() -> Card {
+        let fearlessHalberdier = Card(name: "Fearless Halberdier", rarity: .Common, set: set, number: 100)
+        fearlessHalberdier.setManaCost("2R")
+        fearlessHalberdier.setType(.Creature, .Human, .Warrior)
+        fearlessHalberdier.setFlavorText("\"I spent some time in the Legion, but I'm done taking orders all  day.\"")
+        fearlessHalberdier.power = 3
+        fearlessHalberdier.toughness = 2
+        return fearlessHalberdier
+    }
+    // 101 Fire Urchin
+    // 102 Goblin Banneret
+    // 103 Golin Cratermaker
+    // 104 Goblin Locksmith
+    // 105 Gravitic Punch
+    // 106 Hellkite Whelp
+    // 107 Inescapable Blaze
+    // 108 Lava Coil
+    // 109 Legion Warboss
+    // 110 Maniacal Rage
+    // 111 Maximize Velocity
+    // 112 Ornery Goblin
+    // 113 Risk Factor
+    // 114 Rubblebelt Boar
+    // 115 Runaway Steam-Kin
+    // 116 Smelt-Ward Minotaur
+    // 117 Street Riot
+    // 118 Sure Strike
+    // 119 Torch Courier
+    // 120 Wojek Bodyguard
+    // 121 Affectionate Indrik
+    // 122 Arboretum Elemental
+    // 123 Beast Whisperer
+    // 124 Bounty of Might
+    // 125 Circuitous Route
+    // 126 Crushing Canopy
+    // 127 Devkarin Dissident
+    // 128 District Guide
+    // 129 Generous Stray
+    // 130 Golgari Raiders
+    // 131 Grappling Sundew
+    // 132 Hatchery Spider
+    // 133 Hitchlaw Recluse
+    // 134 Ironshell Beetle
+    // 135 Kraul Foragers
+    // 136 Kraul Harpooner
+    // 137 Might of the Masses
+    // 138 Nullhide Ferox
+    // 139 Pack's Favor
+    // 140 Pause for Reflection
+    // 141 Pelt Collector
+    // 142 Portcullis Vine
+    // 143 Prey Upon
+    // 144 Siege Wurm
+    // 145 Sprouting Renewal
+    // 146 Urban Utopia
+    // 147 Vigorspore Wurm
+    // 148 Vivid Revival
+    static func WaryOkapi() -> Card {
+        let waryOkapi = Card(name: "Wary Okapi", rarity: .Common, set: set, number: 149)
+        waryOkapi.setManaCost("2G")
+        waryOkapi.setType(.Creature, .Antelope)
+        waryOkapi.vigilance = true
+        waryOkapi.setFlavorText("\"Be like the grazers of the Saruli. Keep your herd close, and stay alert for encroaching danger.\"\n--Lalia, Selesnya dryad")
+        waryOkapi.power = 3
+        waryOkapi.toughness = 2
+        return waryOkapi
+    }
+    static func WildCeratok() -> Card {
+        let wildCeratok = Card(name: "Wild Ceratok", rarity: .Common, set: set, number: 150)
+        wildCeratok.setManaCost("3G")
+        wildCeratok.setType(.Creature, .Rhino)
+        wildCeratok.setFlavorText("Once part of a wealthy merchant's private zoo, the herd roams feral throughout the Tenth, where it will remain until the guilds can agree to relocate, cull, or befriend it.")
+        wildCeratok.power = 4
+        wildCeratok.toughness = 3
+        return wildCeratok
+    }
     
 }

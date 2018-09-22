@@ -18,6 +18,7 @@ enum Type {
 }
 
 enum Subtype {
+    case Antelope
     case Assassin
     case Beast
     case Cat
@@ -35,6 +36,7 @@ enum Subtype {
     case Mountain
     case Ogre
     case Plains
+    case Rhino
     case Scarecrow
     case Scout
     case Soldier
