@@ -76,6 +76,7 @@
 		98FA8E5C2156B9D600EF5203 /* grn5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E5B2156B9D600EF5203 /* grn5full.png */; };
 		98FA8E5F2156BCF900EF5203 /* grn58full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E5D2156BCF900EF5203 /* grn58full.png */; };
 		98FA8E602156BCF900EF5203 /* grn60full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E5E2156BCF900EF5203 /* grn60full.png */; };
+		98FA8E622156BF0C00EF5203 /* grn70full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E612156BF0C00EF5203 /* grn70full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,6 +151,7 @@
 		98FA8E5B2156B9D600EF5203 /* grn5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn5full.png; sourceTree = "<group>"; };
 		98FA8E5D2156BCF900EF5203 /* grn58full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn58full.png; sourceTree = "<group>"; };
 		98FA8E5E2156BCF900EF5203 /* grn60full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn60full.png; sourceTree = "<group>"; };
+		98FA8E612156BF0C00EF5203 /* grn70full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn70full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				98FA8E5B2156B9D600EF5203 /* grn5full.png */,
 				98FA8E5D2156BCF900EF5203 /* grn58full.png */,
 				98FA8E5E2156BCF900EF5203 /* grn60full.png */,
+				98FA8E612156BF0C00EF5203 /* grn70full.png */,
 			);
 			path = grn;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				98E8A05920EAFFB000A951DA /* m1931full.png in Resources */,
 				982232A920EFE70400B07803 /* m19153full.png in Resources */,
 				98FA8E5F2156BCF900EF5203 /* grn58full.png in Resources */,
+				98FA8E622156BF0C00EF5203 /* grn70full.png in Resources */,
 				982232A520EFE64E00B07803 /* m19105full.png in Resources */,
 				982232A720EFE6D100B07803 /* m19273full.png in Resources */,
 				98E8A05D20EAFFD000A951DA /* m19234full.png in Resources */,

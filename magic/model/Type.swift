@@ -28,6 +28,7 @@ enum Subtype {
     case Elephant
     case Elf
     case Forest
+    case Horror
     case Human
     case Island
     case Knight

@@ -108,5 +108,23 @@ enum GRN {
         wishcoinCrab.toughness = 5
         return wishcoinCrab
     }
+    // 61 Barrier of Bones
+    // 62 Bartizan Bats
+    // 63 Blood Operative
+    // 64 Burglar Rat
+    // 65 Child of Night
+    // 66 Creeping Chill
+    // 67 Dead Weight
+    // 68 Deadly Visit
+    // 69 Doom Whisperer
+    static func DouserOfLights() -> Card {
+        let douserOfLights = Card(name: "Douser of Lights", rarity: .Common, set: set, number: 70)
+        douserOfLights.setManaCost("4B")
+        douserOfLights.setType(.Creature, .Horror)
+        douserOfLights.setFlavorText("The party of Rakdos revelers cackled and capered as the thing approached. It hissed, and they jabbed their torches at it, giggling when it recoiled. Then, one by one, the torches went out -- and the screaming began.")
+        douserOfLights.power = 4
+        douserOfLights.toughness = 5
+        return douserOfLights
+    }
     
 }
