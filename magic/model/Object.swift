@@ -104,6 +104,10 @@ class Object: NSObject {
         return power!
     }
     
+    func getToughness() -> Int {
+        return toughness!
+    }
+    
     func hasSummoningSickness() -> Bool {
         if !isType(.Creature) {
             return false
