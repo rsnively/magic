@@ -1,8 +1,21 @@
 import Foundation
 
 enum LEA {
-    // 1
-    // 2
+    static var set = "lea"
+    static var count = 295
+    
+    // 1 Animate Wall
+    static func Armageddon() -> Card {
+        let armageddon = Card(name: "Armageddon", rarity: .Rare, set: set, number: 2)
+        armageddon.setManaCost("3W")
+        armageddon.setType(.Sorcery)
+        armageddon.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ player in
+                player.getLands().forEach({ card in player.destroyPermanent(card) })
+            })
+        }))
+        return armageddon
+    }
     // 3
     // 4
     // 5
