@@ -33,6 +33,7 @@ enum Subtype {
     case Human
     case Island
     case Knight
+    case Merfolk
     case Mountain
     case Ogre
     case Plains
@@ -41,6 +42,7 @@ enum Subtype {
     case Scout
     case Soldier
     case Swamp
+    case Unicorn
     case Vampire
     case Wall
     case Warrior

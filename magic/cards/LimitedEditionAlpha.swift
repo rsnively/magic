@@ -16,95 +16,149 @@ enum LEA {
         }))
         return armageddon
     }
-    // 3
-    // 4
-    // 5
-    // 6
-    // 7
-    // 8
-    // 9
-    // 10
-    // 11
-    // 12
-    // 13
-    // 14
-    // 15
-    // 16
-    // 17
-    // 18
-    // 19
-    // 20
-    // 21
-    // 22
-    // 23
-    // 24
-    // 25
-    // 26
-    // 27
-    // 28
-    // 29
-    // 30
-    // 31
-    // 32
-    // 33
-    // 34
-    // 35
-    // 36
-    // 37
-    // 38
-    // 39
-    // 40
-    // 41
-    // 42
-    // 43
-    // 44
-    // 45
-    // 46
-    // 47
-    // 48
-    // 49
-    // 50
-    // 51
-    // 52
-    // 53
-    // 54
-    // 55
-    // 56
-    // 57
-    // 58
-    // 59
-    // 60
-    // 61
-    // 62
-    // 63
-    // 64
-    // 65
-    // 66
-    // 67
-    // 68
-    // 69
-    // 70
-    // 71
-    // 72
-    // 73
-    // 74
-    // 75
-    // 76
-    // 77
-    // 78
-    // 79
-    // 80
-    // 81
-    // 82
-    // 83
-    // 84
-    // 85
-    // 86
-    // 87
-    // 88
-    // 89
-    // 90
-    // 91
+    // 3 Balance
+    // 4 Benalish Hero
+    // 5 Black Ward
+    // 6 Blaze of Glory
+    // 7 Blessing
+    // 8 Blue Ward
+    // 9 Castle
+    // 10 Circle of Protection: Blue
+    // 11 Circle of Protection: Green
+    // 12 Circle of Protection: Red
+    // 13 Circle of Protection: White
+    // 14 Consecrate Land
+    // 15 Conversion
+    // 16 Crusade
+    // 17 Death Ward
+    static func Disenchant() -> Card {
+        let disenchant = Card(name: "Disenchant", rarity: .Common, set: set, number: 18)
+        disenchant.setManaCost("1W")
+        disenchant.setType(.Instant)
+        disenchant.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
+        }, { source, target in
+            target.destroy()
+        }))
+        return disenchant
+    }
+    // 19 Farmstead
+    // 20 Green Ward
+    // 21 Guardian Angel
+    // 22 Healing Salve
+    // 23 Holy Armor
+    // 24 Holy Strength
+    // 25 Island Sanctuary
+    // 26 Karma
+    // 27 Lance
+    // 28 Mesa Pegasus
+    // 29 Northern Paladin
+    static func PearledUnicorn() -> Card {
+        let pearledUnicorn = Card(name: "Pearled Unicorn", rarity: .Common, set: set, number: 30)
+        pearledUnicorn.setManaCost("2W")
+        pearledUnicorn.setType(.Creature, .Unicorn)
+        pearledUnicorn.setFlavorText("\"'Do you know, I always thought Unicorns were faulous monsters, too? I never saw one alive before!' 'Well now that we have seen each other,' said the Unicorn, 'if you'll believe in me, I'll believe in you.'\"\n--Lewis Carroll")
+        pearledUnicorn.power = 2
+        pearledUnicorn.toughness = 2
+        return pearledUnicorn
+    }
+    // 31 Personal Incarnation
+    // 32 Purelace
+    // 33 Red Ward
+    // 34 Resurrection
+    // 35 Reverse Damage
+    // 36 Righteousness
+    // 37 Samite Healer
+    static func SavannahLions() -> Card {
+        let savannahLions = Card(name: "Savannah Lions", rarity: .Rare, set: set, number: 38)
+        savannahLions.setManaCost("W")
+        savannahLions.setType(.Creature, .Cat)
+        savannahLions.setFlavorText("The traditional kings of the jungle command a healthy respect in other climates as well. Relying mainly on their stealth and speed, Savannah Lions can take a victim by surprise, even in the endless flat plains of their homeland.")
+        savannahLions.power = 2
+        savannahLions.toughness = 1
+        return savannahLions
+    }
+    // 39 Serra Angel
+    // 40 Swords to Plowshares
+    // 41 Veteran Bodyguard
+    // 42 Wall of Swords
+    // 43 White Knight
+    // 44 White Ward
+    // 45 Wrath of God
+    // 46 Air Elemental
+    // 47 Ancestrall Recall
+    // 48 Animate Artifact
+    // 49 Blue Elemental Blast
+    // 50 Braingeyser
+    // 51 Clone
+    // 52 Control Magic
+    // 53 Copy Artifact
+    // 54 Counterspell
+    // 55 Creature Bond
+    // 56 Drain Power
+    // 57 Feedback
+    // 58 Flight
+    // 59 Invisibility
+    // 60 Jump
+    // 61 Lifetap
+    // 62 Lord of Atlantis
+    // 63 Magical Hack
+    // 64 Mahamoti Djinn
+    // 65 Mana Short
+    static func MerfolkOfThePearlTrident() -> Card {
+        let merfolkOfThePearlTrident = Card(name: "Merfolk of the Pearl Trident", rarity: .Common, set: set, number: 66)
+        merfolkOfThePearlTrident.setManaCost("U")
+        merfolkOfThePearlTrident.setType(.Creature, .Merfolk)
+        merfolkOfThePearlTrident.setFlavorText("Most human scholars believe that Merfolk are the survivors of sunken Atlantis, humans adapted to the water. Merfolk, however, believe that humans sprang forth from Merfolk who adapted themselves in order to explore their last frontier.")
+        merfolkOfThePearlTrident.power = 1
+        merfolkOfThePearlTrident.toughness = 1
+        return merfolkOfThePearlTrident
+    }
+    // 67 Phantasmal Forces
+    // 68 Phantasmal Terrain
+    // 69 Phantom Monster
+    // 70 Pirate Ship
+    // 71 Power Leak
+    // 72 Power Sink
+    // 73 Prodigal Sorcerer
+    // 74 Psionic Blast
+    // 75 Psychic Venom
+    // 76 Sea Serpent
+    // 77 Siren's Call
+    // 78 Sleight of Mind
+    // 79 Spell Blast
+    // 80 Stasis
+    // 81 Steal Artifact
+    // 82 Thoughtlace
+    // 83 Time Walk
+    // 84 Timetwister
+    // 85 Twiddle
+    static func Unsummon() -> Card {
+        let unsummon = Card(name: "Unsummon", rarity: .Common, set: set, number: 86)
+        unsummon.setManaCost("U")
+        unsummon.setType(.Instant)
+        unsummon.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+        }, { source, target in
+            target.bounce()
+        }))
+        return unsummon
+    }
+    // 87 Vesuvan Doppleganger
+    // 88 Volcanic Eruption
+    // 89 Wall of Air
+    // 90 Wall of Water
+    static func WaterElemental() -> Card {
+        let waterElemental = Card(name: "Water Elemental", rarity: .Uncommon, set: set, number: 91)
+        waterElemental.setManaCost("3UU")
+        waterElemental.setType(.Creature, .Elemental)
+        waterElemental.setFlavorText("Unpredictable as the sea itself, Water Elementals shift without warning from tranquility to tempest. Capricious and fickle, they flow restlessly from one shape to another, expressing their moods with their physical forms.")
+        waterElemental.power = 5
+        waterElemental.toughness = 4
+        return waterElemental
+    }
     // 92
     // 93
     // 94
