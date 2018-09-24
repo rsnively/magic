@@ -112,7 +112,16 @@ enum GRN {
     // 62 Bartizan Bats
     // 63 Blood Operative
     // 64 Burglar Rat
-    // 65 Child of Night
+    static func ChildOfNight() -> Card {
+        let childOfNight = Card(name: "Child of Night", rarity: .Common, set: set, number: 65)
+        childOfNight.setManaCost("1B")
+        childOfNight.setType(.Creature, .Vampire)
+        childOfNight.lifelink = true
+        childOfNight.setFlavorText("No guilds -- that is her rule. The House vampires unnerve her. The Combine would dissect her, the Legion burn her, the Conclave \"cure\" her. The shadows are all the family she needs.")
+        childOfNight.power = 2
+        childOfNight.toughness = 1
+        return childOfNight
+    }
     // 66 Creeping Chill
     // 67 Dead Weight
     // 68 Deadly Visit

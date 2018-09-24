@@ -41,6 +41,7 @@ enum Subtype {
     case Scout
     case Soldier
     case Swamp
+    case Vampire
     case Wall
     case Warrior
     case Wizard

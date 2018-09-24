@@ -101,6 +101,7 @@ class Player: NSObject {
     func dealCombatDamage() {
         for permanent in permanents {
             if permanent.attacking {
+                permanent.dealsDamage()
                 Game.shared.getNonActivePlayer().damage(permanent.getPower())
             }
         }

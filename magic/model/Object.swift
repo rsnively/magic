@@ -13,6 +13,7 @@ class Object: NSObject {
     
     var defender: Bool = false
     var flash: Bool = false
+    var lifelink: Bool = false
     var vigilance: Bool = false
     
     weak var controller: Player?
@@ -130,6 +131,13 @@ class Object: NSObject {
     
     func destroy() {
         getController().destroyPermanent(self)
+    }
+    
+    // This permanent is dealing damage equal to its power to something
+    func dealsDamage() {
+        if lifelink {
+            getController().gainLife(getPower())
+        }
     }
     
 }
