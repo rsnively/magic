@@ -18,7 +18,7 @@ class GameScene: SKScene {
     var commandButtonsNode: CommandButtonsNode
     
     private var expandedCardNode:CardNode? = nil
-    var expandedCard:Card? {
+    var expandedCard:Object? {
         get {
             return expandedCardNode?.card
         }

@@ -4,7 +4,7 @@ import SpriteKit
 class CreaturesNode: SKNode {
     var cardNodes:[CreaturesCardNode] = []
     
-    func setCreatures(creatures: [Card], size: CGSize) {
+    func setCreatures(creatures: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
         let cardSize = CGSize(width:size.width * 0.4, height:size.height)

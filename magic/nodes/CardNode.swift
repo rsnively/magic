@@ -2,7 +2,7 @@ import Foundation
 import SpriteKit
 
 class CardNode: SKSpriteNode {
-    unowned var card:Card
+    unowned var card:Object
     
     private static let cardAspectRatio:CGFloat = 0.714
     private static func getMaximumCardSize(for size:CGSize) -> CGSize {
@@ -11,8 +11,16 @@ class CardNode: SKSpriteNode {
             : CGSize(width:size.width, height:size.width / cardAspectRatio)
     }
     
-    private static func getImageNode(card:Card, cardSize: CGSize, full: Bool) -> SKNode {
-        let texture = SKTexture(imageNamed: card.getSetCode() + String(card.getCollectorsNumber()) + (full ? "full" : ""))
+    private static func getImageNode(card:Object, cardSize: CGSize, full: Bool) -> SKNode {
+        var texture: SKTexture
+        if let token = card as? Token {
+            texture = SKTexture(imageNamed: token.getSetCode() + "t" + String(token.getCollectorsNumber()) + (full ? "full" : ""))
+        } else if let nontoken = card as? Card {
+            texture = SKTexture(imageNamed: nontoken.getSetCode() + String(nontoken.getCollectorsNumber()) + (full ? "full" : ""))
+        } else {
+            texture = SKTexture()
+            assert(false)
+        }
 
         let node = SKSpriteNode(texture: texture)
         let aspectRatio = texture.size().width / texture.size().height
@@ -21,7 +29,7 @@ class CardNode: SKSpriteNode {
         return node
     }
     
-    init(card:Card, allowedSize:CGSize) {
+    init(card:Object, allowedSize:CGSize) {
         self.card = card
         super.init(texture:nil, color: SKColor.clear, size:CardNode.getMaximumCardSize(for:allowedSize))
         if card.attacking {

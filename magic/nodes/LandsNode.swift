@@ -4,7 +4,7 @@ import SpriteKit
 class LandsNode: SKNode {
     var cardNodes:[LandsCardNode] = []
     
-    func setLands(lands: [Card], size: CGSize) {
+    func setLands(lands: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
         let cardSize = CGSize(width:size.width * 0.4, height:size.height)

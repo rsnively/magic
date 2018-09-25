@@ -26,6 +26,9 @@
 		9823DDFF21598D210080C806 /* lea86full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9823DDF921598D210080C806 /* lea86full.png */; };
 		9823DE0021598D210080C806 /* lea91full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9823DDFA21598D210080C806 /* lea91full.png */; };
 		9823DE0121598D210080C806 /* lea66full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9823DDFB21598D210080C806 /* lea66full.png */; };
+		9823DE032159AADE0080C806 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823DE022159AADE0080C806 /* Token.swift */; };
+		9823DE072159B41C0080C806 /* grnt2full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9823DE062159B41C0080C806 /* grnt2full.png */; };
+		9823DE092159B54E0080C806 /* grn27full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9823DE082159B54E0080C806 /* grn27full.png */; };
 		982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B14209BAAFF009BBD8B /* AppDelegate.swift */; };
 		982F9B1B209BAAFF009BBD8B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B1A209BAAFF009BBD8B /* GameScene.swift */; };
 		982F9B1D209BAAFF009BBD8B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B1C209BAAFF009BBD8B /* GameViewController.swift */; };
@@ -111,6 +114,9 @@
 		9823DDF921598D210080C806 /* lea86full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea86full.png; sourceTree = "<group>"; };
 		9823DDFA21598D210080C806 /* lea91full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea91full.png; sourceTree = "<group>"; };
 		9823DDFB21598D210080C806 /* lea66full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea66full.png; sourceTree = "<group>"; };
+		9823DE022159AADE0080C806 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		9823DE062159B41C0080C806 /* grnt2full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grnt2full.png; sourceTree = "<group>"; };
+		9823DE082159B54E0080C806 /* grn27full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn27full.png; sourceTree = "<group>"; };
 		982F9B11209BAAFF009BBD8B /* magic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		982F9B14209BAAFF009BBD8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		982F9B1A209BAAFF009BBD8B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -266,8 +272,9 @@
 				982F9B2F209BACC7009BBD8B /* Player.swift */,
 				9840897D20CAF562005DA8F6 /* Rarity.swift */,
 				9840897F20CAFE8C005DA8F6 /* SpellStack.swift */,
-				985E0F8420A26384006759B3 /* Type.swift */,
 				98423C3220EED3E90053B729 /* TargetedEffect.swift */,
+				9823DE022159AADE0080C806 /* Token.swift */,
+				985E0F8420A26384006759B3 /* Type.swift */,
 				98423C3420EED8260053B729 /* UntargetedEffect.swift */,
 			);
 			path = model;
@@ -363,6 +370,7 @@
 			children = (
 				98FA8E592156B86B00EF5203 /* grn4full.png */,
 				98FA8E5B2156B9D600EF5203 /* grn5full.png */,
+				9823DE082159B54E0080C806 /* grn27full.png */,
 				98FA8E5D2156BCF900EF5203 /* grn58full.png */,
 				98FA8E5E2156BCF900EF5203 /* grn60full.png */,
 				9871B61221595A2800A6A6AB /* grn65full.png */,
@@ -371,6 +379,7 @@
 				98FA8E672156C4B100EF5203 /* grn100full.png */,
 				98FA8E652156C4B100EF5203 /* grn149full.png */,
 				98FA8E662156C4B100EF5203 /* grn150full.png */,
+				9823DE062159B41C0080C806 /* grnt2full.png */,
 			);
 			path = grn;
 			sourceTree = "<group>";
@@ -447,12 +456,14 @@
 				98FA8E682156C4B100EF5203 /* grn149full.png in Resources */,
 				982232A920EFE70400B07803 /* m19153full.png in Resources */,
 				9823DDFC21598D210080C806 /* lea18full.png in Resources */,
+				9823DE092159B54E0080C806 /* grn27full.png in Resources */,
 				98FA8E5F2156BCF900EF5203 /* grn58full.png in Resources */,
 				98FA8E622156BF0C00EF5203 /* grn70full.png in Resources */,
 				982232A520EFE64E00B07803 /* m19105full.png in Resources */,
 				9823DDFE21598D210080C806 /* lea30full.png in Resources */,
 				9823DDFD21598D210080C806 /* lea38full.png in Resources */,
 				982232A720EFE6D100B07803 /* m19273full.png in Resources */,
+				9823DE072159B41C0080C806 /* grnt2full.png in Resources */,
 				98E8A05D20EAFFD000A951DA /* m19234full.png in Resources */,
 				982F9B20209BAAFF009BBD8B /* Main.storyboard in Resources */,
 				98FA8E5A2156B86B00EF5203 /* grn4full.png in Resources */,
@@ -517,6 +528,7 @@
 				98D0438D20EE87B60009143E /* Opponent.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
+				9823DE032159AADE0080C806 /* Token.swift in Sources */,
 				986D5C9820D1ECFA005E944E /* CreaturesCardNode.swift in Sources */,
 				9840898220CAFF27005DA8F6 /* Stack.swift in Sources */,
 				986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */,

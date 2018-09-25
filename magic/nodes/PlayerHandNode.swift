@@ -6,7 +6,7 @@ class PlayerHandNode: SKNode {
     
     private let cardMargin:CGFloat = 3.0
     
-    func setHand(cards: [Card], size: CGSize) {
+    func setHand(cards: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
         let cardSize = CGSize(width:size.width * 0.4, height:size.height)
@@ -19,7 +19,7 @@ class PlayerHandNode: SKNode {
         }
     }
     
-    init(hand:[Card], size:CGSize) {
+    init(hand:[Object], size:CGSize) {
         super.init()
         setHand(cards: hand, size: size)
     }

@@ -13,7 +13,7 @@ class Opponent {
             let land = player.getHand().first(where: { $0.isType(.Land) })
             if let land = land {
                 print("Playing land: ", land.getName())
-                player.play(card: land)
+                player.play(card: (land as! Card))
             }
         }
         

@@ -16,6 +16,7 @@ class Object: NSObject {
     var lifelink: Bool = false
     var vigilance: Bool = false
     
+    private weak var owner: Player?
     weak var controller: Player?
     var attacking: Bool = false
     
@@ -33,6 +34,15 @@ class Object: NSObject {
     
     func getName() -> String {
         return name!
+    }
+    
+    func setOwner(owner: Player) {
+        self.owner = owner
+        self.controller = owner
+    }
+    
+    func getOwner() -> Player {
+        return owner!
     }
     
     func setController(controller: Player) {

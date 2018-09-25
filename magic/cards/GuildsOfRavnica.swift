@@ -57,7 +57,17 @@ enum GRN {
     // 24 Roc Charger
     // 25 Skyline Scout
     // 26 Sunhome Stalwart
-    // 27 Sworn Companions
+    static func SwornCompanions() -> Card {
+        let swornCompanions = Card(name: "Sworn Companions", rarity: .Common, set: set, number: 27)
+        swornCompanions.setManaCost("2W")
+        swornCompanions.setType(.Sorcery)
+        swornCompanions.addEffect(UntargetedEffect({ source in
+            source.getController().createToken(Soldier())
+            source.getController().createToken(Soldier())
+        }))
+        swornCompanions.setFlavorText("\"The trouble with youths these days is that, in outright defiance of their elders, they refuse to be bought.\"\n--Karlov of the Ghost Council")
+        return swornCompanions
+    }
     // 28 Take Heart
     // 29 Tenth District Guard
     // 30 Venerated Loxodon
@@ -370,4 +380,20 @@ enum GRN {
     // 263 Mountain
     // 264 Forest
     
+    // t1 Angel
+    static func Soldier() -> Token {
+        let soldier = Token(name: "Soldier", set: set, number: 2)
+        soldier.colors = [Color.White]
+        soldier.setType(.Creature, .Soldier)
+        soldier.lifelink = true
+        soldier.power = 1
+        soldier.toughness = 1
+        return soldier
+    }
+    // t3 Bird Illusion
+    // t4 Gobblin
+    // t5 Insect
+    // t6 Elf Knight
+    // t7 Ral Emblem
+    // t8 Vraska Emblem
 }

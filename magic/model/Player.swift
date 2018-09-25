@@ -2,10 +2,10 @@ import Foundation
 
 class Player: NSObject {
     private var life = 20
-    private var library: [Card]
-    private var hand: [Card] = []
-    private var permanents: [Card] = []
-    private var graveyard: [Card] = []
+    private var library: [Object]
+    private var hand: [Object] = []
+    private var permanents: [Object] = []
+    private var graveyard: [Object] = []
     private var manaPool: ManaPool = ManaPool()
 
     var active = false
@@ -22,8 +22,8 @@ class Player: NSObject {
         self.pregameActions()
         
         for _ in 0..<5 {
+            permanents.append(M19.Plains())
             permanents.append(M19.Swamp())
-            permanents.append(M19.Mountain())
         }
         permanents.forEach({ $0.setOwner(owner: self) })
     }
@@ -44,17 +44,17 @@ class Player: NSObject {
         life += amount
     }
     
-    func getHand() -> [Card] {
+    func getHand() -> [Object] {
         return hand
     }
     
-    func getLands() -> [Card] {
+    func getLands() -> [Object] {
         return permanents.filter { $0.isType(Type.Land) }
     }
-    func getCreatures() -> [Card] {
+    func getCreatures() -> [Object] {
         return permanents.filter { $0.isType(Type.Creature) }
     }
-    func getArtifacts() -> [Card] {
+    func getArtifacts() -> [Object] {
         return permanents.filter { $0.isType(Type.Artifact) }
     }
     
@@ -147,6 +147,16 @@ class Player: NSObject {
         object.resolve()
     }
     
+    func createToken(_ token: Object) {
+        token.setController(controller: self)
+        token.setOwner(owner: self)
+        permanents.append(token)
+    }
+    
+    func addPermanent(_ object: Object) {
+        permanents.append(object)
+    }
+    
     func bouncePermanent(_ object: Object) {
         let index = permanents.index(of: object as! Card)!
         permanents.remove(at: index)
@@ -154,8 +164,8 @@ class Player: NSObject {
     }
     
     func destroyPermanent(_ object: Object) {
-        let index = permanents.index(of: object as! Card)!
+        let index = permanents.index(of: object)!
         permanents.remove(at: index)
-        (object as! Card).getOwner().graveyard.append(object as! Card)
+        object.getOwner().graveyard.append(object)
     }
 }
