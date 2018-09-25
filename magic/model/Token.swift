@@ -10,7 +10,7 @@ class Token : Object {
         
         super.init(name: name)
         
-        self.setManaCost("");
+        self.setManaCost("", setColorAccordingly: false);
     }
 
     func getSetCode() -> String {
