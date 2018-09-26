@@ -183,7 +183,19 @@ enum GRN {
     // 91 Arclight Phoenix
     // 92 Barging Sergeant
     // 93 Book Devourer
-    // 94 Command the Storm
+    static func CommandTheStorm() -> Card {
+        let commandTheStorm = Card(name: "Command the Storm", rarity: .Common, set: set, number: 94)
+        commandTheStorm.setManaCost("4R")
+        commandTheStorm.setType(.Instant)
+        commandTheStorm.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+        }, { source, target in
+            target.dealDamage(5)
+        }))
+        commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
+        return commandTheStorm
+    }
     // 95 Cosmotronic Wave
     // 96 Direct Current
     // 97 Electrostatic Field

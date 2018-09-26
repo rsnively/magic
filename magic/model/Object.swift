@@ -19,6 +19,7 @@ class Object: NSObject {
     private weak var owner: Player?
     weak var controller: Player?
     var attacking: Bool = false
+    var markedDamage: Int = 0
     
     private var tapped: Bool = false
     var isTapped: Bool {
@@ -141,6 +142,15 @@ class Object: NSObject {
     
     func destroy() {
         getController().destroyPermanent(self)
+    }
+    
+    // has damage dealt to it
+    func dealDamage(_ amount: Int) {
+        markedDamage += amount
+    }
+    
+    func removeDamage() {
+        markedDamage = 0
     }
     
     // This permanent is dealing damage equal to its power to something

@@ -5,13 +5,11 @@ class Card: Object {
     private var flavorText: String = ""
     private var setCode: String
     private var collectorsNumber: Int
-    private var markedDamage: Int
     
     init(name: String, rarity: Rarity, set: String, number: Int) {
         self.rarity = rarity
         self.setCode = set
         self.collectorsNumber = number
-        self.markedDamage = 0
         super.init(name: name)
     }
     
@@ -39,9 +37,5 @@ class Card: Object {
     
     func setFlavorText(_ flavorText: String) {
         self.flavorText = flavorText
-    }
-    
-    func dealDamage(_ amount: Int) {
-        markedDamage += amount
     }
 }

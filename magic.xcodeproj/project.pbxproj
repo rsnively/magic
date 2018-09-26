@@ -67,6 +67,7 @@
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
 		9871B61321595A2800A6A6AB /* grn65full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9871B61221595A2800A6A6AB /* grn65full.png */; };
+		98A0D716215B14C300D90BCD /* grn94full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0D715215B14C300D90BCD /* grn94full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
 		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
 		98D0438D20EE87B60009143E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* Opponent.swift */; };
@@ -157,6 +158,7 @@
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		9871B61221595A2800A6A6AB /* grn65full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn65full.png; sourceTree = "<group>"; };
+		98A0D715215B14C300D90BCD /* grn94full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn94full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
 		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
 		98D0438C20EE87B60009143E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				9871B61221595A2800A6A6AB /* grn65full.png */,
 				98FA8E612156BF0C00EF5203 /* grn70full.png */,
 				98FA8E632156C06D00EF5203 /* grn84full.png */,
+				98A0D715215B14C300D90BCD /* grn94full.png */,
 				98FA8E672156C4B100EF5203 /* grn100full.png */,
 				98FA8E652156C4B100EF5203 /* grn149full.png */,
 				98FA8E662156C4B100EF5203 /* grn150full.png */,
@@ -459,6 +462,7 @@
 				9823DE092159B54E0080C806 /* grn27full.png in Resources */,
 				98FA8E5F2156BCF900EF5203 /* grn58full.png in Resources */,
 				98FA8E622156BF0C00EF5203 /* grn70full.png in Resources */,
+				98A0D716215B14C300D90BCD /* grn94full.png in Resources */,
 				982232A520EFE64E00B07803 /* m19105full.png in Resources */,
 				9823DDFE21598D210080C806 /* lea30full.png in Resources */,
 				9823DDFD21598D210080C806 /* lea38full.png in Resources */,
