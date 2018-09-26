@@ -10,6 +10,7 @@ class Object: NSObject {
     var power:Int?
     var toughness:Int?
     var effects:[Effect] = []
+    var triggeredAbilities:[TriggeredAbility] = []
     
     var defender: Bool = false
     var flash: Bool = false
@@ -96,6 +97,18 @@ class Object: NSObject {
     
     func addEffect(_ effect: Effect) {
         effects.append(effect)
+    }
+    
+    func addTriggeredAbility(_ triggeredAbility: TriggeredAbility) {
+        triggeredAbilities.append(triggeredAbility)
+    }
+    
+    func triggerAbilities(_ trigger: Trigger) {
+        for triggeredAbility in triggeredAbilities {
+            if triggeredAbility.getTrigger() == trigger {
+                triggeredAbility.triggerAbility()
+            }
+        }
     }
     
     func requiresTargets() -> Bool {

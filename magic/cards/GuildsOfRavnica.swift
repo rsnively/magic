@@ -238,7 +238,21 @@ enum GRN {
     // 126 Crushing Canopy
     // 127 Devkarin Dissident
     // 128 District Guide
-    // 129 Generous Stray
+    static func GenerousStray() -> Card {
+        let generousStray = Card(name: "Generous Stray", rarity: .Common, set: set, number: 129)
+        generousStray.setManaCost("2G")
+        generousStray.setType(.Creature, .Cat)
+        generousStray.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: generousStray,
+            trigger: .ThisETB,
+            effect: { source in
+                source.getController().drawCard()
+        }))
+        generousStray.setFlavorText("Cats place their gifts with care, so that a bare foot will step on them in the middle of the night.")
+        generousStray.power = 1
+        generousStray.toughness = 2
+        return generousStray
+    }
     // 130 Golgari Raiders
     // 131 Grappling Sundew
     // 132 Hatchery Spider

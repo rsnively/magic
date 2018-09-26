@@ -17,7 +17,6 @@ class SpellStack: NSObject {
     }
     
     func push(_ object: Object) {
-        // TODO: cast / ability triggers
         stackObjects.push(object)
     }
     

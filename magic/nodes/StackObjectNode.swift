@@ -3,7 +3,12 @@ import SpriteKit
 
 class StackObjectNode: CardNode {
     init(object: Object, allowedSize: CGSize) {
-        super.init(card: object as! Card, allowedSize: allowedSize)
+        if let card = object as? Card {
+            super.init(card: card, allowedSize: allowedSize)
+        } else {
+            // triggered ability - use card image for now
+            super.init(card: (object as! TriggeredAbility).getSource(), allowedSize: allowedSize)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -125,7 +125,7 @@ class Player: NSObject {
                 Game.shared.theStack.push(card)
             }
             else {
-                permanents.append(card)
+                addPermanent(card)
             }
         }
         else {
@@ -139,9 +139,9 @@ class Player: NSObject {
     
     func resolve(object: Object) {
         if object.isPermanent() {
-            permanents.append(object as! Card)
+            addPermanent(object)
         }
-        else {
+        else if object as? Card != nil {
             graveyard.append(object as! Card)
         }
         object.resolve()
@@ -155,6 +155,7 @@ class Player: NSObject {
     
     func addPermanent(_ object: Object) {
         permanents.append(object)
+        object.triggerAbilities(.ThisETB)
     }
     
     func bouncePermanent(_ object: Object) {
