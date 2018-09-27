@@ -20,6 +20,7 @@ enum Type {
 enum Subtype {
     case Antelope
     case Assassin
+    case Bear
     case Beast
     case Cat
     case Centaur
@@ -30,12 +31,16 @@ enum Subtype {
     case Elephant
     case Elf
     case Forest
+    case Giant
+    case Goblin
+    case Golem
     case Horror
     case Human
     case Insect
     case Island
     case Knight
     case Merfolk
+    case Minotaur
     case Mountain
     case Ogre
     case Plains
@@ -44,11 +49,13 @@ enum Subtype {
     case Scout
     case Soldier
     case Swamp
+    case Treefolk
     case Unicorn
     case Vampire
     case Wall
     case Warrior
     case Wizard
     case Wolf
+    case Wurm
     case Zombie
 }

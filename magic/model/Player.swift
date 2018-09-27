@@ -60,6 +60,9 @@ class Player: NSObject {
     func getArtifacts() -> [Object] {
         return permanents.filter { $0.isType(Type.Artifact) }
     }
+    func getEnchantments() -> [Object] {
+        return permanents.filter { $0.isType(Type.Enchantment) }
+    }
     
     func addMana(color: Color?) {
         manaPool.add(Mana(color))
@@ -166,6 +169,12 @@ class Player: NSObject {
         let index = permanents.index(of: object as! Card)!
         permanents.remove(at: index)
         (object as! Card).getOwner().hand.append(object as! Card)
+    }
+    
+    func discard(_ object: Object) {
+        let index = hand.index(of: object)!
+        hand.remove(at: index)
+        graveyard.append(object)
     }
     
     func destroyPermanent(_ object: Object) {

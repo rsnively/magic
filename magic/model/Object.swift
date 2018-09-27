@@ -150,6 +150,10 @@ class Object: NSObject {
         getController().bouncePermanent(self)
     }
     
+    func discard() {
+        getController().discard(self)
+    }
+    
     func destroy() {
         getController().destroyPermanent(self)
     }

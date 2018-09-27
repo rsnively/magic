@@ -262,163 +262,318 @@ enum LEA {
         fireElemental.toughness = 4
         return fireElemental
     }
-    // 149
-    // 150
-    // 151
-    // 152
-    // 153
-    // 154
-    // 155
-    // 156
-    // 157
-    // 158
-    // 159
-    // 160
-    // 161
-    // 162
-    // 163
-    // 164
-    // 165
-    // 166
-    // 167
-    // 168
-    // 169
-    // 170
-    // 171
-    // 172
-    // 173
-    // 174
-    // 175
-    // 176
-    // 177
-    // 178
-    // 179
-    // 180
-    // 181
-    // 182
-    // 183
-    // 184
-    // 185
-    // 186
-    // 187
-    // 188
-    // 189
-    // 190
-    // 191
-    // 192
-    // 193
-    // 194
-    // 195
-    // 196
-    // 197
-    // 198
-    // 199
-    // 200
-    // 201
-    // 202
-    // 203
-    // 204
-    // 205
-    // 206
-    // 207
-    // 208
-    // 209
-    // 210
-    // 211
-    // 212
-    // 213
-    // 214
-    // 215
-    // 216
-    // 217
-    // 218
-    // 219
-    // 220
-    // 221
-    // 222
-    // 223
-    // 224
-    // 225
-    // 226
-    // 227
-    // 228
-    // 229
-    // 230
-    // 231
-    // 232
-    // 233
-    // 234
-    // 235
-    // 236
-    // 237
-    // 238
-    // 239
-    // 240
-    // 241
-    // 242
-    // 243
-    // 244
-    // 245
-    // 246
-    // 247
-    // 248
-    // 249
-    // 250
-    // 251
-    // 252
-    // 253
-    // 254
-    // 255
-    // 256
-    // 257
-    // 258
-    // 259
-    // 260
-    // 261
-    // 262
-    // 263
-    // 264
-    // 265
-    // 266
-    // 267
-    // 268
-    // 269
-    // 270
-    // 271
-    // 272
-    // 273
-    // 274
-    // 275
-    // 276
-    // 277
-    // 278
-    // 279
-    // 280
-    // 281
-    // 282
-    // 283
-    // 284
-    // 285
-    // 286
-    // 287
-    // 288
-    // 289
-    // 290
-    // 291
-    // 292
-    // 293
-    // 294
-    // 295
-    // 296
-    // 297
-    // 298
-    // 299
-    // 300
-    // 301
-    // 302
-    // 303
-    // 304
-    // 305
+    // 149 Fireball
+    // 150 Firebreathing
+    static func Flashfires() -> Card {
+        let flashfires = Card(name: "Flashfires", rarity: .Uncommon, set: set, number: 151)
+        flashfires.setManaCost("3R")
+        flashfires.setType(.Sorcery)
+        flashfires.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ player in
+                player.getLands().filter({$0.isType(.Plains)}).forEach({$0.destroy()})
+            })
+        }))
+        return flashfires
+    }
+    // 152 Fork
+    // 153 Goblin Balloon Brigade
+    // 154 Goblin King
+    // 155 Granite Gargoyle
+    static func GrayOgre() -> Card {
+        let grayOgre = Card(name: "Gray Ogre", rarity: .Common, set: set, number: 156)
+        grayOgre.setManaCost("2R")
+        grayOgre.setType(.Creature, .Ogre)
+        grayOgre.setFlavorText("The Ogre philosopher Gnerdel believed the purpose of life was to live as high on the food chain as possible. She refused to eat vegetarians, and preferred to live entirely on creatures that preyed on sentient beings.")
+        grayOgre.power = 2
+        grayOgre.toughness = 2
+        return grayOgre
+    }
+    static func HillGiant() -> Card {
+        let hillGiant = Card(name: "Hill Giant", rarity: .Common, set: set, number: 157)
+        hillGiant.setManaCost("3R")
+        hillGiant.setType(.Creature, .Giant)
+        hillGiant.setFlavorText("Fortunately, Hill Giants have large blind spots in which a human can easily hide. Unfortunately, these blind spots are beneath the bottoms of their feet.")
+        hillGiant.power = 3
+        hillGiant.toughness = 3
+        return hillGiant
+    }
+    static func HurloonMinotaur() -> Card {
+        let hurloonMinotaur = Card(name: "Hurloon Minotaur", rarity: .Common, set: set, number: 158)
+        hurloonMinotaur.setManaCost("1RR")
+        hurloonMinotaur.setType(.Creature, .Minotaur)
+        hurloonMinotaur.setFlavorText("The Minotaurs of the Hurloon Mountains are known for their love of battle. They are also known for their hymns to the dead, sung for friend and foe alike. These hymns can last for days, filling the mountain valleys with their low, haunting sounds.")
+        hurloonMinotaur.power = 2
+        hurloonMinotaur.toughness = 3
+        return hurloonMinotaur
+    }
+    // 159 Ironclaw Orcs
+    // 160 Keldon Warlord
+    // 161 Lightning Bolt
+    // 162 Mana Flare
+    // 163 Manabarbs
+    static func MonssGoblinRaiders() -> Card {
+        let monssGoblinRaiders = Card(name: "Mons's Goblin Raiders", rarity: .Common, set: set, number: 164)
+        monssGoblinRaiders.setManaCost("R")
+        monssGoblinRaiders.setType(.Creature, .Goblin)
+        monssGoblinRaiders.setFlavorText("The intricate dynamics of Rundvelt Goblin affairs are often confused with anarchy. The chaos, however, is the chaos of a thundercloud, and direction will sporadically and violently appear. Pashalik Mons and his raiders are the thunderhead that leads the storm.")
+        monssGoblinRaiders.power = 1
+        monssGoblinRaiders.toughness = 1
+        return monssGoblinRaiders
+    }
+    // 165 Orcish Artillery
+    // 166 Orcish Oriflamme
+    // 167 Power Surge
+    // 168 Raging River
+    // 169 Red Elemental Blast
+    // 170 Roc of Kher Ridges
+    // 171 Rock Hydra
+    // 172 Sedge Troll
+    static func Shatter() -> Card {
+        let shatter = Card(name: "Shatter", rarity: .Common, set: set, number: 173)
+        shatter.setManaCost("1R")
+        shatter.setType(.Instant)
+        shatter.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Artifact)
+        }, { source, target in
+            target.destroy()
+        }))
+        return shatter
+    }
+    // 174 Shivan Dragon
+    // 175 Smoke
+    // 176 Stone Giant
+    static func StoneRain() -> Card {
+        let stoneRain = Card(name: "Stone Rain", rarity: .Common, set: set, number: 177)
+        stoneRain.setManaCost("2R")
+        stoneRain.setType(.Sorcery)
+        stoneRain.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Land)
+        }, { source, target in
+            target.destroy()
+        }))
+        return stoneRain
+    }
+    // 178 Tunnel
+    // 179 Two-Headed Giant of Foriys
+    // 180 Uthden Troll
+    // 181 Wall of Fire
+    static func WallOfStone() -> Card {
+        let wallOfStone = Card(name: "Wall of Stone", rarity: .Uncommon, set: set, number: 182)
+        wallOfStone.setManaCost("1RR")
+        wallOfStone.setType(.Creature, .Wall)
+        wallOfStone.defender = true
+        wallOfStone.setFlavorText("The Earth herself lends her strength to these walls of living stone, which possess the stability of ancient mountains. These mighty bulwarks thwart ground-based troops, providing welcome relief for weary warriors who defend the land.")
+        wallOfStone.power = 0
+        wallOfStone.toughness = 8
+        return wallOfStone
+    }
+    static func WheelOfFortune() -> Card {
+        let wheelOfFortune = Card(name: "Wheel of Fortune", rarity: .Rare, set: set, number: 183)
+        wheelOfFortune.setManaCost("2R")
+        wheelOfFortune.setType(.Sorcery)
+        wheelOfFortune.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ player in
+                player.getHand().forEach({$0.discard()})
+                player.drawCards(7)
+            })
+        }))
+        return wheelOfFortune
+    }
+    // 184 Aspect of Wolf
+    // 185 Berserk
+    // 186 Birds of Paradise
+    // 187 Camouflage
+    // 188 Channel
+    // 189 Cockatrice
+    static func CrawWurm() -> Card {
+        let crawWurm = Card(name: "Craw Wurm", rarity: .Common, set: set, number: 190)
+        crawWurm.setManaCost("4GG")
+        crawWurm.setType(.Creature, .Wurm)
+        crawWurm.setFlavorText("The most terrifying thing about the Craw Wurm is probably the horrible crashing sound it makes as it speeds through the forest. This noise is so loud it echoes through the trees and seems to come from all directions at once.")
+        crawWurm.power = 6
+        crawWurm.toughness = 4
+        return crawWurm
+    }
+    // 191 Elvish Archers
+    // 192 Fastbond
+    // 193 Fog
+    // 194 Force of Nature
+    // 195 Fungusaur
+    // 196 Gaea's Liege
+    // 197 Giant Growth
+    // 198 Giant Spider
+    static func GrizzlyBears() -> Card {
+        let grizzlyBears = Card(name: "Grizzly Bears", rarity: .Common, set: set, number: 199)
+        grizzlyBears.setManaCost("1G")
+        grizzlyBears.setType(.Creature, .Bear)
+        grizzlyBears.setFlavorText("Don't try to outrun one of Dominaria's Grizzlies; it'll catch you, knock you down, and eat you. Of course, you could run up a tree. In that case you'd get a nice view before it knocks the tree down and eats you.")
+        grizzlyBears.power = 2
+        grizzlyBears.toughness = 2
+        return grizzlyBears
+    }
+    // 200 Hurricane
+    static func IceStorm() -> Card {
+        let iceStorm = Card(name: "Ice Rain", rarity: .Uncommon, set: set, number: 201)
+        iceStorm.setManaCost("2G")
+        iceStorm.setType(.Sorcery)
+        iceStorm.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Land)
+        }, { source, target in
+            target.destroy()
+        }))
+        return iceStorm
+    }
+    // 202 Instill Energy
+    static func IronrootTreefolk() -> Card {
+        let ironrootTreefolk = Card(name: "Ironroot Treefolk", rarity: .Common, set: set, number: 203)
+        ironrootTreefolk.setManaCost("4G")
+        ironrootTreefolk.setType(.Creature, .Treefolk)
+        ironrootTreefolk.setFlavorText("The mating habits of Treefolk, particularly the stalwart Ironroot Treefolk, are truly absurd. Molasses comes to mind. It's amazing the species can survive at all given such protracted periods of mate selection, conjugation, and gestation.")
+        ironrootTreefolk.power = 3
+        ironrootTreefolk.toughness = 5
+        return ironrootTreefolk
+    }
+    // 204 Kudzu
+    // 205 Ley Druid
+    // 206 Lifeforce
+    // 207 Lifelace
+    // 208 Living Artifact
+    // 209 Living Lands
+    // 210 Llanowar Elves
+    // 211 Lure
+    // 212 Natural Selection
+    // 213 Regeneration
+    // 214 Regrowth
+    // 215 Scryb Sprites
+    // 216 Shanodin Dryads
+    // 217 Stream of Life
+    // 218 Thicket Basilisk
+    // 219 Timber Wolves
+    static func Tranquility() -> Card {
+        let tranquility = Card(name: "Tranquility", rarity: .Common, set: set, number: 220)
+        tranquility.setManaCost("2G")
+        tranquility.setType(.Sorcery)
+        tranquility.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ player in
+                player.getEnchantments().forEach({ card in player.destroyPermanent(card) })
+            })
+        }))
+        return tranquility
+    }
+    static func Tsunami() -> Card {
+        let tsunami = Card(name: "Tsunami", rarity: .Uncommon, set: set, number: 152)
+        tsunami.setManaCost("3G")
+        tsunami.setType(.Sorcery)
+        tsunami.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ player in
+                player.getLands().filter({$0.isType(.Island)}).forEach({$0.destroy()})
+            })
+        }))
+        return tsunami
+    }
+    // 222 Verduran Enchantress
+    // 223 Wall of Brambles
+    static func WallOfIce() -> Card {
+        let wallOfIce = Card(name: "Wall of Ice", rarity: .Uncommon, set: set, number: 224)
+        wallOfIce.setManaCost("2G")
+        wallOfIce.setType(.Creature, .Wall)
+        wallOfIce.defender = true
+        wallOfIce.setFlavorText("\"And through the drifts the snowy cliffs| Did send a dismal sheen:| Nor shapes of men nor beasts we ken--| The ice was all between.\"| --Samuel Coleridge, \"The Rime of the Ancient Mariner\"")
+        wallOfIce.power = 0
+        wallOfIce.toughness = 7
+        return wallOfIce
+    }
+    static func WallOfWood() -> Card {
+        let wallOfWood = Card(name: "Wall of Wood", rarity: .Common, set: set, number: 225)
+        wallOfWood.setManaCost("G")
+        wallOfWood.setType(.Creature, .Wall)
+        wallOfWood.defender = true
+        wallOfWood.setFlavorText("Everybody knows that to ward off trouble, you knock on wood. But usually it's better to make a wall out of wood and let trouble do the knocking.")
+        wallOfWood.power = 0
+        wallOfWood.toughness = 3
+        return wallOfWood
+    }
+    // 226 Wanderlust
+    // 227 War Mammoth
+    // 228 Web
+    // 229 Wild Growth
+    // 230 Ankh of Mishra
+    // 231 Basalt Monolith
+    // 232 Black Lotus
+    // 233 Black Vise
+    // 234 Celestial Prism
+    // 235 Chaos Orbb
+    // 236 Clockwork Beast
+    // 237 Conservator
+    // 238 Copper Tablet
+    // 239 Crystal Rod
+    // 240 Cyclopean Tomb
+    // 241 Dingus Egg
+    // 242 Disrupting Scepter
+    // 243 Forcefield
+    // 244 Gauntlet of Might
+    // 245 Glasses of Urza
+    // 246 Helm of Chatzuk
+    // 247 Howling Mine
+    // 248 Icy Manipulator
+    // 249 Illusionary Mask
+    // 250 Iron Star
+    // 251 Ivory Cup
+    // 252 Jade Monolith
+    // 253 Jade Statue
+    // 254 Jayemdae Tome
+    // 255 Juggernaut
+    // 256 Kormus Bell
+    // 257 Library of Leng
+    // 258 Living Wall
+    // 259 Mana Vault
+    // 260 Meekstone
+    // 261 Mox Emerald
+    // 262 Mox Jet
+    // 263 Mox Pearl
+    // 264 Mox Ruby
+    // 265 Mox Sapphire
+    // 266 Nevinyrral's Disk
+    static func ObsianusGolem() -> Card {
+        let obsianusGolem = Card(name: "Obsianus Golem", rarity: .Uncommon, set: set, number: 267)
+        obsianusGolem.setManaCost("6")
+        obsianusGolem.setType(.Artifact, .Creature, .Golem)
+        obsianusGolem.setFlavorText("\"The foot stone is connected to the ankle stone, the ankle stone is connected to the leg stone...\"\n--Song of the Artificer")
+        obsianusGolem.power = 4
+        obsianusGolem.toughness = 6
+        return obsianusGolem
+    }
+    // 268 Rod of Ruin
+    // 269 Sol Ring
+    // 270 Soul Net
+    // 271 Sunglasses of Urza
+    // 272 The Hive
+    // 273 Throne of Bone
+    // 274 Time Vault
+    // 275 Winter Orb
+    // 276 Wooden Sphere
+    // 277 Badlands
+    // 278 Bayou
+    // 279 Plateau
+    // 280 Savannah
+    // 281 Scrubland
+    // 282 Taiga
+    // 283 Tropical Island
+    // 284 Tundra
+    // 285 Underground Sea
+    // 286 Plains
+    // 287 Plains
+    // 288 Island
+    // 289 Island
+    // 290 Swamp
+    // 291 Swamp
+    // 292 Mountain
+    // 293 Mountain
+    // 294 Forest
+    // 295 Forest
 }
 
 
