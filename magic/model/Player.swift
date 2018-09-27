@@ -172,5 +172,6 @@ class Player: NSObject {
         let index = permanents.index(of: object)!
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
+        object.triggerAbilities(.ThisDies)
     }
 }

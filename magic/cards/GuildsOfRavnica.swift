@@ -45,7 +45,21 @@ enum GRN {
     // 12 Gird for Battle
     // 13 Haazda Marshal
     // 14 Healer's Hawk
-    // 15 Hunted Witness
+    static func HuntedWitness() -> Card {
+        let huntedWitness = Card(name: "Hunted Witness", rarity: .Common, set: set, number: 15)
+        huntedWitness.setManaCost("W")
+        huntedWitness.setType(.Creature, .Human)
+        huntedWitness.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: huntedWitness,
+            trigger: .ThisDies,
+            effect: { source in
+                source.getController().createToken(Soldier())
+        }))
+        huntedWitness.setFlavorText("He ferried weapons, spells, exotic animals--but his most dangerous cargo was the truth.")
+        huntedWitness.power = 1
+        huntedWitness.toughness = 1
+        return huntedWitness
+    }
     // 16 Inspiring Unicorn
     // 17 Intrusive Packbeast
     // 18 Ledev Guardian
