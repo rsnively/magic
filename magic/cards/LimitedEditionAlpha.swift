@@ -159,13 +159,24 @@ enum LEA {
         waterElemental.toughness = 4
         return waterElemental
     }
-    // 92
-    // 93
-    // 94
-    // 95
-    // 96
-    // 97
-    // 98
+    // 92 Animate Dead
+    // 93 Bad Moon
+    // 94 Black Knight
+    // 95 Bog Wraith
+    // 96 Contract from Below
+    // 97 Cursed Land
+    static func DarkRitual() -> Card {
+        let darkRitual = Card(name: "Dark Ritual", rarity: .Common, set: set, number: 98)
+        darkRitual.setManaCost("B")
+        darkRitual.setType(.Instant)
+        darkRitual.addEffect(UntargetedEffect(
+            { source in
+                source.getController().addMana(color: .Black)
+                source.getController().addMana(color: .Black)
+                source.getController().addMana(color: .Black)
+        }))
+        return darkRitual
+    }
     // 99
     // 100
     // 101
