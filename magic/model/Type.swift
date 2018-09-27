@@ -23,6 +23,7 @@ enum Subtype {
     case Beast
     case Cat
     case Centaur
+    case Cleric
     case Crab
     case Dinosaur
     case Elemental

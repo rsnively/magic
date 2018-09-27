@@ -313,7 +313,21 @@ enum GRN {
     // 155 Beamsplitter Mage
     // 156 Boros Challenger
     // 157 Camaraderie
-    // 158 Centaur Peacemaker
+    static func CentaurPeacemaker() -> Card {
+        let centaurPeacemaker = Card(name: "Centaur Peacemaker", rarity: .Common, set: set, number: 158)
+        centaurPeacemaker.setManaCost("1GW")
+        centaurPeacemaker.setType(.Creature, .Centaur, .Cleric)
+        centaurPeacemaker.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: centaurPeacemaker,
+            trigger: .ThisETB,
+            effect: { source in
+                Game.shared.bothPlayers({$0.gainLife(4)})
+        }))
+        centaurPeacemaker.setFlavorText("\"Please accept this offering. I sincerely hope to leave my mace at my side.\"")
+        centaurPeacemaker.power = 3
+        centaurPeacemaker.toughness = 3
+        return centaurPeacemaker
+    }
     // 159 Chance for Glory
     // 160 Charnel Troll
     // 161 Conclave Cavalier
