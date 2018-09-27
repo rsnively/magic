@@ -48,6 +48,10 @@ class Player: NSObject {
         return hand
     }
     
+    func getGraveyard() -> [Object] {
+        return graveyard
+    }
+    
     func getLands() -> [Object] {
         return permanents.filter { $0.isType(Type.Land) }
     }

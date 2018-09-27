@@ -258,7 +258,22 @@ enum GRN {
     // 132 Hatchery Spider
     // 133 Hitchlaw Recluse
     // 134 Ironshell Beetle
-    // 135 Kraul Foragers
+    static func KraulForagers() -> Card {
+        let kraulForagers = Card(name: "Kraul Foragers", rarity: .Common, set: set, number: 135)
+        kraulForagers.setManaCost("4G")
+        kraulForagers.setType(.Creature, .Insect, .Scout)
+        kraulForagers.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: kraulForagers,
+            trigger: .ThisETB,
+            effect: { source in
+                let creaturesInGraveyard = source.getController().getGraveyard().filter({$0.isType(.Creature)}).count
+                source.getController().gainLife(creaturesInGraveyard)
+        }))
+        kraulForagers.setFlavorText("Feed on food, you eventually rot. Feed on rot, you live forever.\n--Kraul saying")
+        kraulForagers.power = 4
+        kraulForagers.toughness = 4
+        return kraulForagers
+    }
     // 136 Kraul Harpooner
     // 137 Might of the Masses
     // 138 Nullhide Ferox

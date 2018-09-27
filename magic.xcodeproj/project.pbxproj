@@ -43,6 +43,7 @@
 		983373D4215C498B003CD4D0 /* TriggeredAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D3215C498B003CD4D0 /* TriggeredAbility.swift */; };
 		983373D6215C4A5D003CD4D0 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D5215C4A5D003CD4D0 /* Trigger.swift */; };
 		983373D8215C4FD1003CD4D0 /* grn129full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983373D7215C4FD1003CD4D0 /* grn129full.png */; };
+		983373DA215C5663003CD4D0 /* grn135full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983373D9215C5663003CD4D0 /* grn135full.png */; };
 		9840897E20CAF562005DA8F6 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9840897D20CAF562005DA8F6 /* Rarity.swift */; };
 		9840898020CAFE8C005DA8F6 /* SpellStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9840897F20CAFE8C005DA8F6 /* SpellStack.swift */; };
 		9840898220CAFF27005DA8F6 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9840898120CAFF27005DA8F6 /* Stack.swift */; };
@@ -137,6 +138,7 @@
 		983373D3215C498B003CD4D0 /* TriggeredAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredAbility.swift; sourceTree = "<group>"; };
 		983373D5215C4A5D003CD4D0 /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		983373D7215C4FD1003CD4D0 /* grn129full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn129full.png; sourceTree = "<group>"; };
+		983373D9215C5663003CD4D0 /* grn135full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn135full.png; sourceTree = "<group>"; };
 		9840897D20CAF562005DA8F6 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
 		9840897F20CAFE8C005DA8F6 /* SpellStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellStack.swift; sourceTree = "<group>"; };
 		9840898120CAFF27005DA8F6 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				98A0D715215B14C300D90BCD /* grn94full.png */,
 				98FA8E672156C4B100EF5203 /* grn100full.png */,
 				983373D7215C4FD1003CD4D0 /* grn129full.png */,
+				983373D9215C5663003CD4D0 /* grn135full.png */,
 				98FA8E652156C4B100EF5203 /* grn149full.png */,
 				98FA8E662156C4B100EF5203 /* grn150full.png */,
 				9823DE062159B41C0080C806 /* grnt2full.png */,
@@ -458,6 +461,7 @@
 				982232AB20EFEB3200B07803 /* m19158full.png in Resources */,
 				9868006220E541A100E6E730 /* m19185full.png in Resources */,
 				98D0438A20EE87070009143E /* m19269full.png in Resources */,
+				983373DA215C5663003CD4D0 /* grn135full.png in Resources */,
 				98FA8E602156BCF900EF5203 /* grn60full.png in Resources */,
 				9871B61321595A2800A6A6AB /* grn65full.png in Resources */,
 				98E8A05B20EAFFBB00A951DA /* m1935full.png in Resources */,

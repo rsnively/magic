@@ -31,6 +31,7 @@ enum Subtype {
     case Forest
     case Horror
     case Human
+    case Insect
     case Island
     case Knight
     case Merfolk
