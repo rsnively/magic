@@ -344,7 +344,23 @@ enum GRN {
     }
     // 159 Chance for Glory
     // 160 Charnel Troll
-    // 161 Conclave Cavalier
+    static func ConclaveCavalier() -> Card {
+        let conclaveCavalier = Card(name: "ConclaveCavalier", rarity: .Uncommon, set: set, number: 161)
+        conclaveCavalier.setManaCost("GGWW")
+        conclaveCavalier.setType(.Creature, .Centaur, .Knight)
+        conclaveCavalier.vigilance = true
+        conclaveCavalier.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: conclaveCavalier,
+            trigger: .ThisDies,
+            effect: { source in
+                source.getController().createToken(ElfKnight())
+                source.getController().createToken(ElfKnight())
+        }))
+        conclaveCavalier.setFlavorText("\"Just as leaves fall and the tree blooms again, one day I will fall and the Conclave will endure.\"")
+        conclaveCavalier.power = 4
+        conclaveCavalier.toughness = 4
+        return conclaveCavalier
+    }
     // 162 Conclave Guildmage
     // 163 Crackling Drake
     // 164 Darkblade Agent
@@ -462,7 +478,15 @@ enum GRN {
     // t3 Bird Illusion
     // t4 Gobblin
     // t5 Insect
-    // t6 Elf Knight
+    static func ElfKnight() -> Token {
+        let elfKnight = Token(name: "Elf Knight", set: set, number: 6)
+        elfKnight.colors = [Color.Green, Color.White]
+        elfKnight.setType(.Creature, .Elf, .Knight)
+        elfKnight.vigilance = true
+        elfKnight.power = 2
+        elfKnight.toughness = 2
+        return elfKnight;
+    }
     // t7 Ral Emblem
     // t8 Vraska Emblem
 }

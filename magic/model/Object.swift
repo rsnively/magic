@@ -27,7 +27,7 @@ class Object: NSObject {
         return tapped
     }
     
-    private var turnEnteredBattlefield: Int?
+    var turnEnteredBattlefield: Int?
     
     init(name:String) {
         self.name = name
@@ -116,9 +116,6 @@ class Object: NSObject {
     }
     
     func resolve() {
-        if isPermanent() {
-            turnEnteredBattlefield = Game.shared.getCurrentTurn()
-        }
         if !effects.isEmpty {
             for effect in effects {
                 effect.resolve(source: self)

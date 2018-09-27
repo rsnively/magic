@@ -154,11 +154,12 @@ class Player: NSObject {
     func createToken(_ token: Object) {
         token.setController(controller: self)
         token.setOwner(owner: self)
-        permanents.append(token)
+        addPermanent(token)
     }
     
     func addPermanent(_ object: Object) {
         permanents.append(object)
+        object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
         object.triggerAbilities(.ThisETB)
     }
     
