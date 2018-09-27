@@ -8,30 +8,31 @@ class Opponent {
     }
     
     func givePriority() {
-        let land = player.getHand().first(where: { $0.isType(.Land) })
-        if let land = land {
-            if (land as! Card).canPlay() {
-                player.play(card: (land as! Card))
+        var actionTaken = false
+        player.getHand().filter({($0 as! Card).canPlay()}).forEach({ card in
+            let availableMana = player.getLands().count
+            if card.isType(.Land) {
+                
             }
-        }
-        if Game.shared.getCurrentPhase() == .SecondMain {
-            player.getHand().filter({!$0.isType(.Land)}).forEach({ card in
-                let availableMana = player.getLands().count
-                if availableMana >= card.getConvertedManaCost() {
-                    var paid = 0
-                    player.getLands().filter({!$0.isTapped}).forEach({ land in
-                        if paid < card.getConvertedManaCost() {
-                            land.tap()
-                            player.addMana(color: getColorForLandType(subtype: land.subtypes.first!))
-                            paid += 1
-                        }
-                    })
-                    player.play(card: card as! Card)
-                }
-            })
-        }
+            else if availableMana >= card.getConvertedManaCost() {
+                var paid = 0
+                player.getLands().filter({!$0.isTapped}).forEach({ land in
+                    if paid < card.getConvertedManaCost() {
+                        land.tap()
+                        player.addMana(color: getColorForLandType(subtype: land.subtypes.first!))
+                        paid += 1
+                    }
+                })
+                player.play(card: card as! Card)
+                actionTaken = true
+            }
+        })
         
-        Game.shared.advanceGame()
+        if actionTaken {
+            Game.shared.passPriority()
+        } else {
+            Game.shared.advanceGame()
+        }
     }
     
     func declareAttackers() {

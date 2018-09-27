@@ -85,6 +85,9 @@ class Game: NSObject {
     func passPriority() {
         checkStateBasedActions()
         swap(&player1.hasPriority, &player2.hasPriority)
+        if player2.hasPriority {
+            opponent.givePriority()
+        }
     }
     
     func getCurrentPhase() -> Phase {
@@ -167,9 +170,6 @@ class Game: NSObject {
             return
         }
         passPriority()
-        if player2.hasPriority {
-            opponent.givePriority()
-        }
     }
     
     func checkStateBasedActions() {
