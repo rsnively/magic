@@ -12,7 +12,9 @@ class Opponent {
         player.getHand().filter({($0 as! Card).canPlay()}).forEach({ card in
             let availableMana = player.getLands().count
             if card.isType(.Land) {
-                
+                if !Game.shared.landWasPlayedThisTurn() {
+                    player.play(card: card as! Card)
+                }
             }
             else if availableMana >= card.getConvertedManaCost() {
                 var paid = 0
