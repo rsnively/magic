@@ -28,11 +28,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
 
-            deck1.append(M19.Forest())
-            deck1.append(M19.Plains())
-            deck1.append(GRN.HuntedWitness())
-            deck1.append(GRN.CageTheCulprit())
-            deck1.append(GRN.ConclaveCavalier())
+            deck1.append(M19.Swamp())
+            deck1.append(M19.Swamp())
+            deck1.append(LEA.Sinkhole())
+            deck1.append(M19.Murder())
+            deck1.append(LEA.DarkRitual())
             
             deck2.append(M19.Plains())
             deck2.append(M19.Plains())

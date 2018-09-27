@@ -40,6 +40,15 @@ class LandsNode: SKNode {
         }
     }
     
+    func touchMoved(toPoint pos: CGPoint) {
+        for cardNode in cardNodes {
+            if cardNode.touching {
+                cardNode.touchMoved(toPoint:pos)
+                break
+            }
+        }
+    }
+    
     func touchUp(atPoint pos:CGPoint) {
         for cardNode in cardNodes.reversed() {
             if cardNode.touching {

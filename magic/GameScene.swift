@@ -138,6 +138,9 @@ class GameScene: SKScene {
         stackNode.touchDown(atPoint:convert(pos, to:stackNode))
         
         commandButtonsNode.touchDown(atPoint:convert(pos, to:commandButtonsNode))
+        
+        opponentLandsNode.touchDown(atPoint:convert(pos, to:opponentLandsNode))
+        opponentCreaturesNode.touchDown(atPoint:convert(pos, to:opponentCreaturesNode))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -145,8 +148,13 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
+        playerLandsNode.touchMoved(toPoint:convert(pos, to:playerLandsNode))
         playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
+        
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
+        
+        opponentLandsNode.touchMoved(toPoint:convert(pos, to:opponentLandsNode))
+        opponentCreaturesNode.touchMoved(toPoint:convert(pos, to:opponentCreaturesNode))
     }
     
     func touchUp(atPoint pos : CGPoint) {
@@ -161,6 +169,9 @@ class GameScene: SKScene {
         stackNode.touchUp(atPoint:convert(pos, to:stackNode))
         
         commandButtonsNode.touchUp(atPoint:convert(pos, to:commandButtonsNode))
+        
+        opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
+        opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
