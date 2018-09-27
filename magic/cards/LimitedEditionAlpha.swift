@@ -212,10 +212,21 @@ enum LEA {
         scatheZombies.toughness = 2
         return scatheZombies
     }
-    // 126
-    // 127
-    // 128
-    // 129
+    // 126 Scavenging Ghoul
+    // 127 Sengir Vampire
+    // 128 Simulacrum
+    static func Sinkhole() -> Card {
+        let sinkhole = Card(name: "Sinkhole", rarity: .Common, set: set, number: 129)
+        sinkhole.setManaCost("BB")
+        sinkhole.setType(.Sorcery)
+        sinkhole.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Land)
+        }, { source, target in
+            target.destroy()
+        }))
+        return sinkhole
+    }
     // 130
     // 131
     // 132
