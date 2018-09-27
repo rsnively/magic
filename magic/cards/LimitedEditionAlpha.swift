@@ -227,25 +227,41 @@ enum LEA {
         }))
         return sinkhole
     }
-    // 130
-    // 131
-    // 132
-    // 133
-    // 134
-    // 135
-    // 136
-    // 137
-    // 138
-    // 139
-    // 140
-    // 141
-    // 142
-    // 143
-    // 144
-    // 145
-    // 146
-    // 147
-    // 148
+    // 130 Terror
+    // 131 Unholy Strength
+    // 132 Wall of Bone
+    // 133 Warp Artifact
+    // 134 Weakness
+    // 135 Will-O-The-Wisp
+    // 136 Word of Command
+    // 137 Zombie Master
+    // 138 Burrowing
+    // 139 Chaoslace
+    // 140 Disintegrate
+    // 141 Dragon Whelp
+    // 142 Dwarven Demolition Team
+    // 143 Dwarven Warriors
+    static func EarthElemental() -> Card {
+        let earthElemental = Card(name: "Earth Elemental", rarity: .Uncommon, set: set, number: 144)
+        earthElemental.setManaCost("3RR")
+        earthElemental.setType(.Creature, .Elemental)
+        earthElemental.setFlavorText("Earth Elementals have the eternal strength of stone and the endurance of mountains. Primordially connected to the land they inhabit, they take a long-term view of things, scorning the impetuous haste of short-lived mortal creatures.")
+        earthElemental.power = 4
+        earthElemental.toughness = 5
+        return earthElemental
+    }
+    // 145 Earthbind
+    // 146 Earthquake
+    // 147 False Orders
+    static func FireElemental() -> Card {
+        let fireElemental = Card(name: "Fire Elemental", rarity: .Uncommon, set: set, number: 148)
+        fireElemental.setManaCost("3RR")
+        fireElemental.setType(.Creature, .Elemental)
+        fireElemental.setFlavorText("Fire Elementals are ruthless infernos, annihilating and consuming their foes in a frenzied holocaust. Crackling and blazing, they sear swift, terrilble paths, leaving the land charred and scorched in their wake.")
+        fireElemental.power = 5
+        fireElemental.toughness = 4
+        return fireElemental
+    }
     // 149
     // 150
     // 151
