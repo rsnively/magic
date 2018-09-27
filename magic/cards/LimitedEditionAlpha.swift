@@ -177,33 +177,41 @@ enum LEA {
         }))
         return darkRitual
     }
-    // 99
-    // 100
-    // 101
-    // 102
-    // 103
-    // 104
-    // 105
-    // 106
-    // 107
-    // 108
-    // 109
-    // 110
-    // 111
-    // 112
-    // 113
-    // 114
-    // 115
-    // 116
-    // 117
-    // 118
-    // 119
-    // 120
-    // 121
-    // 122
-    // 123
-    // 124
-    // 125
+    // 99 Darkpact
+    // 100 Deathgrip
+    // 101 Deathlace
+    // 102 Demonic Attorney
+    // 103 Demonic Hordes
+    // 104 Demonic Tutor
+    // 105 Drain Life
+    // 106 Drudge Skeletons
+    // 107 Evil Presence
+    // 108 Fear
+    // 109 Frozen Shade
+    // 110 Gloom
+    // 111 Howl from Beyond
+    // 112 Hypnotic Spectre
+    // 113 Lich
+    // 114 Lord of the Pit
+    // 115 Mind Twist
+    // 116 Nether Shadow
+    // 117 Nettling Imp
+    // 118 Nightmare
+    // 119 Paralyze
+    // 120 Pestilence
+    // 121 Plague Rats
+    // 122 Raise Dead
+    // 123 Royal Assassin
+    // 124 Sacrifice
+    static func ScatheZombies() -> Card {
+        let scatheZombies = Card(name: "Scathe Zombies", rarity: .Common, set: set, number: 125)
+        scatheZombies.setManaCost("2B")
+        scatheZombies.setType(.Creature, .Zombie)
+        scatheZombies.setFlavorText("\"They groaned, they stirred, they all uprose,\nNor spake, nor moved their eyes;\nIt had been strange, even in a dream,\nTo have seen those dead men rise.\"\n--Samuel Taylor Colridge, \"The Rime of the Ancient Mariner")
+        scatheZombies.power = 2
+        scatheZombies.toughness = 2
+        return scatheZombies
+    }
     // 126
     // 127
     // 128
