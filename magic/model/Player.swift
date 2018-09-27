@@ -19,13 +19,12 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-        self.pregameActions()
-        
-        for _ in 0..<5 {
+        for _ in 0..<3 {
             permanents.append(M19.Plains())
-            permanents.append(M19.Swamp())
         }
-        permanents.forEach({ $0.setOwner(owner: self) })
+        permanents.forEach({$0.setOwner(owner: self)})
+        
+        self.pregameActions()
     }
     
     func getLife() -> Int {

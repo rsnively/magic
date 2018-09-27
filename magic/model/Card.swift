@@ -21,7 +21,7 @@ class Card: Object {
         if Game.shared.isDeclaringAttackers() || Game.shared.isTargeting { return false }
         if !getController().hasPriority { return false }
         if !(isType(.Instant) || flash) && !(Game.shared.theStack.isEmpty && getController().active && Game.shared.getCurrentPhase().sorcerySpeed()) { return false }
-        if (isType(.Land) && Game.shared.landWasPlayedThisTurn()) { return false }
+        if (isType(.Land) && (Game.shared.landWasPlayedThisTurn() || !getController().active)) { return false }
         
         return true
 

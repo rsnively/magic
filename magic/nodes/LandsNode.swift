@@ -7,7 +7,7 @@ class LandsNode: SKNode {
     func setLands(lands: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
-        let cardSize = CGSize(width:size.width * 0.4, height:size.height)
+        let cardSize = CGSize(width:size.width * 0.35, height:size.height)
         for land in lands {
             cardNodes.append(LandsCardNode(card: land, allowedSize:cardSize))
         }

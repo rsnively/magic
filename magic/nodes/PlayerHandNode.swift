@@ -9,7 +9,7 @@ class PlayerHandNode: SKNode {
     func setHand(cards: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
-        let cardSize = CGSize(width:size.width * 0.4, height:size.height)
+        let cardSize = CGSize(width:size.width * 0.35, height:size.height)
         for card in cards {
             cardNodes.append(HandCardNode(card:card, allowedSize:cardSize))
         }

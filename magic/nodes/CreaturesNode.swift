@@ -7,7 +7,7 @@ class CreaturesNode: SKNode {
     func setCreatures(creatures: [Object], size: CGSize) {
         removeAllChildren()
         cardNodes.removeAll()
-        let cardSize = CGSize(width:size.width * 0.4, height:size.height)
+        let cardSize = CGSize(width:size.width * 0.35, height:size.height)
         for creature in creatures {
             cardNodes.append(CreaturesCardNode(card: creature, allowedSize:cardSize))
         }

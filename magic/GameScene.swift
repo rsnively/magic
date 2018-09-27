@@ -14,6 +14,8 @@ class GameScene: SKScene {
     var stackNode:StackNode
     
     var opponentLifeNode:LifeNode
+    var opponentLandsNode:LandsNode
+    var opponentCreaturesNode:CreaturesNode
     
     var commandButtonsNode: CommandButtonsNode
     
@@ -46,9 +48,15 @@ class GameScene: SKScene {
     static func getAllowedPlayerLandsSize(gameSize: CGSize) -> CGSize {
         return CGSize(width:gameSize.width * 0.4, height: gameSize.height * 0.2)
     }
+    static func getAllowedOpponentLandsSize(gameSize: CGSize) -> CGSize {
+        return getAllowedPlayerLandsSize(gameSize: gameSize)
+    }
     
     static func getAllowedPlayerCreaturesSize(gameSize: CGSize) -> CGSize {
         return CGSize(width: gameSize.width, height: gameSize.height * 0.2)
+    }
+    static func getAllowedOpponentCreaturesSize(gameSize: CGSize) -> CGSize {
+        return getAllowedPlayerCreaturesSize(gameSize: gameSize)
     }
     
     static func getAllowedManaPoolSize(gameSize: CGSize) -> CGSize {
@@ -74,6 +82,8 @@ class GameScene: SKScene {
         stackNode = StackNode()
         
         opponentLifeNode = LifeNode(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        opponentLandsNode = LandsNode(lands: [], size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
+        opponentCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         
         commandButtonsNode = CommandButtonsNode(size: GameScene.getCommandButtonSize())
         
@@ -87,13 +97,16 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = UIColor.white
         playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
-        playerLifeNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.1)
-        playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.3)
-        playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.5)
+        playerLifeNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.08)
+        playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.24)
+        playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.45)
         manaPoolNode.position = CGPoint(x:size.width * 0.5, y: (playerLandsNode.position.y + playerHandNode.position.y) / 2.0)
-        stackNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
-        opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.9)
+        stackNode.position = CGPoint(x: size.width * 0.33, y: size.height * 0.66)
+        
+        opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.95)
+        opponentLandsNode.position = CGPoint(x: size.width * 0.25, y: size.height * 0.85)
+        opponentCreaturesNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
         
         commandButtonsNode.position.x = size.width - GameScene.getCommandButtonSize().width / 2.0
         commandButtonsNode.position.y = GameScene.getCommandButtonSize().height * 2.0
@@ -105,7 +118,13 @@ class GameScene: SKScene {
         addChild(manaPoolNode)
         addChild(stackNode)
         addChild(opponentLifeNode)
+        addChild(opponentLandsNode)
+        addChild(opponentCreaturesNode)
         addChild(commandButtonsNode)
+        
+        stackNode.zPosition = 1
+        
+        redraw()
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -173,6 +192,8 @@ class GameScene: SKScene {
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
         opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        opponentLandsNode.setLands(lands: Game.shared.player2.getLands(), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
+        opponentCreaturesNode.setCreatures(creatures: Game.shared.player2.getCreatures(), size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         commandButtonsNode.update()
     }
 }

@@ -28,16 +28,16 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
 
-            deck2.append(M19.Plains())
-            deck2.append(M19.Swamp())
-            deck1.append(GRN.ChildOfNight())
-            deck1.append(GRN.RitualOfSoot())
-            deck1.append(GRN.SwornCompanions())
+            deck1.append(M19.Forest())
+            deck1.append(M19.Plains())
+            deck1.append(GRN.HuntedWitness())
+            deck1.append(GRN.CageTheCulprit())
+            deck1.append(GRN.ConclaveCavalier())
             
             deck2.append(M19.Plains())
-            deck2.append(M19.OreskosSwiftclaw())
-            deck2.append(M19.FieldCreeper())
-            deck2.append(M19.LoxodonLineBreaker())
+            deck2.append(M19.Plains())
+            deck2.append(GRN.SwornCompanions())
+            deck2.append(GRN.SwornCompanions())
         }
         
         player1 = Player(deck: deck1)
