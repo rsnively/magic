@@ -74,6 +74,10 @@
 		986D5C9E20D1FE8C005E944E /* CommandButtonsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */; };
 		986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5920A10F0300F3CCDC /* Color.swift */; };
 		986EAA5C20A1110000F3CCDC /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986EAA5B20A1110000F3CCDC /* Object.swift */; };
+		986ED55C215F05F1008B44DC /* Dominaria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986ED55B215F05F1008B44DC /* Dominaria.swift */; };
+		986ED55F215F094D008B44DC /* dom9full.png in Resources */ = {isa = PBXBuildFile; fileRef = 986ED55E215F094D008B44DC /* dom9full.png */; };
+		986ED561215F0953008B44DC /* domt1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 986ED560215F0953008B44DC /* domt1full.png */; };
+		986ED563215F0959008B44DC /* domt2full.png in Resources */ = {isa = PBXBuildFile; fileRef = 986ED562215F0959008B44DC /* domt2full.png */; };
 		9871B61321595A2800A6A6AB /* grn65full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9871B61221595A2800A6A6AB /* grn65full.png */; };
 		98A0D716215B14C300D90BCD /* grn94full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0D715215B14C300D90BCD /* grn94full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
@@ -196,6 +200,10 @@
 		986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandButtonsNode.swift; sourceTree = "<group>"; };
 		986EAA5920A10F0300F3CCDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		986EAA5B20A1110000F3CCDC /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		986ED55B215F05F1008B44DC /* Dominaria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dominaria.swift; sourceTree = "<group>"; };
+		986ED55E215F094D008B44DC /* dom9full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom9full.png; sourceTree = "<group>"; };
+		986ED560215F0953008B44DC /* domt1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt1full.png; sourceTree = "<group>"; };
+		986ED562215F0959008B44DC /* domt2full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt2full.png; sourceTree = "<group>"; };
 		9871B61221595A2800A6A6AB /* grn65full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn65full.png; sourceTree = "<group>"; };
 		98A0D715215B14C300D90BCD /* grn94full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn94full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
@@ -264,6 +272,7 @@
 			children = (
 				9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */,
 				9818425120CA03D50068DC91 /* Kaladesh.swift */,
+				986ED55B215F05F1008B44DC /* Dominaria.swift */,
 				986D5C8720D1B853005E944E /* Magic2019.swift */,
 				98FA8E562156B52400EF5203 /* GuildsOfRavnica.swift */,
 			);
@@ -398,6 +407,16 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		986ED55D215F06F9008B44DC /* dom */ = {
+			isa = PBXGroup;
+			children = (
+				986ED55E215F094D008B44DC /* dom9full.png */,
+				986ED560215F0953008B44DC /* domt1full.png */,
+				986ED562215F0959008B44DC /* domt2full.png */,
+			);
+			path = dom;
+			sourceTree = "<group>";
+		};
 		98D0438B20EE87AD0009143E /* ai */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +436,7 @@
 		98DFD47320D9DC8C00B2EEA1 /* card */ = {
 			isa = PBXGroup;
 			children = (
+				986ED55D215F06F9008B44DC /* dom */,
 				9823DDEF215982360080C806 /* lea */,
 				98FA8E582156B85700EF5203 /* grn */,
 				98DFD47420D9DC9700B2EEA1 /* m19 */,
@@ -568,6 +588,8 @@
 				98ECCF2B215CCFCC0030ED51 /* lea203full.png in Resources */,
 				9823DE092159B54E0080C806 /* grn27full.png in Resources */,
 				98FA8E5F2156BCF900EF5203 /* grn58full.png in Resources */,
+				986ED561215F0953008B44DC /* domt1full.png in Resources */,
+				986ED563215F0959008B44DC /* domt2full.png in Resources */,
 				98FA8E622156BF0C00EF5203 /* grn70full.png in Resources */,
 				98ECCF07215CB51E0030ED51 /* lea98full.png in Resources */,
 				98A0D716215B14C300D90BCD /* grn94full.png in Resources */,
@@ -613,6 +635,7 @@
 				98E8A05620EAFBF200A951DA /* m1951full.png in Resources */,
 				98ECCF2C215CCFCC0030ED51 /* lea224full.png in Resources */,
 				9868005E20E5408500E6E730 /* m19277full.png in Resources */,
+				986ED55F215F094D008B44DC /* dom9full.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,6 +682,7 @@
 				986D5C9820D1ECFA005E944E /* CreaturesCardNode.swift in Sources */,
 				9840898220CAFF27005DA8F6 /* Stack.swift in Sources */,
 				986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */,
+				986ED55C215F05F1008B44DC /* Dominaria.swift in Sources */,
 				985E0F8520A26384006759B3 /* Type.swift in Sources */,
 				983373D6215C4A5D003CD4D0 /* Trigger.swift in Sources */,
 				9840897E20CAF562005DA8F6 /* Rarity.swift in Sources */,
