@@ -31,6 +31,7 @@ enum Subtype {
     case Elephant
     case Elf
     case Forest
+    case Fungus
     case Giant
     case Goblin
     case Golem
@@ -45,6 +46,7 @@ enum Subtype {
     case Ogre
     case Plains
     case Rhino
+    case Saproling
     case Scarecrow
     case Scout
     case Soldier
