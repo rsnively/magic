@@ -227,6 +227,180 @@ enum DOM {
     // 112 Windgrace Acolyte
     // 113 Yargle, Glutton of Urborg
     // 114 Yawgmoth's Vile Offering
+    // 115 Bloodstone Goblin
+    // 116 Champion of the Flame
+    // 117 Fervent Strike
+    // 118 Fiery Intervention
+    // 119 Fight with Fire
+    static func FireElemental() -> Card {
+        let fireElemental = Card(name: "Fire Elemental", rarity: .Common, set: set, number: 120)
+        fireElemental.setManaCost("3RR")
+        fireElemental.setType(.Creature, .Elemental)
+        fireElemental.setFlavorText("\"The best way to learn from a book on pyromancy is to burn it.\"\n--Jaya Ballard")
+        fireElemental.power = 5
+        fireElemental.toughness = 4
+        return fireElemental
+    }
+    // 121 Firefist Adept
+    // 122 The First Eruption
+    // 123 The Flame of Keld
+    // 124 Frenzied Rage
+    // 125 Ghitu Chronicler
+    // 126 Ghitu Journeymage
+    // 127 Ghitu Lavarunner
+    // 128 Goblin Barrage
+    // 129 Goblin Chainwhirler
+    // 130 Goblin Warchief
+    // 131 Haphazard Bombardment
+    // 132 Jaya Ballard
+    // 133 Jaya's Immolating Inferno
+    // 134 Keldon Overseer
+    // 135 Keldon Raider
+    // 136 Keldon Warcaller
+    // 137 Orcish Vandal
+    // 138 Radiating Lightning
+    // 139 Rampaging Cyclops
+    // 140 Run Amok
+    // 141 Seismic Shift
+    // 142 Shivan Fire
+    // 143 Siege-Gang Commander
+    // 144 Skirk Prospector
+    // 145 Skizzik
+    // 146 Squee the Immortal
+    // 147 Two-Headed Giant
+    // 148 Valduk, Keeper of the Flame
+    // 149 Verix Bladewing
+    // 150 Warcry Phoenix
+    // 151 Warlord's Fury
+    // 152 Wizard's Lightning
+    // 153 Adventurous Impulse
+    // 154 Ancient Animus
+    // 155 Arbor Armament
+    // 156 Baloth Gorger
+    // 157 Broken Bond
+    // 158 Corrosive Ooze
+    // 159 Elfhame Druid
+    // 160 Fungal Plots
+    // 161 Gaea's Blessing
+    // 162 Gaea's Protector
+    // 163 Gift of Growth
+    // 164 Grow from the Ashes
+    // 165 Grunn, the Lonely King
+    // 166 Kamahl's Druidic Vow
+    // 167 Krosan Druid
+    // 168 Llanowar Elves
+    // 169 Llanowar Envoy
+    // 170 Llanowar Scout
+    // 171 Mammoth Spider
+    // 172 Marwyn, the Nurturer
+    // 173 The Mending of Dominaria
+    // 174 Multani, Yavimaya's Avatar
+    // 175 Nature's Spiral
+    // 176 Pierce the Sky
+    static func PrimordialWurm() -> Card {
+        let primordialWurm = Card(name: "Primordial Wurm", rarity: .Common, set: set, number: 177)
+        primordialWurm.setManaCost("4GG")
+        primordialWurm.setType(.Creature, .Wurm)
+        primordialWurm.setFlavorText("\"You can hear its tail thrashing from a mile away. Keep in mind that its jaws may already be half a mile closer.\"\nJenson Carthalion, Yavimaya exile")
+        primordialWurm.power = 7
+        primordialWurm.toughness = 6
+        return primordialWurm
+    }
+    // 178 Saproling Migration
+    // 179 Song of Freyalise
+    static func SporeSwarm() -> Card {
+        let sporeSwarm = Card(name: "Spore Swarm", rarity: .Uncommon, set: set, number: 180)
+        sporeSwarm.setManaCost("3G")
+        sporeSwarm.setType(.Instant)
+        sporeSwarm.addEffect(UntargetedEffect({
+            $0.getController().createToken(Saproling())
+            $0.getController().createToken(Saproling())
+            $0.getController().createToken(Saproling())
+        }))
+        sporeSwarm.setFlavorText("As the irrepressible power of a dormant Multani courses through Yavimaya, the forest passes judgment on travelers and natives alike. Only the fungus prospers.")
+        return sporeSwarm
+    }
+    // 181 Sporecrown Thallid
+    // 182 Steel Leaf Champion
+    // 183 Sylvan Awakening
+    // 184 Territorial Allosaurus
+    // 185 Thorn Elemental
+    // 186 Untamed Kavu
+    // 187 Verdant Force
+    // 188 Wild Onslaught
+    static func YavimayaSapherd() -> Card {
+        let yavimayaSapherd = Card(name: "Yavimaya Sapherd", rarity: .Common, set: set, number: 189)
+        yavimayaSapherd.setManaCost("2G")
+        yavimayaSapherd.setType(.Creature, .Fungus)
+        yavimayaSapherd.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: yavimayaSapherd,
+            trigger: .ThisETB,
+            effect: { $0.getController().createToken(Saproling()) }
+        ))
+        yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
+        return yavimayaSapherd
+    }
+    // 190 Adeliz, the Cinder Wind
+    // 191 Arvad, the Cursed
+    // 192 Aryel, Knight of Windgrace
+    // 193 Darigaaz Reincarnated
+    // 194 Garna, the Bloodflame
+    // 195 Grand Warlord Radha
+    // 196 Hallar, the Firefletcher
+    // 197 Jhoira, Weatherlight Captain
+    // 198 Jodah, Archmage Eternal
+    // 199 Muldrotha, the Gravetide
+    // 200 Oath of Teferi
+    // 201 Primevals' Glorious Rebirth
+    // 202 Raff Capashen, Ship's Mage
+    // 203 Rona, Disciple of Ghix
+    // 204 Shanna, Sisay's Legacy
+    // 205 Slimefoot, the Stowaway
+    // 206 Tatyova, Benthic Druid
+    // 207 Teferi, Hero of Dominaria
+    // 208 Tiana, Ship's Caretaker
+    // 209 Aesthir Glider
+    // 210 Amaranthine Wall
+    // 211 Blackblade Reforged
+    // 212 Bloodtallow Candle
+    // 213 Damping Sphere
+    // 214 Forebear's Blade
+    // 215 Gilded Lotus
+    // 216 Guardians of Koilos
+    // 217 Helm of the Host
+    // 218 Howling Golem
+    // 219 Icy Manipulator
+    // 220 Jhoira's Familiar
+    // 221 Jousting Lance
+    // 222 Juggernaut
+    // 223 Mishra's Self Replicator
+    // 224 Mox Ambber
+    // 225 Naviagor's Compass
+    // 226 Pardic Wanderer
+    // 227 Powerstone Shard
+    // 228 Shield of the Realm
+    // 229 Short Sword
+    // 230 Skittering Surveyor
+    // 231 Sorcerer's Wand
+    // 232 Sparring Construct
+    // 233 Thran Temporal Gateway
+    // 234 Traxos, Scourge of Kroog
+    // 235 Urza's Tome
+    // 236 Voltaic Servant
+    // 237 Weatherlight
+    // 238 Cabal Stronghold
+    // 239 Clifftop Retreat
+    // 240 Hinterland Harbor
+    // 241 Isolated Chapel
+    // 242 Memorial to Folly
+    // 243 Memorial to Genius
+    // 244 Memorial to Glory
+    // 245 Memorial to Unity
+    // 246 Memorial to War
+    // 247 Sulfur Falls
+    // 248 Woodland Cemetary
+    // 249 Zhalfirin Void
+    // Basics
     
     
     
