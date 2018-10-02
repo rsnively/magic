@@ -3,6 +3,7 @@ import Foundation
 enum M19 {
     static var set = "m19"
     static var count = 280
+    
     // 1 Aegis of the Heavens
     // 2 Aethershield Artificer
     // 3 Ajani, Adversary of Tyrants
@@ -12,9 +13,45 @@ enum M19 {
     // 7 Angel of the Dawn
     // 8 Cavalry Drillmaster
     // 9 Cleansing Nova
-    // 10 Daybreak Chaplain
-    // 11 Dwarven Priest
-    // 12 Gallant Cavalry
+    static func DaybreakChaplain() -> Card {
+        let daybreakChaplain = Card(name: "Daybreak Chaplain", rarity: .Common, set: set, number: 10)
+        daybreakChaplain.setManaCost("1W")
+        daybreakChaplain.setType(.Creature, .Human, .Cleric)
+        daybreakChaplain.lifelink = true
+        daybreakChaplain.setFlavorText("\"May the light shine through me to guide the lost.\"")
+        daybreakChaplain.power = 1
+        daybreakChaplain.toughness = 3
+        return daybreakChaplain
+    }
+    static func DwarvenPriest() -> Card {
+        let dwarvenPriest = Card(name: "Dwarven Priest", rarity: .Common, set: set, number: 11)
+        dwarvenPriest.setManaCost("3W")
+        dwarvenPriest.setType(.Creature, .Dwarf, .Cleric)
+        dwarvenPriest.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: dwarvenPriest,
+            trigger: .ThisETB,
+            effect: { $0.getController().gainLife($0.getController().getCreatures().count) }
+        ))
+        dwarvenPriest.setFlavorText("\"These storied halls are under my protection.\"")
+        dwarvenPriest.power = 2
+        dwarvenPriest.toughness = 4
+        return dwarvenPriest
+    }
+    static func GallantCavalry() -> Card {
+        let gallantCavalry = Card(name: "Gallant Cavalry", rarity: .Common, set: set, number: 12)
+        gallantCavalry.setManaCost("3W")
+        gallantCavalry.setType(.Creature, .Human, .Knight)
+        gallantCavalry.vigilance = true
+        gallantCavalry.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: gallantCavalry,
+            trigger: .ThisETB,
+            effect: { $0.getController().createToken(Knight()) }
+        ))
+        gallantCavalry.setFlavorText("\"Our duty does not stop on our borders.\"")
+        gallantCavalry.power = 2
+        gallantCavalry.toughness = 2
+        return gallantCavalry
+    }
     // 13 Herald of Faith
     // 14 Hieromancer's Cage
     // 15 Inspired Charge
@@ -537,38 +574,29 @@ enum M19 {
     // 279 Forest
     // 280 Forest
     
-    // 281 Ajani, Wise Counselor
-    // 282
-    // 283 Court Cleric
-    // 284 Serra's Guardian
-    // 285 Silverbeak Griffin
-    // 286 Tezzeret, Cruel Machinist
-    // 287 Riddlemaster Sphinx
-    // 288
-    // 289
-    // 290
-    // 291 Liliana, the Necromancer
-    // 292
-    // 293 Gravewalker
-    // 294 Liliana's Spoils
-    // 295 Tattered Mummy
-    // 296 Sarkhan, Dragonsoul
-    // 297 Kargan Dragonrider
-    // 298
-    // 299 Sarkhan's Whelp
-    // 300 Shivan Dragon
-    // 301 Vivien of the Arkbow
-    // 302 Aggressive Mammoth
-    // 303
-    // 304 Ursine Champion
-    // 305 Vivien's Jaguar
-    // 306 Nexus of Fate
-    // 307 Sun Sentinel
-    // 308 Air Elemental
-    // 309 Befuddle
-    // 310 Mist-Cloaked Herald
-    // 311 Waterknot
-    // 312 Grasping Scoundrel
-    // 313 Radiating Lightning
-    // 314 Llanowar Elves
+    // t1 Angel
+    // t2 Avatar
+    // t3 Cat
+    static func Knight() -> Token {
+        let knight = Token(name: "Knight", set: set, number: 4)
+        knight.colors = [Color.White]
+        knight.setType(.Creature, .Knight)
+        knight.vigilance = true
+        knight.power = 2
+        knight.toughness = 2
+        return knight;
+    }
+    // t5 Ox
+    // t6 Soldier
+    // t7 Bat
+    // t8 Zombie
+    // t9 Dragon (firebreathing)
+    // t10 Dragon
+    // t11 Goblin
+    // t12 Beast
+    // t13 Elf Warrior
+    // t14 Thopter
+    // t15 Ajani Emblem
+    // t16 Tezzeret Emblem
+    // t17 Vivien Emblem
 }

@@ -27,6 +27,7 @@ enum Subtype {
     case Cleric
     case Crab
     case Dinosaur
+    case Dwarf
     case Elemental
     case Elephant
     case Elf
