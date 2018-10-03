@@ -236,11 +236,33 @@ enum M19 {
         return bogstomper
     }
     // 88 Bone Dragon
-    // 89 Child of Night
+    static func ChildOfNight() -> Card {
+        let childOfNight = Card(name: "Child of Night", rarity: .Common, set: set, number: 89)
+        childOfNight.setManaCost("1B")
+        childOfNight.setType(.Creature, .Vampire)
+        childOfNight.lifelink = true
+        childOfNight.setFlavorText("Sins that would be too gruesome in the light of day are made more pleasing in the dark of night.")
+        childOfNight.power = 2
+        childOfNight.toughness = 1
+        return childOfNight
+    }
     // 90 Death Baron
     // 91 Demon of Catastrophes
     // 92 Diregraf Ghoul
-    // 93 Doomed Dissenter
+    static func DoomedDissenter() -> Card {
+        let doomedDissenter = Card(name: "Doomed Dissenter", rarity: .Common, set: set, number: 93)
+        doomedDissenter.setManaCost("1B")
+        doomedDissenter.setType(.Creature, .Human)
+        doomedDissenter.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: doomedDissenter,
+            trigger: .ThisDies,
+            effect: { $0.getController().createToken(Zombie()) }
+        ))
+        doomedDissenter.setFlavorText("There is only one fate left to those banished from the God-Pharoah's city.")
+        doomedDissenter.power = 1
+        doomedDissenter.toughness = 1
+        return doomedDissenter
+    }
     // 94 Duress
     // 95 Epicure of Blood
     // 96 Fell Specter
@@ -328,8 +350,32 @@ enum M19 {
     // 136 Dismissive Pyromancer
     // 137 Doublecast
     // 138 Dragon Egg
-    // 139 Electrify
-    // 140 Fiery Finish
+    static func Electrify() -> Card {
+        let electrify = Card(name: "Electrify", rarity: .Common, set: set, number: 139)
+        electrify.setManaCost("3R")
+        electrify.setType(.Instant)
+        electrify.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+        }, { source, target in
+            target.dealDamage(4)
+        }))
+        electrify.setFlavorText("\"Some hid from the storm. I embraced it and learned its name.\"")
+        return electrify
+    }
+    static func FieryFinish() -> Card {
+        let fieryFinish = Card(name: "Fiery Finish", rarity: .Uncommon, set: set, number: 140)
+        fieryFinish.setManaCost("4RR")
+        fieryFinish.setType(.Sorcery)
+        fieryFinish.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Creature)
+        }, { source, target in
+            target.dealDamage(7)
+        }))
+        fieryFinish.setFlavorText("Negotiations reached an abrupt conclusion.")
+        return fieryFinish
+    }
     static func FireElemental() -> Card {
         let fireElemental = Card(name: "Fire Elemental", rarity: .Common, set: set, number: 141)
         fireElemental.setManaCost("3RR")
@@ -339,7 +385,20 @@ enum M19 {
         fireElemental.toughness = 4
         return fireElemental
     }
-    // 142 Goblin Instigator
+    static func GoblinInstigator() -> Card {
+        let goblinInstigator = Card(name: "Goblin Instigator", rarity: .Common, set: set, number: 142)
+        goblinInstigator.setManaCost("1R")
+        goblinInstigator.setType(.Creature, .Goblin)
+        goblinInstigator.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: goblinInstigator,
+            trigger: .ThisETB,
+            effect: { $0.getController().createToken(Goblin()) }
+        ))
+        goblinInstigator.setFlavorText("\"We can take 'em. You go first!\"")
+        goblinInstigator.power = 1
+        goblinInstigator.toughness = 1
+        return goblinInstigator
+    }
     // 143 Goblin Motivator
     // 144 Goblin Trashmaster
     // 145 Guttersnipe
@@ -430,9 +489,33 @@ enum M19 {
         greenwoodSentinel.toughness = 2
         return greenwoodSentinel
     }
-    // 188 Highland Game
+    static func HighlandGame() -> Card {
+        let highlandGame = Card(name: "Highland Game", rarity: .Common, set: set, number: 188)
+        highlandGame.setManaCost("1G")
+        highlandGame.setType(.Creature, .Elk)
+        highlandGame.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: highlandGame,
+            trigger: .ThisDies,
+            effect: { $0.getController().gainLife(2) }
+        ))
+        highlandGame.power = 2
+        highlandGame.toughness = 1
+        return highlandGame
+    }
     // 189 Hungering Hydra
-    // 190 Naturalize
+    static func Naturalize() -> Card {
+        let naturalize = Card(name: "Naturalize", rarity: .Common, set: set, number: 190)
+        naturalize.setManaCost("1G")
+        naturalize.setType(.Instant)
+        naturalize.addEffect(TargetedEffect(
+            targetingRestriction: { potentialTarget in
+                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
+        }, { source, target in
+            target.destroy()
+        }))
+        naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
+        return naturalize
+    }
     // 191 Oakenform
     // 192 Pelakka Wurm
     // 193 Plummet
@@ -440,7 +523,20 @@ enum M19 {
     // 195 Rabid Bite
     // 196 Reclamation Sage
     // 197 Recollect
-    // 198 Rhox Oracle
+    static func RhoxOracle() -> Card {
+        let rhoxOracle = Card(name: "Rhox Oracle", rarity: .Common, set: set, number: 198)
+        rhoxOracle.setManaCost("4G")
+        rhoxOracle.setType(.Creature, .Rhino, .Monk)
+        rhoxOracle.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: rhoxOracle,
+            trigger: .ThisETB,
+            effect: { $0.getController().drawCard() }
+        ))
+        rhoxOracle.setFlavorText("\"The further into the future I look, the less certain my vision. Even now, the middle distance is obscured by fire.")
+        rhoxOracle.power = 4
+        rhoxOracle.toughness = 2
+        return rhoxOracle
+    }
     // 199 Root Snare
     // 200 Runic Armasaur
     // 201 Scapeshift
@@ -589,10 +685,24 @@ enum M19 {
     // t5 Ox
     // t6 Soldier
     // t7 Bat
-    // t8 Zombie
+    static func Zombie() -> Token {
+        let zombie = Token(name: "Zombie", set: set, number: 8)
+        zombie.colors = [.Black]
+        zombie.setType(.Creature, .Zombie)
+        zombie.power = 2
+        zombie.toughness = 2
+        return zombie
+    }
     // t9 Dragon (firebreathing)
     // t10 Dragon
-    // t11 Goblin
+    static func Goblin() -> Token {
+        let goblin = Token(name: "Goblin", set: set, number: 11)
+        goblin.colors = [.Red]
+        goblin.setType(.Creature, .Goblin)
+        goblin.power = 1
+        goblin.toughness = 1
+        return goblin
+    }
     // t12 Beast
     // t13 Elf Warrior
     // t14 Thopter

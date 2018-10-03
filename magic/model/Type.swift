@@ -31,6 +31,7 @@ enum Subtype {
     case Elemental
     case Elephant
     case Elf
+    case Elk
     case Forest
     case Fungus
     case Giant
@@ -43,6 +44,7 @@ enum Subtype {
     case Knight
     case Merfolk
     case Minotaur
+    case Monk
     case Mountain
     case Ogre
     case Plains
