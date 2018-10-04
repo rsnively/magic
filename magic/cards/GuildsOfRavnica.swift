@@ -358,7 +358,25 @@ enum GRN {
     // 154 Beacon Bolt
     // 155 Beamsplitter Mage
     // 156 Boros Challenger
-    // 157 Camaraderie
+    static func Camaraderie() -> Card {
+        let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
+        camaraderie.setManaCost("4GW")
+        camaraderie.setType(.Sorcery)
+        camaraderie.addEffect(UntargetedEffect({ source in
+            let numCreatures = source.getController().getCreatures().count
+            source.getController().gainLife(numCreatures)
+            source.getController().drawCards(numCreatures)
+            source.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.power! + 1
+                    object.toughness = object.toughness! + 1
+                    return object
+                }))
+            })
+        }))
+        camaraderie.setFlavorText("\"Within the song of Mat'Selesnya, one becomes all.\"\n--Heruj, Selesnya hierophant")
+        return camaraderie
+    }
     static func CentaurPeacemaker() -> Card {
         let centaurPeacemaker = Card(name: "Centaur Peacemaker", rarity: .Common, set: set, number: 158)
         centaurPeacemaker.setManaCost("1GW")

@@ -30,9 +30,9 @@ class Game: NSObject {
             
             deck1.append(M19.Plains())
             deck1.append(M19.Forest())
-            deck1.append(M19.DaybreakChaplain())
             deck1.append(GRN.SwornCompanions())
-            deck1.append(GRN.MightOfTheMasses())
+            deck1.append(GRN.ConclaveCavalier())
+            deck1.append(GRN.Camaraderie())
             
             deck2.append(M19.Plains())
             deck2.append(M19.Plains())

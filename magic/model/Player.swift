@@ -19,10 +19,11 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-//        for _ in 0..<3 {
-//            permanents.append(M19.Plains())
-//        }
-//        permanents.forEach({$0.setOwner(owner: self)})
+        for _ in 0..<3 {
+            permanents.append(M19.Plains())
+            permanents.append(M19.Forest())
+        }
+        permanents.forEach({$0.setOwner(owner: self)})
         
         self.pregameActions()
     }
