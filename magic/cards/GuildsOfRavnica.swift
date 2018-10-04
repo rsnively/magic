@@ -305,7 +305,23 @@ enum GRN {
         return kraulForagers
     }
     // 136 Kraul Harpooner
-    // 137 Might of the Masses
+    static func MightOfTheMasses() -> Card {
+        let mightOfTheMasses = Card(name: "Might of the Masses", rarity: .Uncommon, set: set, number: 137)
+        mightOfTheMasses.setManaCost("G")
+        mightOfTheMasses.setType(.Instant)
+        mightOfTheMasses.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    let x = source.getController().getCreatures().count
+                    object.power = object.power! + x
+                    object.toughness = object.toughness! + x
+                    return object
+                }))
+        }))
+        mightOfTheMasses.setFlavorText("\"There is nothing stronger than many hearts united for a single cause.\"\n--Emmara")
+        return mightOfTheMasses
+    }
     // 138 Nullhide Ferox
     // 139 Pack's Favor
     // 140 Pause for Reflection
