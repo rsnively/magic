@@ -31,12 +31,21 @@ class CardNode: SKSpriteNode {
     
     init(card:Object, allowedSize:CGSize) {
         self.card = card
-        super.init(texture:nil, color: SKColor.clear, size:CardNode.getMaximumCardSize(for:allowedSize))
+        let size = CardNode.getMaximumCardSize(for: allowedSize)
+        super.init(texture:nil, color: SKColor.clear, size:size)
         if card.attacking {
             let attackBorder = SKShapeNode(rectOf: self.size * 1.1, cornerRadius: 3.0)
             attackBorder.strokeColor = SKColor.red
             attackBorder.fillColor = SKColor.red
             addChild(attackBorder)
+        }
+        if card.isType(.Creature) && (card.getPower() != card.power! || card.getToughness() != card.toughness!) {
+            let powerToughnessNode = SKLabelNode(text: String(card.getPower()) + "/" + String(card.getToughness()))
+            powerToughnessNode.fontColor = UIColor.blue // todo, red when less
+            powerToughnessNode.fontSize = allowedSize.height * 0.1;
+            powerToughnessNode.position = CGPoint(x: 0, y: size.height * -0.4)
+            powerToughnessNode.zPosition = 0.1
+            addChild(powerToughnessNode)
         }
         addChild(CardNode.getImageNode(card: self.card, cardSize: self.size, full: true))
 

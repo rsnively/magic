@@ -1,6 +1,6 @@
 import Foundation
 
-class Object: NSObject {
+class Object: NSObject, NSCopying {
     var name:String?
     var colors:Set<Color> = []
     var manaCost:ManaCost?
@@ -10,6 +10,7 @@ class Object: NSObject {
     var power:Int?
     var toughness:Int?
     var effects:[Effect] = []
+    var activeEffects:[ContinuousEffect] = []
     var triggeredAbilities:[TriggeredAbility] = []
     
     var defender: Bool = false
@@ -32,6 +33,34 @@ class Object: NSObject {
     init(name:String) {
         self.name = name
         super.init()
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Object(name: name!)
+        copy.colors = colors
+        copy.manaCost = manaCost
+        copy.supertypes = supertypes
+        copy.types = types
+        copy.subtypes = subtypes
+        copy.power = power
+        copy.toughness = toughness
+        copy.effects = effects
+        copy.activeEffects = activeEffects
+        copy.triggeredAbilities = triggeredAbilities
+        
+        copy.defender = defender
+        copy.flash = flash
+        copy.lifelink = lifelink
+        copy.vigilance = vigilance
+        
+        copy.owner = owner
+        copy.controller = controller
+        copy.attacking = attacking
+        copy.markedDamage = markedDamage
+        copy.tapped = tapped
+        copy.turnEnteredBattlefield = turnEnteredBattlefield
+        
+        return copy
     }
     
     func getName() -> String {
@@ -99,6 +128,18 @@ class Object: NSObject {
         effects.append(effect)
     }
     
+    func addContinuousEffect(_ continuousEffect: ContinuousEffect) {
+        activeEffects.append(continuousEffect)
+    }
+    
+    func applyContinuousEffects() -> Object {
+        var object = self.copy() as! Object
+        for activeEffect in activeEffects {
+            object = activeEffect.apply(object)
+        }
+        return object
+    }
+    
     func addTriggeredAbility(_ triggeredAbility: TriggeredAbility) {
         triggeredAbilities.append(triggeredAbility)
     }
@@ -124,11 +165,11 @@ class Object: NSObject {
     }
     
     func getPower() -> Int {
-        return power!
+        return applyContinuousEffects().power!
     }
     
     func getToughness() -> Int {
-        return toughness!
+        return applyContinuousEffects().toughness!
     }
     
     func hasSummoningSickness() -> Bool {
@@ -165,6 +206,10 @@ class Object: NSObject {
     
     func removeDamage() {
         markedDamage = 0
+    }
+    
+    func removeUntilEndOfTurnEffects() {
+        activeEffects.removeAll()
     }
     
     // This permanent is dealing damage equal to its power to something

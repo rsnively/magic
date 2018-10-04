@@ -19,10 +19,10 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-        for _ in 0..<3 {
-            permanents.append(M19.Plains())
-        }
-        permanents.forEach({$0.setOwner(owner: self)})
+//        for _ in 0..<3 {
+//            permanents.append(M19.Plains())
+//        }
+//        permanents.forEach({$0.setOwner(owner: self)})
         
         self.pregameActions()
     }
@@ -51,6 +51,9 @@ class Player: NSObject {
         return graveyard
     }
     
+    func getPermanents() -> [Object] {
+        return permanents
+    }
     func getLands() -> [Object] {
         return permanents.filter { $0.isType(Type.Land) }
     }

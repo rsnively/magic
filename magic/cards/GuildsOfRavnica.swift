@@ -82,7 +82,23 @@ enum GRN {
         swornCompanions.setFlavorText("\"The trouble with youths these days is that, in outright defiance of their elders, they refuse to be bought.\"\n--Karlov of the Ghost Council")
         return swornCompanions
     }
-    // 28 Take Heart
+    static func TakeHeart() -> Card {
+        let takeHeart = Card(name: "Take Heart", rarity: .Common, set: set, number: 28)
+        takeHeart.setManaCost("W")
+        takeHeart.setType(.Instant)
+        takeHeart.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
+                    object.power = object.power! + 2
+                    object.toughness = object.toughness! + 2
+                    return object
+                })
+                source.getController().gainLife(source.getController().getCreatures().filter({$0.attacking}).count)
+        }))
+        takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
+        return takeHeart
+    }
     // 29 Tenth District Guard
     // 30 Venerated Loxodon
     // 31 Capture Sphere

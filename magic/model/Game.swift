@@ -27,17 +27,15 @@ class Game: NSObject {
         var deck1: [Card] = []
         var deck2: [Card] = []
         for _ in 0..<15 {
-
-            deck1.append(M19.Swamp())
-            deck1.append(M19.Swamp())
-            deck1.append(LEA.Sinkhole())
-            deck1.append(M19.Murder())
-            deck1.append(LEA.DarkRitual())
+            
+            deck1.append(M19.Plains())
+            deck1.append(M19.DaybreakChaplain())
+            deck1.append(GRN.TakeHeart())
             
             deck2.append(M19.Plains())
             deck2.append(M19.Plains())
-            deck2.append(GRN.SwornCompanions())
-            deck2.append(GRN.SwornCompanions())
+            deck2.append(DOM.CallTheCavalry())
+            deck2.append(DOM.CallTheCavalry())
         }
         
         player1 = Player(deck: deck1)
@@ -144,6 +142,7 @@ class Game: NSObject {
         else if currentPhase == .Cleanup {
             // todo, discard to hand size
             bothPlayers({ $0.getCreatures().forEach({ $0.removeDamage() })})
+            bothPlayers({ $0.getPermanents().forEach({ $0.removeUntilEndOfTurnEffects() })})
             checkStateBasedActions()
             nextPhase()
             return

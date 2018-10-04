@@ -111,6 +111,8 @@
 		98A8CA3D2162095F009E92FB /* dom81full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA332162095F009E92FB /* dom81full.png */; };
 		98A8CA3E2162095F009E92FB /* dom52full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA342162095F009E92FB /* dom52full.png */; };
 		98A8CA3F2162095F009E92FB /* dom24full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA352162095F009E92FB /* dom24full.png */; };
+		98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA80222165F0DB004BFE0B /* ContinuousEffect.swift */; };
+		98AA80252165F5EA004BFE0B /* grn28full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AA80242165F5EA004BFE0B /* grn28full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
 		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
 		98D0438D20EE87B60009143E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* Opponent.swift */; };
@@ -268,6 +270,8 @@
 		98A8CA332162095F009E92FB /* dom81full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom81full.png; sourceTree = "<group>"; };
 		98A8CA342162095F009E92FB /* dom52full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom52full.png; sourceTree = "<group>"; };
 		98A8CA352162095F009E92FB /* dom24full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom24full.png; sourceTree = "<group>"; };
+		98AA80222165F0DB004BFE0B /* ContinuousEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousEffect.swift; sourceTree = "<group>"; };
+		98AA80242165F5EA004BFE0B /* grn28full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn28full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
 		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
 		98D0438C20EE87B60009143E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
@@ -420,6 +424,7 @@
 				985E0F8220A26339006759B3 /* BasicLand.swift */,
 				982F9B31209BAD33009BBD8B /* Card.swift */,
 				986EAA5920A10F0300F3CCDC /* Color.swift */,
+				98AA80222165F0DB004BFE0B /* ContinuousEffect.swift */,
 				98E8A05020EAF79100A951DA /* Effect.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
 				9818425520CA07580068DC91 /* Mana.swift */,
@@ -574,6 +579,7 @@
 				98FA8E5B2156B9D600EF5203 /* grn5full.png */,
 				983373DD215C61BD003CD4D0 /* grn15full.png */,
 				9823DE082159B54E0080C806 /* grn27full.png */,
+				98AA80242165F5EA004BFE0B /* grn28full.png */,
 				98FA8E5D2156BCF900EF5203 /* grn58full.png */,
 				98FA8E5E2156BCF900EF5203 /* grn60full.png */,
 				9871B61221595A2800A6A6AB /* grn65full.png */,
@@ -655,6 +661,7 @@
 				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
 				98ECCF24215CCFCC0030ED51 /* lea267full.png in Resources */,
 				982232AB20EFEB3200B07803 /* m19158full.png in Resources */,
+				98AA80252165F5EA004BFE0B /* grn28full.png in Resources */,
 				9868006220E541A100E6E730 /* m19185full.png in Resources */,
 				98ECCF32215CCFCC0030ED51 /* lea173full.png in Resources */,
 				98ECCF2D215CCFCC0030ED51 /* lea182full.png in Resources */,
@@ -799,6 +806,7 @@
 				98E549A520D88CA200D64482 /* Phase.swift in Sources */,
 				986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
+				98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */,
 				98D0438D20EE87B60009143E /* Opponent.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
