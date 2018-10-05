@@ -284,7 +284,25 @@ enum GRN {
     // 124 Bounty of Might
     // 125 Circuitous Route
     // 126 Crushing Canopy
-    // 127 Devkarin Dissident
+    static func DevkarinDissident() -> Card {
+        let devkarinDissident = Card(name: "Devkarin Dissident", rarity: .Common, set: set, number: 127)
+        devkarinDissident.setManaCost("1G")
+        devkarinDissident.setType(.Creature, .Elf, .Warrior)
+        devkarinDissident.addActivatedAbility(UntargetedActivatedAbility(
+            source: devkarinDissident,
+            cost: ManaCost("4G"),
+            effect: { source in
+                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 2
+                    object.toughness = object.getBaseToughness() + 2
+                    return object
+                }))
+        }))
+        devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
+        devkarinDissident.power = 2
+        devkarinDissident.toughness = 2
+        return devkarinDissident
+    }
     // 128 District Guide
     static func GenerousStray() -> Card {
         let generousStray = Card(name: "Generous Stray", rarity: .Common, set: set, number: 129)
