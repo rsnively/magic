@@ -23,7 +23,22 @@ enum DOM {
         callTheCavalry.setFlavorText("Benalish citizens born under the same constellation share a star-clan. Their loyalty to one another interlaces the Seven Houses.")
         return callTheCavalry
     }
-    // 10 Charge
+    static func Charge() -> Card {
+        let charge = Card(name: "Charge", rarity: .Common, set: set, number: 10)
+        charge.setManaCost("W")
+        charge.setType(.Instant)
+        charge.addEffect(UntargetedEffect({ source in
+            source.getController().getCreatures().forEach({
+                $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                    return object
+                }))
+            })
+        }))
+        charge.setFlavorText("\"Honor rides before us. All we have to do is catch up\"\n--Danitha Capashen")
+        return charge
+    }
     // 11 D'Avenant Trapper
     // 12 Danitha Capashen, Pargaon
     // 13 Daring Archaeologist
@@ -88,7 +103,22 @@ enum DOM {
     // 42 The Antiquities War
     // 43 Arcane Flight
     // 44 Artificer's Assistant
-    // 45 Befuddle
+    static func Befuddle() -> Card {
+        let befuddle = Card(name: "Befuddle", rarity: .Common, set: set, number: 45)
+        befuddle.setManaCost("2U")
+        befuddle.setType(.Instant)
+        befuddle.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() - 4
+                    return object
+                }))
+                source.getController().drawCard()
+        }))
+        befuddle.setFlavorText("\"The trick to talking sense into Keldons is getting them to hold still. I learned that from Radha.\"\n--Jhoira")
+        return befuddle
+    }
     // 46 Blink of an Eye
     // 47 Cloudreader Sphinx
     // 48 Cold-Water Snapper
@@ -188,7 +218,25 @@ enum DOM {
     // 85 Demonic Vigor
     // 86 Demonlord Belzenlok
     // 87 Divest
-    // 88 Dread Shade
+    static func DreadShade() -> Card {
+        let dreadShade = Card(name: "Dread Shade", rarity: .Rare, set: set, number: 88)
+        dreadShade.setManaCost("BBB")
+        dreadShade.setType(.Creature, .Shade)
+        dreadShade.addActivatedAbility(UntargetedActivatedAbility(
+            source: dreadShade,
+            cost: Cost("B"),
+            effect: { source in
+                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                    return object
+                }))
+        }))
+        dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
+        dreadShade.power = 3
+        dreadShade.toughness = 3
+        return dreadShade
+    }
     // 89 Drudge Sentinel
     // 90 The Eldest Reborn
     static func Eviscerate() -> Card {
@@ -206,7 +254,23 @@ enum DOM {
     }
     // 92 Feral Abomination
     // 93 Final Parting
-    // 94 Fungal Infection
+    static func FungalInfection() -> Card {
+        let fungalInfection = Card(name: "Fungal Infection", rarity: .Common, set: set, number: 94)
+        fungalInfection.setManaCost("B")
+        fungalInfection.setType(.Instant)
+        fungalInfection.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() - 1
+                    object.toughness = object.getBaseToughness() - 1
+                    return object
+                }))
+                source.getController().createToken(Saproling())
+        }))
+        fungalInfection.setFlavorText("To thallids, the whole world is just a pile of mulch to grow saprolings in.")
+        return fungalInfection
+    }
     // 95 Josu Vess, Lich Knight
     // 96 Kazarov, Sengir Pureblood
     // 97 Knight of Malice

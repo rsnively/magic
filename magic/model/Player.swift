@@ -20,8 +20,8 @@ class Player: NSObject {
         }
         
         for _ in 0..<4 {
-            permanents.append(M19.Plains())
-            permanents.append(GRN.Forest())
+            permanents.append(GRN.Plains())
+            permanents.append(GRN.Swamp())
         }
         permanents.forEach({$0.setOwner(owner: self)})
         

@@ -28,11 +28,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Forest())
-            deck1.append(GRN.Forest())
-            deck1.append(GRN.DevkarinDissident())
-            deck1.append(GRN.GenerousStray())
-            deck1.append(GRN.MightOfTheMasses())
+            deck1.append(GRN.Swamp())
+            deck1.append(GRN.Swamp())
+            deck1.append(DOM.FungalInfection())
+            deck1.append(DOM.DreadShade())
+            deck1.append(GRN.ChildOfNight())
             
             deck2.append(M19.Plains())
             deck2.append(M19.Plains())
@@ -183,6 +183,14 @@ class Game: NSObject {
         // If a copy of a spell is in a zone other than the stack, it ceases to exist
         // If a copy of a card is in a zone other than the stack or battlefield, it ceases to exist
         // If a creature has toughness 0 or less, it's put into its owner's graveyard. Regeneration can't replace this event.
+        bothPlayers({ player in
+            player.getCreatures().forEach( { creature in
+                if creature.getToughness() <= 0 {
+                    creature.destroy()
+                    actionPerformed = true
+                }
+            })
+        })
         // If a creature has toughness greater than 0, and the total damage marked on it is greater than or equal to its toughness, that creature has been dealt lethal damage and it is destroyed. Regeneration can replace this event.
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
