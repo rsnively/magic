@@ -431,7 +431,19 @@ enum GRN {
     // 179 Ionize
     // 180 Izoni, Thousand-Eyed
     // 181 Join Shields
-    // 182 Justice Strike
+    static func JusticeStrike() -> Card {
+        let justiceStrike = Card(name: "Justice Strike", rarity: .Uncommon, set: set, number: 182)
+        justiceStrike.setManaCost("RW")
+        justiceStrike.setType(.Instant)
+        justiceStrike.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.dealsDamage()
+                target.dealDamage(target.getPower())
+        }))
+        justiceStrike.setFlavorText("\"Those who show no mercy to the weak deserve no mercy from the strong.\"\n--Firemane Kavrova")
+        return justiceStrike
+    }
     // 183 Knight of Autumn
     // 184 Lazav, the Multifarious
     // 185 League Guildmage
