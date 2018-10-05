@@ -25,9 +25,10 @@ class CreaturesCardNode: CardNode {
                 }
             } else if card.canActivateAbilities() {
                 // todo: multiple activated abilities
-                if card.getController().getManaPool().canAfford(card.activatedAbilities.first!) {
-                    card.getController().getManaPool().payFor(card.activatedAbilities.first!)
-                    card.activatedAbilities.first!.activate()
+                let ability = card.activatedAbilities.first!
+                if card.getController().getManaPool().canAfford(ability) && (!(card.isTapped || card.hasSummoningSickness()) || !ability.getCost().getTapCost()) {
+                    card.getController().payFor(ability.getCost(), card)
+                    ability.activate()
                     (self.scene as! GameScene).redraw()
                     return
                 }
