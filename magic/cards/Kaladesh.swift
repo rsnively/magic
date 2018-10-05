@@ -5,15 +5,6 @@ import Foundation
 enum KLD {
     static var set = "kld"
     
-    static func Forest() -> Card {
-        let forest = Card(name: "Forest", rarity: Rarity.Common, set: set, number: 262)
-        forest.setManaCost("")
-        forest.addType(Supertype.Basic)
-        forest.addType(Type.Land)
-        forest.addType(Subtype.Forest)
-        return forest
-    }
-    
     static func TerrainElemental() -> Card {
         let terrainElemental = Card(name: "Terrain Elemental", rarity: Rarity.Common, set: set, number: 272)
         terrainElemental.setManaCost("1G")

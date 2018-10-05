@@ -628,6 +628,12 @@ enum M19 {
         let plains = Card(name: "Plains", rarity: .Common, set: set, number: 261)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
+        plains.addActivatedAbility(UntargetedActivatedAbility(
+            source: plains,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .White) },
+            manaAbility: true
+        ))
         return plains
     }
     // 262 Plains
@@ -637,6 +643,12 @@ enum M19 {
         let island = Card(name: "Island", rarity: .Common, set: set, number: 265)
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
+        island.addActivatedAbility(UntargetedActivatedAbility(
+            source: island,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Blue) },
+            manaAbility: true
+        ))
         return island
     }
     // 266 Island
@@ -646,6 +658,12 @@ enum M19 {
         let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 269)
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
+        swamp.addActivatedAbility(UntargetedActivatedAbility(
+            source: swamp,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Black) },
+            manaAbility: true
+        ))
         return swamp
     }
     // 270 Swamp
@@ -655,6 +673,12 @@ enum M19 {
         let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 273)
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
+        mountain.addActivatedAbility(UntargetedActivatedAbility(
+            source: mountain,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Red) },
+            manaAbility: true
+        ))
         return mountain;
     }
     // 274 Mountain
@@ -664,6 +688,12 @@ enum M19 {
         let forest = Card(name: "Forest", rarity: .Common, set: set, number: 277)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
+        forest.addActivatedAbility(UntargetedActivatedAbility(
+            source: forest,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Green) },
+            manaAbility: true
+        ))
         return forest;
     }
     // 278 Forest

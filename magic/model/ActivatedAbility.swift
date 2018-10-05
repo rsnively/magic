@@ -3,18 +3,20 @@ import Foundation
 protocol ActivatedAbility {
     func requiresTargets() -> Bool
     func getSource() -> Object
-    func getCost() -> ManaCost
+    func getCost() -> Cost
     func activate() -> Void
     func resolve() -> Void
 }
 
 class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var source: Object
-    private var cost: ManaCost
+    private var cost: Cost
+    private var manaAbility: Bool
     
-    init(source: Object, cost: ManaCost, effect:@escaping (Object) -> ()) {
+    init(source: Object, cost: Cost, effect:@escaping (Object) -> (), manaAbility: Bool = false) {
         self.source = source
         self.cost = cost
+        self.manaAbility = manaAbility
         super.init(name: "Activated Ability of " + source.getName())
         effects.append(UntargetedEffect(effect))
     }
@@ -23,12 +25,16 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
         return source
     }
     
-    func getCost() -> ManaCost {
+    func getCost() -> Cost {
         return cost
     }
     
     func activate() {
-        Game.shared.theStack.push(self)
+        if manaAbility {
+            resolve()
+        } else {
+            Game.shared.theStack.push(self)
+        }
     }
     
     override func getController() -> Player {

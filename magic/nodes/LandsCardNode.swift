@@ -22,13 +22,15 @@ class LandsCardNode: CardNode {
                     Game.shared.selectTarget(card)
                     (self.scene as! GameScene).redraw()
                 }
-            }
-            else if card.getController() == Game.shared.player1 && !card.isTapped {
-                // todo: non-basic lands / should behave like activated abilities with some exceptions
-                let manaType:Color? = getColorForLandType(subtype: self.card.subtypes.first!)
-                self.card.tap()
-                self.card.getOwner().addMana(color: manaType)
-                (self.scene as! GameScene).redraw()
+            } else if card.canActivateAbilities() {
+                // todo: multiple activated abilities
+                let ability = card.activatedAbilities.first!
+                if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost())  {
+                    card.getController().payFor(ability.getCost(), card)
+                    ability.activate()
+                    (self.scene as! GameScene).redraw()
+                    return
+                }
             }
         }
     }

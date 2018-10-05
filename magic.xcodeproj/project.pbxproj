@@ -102,6 +102,8 @@
 		98A19A2E2167EC85002A4296 /* ActivatedAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */; };
 		98A19A302167FEAA002A4296 /* grn88full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A2F2167FEAA002A4296 /* grn88full.png */; };
 		98A19A3221680C1C002A4296 /* grn127full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A3121680C1C002A4296 /* grn127full.png */; };
+		98A19A3421680F51002A4296 /* Cost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A19A3321680F51002A4296 /* Cost.swift */; };
+		98A19A362168107A002A4296 /* grn264full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A352168107A002A4296 /* grn264full.png */; };
 		98A8CA2921620954009E92FB /* domt11full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2621620954009E92FB /* domt11full.png */; };
 		98A8CA2A21620954009E92FB /* domt12full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2721620954009E92FB /* domt12full.png */; };
 		98A8CA2B21620954009E92FB /* domt13full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2821620954009E92FB /* domt13full.png */; };
@@ -267,6 +269,8 @@
 		98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivatedAbility.swift; sourceTree = "<group>"; };
 		98A19A2F2167FEAA002A4296 /* grn88full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn88full.png; sourceTree = "<group>"; };
 		98A19A3121680C1C002A4296 /* grn127full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn127full.png; sourceTree = "<group>"; };
+		98A19A3321680F51002A4296 /* Cost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cost.swift; sourceTree = "<group>"; };
+		98A19A352168107A002A4296 /* grn264full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn264full.png; sourceTree = "<group>"; };
 		98A8CA2621620954009E92FB /* domt11full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt11full.png; sourceTree = "<group>"; };
 		98A8CA2721620954009E92FB /* domt12full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt12full.png; sourceTree = "<group>"; };
 		98A8CA2821620954009E92FB /* domt13full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt13full.png; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 				982F9B31209BAD33009BBD8B /* Card.swift */,
 				986EAA5920A10F0300F3CCDC /* Color.swift */,
 				98AA80222165F0DB004BFE0B /* ContinuousEffect.swift */,
+				98A19A3321680F51002A4296 /* Cost.swift */,
 				98E8A05020EAF79100A951DA /* Effect.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
 				9818425520CA07580068DC91 /* Mana.swift */,
@@ -611,6 +616,7 @@
 				983373DB215C5916003CD4D0 /* grn158full.png */,
 				983373E1215C6421003CD4D0 /* grn161full.png */,
 				98A19A2B2167E6EE002A4296 /* grn182full.png */,
+				98A19A352168107A002A4296 /* grn264full.png */,
 				9823DE062159B41C0080C806 /* grnt2full.png */,
 				983373DF215C6406003CD4D0 /* grnt6full.png */,
 			);
@@ -774,6 +780,7 @@
 				98A8CA3F2162095F009E92FB /* dom24full.png in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
 				98E8A04F20EAF49900A951DA /* m19206full.png in Resources */,
+				98A19A362168107A002A4296 /* grn264full.png in Resources */,
 				98E8A05720EAFBF200A951DA /* m1980full.png in Resources */,
 				982F9B25209BAB00009BBD8B /* LaunchScreen.storyboard in Resources */,
 				9868006020E5419B00E6E730 /* m19171full.png in Resources */,
@@ -836,6 +843,7 @@
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
 				9823DE032159AADE0080C806 /* Token.swift in Sources */,
 				986D5C9820D1ECFA005E944E /* CreaturesCardNode.swift in Sources */,
+				98A19A3421680F51002A4296 /* Cost.swift in Sources */,
 				9840898220CAFF27005DA8F6 /* Stack.swift in Sources */,
 				986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */,
 				986ED55C215F05F1008B44DC /* Dominaria.swift in Sources */,

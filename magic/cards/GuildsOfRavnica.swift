@@ -213,7 +213,7 @@ enum GRN {
         veiledShade.setType(.Creature, .Shade)
         veiledShade.addActivatedAbility(UntargetedActivatedAbility(
             source: veiledShade,
-            cost: ManaCost("1B"),
+            cost: Cost("1B"),
             effect: { source in
                 source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 1
@@ -290,7 +290,7 @@ enum GRN {
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
         devkarinDissident.addActivatedAbility(UntargetedActivatedAbility(
             source: devkarinDissident,
-            cost: ManaCost("4G"),
+            cost: Cost("4G"),
             effect: { source in
                 source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 2
@@ -561,7 +561,18 @@ enum GRN {
     // 261 Island
     // 262 Swamp
     // 263 Mountain
-    // 264 Forest
+    static func Forest() -> Card {
+        let forest = Card(name: "Forest", rarity: .Common, set: set, number: 264)
+        forest.setManaCost("")
+        forest.setType(.Basic, .Land, .Forest)
+        forest.addActivatedAbility(UntargetedActivatedAbility(
+            source: forest,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Green) },
+            manaAbility: true
+        ))
+        return forest;
+    }
     
     // t1 Angel
     static func Soldier() -> Token {

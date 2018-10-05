@@ -19,9 +19,9 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-        for _ in 0..<3 {
+        for _ in 0..<4 {
             permanents.append(M19.Plains())
-            permanents.append(M19.Forest())
+            permanents.append(GRN.Forest())
         }
         permanents.forEach({$0.setOwner(owner: self)})
         
@@ -74,6 +74,13 @@ class Player: NSObject {
     
     func getManaPool() -> ManaPool {
         return manaPool
+    }
+    
+    func payFor(_ cost: Cost, _ source: Object) {
+        manaPool.payFor(cost.getManaCost())
+        if cost.getTapCost() {
+            source.tap()
+        }
     }
     
     func pregameActions() {

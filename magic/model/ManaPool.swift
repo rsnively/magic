@@ -49,7 +49,7 @@ class ManaPool: NSObject {
     }
     
     func canAfford(_ activatedAbility: ActivatedAbility) -> Bool {
-        return canAfford(activatedAbility.getCost())
+        return canAfford(activatedAbility.getCost().getManaCost())
     }
     
     func add(_ mana: Mana) {
@@ -71,7 +71,7 @@ class ManaPool: NSObject {
     }
     
     func payFor(_ activatedAbility: ActivatedAbility) {
-        payFor(activatedAbility.getCost())
+        payFor(activatedAbility.getCost().getManaCost())
     }
     
 }
