@@ -557,10 +557,54 @@ enum GRN {
     // 257 Steam Vents
     // 258 Temple Garden
     // 259 Watery Grave
-    // 260 Plains
-    // 261 Island
-    // 262 Swamp
-    // 263 Mountain
+    static func Plains() -> Card {
+        let plains = Card(name: "Plains", rarity: .Common, set: set, number: 260)
+        plains.setManaCost("")
+        plains.setType(.Basic, .Land, .Plains)
+        plains.addActivatedAbility(UntargetedActivatedAbility(
+            source: plains,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .White) },
+            manaAbility: true
+        ))
+        return plains
+    }
+    static func Island() -> Card {
+        let island = Card(name: "Island", rarity: .Common, set: set, number: 261)
+        island.setManaCost("")
+        island.setType(.Basic, .Land, .Island)
+        island.addActivatedAbility(UntargetedActivatedAbility(
+            source: island,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Blue) },
+            manaAbility: true
+        ))
+        return island
+    }
+    static func Swamp() -> Card {
+        let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 262)
+        swamp.setManaCost("")
+        swamp.setType(.Basic, .Land, .Swamp)
+        swamp.addActivatedAbility(UntargetedActivatedAbility(
+            source: swamp,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Black) },
+            manaAbility: true
+        ))
+        return swamp
+    }
+    static func Mountain() -> Card {
+        let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 263)
+        mountain.setManaCost("")
+        mountain.setType(.Basic, .Land, .Mountain)
+        mountain.addActivatedAbility(UntargetedActivatedAbility(
+            source: mountain,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Red) },
+            manaAbility: true
+        ))
+        return mountain;
+    }
     static func Forest() -> Card {
         let forest = Card(name: "Forest", rarity: .Common, set: set, number: 264)
         forest.setManaCost("")
