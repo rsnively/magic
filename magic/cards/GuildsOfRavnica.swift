@@ -90,8 +90,8 @@ enum GRN {
             targetingRestriction: { return $0.isType(.Creature) },
             { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
-                    object.power = object.power! + 2
-                    object.toughness = object.toughness! + 2
+                    object.power = object.getBasePower() + 2
+                    object.toughness = object.getBaseToughness() + 2
                     return object
                 })
                 source.getController().gainLife(source.getController().getCreatures().filter({$0.attacking}).count)
@@ -314,8 +314,8 @@ enum GRN {
             { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     let x = source.getController().getCreatures().count
-                    object.power = object.power! + x
-                    object.toughness = object.toughness! + x
+                    object.power = object.getBasePower() + x
+                    object.toughness = object.getBaseToughness() + x
                     return object
                 }))
         }))
@@ -368,8 +368,8 @@ enum GRN {
             source.getController().drawCards(numCreatures)
             source.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.power! + 1
-                    object.toughness = object.toughness! + 1
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
                     return object
                 }))
             })

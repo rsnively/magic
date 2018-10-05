@@ -7,8 +7,24 @@ class Object: NSObject, NSCopying {
     var supertypes:Set<Supertype> = []
     var types:Set<Type> = []
     var subtypes:Set<Subtype> = []
-    var power:Int?
-    var toughness:Int?
+    private var basePower:Int?
+    var power: Int? {
+        get {
+            return getPower()
+        }
+        set (newPower) {
+            basePower = newPower
+        }
+    }
+    private var baseToughness:Int?
+    var toughness: Int? {
+        get {
+            return getToughness()
+        }
+        set (newToughness) {
+            baseToughness = newToughness
+        }
+    }
     var effects:[Effect] = []
     var activeEffects:[ContinuousEffect] = []
     var triggeredAbilities:[TriggeredAbility] = []
@@ -42,8 +58,8 @@ class Object: NSObject, NSCopying {
         copy.supertypes = supertypes
         copy.types = types
         copy.subtypes = subtypes
-        copy.power = power
-        copy.toughness = toughness
+        copy.basePower = basePower
+        copy.baseToughness = baseToughness
         copy.effects = effects
         copy.activeEffects = activeEffects
         copy.triggeredAbilities = triggeredAbilities
@@ -164,12 +180,17 @@ class Object: NSObject, NSCopying {
         }
     }
     
-    func getPower() -> Int {
-        return applyContinuousEffects().power!
+    func getBasePower() -> Int {
+        return basePower!
     }
-    
+    func getPower() -> Int {
+        return applyContinuousEffects().basePower!
+    }
+    func getBaseToughness() -> Int {
+        return baseToughness!
+    }
     func getToughness() -> Int {
-        return applyContinuousEffects().toughness!
+        return applyContinuousEffects().baseToughness!
     }
     
     func hasSummoningSickness() -> Bool {
