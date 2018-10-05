@@ -23,6 +23,14 @@ class CreaturesCardNode: CardNode {
                     (self.scene as! GameScene).redraw()
                     return
                 }
+            } else if card.canActivateAbilities() {
+                // todo: multiple activated abilities
+                if card.getController().getManaPool().canAfford(card.activatedAbilities.first!) {
+                    card.getController().getManaPool().payFor(card.activatedAbilities.first!)
+                    card.activatedAbilities.first!.activate()
+                    (self.scene as! GameScene).redraw()
+                    return
+                }
             }
             (self.scene as! GameScene).expandedCard = self.card
         } else if card.canAttack() {

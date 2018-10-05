@@ -207,7 +207,25 @@ enum GRN {
     // 85 Severed Strands
     // 86 Spinal Centipede
     // 87 Undercity Necrolisk
-    // 88 Veiled Shade
+    static func VeiledShade() -> Card {
+        let veiledShade = Card(name: "Veiled Shade", rarity: .Common, set: set, number: 88)
+        veiledShade.setManaCost("2B")
+        veiledShade.setType(.Creature, .Shade)
+        veiledShade.addActivatedAbility(UntargetedActivatedAbility(
+            source: veiledShade,
+            cost: ManaCost("1B"),
+            effect: { source in
+                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                    return object
+                }))
+        }))
+        veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
+        veiledShade.power = 2
+        veiledShade.toughness = 2
+        return veiledShade
+    }
     // 89 Vicious Rumors
     // 90 Whispering Snitch
     // 91 Arclight Phoenix

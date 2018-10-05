@@ -52,6 +52,7 @@ enum Subtype {
     case Saproling
     case Scarecrow
     case Scout
+    case Shade
     case Soldier
     case Swamp
     case Treefolk

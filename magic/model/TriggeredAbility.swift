@@ -34,4 +34,12 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     override func getController() -> Player {
         return getSource().getController()
     }
+    
+    override func resolve() {
+        if !effects.isEmpty {
+            for effect in effects {
+                effect.resolve(source: getSource())
+            }
+        }
+    }
 }

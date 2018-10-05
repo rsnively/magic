@@ -27,6 +27,8 @@ class Object: NSObject, NSCopying {
     }
     var effects:[Effect] = []
     var activeEffects:[ContinuousEffect] = []
+    
+    var activatedAbilities:[ActivatedAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
     
     var defender: Bool = false
@@ -62,6 +64,7 @@ class Object: NSObject, NSCopying {
         copy.baseToughness = baseToughness
         copy.effects = effects
         copy.activeEffects = activeEffects
+        copy.activatedAbilities = activatedAbilities
         copy.triggeredAbilities = triggeredAbilities
         
         copy.defender = defender
@@ -166,6 +169,14 @@ class Object: NSObject, NSCopying {
                 triggeredAbility.triggerAbility()
             }
         }
+    }
+    
+    func addActivatedAbility(_ activatedAbility: ActivatedAbility) {
+        activatedAbilities.append(activatedAbility)
+    }
+    
+    func canActivateAbilities() -> Bool {
+        return !activatedAbilities.isEmpty && !Game.shared.isTargeting && !Game.shared.isDeclaringAttackers() && getController().hasPriority
     }
     
     func requiresTargets() -> Bool {

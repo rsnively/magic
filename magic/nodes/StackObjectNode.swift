@@ -5,9 +5,11 @@ class StackObjectNode: CardNode {
     init(object: Object, allowedSize: CGSize) {
         if let card = object as? Card {
             super.init(card: card, allowedSize: allowedSize)
+        } else if let triggeredAbility = object as? TriggeredAbility {
+            super.init(card: triggeredAbility.getSource(), allowedSize: allowedSize)
         } else {
-            // triggered ability - use card image for now
-            super.init(card: (object as! TriggeredAbility).getSource(), allowedSize: allowedSize)
+            super.init(card: (object as! ActivatedAbility).getSource(), allowedSize: allowedSize)
+
         }
     }
     
