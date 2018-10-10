@@ -173,6 +173,9 @@ class Game: NSObject {
         if !theStack.isEmpty {
             theStack.resolveTop()
             checkStateBasedActions()
+            if getNonActivePlayer().hasPriority {
+                passPriority()
+            }
             return
         }
         if getNonActivePlayer().hasPriority {
