@@ -352,7 +352,21 @@ enum DOM {
     // 165 Grunn, the Lonely King
     // 166 Kamahl's Druidic Vow
     // 167 Krosan Druid
-    // 168 Llanowar Elves
+    static func LlanowarElves() -> Card {
+        let llanowarElves = Card(name: "Llanowar Elves", rarity: .Common, set: set, number: 168)
+        llanowarElves.setManaCost("G")
+        llanowarElves.setType(.Creature, .Elf)
+        llanowarElves.addActivatedAbility(UntargetedActivatedAbility(
+            source: llanowarElves,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Green) },
+            manaAbility: true
+        ))
+        llanowarElves.setFlavorText("As patient and generous as life, as harsh and merciless as nature.")
+        llanowarElves.power = 1
+        llanowarElves.toughness = 1
+        return llanowarElves
+    }
     // 169 Llanowar Envoy
     // 170 Llanowar Scout
     // 171 Mammoth Spider
@@ -441,7 +455,22 @@ enum DOM {
     // 224 Mox Ambber
     // 225 Naviagor's Compass
     // 226 Pardic Wanderer
-    // 227 Powerstone Shard
+    static func PowerstoneShard() -> Card {
+        let powerstoneShard = Card(name: "Powerstone Shard", rarity: .Common, set: set, number: 227)
+        powerstoneShard.setManaCost("3")
+        powerstoneShard.setType(.Artifact)
+        powerstoneShard.addActivatedAbility(UntargetedActivatedAbility(
+            source: powerstoneShard,
+            cost: Cost("", tap: true),
+            effect: { source in
+                let count = source.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count
+                for _ in 1...count { source.getController().addMana(color: nil) }
+            },
+            manaAbility: true
+        ))
+        powerstoneShard.setFlavorText("\"Light passing through a powerstone is refracted by eternity and colored by planar energy. I wonder how the world appeared through Urza's eyes?\"\n--Teferi")
+        return powerstoneShard
+    }
     // 228 Shield of the Realm
     // 229 Short Sword
     // 230 Skittering Surveyor

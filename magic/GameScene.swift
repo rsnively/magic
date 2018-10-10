@@ -8,6 +8,7 @@ class GameScene: SKScene {
     var playCardHeight:CGFloat
     var playerLandsNode:LandsNode
     var playerCreaturesNode:CreaturesNode
+    var playerOtherPermanentsNode:PermanentsNode
     
     var manaPoolNode:ManaPoolNode
     
@@ -52,6 +53,10 @@ class GameScene: SKScene {
         return getAllowedPlayerLandsSize(gameSize: gameSize)
     }
     
+    static func getAllowedPlayerPermanentsSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: gameSize.width * 0.4, height: gameSize.height * 0.2)
+    }
+    
     static func getAllowedPlayerCreaturesSize(gameSize: CGSize) -> CGSize {
         return CGSize(width: gameSize.width, height: gameSize.height * 0.2)
     }
@@ -77,6 +82,7 @@ class GameScene: SKScene {
         playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode = LifeNode(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
+        playerOtherPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode = ManaPoolNode()
         stackNode = StackNode()
@@ -99,6 +105,7 @@ class GameScene: SKScene {
         playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
         playerLifeNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.08)
         playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.24)
+        playerOtherPermanentsNode.position = CGPoint(x:size.width * 0.75, y: size.height * 0.24)
         playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.45)
         manaPoolNode.position = CGPoint(x:size.width * 0.5, y: (playerLandsNode.position.y + playerHandNode.position.y) / 2.0)
         
@@ -114,6 +121,7 @@ class GameScene: SKScene {
         addChild(playerHandNode)
         addChild(playerLifeNode)
         addChild(playerLandsNode)
+        addChild(playerOtherPermanentsNode)
         addChild(playerCreaturesNode)
         addChild(manaPoolNode)
         addChild(stackNode)
@@ -133,6 +141,7 @@ class GameScene: SKScene {
         }
         playerHandNode.touchDown(atPoint:convert(pos, to:playerHandNode))
         playerLandsNode.touchDown(atPoint:convert(pos, to:playerLandsNode))
+        playerOtherPermanentsNode.touchDown(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchDown(atPoint:convert(pos, to:stackNode))
@@ -149,6 +158,7 @@ class GameScene: SKScene {
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
         playerLandsNode.touchMoved(toPoint:convert(pos, to:playerLandsNode))
+        playerOtherPermanentsNode.touchMoved(toPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
@@ -164,6 +174,7 @@ class GameScene: SKScene {
         }
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
         playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
+        playerOtherPermanentsNode.touchUp(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchUp(atPoint:convert(pos, to:stackNode))
@@ -199,6 +210,7 @@ class GameScene: SKScene {
         playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode.setLife(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
+        playerOtherPermanentsNode.setPermanents(permanents: Game.shared.player1.getArtifacts() + Game.shared.player1.getEnchantments(), size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))

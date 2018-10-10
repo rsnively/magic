@@ -19,11 +19,11 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-        for _ in 0..<4 {
-            permanents.append(GRN.Plains())
-            permanents.append(GRN.Swamp())
-        }
-        permanents.forEach({$0.setOwner(owner: self)})
+//        for _ in 0..<4 {
+//            permanents.append(GRN.Plains())
+//            permanents.append(GRN.Swamp())
+//        }
+//        permanents.forEach({$0.setOwner(owner: self)})
         
         self.pregameActions()
     }

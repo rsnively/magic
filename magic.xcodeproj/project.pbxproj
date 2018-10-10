@@ -11,6 +11,7 @@
 		9818425420CA07050068DC91 /* ManaCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425320CA07050068DC91 /* ManaCost.swift */; };
 		9818425620CA07580068DC91 /* Mana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425520CA07580068DC91 /* Mana.swift */; };
 		9818425820CA0B010068DC91 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425720CA0B010068DC91 /* Util.swift */; };
+		981CDDEB216D7B490007F434 /* PermanentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CDDEA216D7B490007F434 /* PermanentNode.swift */; };
 		9822329D20EFCFE100B07803 /* m19110full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9822329C20EFCFE100B07803 /* m19110full.png */; };
 		9822329F20EFD4FA00B07803 /* m1916full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9822329E20EFD4FA00B07803 /* m1916full.png */; };
 		982232A120EFD67900B07803 /* m1940full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982232A020EFD67900B07803 /* m1940full.png */; };
@@ -112,6 +113,8 @@
 		98A19A4221681E4C002A4296 /* dom45full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A4121681E4C002A4296 /* dom45full.png */; };
 		98A19A4421681F8F002A4296 /* dom88full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A4321681F8F002A4296 /* dom88full.png */; };
 		98A19A46216823DB002A4296 /* dom94full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A45216823DB002A4296 /* dom94full.png */; };
+		98A19A48216826C4002A4296 /* dom168full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A47216826C4002A4296 /* dom168full.png */; };
+		98A19A4C21682850002A4296 /* dom227full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A4B21682850002A4296 /* dom227full.png */; };
 		98A8CA2921620954009E92FB /* domt11full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2621620954009E92FB /* domt11full.png */; };
 		98A8CA2A21620954009E92FB /* domt12full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2721620954009E92FB /* domt12full.png */; };
 		98A8CA2B21620954009E92FB /* domt13full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A8CA2821620954009E92FB /* domt13full.png */; };
@@ -129,6 +132,7 @@
 		98AA80252165F5EA004BFE0B /* grn28full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AA80242165F5EA004BFE0B /* grn28full.png */; };
 		98AA80272166022E004BFE0B /* grn137full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AA80262166022E004BFE0B /* grn137full.png */; };
 		98AA80292166041F004BFE0B /* grn157full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AA80282166041F004BFE0B /* grn157full.png */; };
+		98BC88B4216D6A8600855756 /* PermanentsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BC88B3216D6A8600855756 /* PermanentsNode.swift */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
 		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
 		98D0438D20EE87B60009143E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* Opponent.swift */; };
@@ -184,6 +188,7 @@
 		9818425320CA07050068DC91 /* ManaCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaCost.swift; sourceTree = "<group>"; };
 		9818425520CA07580068DC91 /* Mana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mana.swift; sourceTree = "<group>"; };
 		9818425720CA0B010068DC91 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		981CDDEA216D7B490007F434 /* PermanentNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentNode.swift; sourceTree = "<group>"; };
 		9822329C20EFCFE100B07803 /* m19110full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19110full.png; sourceTree = "<group>"; };
 		9822329E20EFD4FA00B07803 /* m1916full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1916full.png; sourceTree = "<group>"; };
 		982232A020EFD67900B07803 /* m1940full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1940full.png; sourceTree = "<group>"; };
@@ -287,6 +292,8 @@
 		98A19A4121681E4C002A4296 /* dom45full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom45full.png; sourceTree = "<group>"; };
 		98A19A4321681F8F002A4296 /* dom88full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom88full.png; sourceTree = "<group>"; };
 		98A19A45216823DB002A4296 /* dom94full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom94full.png; sourceTree = "<group>"; };
+		98A19A47216826C4002A4296 /* dom168full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom168full.png; sourceTree = "<group>"; };
+		98A19A4B21682850002A4296 /* dom227full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom227full.png; sourceTree = "<group>"; };
 		98A8CA2621620954009E92FB /* domt11full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt11full.png; sourceTree = "<group>"; };
 		98A8CA2721620954009E92FB /* domt12full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt12full.png; sourceTree = "<group>"; };
 		98A8CA2821620954009E92FB /* domt13full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt13full.png; sourceTree = "<group>"; };
@@ -304,6 +311,7 @@
 		98AA80242165F5EA004BFE0B /* grn28full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn28full.png; sourceTree = "<group>"; };
 		98AA80262166022E004BFE0B /* grn137full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn137full.png; sourceTree = "<group>"; };
 		98AA80282166041F004BFE0B /* grn157full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn157full.png; sourceTree = "<group>"; };
+		98BC88B3216D6A8600855756 /* PermanentsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentsNode.swift; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
 		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
 		98D0438C20EE87B60009143E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
@@ -491,6 +499,8 @@
 				986D5C8B20D1C0E2005E944E /* LandsCardNode.swift */,
 				98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */,
 				986D5C8F20D1CDB6005E944E /* ManaPoolNode.swift */,
+				981CDDEA216D7B490007F434 /* PermanentNode.swift */,
+				98BC88B3216D6A8600855756 /* PermanentsNode.swift */,
 				982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */,
 				986D5C9920D1F4FE005E944E /* StackNode.swift */,
 				986D5C9B20D1F656005E944E /* StackObjectNode.swift */,
@@ -527,9 +537,11 @@
 				98A8CA2F2162095F009E92FB /* dom91full.png */,
 				98A19A45216823DB002A4296 /* dom94full.png */,
 				985D38EE216426C7001CF7FA /* dom120full.png */,
+				98A19A47216826C4002A4296 /* dom168full.png */,
 				985D38F2216426CE001CF7FA /* dom177full.png */,
 				985D38F1216426CE001CF7FA /* dom180full.png */,
 				985D38F0216426CE001CF7FA /* dom189full.png */,
+				98A19A4B21682850002A4296 /* dom227full.png */,
 				986ED560215F0953008B44DC /* domt1full.png */,
 				986ED562215F0959008B44DC /* domt2full.png */,
 				98A8CA2621620954009E92FB /* domt11full.png */,
@@ -706,6 +718,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98ECCF28215CCFCC0030ED51 /* lea190full.png in Resources */,
+				98A19A4C21682850002A4296 /* dom227full.png in Resources */,
 				9868005C20E5401400E6E730 /* m19261full.png in Resources */,
 				98ECCF24215CCFCC0030ED51 /* lea267full.png in Resources */,
 				982232AB20EFEB3200B07803 /* m19158full.png in Resources */,
@@ -746,6 +759,7 @@
 				983373DC215C5916003CD4D0 /* grn158full.png in Resources */,
 				98A8CA3B2162095F009E92FB /* dom71full.png in Resources */,
 				982232A920EFE70400B07803 /* m19153full.png in Resources */,
+				98A19A48216826C4002A4296 /* dom168full.png in Resources */,
 				9823DDFC21598D210080C806 /* lea18full.png in Resources */,
 				98A8CA2A21620954009E92FB /* domt12full.png in Resources */,
 				98A8CA362162095F009E92FB /* dom27full.png in Resources */,
@@ -853,6 +867,7 @@
 				986D5C9420D1E60B005E944E /* ManaPool.swift in Sources */,
 				983373D4215C498B003CD4D0 /* TriggeredAbility.swift in Sources */,
 				98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */,
+				981CDDEB216D7B490007F434 /* PermanentNode.swift in Sources */,
 				982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */,
 				9862984520D844A100CE8E10 /* LimitedEditionAlpha.swift in Sources */,
 				98423C3320EED3E90053B729 /* TargetedEffect.swift in Sources */,
@@ -870,6 +885,7 @@
 				986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
 				98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */,
+				98BC88B4216D6A8600855756 /* PermanentsNode.swift in Sources */,
 				98D0438D20EE87B60009143E /* Opponent.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
