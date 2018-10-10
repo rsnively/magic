@@ -32,6 +32,7 @@ class Object: NSObject, NSCopying {
     var triggeredAbilities:[TriggeredAbility] = []
     
     var defender: Bool = false
+    var flying: Bool = false
     var flash: Bool = false
     var lifelink: Bool = false
     var vigilance: Bool = false
@@ -73,6 +74,7 @@ class Object: NSObject, NSCopying {
         
         copy.defender = defender
         copy.flash = flash
+        copy.flying = flying
         copy.lifelink = lifelink
         copy.vigilance = vigilance
         
@@ -232,7 +234,7 @@ class Object: NSObject, NSCopying {
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
-        return true
+        return !attacker.flying || self.flying
     }
     
     func block(_ attacker: Object) {

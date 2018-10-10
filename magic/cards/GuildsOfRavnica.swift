@@ -44,7 +44,17 @@ enum GRN {
     // 11 Flight of Equenauts
     // 12 Gird for Battle
     // 13 Haazda Marshal
-    // 14 Healer's Hawk
+    static func HealersHawk() -> Card {
+        let healersHawk = Card(name: "Healer's Hawk", rarity: .Common, set: set, number: 14)
+        healersHawk.setManaCost("W")
+        healersHawk.setType(.Creature, .Bird)
+        healersHawk.flying = true
+        healersHawk.lifelink = true
+        healersHawk.setFlavorText("The wounded see the glow of its vials long before they see its wings diving out of the clouds.")
+        healersHawk.power = 1
+        healersHawk.toughness = 1
+        return healersHawk
+    }
     static func HuntedWitness() -> Card {
         let huntedWitness = Card(name: "Hunted Witness", rarity: .Common, set: set, number: 15)
         huntedWitness.setManaCost("W")

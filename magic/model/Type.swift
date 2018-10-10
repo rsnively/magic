@@ -22,6 +22,7 @@ enum Subtype {
     case Assassin
     case Bear
     case Beast
+    case Bird
     case Cat
     case Centaur
     case Cleric

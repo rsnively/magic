@@ -39,9 +39,8 @@ class Game: NSObject {
             deck1.append(DOM.VerdantForce())
             
             deck2.append(M19.Plains())
-            deck2.append(M19.Plains())
-            deck2.append(DOM.CallTheCavalry())
-            deck2.append(DOM.CallTheCavalry())
+            deck2.append(GRN.HealersHawk())
+            deck2.append(GRN.SwornCompanions())
         }
         
         player1 = Player(deck: deck1)
