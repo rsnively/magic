@@ -9,6 +9,8 @@ class Game: NSObject {
     
     private var landPlayedThisTurn: Bool
     private var declaringAttackers: Bool
+    private var declaringBlockers: Bool
+    private var selectedBlocker: Object?
     var targetingEffect: TargetedEffect?
     var isTargeting: Bool {
         return targetingEffect != nil
@@ -49,6 +51,8 @@ class Game: NSObject {
         currentPhase = Phase.Untap
         landPlayedThisTurn = false
         declaringAttackers = false
+        declaringBlockers = false
+        selectedBlocker = nil
         turnNumber = 0
         super.init()
         player1.active = true
@@ -103,6 +107,19 @@ class Game: NSObject {
     func isDeclaringAttackers() -> Bool {
         return declaringAttackers
     }
+    func isDeclaringBlockers() -> Bool {
+        return declaringBlockers
+    }
+    
+    func selectBlocker(_ object: Object) {
+        selectedBlocker = object
+    }
+    func deselectBlocker() {
+        selectedBlocker = nil
+    }
+    func getSelectedBlocker() -> Object? {
+        return selectedBlocker
+    }
     
     func setLandPlayedThisTurn() {
         landPlayedThisTurn = true
@@ -140,6 +157,12 @@ class Game: NSObject {
                 opponent.declareAttackers()
             }
         }
+        else if currentPhase == .Block && !getActivePlayer().getAttackers().isEmpty {
+            declaringBlockers = true
+            if player1.hasPriority {
+                opponent.declareBlockers()
+            }
+        }
         else if currentPhase == .EndCombat {
             bothPlayers({ $0.dealCombatDamage() })
         }
@@ -164,6 +187,11 @@ class Game: NSObject {
         if declaringAttackers {
             getActivePlayer().declareAttackers()
             declaringAttackers = false
+            return
+        }
+        if declaringBlockers {
+            getActivePlayer().declareBlockers()
+            declaringBlockers = false
             return
         }
         if getActivePlayer().hasPriority {

@@ -7,6 +7,9 @@ class CreaturesCardNode: CardNode {
     override func touchDown(atPoint pos: CGPoint) {
         touchPoint = convert(pos, from:parent!)
         moved = false
+        if card.canBlock() {
+            Game.shared.selectBlocker(self.card)
+        }
     }
     
     override func touchMoved(toPoint pos: CGPoint) {
@@ -30,6 +33,11 @@ class CreaturesCardNode: CardNode {
                     card.getController().payFor(ability.getCost(), card)
                     ability.activate()
                     (self.scene as! GameScene).redraw()
+                    return
+                }
+            } else if let selectedBlocker = Game.shared.getSelectedBlocker() {
+                if card.attacking && selectedBlocker.canBlockAttacker(card) {
+                    selectedBlocker.block(card)
                     return
                 }
             }

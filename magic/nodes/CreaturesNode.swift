@@ -50,9 +50,8 @@ class CreaturesNode: SKNode {
     
     func touchUp(atPoint pos:CGPoint) {
         for cardNode in cardNodes {
-            if cardNode.touching {
+            if cardNode.contains(pos) || cardNode.touching {
                 cardNode.touchUp(atPoint:pos)
-                break
             }
         }
     }

@@ -183,6 +183,9 @@ class GameScene: SKScene {
         
         opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
+        
+        Game.shared.deselectBlocker()
+        redraw()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

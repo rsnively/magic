@@ -6,8 +6,11 @@ class CommandButtonsNode: SKNode {
     var phaseLabel: SKLabelNode
     
     func getOkayButtonText() -> String {
-        if Game.shared.isDeclaringAttackers() && Game.shared.yourTurn() {
+        if Game.shared.isDeclaringAttackers() {
             return "Attack"
+        }
+        if Game.shared.isDeclaringBlockers() {
+            return "Block"
         }
         if Game.shared.isTargeting {
             return "(Choose targets)"

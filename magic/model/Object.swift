@@ -39,6 +39,10 @@ class Object: NSObject, NSCopying {
     private weak var owner: Player?
     weak var controller: Player?
     var attacking: Bool = false
+    var blocked: Bool = false
+    var blockers: [Object] = []
+    var blocking: Bool = false
+    var attackers: [Object] = []
     var markedDamage: Int = 0
     
     private var tapped: Bool = false
@@ -75,6 +79,10 @@ class Object: NSObject, NSCopying {
         copy.owner = owner
         copy.controller = controller
         copy.attacking = attacking
+        copy.blocked = blocked
+        copy.blockers = blockers
+        copy.blocking = blocking
+        copy.attackers = attackers
         copy.markedDamage = markedDamage
         copy.tapped = tapped
         copy.turnEnteredBattlefield = turnEnteredBattlefield
@@ -216,7 +224,22 @@ class Object: NSObject, NSCopying {
     }
     
     func canAttack() -> Bool {
-        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !defender
+        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !defender && !tapped
+    }
+    
+    func canBlock() -> Bool {
+        return Game.shared.isDeclaringBlockers() && !getController().active && isType(.Creature) && !tapped && attackers.isEmpty
+    }
+    
+    func canBlockAttacker(_ attacker: Object) -> Bool {
+        return true
+    }
+    
+    func block(_ attacker: Object) {
+        assert(canBlockAttacker(attacker))
+        attacker.blockers.append(self)
+        attacker.blocked = true
+        self.attackers.append(attacker)
     }
     
     func bounce() {

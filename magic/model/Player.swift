@@ -61,6 +61,9 @@ class Player: NSObject {
     func getCreatures() -> [Object] {
         return permanents.filter { $0.isType(Type.Creature) }
     }
+    func getAttackers() -> [Object] {
+        return permanents.filter { $0.attacking }
+    }
     func getArtifacts() -> [Object] {
         return permanents.filter { $0.isType(Type.Artifact) }
     }
@@ -115,11 +118,25 @@ class Player: NSObject {
         }
     }
     
+    func declareBlockers() {
+        // Something will happen here maybe
+    }
+    
     func dealCombatDamage() {
         for permanent in permanents {
             if permanent.attacking {
-                permanent.dealsDamage()
-                Game.shared.getNonActivePlayer().damage(permanent.getPower())
+                if permanent.blocked {
+                    //todo order blockers / double blocks
+                    if let blocker = permanent.blockers.first {
+                        permanent.dealsDamage()
+                        blocker.dealsDamage()
+                        permanent.dealDamage(blocker.getPower())
+                        blocker.dealDamage(permanent.getPower())
+                    }
+                } else {
+                    permanent.dealsDamage()
+                    Game.shared.getNonActivePlayer().damage(permanent.getPower())
+                }
             }
         }
     }
@@ -127,6 +144,10 @@ class Player: NSObject {
     func removeCreaturesFromCombat() {
         for permanent in permanents {
             permanent.attacking = false
+            permanent.blocking = false
+            permanent.blockers.removeAll()
+            permanent.attackers.removeAll()
+            permanent.blocked = false
         }
     }
     

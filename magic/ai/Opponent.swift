@@ -30,7 +30,7 @@ class Opponent {
             }
         })
         
-        if actionTaken {
+        if actionTaken || player.active {
             Game.shared.passPriority()
         } else {
             Game.shared.advanceGame()
@@ -39,6 +39,10 @@ class Opponent {
     
     func declareAttackers() {
         player.getCreatures().filter({$0.canAttack()}).forEach({$0.attacking = true})
+        Game.shared.advanceGame()
+    }
+    
+    func declareBlockers() {
         Game.shared.advanceGame()
     }
 }
