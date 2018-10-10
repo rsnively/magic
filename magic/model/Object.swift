@@ -34,6 +34,7 @@ class Object: NSObject, NSCopying {
     var defender: Bool = false
     var flying: Bool = false
     var flash: Bool = false
+    var haste: Bool = false
     var lifelink: Bool = false
     var reach: Bool = false
     var vigilance: Bool = false
@@ -76,6 +77,7 @@ class Object: NSObject, NSCopying {
         copy.defender = defender
         copy.flash = flash
         copy.flying = flying
+        copy.haste = haste
         copy.lifelink = lifelink
         copy.reach = reach
         copy.vigilance = vigilance
@@ -218,6 +220,9 @@ class Object: NSObject, NSCopying {
     
     func hasSummoningSickness() -> Bool {
         if !isType(.Creature) {
+            return false
+        }
+        if haste {
             return false
         }
         if let turnEnteredBattlefield = turnEnteredBattlefield {

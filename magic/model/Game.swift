@@ -36,8 +36,10 @@ class Game: NSObject {
             deck1.append(GRN.HitchclawRecluse())
             deck1.append(DOM.VerdantForce())
             
-            deck2.append(M19.Plains())
+            deck2.append(GRN.Plains())
+            deck2.append(GRN.Mountain())
             deck2.append(GRN.HealersHawk())
+            deck2.append(GRN.SkyknightLegionnaire())
             deck2.append(GRN.SwornCompanions())
         }
         

@@ -538,7 +538,17 @@ enum GRN {
     // 195 Ral, Izzet Viceroy
     // 196 Rhizome Lurcher
     // 197 Rosemane Centaur
-    // 198 Skyknight Legionnaire
+    static func SkyknightLegionnaire() -> Card {
+        let skyknightLegionnaire = Card(name: "Skyknight Legionnaire", rarity: .Common, set: set, number: 198)
+        skyknightLegionnaire.setManaCost("1RW")
+        skyknightLegionnaire.setType(.Creature, .Human, .Knight)
+        skyknightLegionnaire.flying = true
+        skyknightLegionnaire.haste = true
+        skyknightLegionnaire.setFlavorText("Squadrons of skyknights are available for deployment around the clock, capable of reaching any district in the city within minutes.")
+        skyknightLegionnaire.power = 2
+        skyknightLegionnaire.toughness = 2
+        return skyknightLegionnaire
+    }
     // 199 Sonic Assault
     // 200 Sumala Woodshaper
     // 201 Swarm Guildmage
