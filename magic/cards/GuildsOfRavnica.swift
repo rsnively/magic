@@ -126,7 +126,22 @@ enum GRN {
     // 43 Maximize Altitude
     // 44 Mission Briefing
     // 45 Murmuring Mystic
-    // 46 Muse Drake
+    static func MuseDrake() -> Card {
+        let museDrake = Card(name: "Muse Drake", rarity: .Common, set: set, number: 46)
+        museDrake.setManaCost("3U")
+        museDrake.setType(.Creature, .Drake)
+        museDrake.flying = true
+        museDrake.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: museDrake,
+            trigger: .ThisETB,
+            effect: { source in
+                source.getController().drawCard()
+        }))
+        museDrake.setFlavorText("A composer wrote a symphony based on the drakes screeching outside her window. Reviews were mixed--except among the drakes.")
+        museDrake.power = 1
+        museDrake.toughness = 4
+        return museDrake
+    }
     // 47 Narcomeba
     // 48 Nightveil Sprite
     // 49 Omnispell Adept
@@ -159,7 +174,16 @@ enum GRN {
         return wishcoinCrab
     }
     // 61 Barrier of Bones
-    // 62 Bartizan Bats
+    static func BartizanBats() -> Card {
+        let bartizanBats = Card(name: "Bartizan Bats", rarity: .Common, set: set, number: 62)
+        bartizanBats.setManaCost("3B")
+        bartizanBats.setType(.Creature, .Bat)
+        bartizanBats.flying = true
+        bartizanBats.setFlavorText("\"Bats are welcome to eat thousands of my pets. I have multitudes more that will ultimately eat the bats.\"\n--Izoni")
+        bartizanBats.power = 3
+        bartizanBats.toughness = 1
+        return bartizanBats
+    }
     // 63 Blood Operative
     // 64 Burglar Rat
     static func ChildOfNight() -> Card {
@@ -332,7 +356,16 @@ enum GRN {
     // 130 Golgari Raiders
     // 131 Grappling Sundew
     // 132 Hatchery Spider
-    // 133 Hitchlaw Recluse
+    static func HitchclawRecluse() -> Card {
+        let hitchlawRecluse = Card(name: "Hitchclaw Recluse", rarity: .Common, set: set, number: 133)
+        hitchlawRecluse.setManaCost("2G")
+        hitchlawRecluse.setType(.Creature, .Spider)
+        hitchlawRecluse.reach = true
+        hitchlawRecluse.setFlavorText("Nearly invisible strands of web reach far beyond its lair to alert it of the approach of prey.")
+        hitchlawRecluse.power = 1
+        hitchlawRecluse.toughness = 4
+        return hitchlawRecluse
+    }
     // 134 Ironshell Beetle
     static func KraulForagers() -> Card {
         let kraulForagers = Card(name: "Kraul Foragers", rarity: .Common, set: set, number: 135)

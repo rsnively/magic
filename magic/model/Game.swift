@@ -32,10 +32,8 @@ class Game: NSObject {
             
             deck1.append(GRN.Forest())
             deck1.append(GRN.Forest())
-            deck1.append(DOM.PowerstoneShard())
-            deck1.append(DOM.PowerstoneShard())
             deck1.append(DOM.LlanowarElves())
-            deck1.append(DOM.LlanowarElves())
+            deck1.append(GRN.HitchclawRecluse())
             deck1.append(DOM.VerdantForce())
             
             deck2.append(M19.Plains())

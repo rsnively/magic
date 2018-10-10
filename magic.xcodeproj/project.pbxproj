@@ -173,6 +173,9 @@
 		98ECCF32215CCFCC0030ED51 /* lea173full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ECCF20215CCFCC0030ED51 /* lea173full.png */; };
 		98ECCF33215CCFCC0030ED51 /* lea158full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ECCF21215CCFCC0030ED51 /* lea158full.png */; };
 		98F981C0216EB04900254A4C /* grn14full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F981BF216EB04900254A4C /* grn14full.png */; };
+		98F981C2216EBE3800254A4C /* grn46full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F981C1216EBE3800254A4C /* grn46full.png */; };
+		98F981C4216EBED500254A4C /* grn62full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F981C3216EBED500254A4C /* grn62full.png */; };
+		98F981C6216EC03D00254A4C /* grn133full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F981C5216EC03D00254A4C /* grn133full.png */; };
 		98FA8E572156B52400EF5203 /* GuildsOfRavnica.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FA8E562156B52400EF5203 /* GuildsOfRavnica.swift */; };
 		98FA8E5A2156B86B00EF5203 /* grn4full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E592156B86B00EF5203 /* grn4full.png */; };
 		98FA8E5C2156B9D600EF5203 /* grn5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E5B2156B9D600EF5203 /* grn5full.png */; };
@@ -354,6 +357,9 @@
 		98ECCF20215CCFCC0030ED51 /* lea173full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea173full.png; sourceTree = "<group>"; };
 		98ECCF21215CCFCC0030ED51 /* lea158full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea158full.png; sourceTree = "<group>"; };
 		98F981BF216EB04900254A4C /* grn14full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn14full.png; sourceTree = "<group>"; };
+		98F981C1216EBE3800254A4C /* grn46full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn46full.png; sourceTree = "<group>"; };
+		98F981C3216EBED500254A4C /* grn62full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn62full.png; sourceTree = "<group>"; };
+		98F981C5216EC03D00254A4C /* grn133full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn133full.png; sourceTree = "<group>"; };
 		98FA8E562156B52400EF5203 /* GuildsOfRavnica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuildsOfRavnica.swift; sourceTree = "<group>"; };
 		98FA8E592156B86B00EF5203 /* grn4full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn4full.png; sourceTree = "<group>"; };
 		98FA8E5B2156B9D600EF5203 /* grn5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn5full.png; sourceTree = "<group>"; };
@@ -636,8 +642,10 @@
 				983373DD215C61BD003CD4D0 /* grn15full.png */,
 				9823DE082159B54E0080C806 /* grn27full.png */,
 				98AA80242165F5EA004BFE0B /* grn28full.png */,
+				98F981C1216EBE3800254A4C /* grn46full.png */,
 				98FA8E5D2156BCF900EF5203 /* grn58full.png */,
 				98FA8E5E2156BCF900EF5203 /* grn60full.png */,
+				98F981C3216EBED500254A4C /* grn62full.png */,
 				9871B61221595A2800A6A6AB /* grn65full.png */,
 				98FA8E612156BF0C00EF5203 /* grn70full.png */,
 				98FA8E632156C06D00EF5203 /* grn84full.png */,
@@ -646,6 +654,7 @@
 				98FA8E672156C4B100EF5203 /* grn100full.png */,
 				98A19A3121680C1C002A4296 /* grn127full.png */,
 				983373D7215C4FD1003CD4D0 /* grn129full.png */,
+				98F981C5216EC03D00254A4C /* grn133full.png */,
 				983373D9215C5663003CD4D0 /* grn135full.png */,
 				98AA80262166022E004BFE0B /* grn137full.png */,
 				98FA8E652156C4B100EF5203 /* grn149full.png */,
@@ -788,6 +797,7 @@
 				98ECCF0F215CBE740030ED51 /* lea148full.png in Resources */,
 				983373D8215C4FD1003CD4D0 /* grn129full.png in Resources */,
 				985D38F721642ABB001CF7FA /* m19t4full.png in Resources */,
+				98F981C6216EC03D00254A4C /* grn133full.png in Resources */,
 				98478524216537F9004D51A8 /* m19188full.png in Resources */,
 				98ECCF27215CCFCC0030ED51 /* lea225full.png in Resources */,
 				98A19A302167FEAA002A4296 /* grn88full.png in Resources */,
@@ -809,7 +819,9 @@
 				98A8CA372162095F009E92FB /* dom63full.png in Resources */,
 				982232A320EFE51D00B07803 /* m1950full.png in Resources */,
 				98ECCF29215CCFCC0030ED51 /* lea151full.png in Resources */,
+				98F981C2216EBE3800254A4C /* grn46full.png in Resources */,
 				98A19A40216819D2002A4296 /* dom10full.png in Resources */,
+				98F981C4216EBED500254A4C /* grn62full.png in Resources */,
 				98ECCF30215CCFCC0030ED51 /* lea164full.png in Resources */,
 				9823DDF5215984E20080C806 /* lea2full.png in Resources */,
 				98A8CA2921620954009E92FB /* domt11full.png in Resources */,

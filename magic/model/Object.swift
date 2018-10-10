@@ -35,6 +35,7 @@ class Object: NSObject, NSCopying {
     var flying: Bool = false
     var flash: Bool = false
     var lifelink: Bool = false
+    var reach: Bool = false
     var vigilance: Bool = false
     
     private weak var owner: Player?
@@ -76,6 +77,7 @@ class Object: NSObject, NSCopying {
         copy.flash = flash
         copy.flying = flying
         copy.lifelink = lifelink
+        copy.reach = reach
         copy.vigilance = vigilance
         
         copy.owner = owner
@@ -234,7 +236,8 @@ class Object: NSObject, NSCopying {
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
-        return !attacker.flying || self.flying
+        if attacker.flying && !(flying || reach) { return false }
+        return true
     }
     
     func block(_ attacker: Object) {

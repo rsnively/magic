@@ -20,6 +20,7 @@ enum Type {
 enum Subtype {
     case Antelope
     case Assassin
+    case Bat
     case Bear
     case Beast
     case Bird
@@ -28,6 +29,7 @@ enum Subtype {
     case Cleric
     case Crab
     case Dinosaur
+    case Drake
     case Dwarf
     case Elemental
     case Elephant
@@ -55,6 +57,7 @@ enum Subtype {
     case Scout
     case Shade
     case Soldier
+    case Spider
     case Swamp
     case Treefolk
     case Unicorn
