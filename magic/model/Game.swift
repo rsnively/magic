@@ -34,7 +34,7 @@ class Game: NSObject {
             deck1.append(DOM.PowerstoneShard())
             deck1.append(DOM.LlanowarElves())
             deck1.append(DOM.LlanowarElves())
-            deck1.append(LEA.ObsianusGolem())
+            deck1.append(DOM.VerdantForce())
             
             deck2.append(M19.Plains())
             deck2.append(M19.Plains())
@@ -126,6 +126,9 @@ class Game: NSObject {
                 return
             }
         }
+        else if currentPhase == .Upkeep {
+            bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachUpkeep) }) })
+        }
         else if currentPhase == .Draw {
             if turnNumber > 1 {
                 getActivePlayer().drawCard()
@@ -161,6 +164,10 @@ class Game: NSObject {
         if declaringAttackers {
             getActivePlayer().declareAttackers()
             declaringAttackers = false
+            return
+        }
+        if getActivePlayer().hasPriority {
+            passPriority()
             return
         }
         if !theStack.isEmpty {

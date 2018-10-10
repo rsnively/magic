@@ -404,7 +404,20 @@ enum DOM {
     // 184 Territorial Allosaurus
     // 185 Thorn Elemental
     // 186 Untamed Kavu
-    // 187 Verdant Force
+    static func VerdantForce() -> Card {
+        let verdantForce = Card(name: "Verdant Force", rarity: .Rare, set: set, number: 187)
+        verdantForce.setManaCost("5GGG")
+        verdantForce.setType(.Creature, .Elemental)
+        verdantForce.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: verdantForce,
+            trigger: .EachUpkeep,
+            effect: { $0.getController().createToken(Saproling()) }
+        ))
+        verdantForce.setFlavorText("The bower shuddered. The stillness broke. The scurf shifted, and a being emerged from the flowers and ferns.")
+        verdantForce.power = 7
+        verdantForce.toughness = 7
+        return verdantForce
+    }
     // 188 Wild Onslaught
     static func YavimayaSapherd() -> Card {
         let yavimayaSapherd = Card(name: "Yavimaya Sapherd", rarity: .Common, set: set, number: 189)
