@@ -11,7 +11,10 @@ class ManaPool: NSObject {
     }
     
     func getColorAmount(_ color: Color) -> Int {
-        return manaPool.map{ return $0.getColor() == color ? 1 : 0 }.reduce(0, +)
+        return manaPool.filter{ return $0.getColor() == color }.count
+    }
+    func getColorlessAmount() -> Int {
+        return manaPool.filter{ return $0.isColorless() }.count
     }
     
     func removeColor(_ color: Color?) {
@@ -34,8 +37,9 @@ class ManaPool: NSObject {
         let black = getColorAmount(.Black) - manaCost.getColorAmount(.Black)
         let red = getColorAmount(.Red) - manaCost.getColorAmount(.Red)
         let green = getColorAmount(.Green) - manaCost.getColorAmount(.Green)
-        let generic = white + blue + black + red + green - manaCost.getGenericMana()
-        if (white < 0) || (blue < 0) || (black < 0) || (red < 0) || (green < 0) || (generic < 0) {
+        let colorless = getColorlessAmount() - manaCost.getColorlessAmount()
+        let generic = white + blue + black + red + green + colorless - manaCost.getGenericMana()
+        if (white < 0) || (blue < 0) || (black < 0) || (red < 0) || (green < 0) || (colorless < 0) || (generic < 0) {
             return false
         }
         return true

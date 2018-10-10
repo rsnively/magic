@@ -210,7 +210,7 @@ class GameScene: SKScene {
         playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode.setLife(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
-        playerOtherPermanentsNode.setPermanents(permanents: Game.shared.player1.getArtifacts() + Game.shared.player1.getEnchantments(), size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
+        playerOtherPermanentsNode.setPermanents(permanents: Game.shared.player1.getPermanents().filter{ return !$0.isType(.Creature) && !$0.isType(.Land) }, size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))

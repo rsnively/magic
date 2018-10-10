@@ -33,7 +33,10 @@ class ManaCost: NSObject {
         return coloredMana
     }
     func getColorAmount(_ color: Color) -> Int {
-        return coloredMana.map{ return $0.getColor() == color ? 1 : 0 }.reduce(0, +)
+        return coloredMana.filter{ return $0.getColor() == color }.count
+    }
+    func getColorlessAmount() -> Int {
+        return coloredMana.filter{ return $0.isColorless() }.count
     }
     func getGenericMana() -> Int {
         return genericMana
