@@ -70,7 +70,27 @@ enum GRN {
         huntedWitness.toughness = 1
         return huntedWitness
     }
-    // 16 Inspiring Unicorn
+    static func InspiringUnicorn() -> Card {
+        let inspiringUnicorn = Card(name: "Inspiring Unicorn", rarity: .Uncommon, set: set, number: 16)
+        inspiringUnicorn.setManaCost("2WW")
+        inspiringUnicorn.setType(.Creature, .Unicorn)
+        inspiringUnicorn.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: inspiringUnicorn,
+            trigger: .ThisAttacks,
+            effect: { source in
+                source.getController().getCreatures().forEach({ creature in
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                        object.power = object.getBasePower() + 1
+                        object.toughness = object.getBaseToughness() + 1
+                        return object
+                    }))
+                })
+        }))
+        inspiringUnicorn.setFlavorText("There are two lives: the life you live before you see a unicorn, and the life you live after.")
+        inspiringUnicorn.power = 2
+        inspiringUnicorn.toughness = 2
+        return inspiringUnicorn
+    }
     // 17 Intrusive Packbeast
     // 18 Ledev Guardian
     // 19 Light of the Legion

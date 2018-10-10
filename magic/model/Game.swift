@@ -30,11 +30,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Forest())
-            deck1.append(GRN.Forest())
-            deck1.append(DOM.LlanowarElves())
-            deck1.append(GRN.HitchclawRecluse())
-            deck1.append(DOM.VerdantForce())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.HealersHawk())
+            deck1.append(GRN.SwornCompanions())
+            deck1.append(GRN.InspiringUnicorn())
             
             deck2.append(GRN.Plains())
             deck2.append(GRN.Mountain())
