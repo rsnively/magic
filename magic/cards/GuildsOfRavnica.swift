@@ -324,7 +324,21 @@ enum GRN {
     }
     // 95 Cosmotronic Wave
     // 96 Direct Current
-    // 97 Electrostatic Field
+    static func ElectrostaticField() -> Card {
+        let electrostaticField = Card(name: "Electrostatic Field", rarity: .Uncommon, set: set, number: 97)
+        electrostaticField.setManaCost("1R")
+        electrostaticField.setType(.Creature, .Wall)
+        electrostaticField.defender = true
+        electrostaticField.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: electrostaticField,
+            trigger: .CastInstantOrSorcery,
+            effect: { $0.getController().getOpponent().damage(1) }
+        ))
+        electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
+        electrostaticField.power = 0
+        electrostaticField.toughness = 4
+        return electrostaticField
+    }
     // 98 Erratic Cyclops
     // 99 Experimental Frenzy
     static func FearlessHalberdier() -> Card {

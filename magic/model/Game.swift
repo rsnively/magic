@@ -31,7 +31,8 @@ class Game: NSObject {
         for _ in 0..<15 {
             
             deck1.append(GRN.Island())
-            deck1.append(GRN.Island())
+            deck1.append(GRN.Mountain())
+            deck1.append(GRN.ElectrostaticField())
             deck1.append(GRN.MurmuringMystic())
             deck1.append(M19.Divination())
             deck1.append(M19.UncomfortableChill())
