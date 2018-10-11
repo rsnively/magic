@@ -13,7 +13,11 @@ class Card: Object {
         super.init(name: name)
     }
     
+    // Are these the same?
     func usesStack() -> Bool {
+        return !self.types.contains(Type.Land)
+    }
+    override func isSpell() -> Bool {
         return !self.types.contains(Type.Land)
     }
     

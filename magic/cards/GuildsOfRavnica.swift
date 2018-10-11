@@ -372,7 +372,20 @@ enum GRN {
     // 120 Wojek Bodyguard
     // 121 Affectionate Indrik
     // 122 Arboretum Elemental
-    // 123 Beast Whisperer
+    static func BeastWhisperer() -> Card {
+        let beastWhisperer = Card(name: "Beast Whisperer", rarity: .Rare, set: set, number: 123)
+        beastWhisperer.setManaCost("2GG")
+        beastWhisperer.setType(.Creature, .Elf, .Druid)
+        beastWhisperer.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: beastWhisperer,
+            trigger: .CastCreatureSpell,
+            effect: { $0.getController().drawCard() }
+        ))
+        beastWhisperer.setFlavorText("\"The tiniest mouse speaks louder to me than all the festival crowds on Tin Street.\"")
+        beastWhisperer.power = 2
+        beastWhisperer.toughness = 3
+        return beastWhisperer
+    }
     // 124 Bounty of Might
     // 125 Circuitous Route
     // 126 Crushing Canopy

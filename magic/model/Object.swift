@@ -149,6 +149,7 @@ class Object: NSObject, NSCopying {
     func isType(_ supertype: Supertype) -> Bool { return supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
+    func isSpell() -> Bool { return false }
     
     func tap() {
         tapped = true

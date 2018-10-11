@@ -20,7 +20,7 @@ class Player: NSObject {
         }
         
         for _ in 0..<4 {
-            permanents.append(GRN.Island())
+            permanents.append(GRN.Forest())
         }
         permanents.forEach({$0.setOwner(owner: self)})
         
@@ -178,8 +178,11 @@ class Player: NSObject {
                 addPermanent(card)
             }
             
-            if card.isType(.Instant) || card.isType(.Sorcery) {
+            if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
                 getPermanents().forEach({ $0.triggerAbilities(.CastInstantOrSorcery) })
+            }
+            if card.isSpell() && card.isType(.Creature) {
+                getPermanents().forEach({ $0.triggerAbilities(.CastCreatureSpell) })
             }
         }
         else {
