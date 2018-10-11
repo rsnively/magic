@@ -97,7 +97,18 @@ enum GRN {
     // 20 Loxodon Recruiter
     // 21 Luminous Bonds
     // 22 Parhelion Patrol
-    // 23 Righteous Blow
+    static func RighteousBlow() -> Card {
+        let righteousBlow = Card(name: "Righteous Blow", rarity: .Common, set: set, number: 23)
+        righteousBlow.setManaCost("W")
+        righteousBlow.setType(.Instant)
+        righteousBlow.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            { source, target in
+                target.dealDamage(2)
+        }))
+        righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
+        return righteousBlow
+    }
     // 24 Roc Charger
     // 25 Skyline Scout
     // 26 Sunhome Stalwart
