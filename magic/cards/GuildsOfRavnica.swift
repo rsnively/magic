@@ -28,11 +28,9 @@ enum GRN {
         cageTheCulprit.setManaCost("3W")
         cageTheCulprit.setType(.Instant)
         cageTheCulprit.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature) && potentialTarget.getToughness() >= 4
-        }, { source, target in
-                target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
+            effect: { _, target in target.destroy() }
+        ))
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
         return cageTheCulprit
     }
@@ -103,9 +101,8 @@ enum GRN {
         righteousBlow.setType(.Instant)
         righteousBlow.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            { source, target in
-                target.dealDamage(2)
-        }))
+            effect: { _, target in target.dealDamage(2) }
+        ))
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
     }
@@ -129,7 +126,7 @@ enum GRN {
         takeHeart.setType(.Instant)
         takeHeart.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) },
-            { source, target in
+            effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
                     object.power = object.getBasePower() + 2
                     object.toughness = object.getBaseToughness() + 2
@@ -314,11 +311,9 @@ enum GRN {
         commandTheStorm.setManaCost("4R")
         commandTheStorm.setType(.Instant)
         commandTheStorm.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-        }, { source, target in
-            target.dealDamage(5)
-        }))
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.dealDamage(5) }
+        ))
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
         return commandTheStorm
     }
@@ -461,7 +456,7 @@ enum GRN {
         mightOfTheMasses.setType(.Instant)
         mightOfTheMasses.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) },
-            { source, target in
+            effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     let x = source.getController().getCreatures().count
                     object.power = object.getBasePower() + x
@@ -587,7 +582,7 @@ enum GRN {
         justiceStrike.setType(.Instant)
         justiceStrike.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) },
-            { source, target in
+            effect: { _, target in
                 target.dealsDamage()
                 target.dealDamage(target.getPower())
         }))

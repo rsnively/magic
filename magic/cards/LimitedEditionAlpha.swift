@@ -36,11 +36,9 @@ enum LEA {
         disenchant.setManaCost("1W")
         disenchant.setType(.Instant)
         disenchant.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            effect: { _, target in target.destroy() }
+        ))
         return disenchant
     }
     // 19 Farmstead
@@ -139,11 +137,9 @@ enum LEA {
         unsummon.setManaCost("U")
         unsummon.setType(.Instant)
         unsummon.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-        }, { source, target in
-            target.bounce()
-        }))
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.bounce() }
+        ))
         return unsummon
     }
     // 87 Vesuvan Doppleganger
@@ -220,11 +216,9 @@ enum LEA {
         sinkhole.setManaCost("BB")
         sinkhole.setType(.Sorcery)
         sinkhole.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Land)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Land) },
+            effect: { _, target in target.destroy() }
+        ))
         return sinkhole
     }
     // 130 Terror
@@ -333,11 +327,9 @@ enum LEA {
         shatter.setManaCost("1R")
         shatter.setType(.Instant)
         shatter.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Artifact)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Artifact) },
+            effect: { _, target in target.destroy() }
+        ))
         return shatter
     }
     // 174 Shivan Dragon
@@ -348,11 +340,9 @@ enum LEA {
         stoneRain.setManaCost("2R")
         stoneRain.setType(.Sorcery)
         stoneRain.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Land)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Land) },
+            effect: { _, target in target.destroy() }
+        ))
         return stoneRain
     }
     // 178 Tunnel
@@ -419,11 +409,9 @@ enum LEA {
         iceStorm.setManaCost("2G")
         iceStorm.setType(.Sorcery)
         iceStorm.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Land)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: {  return $0.isType(.Land) },
+            effect: { _, target in target.destroy() }
+        ))
         return iceStorm
     }
     // 202 Instill Energy

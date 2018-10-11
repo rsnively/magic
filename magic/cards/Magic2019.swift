@@ -89,12 +89,12 @@ enum M19 {
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
         invokeTheDivine.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
-            }, { source, target in
+            targetingRestriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            effect: { source, target in
                 target.destroy()
                 source.getController().gainLife(4)
-        }))
+            }
+        ))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
         return invokeTheDivine
     }
@@ -189,11 +189,9 @@ enum M19 {
         takeVengeance.setManaCost("1W")
         takeVengeance.setType(.Sorcery)
         takeVengeance.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature) && potentialTarget.isTapped
-            }, { source, target in
-                target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Creature) && $0.isTapped },
+            effect: { _, target in target.destroy() }
+        ))
         takeVengeance.setFlavorText("\"Your death will be a balm, your passing a welcome revision, and all will sigh with peace to know your demise.\"")
         return takeVengeance
     }
@@ -224,11 +222,9 @@ enum M19 {
         disperse.setManaCost("1U")
         disperse.setType(.Instant)
         disperse.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return !potentialTarget.isType(.Land)
-            }, { source, target in
-                target.bounce()
-        }))
+            targetingRestriction: { return !$0.isType(.Land) },
+            effect: { _, target in target.bounce() }
+        ))
         disperse.setFlavorText("It's pointless to hold on when you have nothing to hold on with.")
         return disperse
     }
@@ -417,9 +413,8 @@ enum M19 {
         lichsCaress.setManaCost("3BB")
         lichsCaress.setType(.Sorcery)
         lichsCaress.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-            }, { source, target in
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { source, target in
                 target.destroy()
                 source.getController().gainLife(3)
         }))
@@ -435,11 +430,9 @@ enum M19 {
         murder.setManaCost("1BB")
         murder.setType(.Instant)
         murder.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-        }, { source,target in
-                target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.destroy() }
+        ))
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
         return murder
     }
@@ -478,7 +471,7 @@ enum M19 {
         stranglingSpores.setType(.Instant)
         stranglingSpores.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) },
-            { source, target in
+            effect: { _, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 3
                     object.toughness = object.getBaseToughness() - 3
@@ -544,11 +537,9 @@ enum M19 {
         electrify.setManaCost("3R")
         electrify.setType(.Instant)
         electrify.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-        }, { source, target in
-            target.dealDamage(4)
-        }))
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.dealDamage(4) }
+        ))
         electrify.setFlavorText("\"Some hid from the storm. I embraced it and learned its name.\"")
         return electrify
     }
@@ -557,11 +548,9 @@ enum M19 {
         fieryFinish.setManaCost("4RR")
         fieryFinish.setType(.Sorcery)
         fieryFinish.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Creature)
-        }, { source, target in
-            target.dealDamage(7)
-        }))
+            targetingRestriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.dealDamage(7) }
+        ))
         fieryFinish.setFlavorText("Negotiations reached an abrupt conclusion.")
         return fieryFinish
     }
@@ -625,11 +614,9 @@ enum M19 {
         smelt.setManaCost("R")
         smelt.setType(.Instant)
         smelt.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Artifact)
-            }, { source, target in
-                target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Artifact) },
+            effect: { _, target in target.destroy() }
+        ))
         smelt.setFlavorText("The creation of new weapons demands the destruction of others.")
         return smelt
     }
@@ -753,11 +740,9 @@ enum M19 {
         naturalize.setManaCost("1G")
         naturalize.setType(.Instant)
         naturalize.addEffect(TargetedEffect(
-            targetingRestriction: { potentialTarget in
-                return potentialTarget.isType(.Artifact) || potentialTarget.isType(.Enchantment)
-        }, { source, target in
-            target.destroy()
-        }))
+            targetingRestriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            effect: { _, target in target.destroy() }
+        ))
         naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
         return naturalize
     }
@@ -802,7 +787,7 @@ enum M19 {
         titanicGrowth.setType(.Instant)
         titanicGrowth.addEffect(TargetedEffect(
             targetingRestriction: { return $0.isType(.Creature) },
-            { source, target in
+            effect: { _, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 4
                     object.toughness = object.getToughness() + 4
