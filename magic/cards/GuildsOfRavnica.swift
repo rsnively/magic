@@ -170,7 +170,7 @@ enum GRN {
         }))
         museDrake.setFlavorText("A composer wrote a symphony based on the drakes screeching outside her window. Reviews were mixed--except among the drakes.")
         museDrake.power = 1
-        museDrake.toughness = 4
+        museDrake.toughness = 3
         return museDrake
     }
     // 47 Narcomeba
