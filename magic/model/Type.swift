@@ -40,6 +40,7 @@ enum Subtype {
     case Elephant
     case Elf
     case Elk
+    case Faerie
     case Forest
     case Fungus
     case Giant

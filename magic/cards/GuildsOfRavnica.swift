@@ -635,7 +635,24 @@ enum GRN {
     // 211 Underrealm Lich
     // 212 Unmoored Ego
     // 213 Vraska, Golgari Queen
-    // 214 Wee Dragonauts
+    static func WeeDragonauts() -> Card {
+        let weeDragonauts = Card(name: "Wee Dragonauts", rarity: .Uncommon, set: set, number: 214)
+        weeDragonauts.setManaCost("1UR")
+        weeDragonauts.setType(.Creature, .Faerie, .Wizard)
+        weeDragonauts.flying = true
+        weeDragonauts.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: weeDragonauts,
+            trigger: .CastInstantOrSorcery,
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 2
+                return object
+            }))
+        }))
+        weeDragonauts.setFlavorText("\"Something's causing electrospheric disruption in the blazekite's spire-vanes. Find the cause, and tell them to keep it up!\"\n--Juzba, Izzet tinker.")
+        weeDragonauts.power = 1
+        weeDragonauts.toughness = 3
+        return weeDragonauts
+    }
     // 215 Worldsoul Colossus
     // 216 Fresh-Faced Recruit
     // 217 Piston-Fist Cyclops
