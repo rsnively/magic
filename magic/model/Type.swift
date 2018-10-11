@@ -47,6 +47,7 @@ enum Subtype {
     case Golem
     case Horror
     case Human
+    case Illusion
     case Insect
     case Island
     case Knight

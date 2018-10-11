@@ -19,11 +19,10 @@ class Player: NSObject {
             card.setOwner(owner: self)
         }
         
-//        for _ in 0..<4 {
-//            permanents.append(GRN.Plains())
-//            permanents.append(GRN.Swamp())
-//        }
-//        permanents.forEach({$0.setOwner(owner: self)})
+        for _ in 0..<4 {
+            permanents.append(GRN.Island())
+        }
+        permanents.forEach({$0.setOwner(owner: self)})
         
         self.pregameActions()
     }
@@ -177,6 +176,10 @@ class Player: NSObject {
             }
             else {
                 addPermanent(card)
+            }
+            
+            if card.isType(.Instant) || card.isType(.Sorcery) {
+                getPermanents().forEach({ $0.triggerAbilities(.CastInstantOrSorcery) })
             }
         }
         else {

@@ -156,7 +156,20 @@ enum GRN {
     // 42 Leapfrog
     // 43 Maximize Altitude
     // 44 Mission Briefing
-    // 45 Murmuring Mystic
+    static func MurmuringMystic() -> Card {
+        let murmuringMystic = Card(name: "Murmuring Mystic", rarity: .Uncommon, set: set, number: 45)
+        murmuringMystic.setManaCost("3U")
+        murmuringMystic.setType(.Creature, .Human, .Wizard)
+        murmuringMystic.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: murmuringMystic,
+            trigger: .CastInstantOrSorcery,
+            effect: { $0.getController().createToken(BirdIllusion()) }
+        ))
+        murmuringMystic.setFlavorText("Rumors float through the city like crows, alighting on citizens seemingly at random.")
+        murmuringMystic.power = 1
+        murmuringMystic.toughness = 5
+        return murmuringMystic
+    }
     static func MuseDrake() -> Card {
         let museDrake = Card(name: "Muse Drake", rarity: .Common, set: set, number: 46)
         museDrake.setManaCost("3U")
@@ -712,7 +725,15 @@ enum GRN {
         soldier.toughness = 1
         return soldier
     }
-    // t3 Bird Illusion
+    static func BirdIllusion() -> Token {
+        let birdIllusion = Token(name: "Bird Illusion", set: set, number: 3)
+        birdIllusion.colors = [.Blue]
+        birdIllusion.setType(.Creature, .Bird, .Illusion)
+        birdIllusion.flying = true
+        birdIllusion.power = 1
+        birdIllusion.toughness = 1
+        return birdIllusion
+    }
     // t4 Gobblin
     // t5 Insect
     static func ElfKnight() -> Token {
