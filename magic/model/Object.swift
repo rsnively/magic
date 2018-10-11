@@ -156,6 +156,10 @@ class Object: NSObject, NSCopying {
     func untap() {
         tapped = false
     }
+    // Doesn't trigger anything
+    func setTapped(_ tapped: Bool) {
+        self.tapped = tapped
+    }
     
     func addEffect(_ effect: Effect) {
         effects.append(effect)

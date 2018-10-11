@@ -31,10 +31,11 @@ class Game: NSObject {
         for _ in 0..<15 {
             
             deck1.append(GRN.Plains())
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.HealersHawk())
-            deck1.append(GRN.SwornCompanions())
-            deck1.append(GRN.InspiringUnicorn())
+            deck1.append(GRN.Mountain())
+            deck1.append(GRN.HuntedWitness())
+            deck1.append(M19.GoblinInstigator())
+            deck1.append(GRN.SkyknightLegionnaire())
+            deck1.append(M19.TrumpetBlast())
             
             deck2.append(GRN.Plains())
             deck2.append(GRN.Mountain())
@@ -64,6 +65,13 @@ class Game: NSObject {
     
     func getNonActivePlayer() -> Player {
         return player1.active ? player2 : player1
+    }
+    
+    func getOtherPlayer(_ player: Player) -> Player {
+        if player == player1 {
+            return player2
+        }
+        return player1
     }
     
     func bothPlayers(_ f: (_ player: Player) -> Void) {

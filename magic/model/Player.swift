@@ -28,6 +28,10 @@ class Player: NSObject {
         self.pregameActions()
     }
     
+    func getOpponent() -> Player {
+        return Game.shared.getOtherPlayer(self)
+    }
+    
     func getLife() -> Int {
         return life
     }
@@ -99,6 +103,14 @@ class Player: NSObject {
     func drawCards(_ amt: Int) {
         for _ in 0..<amt {
             drawCard()
+        }
+    }
+    
+    func mill(_ amt: Int) {
+        for _ in 0..<amt {
+            if let card = library.popLast() {
+                graveyard.append(card)
+            }
         }
     }
     

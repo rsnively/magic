@@ -52,9 +52,38 @@ enum M19 {
         gallantCavalry.toughness = 2
         return gallantCavalry
     }
-    // 13 Herald of Faith
+    static func HeraldOfFaith() -> Card {
+        let heraldOfFaith = Card(name: "Herald of Faith", rarity: .Uncommon, set: set, number: 13)
+        heraldOfFaith.setManaCost("3WW")
+        heraldOfFaith.setType(.Creature, .Angel)
+        heraldOfFaith.flying = true
+        heraldOfFaith.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: heraldOfFaith,
+            trigger: .ThisAttacks,
+            effect: { $0.getController().gainLife(2) }
+        ))
+        heraldOfFaith.setFlavorText("The clerics prayed for salvation. The soldiers prayed for victory. Both prayers were answered.")
+        heraldOfFaith.power = 4
+        heraldOfFaith.toughness = 3
+        return heraldOfFaith
+    }
     // 14 Hieromancer's Cage
-    // 15 Inspired Charge
+    static func InspiredCharge() -> Card {
+        let inspiredCharge = Card(name: "Inspired Charge", rarity: .Common, set: set, number: 15)
+        inspiredCharge.setManaCost("2WW")
+        inspiredCharge.setType(.Instant)
+        inspiredCharge.addEffect(UntargetedEffect({
+            $0.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 2
+                    object.toughness = object.getBaseToughness() + 1
+                    return object
+                }))
+            })
+        }))
+        inspiredCharge.setFlavorText("\"Impossible! How could they overwhelm us? We had barricades, war elephants, ... and they were barely a tenth of our number!\"\n--General Avitora")
+        return inspiredCharge
+    }
     static func InvokeTheDivine() -> Card {
         let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 16)
         invokeTheDivine.setManaCost("2W")
@@ -84,7 +113,26 @@ enum M19 {
     // 20 Knightly Valor
     // 21 Lena, Selfless Champion
     // 22 Leonin Vanguard
-    // 23 Leonin Warleader
+    static func LeoninWarleader() -> Card {
+        let leoninWarleader = Card(name: "Leonin Warleader", rarity: .Rare, set: set, number: 23)
+        leoninWarleader.setManaCost("2WW")
+        leoninWarleader.setType(.Creature, .Cat, .Soldier)
+        leoninWarleader.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: leoninWarleader,
+            trigger: .ThisAttacks,
+            effect: {
+                let tokens: [Object] = [Cat(), Cat()]
+                for token in tokens {
+                    token.attacking = true
+                    token.setTapped(true)
+                    $0.getController().createToken(token)
+                }
+        }))
+        leoninWarleader.setFlavorText("When one leonin hunts, many more are surely nearby.")
+        leoninWarleader.power = 4
+        leoninWarleader.toughness = 4
+        return leoninWarleader
+    }
     static func LoxodonLineBreaker() -> Card {
         let loxodonLineBreaker = Card(name: "Loxodon Line Breaker", rarity: .Common, set: set, number: 24)
         loxodonLineBreaker.setManaCost("2W")
@@ -123,7 +171,16 @@ enum M19 {
         revitalize.setFlavorText("\"A potion is no substitute for a skilled surgeon, but it will hold your bits in.\"\n--Torricks, battlefield medic")
         return revitalize
     }
-    // 36 Rustwing Falcon
+    static func RustwingFalcon() -> Card {
+        let rustwingFalcon = Card(name: "Rustwing Falcon", rarity: .Common, set: set, number: 36)
+        rustwingFalcon.setManaCost("W")
+        rustwingFalcon.setType(.Creature, .Bird)
+        rustwingFalcon.flying = true
+        rustwingFalcon.setFlavorText("Native to wide prairies and scrublands, falcons occasionally roost in dragon skeletons.")
+        rustwingFalcon.power = 1
+        rustwingFalcon.toughness = 2
+        return rustwingFalcon
+    }
     // 37 Shield Mare
     // 38 Star-Crowned Stag
     // 39 Suncleanser
@@ -145,7 +202,20 @@ enum M19 {
     // 43 Aether Tunnel
     // 44 Anticipate
     // 45 Aven Wind Mage
-    // 46 Aviation Pioneer
+    static func AviationPioneer() -> Card {
+        let aviationPioneer = Card(name: "Aviation Pioneer", rarity: .Common, set: set, number: 46)
+        aviationPioneer.setManaCost("2U")
+        aviationPioneer.setType(.Creature, .Human, .Artificer)
+        aviationPioneer.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: aviationPioneer,
+            trigger: .ThisETB,
+            effect: { $0.getController().createToken(Thopter()) }
+        ))
+        aviationPioneer.setFlavorText("\"They say perfection is unattainable, but they said that about flight too.\"")
+        aviationPioneer.power = 1
+        aviationPioneer.toughness = 2
+        return aviationPioneer
+    }
     // 47 Bone to Ash
     // 48 Cancel
     // 49 Departed Deckhand
@@ -183,7 +253,20 @@ enum M19 {
     // 60 Metamorphic Alteration
     // 61 Mirror Image
     // 62 Mistcaller
-    // 63 Mystic Archaeologist
+    static func MysticArchaeologist() -> Card {
+        let mysticArchaeologist = Card(name: "Mystic Archaeologist", rarity: .Rare, set: set, number: 63)
+        mysticArchaeologist.setManaCost("1U")
+        mysticArchaeologist.setType(.Creature, .Human, .Wizard)
+        mysticArchaeologist.addActivatedAbility(UntargetedActivatedAbility(
+            source: mysticArchaeologist,
+            cost: Cost("3UU"),
+            effect: { $0.getController().drawCards(2) }
+        ))
+        mysticArchaeologist.setFlavorText("The delight of discovery drives the pursuit of knowledge.")
+        mysticArchaeologist.power = 2
+        mysticArchaeologist.toughness = 1
+        return mysticArchaeologist
+    }
     // 64 Omenspeaker
     // 65 Omniscience
     static func OneWithTheMachine() -> Card {
@@ -206,7 +289,16 @@ enum M19 {
     // 72 Sift
     // 73 Skilled Animator
     // 74 Sleep
-    // 75 Snapping Drake
+    static func SnappingDrake() -> Card {
+        let snappingDrake = Card(name: "Snapping Drake", rarity: .Common, set: set, number: 75)
+        snappingDrake.setManaCost("3U")
+        snappingDrake.setType(.Creature, .Drake)
+        snappingDrake.flying = true
+        snappingDrake.setFlavorText("Foul-tempered, poorly trained, and mule-stubborn, the drake is the perfect test of the master's will.")
+        snappingDrake.power = 3
+        snappingDrake.toughness = 2
+        return snappingDrake
+    }
     // 76 Supreme Phantom
     // 77 Surge Mare
     // 78 Switcheroo
@@ -221,8 +313,32 @@ enum M19 {
         return tolarianScholar
     }
     // 81 Totally Lost
-    // 82 Uncomfortable Chill
-    // 83 Wall of Mist
+    static func UncomfortableChill() -> Card {
+        let uncomfortableChill = Card(name: "Uncomfortable Chill", rarity: .Common, set: set, number: 82)
+        uncomfortableChill.setManaCost("2U")
+        uncomfortableChill.setType(.Instant)
+        uncomfortableChill.addEffect(UntargetedEffect({
+            $0.getController().getOpponent().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() - 2
+                    return object
+                }))
+            })
+            $0.getController().drawCard()
+        }))
+        uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
+        return uncomfortableChill
+    }
+    static func WallOfMist() -> Card {
+        let wallOfMist = Card(name: "Wall of Mist", rarity: .Common, set: set, number: 83)
+        wallOfMist.setManaCost("1U")
+        wallOfMist.setType(.Creature, .Wall)
+        wallOfMist.defender = true
+        wallOfMist.setFlavorText("The seafloor is flecked with the bones of fools who dared to sail into the mist.")
+        wallOfMist.power = 0
+        wallOfMist.toughness = 5
+        return wallOfMist
+    }
     // 84 Windreader Sphinx
     // 85 Abnormal Endurance
     // 86 Blood Divination
@@ -279,7 +395,20 @@ enum M19 {
         hiredBlade.toughness = 2
         return hiredBlade
     }
-    // 101 Infectious Horror
+    static func InfectiousHorror() -> Card {
+        let infectiousHorror = Card(name: "Infectious Horror", rarity: .Common, set: set, number: 101)
+        infectiousHorror.setManaCost("3B")
+        infectiousHorror.setType(.Creature, .Zombie, .Horror)
+        infectiousHorror.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: infectiousHorror,
+            trigger: .ThisAttacks,
+            effect: { $0.getController().getOpponent().loseLife(2) }
+        ))
+        infectiousHorror.setFlavorText("Not once in the history of Grixis has anyone died of old age.")
+        infectiousHorror.power = 2
+        infectiousHorror.toughness = 2
+        return infectiousHorror
+    }
     // 102 Infernal Reckoning
     // 103 Infernal Scarring
     // 104 Isareth the Awakener
@@ -324,10 +453,56 @@ enum M19 {
     // 118 Skeleton Archer
     // 119 Skymarch Bloodletter
     // 120 Sovereign's Bite
-    // 121 Stitcher's Supplier
-    // 122 Strangling Spores
+    static func StitchersSupplier() -> Card {
+        let stitchersSupplier = Card(name: "Sticher's Supplier", rarity: .Uncommon, set: set, number: 121)
+        stitchersSupplier.setManaCost("B")
+        stitchersSupplier.setType(.Creature, .Zombie)
+        stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: stitchersSupplier,
+            trigger: .ThisETB,
+            effect: { $0.getController().mill(3) }
+        ))
+        stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: stitchersSupplier,
+            trigger: .ThisDies,
+            effect: { $0.getController().mill(3) }
+        ))
+        stitchersSupplier.setFlavorText("No part goes to waste.")
+        stitchersSupplier.power = 1
+        stitchersSupplier.toughness = 1
+        return stitchersSupplier
+    }
+    static func StranglingSpores() -> Card {
+        let stranglingSpores = Card(name: "Strangling Spores", rarity: .Common, set: set, number: 122)
+        stranglingSpores.setManaCost("3B")
+        stranglingSpores.setType(.Instant)
+        stranglingSpores.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() - 3
+                    object.toughness = object.getBaseToughness() - 3
+                    return object
+                }))
+        }))
+        stranglingSpores.setFlavorText("Imagine a thousand tiny mushrooms cropping up within your lungs.")
+        return stranglingSpores
+    }
     // 123 Two-Headed Zombie
-    // 124 Vampire Neonate
+    static func VampireNeonate() -> Card {
+        let vampireNeonate = Card(name: "Vampire Neonate", rarity: .Common, set: set, number: 124)
+        vampireNeonate.setManaCost("B")
+        vampireNeonate.setType(.Creature, .Vampire)
+        vampireNeonate.addActivatedAbility(UntargetedActivatedAbility(
+            source: vampireNeonate,
+            cost: Cost("2", tap: true),
+            effect: { $0.getController().getOpponent().loseLife(1); $0.getController().gainLife(1) }
+        ))
+        vampireNeonate.setFlavorText("One day, they may be paragons of deadly elegance. For the moment, they possess nothing but thirst.")
+        vampireNeonate.power = 0
+        vampireNeonate.toughness = 3
+        return vampireNeonate
+    }
     // 125 Vampire Sovereign
     static func WalkingCorpse() -> Card {
         let walkingCorpse = Card(name: "Walking Corpse", rarity: .Common, set: set, number: 124)
@@ -349,7 +524,21 @@ enum M19 {
     // 135 Demanding Dragon
     // 136 Dismissive Pyromancer
     // 137 Doublecast
-    // 138 Dragon Egg
+    static func DragonEgg() -> Card {
+        let dragonEgg = Card(name: "Dragon Egg", rarity: .Uncommon, set: set, number: 138)
+        dragonEgg.setManaCost("2R")
+        dragonEgg.setType(.Creature, .Dragon, .Egg)
+        dragonEgg.defender = true
+        dragonEgg.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: dragonEgg,
+            trigger: .ThisDies,
+            effect: { $0.getController().createToken(Dragon_Firebreathing()) }
+        ))
+        dragonEgg.setFlavorText("Dragon birth lairs are littered with treasure to entice the young from their eggs.")
+        dragonEgg.power = 0
+        dragonEgg.toughness = 2
+        return dragonEgg
+    }
     static func Electrify() -> Card {
         let electrify = Card(name: "Electrify", rarity: .Common, set: set, number: 139)
         electrify.setManaCost("3R")
@@ -403,7 +592,16 @@ enum M19 {
     // 144 Goblin Trashmaster
     // 145 Guttersnipe
     // 146 Havoc Devils
-    // 147 Hostile Minotaur
+    static func HostileMinotaur() -> Card {
+        let hostileMinotaur = Card(name: "Hostile Minotaur", rarity: .Common, set: set, number: 147)
+        hostileMinotaur.setManaCost("3R")
+        hostileMinotaur.setType(.Creature, .Minotaur)
+        hostileMinotaur.haste = true
+        hostileMinotaur.setFlavorText("The bellow of a minotaur always translates to \"charge.\"")
+        hostileMinotaur.power = 3
+        hostileMinotaur.toughness = 3
+        return hostileMinotaur
+    }
     // 148 Inferno Hellion
     // 149 Lathliss, Dragon Queen
     // 150 Lava Axe
@@ -441,9 +639,33 @@ enum M19 {
     // 162 Tectonic Rift
     // 163 Thud
     // 164 Tormenting Voice
-    // 165 Trumpet Blast
+    static func TrumpetBlast() -> Card {
+        let trumpetBlast = Card(name: "Trumpet Blast", rarity: .Common, set: set, number: 165)
+        trumpetBlast.setManaCost("2R")
+        trumpetBlast.setType(.Instant)
+        trumpetBlast.addEffect(UntargetedEffect({ _ in
+            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ attackingCreature in
+                attackingCreature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 2
+                    return object
+                }))
+            })})
+        }))
+        trumpetBlast.setFlavorText("The sound of the trumpets lights a fire in the hearts of the bold and snuffs the courage of the cowardly.")
+        return trumpetBlast
+    }
     // 166 Viashino Pyromancer
-    // 167 Volcanic Dragon
+    static func VolcanicDragon() -> Card {
+        let volcanicDragon = Card(name: "Volcanic Dragon", rarity: .Uncommon, set: set, number: 167)
+        volcanicDragon.setManaCost("4RR")
+        volcanicDragon.setType(.Creature, .Dragon)
+        volcanicDragon.flying = true
+        volcanicDragon.haste = true
+        volcanicDragon.setFlavorText("Sometimes an eruption in Shiv produces something more dangerous than a mere river of molten rock.")
+        volcanicDragon.power = 4
+        volcanicDragon.toughness = 4
+        return volcanicDragon
+    }
     // 168 Volley Veteran
     // 169 Blanchwood Armor
     // 170 Bristling Boar
@@ -461,13 +683,36 @@ enum M19 {
     // 174 Daggerback Basilisk
     // 175 Declare Dominance
     // 176 Druid of Horns
-    // 177 Druid of the Cowl
+    static func DruidOfTheCowl() -> Card {
+        let druidOfTheCowl = Card(name: "Druid of the Cowl", rarity: .Common, set: set, number: 177)
+        druidOfTheCowl.setManaCost("1G")
+        druidOfTheCowl.setType(.Creature, .Elf, .Druid)
+        druidOfTheCowl.addActivatedAbility(UntargetedActivatedAbility(
+            source: druidOfTheCowl,
+            cost: Cost("", tap: true),
+            effect: { $0.getController().addMana(color: .Green) },
+            manaAbility: true
+        ))
+        druidOfTheCowl.setFlavorText("\"The wild tangle of the Cowl provides sanctuary to life that watched the first buildings rise.\"")
+        druidOfTheCowl.power = 1
+        druidOfTheCowl.toughness = 3
+        return druidOfTheCowl
+    }
     // 178 Dryad Greenseeker
     // 179 Elvish Clancaller
     // 180 Elvish Rejuvenator
     // 181 Ghastbark Twins
     // 182 Ghirapur Guide
-    // 183 Giant Spider
+    static func GiantSpider() -> Card {
+        let giantSpider = Card(name: "Giant Spider", rarity: .Common, set: set, number: 183)
+        giantSpider.setManaCost("3G")
+        giantSpider.setType(.Creature, .Spider)
+        giantSpider.reach = true
+        giantSpider.setFlavorText("\"After everything I've survived, it's hard to be frightened by anything anymore.\"\n--Vivien Reid")
+        giantSpider.power = 2
+        giantSpider.toughness = 4
+        return giantSpider
+    }
     // 184 Gift of Paradise
     static func Gigantosaurus() -> Card {
         let gigantosaurus = Card(name: "Gigantosaurus", rarity: .Rare, set: set, number: 185)
@@ -551,7 +796,22 @@ enum M19 {
         thornhideWolves.toughness = 5
         return thornhideWolves
     }
-    // 205 Titanic Growth
+    static func TitanicGrowth() -> Card {
+        let titanicGrowth = Card(name: "Titanic Growth", rarity: .Common, set: set, number: 205)
+        titanicGrowth.setManaCost("1G")
+        titanicGrowth.setType(.Instant)
+        titanicGrowth.addEffect(TargetedEffect(
+            targetingRestriction: { return $0.isType(.Creature) },
+            { source, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 4
+                    object.toughness = object.getToughness() + 4
+                    return object
+                }))
+        }))
+        titanicGrowth.setFlavorText("The massive dominate through might. The tiny survive with guile. Beware the tiny who become massive.")
+        return titanicGrowth
+    }
     static func VigilantBaloth() -> Card {
         let vigilantBaloth = Card(name: "Vigilant Baloth", rarity: .Uncommon, set: set, number: 206)
         vigilantBaloth.setManaCost("3GG")
@@ -565,7 +825,17 @@ enum M19 {
     // 207 Vine Mare
     // 208 Vivien Reid
     // 209 Vivien's Invocation
-    // 210 Wall of Vines
+    static func WallOfVines() -> Card {
+        let wallOfVines = Card(name: "Wall of Vines", rarity: .Common, set: set, number: 210)
+        wallOfVines.setManaCost("G")
+        wallOfVines.setType(.Creature, .Plant, .Wall)
+        wallOfVines.defender = true
+        wallOfVines.reach = true
+        wallOfVines.setFlavorText("Like all jungle plants, the vines must fight and claw for sunlight. Once their place is secured, they grow strong, sharp, and impenetrable.")
+        wallOfVines.power = 0
+        wallOfVines.toughness = 3
+        return wallOfVines
+    }
     // 211 Aerial Engineer
     // 212 Arcades, the Strategist
     // 213 Brawl-Bash Ogre
@@ -582,7 +852,18 @@ enum M19 {
     // 224 Skyrider Patrol
     // 225 Vaevictis Asmadi, the Dire
     // 226 Amulet of Safekeeping
-    // 227 Arcane Encyclopedia
+    static func ArcaneEncyclopedia() -> Card {
+        let arcaneEncyclopedia = Card(name: "Arcane Encyclopedia", rarity: .Uncommon, set: set, number: 227)
+        arcaneEncyclopedia.setManaCost("3")
+        arcaneEncyclopedia.setType(.Artifact)
+        arcaneEncyclopedia.addActivatedAbility(UntargetedActivatedAbility(
+            source: arcaneEncyclopedia,
+            cost: Cost("3", tap: true),
+            effect: { $0.getController().drawCard() }
+        ))
+        arcaneEncyclopedia.setFlavorText("Knowledge itself is neither good nor evil. Just as the wrong book in the wrong hands could doom all existence, the same book in the right hands could save it.")
+        return arcaneEncyclopedia
+    }
     // 228 Chaos Wand
     // 229 Crucible of Worlds
     // 230 Desecrated Tomb
@@ -608,7 +889,20 @@ enum M19 {
     // 242 Millstone
     // 243 Rogue's Gloves
     // 244 Sigiled Sword of Valeron
-    // 245 Skyscanner
+    static func Skyscanner() -> Card {
+        let skyscanner = Card(name: "Skyscanner", rarity: .Common, set: set, number: 245)
+        skyscanner.setManaCost("3")
+        skyscanner.setType(.Artifact, .Creature, .Thopter)
+        skyscanner.flying = true
+        skyscanner.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: skyscanner,
+            trigger: .ThisETB,
+            effect: { $0.getController().drawCard() }
+        ))
+        skyscanner.power = 1
+        skyscanner.toughness = 1
+        return skyscanner
+    }
     // 246 Suspicious Bookcase
     // 247 Transmogrifying Wand
     // 248 Cinder Barrens
@@ -702,7 +996,15 @@ enum M19 {
     
     // t1 Angel
     // t2 Avatar
-    // t3 Cat
+    static func Cat() -> Token {
+        let cat = Token(name: "Cat", set: set, number: 3)
+        cat.colors = [.White]
+        cat.setType(.Creature, .Cat)
+        cat.lifelink = true
+        cat.power = 1
+        cat.toughness = 1
+        return cat
+    }
     static func Knight() -> Token {
         let knight = Token(name: "Knight", set: set, number: 4)
         knight.colors = [Color.White]
@@ -723,7 +1025,23 @@ enum M19 {
         zombie.toughness = 2
         return zombie
     }
-    // t9 Dragon (firebreathing)
+    static func Dragon_Firebreathing() -> Token {
+        let dragon = Token(name: "Dragon", set: set, number: 9)
+        dragon.colors = [.Red]
+        dragon.setType(.Creature, .Dragon)
+        dragon.flying = true
+        dragon.addActivatedAbility(UntargetedActivatedAbility(
+            source: dragon,
+            cost: Cost("R"),
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 1
+                return object
+            }))
+        }))
+        dragon.power = 2
+        dragon.toughness = 2
+        return dragon
+    }
     // t10 Dragon
     static func Goblin() -> Token {
         let goblin = Token(name: "Goblin", set: set, number: 11)
@@ -735,7 +1053,14 @@ enum M19 {
     }
     // t12 Beast
     // t13 Elf Warrior
-    // t14 Thopter
+    static func Thopter() -> Token {
+        let thopter = Token(name: "Thopter", set: set, number: 14)
+        thopter.setType(.Artifact, .Creature, .Thopter)
+        thopter.flying = true
+        thopter.power = 1
+        thopter.toughness = 1
+        return thopter
+    }
     // t15 Ajani Emblem
     // t16 Tezzeret Emblem
     // t17 Vivien Emblem
