@@ -131,12 +131,12 @@ class Player: NSObject {
                     if let blocker = permanent.blockers.first {
                         permanent.dealsDamage()
                         blocker.dealsDamage()
-                        permanent.dealDamage(blocker.getPower())
-                        blocker.dealDamage(permanent.getPower())
+                        permanent.dealDamage(max(blocker.getPower(), 0))
+                        blocker.dealDamage(max(permanent.getPower(), 0))
                     }
                 } else {
                     permanent.dealsDamage()
-                    Game.shared.getNonActivePlayer().damage(permanent.getPower())
+                    Game.shared.getNonActivePlayer().damage(max(permanent.getPower(), 0))
                 }
             }
         }

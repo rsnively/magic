@@ -190,7 +190,7 @@ class Object: NSObject, NSCopying {
     }
     
     func canActivateAbilities() -> Bool {
-        return !activatedAbilities.isEmpty && !Game.shared.isTargeting && !Game.shared.isDeclaringAttackers() && getController().hasPriority
+        return !activatedAbilities.isEmpty && !Game.shared.isTargeting && !Game.shared.isDeclaringAttackers() && !Game.shared.isDeclaringBlockers() && getController().hasPriority
     }
     
     func requiresTargets() -> Bool {
@@ -280,7 +280,7 @@ class Object: NSObject, NSCopying {
     // This permanent is dealing damage equal to its power to something
     func dealsDamage() {
         if lifelink {
-            getController().gainLife(getPower())
+            getController().gainLife(max(getPower(), 0))
         }
     }
     
