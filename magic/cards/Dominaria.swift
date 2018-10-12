@@ -55,7 +55,7 @@ enum DOM {
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
         invokeTheDivine.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { source, target in
                 target.destroy()
                 source.getController().gainLife(4)
@@ -108,7 +108,7 @@ enum DOM {
         befuddle.setManaCost("2U")
         befuddle.setType(.Instant)
         befuddle.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 4
@@ -150,7 +150,7 @@ enum DOM {
         rescue.setManaCost("U")
         rescue.setType(.Instant)
         rescue.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.getController() == rescue.getController() },
+            restriction: { return $0.getController() == rescue.getController() },
             effect: { _, object in object.bounce() }
         ))
         rescue.setFlavorText("With just a few seconds to escape, Deryan saved Hurkyl's editions on restoring physical objects from ash.")
@@ -194,7 +194,7 @@ enum DOM {
         castDown.setManaCost("1B")
         castDown.setType(.Instant)
         castDown.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
+            restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
             effect: { _, target in target.destroy() }
         ))
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
@@ -243,7 +243,7 @@ enum DOM {
         eviscerate.setManaCost("3B")
         eviscerate.setType(.Sorcery)
         eviscerate.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { _, target in target.destroy() }
         ))
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
@@ -256,7 +256,7 @@ enum DOM {
         fungalInfection.setManaCost("B")
         fungalInfection.setType(.Instant)
         fungalInfection.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 1

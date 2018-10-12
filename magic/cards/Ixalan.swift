@@ -24,7 +24,7 @@ enum XLN {
         brightReprisal.setManaCost("4W")
         brightReprisal.setType(.Instant)
         brightReprisal.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && $0.attacking },
+            restriction: { return $0.isType(.Creature) && $0.attacking },
             effect: { source, target in
                 target.destroy()
                 source.getController().drawCard()
@@ -38,7 +38,7 @@ enum XLN {
         demystify.setManaCost("W")
         demystify.setType(.Instant)
         demystify.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Enchantment) },
+            restriction: { return $0.isType(.Enchantment) },
             effect: { _, target in target.destroy() }
         ))
         demystify.setFlavorText("\"The River Heralds carve spells into jade, hoping to steer us from our course. But what right do they have to keep us from that which once was ours?\"")
@@ -74,7 +74,7 @@ enum XLN {
         legionsJudgment.setManaCost("2W")
         legionsJudgment.setType(.Sorcery)
         legionsJudgment.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
+            restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
             effect: { _, target in target.destroy() }
         ))
         legionsJudgment.setFlavorText("\"My lance was once wielded by Venerable Tarrian. In his name and by his might, I cast you down!\"")
@@ -184,7 +184,7 @@ enum XLN {
         slashOfTalons.setManaCost("W")
         slashOfTalons.setType(.Instant)
         slashOfTalons.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
             effect: { _, target in target.dealDamage(2) }
         ))
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")

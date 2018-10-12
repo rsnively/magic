@@ -6,10 +6,10 @@ protocol Effect {
 }
 
 class UntargetedEffect: Effect {
-    private var resolveFunc:(Object) -> ()
+    private var effect:(Object) -> ()
     
-    init(_ resolveFunc:@escaping (Object) -> ()) {
-        self.resolveFunc = resolveFunc
+    init(_ effect:@escaping (Object) -> ()) {
+        self.effect = effect
     }
     
     func requiresTarget() -> Bool {
@@ -17,19 +17,19 @@ class UntargetedEffect: Effect {
     }
     
     func resolve(source: Object) {
-        resolveFunc(source)
+        effect(source)
     }
 }
 
 class TargetedEffect: Effect {
-    private var targetingRestriction:(Object) -> Bool
-    private var resolveFunc:(Object, Object) -> ()
+    private var restriction:(Object) -> Bool
+    private var effect:(Object, Object) -> ()
     
     weak var target: Object?
     
-    init(targetingRestriction: @escaping (Object) -> Bool, effect:@escaping (Object, Object) -> ()) {
-        self.targetingRestriction = targetingRestriction
-        self.resolveFunc = effect
+    init(restriction: @escaping (Object) -> Bool, effect:@escaping (Object, Object) -> ()) {
+        self.restriction = restriction
+        self.effect = effect
     }
     
     func requiresTarget() -> Bool {
@@ -37,7 +37,7 @@ class TargetedEffect: Effect {
     }
     
     func meetsRestrictions(target: Object) -> Bool{
-        return targetingRestriction(target)
+        return restriction(target)
     }
     
     func selectTarget(_ target: Object) {
@@ -47,7 +47,7 @@ class TargetedEffect: Effect {
     func resolve(source: Object) {
         // todo only if target is still valid
         if let target = target {
-            resolveFunc(source, target)
+            effect(source, target)
         }
     }
 }

@@ -36,7 +36,7 @@ enum LEA {
         disenchant.setManaCost("1W")
         disenchant.setType(.Instant)
         disenchant.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { _, target in target.destroy() }
         ))
         return disenchant
@@ -137,7 +137,7 @@ enum LEA {
         unsummon.setManaCost("U")
         unsummon.setType(.Instant)
         unsummon.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { _, target in target.bounce() }
         ))
         return unsummon
@@ -216,7 +216,7 @@ enum LEA {
         sinkhole.setManaCost("BB")
         sinkhole.setType(.Sorcery)
         sinkhole.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Land) },
+            restriction: { return $0.isType(.Land) },
             effect: { _, target in target.destroy() }
         ))
         return sinkhole
@@ -327,7 +327,7 @@ enum LEA {
         shatter.setManaCost("1R")
         shatter.setType(.Instant)
         shatter.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Artifact) },
+            restriction: { return $0.isType(.Artifact) },
             effect: { _, target in target.destroy() }
         ))
         return shatter
@@ -340,7 +340,7 @@ enum LEA {
         stoneRain.setManaCost("2R")
         stoneRain.setType(.Sorcery)
         stoneRain.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Land) },
+            restriction: { return $0.isType(.Land) },
             effect: { _, target in target.destroy() }
         ))
         return stoneRain
@@ -409,7 +409,7 @@ enum LEA {
         iceStorm.setManaCost("2G")
         iceStorm.setType(.Sorcery)
         iceStorm.addEffect(TargetedEffect(
-            targetingRestriction: {  return $0.isType(.Land) },
+            restriction: {  return $0.isType(.Land) },
             effect: { _, target in target.destroy() }
         ))
         return iceStorm

@@ -28,7 +28,7 @@ enum GRN {
         cageTheCulprit.setManaCost("3W")
         cageTheCulprit.setType(.Instant)
         cageTheCulprit.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
+            restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
             effect: { _, target in target.destroy() }
         ))
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
@@ -100,7 +100,7 @@ enum GRN {
         righteousBlow.setManaCost("W")
         righteousBlow.setType(.Instant)
         righteousBlow.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
             effect: { _, target in target.dealDamage(2) }
         ))
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
@@ -125,7 +125,7 @@ enum GRN {
         takeHeart.setManaCost("W")
         takeHeart.setType(.Instant)
         takeHeart.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
                     object.power = object.getBasePower() + 2
@@ -311,7 +311,7 @@ enum GRN {
         commandTheStorm.setManaCost("4R")
         commandTheStorm.setType(.Instant)
         commandTheStorm.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { _, target in target.dealDamage(5) }
         ))
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
@@ -455,7 +455,7 @@ enum GRN {
         mightOfTheMasses.setManaCost("G")
         mightOfTheMasses.setType(.Instant)
         mightOfTheMasses.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { source, target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     let x = source.getController().getCreatures().count
@@ -581,7 +581,7 @@ enum GRN {
         justiceStrike.setManaCost("RW")
         justiceStrike.setType(.Instant)
         justiceStrike.addEffect(TargetedEffect(
-            targetingRestriction: { return $0.isType(.Creature) },
+            restriction: { return $0.isType(.Creature) },
             effect: { _, target in
                 target.dealsDamage()
                 target.dealDamage(target.getPower())
