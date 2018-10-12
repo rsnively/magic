@@ -30,12 +30,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Forest())
-            deck1.append(GRN.Forest())
-            deck1.append(DOM.LlanowarElves())
-            deck1.append(M19.DruidOfTheCowl())
-            deck1.append(GRN.BeastWhisperer())
-            deck1.append(M19.Gigantosaurus())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.Island())
+            deck1.append(GRN.HealersHawk())
+            deck1.append(GRN.TenthDistrictGuard())
+            deck1.append(GRN.VedalkenMesmerist())
             
             deck2.append(GRN.Plains())
             deck2.append(GRN.Mountain())
@@ -77,6 +76,9 @@ class Game: NSObject {
     func bothPlayers(_ f: (_ player: Player) -> Void) {
         f(player1)
         f(player2)
+    }
+    func eitherPlayer(_ f: (_ player: Player) -> Bool) -> Bool {
+        return f(player1) || f(player2)
     }
     
     func yourTurn() -> Bool {
@@ -130,6 +132,17 @@ class Game: NSObject {
     
     func setLandPlayedThisTurn() {
         landPlayedThisTurn = true
+    }
+    
+    func hasTargets(_ effect: TargetedEffect) -> Bool {
+        return eitherPlayer({ player in
+            for permanent in player.getPermanents() {
+                if effect.meetsRestrictions(target: permanent) {
+                    return true
+                }
+            }
+            return false
+        })
     }
     
     func nextPhase() {

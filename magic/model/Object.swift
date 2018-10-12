@@ -283,10 +283,13 @@ class Object: NSObject, NSCopying {
     }
     
     // This permanent is dealing damage equal to its power to something
-    func dealsDamage() {
+    func dealsDamage(_ amt: Int) {
         if lifelink {
-            getController().gainLife(max(getPower(), 0))
+            getController().gainLife(max(amt, 0))
         }
+    }
+    func dealsDamage() {
+        dealsDamage(getPower())
     }
     
 }

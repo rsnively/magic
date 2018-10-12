@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980C3180217161210083A297 /* grn106full.png in Resources */ = {isa = PBXBuildFile; fileRef = 980C317F217161210083A297 /* grn106full.png */; };
 		9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425120CA03D50068DC91 /* Kaladesh.swift */; };
 		9818425420CA07050068DC91 /* ManaCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425320CA07050068DC91 /* ManaCost.swift */; };
 		9818425620CA07580068DC91 /* Mana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425520CA07580068DC91 /* Mana.swift */; };
@@ -97,6 +98,9 @@
 		986ED561215F0953008B44DC /* domt1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 986ED560215F0953008B44DC /* domt1full.png */; };
 		986ED563215F0959008B44DC /* domt2full.png in Resources */ = {isa = PBXBuildFile; fileRef = 986ED562215F0959008B44DC /* domt2full.png */; };
 		9871B61321595A2800A6A6AB /* grn65full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9871B61221595A2800A6A6AB /* grn65full.png */; };
+		987858C421716BB500A07DB3 /* grn114full.png in Resources */ = {isa = PBXBuildFile; fileRef = 987858C321716BB500A07DB3 /* grn114full.png */; };
+		989579BA217144D00064993A /* grn29full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579B9217144D00064993A /* grn29full.png */; };
+		989579C221714B990064993A /* grn57full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579C121714B990064993A /* grn57full.png */; };
 		98A0D716215B14C300D90BCD /* grn94full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0D715215B14C300D90BCD /* grn94full.png */; };
 		98A19A2C2167E6EF002A4296 /* grn182full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A2B2167E6EE002A4296 /* grn182full.png */; };
 		98A19A2E2167EC85002A4296 /* ActivatedAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */; };
@@ -237,6 +241,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		980C317F217161210083A297 /* grn106full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn106full.png; sourceTree = "<group>"; };
 		9818425120CA03D50068DC91 /* Kaladesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kaladesh.swift; sourceTree = "<group>"; };
 		9818425320CA07050068DC91 /* ManaCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaCost.swift; sourceTree = "<group>"; };
 		9818425520CA07580068DC91 /* Mana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mana.swift; sourceTree = "<group>"; };
@@ -329,6 +334,9 @@
 		986ED560215F0953008B44DC /* domt1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt1full.png; sourceTree = "<group>"; };
 		986ED562215F0959008B44DC /* domt2full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domt2full.png; sourceTree = "<group>"; };
 		9871B61221595A2800A6A6AB /* grn65full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn65full.png; sourceTree = "<group>"; };
+		987858C321716BB500A07DB3 /* grn114full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn114full.png; sourceTree = "<group>"; };
+		989579B9217144D00064993A /* grn29full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn29full.png; sourceTree = "<group>"; };
+		989579C121714B990064993A /* grn57full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn57full.png; sourceTree = "<group>"; };
 		98A0D715215B14C300D90BCD /* grn94full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn94full.png; sourceTree = "<group>"; };
 		98A19A2B2167E6EE002A4296 /* grn182full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn182full.png; sourceTree = "<group>"; };
 		98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivatedAbility.swift; sourceTree = "<group>"; };
@@ -788,8 +796,10 @@
 				98F981CB216ECAA900254A4C /* grn23full.png */,
 				9823DE082159B54E0080C806 /* grn27full.png */,
 				98AA80242165F5EA004BFE0B /* grn28full.png */,
+				989579B9217144D00064993A /* grn29full.png */,
 				98E1769E216FDF1200763F96 /* grn45full.png */,
 				98F981C1216EBE3800254A4C /* grn46full.png */,
+				989579C121714B990064993A /* grn57full.png */,
 				98FA8E5D2156BCF900EF5203 /* grn58full.png */,
 				98FA8E5E2156BCF900EF5203 /* grn60full.png */,
 				98F981C3216EBED500254A4C /* grn62full.png */,
@@ -800,6 +810,8 @@
 				98A0D715215B14C300D90BCD /* grn94full.png */,
 				98E176A0216FE1F700763F96 /* grn97full.png */,
 				98FA8E672156C4B100EF5203 /* grn100full.png */,
+				980C317F217161210083A297 /* grn106full.png */,
+				987858C321716BB500A07DB3 /* grn114full.png */,
 				98E176A2216FE3F700763F96 /* grn123full.png */,
 				98A19A3121680C1C002A4296 /* grn127full.png */,
 				983373D7215C4FD1003CD4D0 /* grn129full.png */,
@@ -991,6 +1003,7 @@
 				98E176A3216FE3F700763F96 /* grn123full.png in Resources */,
 				981CDDED216D856D0007F434 /* dom187full.png in Resources */,
 				98E176C32170191B00763F96 /* xln30full.png in Resources */,
+				980C3180217161210083A297 /* grn106full.png in Resources */,
 				98E176BC2170191B00763F96 /* xln37full.png in Resources */,
 				98AA80292166041F004BFE0B /* grn157full.png in Resources */,
 				98A8CA372162095F009E92FB /* dom63full.png in Resources */,
@@ -1014,7 +1027,9 @@
 				98E176C72170191B00763F96 /* xln7full.png in Resources */,
 				98ECCF2A215CCFCC0030ED51 /* lea177full.png in Resources */,
 				98A8CA382162095F009E92FB /* dom78full.png in Resources */,
+				989579C221714B990064993A /* grn57full.png in Resources */,
 				98F981C0216EB04900254A4C /* grn14full.png in Resources */,
+				989579BA217144D00064993A /* grn29full.png in Resources */,
 				98E1769D216FDF0800763F96 /* grnt3full.png in Resources */,
 				9823DE0121598D210080C806 /* lea66full.png in Resources */,
 				98CBD087216F2CDA0085E669 /* m19t3full.png in Resources */,
@@ -1034,6 +1049,7 @@
 				98CBD083216F2B0D0085E669 /* m1915full.png in Resources */,
 				98F981CC216ECAA900254A4C /* grn23full.png in Resources */,
 				98ECCF31215CCFCC0030ED51 /* lea199full.png in Resources */,
+				987858C421716BB500A07DB3 /* grn114full.png in Resources */,
 				98A8CA3F2162095F009E92FB /* dom24full.png in Resources */,
 				982F9B22209BAB00009BBD8B /* Assets.xcassets in Resources */,
 				98E8A04F20EAF49900A951DA /* m19206full.png in Resources */,

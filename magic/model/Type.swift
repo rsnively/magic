@@ -26,6 +26,7 @@ enum Subtype {
     case Bear
     case Beast
     case Bird
+    case Boar
     case Cat
     case Centaur
     case Cleric
@@ -71,6 +72,7 @@ enum Subtype {
     case Treefolk
     case Unicorn
     case Vampire
+    case Vedalken
     case Wall
     case Warrior
     case Wizard

@@ -137,7 +137,26 @@ enum GRN {
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
         return takeHeart
     }
-    // 29 Tenth District Guard
+    static func TenthDistrictGuard() -> Card {
+        let tenthDistrictGuard = Card(name: "Tenth District Guard", rarity: .Common, set: set, number: 29)
+        tenthDistrictGuard.setManaCost("1W")
+        tenthDistrictGuard.setType(.Creature, .Human, .Soldier)
+        tenthDistrictGuard.addTriggeredAbility(TargetedTriggeredAbility(
+            source: tenthDistrictGuard,
+            trigger: .ThisETB,
+            restriction: { return $0.isType(.Creature) },
+            effect: { _, target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.toughness = object.getBaseToughness() + 1
+                    return object
+                }))
+            }
+        ))
+        tenthDistrictGuard.setFlavorText("\"The Tenth has always been my home. This city is constantly embroiled in one crisis or another, but I'm determined to protect my piece.\"")
+        tenthDistrictGuard.power = 2
+        tenthDistrictGuard.toughness = 2
+        return tenthDistrictGuard
+    }
     // 30 Venerated Loxodon
     // 31 Capture Sphere
     // 32 Chemister's Insight
@@ -193,7 +212,24 @@ enum GRN {
     // 54 Sinister Sabotage
     // 55 Thoughtbound Phantasm
     // 56 Unexplained Disappearance
-    // 57 Vedalken Mesmerist
+    static func VedalkenMesmerist() -> Card {
+        let vedalkenMesmerist = Card(name: "Vedalken Mesmerist", rarity: .Common, set: set , number: 57)
+        vedalkenMesmerist.setManaCost("1U")
+        vedalkenMesmerist.setType(.Creature, .Vedalken, .Wizard)
+        vedalkenMesmerist.addTriggeredAbility(TargetedTriggeredAbility(
+            source: vedalkenMesmerist,
+            trigger: .ThisAttacks,
+            restriction: { return $0.isType(.Creature) &&  $0.getController() != vedalkenMesmerist.getController()},
+            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() - 2
+                return object
+            }))
+        }))
+        vedalkenMesmerist.setFlavorText("\"There's no need to sound the alarm. You are minding your post admirably. I am authorized. All is well.\"")
+        vedalkenMesmerist.power = 2
+        vedalkenMesmerist.toughness = 1
+        return vedalkenMesmerist
+    }
     static func WallOfMist() -> Card {
         let wallOfMist = Card(name: "Wall of Mist", rarity: .Common, set: set, number: 58)
         wallOfMist.setManaCost("1U")
@@ -350,7 +386,24 @@ enum GRN {
     // 103 Golin Cratermaker
     // 104 Goblin Locksmith
     // 105 Gravitic Punch
-    // 106 Hellkite Whelp
+    static func HellkiteWhelp() -> Card {
+        let hellkiteWhelp = Card(name: "Hellkite Whelp", rarity: .Uncommon, set: set, number: 106)
+        hellkiteWhelp.setManaCost("4R")
+        hellkiteWhelp.setType(.Creature, .Dragon)
+        hellkiteWhelp.flying = true
+        hellkiteWhelp.addTriggeredAbility(TargetedTriggeredAbility(
+            source: hellkiteWhelp,
+            trigger: .ThisAttacks,
+            restriction: { return $0.getController() != hellkiteWhelp.getController() },
+            effect: { source, target in
+                source.dealsDamage(1)
+                target.dealDamage(1)
+        }))
+        hellkiteWhelp.setFlavorText("\"They play by spitting fire at each other. Don't be offended if one gives you a love-scorch.\"\n--Esfir, Rakdos drangon wrangler")
+        hellkiteWhelp.power = 3
+        hellkiteWhelp.toughness = 3
+        return hellkiteWhelp
+    }
     // 107 Inescapable Blaze
     // 108 Lava Coil
     // 109 Legion Warboss
@@ -358,7 +411,24 @@ enum GRN {
     // 111 Maximize Velocity
     // 112 Ornery Goblin
     // 113 Risk Factor
-    // 114 Rubblebelt Boar
+    static func RubblebeltBoar() -> Card {
+        let rubblebeltBoar = Card(name: "Rubblebelt Boar", rarity: .Common, set: set, number: 114)
+        rubblebeltBoar.setManaCost("3R")
+        rubblebeltBoar.setType(.Creature, .Boar)
+        rubblebeltBoar.addTriggeredAbility(TargetedTriggeredAbility(
+            source: rubblebeltBoar,
+            trigger: .ThisETB,
+            restriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 2
+                return object
+            }))
+        }))
+        rubblebeltBoar.setFlavorText("Some Gruul druis believe that boars are spawn of the great Illharg, the mighty Raze-Boar who will one day rise and level the city.")
+        rubblebeltBoar.power = 3
+        rubblebeltBoar.toughness = 3
+        return rubblebeltBoar
+    }
     // 115 Runaway Steam-Kin
     // 116 Smelt-Ward Minotaur
     // 117 Street Riot
