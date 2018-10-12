@@ -10,13 +10,12 @@ class Opponent {
     func givePriority() {
         var actionTaken = false
         player.getHand().filter({($0 as! Card).canPlay()}).forEach({ card in
-            let availableMana = player.getLands().count
             if card.isType(.Land) {
                 if !Game.shared.landWasPlayedThisTurn() {
                     player.play(card: card as! Card)
                 }
             }
-            else if availableMana >= card.getConvertedManaCost() {
+            else if player.getManaPool().canAfford(card as! Card) {
                 var paid = 0
                 player.getLands().filter({!$0.isTapped}).forEach({ land in
                     if paid < card.getConvertedManaCost() {
