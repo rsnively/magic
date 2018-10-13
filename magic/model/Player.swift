@@ -123,9 +123,11 @@ class Player: NSObject {
     
     func declareAttackers() {
         for permanent in permanents {
-            if permanent.attacking && !permanent.vigilance {
+            if permanent.attacking {
                 permanent.triggerAbilities(.ThisAttacks)
-                permanent.tap()
+                if !permanent.vigilance {
+                    permanent.tap()
+                }
             }
         }
     }

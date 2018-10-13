@@ -688,7 +688,21 @@ enum GRN {
     // 199 Sonic Assault
     // 200 Sumala Woodshaper
     // 201 Swarm Guildmage
-    // 202 Swathcutter Giant
+    static func SwathcutterGiant() -> Card {
+        let swathcutterGiant = Card(name: "Swathcutter Giant", rarity: .Uncommon, set: set, number: 202)
+        swathcutterGiant.setManaCost("4RW")
+        swathcutterGiant.setType(.Creature, .Giant, .Soldier)
+        swathcutterGiant.vigilance = true
+        swathcutterGiant.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: swathcutterGiant,
+            trigger: .ThisAttacks,
+            effect: { $0.getController().getOpponent().getCreatures().forEach({$0.dealDamage(1)}) }
+        ))
+        swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
+        swathcutterGiant.power = 5
+        swathcutterGiant.toughness = 5
+        return swathcutterGiant
+    }
     // 203 Swiftblade Vindicator
     // 204 Tajic, Legion's Edge
     // 205 Thief of Sanity
