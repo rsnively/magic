@@ -47,7 +47,17 @@ enum DOM {
     // 16 Evra, Halcyon Witness
     // 17 Excavation Elephant
     // 18 Fall of the Thran
-    // 19 Gideon's Reproach
+    static func GideonsReproach() -> Card {
+        let gideonsReproach = Card(name: "Gideon's Reproach", rarity: .Common, set: set, number: 19)
+        gideonsReproach.setManaCost("1W")
+        gideonsReproach.setType(.Instant)
+        gideonsReproach.addEffect(TargetedEffect(
+            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            effect: { _, target in target.dealDamage(4) }
+        ))
+        gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
+        return gideonsReproach
+    }
     // 20 Healing Grace
     // 21 History of Benalia
     static func InvokeTheDivine() -> Card {
@@ -91,7 +101,17 @@ enum DOM {
     // 30 Sanctum Spirit
     // 31 Seal Away
     // 32 Sergeant-at-Arms
-    // 33 Serra Angel
+    static func SerraAngel() -> Card {
+        let serraAngel = Card(name: "Serra Angel", rarity: .Uncommon, set: set, number: 33)
+        serraAngel.setManaCost("3WW")
+        serraAngel.setType(.Creature, .Angel)
+        serraAngel.flying = true
+        serraAngel.vigilance = true
+        serraAngel.setFlavorText("The angel remembers her past lives like dreams. Her song held up meadows. Her blade drove back darkness. Her wings carried her across the ages.")
+        serraAngel.power = 4
+        serraAngel.toughness = 4
+        return serraAngel
+    }
     // 34 Serra Disciple
     // 35 Shalai, Voice of Plenty
     // 36 Teshar, Ancestor's Apostle
@@ -285,7 +305,23 @@ enum DOM {
     // 109 Urgoros, the Empty One
     // 110 Vicious Offering
     // 111 Whisper, Blood Liturgist
-    // 112 Windgrace Acolyte
+    static func WindgraceAcolyte() -> Card {
+        let windgraceAcolyte = Card(name: "Windgrace Acolyte", rarity: .Common, set: set, number: 112)
+        windgraceAcolyte.setManaCost("4B")
+        windgraceAcolyte.setType(.Creature, .Cat, .Warrior)
+        windgraceAcolyte.flying = true
+        windgraceAcolyte.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: windgraceAcolyte,
+            trigger: .ThisETB,
+            effect: { source in
+                source.getController().mill(3)
+                source.getController().gainLife(3)
+        }))
+        windgraceAcolyte.setFlavorText("Acolytes of the lost Lord Windgrace fight to keep Urborg relics out of Cabal hands.")
+        windgraceAcolyte.power = 3
+        windgraceAcolyte.toughness = 2
+        return windgraceAcolyte
+    }
     // 113 Yargle, Glutton of Urborg
     // 114 Yawgmoth's Vile Offering
     // 115 Bloodstone Goblin
@@ -302,7 +338,24 @@ enum DOM {
         fireElemental.toughness = 4
         return fireElemental
     }
-    // 121 Firefist Adept
+    static func FirefistAdept() -> Card {
+        let firefistAdept = Card(name: "Firefist Adept", rarity: .Uncommon, set: set, number: 121)
+        firefistAdept.setManaCost("4R")
+        firefistAdept.setType(.Creature, .Human, .Wizard)
+        firefistAdept.addTriggeredAbility(TargetedTriggeredAbility(
+            source: firefistAdept,
+            trigger: .ThisETB,
+            restriction: { return $0.isType(.Creature) && $0.getController() != firefistAdept.getController() },
+            effect: { source, target in
+                let numWizards = source.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
+                source.dealsDamage(numWizards)
+                target.dealDamage(numWizards)
+        }))
+        firefistAdept.setFlavorText("The versatile \"fiery gauntlet\" is among the first spells young Ghitu mages learn.")
+        firefistAdept.power = 3
+        firefistAdept.toughness = 2
+        return firefistAdept
+    }
     // 122 The First Eruption
     // 123 The Flame of Keld
     // 124 Frenzied Rage
