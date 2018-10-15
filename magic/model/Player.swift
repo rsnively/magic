@@ -121,6 +121,10 @@ class Player: NSObject {
         }
     }
     
+    func givePriority() {
+        
+    }
+    
     func declareAttackers() {
         for permanent in permanents {
             if permanent.attacking {

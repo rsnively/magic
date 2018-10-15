@@ -2,8 +2,7 @@ import Foundation
 
 class Game: NSObject {
     var player1: Player
-    var player2: Player
-    var opponent: Opponent
+    var player2: AIPlayer
     var theStack: SpellStack
     private var currentPhase: Phase
     
@@ -44,8 +43,7 @@ class Game: NSObject {
         }
         
         player1 = Player(deck: deck1)
-        player2 = Player(deck: deck2)
-        opponent = Opponent(player: player2)
+        player2 = AIPlayer(deck: deck2)
         theStack = SpellStack()
         currentPhase = Phase.Untap
         landPlayedThisTurn = false
@@ -100,9 +98,7 @@ class Game: NSObject {
     func passPriority() {
         checkStateBasedActions()
         swap(&player1.hasPriority, &player2.hasPriority)
-        if player2.hasPriority {
-            opponent.givePriority()
-        }
+        getPlayerWithPriority().givePriority()
     }
     
     func getCurrentPhase() -> Phase {
@@ -173,15 +169,9 @@ class Game: NSObject {
         }
         else if currentPhase == .Attack {
             declaringAttackers = true
-            if player2.hasPriority {
-                opponent.declareAttackers()
-            }
         }
         else if currentPhase == .Block && !getActivePlayer().getAttackers().isEmpty {
             declaringBlockers = true
-            if player1.hasPriority {
-                opponent.declareBlockers()
-            }
         }
         else if currentPhase == .EndCombat {
             bothPlayers({ $0.dealCombatDamage() })
@@ -198,9 +188,7 @@ class Game: NSObject {
             return
         }
         
-        if player2.hasPriority {
-            opponent.givePriority()
-        }
+        getActivePlayer().givePriority()
     }
     
     func advanceGame() {

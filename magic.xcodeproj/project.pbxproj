@@ -169,7 +169,7 @@
 		98CBD0B3216F40E40085E669 /* m19245full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD0B2216F40E40085E669 /* m19245full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
 		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
-		98D0438D20EE87B60009143E /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* Opponent.swift */; };
+		98D0438D20EE87B60009143E /* AIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* AIPlayer.swift */; };
 		98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */; };
 		98E1769D216FDF0800763F96 /* grnt3full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E1769C216FDF0800763F96 /* grnt3full.png */; };
 		98E1769F216FDF1300763F96 /* grn45full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E1769E216FDF1200763F96 /* grn45full.png */; };
@@ -410,7 +410,7 @@
 		98CBD0B2216F40E40085E669 /* m19245full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19245full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
 		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
-		98D0438C20EE87B60009143E /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
+		98D0438C20EE87B60009143E /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
 		98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		98E1769C216FDF0800763F96 /* grnt3full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grnt3full.png; sourceTree = "<group>"; };
 		98E1769E216FDF1200763F96 /* grn45full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn45full.png; sourceTree = "<group>"; };
@@ -568,9 +568,9 @@
 			children = (
 				98D0438B20EE87AD0009143E /* ai */,
 				9818425020CA03C40068DC91 /* cards */,
-				985E0F7F20A25AEB006759B3 /* util */,
-				982F9B33209BBFE0009BBD8B /* nodes */,
 				982F9B2C209BAC79009BBD8B /* model */,
+				982F9B33209BBFE0009BBD8B /* nodes */,
+				985E0F7F20A25AEB006759B3 /* util */,
 				982F9B14209BAAFF009BBD8B /* AppDelegate.swift */,
 				982F9B1A209BAAFF009BBD8B /* GameScene.swift */,
 				982F9B1C209BAAFF009BBD8B /* GameViewController.swift */,
@@ -682,7 +682,7 @@
 		98D0438B20EE87AD0009143E /* ai */ = {
 			isa = PBXGroup;
 			children = (
-				98D0438C20EE87B60009143E /* Opponent.swift */,
+				98D0438C20EE87B60009143E /* AIPlayer.swift */,
 			);
 			path = ai;
 			sourceTree = "<group>";
@@ -1142,7 +1142,7 @@
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
 				98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */,
 				98BC88B4216D6A8600855756 /* PermanentsNode.swift in Sources */,
-				98D0438D20EE87B60009143E /* Opponent.swift in Sources */,
+				98D0438D20EE87B60009143E /* AIPlayer.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
 				9823DE032159AADE0080C806 /* Token.swift in Sources */,
