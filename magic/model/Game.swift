@@ -167,9 +167,13 @@ class Game: NSObject {
         }
         else if currentPhase == .Attack {
             declaringAttackers = true
+            if !yourTurn() { advanceGame() }
+            return
         }
         else if currentPhase == .Block && !getActivePlayer().getAttackers().isEmpty {
             declaringBlockers = true
+            if yourTurn() { advanceGame() }
+            return
         }
         else if currentPhase == .EndCombat {
             bothPlayers({ $0.dealCombatDamage() })
@@ -193,11 +197,13 @@ class Game: NSObject {
         if declaringAttackers {
             getActivePlayer().declareAttackers()
             declaringAttackers = false
+            getActivePlayer().givePriority()
             return
         }
         if declaringBlockers {
-            getActivePlayer().declareBlockers()
+            getNonActivePlayer().declareBlockers()
             declaringBlockers = false
+            getActivePlayer().givePriority()
             return
         }
         if getActivePlayer().hasPriority {
