@@ -35,6 +35,7 @@ enum Subtype {
     case Dragon
     case Drake
     case Druid
+    case Dryad
     case Dwarf
     case Egg
     case Elemental
@@ -58,6 +59,7 @@ enum Subtype {
     case Monk
     case Mountain
     case Ogre
+    case Pirate
     case Plains
     case Plant
     case Rhino
