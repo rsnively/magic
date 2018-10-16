@@ -32,11 +32,15 @@ class Object: NSObject, NSCopying {
     var triggeredAbilities:[TriggeredAbility] = []
     
     var defender: Bool = false
-    var flying: Bool = false
+    private var baseFlying: Bool = false
+    var flying: Bool {
+        get { return applyContinuousEffects().baseFlying }
+        set (newFlying) { baseFlying = newFlying }
+    }
     var flash: Bool = false
     private var baseHaste: Bool = false
     var haste: Bool {
-        get { return hasHaste() }
+        get { return applyContinuousEffects().baseHaste }
         set (newHaste) { baseHaste = newHaste }
     }
     var lifelink: Bool = false
@@ -80,7 +84,7 @@ class Object: NSObject, NSCopying {
         
         copy.defender = defender
         copy.flash = flash
-        copy.flying = flying
+        copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
         copy.lifelink = lifelink
         copy.reach = reach
@@ -227,18 +231,11 @@ class Object: NSObject, NSCopying {
         return applyContinuousEffects().baseToughness!
     }
     
-    func getBaseHaste() -> Bool {
-        return baseHaste
-    }
-    func hasHaste() -> Bool {
-        return applyContinuousEffects().baseHaste
-    }
-    
     func hasSummoningSickness() -> Bool {
         if !isType(.Creature) {
             return false
         }
-        if hasHaste() {
+        if haste {
             return false
         }
         if let turnEnteredBattlefield = turnEnteredBattlefield {

@@ -765,7 +765,17 @@ enum M19 {
     }
     // 191 Oakenform
     // 192 Pelakka Wurm
-    // 193 Plummet
+    static func Plummet() -> Card {
+        let plummet = Card(name: "Plummet", rarity: .Common, set: set, number: 193)
+        plummet.setManaCost("1G")
+        plummet.setType(.Instant)
+        plummet.addEffect(TargetedEffect(
+            restriction: { return $0.isType(.Creature) && $0.flying },
+            effect: { _, target in target.destroy() }
+        ))
+        plummet.setFlavorText("\"Let nothing own the skies but the wind.\"\n--Dejara, Giltwood druid")
+        return plummet
+    }
     // 194 Prodigious Growth
     // 195 Rabid Bite
     // 196 Reclamation Sage

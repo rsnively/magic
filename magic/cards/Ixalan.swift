@@ -44,12 +44,51 @@ enum XLN {
         demystify.setFlavorText("\"The River Heralds carve spells into jade, hoping to steer us from our course. But what right do they have to keep us from that which once was ours?\"")
         return demystify
     }
-    // 9 Duskborne Skymarcher
+    static func DuskborneSkymarcher() -> Card {
+        let duskborneSkymarcher = Card(name: "Duskborne Skymarcher", rarity: .Uncommon, set: set, number: 9)
+        duskborneSkymarcher.setManaCost("W")
+        duskborneSkymarcher.setType(.Creature, .Vampire, .Cleric)
+        duskborneSkymarcher.flying = true
+        duskborneSkymarcher.addActivatedAbility(TargetedActivatedAbility(
+            source: duskborneSkymarcher,
+            cost: Cost("W", tap: true),
+            restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
+            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                return object
+            }))
+        }))
+        duskborneSkymarcher.setFlavorText("\"The hour of Dusk is come.\"")
+        duskborneSkymarcher.power = 1
+        duskborneSkymarcher.toughness = 1
+        return duskborneSkymarcher
+    }
     // 10 Emissary of Sunrise
     // 11 Encampment Keeper
     // 12 Glorifier of Dusk
     // 13 Goring Ceratops
-    // 14 Imperial Aerosaur
+    static func ImperialAerosaur() -> Card {
+        let imperialAerosaur = Card(name: "Imperial Aerosaur", rarity: .Uncommon, set: set, number: 14)
+        imperialAerosaur.setManaCost("3W")
+        imperialAerosaur.setType(.Creature, .Dinosaur)
+        imperialAerosaur.flying = true
+        imperialAerosaur.addTriggeredAbility(TargetedTriggeredAbility(
+            source: imperialAerosaur,
+            trigger: .ThisETB,
+            restriction: { return $0.isType(.Creature) && $0 != imperialAerosaur },
+            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                object.flying = true
+                return object
+            }))
+        }))
+        imperialAerosaur.setFlavorText("Its assistance is unnervingly similar to its hunting technique.")
+        imperialAerosaur.power = 3
+        imperialAerosaur.toughness = 3
+        return imperialAerosaur
+    }
     // 15 Imperial Lancer
     static func InspiringCleric() -> Card {
         let inspiringCleric = Card(name: "Inspiring Cleric", rarity: .Uncommon, set: set, number: 16)
