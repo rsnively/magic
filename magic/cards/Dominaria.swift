@@ -226,11 +226,9 @@ enum DOM {
         let deathbloomThallid = Card(name: "Deathbloom Thallid", rarity: .Common, set: set, number: 84)
         deathbloomThallid.setManaCost("2B")
         deathbloomThallid.setType(.Creature, .Fungus)
-        deathbloomThallid.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: deathbloomThallid,
+        deathbloomThallid.addUntargetedTriggeredAbility(
             trigger: .ThisDies,
-            effect: { deathbloomThallid.getController().createToken(Saproling()) }
-        ))
+            effect: { deathbloomThallid.getController().createToken(Saproling()) })
         deathbloomThallid.setFlavorText("\"Nature is not always gentle or kind, but all life begets life.\"\n--Marwyn of Llanowar")
         return deathbloomThallid
     }
@@ -309,13 +307,12 @@ enum DOM {
         windgraceAcolyte.setManaCost("4B")
         windgraceAcolyte.setType(.Creature, .Cat, .Warrior)
         windgraceAcolyte.flying = true
-        windgraceAcolyte.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: windgraceAcolyte,
+        windgraceAcolyte.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
             effect: {
                 windgraceAcolyte.getController().mill(3)
                 windgraceAcolyte.getController().gainLife(3)
-        }))
+        })
         windgraceAcolyte.setFlavorText("Acolytes of the lost Lord Windgrace fight to keep Urborg relics out of Cabal hands.")
         windgraceAcolyte.power = 3
         windgraceAcolyte.toughness = 2
@@ -341,15 +338,14 @@ enum DOM {
         let firefistAdept = Card(name: "Firefist Adept", rarity: .Uncommon, set: set, number: 121)
         firefistAdept.setManaCost("4R")
         firefistAdept.setType(.Creature, .Human, .Wizard)
-        firefistAdept.addTriggeredAbility(TargetedTriggeredAbility(
-            source: firefistAdept,
+        firefistAdept.addTargetedTriggeredAbility(
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) && $0.getController() != firefistAdept.getController() },
             effect: { target in
                 let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
                 firefistAdept.dealsDamage(numWizards)
                 target.dealDamage(numWizards)
-        }))
+        })
         firefistAdept.setFlavorText("The versatile \"fiery gauntlet\" is among the first spells young Ghitu mages learn.")
         firefistAdept.power = 3
         firefistAdept.toughness = 2
@@ -457,11 +453,9 @@ enum DOM {
         let verdantForce = Card(name: "Verdant Force", rarity: .Rare, set: set, number: 187)
         verdantForce.setManaCost("5GGG")
         verdantForce.setType(.Creature, .Elemental)
-        verdantForce.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: verdantForce,
+        verdantForce.addUntargetedTriggeredAbility(
             trigger: .EachUpkeep,
-            effect: { verdantForce.getController().createToken(Saproling()) }
-        ))
+            effect: { verdantForce.getController().createToken(Saproling()) })
         verdantForce.setFlavorText("The bower shuddered. The stillness broke. The scurf shifted, and a being emerged from the flowers and ferns.")
         verdantForce.power = 7
         verdantForce.toughness = 7
@@ -472,11 +466,9 @@ enum DOM {
         let yavimayaSapherd = Card(name: "Yavimaya Sapherd", rarity: .Common, set: set, number: 189)
         yavimayaSapherd.setManaCost("2G")
         yavimayaSapherd.setType(.Creature, .Fungus)
-        yavimayaSapherd.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: yavimayaSapherd,
+        yavimayaSapherd.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { yavimayaSapherd.getController().createToken(Saproling()) }
-        ))
+            effect: { yavimayaSapherd.getController().createToken(Saproling()) })
         yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
         return yavimayaSapherd
     }

@@ -27,11 +27,9 @@ enum M19 {
         let dwarvenPriest = Card(name: "Dwarven Priest", rarity: .Common, set: set, number: 11)
         dwarvenPriest.setManaCost("3W")
         dwarvenPriest.setType(.Creature, .Dwarf, .Cleric)
-        dwarvenPriest.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: dwarvenPriest,
+        dwarvenPriest.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { dwarvenPriest.getController().gainLife(dwarvenPriest.getController().getCreatures().count) }
-        ))
+            effect: { dwarvenPriest.getController().gainLife(dwarvenPriest.getController().getCreatures().count) })
         dwarvenPriest.setFlavorText("\"These storied halls are under my protection.\"")
         dwarvenPriest.power = 2
         dwarvenPriest.toughness = 4
@@ -42,11 +40,9 @@ enum M19 {
         gallantCavalry.setManaCost("3W")
         gallantCavalry.setType(.Creature, .Human, .Knight)
         gallantCavalry.vigilance = true
-        gallantCavalry.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: gallantCavalry,
+        gallantCavalry.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { gallantCavalry.getController().createToken(Knight()) }
-        ))
+            effect: { gallantCavalry.getController().createToken(Knight()) })
         gallantCavalry.setFlavorText("\"Our duty does not stop on our borders.\"")
         gallantCavalry.power = 2
         gallantCavalry.toughness = 2
@@ -57,11 +53,9 @@ enum M19 {
         heraldOfFaith.setManaCost("3WW")
         heraldOfFaith.setType(.Creature, .Angel)
         heraldOfFaith.flying = true
-        heraldOfFaith.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: heraldOfFaith,
+        heraldOfFaith.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { heraldOfFaith.getController().gainLife(2) }
-        ))
+            effect: { heraldOfFaith.getController().gainLife(2) })
         heraldOfFaith.setFlavorText("The clerics prayed for salvation. The soldiers prayed for victory. Both prayers were answered.")
         heraldOfFaith.power = 4
         heraldOfFaith.toughness = 3
@@ -117,8 +111,7 @@ enum M19 {
         let leoninWarleader = Card(name: "Leonin Warleader", rarity: .Rare, set: set, number: 23)
         leoninWarleader.setManaCost("2WW")
         leoninWarleader.setType(.Creature, .Cat, .Soldier)
-        leoninWarleader.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: leoninWarleader,
+        leoninWarleader.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
                 let tokens: [Object] = [Cat(), Cat()]
@@ -127,7 +120,7 @@ enum M19 {
                     token.setTapped(true)
                     leoninWarleader.getController().createToken(token)
                 }
-        }))
+        })
         leoninWarleader.setFlavorText("When one leonin hunts, many more are surely nearby.")
         leoninWarleader.power = 4
         leoninWarleader.toughness = 4
@@ -204,11 +197,9 @@ enum M19 {
         let aviationPioneer = Card(name: "Aviation Pioneer", rarity: .Common, set: set, number: 46)
         aviationPioneer.setManaCost("2U")
         aviationPioneer.setType(.Creature, .Human, .Artificer)
-        aviationPioneer.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: aviationPioneer,
+        aviationPioneer.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { aviationPioneer.getController().createToken(Thopter()) }
-        ))
+            effect: { aviationPioneer.getController().createToken(Thopter()) })
         aviationPioneer.setFlavorText("\"They say perfection is unattainable, but they said that about flight too.\"")
         aviationPioneer.power = 1
         aviationPioneer.toughness = 2
@@ -365,11 +356,9 @@ enum M19 {
         let doomedDissenter = Card(name: "Doomed Dissenter", rarity: .Common, set: set, number: 93)
         doomedDissenter.setManaCost("1B")
         doomedDissenter.setType(.Creature, .Human)
-        doomedDissenter.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: doomedDissenter,
+        doomedDissenter.addUntargetedTriggeredAbility(
             trigger: .ThisDies,
-            effect: { doomedDissenter.getController().createToken(Zombie()) }
-        ))
+            effect: { doomedDissenter.getController().createToken(Zombie()) })
         doomedDissenter.setFlavorText("There is only one fate left to those banished from the God-Pharoah's city.")
         doomedDissenter.power = 1
         doomedDissenter.toughness = 1
@@ -395,11 +384,9 @@ enum M19 {
         let infectiousHorror = Card(name: "Infectious Horror", rarity: .Common, set: set, number: 101)
         infectiousHorror.setManaCost("3B")
         infectiousHorror.setType(.Creature, .Zombie, .Horror)
-        infectiousHorror.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: infectiousHorror,
+        infectiousHorror.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { infectiousHorror.getController().getOpponent().loseLife(2) }
-        ))
+            effect: { infectiousHorror.getController().getOpponent().loseLife(2) })
         infectiousHorror.setFlavorText("Not once in the history of Grixis has anyone died of old age.")
         infectiousHorror.power = 2
         infectiousHorror.toughness = 2
@@ -450,16 +437,12 @@ enum M19 {
         let stitchersSupplier = Card(name: "Sticher's Supplier", rarity: .Uncommon, set: set, number: 121)
         stitchersSupplier.setManaCost("B")
         stitchersSupplier.setType(.Creature, .Zombie)
-        stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: stitchersSupplier,
+        stitchersSupplier.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { stitchersSupplier.getController().mill(3) }
-        ))
-        stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: stitchersSupplier,
+            effect: { stitchersSupplier.getController().mill(3) })
+        stitchersSupplier.addUntargetedTriggeredAbility(
             trigger: .ThisDies,
-            effect: { stitchersSupplier.getController().mill(3) }
-        ))
+            effect: { stitchersSupplier.getController().mill(3) })
         stitchersSupplier.setFlavorText("No part goes to waste.")
         stitchersSupplier.power = 1
         stitchersSupplier.toughness = 1
@@ -524,11 +507,9 @@ enum M19 {
         dragonEgg.setManaCost("2R")
         dragonEgg.setType(.Creature, .Dragon, .Egg)
         dragonEgg.defender = true
-        dragonEgg.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: dragonEgg,
+        dragonEgg.addUntargetedTriggeredAbility(
             trigger: .ThisDies,
-            effect: { dragonEgg.getController().createToken(Dragon_Firebreathing()) }
-        ))
+            effect: { dragonEgg.getController().createToken(Dragon_Firebreathing()) })
         dragonEgg.setFlavorText("Dragon birth lairs are littered with treasure to entice the young from their eggs.")
         dragonEgg.power = 0
         dragonEgg.toughness = 2
@@ -569,11 +550,9 @@ enum M19 {
         let goblinInstigator = Card(name: "Goblin Instigator", rarity: .Common, set: set, number: 142)
         goblinInstigator.setManaCost("1R")
         goblinInstigator.setType(.Creature, .Goblin)
-        goblinInstigator.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: goblinInstigator,
+        goblinInstigator.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { goblinInstigator.getController().createToken(Goblin()) }
-        ))
+            effect: { goblinInstigator.getController().createToken(Goblin()) })
         goblinInstigator.setFlavorText("\"We can take 'em. You go first!\"")
         goblinInstigator.power = 1
         goblinInstigator.toughness = 1
@@ -744,11 +723,9 @@ enum M19 {
         let highlandGame = Card(name: "Highland Game", rarity: .Common, set: set, number: 188)
         highlandGame.setManaCost("1G")
         highlandGame.setType(.Creature, .Elk)
-        highlandGame.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: highlandGame,
+        highlandGame.addUntargetedTriggeredAbility(
             trigger: .ThisDies,
-            effect: { highlandGame.getController().gainLife(2) }
-        ))
+            effect: { highlandGame.getController().gainLife(2) })
         highlandGame.power = 2
         highlandGame.toughness = 1
         return highlandGame
@@ -786,11 +763,9 @@ enum M19 {
         let rhoxOracle = Card(name: "Rhox Oracle", rarity: .Common, set: set, number: 198)
         rhoxOracle.setManaCost("4G")
         rhoxOracle.setType(.Creature, .Rhino, .Monk)
-        rhoxOracle.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: rhoxOracle,
+        rhoxOracle.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { rhoxOracle.getController().drawCard() }
-        ))
+            effect: { rhoxOracle.getController().drawCard() })
         rhoxOracle.setFlavorText("\"The further into the future I look, the less certain my vision. Even now, the middle distance is obscured by fire.")
         rhoxOracle.power = 4
         rhoxOracle.toughness = 2
@@ -908,11 +883,9 @@ enum M19 {
         skyscanner.setManaCost("3")
         skyscanner.setType(.Artifact, .Creature, .Thopter)
         skyscanner.flying = true
-        skyscanner.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: skyscanner,
+        skyscanner.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { skyscanner.getController().drawCard() }
-        ))
+            effect: { skyscanner.getController().drawCard() })
         skyscanner.power = 1
         skyscanner.toughness = 1
         return skyscanner

@@ -185,10 +185,14 @@ class Object: NSObject, NSCopying {
         }
         return object
     }
-    
-    func addTriggeredAbility(_ triggeredAbility: TriggeredAbility) {
-        triggeredAbilities.append(triggeredAbility)
+
+    func addUntargetedTriggeredAbility(trigger: Trigger, effect:@escaping () -> Void) {
+        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
     }
+    func addTargetedTriggeredAbility(trigger: Trigger, restriction: @escaping (Object) -> Bool, effect:@escaping (Object) -> Void) {
+        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, restriction: restriction, effect: effect))
+    }
+    
     
     func triggerAbilities(_ trigger: Trigger) {
         for triggeredAbility in triggeredAbilities {

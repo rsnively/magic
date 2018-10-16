@@ -73,8 +73,7 @@ enum XLN {
         imperialAerosaur.setManaCost("3W")
         imperialAerosaur.setType(.Creature, .Dinosaur)
         imperialAerosaur.flying = true
-        imperialAerosaur.addTriggeredAbility(TargetedTriggeredAbility(
-            source: imperialAerosaur,
+        imperialAerosaur.addTargetedTriggeredAbility(
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) && $0 != imperialAerosaur },
             effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -83,7 +82,7 @@ enum XLN {
                 object.flying = true
                 return object
             }))
-        }))
+        })
         imperialAerosaur.setFlavorText("Its assistance is unnervingly similar to its hunting technique.")
         imperialAerosaur.power = 3
         imperialAerosaur.toughness = 3
@@ -94,11 +93,9 @@ enum XLN {
         let inspiringCleric = Card(name: "Inspiring Cleric", rarity: .Uncommon, set: set, number: 16)
         inspiringCleric.setManaCost("2W")
         inspiringCleric.setType(.Creature, .Vampire, .Cleric)
-        inspiringCleric.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: inspiringCleric,
+        inspiringCleric.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { inspiringCleric.getController().gainLife(4) }
-        ))
+            effect: { inspiringCleric.getController().gainLife(4) })
         inspiringCleric.setFlavorText("\"The Immortal Sun will bring us true eternal life to replace the everlasting shadow of undeath.\"")
         inspiringCleric.power = 3
         inspiringCleric.toughness = 2
@@ -134,11 +131,9 @@ enum XLN {
         let paladinOfTheBloodstained = Card(name: "Paladin of the Bloodstained", rarity: .Common, set: set, number: 25)
         paladinOfTheBloodstained.setManaCost("3W")
         paladinOfTheBloodstained.setType(.Creature, .Vampire, .Knight)
-        paladinOfTheBloodstained.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: paladinOfTheBloodstained,
+        paladinOfTheBloodstained.addUntargetedTriggeredAbility(
             trigger: .ThisETB,
-            effect: { paladinOfTheBloodstained.getController().createToken(Vampire()) }
-        ))
+            effect: { paladinOfTheBloodstained.getController().createToken(Vampire()) })
         paladinOfTheBloodstained.setFlavorText("Closely linked to the Church of Dusk, the paladins of the Bloodstained order are devout to the point of fanaticism.")
         paladinOfTheBloodstained.power = 3
         paladinOfTheBloodstained.toughness = 2
@@ -235,12 +230,10 @@ enum XLN {
         let territorialHammerskull = Card(name: "Territorial Hammerskull", rarity: .Common, set: set, number: 41)
         territorialHammerskull.setManaCost("2W")
         territorialHammerskull.setType(.Creature, .Dinosaur)
-        territorialHammerskull.addTriggeredAbility(TargetedTriggeredAbility(
-            source: territorialHammerskull,
+        territorialHammerskull.addTargetedTriggeredAbility(
             trigger: .ThisAttacks,
             restriction: { return $0.isType(.Creature) && $0.getController() != territorialHammerskull.getController() },
-            effect: { target in target.tap() }
-        ))
+            effect: { target in target.tap() })
         territorialHammerskull.setFlavorText("From the eyes up, it's solid bone and stubbornness.")
         territorialHammerskull.power = 2
         territorialHammerskull.toughness = 3
@@ -394,11 +387,9 @@ enum XLN {
         let viciousConquistador = Card(name: "Vicious Conquistador", rarity: .Uncommon, set: set, number: 128)
         viciousConquistador.setManaCost("B")
         viciousConquistador.setType(.Creature, .Vampire, .Soldier)
-        viciousConquistador.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: viciousConquistador,
+        viciousConquistador.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { viciousConquistador.getController().getOpponent().loseLife(1) }
-        ))
+            effect: { viciousConquistador.getController().getOpponent().loseLife(1) })
         viciousConquistador.setFlavorText("\"He is ambitious. Tireless. And utterly ruthless. Ideal for the frontier.\"\n--Viceroy Elia Sotonores, report to the queen")
         viciousConquistador.power = 1
         viciousConquistador.toughness = 2
@@ -623,8 +614,7 @@ enum XLN {
         let direFleetCaptain = Card(name: "Dire Fleet Captain", rarity: .Uncommon, set: set, number: 221)
         direFleetCaptain.setManaCost("BR")
         direFleetCaptain.setType(.Creature, .Orc, .Pirate)
-        direFleetCaptain.addTriggeredAbility(UntargetedTriggeredAbility(
-            source: direFleetCaptain,
+        direFleetCaptain.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
             effect: { direFleetCaptain.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 let numPirates = object.getController().getCreatures().filter({ return $0.isType(.Pirate) && $0.attacking }).count
@@ -632,7 +622,7 @@ enum XLN {
                 object.toughness = object.getBaseToughness() + numPirates
                 return object
             }))
-        }))
+        })
         direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")
         direFleetCaptain.power = 2
         direFleetCaptain.toughness = 2
