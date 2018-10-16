@@ -244,11 +244,9 @@ enum M19 {
         let mysticArchaeologist = Card(name: "Mystic Archaeologist", rarity: .Rare, set: set, number: 63)
         mysticArchaeologist.setManaCost("1U")
         mysticArchaeologist.setType(.Creature, .Human, .Wizard)
-        mysticArchaeologist.addActivatedAbility(UntargetedActivatedAbility(
-            source: mysticArchaeologist,
+        mysticArchaeologist.addUntargetedActivatedAbility(
             cost: Cost("3UU"),
-            effect: { mysticArchaeologist.getController().drawCards(2) }
-        ))
+            effect: { mysticArchaeologist.getController().drawCards(2) })
         mysticArchaeologist.setFlavorText("The delight of discovery drives the pursuit of knowledge.")
         mysticArchaeologist.power = 2
         mysticArchaeologist.toughness = 1
@@ -469,13 +467,12 @@ enum M19 {
         let vampireNeonate = Card(name: "Vampire Neonate", rarity: .Common, set: set, number: 124)
         vampireNeonate.setManaCost("B")
         vampireNeonate.setType(.Creature, .Vampire)
-        vampireNeonate.addActivatedAbility(UntargetedActivatedAbility(
-            source: vampireNeonate,
+        vampireNeonate.addUntargetedActivatedAbility(
             cost: Cost("2", tap: true),
             effect: {
                 vampireNeonate.getController().getOpponent().loseLife(1)
                 vampireNeonate.getController().gainLife(1)
-        }))
+        })
         vampireNeonate.setFlavorText("One day, they may be paragons of deadly elegance. For the moment, they possess nothing but thirst.")
         vampireNeonate.power = 0
         vampireNeonate.toughness = 3
@@ -562,15 +559,14 @@ enum M19 {
         let goblinMotivator = Card(name: "Goblin Motivator", rarity: .Common, set: set, number: 143)
         goblinMotivator.setManaCost("R")
         goblinMotivator.setType(.Creature, .Goblin, .Warrior)
-        goblinMotivator.addActivatedAbility(TargetedActivatedAbility(
-            source: goblinMotivator,
+        goblinMotivator.addTargetedActivatedAbility(
             cost: Cost("", tap: true),
             restriction: { return $0.isType(.Creature) },
             effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.haste = true
                 return object
             }))
-        }))
+        })
         goblinMotivator.setFlavorText("Small words stoke large flames.")
         goblinMotivator.power = 1
         goblinMotivator.toughness = 1
@@ -672,12 +668,10 @@ enum M19 {
         let druidOfTheCowl = Card(name: "Druid of the Cowl", rarity: .Common, set: set, number: 177)
         druidOfTheCowl.setManaCost("1G")
         druidOfTheCowl.setType(.Creature, .Elf, .Druid)
-        druidOfTheCowl.addActivatedAbility(UntargetedActivatedAbility(
-            source: druidOfTheCowl,
+        druidOfTheCowl.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { druidOfTheCowl.getController().addMana(color: .Green) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         druidOfTheCowl.setFlavorText("\"The wild tangle of the Cowl provides sanctuary to life that watched the first buildings rise.\"")
         druidOfTheCowl.power = 1
         druidOfTheCowl.toughness = 3
@@ -845,11 +839,9 @@ enum M19 {
         let arcaneEncyclopedia = Card(name: "Arcane Encyclopedia", rarity: .Uncommon, set: set, number: 227)
         arcaneEncyclopedia.setManaCost("3")
         arcaneEncyclopedia.setType(.Artifact)
-        arcaneEncyclopedia.addActivatedAbility(UntargetedActivatedAbility(
-            source: arcaneEncyclopedia,
+        arcaneEncyclopedia.addUntargetedActivatedAbility(
             cost: Cost("3", tap: true),
-            effect: { arcaneEncyclopedia.getController().drawCard() }
-        ))
+            effect: { arcaneEncyclopedia.getController().drawCard() })
         arcaneEncyclopedia.setFlavorText("Knowledge itself is neither good nor evil. Just as the wrong book in the wrong hands could doom all existence, the same book in the right hands could save it.")
         return arcaneEncyclopedia
     }
@@ -909,12 +901,10 @@ enum M19 {
         let plains = Card(name: "Plains", rarity: .Common, set: set, number: 261)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
-        plains.addActivatedAbility(UntargetedActivatedAbility(
-            source: plains,
+        plains.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { plains.getController().addMana(color: .White) },
-            manaAbility: true
-        ))
+            manaAbility: true )
         return plains
     }
     // 262 Plains
@@ -924,12 +914,10 @@ enum M19 {
         let island = Card(name: "Island", rarity: .Common, set: set, number: 265)
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
-        island.addActivatedAbility(UntargetedActivatedAbility(
-            source: island,
+        island.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { island.getController().addMana(color: .Blue) },
-            manaAbility: true
-        ))
+            manaAbility: true )
         return island
     }
     // 266 Island
@@ -939,12 +927,10 @@ enum M19 {
         let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 269)
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
-        swamp.addActivatedAbility(UntargetedActivatedAbility(
-            source: swamp,
+        swamp.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { swamp.getController().addMana(color: .Black) },
-            manaAbility: true
-        ))
+            manaAbility: true )
         return swamp
     }
     // 270 Swamp
@@ -954,12 +940,10 @@ enum M19 {
         let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 273)
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
-        mountain.addActivatedAbility(UntargetedActivatedAbility(
-            source: mountain,
+        mountain.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { mountain.getController().addMana(color: .Red) },
-            manaAbility: true
-        ))
+            manaAbility: true )
         return mountain;
     }
     // 274 Mountain
@@ -969,12 +953,10 @@ enum M19 {
         let forest = Card(name: "Forest", rarity: .Common, set: set, number: 277)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
-        forest.addActivatedAbility(UntargetedActivatedAbility(
-            source: forest,
+        forest.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { forest.getController().addMana(color: .Green) },
-            manaAbility: true
-        ))
+            manaAbility: true )
         return forest;
     }
     // 278 Forest
@@ -1017,14 +999,13 @@ enum M19 {
         dragon.colors = [.Red]
         dragon.setType(.Creature, .Dragon)
         dragon.flying = true
-        dragon.addActivatedAbility(UntargetedActivatedAbility(
-            source: dragon,
+        dragon.addUntargetedActivatedAbility(
             cost: Cost("R"),
             effect: { dragon.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 return object
             }))
-        }))
+        })
         dragon.power = 2
         dragon.toughness = 2
         return dragon

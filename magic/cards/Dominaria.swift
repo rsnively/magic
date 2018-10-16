@@ -239,15 +239,14 @@ enum DOM {
         let dreadShade = Card(name: "Dread Shade", rarity: .Rare, set: set, number: 88)
         dreadShade.setManaCost("BBB")
         dreadShade.setType(.Creature, .Shade)
-        dreadShade.addActivatedAbility(UntargetedActivatedAbility(
-            source: dreadShade,
+        dreadShade.addUntargetedActivatedAbility(
             cost: Cost("B"),
             effect: { dreadShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
                 return object
             }))
-        }))
+        })
         dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
         dreadShade.power = 3
         dreadShade.toughness = 3
@@ -401,12 +400,10 @@ enum DOM {
         let llanowarElves = Card(name: "Llanowar Elves", rarity: .Common, set: set, number: 168)
         llanowarElves.setManaCost("G")
         llanowarElves.setType(.Creature, .Elf)
-        llanowarElves.addActivatedAbility(UntargetedActivatedAbility(
-            source: llanowarElves,
+        llanowarElves.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { llanowarElves.getController().addMana(color: .Green) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         llanowarElves.setFlavorText("As patient and generous as life, as harsh and merciless as nature.")
         llanowarElves.power = 1
         llanowarElves.toughness = 1
@@ -505,12 +502,10 @@ enum DOM {
         let icyManipulator = Card(name: "Icy Manipulator", rarity: .Uncommon, set: set, number: 219)
         icyManipulator.setManaCost("4")
         icyManipulator.setType(.Artifact)
-        icyManipulator.addActivatedAbility(TargetedActivatedAbility(
-            source: icyManipulator,
+        icyManipulator.addTargetedActivatedAbility(
             cost: Cost("1", tap: true),
             restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
-            effect: { target in target.tap() }
-        ))
+            effect: { target in target.tap() })
         icyManipulator.setFlavorText("Ice may thaw, but malice never does.")
         return icyManipulator
     }
@@ -525,15 +520,13 @@ enum DOM {
         let powerstoneShard = Card(name: "Powerstone Shard", rarity: .Common, set: set, number: 227)
         powerstoneShard.setManaCost("3")
         powerstoneShard.setType(.Artifact)
-        powerstoneShard.addActivatedAbility(UntargetedActivatedAbility(
-            source: powerstoneShard,
+        powerstoneShard.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: {
                 let count = powerstoneShard.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count
                 for _ in 1...count { powerstoneShard.getController().addMana(color: nil) }
             },
-            manaAbility: true
-        ))
+            manaAbility: true )
         powerstoneShard.setFlavorText("\"Light passing through a powerstone is refracted by eternity and colored by planar energy. I wonder how the world appeared through Urza's eyes?\"\n--Teferi")
         return powerstoneShard
     }

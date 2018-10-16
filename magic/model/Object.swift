@@ -202,8 +202,11 @@ class Object: NSObject, NSCopying {
         }
     }
     
-    func addActivatedAbility(_ activatedAbility: ActivatedAbility) {
-        activatedAbilities.append(activatedAbility)
+    func addUntargetedActivatedAbility(cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false) {
+        activatedAbilities.append(UntargetedActivatedAbility(source: self, cost: cost, effect: effect, manaAbility: manaAbility))
+    }
+    func addTargetedActivatedAbility(cost: Cost, restriction: @escaping (Object) -> Bool, effect: @escaping(Object) -> Void, manaAbility: Bool = false) {
+        activatedAbilities.append(TargetedActivatedAbility(source: self, cost: cost, restriction: restriction, effect: effect, manaAbility: manaAbility))
     }
     
     func canActivateAbilities() -> Bool {

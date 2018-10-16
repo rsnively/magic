@@ -49,8 +49,7 @@ enum XLN {
         duskborneSkymarcher.setManaCost("W")
         duskborneSkymarcher.setType(.Creature, .Vampire, .Cleric)
         duskborneSkymarcher.flying = true
-        duskborneSkymarcher.addActivatedAbility(TargetedActivatedAbility(
-            source: duskborneSkymarcher,
+        duskborneSkymarcher.addTargetedActivatedAbility(
             cost: Cost("W", tap: true),
             restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
             effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -58,7 +57,7 @@ enum XLN {
                 object.toughness = object.getBaseToughness() + 1
                 return object
             }))
-        }))
+        })
         duskborneSkymarcher.setFlavorText("\"The hour of Dusk is come.\"")
         duskborneSkymarcher.power = 1
         duskborneSkymarcher.toughness = 1
@@ -432,15 +431,14 @@ enum XLN {
         let fathomFleetFirebrand = Card(name: "Fathom Fleet Firebrand", rarity: .Common, set: set, number: 142)
         fathomFleetFirebrand.setManaCost("1R")
         fathomFleetFirebrand.setType(.Creature, .Human, .Pirate)
-        fathomFleetFirebrand.addActivatedAbility(UntargetedActivatedAbility(
-            source: fathomFleetFirebrand,
+        fathomFleetFirebrand.addUntargetedActivatedAbility(
             cost: Cost("1R"),
             effect: { fathomFleetFirebrand.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 return object
                 
             }))
-        }))
+        })
         fathomFleetFirebrand.setFlavorText("As she charges into battle, her arcane tattoos stir and crawl like fiery serpents.")
         fathomFleetFirebrand.power = 2
         fathomFleetFirebrand.toughness = 2
@@ -525,12 +523,10 @@ enum XLN {
         let blossomDryad = Card(name: "Blossom Dryad", rarity: .Common, set: set, number: 178)
         blossomDryad.setManaCost("2G")
         blossomDryad.setType(.Creature, .Dryad)
-        blossomDryad.addActivatedAbility(TargetedActivatedAbility(
-            source: blossomDryad,
+        blossomDryad.addTargetedActivatedAbility(
             cost: Cost("", tap: true),
             restriction: { return $0.isType(.Land) },
-            effect: { target in target.untap() }
-        ))
+            effect: { target in target.untap() })
         blossomDryad.setFlavorText("The only force on Ixalan not interested in finding the golden city is Ixalan itself.")
         blossomDryad.power = 2
         blossomDryad.toughness = 2

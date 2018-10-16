@@ -310,15 +310,14 @@ enum GRN {
         let veiledShade = Card(name: "Veiled Shade", rarity: .Common, set: set, number: 88)
         veiledShade.setManaCost("2B")
         veiledShade.setType(.Creature, .Shade)
-        veiledShade.addActivatedAbility(UntargetedActivatedAbility(
-            source: veiledShade,
+        veiledShade.addUntargetedActivatedAbility(
             cost: Cost("1B"),
             effect: { veiledShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
                 return object
             }))
-        }))
+        })
         veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
         veiledShade.power = 2
         veiledShade.toughness = 2
@@ -439,15 +438,14 @@ enum GRN {
         let devkarinDissident = Card(name: "Devkarin Dissident", rarity: .Common, set: set, number: 127)
         devkarinDissident.setManaCost("1G")
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
-        devkarinDissident.addActivatedAbility(UntargetedActivatedAbility(
-            source: devkarinDissident,
+        devkarinDissident.addUntargetedActivatedAbility(
             cost: Cost("4G"),
             effect: { devkarinDissident.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 2
                 return object
             }))
-        }))
+        })
         devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
         devkarinDissident.power = 2
         devkarinDissident.toughness = 2
@@ -750,60 +748,50 @@ enum GRN {
         let plains = Card(name: "Plains", rarity: .Common, set: set, number: 260)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
-        plains.addActivatedAbility(UntargetedActivatedAbility(
-            source: plains,
+        plains.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { plains.getController().addMana(color: .White) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         return plains
     }
     static func Island() -> Card {
         let island = Card(name: "Island", rarity: .Common, set: set, number: 261)
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
-        island.addActivatedAbility(UntargetedActivatedAbility(
-            source: island,
+        island.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { island.getController().addMana(color: .Blue) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         return island
     }
     static func Swamp() -> Card {
         let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 262)
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
-        swamp.addActivatedAbility(UntargetedActivatedAbility(
-            source: swamp,
+        swamp.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { swamp.getController().addMana(color: .Black) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         return swamp
     }
     static func Mountain() -> Card {
         let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 263)
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
-        mountain.addActivatedAbility(UntargetedActivatedAbility(
-            source: mountain,
+        mountain.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { mountain.getController().addMana(color: .Red) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         return mountain;
     }
     static func Forest() -> Card {
         let forest = Card(name: "Forest", rarity: .Common, set: set, number: 264)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
-        forest.addActivatedAbility(UntargetedActivatedAbility(
-            source: forest,
+        forest.addUntargetedActivatedAbility(
             cost: Cost("", tap: true),
             effect: { forest.getController().addMana(color: .Green) },
-            manaAbility: true
-        ))
+            manaAbility: true)
         return forest;
     }
 
