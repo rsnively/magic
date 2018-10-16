@@ -510,7 +510,19 @@ enum DOM {
     // 216 Guardians of Koilos
     // 217 Helm of the Host
     // 218 Howling Golem
-    // 219 Icy Manipulator
+    static func IcyManipulator() -> Card {
+        let icyManipulator = Card(name: "Icy Manipulator", rarity: .Uncommon, set: set, number: 219)
+        icyManipulator.setManaCost("4")
+        icyManipulator.setType(.Artifact)
+        icyManipulator.addActivatedAbility(TargetedActivatedAbility(
+            source: icyManipulator,
+            cost: Cost("1", tap: true),
+            restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
+            effect: { _, target in target.tap() }
+        ))
+        icyManipulator.setFlavorText("Ice may thaw, but malice never does.")
+        return icyManipulator
+    }
     // 220 Jhoira's Familiar
     // 221 Jousting Lance
     // 222 Juggernaut

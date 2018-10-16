@@ -31,9 +31,11 @@ class Game: NSObject {
             
             deck1.append(GRN.Plains())
             deck1.append(GRN.Island())
+            deck1.append(GRN.Island())
             deck1.append(GRN.HealersHawk())
-            deck1.append(GRN.TenthDistrictGuard())
-            deck1.append(GRN.VedalkenMesmerist())
+            deck1.append(M19.UncomfortableChill())
+            deck1.append(M19.Divination())
+            deck1.append(DOM.IcyManipulator())
             
             deck2.append(GRN.Plains())
             deck2.append(GRN.Mountain())
