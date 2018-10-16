@@ -577,7 +577,24 @@ enum M19 {
         goblinInstigator.toughness = 1
         return goblinInstigator
     }
-    // 143 Goblin Motivator
+    static func GoblinMotivator() -> Card {
+        let goblinMotivator = Card(name: "Goblin Motivator", rarity: .Common, set: set, number: 143)
+        goblinMotivator.setManaCost("R")
+        goblinMotivator.setType(.Creature, .Goblin, .Warrior)
+        goblinMotivator.addActivatedAbility(TargetedActivatedAbility(
+            source: goblinMotivator,
+            cost: Cost("", tap: true),
+            restriction: { return $0.isType(.Creature) },
+            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.haste = true
+                return object
+            }))
+        }))
+        goblinMotivator.setFlavorText("Small words stoke large flames.")
+        goblinMotivator.power = 1
+        goblinMotivator.toughness = 1
+        return goblinMotivator
+    }
     // 144 Goblin Trashmaster
     // 145 Guttersnipe
     // 146 Havoc Devils

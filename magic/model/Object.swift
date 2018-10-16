@@ -34,7 +34,11 @@ class Object: NSObject, NSCopying {
     var defender: Bool = false
     var flying: Bool = false
     var flash: Bool = false
-    var haste: Bool = false
+    private var baseHaste: Bool = false
+    var haste: Bool {
+        get { return hasHaste() }
+        set (newHaste) { baseHaste = newHaste }
+    }
     var lifelink: Bool = false
     var reach: Bool = false
     var vigilance: Bool = false
@@ -77,7 +81,7 @@ class Object: NSObject, NSCopying {
         copy.defender = defender
         copy.flash = flash
         copy.flying = flying
-        copy.haste = haste
+        copy.baseHaste = baseHaste
         copy.lifelink = lifelink
         copy.reach = reach
         copy.vigilance = vigilance
@@ -223,11 +227,18 @@ class Object: NSObject, NSCopying {
         return applyContinuousEffects().baseToughness!
     }
     
+    func getBaseHaste() -> Bool {
+        return baseHaste
+    }
+    func hasHaste() -> Bool {
+        return applyContinuousEffects().baseHaste
+    }
+    
     func hasSummoningSickness() -> Bool {
         if !isType(.Creature) {
             return false
         }
-        if haste {
+        if hasHaste() {
             return false
         }
         if let turnEnteredBattlefield = turnEnteredBattlefield {
