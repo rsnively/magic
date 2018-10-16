@@ -12,7 +12,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var cost: Cost
     private var manaAbility: Bool
     
-    init(source: Object, cost: Cost, effect:@escaping (Object) -> (), manaAbility: Bool = false) {
+    init(source: Object, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false) {
         self.source = source
         self.cost = cost
         self.manaAbility = manaAbility
@@ -44,7 +44,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     override func resolve() {
         if !effects.isEmpty {
             for effect in effects {
-                effect.resolve(source: getSource())
+                effect.resolve()
             }
         }
     }
@@ -55,7 +55,7 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     private var cost: Cost
     private var manaAbility: Bool
     
-    init(source: Object, cost: Cost, restriction: @escaping(Object) -> Bool, effect:@escaping(Object, Object) -> (), manaAbility: Bool = false) {
+    init(source: Object, cost: Cost, restriction: @escaping(Object) -> Bool, effect:@escaping(Object) -> Void, manaAbility: Bool = false) {
         self.source = source
         self.cost = cost
         self.manaAbility = manaAbility
@@ -85,7 +85,7 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     override func resolve() {
         if !effects.isEmpty {
             for effect in effects {
-                effect.resolve(source: getSource())
+                effect.resolve()
             }
         }
     }

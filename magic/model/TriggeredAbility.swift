@@ -11,7 +11,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
     
-    init(source: Object, trigger: Trigger, effect:@escaping (Object) -> ()) {
+    init(source: Object, trigger: Trigger, effect:@escaping () -> Void) {
         self.source = source
         self.trigger = trigger
         super.init(name: "Triggered Ability of " + source.getName())
@@ -38,7 +38,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     override func resolve() {
         if !effects.isEmpty {
             for effect in effects {
-                effect.resolve(source: getSource())
+                effect.resolve()
             }
         }
     }
@@ -48,7 +48,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
     
-    init(source: Object, trigger: Trigger, restriction: @escaping (Object) -> Bool, effect: @escaping (Object, Object) -> ()) {
+    init(source: Object, trigger: Trigger, restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
         self.source = source
         self.trigger = trigger
         super.init(name: "Triggered Ability of" + source.getName())
@@ -79,7 +79,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     override func resolve() {
         if !effects.isEmpty {
             for effect in effects {
-                effect.resolve(source: getSource())
+                effect.resolve()
             }
         }
     }

@@ -30,7 +30,7 @@ enum M19 {
         dwarvenPriest.addTriggeredAbility(UntargetedTriggeredAbility(
             source: dwarvenPriest,
             trigger: .ThisETB,
-            effect: { $0.getController().gainLife($0.getController().getCreatures().count) }
+            effect: { dwarvenPriest.getController().gainLife(dwarvenPriest.getController().getCreatures().count) }
         ))
         dwarvenPriest.setFlavorText("\"These storied halls are under my protection.\"")
         dwarvenPriest.power = 2
@@ -45,7 +45,7 @@ enum M19 {
         gallantCavalry.addTriggeredAbility(UntargetedTriggeredAbility(
             source: gallantCavalry,
             trigger: .ThisETB,
-            effect: { $0.getController().createToken(Knight()) }
+            effect: { gallantCavalry.getController().createToken(Knight()) }
         ))
         gallantCavalry.setFlavorText("\"Our duty does not stop on our borders.\"")
         gallantCavalry.power = 2
@@ -60,7 +60,7 @@ enum M19 {
         heraldOfFaith.addTriggeredAbility(UntargetedTriggeredAbility(
             source: heraldOfFaith,
             trigger: .ThisAttacks,
-            effect: { $0.getController().gainLife(2) }
+            effect: { heraldOfFaith.getController().gainLife(2) }
         ))
         heraldOfFaith.setFlavorText("The clerics prayed for salvation. The soldiers prayed for victory. Both prayers were answered.")
         heraldOfFaith.power = 4
@@ -73,7 +73,7 @@ enum M19 {
         inspiredCharge.setManaCost("2WW")
         inspiredCharge.setType(.Instant)
         inspiredCharge.addEffect(UntargetedEffect({
-            $0.getController().getCreatures().forEach({ creature in
+            inspiredCharge.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 2
                     object.toughness = object.getBaseToughness() + 1
@@ -90,9 +90,9 @@ enum M19 {
         invokeTheDivine.setType(.Instant)
         invokeTheDivine.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { source, target in
+            effect: { target in
                 target.destroy()
-                source.getController().gainLife(4)
+                invokeTheDivine.getController().gainLife(4)
             }
         ))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
@@ -125,7 +125,7 @@ enum M19 {
                 for token in tokens {
                     token.attacking = true
                     token.setTapped(true)
-                    $0.getController().createToken(token)
+                    leoninWarleader.getController().createToken(token)
                 }
         }))
         leoninWarleader.setFlavorText("When one leonin hunts, many more are surely nearby.")
@@ -165,8 +165,8 @@ enum M19 {
         revitalize.setManaCost("1W")
         revitalize.setType(.Instant)
         revitalize.addEffect(UntargetedEffect{
-            $0.getController().gainLife(3)
-            $0.getController().drawCard()
+            revitalize.getController().gainLife(3)
+            revitalize.getController().drawCard()
         })
         revitalize.setFlavorText("\"A potion is no substitute for a skilled surgeon, but it will hold your bits in.\"\n--Torricks, battlefield medic")
         return revitalize
@@ -190,7 +190,7 @@ enum M19 {
         takeVengeance.setType(.Sorcery)
         takeVengeance.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.isTapped },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         takeVengeance.setFlavorText("\"Your death will be a balm, your passing a welcome revision, and all will sigh with peace to know your demise.\"")
         return takeVengeance
@@ -207,7 +207,7 @@ enum M19 {
         aviationPioneer.addTriggeredAbility(UntargetedTriggeredAbility(
             source: aviationPioneer,
             trigger: .ThisETB,
-            effect: { $0.getController().createToken(Thopter()) }
+            effect: { aviationPioneer.getController().createToken(Thopter()) }
         ))
         aviationPioneer.setFlavorText("\"They say perfection is unattainable, but they said that about flight too.\"")
         aviationPioneer.power = 1
@@ -223,7 +223,7 @@ enum M19 {
         disperse.setType(.Instant)
         disperse.addEffect(TargetedEffect(
             restriction: { return !$0.isType(.Land) },
-            effect: { _, target in target.bounce() }
+            effect: { target in target.bounce() }
         ))
         disperse.setFlavorText("It's pointless to hold on when you have nothing to hold on with.")
         return disperse
@@ -233,7 +233,7 @@ enum M19 {
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
         divination.addEffect(UntargetedEffect{
-            $0.getController().drawCards(2)
+            divination.getController().drawCards(2)
         })
         divination.setFlavorText("\"The stars mark your destiny. May you accept the fate thus divulged.\"")
         return divination
@@ -256,7 +256,7 @@ enum M19 {
         mysticArchaeologist.addActivatedAbility(UntargetedActivatedAbility(
             source: mysticArchaeologist,
             cost: Cost("3UU"),
-            effect: { $0.getController().drawCards(2) }
+            effect: { mysticArchaeologist.getController().drawCards(2) }
         ))
         mysticArchaeologist.setFlavorText("The delight of discovery drives the pursuit of knowledge.")
         mysticArchaeologist.power = 2
@@ -270,9 +270,9 @@ enum M19 {
         oneWithTheMachine.setManaCost("3U")
         oneWithTheMachine.setType(.Sorcery)
         oneWithTheMachine.addEffect(UntargetedEffect{
-            let artifacts = $0.getController().getArtifacts()
+            let artifacts = oneWithTheMachine.getController().getArtifacts()
             let maxArtifactCMC = artifacts.map({ return $0.getConvertedManaCost() }).max()
-            $0.getController().drawCards(maxArtifactCMC ?? 0)
+            oneWithTheMachine.getController().drawCards(maxArtifactCMC ?? 0)
         })
         oneWithTheMachine.setFlavorText("\"When I grafted the Planar Bridge into myself I felt my Planeswalker spark flare beyond my body. The multiverse was my plaything. It felt... incredible.\"\n--Tezzeret")
         return oneWithTheMachine
@@ -314,13 +314,13 @@ enum M19 {
         uncomfortableChill.setManaCost("2U")
         uncomfortableChill.setType(.Instant)
         uncomfortableChill.addEffect(UntargetedEffect({
-            $0.getController().getOpponent().getCreatures().forEach({ creature in
+            uncomfortableChill.getController().getOpponent().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 2
                     return object
                 }))
             })
-            $0.getController().drawCard()
+            uncomfortableChill.getController().drawCard()
         }))
         uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
         return uncomfortableChill
@@ -368,7 +368,7 @@ enum M19 {
         doomedDissenter.addTriggeredAbility(UntargetedTriggeredAbility(
             source: doomedDissenter,
             trigger: .ThisDies,
-            effect: { $0.getController().createToken(Zombie()) }
+            effect: { doomedDissenter.getController().createToken(Zombie()) }
         ))
         doomedDissenter.setFlavorText("There is only one fate left to those banished from the God-Pharoah's city.")
         doomedDissenter.power = 1
@@ -398,7 +398,7 @@ enum M19 {
         infectiousHorror.addTriggeredAbility(UntargetedTriggeredAbility(
             source: infectiousHorror,
             trigger: .ThisAttacks,
-            effect: { $0.getController().getOpponent().loseLife(2) }
+            effect: { infectiousHorror.getController().getOpponent().loseLife(2) }
         ))
         infectiousHorror.setFlavorText("Not once in the history of Grixis has anyone died of old age.")
         infectiousHorror.power = 2
@@ -414,9 +414,9 @@ enum M19 {
         lichsCaress.setType(.Sorcery)
         lichsCaress.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { source, target in
+            effect: { target in
                 target.destroy()
-                source.getController().gainLife(3)
+                lichsCaress.getController().gainLife(3)
         }))
         lichsCaress.setFlavorText("A lich must consume mortal souls to feed its eternal life.")
         return lichsCaress
@@ -431,7 +431,7 @@ enum M19 {
         murder.setType(.Instant)
         murder.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
         return murder
@@ -453,12 +453,12 @@ enum M19 {
         stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
             source: stitchersSupplier,
             trigger: .ThisETB,
-            effect: { $0.getController().mill(3) }
+            effect: { stitchersSupplier.getController().mill(3) }
         ))
         stitchersSupplier.addTriggeredAbility(UntargetedTriggeredAbility(
             source: stitchersSupplier,
             trigger: .ThisDies,
-            effect: { $0.getController().mill(3) }
+            effect: { stitchersSupplier.getController().mill(3) }
         ))
         stitchersSupplier.setFlavorText("No part goes to waste.")
         stitchersSupplier.power = 1
@@ -471,7 +471,7 @@ enum M19 {
         stranglingSpores.setType(.Instant)
         stranglingSpores.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 3
                     object.toughness = object.getBaseToughness() - 3
@@ -489,8 +489,10 @@ enum M19 {
         vampireNeonate.addActivatedAbility(UntargetedActivatedAbility(
             source: vampireNeonate,
             cost: Cost("2", tap: true),
-            effect: { $0.getController().getOpponent().loseLife(1); $0.getController().gainLife(1) }
-        ))
+            effect: {
+                vampireNeonate.getController().getOpponent().loseLife(1)
+                vampireNeonate.getController().gainLife(1)
+        }))
         vampireNeonate.setFlavorText("One day, they may be paragons of deadly elegance. For the moment, they possess nothing but thirst.")
         vampireNeonate.power = 0
         vampireNeonate.toughness = 3
@@ -525,7 +527,7 @@ enum M19 {
         dragonEgg.addTriggeredAbility(UntargetedTriggeredAbility(
             source: dragonEgg,
             trigger: .ThisDies,
-            effect: { $0.getController().createToken(Dragon_Firebreathing()) }
+            effect: { dragonEgg.getController().createToken(Dragon_Firebreathing()) }
         ))
         dragonEgg.setFlavorText("Dragon birth lairs are littered with treasure to entice the young from their eggs.")
         dragonEgg.power = 0
@@ -538,7 +540,7 @@ enum M19 {
         electrify.setType(.Instant)
         electrify.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.dealDamage(4) }
+            effect: { target in target.dealDamage(4) }
         ))
         electrify.setFlavorText("\"Some hid from the storm. I embraced it and learned its name.\"")
         return electrify
@@ -549,7 +551,7 @@ enum M19 {
         fieryFinish.setType(.Sorcery)
         fieryFinish.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.dealDamage(7) }
+            effect: { target in target.dealDamage(7) }
         ))
         fieryFinish.setFlavorText("Negotiations reached an abrupt conclusion.")
         return fieryFinish
@@ -570,7 +572,7 @@ enum M19 {
         goblinInstigator.addTriggeredAbility(UntargetedTriggeredAbility(
             source: goblinInstigator,
             trigger: .ThisETB,
-            effect: { $0.getController().createToken(Goblin()) }
+            effect: { goblinInstigator.getController().createToken(Goblin()) }
         ))
         goblinInstigator.setFlavorText("\"We can take 'em. You go first!\"")
         goblinInstigator.power = 1
@@ -585,7 +587,7 @@ enum M19 {
             source: goblinMotivator,
             cost: Cost("", tap: true),
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.haste = true
                 return object
             }))
@@ -632,7 +634,7 @@ enum M19 {
         smelt.setType(.Instant)
         smelt.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Artifact) },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         smelt.setFlavorText("The creation of new weapons demands the destruction of others.")
         return smelt
@@ -647,7 +649,7 @@ enum M19 {
         let trumpetBlast = Card(name: "Trumpet Blast", rarity: .Common, set: set, number: 165)
         trumpetBlast.setManaCost("2R")
         trumpetBlast.setType(.Instant)
-        trumpetBlast.addEffect(UntargetedEffect({ _ in
+        trumpetBlast.addEffect(UntargetedEffect({
             Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ attackingCreature in
                 attackingCreature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 2
@@ -694,7 +696,7 @@ enum M19 {
         druidOfTheCowl.addActivatedAbility(UntargetedActivatedAbility(
             source: druidOfTheCowl,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Green) },
+            effect: { druidOfTheCowl.getController().addMana(color: .Green) },
             manaAbility: true
         ))
         druidOfTheCowl.setFlavorText("\"The wild tangle of the Cowl provides sanctuary to life that watched the first buildings rise.\"")
@@ -745,7 +747,7 @@ enum M19 {
         highlandGame.addTriggeredAbility(UntargetedTriggeredAbility(
             source: highlandGame,
             trigger: .ThisDies,
-            effect: { $0.getController().gainLife(2) }
+            effect: { highlandGame.getController().gainLife(2) }
         ))
         highlandGame.power = 2
         highlandGame.toughness = 1
@@ -758,7 +760,7 @@ enum M19 {
         naturalize.setType(.Instant)
         naturalize.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
         return naturalize
@@ -771,7 +773,7 @@ enum M19 {
         plummet.setType(.Instant)
         plummet.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.flying },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         plummet.setFlavorText("\"Let nothing own the skies but the wind.\"\n--Dejara, Giltwood druid")
         return plummet
@@ -787,7 +789,7 @@ enum M19 {
         rhoxOracle.addTriggeredAbility(UntargetedTriggeredAbility(
             source: rhoxOracle,
             trigger: .ThisETB,
-            effect: { $0.getController().drawCard() }
+            effect: { rhoxOracle.getController().drawCard() }
         ))
         rhoxOracle.setFlavorText("\"The further into the future I look, the less certain my vision. Even now, the middle distance is obscured by fire.")
         rhoxOracle.power = 4
@@ -814,7 +816,7 @@ enum M19 {
         titanicGrowth.setType(.Instant)
         titanicGrowth.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 4
                     object.toughness = object.getToughness() + 4
@@ -871,7 +873,7 @@ enum M19 {
         arcaneEncyclopedia.addActivatedAbility(UntargetedActivatedAbility(
             source: arcaneEncyclopedia,
             cost: Cost("3", tap: true),
-            effect: { $0.getController().drawCard() }
+            effect: { arcaneEncyclopedia.getController().drawCard() }
         ))
         arcaneEncyclopedia.setFlavorText("Knowledge itself is neither good nor evil. Just as the wrong book in the wrong hands could doom all existence, the same book in the right hands could save it.")
         return arcaneEncyclopedia
@@ -909,7 +911,7 @@ enum M19 {
         skyscanner.addTriggeredAbility(UntargetedTriggeredAbility(
             source: skyscanner,
             trigger: .ThisETB,
-            effect: { $0.getController().drawCard() }
+            effect: { skyscanner.getController().drawCard() }
         ))
         skyscanner.power = 1
         skyscanner.toughness = 1
@@ -937,7 +939,7 @@ enum M19 {
         plains.addActivatedAbility(UntargetedActivatedAbility(
             source: plains,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .White) },
+            effect: { plains.getController().addMana(color: .White) },
             manaAbility: true
         ))
         return plains
@@ -952,7 +954,7 @@ enum M19 {
         island.addActivatedAbility(UntargetedActivatedAbility(
             source: island,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Blue) },
+            effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true
         ))
         return island
@@ -967,7 +969,7 @@ enum M19 {
         swamp.addActivatedAbility(UntargetedActivatedAbility(
             source: swamp,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Black) },
+            effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true
         ))
         return swamp
@@ -982,7 +984,7 @@ enum M19 {
         mountain.addActivatedAbility(UntargetedActivatedAbility(
             source: mountain,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Red) },
+            effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true
         ))
         return mountain;
@@ -997,7 +999,7 @@ enum M19 {
         forest.addActivatedAbility(UntargetedActivatedAbility(
             source: forest,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Green) },
+            effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true
         ))
         return forest;
@@ -1045,7 +1047,7 @@ enum M19 {
         dragon.addActivatedAbility(UntargetedActivatedAbility(
             source: dragon,
             cost: Cost("R"),
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            effect: { dragon.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 return object
             }))

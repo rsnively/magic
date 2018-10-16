@@ -2,13 +2,13 @@ import Foundation
 
 protocol Effect {
     func requiresTarget() -> Bool
-    func resolve(source: Object)
+    func resolve() -> Void
 }
 
 class UntargetedEffect: Effect {
-    private var effect:(Object) -> ()
+    private var effect:() -> Void
     
-    init(_ effect:@escaping (Object) -> ()) {
+    init(_ effect:@escaping () -> Void) {
         self.effect = effect
     }
     
@@ -16,18 +16,18 @@ class UntargetedEffect: Effect {
         return false
     }
     
-    func resolve(source: Object) {
-        effect(source)
+    func resolve() {
+        effect()
     }
 }
 
 class TargetedEffect: Effect {
     private var restriction:(Object) -> Bool
-    private var effect:(Object, Object) -> ()
+    private var effect:(Object) -> Void
     
     weak var target: Object?
     
-    init(restriction: @escaping (Object) -> Bool, effect:@escaping (Object, Object) -> ()) {
+    init(restriction: @escaping (Object) -> Bool, effect:@escaping (Object) -> Void) {
         self.restriction = restriction
         self.effect = effect
     }
@@ -44,10 +44,10 @@ class TargetedEffect: Effect {
         self.target = target
     }
     
-    func resolve(source: Object) {
+    func resolve() {
         // todo only if target is still valid
         if let target = target {
-            effect(source, target)
+            effect(target)
         }
     }
 }

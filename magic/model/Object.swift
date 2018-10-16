@@ -213,7 +213,7 @@ class Object: NSObject, NSCopying {
     func resolve() {
         if !effects.isEmpty {
             for effect in effects {
-                effect.resolve(source: self)
+                effect.resolve()
             }
         }
     }

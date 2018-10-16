@@ -3,7 +3,7 @@ import Foundation
 enum GRN {
     static var set = "grn"
     static var count = 259
-    
+
     // 1 Blade Instructor
     // 2 Bounty Agent
     // 3 Candlelight Vigil
@@ -11,7 +11,7 @@ enum GRN {
         let citywideBust = Card(name: "Citywide Bust", rarity: .Rare, set: set, number: 4)
         citywideBust.setManaCost("1WW")
         citywideBust.setType(.Sorcery)
-        citywideBust.addEffect(UntargetedEffect({_ in
+        citywideBust.addEffect(UntargetedEffect({
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getToughness() >= 4 {
@@ -29,7 +29,7 @@ enum GRN {
         cageTheCulprit.setType(.Instant)
         cageTheCulprit.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
         return cageTheCulprit
@@ -60,9 +60,8 @@ enum GRN {
         huntedWitness.addTriggeredAbility(UntargetedTriggeredAbility(
             source: huntedWitness,
             trigger: .ThisDies,
-            effect: { source in
-                source.getController().createToken(Soldier())
-        }))
+            effect: { huntedWitness.getController().createToken(Soldier()) }
+        ))
         huntedWitness.setFlavorText("He ferried weapons, spells, exotic animals--but his most dangerous cargo was the truth.")
         huntedWitness.power = 1
         huntedWitness.toughness = 1
@@ -75,8 +74,8 @@ enum GRN {
         inspiringUnicorn.addTriggeredAbility(UntargetedTriggeredAbility(
             source: inspiringUnicorn,
             trigger: .ThisAttacks,
-            effect: { source in
-                source.getController().getCreatures().forEach({ creature in
+            effect: {
+                inspiringUnicorn.getController().getCreatures().forEach({ creature in
                     creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                         object.power = object.getBasePower() + 1
                         object.toughness = object.getBaseToughness() + 1
@@ -101,7 +100,7 @@ enum GRN {
         righteousBlow.setType(.Instant)
         righteousBlow.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { _, target in target.dealDamage(2) }
+            effect: { target in target.dealDamage(2) }
         ))
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
@@ -113,9 +112,9 @@ enum GRN {
         let swornCompanions = Card(name: "Sworn Companions", rarity: .Common, set: set, number: 27)
         swornCompanions.setManaCost("2W")
         swornCompanions.setType(.Sorcery)
-        swornCompanions.addEffect(UntargetedEffect({ source in
-            source.getController().createToken(Soldier())
-            source.getController().createToken(Soldier())
+        swornCompanions.addEffect(UntargetedEffect({
+            swornCompanions.getController().createToken(Soldier())
+            swornCompanions.getController().createToken(Soldier())
         }))
         swornCompanions.setFlavorText("\"The trouble with youths these days is that, in outright defiance of their elders, they refuse to be bought.\"\n--Karlov of the Ghost Council")
         return swornCompanions
@@ -126,13 +125,13 @@ enum GRN {
         takeHeart.setType(.Instant)
         takeHeart.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { source, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
                     object.power = object.getBasePower() + 2
                     object.toughness = object.getBaseToughness() + 2
                     return object
                 })
-                source.getController().gainLife(source.getController().getCreatures().filter({$0.attacking}).count)
+                takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({$0.attacking}).count)
         }))
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
         return takeHeart
@@ -145,7 +144,7 @@ enum GRN {
             source: tenthDistrictGuard,
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.toughness = object.getBaseToughness() + 1
                     return object
@@ -179,7 +178,7 @@ enum GRN {
         murmuringMystic.addTriggeredAbility(UntargetedTriggeredAbility(
             source: murmuringMystic,
             trigger: .CastInstantOrSorcery,
-            effect: { $0.getController().createToken(BirdIllusion()) }
+            effect: { murmuringMystic.getController().createToken(BirdIllusion()) }
         ))
         murmuringMystic.setFlavorText("Rumors float through the city like crows, alighting on citizens seemingly at random.")
         murmuringMystic.power = 1
@@ -194,9 +193,8 @@ enum GRN {
         museDrake.addTriggeredAbility(UntargetedTriggeredAbility(
             source: museDrake,
             trigger: .ThisETB,
-            effect: { source in
-                source.getController().drawCard()
-        }))
+            effect: { museDrake.getController().drawCard() }
+        ))
         museDrake.setFlavorText("A composer wrote a symphony based on the drakes screeching outside her window. Reviews were mixed--except among the drakes.")
         museDrake.power = 1
         museDrake.toughness = 3
@@ -220,7 +218,7 @@ enum GRN {
             source: vedalkenMesmerist,
             trigger: .ThisAttacks,
             restriction: { return $0.isType(.Creature) &&  $0.getController() != vedalkenMesmerist.getController()},
-            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() - 2
                 return object
             }))
@@ -303,7 +301,7 @@ enum GRN {
         let ritualOfSoot = Card(name: "Ritual of Soot", rarity: .Rare, set: set, number: 84)
         ritualOfSoot.setManaCost("2BB")
         ritualOfSoot.setType(.Sorcery)
-        ritualOfSoot.addEffect(UntargetedEffect({_ in
+        ritualOfSoot.addEffect(UntargetedEffect({
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getConvertedManaCost() <= 3 {
@@ -325,12 +323,11 @@ enum GRN {
         veiledShade.addActivatedAbility(UntargetedActivatedAbility(
             source: veiledShade,
             cost: Cost("1B"),
-            effect: { source in
-                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 1
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
+            effect: { veiledShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                return object
+            }))
         }))
         veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
         veiledShade.power = 2
@@ -348,7 +345,7 @@ enum GRN {
         commandTheStorm.setType(.Instant)
         commandTheStorm.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.dealDamage(5) }
+            effect: { target in target.dealDamage(5) }
         ))
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
         return commandTheStorm
@@ -363,7 +360,7 @@ enum GRN {
         electrostaticField.addTriggeredAbility(UntargetedTriggeredAbility(
             source: electrostaticField,
             trigger: .CastInstantOrSorcery,
-            effect: { $0.getController().getOpponent().damage(1) }
+            effect: { electrostaticField.getController().getOpponent().damage(1) }
         ))
         electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
         electrostaticField.power = 0
@@ -395,8 +392,8 @@ enum GRN {
             source: hellkiteWhelp,
             trigger: .ThisAttacks,
             restriction: { return $0.getController() != hellkiteWhelp.getController() },
-            effect: { source, target in
-                source.dealsDamage(1)
+            effect: { target in
+                hellkiteWhelp.dealsDamage(1)
                 target.dealDamage(1)
         }))
         hellkiteWhelp.setFlavorText("\"They play by spitting fire at each other. Don't be offended if one gives you a love-scorch.\"\n--Esfir, Rakdos drangon wrangler")
@@ -419,7 +416,7 @@ enum GRN {
             source: rubblebeltBoar,
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 2
                 return object
             }))
@@ -444,7 +441,7 @@ enum GRN {
         beastWhisperer.addTriggeredAbility(UntargetedTriggeredAbility(
             source: beastWhisperer,
             trigger: .CastCreatureSpell,
-            effect: { $0.getController().drawCard() }
+            effect: { beastWhisperer.getController().drawCard() }
         ))
         beastWhisperer.setFlavorText("\"The tiniest mouse speaks louder to me than all the festival crowds on Tin Street.\"")
         beastWhisperer.power = 2
@@ -461,12 +458,11 @@ enum GRN {
         devkarinDissident.addActivatedAbility(UntargetedActivatedAbility(
             source: devkarinDissident,
             cost: Cost("4G"),
-            effect: { source in
-                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 2
-                    object.toughness = object.getBaseToughness() + 2
-                    return object
-                }))
+            effect: { devkarinDissident.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                return object
+            }))
         }))
         devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
         devkarinDissident.power = 2
@@ -481,9 +477,8 @@ enum GRN {
         generousStray.addTriggeredAbility(UntargetedTriggeredAbility(
             source: generousStray,
             trigger: .ThisETB,
-            effect: { source in
-                source.getController().drawCard()
-        }))
+            effect: { generousStray.getController().drawCard() }
+        ))
         generousStray.setFlavorText("Cats place their gifts with care, so that a bare foot will step on them in the middle of the night.")
         generousStray.power = 1
         generousStray.toughness = 2
@@ -510,9 +505,9 @@ enum GRN {
         kraulForagers.addTriggeredAbility(UntargetedTriggeredAbility(
             source: kraulForagers,
             trigger: .ThisETB,
-            effect: { source in
-                let creaturesInGraveyard = source.getController().getGraveyard().filter({$0.isType(.Creature)}).count
-                source.getController().gainLife(creaturesInGraveyard)
+            effect: {
+                let creaturesInGraveyard = kraulForagers.getController().getGraveyard().filter({$0.isType(.Creature)}).count
+                kraulForagers.getController().gainLife(creaturesInGraveyard)
         }))
         kraulForagers.setFlavorText("Feed on food, you eventually rot. Feed on rot, you live forever.\n--Kraul saying")
         kraulForagers.power = 4
@@ -526,9 +521,9 @@ enum GRN {
         mightOfTheMasses.setType(.Instant)
         mightOfTheMasses.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { source, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    let x = source.getController().getCreatures().count
+                    let x = mightOfTheMasses.getController().getCreatures().count
                     object.power = object.getBasePower() + x
                     object.toughness = object.getBaseToughness() + x
                     return object
@@ -577,11 +572,11 @@ enum GRN {
         let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
         camaraderie.setManaCost("4GW")
         camaraderie.setType(.Sorcery)
-        camaraderie.addEffect(UntargetedEffect({ source in
-            let numCreatures = source.getController().getCreatures().count
-            source.getController().gainLife(numCreatures)
-            source.getController().drawCards(numCreatures)
-            source.getController().getCreatures().forEach({ creature in
+        camaraderie.addEffect(UntargetedEffect({
+            let numCreatures = camaraderie.getController().getCreatures().count
+            camaraderie.getController().gainLife(numCreatures)
+            camaraderie.getController().drawCards(numCreatures)
+            camaraderie.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 1
                     object.toughness = object.getBaseToughness() + 1
@@ -599,9 +594,8 @@ enum GRN {
         centaurPeacemaker.addTriggeredAbility(UntargetedTriggeredAbility(
             source: centaurPeacemaker,
             trigger: .ThisETB,
-            effect: { source in
-                Game.shared.bothPlayers({$0.gainLife(4)})
-        }))
+            effect: { Game.shared.bothPlayers({$0.gainLife(4)}) }
+        ))
         centaurPeacemaker.setFlavorText("\"Please accept this offering. I sincerely hope to leave my mace at my side.\"")
         centaurPeacemaker.power = 3
         centaurPeacemaker.toughness = 3
@@ -617,9 +611,9 @@ enum GRN {
         conclaveCavalier.addTriggeredAbility(UntargetedTriggeredAbility(
             source: conclaveCavalier,
             trigger: .ThisDies,
-            effect: { source in
-                source.getController().createToken(ElfKnight())
-                source.getController().createToken(ElfKnight())
+            effect: {
+                conclaveCavalier.getController().createToken(ElfKnight())
+                conclaveCavalier.getController().createToken(ElfKnight())
         }))
         conclaveCavalier.setFlavorText("\"Just as leaves fall and the tree blooms again, one day I will fall and the Conclave will endure.\"")
         conclaveCavalier.power = 4
@@ -652,7 +646,7 @@ enum GRN {
         justiceStrike.setType(.Instant)
         justiceStrike.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in
+            effect: { target in
                 target.dealsDamage()
                 target.dealDamage(target.getPower())
         }))
@@ -696,7 +690,7 @@ enum GRN {
         swathcutterGiant.addTriggeredAbility(UntargetedTriggeredAbility(
             source: swathcutterGiant,
             trigger: .ThisAttacks,
-            effect: { $0.getController().getOpponent().getCreatures().forEach({$0.dealDamage(1)}) }
+            effect: { swathcutterGiant.getController().getOpponent().getCreatures().forEach({$0.dealDamage(1)}) }
         ))
         swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
         swathcutterGiant.power = 5
@@ -722,7 +716,7 @@ enum GRN {
         weeDragonauts.addTriggeredAbility(UntargetedTriggeredAbility(
             source: weeDragonauts,
             trigger: .CastInstantOrSorcery,
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            effect: { weeDragonauts.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 2
                 return object
             }))
@@ -784,7 +778,7 @@ enum GRN {
         plains.addActivatedAbility(UntargetedActivatedAbility(
             source: plains,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .White) },
+            effect: { plains.getController().addMana(color: .White) },
             manaAbility: true
         ))
         return plains
@@ -796,7 +790,7 @@ enum GRN {
         island.addActivatedAbility(UntargetedActivatedAbility(
             source: island,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Blue) },
+            effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true
         ))
         return island
@@ -808,7 +802,7 @@ enum GRN {
         swamp.addActivatedAbility(UntargetedActivatedAbility(
             source: swamp,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Black) },
+            effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true
         ))
         return swamp
@@ -820,7 +814,7 @@ enum GRN {
         mountain.addActivatedAbility(UntargetedActivatedAbility(
             source: mountain,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Red) },
+            effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true
         ))
         return mountain;
@@ -832,12 +826,12 @@ enum GRN {
         forest.addActivatedAbility(UntargetedActivatedAbility(
             source: forest,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Green) },
+            effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true
         ))
         return forest;
     }
-    
+
     // t1 Angel
     static func Soldier() -> Token {
         let soldier = Token(name: "Soldier", set: set, number: 2)

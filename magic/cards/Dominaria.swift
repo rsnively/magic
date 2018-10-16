@@ -3,7 +3,7 @@ import Foundation
 enum DOM {
     static var set = "dom"
     static var count = 269
-    
+
     // 1 Karn, Scion of Urza
     // 2 Adamant Will
     // 3 Aven Sentry
@@ -16,9 +16,9 @@ enum DOM {
         let callTheCavalry = Card(name: "Call the Cavalry", rarity: .Common, set: set, number: 9)
         callTheCavalry.setManaCost("3W")
         callTheCavalry.setType(.Sorcery)
-        callTheCavalry.addEffect(UntargetedEffect({ source in
-            source.getController().createToken(Knight())
-            source.getController().createToken(Knight())
+        callTheCavalry.addEffect(UntargetedEffect({
+            callTheCavalry.getController().createToken(Knight())
+            callTheCavalry.getController().createToken(Knight())
         }))
         callTheCavalry.setFlavorText("Benalish citizens born under the same constellation share a star-clan. Their loyalty to one another interlaces the Seven Houses.")
         return callTheCavalry
@@ -27,8 +27,8 @@ enum DOM {
         let charge = Card(name: "Charge", rarity: .Common, set: set, number: 10)
         charge.setManaCost("W")
         charge.setType(.Instant)
-        charge.addEffect(UntargetedEffect({ source in
-            source.getController().getCreatures().forEach({
+        charge.addEffect(UntargetedEffect({
+            charge.getController().getCreatures().forEach({
                 $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 1
                     object.toughness = object.getBaseToughness() + 1
@@ -53,7 +53,7 @@ enum DOM {
         gideonsReproach.setType(.Instant)
         gideonsReproach.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { _, target in target.dealDamage(4) }
+            effect: { target in target.dealDamage(4) }
         ))
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
@@ -66,9 +66,9 @@ enum DOM {
         invokeTheDivine.setType(.Instant)
         invokeTheDivine.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { source, target in
+            effect: { target in
                 target.destroy()
-                source.getController().gainLife(4)
+                invokeTheDivine.getController().gainLife(4)
             }
         ))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
@@ -129,12 +129,12 @@ enum DOM {
         befuddle.setType(.Instant)
         befuddle.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { source, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 4
                     return object
                 }))
-                source.getController().drawCard()
+                befuddle.getController().drawCard()
         }))
         befuddle.setFlavorText("\"The trick to talking sense into Keldons is getting them to hold still. I learned that from Radha.\"\n--Jhoira")
         return befuddle
@@ -150,7 +150,7 @@ enum DOM {
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
         divination.addEffect(UntargetedEffect{
-            $0.getController().drawCards(2)
+            divination.getController().drawCards(2)
         })
         divination.setFlavorText("\"Half your studies will be learning the laws of magic. The other half will be bending them.\"\n--Naru Meha, master wizard.")
         return divination
@@ -171,7 +171,7 @@ enum DOM {
         rescue.setType(.Instant)
         rescue.addEffect(TargetedEffect(
             restriction: { return $0.getController() == rescue.getController() },
-            effect: { _, object in object.bounce() }
+            effect: { target in target.bounce() }
         ))
         rescue.setFlavorText("With just a few seconds to escape, Deryan saved Hurkyl's editions on restoring physical objects from ash.")
         return rescue
@@ -215,7 +215,7 @@ enum DOM {
         castDown.setType(.Instant)
         castDown.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
         return castDown
@@ -229,7 +229,7 @@ enum DOM {
         deathbloomThallid.addTriggeredAbility(UntargetedTriggeredAbility(
             source: deathbloomThallid,
             trigger: .ThisDies,
-            effect: { $0.getController().createToken(Saproling()) }
+            effect: { deathbloomThallid.getController().createToken(Saproling()) }
         ))
         deathbloomThallid.setFlavorText("\"Nature is not always gentle or kind, but all life begets life.\"\n--Marwyn of Llanowar")
         return deathbloomThallid
@@ -244,12 +244,11 @@ enum DOM {
         dreadShade.addActivatedAbility(UntargetedActivatedAbility(
             source: dreadShade,
             cost: Cost("B"),
-            effect: { source in
-                source.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 1
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
+            effect: { dreadShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                return object
+            }))
         }))
         dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
         dreadShade.power = 3
@@ -264,7 +263,7 @@ enum DOM {
         eviscerate.setType(.Sorcery)
         eviscerate.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { _, target in target.destroy() }
+            effect: { target in target.destroy() }
         ))
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
@@ -277,13 +276,13 @@ enum DOM {
         fungalInfection.setType(.Instant)
         fungalInfection.addEffect(TargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { source, target in
+            effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 1
                     object.toughness = object.getBaseToughness() - 1
                     return object
                 }))
-                source.getController().createToken(Saproling())
+                fungalInfection.getController().createToken(Saproling())
         }))
         fungalInfection.setFlavorText("To thallids, the whole world is just a pile of mulch to grow saprolings in.")
         return fungalInfection
@@ -313,9 +312,9 @@ enum DOM {
         windgraceAcolyte.addTriggeredAbility(UntargetedTriggeredAbility(
             source: windgraceAcolyte,
             trigger: .ThisETB,
-            effect: { source in
-                source.getController().mill(3)
-                source.getController().gainLife(3)
+            effect: {
+                windgraceAcolyte.getController().mill(3)
+                windgraceAcolyte.getController().gainLife(3)
         }))
         windgraceAcolyte.setFlavorText("Acolytes of the lost Lord Windgrace fight to keep Urborg relics out of Cabal hands.")
         windgraceAcolyte.power = 3
@@ -346,9 +345,9 @@ enum DOM {
             source: firefistAdept,
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) && $0.getController() != firefistAdept.getController() },
-            effect: { source, target in
-                let numWizards = source.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
-                source.dealsDamage(numWizards)
+            effect: { target in
+                let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
+                firefistAdept.dealsDamage(numWizards)
                 target.dealDamage(numWizards)
         }))
         firefistAdept.setFlavorText("The versatile \"fiery gauntlet\" is among the first spells young Ghitu mages learn.")
@@ -409,7 +408,7 @@ enum DOM {
         llanowarElves.addActivatedAbility(UntargetedActivatedAbility(
             source: llanowarElves,
             cost: Cost("", tap: true),
-            effect: { $0.getController().addMana(color: .Green) },
+            effect: { llanowarElves.getController().addMana(color: .Green) },
             manaAbility: true
         ))
         llanowarElves.setFlavorText("As patient and generous as life, as harsh and merciless as nature.")
@@ -441,9 +440,9 @@ enum DOM {
         sporeSwarm.setManaCost("3G")
         sporeSwarm.setType(.Instant)
         sporeSwarm.addEffect(UntargetedEffect({
-            $0.getController().createToken(Saproling())
-            $0.getController().createToken(Saproling())
-            $0.getController().createToken(Saproling())
+            sporeSwarm.getController().createToken(Saproling())
+            sporeSwarm.getController().createToken(Saproling())
+            sporeSwarm.getController().createToken(Saproling())
         }))
         sporeSwarm.setFlavorText("As the irrepressible power of a dormant Multani courses through Yavimaya, the forest passes judgment on travelers and natives alike. Only the fungus prospers.")
         return sporeSwarm
@@ -461,7 +460,7 @@ enum DOM {
         verdantForce.addTriggeredAbility(UntargetedTriggeredAbility(
             source: verdantForce,
             trigger: .EachUpkeep,
-            effect: { $0.getController().createToken(Saproling()) }
+            effect: { verdantForce.getController().createToken(Saproling()) }
         ))
         verdantForce.setFlavorText("The bower shuddered. The stillness broke. The scurf shifted, and a being emerged from the flowers and ferns.")
         verdantForce.power = 7
@@ -476,7 +475,7 @@ enum DOM {
         yavimayaSapherd.addTriggeredAbility(UntargetedTriggeredAbility(
             source: yavimayaSapherd,
             trigger: .ThisETB,
-            effect: { $0.getController().createToken(Saproling()) }
+            effect: { yavimayaSapherd.getController().createToken(Saproling()) }
         ))
         yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
         return yavimayaSapherd
@@ -518,7 +517,7 @@ enum DOM {
             source: icyManipulator,
             cost: Cost("1", tap: true),
             restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
-            effect: { _, target in target.tap() }
+            effect: { target in target.tap() }
         ))
         icyManipulator.setFlavorText("Ice may thaw, but malice never does.")
         return icyManipulator
@@ -537,9 +536,9 @@ enum DOM {
         powerstoneShard.addActivatedAbility(UntargetedActivatedAbility(
             source: powerstoneShard,
             cost: Cost("", tap: true),
-            effect: { source in
-                let count = source.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count
-                for _ in 1...count { source.getController().addMana(color: nil) }
+            effect: {
+                let count = powerstoneShard.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count
+                for _ in 1...count { powerstoneShard.getController().addMana(color: nil) }
             },
             manaAbility: true
         ))
@@ -569,9 +568,9 @@ enum DOM {
     // 248 Woodland Cemetary
     // 249 Zhalfirin Void
     // Basics
-    
-    
-    
+
+
+
     static func Knight() -> Token {
         return (Int.random(in: 1 ... 2) == 1) ? Knight1() : Knight2()
     }
@@ -601,7 +600,7 @@ enum DOM {
     // 8 Elemental
     // 9 Goblin
     // 10 Karox Bladewing
-    
+
     static func Saproling() -> Token {
         let r = Int.random(in: 1 ... 3)
         return (r == 1) ? Saproling11() : ((r == 12) ? Saproling12() : Saproling13())
