@@ -566,6 +566,125 @@ enum XLN {
         grazingWhiptail.toughness = 4
         return grazingWhiptail
     }
+    // 191 Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun
+    // 192 Ixalli's Diviner
+    // 193 Ixalli's Keeper
+    // 194 Jade Guardian
+    // 195 Jungle Delver
+    // 196 Kumena's Speaker
+    // 197 Merfolk Branchwalker
+    // 198 New Horizons
+    // 199 Old Growth Dryads
+    // 200 Pounce
+    // 201 Ranging Raptors
+    // 202 Ravenous Daggertooth
+    // 203 Ripjaw Raptor
+    // 204 River Heralds' Boon
+    // 205 Savage Stomp
+    // 206 Shaper's Sanctuary
+    static func SliceInTwain() -> Card {
+        let sliceInTwain = Card(name: "Slice in Twain", rarity: .Uncommon, set: set, number: 207)
+        sliceInTwain.setManaCost("2GG")
+        sliceInTwain.setType(.Instant)
+        sliceInTwain.addEffect(TargetedEffect(
+            restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            effect: { source, target in
+                target.destroy()
+                source.getController().drawCard()
+        }))
+        sliceInTwain.setFlavorText("The magic of the River Heralds is so great that even a single shaman can fend off a pirate landing party.")
+        return sliceInTwain
+    }
+    // 208 Snapping Sailback
+    // 209 Spike-Tailed Ceratops
+    // 210 Thundering Spineback
+    // 211 Tishana's Wayfinder
+    // 212 Verdant Rebirth
+    // 213 Verdant Sun's Avatar
+    // 214 Vineshaper Mystic
+    // 215 Waker of the Wilds
+    // 216 Wildgrowth Walker
+    // 217 Admiral Beckett Brass
+    // 218 Belligerent Brontodon
+    static func CallToTheFeast() -> Card {
+        let callToTheFeast = Card(name: "Call to the Feast", rarity: .Uncommon, set: set, number: 219)
+        callToTheFeast.setManaCost("2WB")
+        callToTheFeast.setType(.Sorcery)
+        callToTheFeast.addEffect(UntargetedEffect({ source in
+            source.getController().createToken(Vampire())
+            source.getController().createToken(Vampire())
+            source.getController().createToken(Vampire())
+        }))
+        callToTheFeast.setFlavorText("By the law of church and crown, vampires feed only on the blood of the guilty--those declared heretics, rebels, or enemies of war.")
+        return callToTheFeast
+    }
+    // 220 Deadeye Plunderers
+    static func DireFleetCaptain() -> Card {
+        let direFleetCaptain = Card(name: "Dire Fleet Captain", rarity: .Uncommon, set: set, number: 221)
+        direFleetCaptain.setManaCost("BR")
+        direFleetCaptain.setType(.Creature, .Orc, .Pirate)
+        direFleetCaptain.addTriggeredAbility(UntargetedTriggeredAbility(
+            source: direFleetCaptain,
+            trigger: .ThisAttacks,
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                let numPirates = object.getController().getCreatures().filter({ return $0.isType(.Pirate) && $0.attacking }).count
+                object.power = object.getBasePower() + numPirates
+                object.toughness = object.getBaseToughness() + numPirates
+                return object
+            }))
+        }))
+        direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")
+        direFleetCaptain.power = 2
+        direFleetCaptain.toughness = 2
+        return direFleetCaptain
+    }
+    // 222 Gishath, Sun's Avatar
+    // 223 Hostage Taker
+    // 224 Huatli, Warrior Poet
+    // 225 Marauding Looter
+    // 226 Raging Swordtooth
+    // 227 Regisaur Alpha
+    // 228 Shapers of Nature
+    // 229 Sky Terror
+    // 230 Tishana, Voice of Thunder
+    // 231 Vona, Butcher of Magan
+    // 232 Vraska, Relic Seeker
+    // 233 Cobbled Wings
+    // 234 Conqueror's Galleon // Conqueror's Foothold
+    // 235 Dowsing Dagger // Lost Vale
+    // 236 Dusk Legion Dreadnought
+    // 237 Elaborate Firecannon
+    // 238 Fell Flagship
+    static func GildedSentinel() -> Card {
+        let gildedSentinel = Card(name: "Gilded Sentinel", rarity: .Common, set: set, number: 239)
+        gildedSentinel.setManaCost("4")
+        gildedSentinel.setType(.Artifact, .Creature, .Golem)
+        gildedSentinel.setFlavorText("The River Heralds fight to keep all others from reaching the golden city. The city has its own defenses.")
+        gildedSentinel.power = 3
+        gildedSentinel.toughness = 3
+        return gildedSentinel
+    }
+    // 240 Hierophant's Chalice
+    // 241 Pillar of Origins
+    // 242 Pirate's Cutlass
+    // 243 Primal Amulet // Primal Wellspring
+    // 244 Prying Blade
+    // 245 Sentinel Totem
+    // 246 Shadowed Caravel
+    // 247 Sleek Schooner
+    // 248 Sorcerous Spyglass
+    // 249 Thaumatic Compass // Spires of Orazca
+    // 250 Treasure Map // Treasure Cove
+    // 251 Vanquisher's Bannner
+    // 252 Dragonskull Summit
+    // 253 Drowned Catacomb
+    // 254 Field of Ruin
+    // 255 Glacial Fortress
+    // 256 Rootbound Crag
+    // 257 Sunpetal Grove
+    // 258 Unclaimed Territory
+    // 259 Unknown Shores
+    // Basics
     
     static func Vampire() -> Token {
         let vampire = Token(name: "Vampire", set: set, number: 1)
