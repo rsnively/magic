@@ -170,8 +170,11 @@ class Object: NSObject, NSCopying {
         self.tapped = tapped
     }
     
-    func addEffect(_ effect: Effect) {
-        effects.append(effect)
+    func addUntargetedEffect(_ effect: @escaping () -> Void) {
+        effects.append(UntargetedEffect(effect))
+    }
+    func addTargetedEffect(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
+        effects.append(TargetedEffect(restriction: restriction, effect: effect))
     }
     
     func addContinuousEffect(_ continuousEffect: ContinuousEffect) {

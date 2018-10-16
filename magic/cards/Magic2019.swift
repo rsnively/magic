@@ -66,7 +66,7 @@ enum M19 {
         let inspiredCharge = Card(name: "Inspired Charge", rarity: .Common, set: set, number: 15)
         inspiredCharge.setManaCost("2WW")
         inspiredCharge.setType(.Instant)
-        inspiredCharge.addEffect(UntargetedEffect({
+        inspiredCharge.addUntargetedEffect({
             inspiredCharge.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 2
@@ -74,7 +74,7 @@ enum M19 {
                     return object
                 }))
             })
-        }))
+        })
         inspiredCharge.setFlavorText("\"Impossible! How could they overwhelm us? We had barricades, war elephants, ... and they were barely a tenth of our number!\"\n--General Avitora")
         return inspiredCharge
     }
@@ -82,13 +82,12 @@ enum M19 {
         let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 16)
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
-        invokeTheDivine.addEffect(TargetedEffect(
+        invokeTheDivine.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
                 target.destroy()
                 invokeTheDivine.getController().gainLife(4)
-            }
-        ))
+            })
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
         return invokeTheDivine
     }
@@ -157,7 +156,7 @@ enum M19 {
         let revitalize = Card(name: "Revitalize", rarity: .Common, set: set, number: 35)
         revitalize.setManaCost("1W")
         revitalize.setType(.Instant)
-        revitalize.addEffect(UntargetedEffect{
+        revitalize.addUntargetedEffect({
             revitalize.getController().gainLife(3)
             revitalize.getController().drawCard()
         })
@@ -181,10 +180,9 @@ enum M19 {
         let takeVengeance = Card(name: "Take Vengeance", rarity: .Common, set: set, number: 40)
         takeVengeance.setManaCost("1W")
         takeVengeance.setType(.Sorcery)
-        takeVengeance.addEffect(TargetedEffect(
+        takeVengeance.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.isTapped },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         takeVengeance.setFlavorText("\"Your death will be a balm, your passing a welcome revision, and all will sigh with peace to know your demise.\"")
         return takeVengeance
     }
@@ -212,10 +210,9 @@ enum M19 {
         let disperse = Card(name: "Disperse", rarity: .Common, set: set, number: 50)
         disperse.setManaCost("1U")
         disperse.setType(.Instant)
-        disperse.addEffect(TargetedEffect(
+        disperse.addTargetedEffect(
             restriction: { return !$0.isType(.Land) },
-            effect: { target in target.bounce() }
-        ))
+            effect: { target in target.bounce() })
         disperse.setFlavorText("It's pointless to hold on when you have nothing to hold on with.")
         return disperse
     }
@@ -223,7 +220,7 @@ enum M19 {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 51)
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
-        divination.addEffect(UntargetedEffect{
+        divination.addUntargetedEffect({
             divination.getController().drawCards(2)
         })
         divination.setFlavorText("\"The stars mark your destiny. May you accept the fate thus divulged.\"")
@@ -258,7 +255,7 @@ enum M19 {
         let oneWithTheMachine = Card(name: "One with the Machine", rarity: .Rare, set: set, number: 66)
         oneWithTheMachine.setManaCost("3U")
         oneWithTheMachine.setType(.Sorcery)
-        oneWithTheMachine.addEffect(UntargetedEffect{
+        oneWithTheMachine.addUntargetedEffect({
             let artifacts = oneWithTheMachine.getController().getArtifacts()
             let maxArtifactCMC = artifacts.map({ return $0.getConvertedManaCost() }).max()
             oneWithTheMachine.getController().drawCards(maxArtifactCMC ?? 0)
@@ -302,7 +299,7 @@ enum M19 {
         let uncomfortableChill = Card(name: "Uncomfortable Chill", rarity: .Common, set: set, number: 82)
         uncomfortableChill.setManaCost("2U")
         uncomfortableChill.setType(.Instant)
-        uncomfortableChill.addEffect(UntargetedEffect({
+        uncomfortableChill.addUntargetedEffect({
             uncomfortableChill.getController().getOpponent().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() - 2
@@ -310,7 +307,7 @@ enum M19 {
                 }))
             })
             uncomfortableChill.getController().drawCard()
-        }))
+        })
         uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
         return uncomfortableChill
     }
@@ -397,12 +394,12 @@ enum M19 {
         let lichsCaress = Card(name: "Lich's Caress", rarity: .Common, set: set, number: 105)
         lichsCaress.setManaCost("3BB")
         lichsCaress.setType(.Sorcery)
-        lichsCaress.addEffect(TargetedEffect(
+        lichsCaress.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.destroy()
                 lichsCaress.getController().gainLife(3)
-        }))
+        })
         lichsCaress.setFlavorText("A lich must consume mortal souls to feed its eternal life.")
         return lichsCaress
     }
@@ -414,10 +411,9 @@ enum M19 {
         let murder = Card(name: "Murder", rarity: .Uncommon, set: set, number: 110)
         murder.setManaCost("1BB")
         murder.setType(.Instant)
-        murder.addEffect(TargetedEffect(
+        murder.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
         return murder
     }
@@ -450,7 +446,7 @@ enum M19 {
         let stranglingSpores = Card(name: "Strangling Spores", rarity: .Common, set: set, number: 122)
         stranglingSpores.setManaCost("3B")
         stranglingSpores.setType(.Instant)
-        stranglingSpores.addEffect(TargetedEffect(
+        stranglingSpores.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -458,7 +454,7 @@ enum M19 {
                     object.toughness = object.getBaseToughness() - 3
                     return object
                 }))
-        }))
+        })
         stranglingSpores.setFlavorText("Imagine a thousand tiny mushrooms cropping up within your lungs.")
         return stranglingSpores
     }
@@ -516,10 +512,9 @@ enum M19 {
         let electrify = Card(name: "Electrify", rarity: .Common, set: set, number: 139)
         electrify.setManaCost("3R")
         electrify.setType(.Instant)
-        electrify.addEffect(TargetedEffect(
+        electrify.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(4) }
-        ))
+            effect: { target in target.dealDamage(4) })
         electrify.setFlavorText("\"Some hid from the storm. I embraced it and learned its name.\"")
         return electrify
     }
@@ -527,10 +522,9 @@ enum M19 {
         let fieryFinish = Card(name: "Fiery Finish", rarity: .Uncommon, set: set, number: 140)
         fieryFinish.setManaCost("4RR")
         fieryFinish.setType(.Sorcery)
-        fieryFinish.addEffect(TargetedEffect(
+        fieryFinish.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(7) }
-        ))
+            effect: { target in target.dealDamage(7) })
         fieryFinish.setFlavorText("Negotiations reached an abrupt conclusion.")
         return fieryFinish
     }
@@ -607,10 +601,9 @@ enum M19 {
         let smelt = Card(name: "Smelt", rarity: .Common, set: set, number: 158)
         smelt.setManaCost("R")
         smelt.setType(.Instant)
-        smelt.addEffect(TargetedEffect(
+        smelt.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         smelt.setFlavorText("The creation of new weapons demands the destruction of others.")
         return smelt
     }
@@ -624,14 +617,14 @@ enum M19 {
         let trumpetBlast = Card(name: "Trumpet Blast", rarity: .Common, set: set, number: 165)
         trumpetBlast.setManaCost("2R")
         trumpetBlast.setType(.Instant)
-        trumpetBlast.addEffect(UntargetedEffect({
+        trumpetBlast.addUntargetedEffect({
             Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ attackingCreature in
                 attackingCreature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 2
                     return object
                 }))
             })})
-        }))
+        })
         trumpetBlast.setFlavorText("The sound of the trumpets lights a fire in the hearts of the bold and snuffs the courage of the cowardly.")
         return trumpetBlast
     }
@@ -729,10 +722,9 @@ enum M19 {
         let naturalize = Card(name: "Naturalize", rarity: .Common, set: set, number: 190)
         naturalize.setManaCost("1G")
         naturalize.setType(.Instant)
-        naturalize.addEffect(TargetedEffect(
+        naturalize.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
         return naturalize
     }
@@ -742,10 +734,9 @@ enum M19 {
         let plummet = Card(name: "Plummet", rarity: .Common, set: set, number: 193)
         plummet.setManaCost("1G")
         plummet.setType(.Instant)
-        plummet.addEffect(TargetedEffect(
+        plummet.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.flying },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         plummet.setFlavorText("\"Let nothing own the skies but the wind.\"\n--Dejara, Giltwood druid")
         return plummet
     }
@@ -783,7 +774,7 @@ enum M19 {
         let titanicGrowth = Card(name: "Titanic Growth", rarity: .Common, set: set, number: 205)
         titanicGrowth.setManaCost("1G")
         titanicGrowth.setType(.Instant)
-        titanicGrowth.addEffect(TargetedEffect(
+        titanicGrowth.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -791,7 +782,7 @@ enum M19 {
                     object.toughness = object.getToughness() + 4
                     return object
                 }))
-        }))
+        })
         titanicGrowth.setFlavorText("The massive dominate through might. The tiny survive with guile. Beware the tiny who become massive.")
         return titanicGrowth
     }

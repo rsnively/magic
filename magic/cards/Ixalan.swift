@@ -23,13 +23,12 @@ enum XLN {
         let brightReprisal = Card(name: "Bright Reprisal", rarity: .Uncommon, set: set, number: 7)
         brightReprisal.setManaCost("4W")
         brightReprisal.setType(.Instant)
-        brightReprisal.addEffect(TargetedEffect(
+        brightReprisal.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.attacking },
             effect: { target in
                 target.destroy()
                 brightReprisal.getController().drawCard()
-            }
-        ))
+            })
         brightReprisal.setFlavorText("Vampires know blood and the systems that carry it. And they know exactly where to strike to set it free.")
         return brightReprisal
     }
@@ -37,10 +36,9 @@ enum XLN {
         let demystify = Card(name: "Demystify", rarity: .Common, set: set, number: 8)
         demystify.setManaCost("W")
         demystify.setType(.Instant)
-        demystify.addEffect(TargetedEffect(
+        demystify.addTargetedEffect(
             restriction: { return $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         demystify.setFlavorText("\"The River Heralds carve spells into jade, hoping to steer us from our course. But what right do they have to keep us from that which once was ours?\"")
         return demystify
     }
@@ -108,10 +106,9 @@ enum XLN {
         let legionsJudgment = Card(name: "Legion's Judgment", rarity: .Common, set: set, number: 21)
         legionsJudgment.setManaCost("2W")
         legionsJudgment.setType(.Sorcery)
-        legionsJudgment.addEffect(TargetedEffect(
+        legionsJudgment.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         legionsJudgment.setFlavorText("\"My lance was once wielded by Venerable Tarrian. In his name and by his might, I cast you down!\"")
         return legionsJudgment
     }
@@ -145,10 +142,10 @@ enum XLN {
         let queensCommission = Card(name: "Queen's Commission", rarity: .Common, set: set, number: 29)
         queensCommission.setManaCost("2W")
         queensCommission.setType(.Sorcery)
-        queensCommission.addEffect(UntargetedEffect({
+        queensCommission.addUntargetedEffect({
             queensCommission.getController().createToken(Vampire())
             queensCommission.getController().createToken(Vampire())
-        }))
+        })
         queensCommission.setFlavorText("\"Let the blood of the impure flow through you. Only the blessings of the golden city will purge its acrid taste from your mouth.\"\n--High Marshal Arguel")
         return queensCommission
     }
@@ -156,7 +153,7 @@ enum XLN {
         let rallyingRoar = Card(name: "Rallying Roar", rarity: .Uncommon, set: set, number: 30)
         rallyingRoar.setManaCost("2W")
         rallyingRoar.setType(.Instant)
-        rallyingRoar.addEffect(UntargetedEffect({
+        rallyingRoar.addUntargetedEffect({
             rallyingRoar.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 1
@@ -165,7 +162,7 @@ enum XLN {
                 }))
                 creature.untap()
             })
-        }))
+        })
         rallyingRoar.setFlavorText("\"The sun's strength sings in our hearts! I have never been more proud of my home and my people.\"\n--Huatli")
         return rallyingRoar
     }
@@ -182,7 +179,7 @@ enum XLN {
         let ritualOfRejuvenation = Card(name: "Ritual of Rejuvenation", rarity: .Common, set: set, number: 32)
         ritualOfRejuvenation.setManaCost("2W")
         ritualOfRejuvenation.setType(.Instant)
-        ritualOfRejuvenation.addEffect(UntargetedEffect{
+        ritualOfRejuvenation.addUntargetedEffect({
             ritualOfRejuvenation.getController().gainLife(4)
             ritualOfRejuvenation.getController().drawCard()
         })
@@ -216,10 +213,9 @@ enum XLN {
         let slashOfTalons = Card(name: "Slash of Talons", rarity: .Common, set: set, number: 38)
         slashOfTalons.setManaCost("W")
         slashOfTalons.setType(.Instant)
-        slashOfTalons.addEffect(TargetedEffect(
+        slashOfTalons.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(2) }
-        ))
+            effect: { target in target.dealDamage(2) })
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")
         return slashOfTalons
     }
@@ -360,13 +356,13 @@ enum XLN {
         let spreadingRot = Card(name: "Spreading Rot", rarity: .Common, set: set, number: 125)
         spreadingRot.setManaCost("4B")
         spreadingRot.setType(.Sorcery)
-        spreadingRot.addEffect(TargetedEffect(
+        spreadingRot.addTargetedEffect(
             restriction: { return $0.isType(.Land) },
             effect: { target in
                 let controller = target.getController()
                 target.destroy()
                 controller.damage(2)
-        }))
+        })
         spreadingRot.setFlavorText("\"What is this foul presence that defies the sun's cleansing rays.\"\n--Itzama the Crested")
         return spreadingRot
     }
@@ -375,10 +371,9 @@ enum XLN {
         let vanquishTheWeak = Card(name: "Vanquish the Weak", rarity: .Common, set: set, number: 127)
         vanquishTheWeak.setManaCost("2B")
         vanquishTheWeak.setType(.Instant)
-        vanquishTheWeak.addEffect(TargetedEffect(
+        vanquishTheWeak.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.getPower() <= 3 },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         vanquishTheWeak.setFlavorText("The clerics known as condemners punish those who do not recognize the righteous authority of the church.")
         return vanquishTheWeak
     }
@@ -399,10 +394,9 @@ enum XLN {
         let walkThePlank = Card(name: "Walk the Plank", rarity: .Uncommon, set: set, number: 130)
         walkThePlank.setManaCost("BB")
         walkThePlank.setType(.Sorcery)
-        walkThePlank.addEffect(TargetedEffect(
+        walkThePlank.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Merfolk) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         walkThePlank.setFlavorText("When Captain Thorn adds a new ship to his fleet, he gives the crew a simple choice: follow me, or fall into the sea.")
         return walkThePlank
     }
@@ -418,10 +412,9 @@ enum XLN {
         let demolish = Card(name: "Demolish", rarity: .Common, set: set, number: 139)
         demolish.setManaCost("3R")
         demolish.setType(.Sorcery)
-        demolish.addEffect(TargetedEffect(
+        demolish.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Land) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         demolish.setFlavorText("What took months for human hands to carve took just seconds for the dinosaur's tail to ruin.")
         return demolish
     }
@@ -448,7 +441,7 @@ enum XLN {
         let fieryCannonade = Card(name: "Fiery Cannonade", rarity: .Uncommon, set: set, number: 143)
         fieryCannonade.setManaCost("2R")
         fieryCannonade.setType(.Instant)
-        fieryCannonade.addEffect(UntargetedEffect({
+        fieryCannonade.addUntargetedEffect({
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach({ creature in
                     if !creature.isType(.Pirate) {
@@ -456,7 +449,7 @@ enum XLN {
                     }
                 })
             })
-        }))
+        })
         fieryCannonade.setFlavorText("Wary of the ferocious dinosaurs, the Legion of Dusk built up the walls of their fort--just in time for the pirates to burn them down.")
         return fieryCannonade
     }
@@ -573,12 +566,12 @@ enum XLN {
         let sliceInTwain = Card(name: "Slice in Twain", rarity: .Uncommon, set: set, number: 207)
         sliceInTwain.setManaCost("2GG")
         sliceInTwain.setType(.Instant)
-        sliceInTwain.addEffect(TargetedEffect(
+        sliceInTwain.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
                 target.destroy()
                 sliceInTwain.getController().drawCard()
-        }))
+        })
         sliceInTwain.setFlavorText("The magic of the River Heralds is so great that even a single shaman can fend off a pirate landing party.")
         return sliceInTwain
     }
@@ -597,11 +590,11 @@ enum XLN {
         let callToTheFeast = Card(name: "Call to the Feast", rarity: .Uncommon, set: set, number: 219)
         callToTheFeast.setManaCost("2WB")
         callToTheFeast.setType(.Sorcery)
-        callToTheFeast.addEffect(UntargetedEffect({
+        callToTheFeast.addUntargetedEffect({
             callToTheFeast.getController().createToken(Vampire())
             callToTheFeast.getController().createToken(Vampire())
             callToTheFeast.getController().createToken(Vampire())
-        }))
+        })
         callToTheFeast.setFlavorText("By the law of church and crown, vampires feed only on the blood of the guilty--those declared heretics, rebels, or enemies of war.")
         return callToTheFeast
     }

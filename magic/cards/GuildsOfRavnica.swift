@@ -11,7 +11,7 @@ enum GRN {
         let citywideBust = Card(name: "Citywide Bust", rarity: .Rare, set: set, number: 4)
         citywideBust.setManaCost("1WW")
         citywideBust.setType(.Sorcery)
-        citywideBust.addEffect(UntargetedEffect({
+        citywideBust.addUntargetedEffect({
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getToughness() >= 4 {
@@ -19,7 +19,7 @@ enum GRN {
                     }
                 }
             })
-        }))
+        })
         citywideBust.setFlavorText("\"Oh, you fellas are going to love the lockup. Excellent gruel. Very low ceilings.\"\n--Libuse, Boros sergeant")
         return citywideBust
     }
@@ -27,10 +27,9 @@ enum GRN {
         let cageTheCulprit = Card(name: "Cage the Culprit", rarity: .Common, set: set, number: 5)
         cageTheCulprit.setManaCost("3W")
         cageTheCulprit.setType(.Instant)
-        cageTheCulprit.addEffect(TargetedEffect(
+        cageTheCulprit.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
         return cageTheCulprit
     }
@@ -95,10 +94,9 @@ enum GRN {
         let righteousBlow = Card(name: "Righteous Blow", rarity: .Common, set: set, number: 23)
         righteousBlow.setManaCost("W")
         righteousBlow.setType(.Instant)
-        righteousBlow.addEffect(TargetedEffect(
+        righteousBlow.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(2) }
-        ))
+            effect: { target in target.dealDamage(2) })
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
     }
@@ -109,10 +107,10 @@ enum GRN {
         let swornCompanions = Card(name: "Sworn Companions", rarity: .Common, set: set, number: 27)
         swornCompanions.setManaCost("2W")
         swornCompanions.setType(.Sorcery)
-        swornCompanions.addEffect(UntargetedEffect({
+        swornCompanions.addUntargetedEffect({
             swornCompanions.getController().createToken(Soldier())
             swornCompanions.getController().createToken(Soldier())
-        }))
+        })
         swornCompanions.setFlavorText("\"The trouble with youths these days is that, in outright defiance of their elders, they refuse to be bought.\"\n--Karlov of the Ghost Council")
         return swornCompanions
     }
@@ -120,7 +118,7 @@ enum GRN {
         let takeHeart = Card(name: "Take Heart", rarity: .Common, set: set, number: 28)
         takeHeart.setManaCost("W")
         takeHeart.setType(.Instant)
-        takeHeart.addEffect(TargetedEffect(
+        takeHeart.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
@@ -129,7 +127,7 @@ enum GRN {
                     return object
                 })
                 takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({$0.attacking}).count)
-        }))
+        })
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
         return takeHeart
     }
@@ -291,7 +289,7 @@ enum GRN {
         let ritualOfSoot = Card(name: "Ritual of Soot", rarity: .Rare, set: set, number: 84)
         ritualOfSoot.setManaCost("2BB")
         ritualOfSoot.setType(.Sorcery)
-        ritualOfSoot.addEffect(UntargetedEffect({
+        ritualOfSoot.addUntargetedEffect({
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getConvertedManaCost() <= 3 {
@@ -299,7 +297,7 @@ enum GRN {
                     }
                 }
             })
-        }))
+        })
         ritualOfSoot.setFlavorText("Only the patrol's armor was found, so tainted with the acrid smell of sudden death that it could never be worn again.")
         return ritualOfSoot
     }
@@ -332,10 +330,9 @@ enum GRN {
         let commandTheStorm = Card(name: "Command the Storm", rarity: .Common, set: set, number: 94)
         commandTheStorm.setManaCost("4R")
         commandTheStorm.setType(.Instant)
-        commandTheStorm.addEffect(TargetedEffect(
+        commandTheStorm.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(5) }
-        ))
+            effect: { target in target.dealDamage(5) })
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
         return commandTheStorm
     }
@@ -498,7 +495,7 @@ enum GRN {
         let mightOfTheMasses = Card(name: "Might of the Masses", rarity: .Uncommon, set: set, number: 137)
         mightOfTheMasses.setManaCost("G")
         mightOfTheMasses.setType(.Instant)
-        mightOfTheMasses.addEffect(TargetedEffect(
+        mightOfTheMasses.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -507,7 +504,7 @@ enum GRN {
                     object.toughness = object.getBaseToughness() + x
                     return object
                 }))
-        }))
+        })
         mightOfTheMasses.setFlavorText("\"There is nothing stronger than many hearts united for a single cause.\"\n--Emmara")
         return mightOfTheMasses
     }
@@ -551,7 +548,7 @@ enum GRN {
         let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
         camaraderie.setManaCost("4GW")
         camaraderie.setType(.Sorcery)
-        camaraderie.addEffect(UntargetedEffect({
+        camaraderie.addUntargetedEffect({
             let numCreatures = camaraderie.getController().getCreatures().count
             camaraderie.getController().gainLife(numCreatures)
             camaraderie.getController().drawCards(numCreatures)
@@ -562,7 +559,7 @@ enum GRN {
                     return object
                 }))
             })
-        }))
+        })
         camaraderie.setFlavorText("\"Within the song of Mat'Selesnya, one becomes all.\"\n--Heruj, Selesnya hierophant")
         return camaraderie
     }
@@ -620,12 +617,12 @@ enum GRN {
         let justiceStrike = Card(name: "Justice Strike", rarity: .Uncommon, set: set, number: 182)
         justiceStrike.setManaCost("RW")
         justiceStrike.setType(.Instant)
-        justiceStrike.addEffect(TargetedEffect(
+        justiceStrike.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.dealsDamage()
                 target.dealDamage(target.getPower())
-        }))
+        })
         justiceStrike.setFlavorText("\"Those who show no mercy to the weak deserve no mercy from the strong.\"\n--Firemane Kavrova")
         return justiceStrike
     }

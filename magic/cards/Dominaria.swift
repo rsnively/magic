@@ -16,10 +16,10 @@ enum DOM {
         let callTheCavalry = Card(name: "Call the Cavalry", rarity: .Common, set: set, number: 9)
         callTheCavalry.setManaCost("3W")
         callTheCavalry.setType(.Sorcery)
-        callTheCavalry.addEffect(UntargetedEffect({
+        callTheCavalry.addUntargetedEffect({
             callTheCavalry.getController().createToken(Knight())
             callTheCavalry.getController().createToken(Knight())
-        }))
+        })
         callTheCavalry.setFlavorText("Benalish citizens born under the same constellation share a star-clan. Their loyalty to one another interlaces the Seven Houses.")
         return callTheCavalry
     }
@@ -27,7 +27,7 @@ enum DOM {
         let charge = Card(name: "Charge", rarity: .Common, set: set, number: 10)
         charge.setManaCost("W")
         charge.setType(.Instant)
-        charge.addEffect(UntargetedEffect({
+        charge.addUntargetedEffect({
             charge.getController().getCreatures().forEach({
                 $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.power = object.getBasePower() + 1
@@ -35,7 +35,7 @@ enum DOM {
                     return object
                 }))
             })
-        }))
+        })
         charge.setFlavorText("\"Honor rides before us. All we have to do is catch up\"\n--Danitha Capashen")
         return charge
     }
@@ -51,10 +51,9 @@ enum DOM {
         let gideonsReproach = Card(name: "Gideon's Reproach", rarity: .Common, set: set, number: 19)
         gideonsReproach.setManaCost("1W")
         gideonsReproach.setType(.Instant)
-        gideonsReproach.addEffect(TargetedEffect(
+        gideonsReproach.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(4) }
-        ))
+            effect: { target in target.dealDamage(4) })
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
     }
@@ -64,13 +63,12 @@ enum DOM {
         let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 22)
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
-        invokeTheDivine.addEffect(TargetedEffect(
+        invokeTheDivine.addTargetedEffect(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
                 target.destroy()
                 invokeTheDivine.getController().gainLife(4)
-            }
-        ))
+            })
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
         return invokeTheDivine
     }
@@ -127,7 +125,7 @@ enum DOM {
         let befuddle = Card(name: "Befuddle", rarity: .Common, set: set, number: 45)
         befuddle.setManaCost("2U")
         befuddle.setType(.Instant)
-        befuddle.addEffect(TargetedEffect(
+        befuddle.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -135,7 +133,7 @@ enum DOM {
                     return object
                 }))
                 befuddle.getController().drawCard()
-        }))
+        })
         befuddle.setFlavorText("\"The trick to talking sense into Keldons is getting them to hold still. I learned that from Radha.\"\n--Jhoira")
         return befuddle
     }
@@ -149,7 +147,7 @@ enum DOM {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 52)
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
-        divination.addEffect(UntargetedEffect{
+        divination.addUntargetedEffect({
             divination.getController().drawCards(2)
         })
         divination.setFlavorText("\"Half your studies will be learning the laws of magic. The other half will be bending them.\"\n--Naru Meha, master wizard.")
@@ -169,10 +167,9 @@ enum DOM {
         let rescue = Card(name: "Rescue", rarity: .Common, set: set, number: 63)
         rescue.setManaCost("U")
         rescue.setType(.Instant)
-        rescue.addEffect(TargetedEffect(
+        rescue.addTargetedEffect(
             restriction: { return $0.getController() == rescue.getController() },
-            effect: { target in target.bounce() }
-        ))
+            effect: { target in target.bounce() })
         rescue.setFlavorText("With just a few seconds to escape, Deryan saved Hurkyl's editions on restoring physical objects from ash.")
         return rescue
     }
@@ -213,10 +210,9 @@ enum DOM {
         let castDown = Card(name: "Cast Down", rarity: .Uncommon, set: set, number: 81)
         castDown.setManaCost("1B")
         castDown.setType(.Instant)
-        castDown.addEffect(TargetedEffect(
+        castDown.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
         return castDown
     }
@@ -258,10 +254,9 @@ enum DOM {
         let eviscerate = Card(name: "Eviscerate", rarity: .Common, set: set, number: 91)
         eviscerate.setManaCost("3B")
         eviscerate.setType(.Sorcery)
-        eviscerate.addEffect(TargetedEffect(
+        eviscerate.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() }
-        ))
+            effect: { target in target.destroy() })
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
     }
@@ -271,7 +266,7 @@ enum DOM {
         let fungalInfection = Card(name: "Fungal Infection", rarity: .Common, set: set, number: 94)
         fungalInfection.setManaCost("B")
         fungalInfection.setType(.Instant)
-        fungalInfection.addEffect(TargetedEffect(
+        fungalInfection.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -280,7 +275,7 @@ enum DOM {
                     return object
                 }))
                 fungalInfection.getController().createToken(Saproling())
-        }))
+        })
         fungalInfection.setFlavorText("To thallids, the whole world is just a pile of mulch to grow saprolings in.")
         return fungalInfection
     }
@@ -432,11 +427,11 @@ enum DOM {
         let sporeSwarm = Card(name: "Spore Swarm", rarity: .Uncommon, set: set, number: 180)
         sporeSwarm.setManaCost("3G")
         sporeSwarm.setType(.Instant)
-        sporeSwarm.addEffect(UntargetedEffect({
+        sporeSwarm.addUntargetedEffect({
             sporeSwarm.getController().createToken(Saproling())
             sporeSwarm.getController().createToken(Saproling())
             sporeSwarm.getController().createToken(Saproling())
-        }))
+        })
         sporeSwarm.setFlavorText("As the irrepressible power of a dormant Multani courses through Yavimaya, the forest passes judgment on travelers and natives alike. Only the fungus prospers.")
         return sporeSwarm
     }
