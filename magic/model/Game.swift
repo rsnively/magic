@@ -16,8 +16,10 @@ class Game: NSObject {
     }
     func selectTarget(_ target: Object) {
         assert(isTargeting)
-        targetingEffect?.selectTarget(target)
-        targetingEffect = nil
+        targetingEffect!.selectTarget(target)
+        if targetingEffect!.allTargetsSelected() {
+            targetingEffect = nil
+        }
     }
     
     private var turnNumber: Int
@@ -29,11 +31,14 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.HealersHawk())
-            deck1.append(GRN.InspiringUnicorn())
+            deck1.append(GRN.Swamp())
+            deck1.append(GRN.Swamp())
+            deck1.append(DOM.FungalInfection())
+            deck1.append(M19.Murder())
             
             deck2.append(GRN.Plains())
+            deck2.append(GRN.Plains())
+            deck2.append(GRN.HealersHawk())
             deck2.append(GRN.HealersHawk())
             deck2.append(GRN.InspiringUnicorn())
         }

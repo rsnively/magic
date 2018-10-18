@@ -175,7 +175,7 @@ class Player: NSObject {
             hand.remove(at:cardIndex)
             manaPool.payFor(card)
             if (card.requiresTargets()) {
-                Game.shared.targetingEffect = (card.effects.first(where: { return $0.requiresTarget() && ($0 as! TargetedEffect).target == nil })! as! TargetedEffect)
+                Game.shared.targetingEffect = (card.effects.first(where: { return $0.requiresTarget() })! as! TargetedEffect)
             }
             if card.usesStack() {
                 Game.shared.theStack.push(card)
