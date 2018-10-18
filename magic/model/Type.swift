@@ -54,6 +54,7 @@ enum Subtype {
     case Insect
     case Island
     case Knight
+    case Lizard
     case Merfolk
     case Minotaur
     case Monk
@@ -68,8 +69,10 @@ enum Subtype {
     case Scarecrow
     case Scout
     case Shade
+    case Shaman
     case Soldier
     case Spider
+    case Spirit
     case Swamp
     case Thopter
     case Treefolk
