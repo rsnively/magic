@@ -428,7 +428,23 @@ enum GRN {
         beastWhisperer.toughness = 3
         return beastWhisperer
     }
-    // 124 Bounty of Might
+    static func BountyOfMight() -> Card {
+        let bountyOfMight = Card(name: "Bounty of Might", rarity: .Rare, set: set, number: 124)
+        bountyOfMight.setManaCost("4GG")
+        bountyOfMight.setType(.Instant)
+        bountyOfMight.addTargetedEffect(
+            restrictions: [{ $0.isType(.Creature) }, { $0.isType(.Creature) }, { $0.isType(.Creature) }],
+            effect: { targets in
+                for target in targets {
+                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                        object.pump(3, 3)
+                        return object
+                    }))
+                }
+            })
+        bountyOfMight.setFlavorText("\"I am the very soul of battle, but even I would never advise open war with the Conclave.\"\n--Aurelia")
+        return bountyOfMight
+    }
     // 125 Circuitous Route
     // 126 Crushing Canopy
     static func DevkarinDissident() -> Card {

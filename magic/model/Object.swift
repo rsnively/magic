@@ -176,6 +176,9 @@ class Object: NSObject, NSCopying {
     func addTargetedEffect(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
         effects.append(TargetedEffect(restriction: restriction, effect: effect))
     }
+    func addTargetedEffect(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void) {
+        effects.append(TargetedEffect(restrictions: restrictions, effect: effect))
+    }
     
     func addContinuousEffect(_ continuousEffect: ContinuousEffect) {
         activeEffects.append(continuousEffect)
