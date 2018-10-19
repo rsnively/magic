@@ -27,6 +27,7 @@ enum M19 {
             trigger: .ThisETB,
             effect: { angelOfTheDawn.getController().getCreatures().forEach({
                 $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    // TODO these should be separate effects because they are applied in different layers
                     object.power = object.getBasePower() + 1
                     object.toughness = object.getBaseToughness() + 1
                     object.vigilance = true
@@ -94,15 +95,9 @@ enum M19 {
         let inspiredCharge = Card(name: "Inspired Charge", rarity: .Common, set: set, number: 15)
         inspiredCharge.setManaCost("2WW")
         inspiredCharge.setType(.Instant)
-        inspiredCharge.addUntargetedEffect({
-            inspiredCharge.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 2
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
-            })
-        })
+        inspiredCharge.addUntargetedEffect {
+            inspiredCharge.getController().getCreatures().forEach({ $0.pump(2, 1) })
+        }
         inspiredCharge.setFlavorText("\"Impossible! How could they overwhelm us? We had barricades, war elephants, ... and they were barely a tenth of our number!\"\n--General Avitora")
         return inspiredCharge
     }
@@ -172,6 +167,7 @@ enum M19 {
         mightyLeap.addTargetedEffect(
             restriction: { $0.isType(.Creature) },
             effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                // TODO these should be separate effects because they're applied in different layers
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 2
                 object.flying = true
@@ -371,15 +367,10 @@ enum M19 {
         let uncomfortableChill = Card(name: "Uncomfortable Chill", rarity: .Common, set: set, number: 82)
         uncomfortableChill.setManaCost("2U")
         uncomfortableChill.setType(.Instant)
-        uncomfortableChill.addUntargetedEffect({
-            uncomfortableChill.getController().getOpponent().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() - 2
-                    return object
-                }))
-            })
+        uncomfortableChill.addUntargetedEffect {
+            uncomfortableChill.getController().getOpponent().getCreatures().forEach({ $0.pump(-2, 0) })
             uncomfortableChill.getController().drawCard()
-        })
+        }
         uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
         return uncomfortableChill
     }
@@ -520,13 +511,7 @@ enum M19 {
         stranglingSpores.setType(.Instant)
         stranglingSpores.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() - 3
-                    object.toughness = object.getBaseToughness() - 3
-                    return object
-                }))
-        })
+            effect: { $0.pump(-3, -3) })
         stranglingSpores.setFlavorText("Imagine a thousand tiny mushrooms cropping up within your lungs.")
         return stranglingSpores
     }
@@ -689,14 +674,9 @@ enum M19 {
         let trumpetBlast = Card(name: "Trumpet Blast", rarity: .Common, set: set, number: 165)
         trumpetBlast.setManaCost("2R")
         trumpetBlast.setType(.Instant)
-        trumpetBlast.addUntargetedEffect({
-            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ attackingCreature in
-                attackingCreature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 2
-                    return object
-                }))
-            })})
-        })
+        trumpetBlast.addUntargetedEffect {
+            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ $0.pump(2, 0) }) })
+        }
         trumpetBlast.setFlavorText("The sound of the trumpets lights a fire in the hearts of the bold and snuffs the courage of the cowardly.")
         return trumpetBlast
     }
@@ -848,13 +828,7 @@ enum M19 {
         titanicGrowth.setType(.Instant)
         titanicGrowth.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 4
-                    object.toughness = object.getToughness() + 4
-                    return object
-                }))
-        })
+            effect: { $0.pump(4, 4) })
         titanicGrowth.setFlavorText("The massive dominate through might. The tiny survive with guile. Beware the tiny who become massive.")
         return titanicGrowth
     }

@@ -72,11 +72,7 @@ enum GRN {
             trigger: .ThisAttacks,
             effect: {
                 inspiringUnicorn.getController().getCreatures().forEach({ creature in
-                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                        object.power = object.getBasePower() + 1
-                        object.toughness = object.getBaseToughness() + 1
-                        return object
-                    }))
+                    creature.pump(1, 1)
                 })
             })
         inspiringUnicorn.setFlavorText("There are two lives: the life you live before you see a unicorn, and the life you live after.")
@@ -121,11 +117,7 @@ enum GRN {
         takeHeart.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn{ object in
-                    object.power = object.getBasePower() + 2
-                    object.toughness = object.getBaseToughness() + 2
-                    return object
-                })
+                target.pump(2, 2)
                 takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({$0.attacking}).count)
         })
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
@@ -138,12 +130,7 @@ enum GRN {
         tenthDistrictGuard.addTargetedTriggeredAbility(
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) },
-            effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
-            })
+            effect: { $0.pump(0, 1) })
         tenthDistrictGuard.setFlavorText("\"The Tenth has always been my home. This city is constantly embroiled in one crisis or another, but I'm determined to protect my piece.\"")
         tenthDistrictGuard.power = 2
         tenthDistrictGuard.toughness = 2
@@ -206,11 +193,7 @@ enum GRN {
         vedalkenMesmerist.addTargetedTriggeredAbility(
             trigger: .ThisAttacks,
             restriction: { return $0.isType(.Creature) &&  $0.getController() != vedalkenMesmerist.getController()},
-            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() - 2
-                return object
-            }))
-        })
+            effect: { $0.pump(-2, 0) })
         vedalkenMesmerist.setFlavorText("\"There's no need to sound the alarm. You are minding your post admirably. I am authorized. All is well.\"")
         vedalkenMesmerist.power = 2
         vedalkenMesmerist.toughness = 1
@@ -319,12 +302,7 @@ enum GRN {
         veiledShade.setType(.Creature, .Shade)
         veiledShade.addUntargetedActivatedAbility(
             cost: Cost("1B"),
-            effect: { veiledShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-                return object
-            }))
-        })
+            effect: { veiledShade.pump(1, 1) })
         veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
         veiledShade.power = 2
         veiledShade.toughness = 2
@@ -404,11 +382,7 @@ enum GRN {
         rubblebeltBoar.addTargetedTriggeredAbility(
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 2
-                return object
-            }))
-        })
+            effect: { $0.pump(2, 0) })
         rubblebeltBoar.setFlavorText("Some Gruul druis believe that boars are spawn of the great Illharg, the mighty Raze-Boar who will one day rise and level the city.")
         rubblebeltBoar.power = 3
         rubblebeltBoar.toughness = 3
@@ -456,12 +430,7 @@ enum GRN {
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
         devkarinDissident.addUntargetedActivatedAbility(
             cost: Cost("4G"),
-            effect: { devkarinDissident.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 2
-                object.toughness = object.getBaseToughness() + 2
-                return object
-            }))
-        })
+            effect: { devkarinDissident.pump(2, 2) })
         devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
         devkarinDissident.power = 2
         devkarinDissident.toughness = 2
@@ -571,13 +540,7 @@ enum GRN {
             let numCreatures = camaraderie.getController().getCreatures().count
             camaraderie.getController().gainLife(numCreatures)
             camaraderie.getController().drawCards(numCreatures)
-            camaraderie.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 1
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
-            })
+            camaraderie.getController().getCreatures().forEach({ $0.pump(1, 1) })
         })
         camaraderie.setFlavorText("\"Within the song of Mat'Selesnya, one becomes all.\"\n--Heruj, Selesnya hierophant")
         return camaraderie
@@ -702,11 +665,7 @@ enum GRN {
         weeDragonauts.flying = true
         weeDragonauts.addUntargetedTriggeredAbility(
             trigger: .CastInstantOrSorcery,
-            effect: { weeDragonauts.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 2
-                return object
-            }))
-        })
+            effect: { weeDragonauts.pump(2, 0) })
         weeDragonauts.setFlavorText("\"Something's causing electrospheric disruption in the blazekite's spire-vanes. Find the cause, and tell them to keep it up!\"\n--Juzba, Izzet tinker.")
         weeDragonauts.power = 1
         weeDragonauts.toughness = 3

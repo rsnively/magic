@@ -50,12 +50,7 @@ enum XLN {
         duskborneSkymarcher.addTargetedActivatedAbility(
             cost: Cost("W", tap: true),
             restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
-            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-                return object
-            }))
-        })
+            effect: { $0.pump(1, 1) })
         duskborneSkymarcher.setFlavorText("\"The hour of Dusk is come.\"")
         duskborneSkymarcher.power = 1
         duskborneSkymarcher.toughness = 1
@@ -74,6 +69,7 @@ enum XLN {
             trigger: .ThisETB,
             restriction: { return $0.isType(.Creature) && $0 != imperialAerosaur },
             effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                // TODO: These should be different, because they are applied in different layers
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
                 object.flying = true
@@ -155,11 +151,7 @@ enum XLN {
         rallyingRoar.setType(.Instant)
         rallyingRoar.addUntargetedEffect({
             rallyingRoar.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 1
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
+                creature.pump(1, 1)
                 creature.untap()
             })
         })
@@ -426,12 +418,7 @@ enum XLN {
         fathomFleetFirebrand.setType(.Creature, .Human, .Pirate)
         fathomFleetFirebrand.addUntargetedActivatedAbility(
             cost: Cost("1R"),
-            effect: { fathomFleetFirebrand.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 1
-                return object
-                
-            }))
-        })
+            effect: { fathomFleetFirebrand.pump(1, 0) })
         fathomFleetFirebrand.setFlavorText("As she charges into battle, her arcane tattoos stir and crawl like fiery serpents.")
         fathomFleetFirebrand.power = 2
         fathomFleetFirebrand.toughness = 2
@@ -605,12 +592,10 @@ enum XLN {
         direFleetCaptain.setType(.Creature, .Orc, .Pirate)
         direFleetCaptain.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { direFleetCaptain.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                let numPirates = object.getController().getCreatures().filter({ return $0.isType(.Pirate) && $0.attacking }).count
-                object.power = object.getBasePower() + numPirates
-                object.toughness = object.getBaseToughness() + numPirates
-                return object
-            }))
+            effect: {
+                // TODO this just says "attacking pirates" does that matter?
+                let numPirates = direFleetCaptain.getController().getCreatures().filter({ return $0.isType(.Pirate) && $0.attacking }).count
+                direFleetCaptain.pump(numPirates, numPirates)
         })
         direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")
         direFleetCaptain.power = 2

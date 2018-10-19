@@ -28,13 +28,7 @@ enum DOM {
         charge.setManaCost("W")
         charge.setType(.Instant)
         charge.addUntargetedEffect({
-            charge.getController().getCreatures().forEach({
-                $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() + 1
-                    object.toughness = object.getBaseToughness() + 1
-                    return object
-                }))
-            })
+            charge.getController().getCreatures().forEach({ $0.pump(1, 1) })
         })
         charge.setFlavorText("\"Honor rides before us. All we have to do is catch up\"\n--Danitha Capashen")
         return charge
@@ -128,10 +122,7 @@ enum DOM {
         befuddle.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() - 4
-                    return object
-                }))
+                target.pump(-4, 0)
                 befuddle.getController().drawCard()
         })
         befuddle.setFlavorText("\"The trick to talking sense into Keldons is getting them to hold still. I learned that from Radha.\"\n--Jhoira")
@@ -237,12 +228,7 @@ enum DOM {
         dreadShade.setType(.Creature, .Shade)
         dreadShade.addUntargetedActivatedAbility(
             cost: Cost("B"),
-            effect: { dreadShade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-                return object
-            }))
-        })
+            effect: { dreadShade.pump(1, 1) })
         dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
         dreadShade.power = 3
         dreadShade.toughness = 3
@@ -269,11 +255,7 @@ enum DOM {
         fungalInfection.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.power = object.getBasePower() - 1
-                    object.toughness = object.getBaseToughness() - 1
-                    return object
-                }))
+                target.pump(-1, -1)
                 fungalInfection.getController().createToken(Saproling())
         })
         fungalInfection.setFlavorText("To thallids, the whole world is just a pile of mulch to grow saprolings in.")
