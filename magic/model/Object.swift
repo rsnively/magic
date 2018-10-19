@@ -246,8 +246,11 @@ class Object: NSObject, NSCopying {
         return applyContinuousEffects().basePower!
     }
     func pump(_ power: Int, _ toughness: Int) {
-        self.power = basePower! + power
-        self.toughness = baseToughness! + toughness
+        addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+            object.power = object.getBasePower() + power
+            object.toughness = object.getBaseToughness() + toughness
+            return object
+        }))
     }
     func getBaseToughness() -> Int {
         return baseToughness!

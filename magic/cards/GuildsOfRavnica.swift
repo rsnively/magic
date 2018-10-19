@@ -442,10 +442,7 @@ enum GRN {
             restrictions: [{ $0.isType(.Creature) }, { $0.isType(.Creature) }, { $0.isType(.Creature) }],
             effect: { targets in
                 for target in targets {
-                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                        object.pump(3, 3)
-                        return object
-                    }))
+                    target.pump(3, 3)
                 }
             })
         bountyOfMight.setFlavorText("\"I am the very soul of battle, but even I would never advise open war with the Conclave.\"\n--Aurelia")

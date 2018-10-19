@@ -4,7 +4,16 @@ enum M19 {
     static var set = "m19"
     static var count = 280
     
-    // 1 Aegis of the Heavens
+    static func AegisOfTheHeavens() -> Card {
+        let aegisOfTheHeavens = Card(name: "Aegis of the Heavens", rarity: .Uncommon, set: set, number: 1)
+        aegisOfTheHeavens.setManaCost("1W")
+        aegisOfTheHeavens.setType(.Instant)
+        aegisOfTheHeavens.addTargetedEffect(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.pump(1, 7) })
+        aegisOfTheHeavens.setFlavorText("Inner strength is never seen until it makes all the difference.")
+        return aegisOfTheHeavens
+    }
     // 2 Aethershield Artificer
     // 3 Ajani, Adversary of Tyrants
     // 4 Ajani's Last Stand

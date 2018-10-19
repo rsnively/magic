@@ -71,10 +71,7 @@ enum RIX {
         momentOfTriump.addTargetedEffect(
             restriction: { $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.pump(2, 2)
-                    return object
-                }))
+                target.pump(2, 2)
                 momentOfTriump.getController().gainLife(2)
             })
         momentOfTriump.setFlavorText("\"The time of salvation is at hand. Dusk washes over the world, and the Legion will rise immortal!\"")
@@ -231,10 +228,7 @@ enum RIX {
         momentOfCraving.addTargetedEffect(
             restriction: { $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.pump(-2, -2)
-                    return object
-                }))
+                target.pump(-2, -2)
                 momentOfCraving.getController().gainLife(2)
         })
         momentOfCraving.setFlavorText("\"The time of condemnation is at hand. Dusk washes over the world, and I consign you to eternal darkness!\"")
@@ -348,10 +342,7 @@ enum RIX {
         aggressiveUrge.addTargetedEffect(
             restriction: { $0.isType(.Creature) },
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.pump(1, 1)
-                    return object
-                }))
+                target.pump(1, 1)
                 aggressiveUrge.getController().drawCard()
         })
         aggressiveUrge.setFlavorText("\"Our lives, our homes, and all our history are at risk. Do not speak to me of peace.\"")
@@ -376,11 +367,7 @@ enum RIX {
         jadecraftArtisan.addTargetedTriggeredAbility(
             trigger: .ThisETB,
             restriction: { $0.isType(.Creature) },
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.pump(2, 2)
-                return object
-            }))
-        })
+            effect: { $0.pump(2, 2) })
         jadecraftArtisan.setFlavorText("\"A blade is not fully forged until it is given.\"")
         jadecraftArtisan.power = 3
         jadecraftArtisan.toughness = 3
