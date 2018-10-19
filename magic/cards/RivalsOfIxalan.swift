@@ -280,7 +280,7 @@ enum RIX {
         bombard.setType(.Instant)
         bombard.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { $0.dealDamage(4) })
+            effect: { bombard.damage(to: $0, 4) })
         bombard.setFlavorText("\"Want to sink a ship? Blow a hole in the hull. Want to kill a regisaur? Same answer.\"\n--Captain Brandis Thorn")
         return bombard
     }
@@ -317,7 +317,7 @@ enum RIX {
         shakeTheFoundations.setType(.Instant)
         shakeTheFoundations.addUntargetedEffect {
             Game.shared.bothPlayers({ player in
-                player.getCreatures().filter({ return !$0.flying }).forEach({ $0.dealDamage(1) })
+                player.getCreatures().filter({ return !$0.flying }).forEach({ shakeTheFoundations.damage(to: $0, 1) })
             })
             shakeTheFoundations.getController().drawCard()
         }

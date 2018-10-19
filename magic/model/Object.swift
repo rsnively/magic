@@ -294,9 +294,22 @@ class Object: NSObject, NSCopying {
         getController().destroyPermanent(self)
     }
     
-    // has damage dealt to it
-    func dealDamage(_ amount: Int) {
+    private func hasDealtDamage(amount: Int) {
+        if lifelink {
+            getController().gainLife(amount)
+        }
+    }
+    private func hasBeenDealtDamage(amount: Int) {
         markedDamage += amount
+    }
+    
+    func damage(to recipient: Object, _ amount: Int) {
+        recipient.hasBeenDealtDamage(amount: amount)
+        hasDealtDamage(amount: amount)
+    }
+    func damage(to recipient: Player, amount: Int) {
+        recipient.damage(amount)
+        hasDealtDamage(amount: amount)
     }
     
     func removeDamage() {
@@ -306,15 +319,4 @@ class Object: NSObject, NSCopying {
     func removeUntilEndOfTurnEffects() {
         activeEffects.removeAll()
     }
-    
-    // This permanent is dealing damage equal to its power to something
-    func dealsDamage(_ amt: Int) {
-        if lifelink {
-            getController().gainLife(max(amt, 0))
-        }
-    }
-    func dealsDamage() {
-        dealsDamage(getPower())
-    }
-    
 }

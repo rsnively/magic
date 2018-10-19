@@ -514,7 +514,7 @@ enum M19 {
         electrify.setType(.Instant)
         electrify.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(4) })
+            effect: { target in electrify.damage(to: target, 4) })
         electrify.setFlavorText("\"Some hid from the storm. I embraced it and learned its name.\"")
         return electrify
     }
@@ -524,7 +524,7 @@ enum M19 {
         fieryFinish.setType(.Sorcery)
         fieryFinish.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(7) })
+            effect: { target in fieryFinish.damage(to: target, 7) })
         fieryFinish.setFlavorText("Negotiations reached an abrupt conclusion.")
         return fieryFinish
     }

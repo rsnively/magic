@@ -53,7 +53,7 @@ enum DOM {
         gideonsReproach.setType(.Instant)
         gideonsReproach.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(4) })
+            effect: { target in gideonsReproach.damage(to: target, 4) })
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
     }
@@ -337,8 +337,7 @@ enum DOM {
             restriction: { return $0.isType(.Creature) && $0.getController() != firefistAdept.getController() },
             effect: { target in
                 let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
-                firefistAdept.dealsDamage(numWizards)
-                target.dealDamage(numWizards)
+                firefistAdept.damage(to: target, numWizards)
         })
         firefistAdept.setFlavorText("The versatile \"fiery gauntlet\" is among the first spells young Ghitu mages learn.")
         firefistAdept.power = 3

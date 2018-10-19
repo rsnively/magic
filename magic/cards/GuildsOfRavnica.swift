@@ -96,7 +96,7 @@ enum GRN {
         righteousBlow.setType(.Instant)
         righteousBlow.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(2) })
+            effect: { target in righteousBlow.damage(to: target, 2) })
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
     }
@@ -332,7 +332,7 @@ enum GRN {
         commandTheStorm.setType(.Instant)
         commandTheStorm.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.dealDamage(5) })
+            effect: { target in commandTheStorm.damage(to: target, 5) })
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
         return commandTheStorm
     }
@@ -375,10 +375,7 @@ enum GRN {
         hellkiteWhelp.addTargetedTriggeredAbility(
             trigger: .ThisAttacks,
             restriction: { return $0.getController() != hellkiteWhelp.getController() },
-            effect: { target in
-                hellkiteWhelp.dealsDamage(1)
-                target.dealDamage(1)
-            })
+            effect: { target in hellkiteWhelp.damage(to: target, 1) })
         hellkiteWhelp.setFlavorText("\"They play by spitting fire at each other. Don't be offended if one gives you a love-scorch.\"\n--Esfir, Rakdos drangon wrangler")
         hellkiteWhelp.power = 3
         hellkiteWhelp.toughness = 3
@@ -635,10 +632,7 @@ enum GRN {
         justiceStrike.setType(.Instant)
         justiceStrike.addTargetedEffect(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in
-                target.dealsDamage()
-                target.dealDamage(target.getPower())
-        })
+            effect: { target in target.damage(to: target, target.getPower()) })
         justiceStrike.setFlavorText("\"Those who show no mercy to the weak deserve no mercy from the strong.\"\n--Firemane Kavrova")
         return justiceStrike
     }
@@ -678,7 +672,7 @@ enum GRN {
         swathcutterGiant.vigilance = true
         swathcutterGiant.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { swathcutterGiant.getController().getOpponent().getCreatures().forEach({$0.dealDamage(1)}) })
+            effect: { swathcutterGiant.getController().getOpponent().getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) })
         swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
         swathcutterGiant.power = 5
         swathcutterGiant.toughness = 5

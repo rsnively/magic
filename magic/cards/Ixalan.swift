@@ -215,7 +215,7 @@ enum XLN {
         slashOfTalons.setType(.Instant)
         slashOfTalons.addTargetedEffect(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in target.dealDamage(2) })
+            effect: { target in slashOfTalons.damage(to: target, 2) })
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")
         return slashOfTalons
     }
@@ -445,7 +445,7 @@ enum XLN {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach({ creature in
                     if !creature.isType(.Pirate) {
-                        creature.dealDamage(2)
+                        fieryCannonade.damage(to: creature, 2)
                     }
                 })
             })
