@@ -19,7 +19,26 @@ enum M19 {
     // 4 Ajani's Last Stand
     // 5 Ajani's Pridemate
     // 6 Ajani's Welcome
-    // 7 Angel of the Dawn
+    static func AngelOfTheDawn() -> Card {
+        let angelOfTheDawn = Card(name: "Angel of the Dawn", rarity: .Common, set: set, number: 7)
+        angelOfTheDawn.setManaCost("4W")
+        angelOfTheDawn.setType(.Creature, .Angel)
+        angelOfTheDawn.addUntargetedTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { angelOfTheDawn.getController().getCreatures().forEach({
+                $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                    object.vigilance = true
+                    return object
+                }))
+            })
+        })
+        angelOfTheDawn.setFlavorText("She sings for all those who have been silenced.")
+        angelOfTheDawn.power = 3
+        angelOfTheDawn.toughness = 3
+        return angelOfTheDawn
+    }
     // 8 Cavalry Drillmaster
     // 9 Cleansing Nova
     static func DaybreakChaplain() -> Card {

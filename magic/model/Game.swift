@@ -31,8 +31,9 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Swamp())
-            deck1.append(GRN.HiredPoisoner())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.HuntedWitness())
+            deck1.append(M19.AegisOfTheHeavens())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())

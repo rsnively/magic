@@ -50,7 +50,11 @@ class Object: NSObject, NSCopying {
     }
     var lifelink: Bool = false
     var reach: Bool = false
-    var vigilance: Bool = false
+    private var baseVigilance: Bool = false
+    var vigilance: Bool {
+        get { return applyContinuousEffects().baseVigilance }
+        set (newVigilance) { baseVigilance = newVigilance }
+    }
     
     private weak var owner: Player?
     weak var controller: Player?
@@ -95,7 +99,7 @@ class Object: NSObject, NSCopying {
         copy.baseHaste = baseHaste
         copy.lifelink = lifelink
         copy.reach = reach
-        copy.vigilance = vigilance
+        copy.baseVigilance = baseVigilance
         
         copy.owner = owner
         copy.controller = controller
