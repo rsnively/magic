@@ -158,6 +158,7 @@ class Game: NSObject {
         }
         else if currentPhase == .Upkeep {
             bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachUpkeep) }) })
+            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourUpkeep) })
         }
         else if currentPhase == .Draw {
             if turnNumber > 1 {

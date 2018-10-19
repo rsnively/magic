@@ -7,4 +7,5 @@ enum Trigger {
     case ThisAttacks
     case ThisDies
     case ThisETB
+    case YourUpkeep
 }
