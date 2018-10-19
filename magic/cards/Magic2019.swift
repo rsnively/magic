@@ -165,7 +165,22 @@ enum M19 {
     // 25 Luminous Bonds
     // 26 Make a Stand
     // 27 Mentor of the Meek
-    // 28 Mighty Leap
+    static func MightyLeap() -> Card {
+        let mightyLeap = Card(name: "Mighty Leap", rarity: .Common, set: set, number: 28)
+        mightyLeap.setManaCost("1W")
+        mightyLeap.setType(.Instant)
+        mightyLeap.addTargetedEffect(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                object.flying = true
+                return object
+            }))
+        })
+        mightyLeap.setFlavorText("\"I feel the presence of the God-Pharoah in the Second Sun, and I rise upon its rays.\"")
+        return mightyLeap
+    }
     // 29 Militia Bugler
     // 30 Novice Knight
     static func OreskosSwiftclaw() -> Card {
@@ -177,7 +192,24 @@ enum M19 {
         oreskosSwiftclaw.toughness = 1
         return oreskosSwiftclaw
     }
-    // 32 Pegasus Courser
+    static func PegasusCourser() -> Card {
+        let pegasusCourser = Card(name: "Pegasus Couser", rarity: .Common, set: set, number: 32)
+        pegasusCourser.setManaCost("2W")
+        pegasusCourser.setType(.Creature, .Pegasus)
+        pegasusCourser.flying = true
+        pegasusCourser.addTargetedTriggeredAbility(
+            trigger: .ThisAttacks,
+            restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.flying = true
+                return object
+            }))
+        })
+        pegasusCourser.setFlavorText("A pegasus chooses its rider, bearing the worthy into the clouds and tossing all others to the ground.")
+        pegasusCourser.power = 1
+        pegasusCourser.toughness = 3
+        return pegasusCourser
+    }
     // 33 Remorseful Cleric
     // 34 Resplendent Angel
     static func Revitalize() -> Card {
@@ -202,7 +234,19 @@ enum M19 {
         return rustwingFalcon
     }
     // 37 Shield Mare
-    // 38 Star-Crowned Stag
+    static func StarCrownedStag() -> Card {
+        let starCrownedStag = Card(name: "Star-Crowned Stag", rarity: .Common, set: set, number: 38)
+        starCrownedStag.setManaCost("3W")
+        starCrownedStag.setType(.Creature, .Elk)
+        starCrownedStag.addTargetedTriggeredAbility(
+            trigger: .ThisAttacks,
+            restriction: { $0.isType(.Creature) && $0.getController() != starCrownedStag.getController() },
+            effect: { $0.tap() })
+        starCrownedStag.setFlavorText("White as starlight on snow, it appears only on the eve of the winter solstice.")
+        starCrownedStag.power = 3
+        starCrownedStag.toughness = 3
+        return starCrownedStag
+    }
     // 39 Suncleanser
     static func TakeVengeance() -> Card {
         let takeVengeance = Card(name: "Take Vengeance", rarity: .Common, set: set, number: 40)

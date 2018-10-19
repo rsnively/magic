@@ -61,6 +61,7 @@ enum Subtype {
     case Mountain
     case Ogre
     case Orc
+    case Pegasus
     case Pirate
     case Plains
     case Plant
