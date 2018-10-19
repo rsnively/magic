@@ -273,7 +273,16 @@ enum GRN {
         return douserOfLights
     }
     // 71 Gruesome Menagerie
-    // 72 Hired Poisoner
+    static func HiredPoisoner() -> Card {
+        let hiredPoisoner = Card(name: "Hired Poisoner", rarity: .Common, set: set, number: 72)
+        hiredPoisoner.setManaCost("B")
+        hiredPoisoner.setType(.Creature, .Human, .Assassin)
+        hiredPoisoner.deathtouch = true
+        hiredPoisoner.setFlavorText("\"They don't even feel the cut. I'm ordering a drink in a nearby tavern before anyone notices something's wrong.\"")
+        hiredPoisoner.power = 1
+        hiredPoisoner.toughness = 1
+        return hiredPoisoner
+    }
     // 73 Kraul Swarm
     // 74 Lotleth Giant
     // 75 Mausoleum Secrets

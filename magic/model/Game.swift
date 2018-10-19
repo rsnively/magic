@@ -32,15 +32,10 @@ class Game: NSObject {
         for _ in 0..<15 {
             
             deck1.append(GRN.Swamp())
-            deck1.append(GRN.Swamp())
-            deck1.append(DOM.FungalInfection())
-            deck1.append(M19.Murder())
+            deck1.append(GRN.HiredPoisoner())
             
             deck2.append(GRN.Plains())
-            deck2.append(GRN.Plains())
-            deck2.append(GRN.HealersHawk())
-            deck2.append(GRN.HealersHawk())
-            deck2.append(GRN.InspiringUnicorn())
+            deck2.append(XLN.BishopsSoldier())
         }
         
         player1 = Player(deck: deck1)
@@ -237,6 +232,7 @@ class Game: NSObject {
         // If a token is in a zone other than the battlefield, it ceases to exist
         // If a copy of a spell is in a zone other than the stack, it ceases to exist
         // If a copy of a card is in a zone other than the stack or battlefield, it ceases to exist
+        
         // If a creature has toughness 0 or less, it's put into its owner's graveyard. Regeneration can't replace this event.
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
@@ -246,6 +242,7 @@ class Game: NSObject {
                 }
             })
         })
+        
         // If a creature has toughness greater than 0, and the total damage marked on it is greater than or equal to its toughness, that creature has been dealt lethal damage and it is destroyed. Regeneration can replace this event.
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
@@ -255,7 +252,18 @@ class Game: NSObject {
                 }
             })
         })
+        
         // If a creature has toughness greater than 0, and it has been dealt damage by a source with deathtouch since the last time state-based actions have been checked, that creature is destroyed. Regeneration can replace this event.
+        bothPlayers({ player in
+            player.getCreatures().forEach({ creature in
+                if creature.damagedByDeathtouch {
+                    creature.destroy()
+                    actionPerformed = true
+                }
+                creature.damagedByDeathtouch = false
+            })
+        })
+        
         // If a planeswalker has loyalty 0, it's put into its owner's graveyard.
         // If a player controls two or more legendary permanents with the same name, that player chooses one of them and puts the rest into their owners' graveyards.
         // If an aura is attached to an illegal object or player, or is not attached to an object or player, that aura is put into its owner's graveyard.

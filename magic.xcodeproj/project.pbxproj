@@ -106,6 +106,7 @@
 		987858CE2171770000A07DB3 /* dom121full.png in Resources */ = {isa = PBXBuildFile; fileRef = 987858CD2171770000A07DB3 /* dom121full.png */; };
 		989579BA217144D00064993A /* grn29full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579B9217144D00064993A /* grn29full.png */; };
 		989579C221714B990064993A /* grn57full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579C121714B990064993A /* grn57full.png */; };
+		989AFA272179BABB00F7DEE1 /* grn72full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989AFA262179BABB00F7DEE1 /* grn72full.png */; };
 		98A0D716215B14C300D90BCD /* grn94full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0D715215B14C300D90BCD /* grn94full.png */; };
 		98A19A2C2167E6EF002A4296 /* grn182full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A19A2B2167E6EE002A4296 /* grn182full.png */; };
 		98A19A2E2167EC85002A4296 /* ActivatedAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */; };
@@ -400,6 +401,7 @@
 		987858CD2171770000A07DB3 /* dom121full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom121full.png; sourceTree = "<group>"; };
 		989579B9217144D00064993A /* grn29full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn29full.png; sourceTree = "<group>"; };
 		989579C121714B990064993A /* grn57full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn57full.png; sourceTree = "<group>"; };
+		989AFA262179BABB00F7DEE1 /* grn72full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn72full.png; sourceTree = "<group>"; };
 		98A0D715215B14C300D90BCD /* grn94full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn94full.png; sourceTree = "<group>"; };
 		98A19A2B2167E6EE002A4296 /* grn182full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn182full.png; sourceTree = "<group>"; };
 		98A19A2D2167EC85002A4296 /* ActivatedAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivatedAbility.swift; sourceTree = "<group>"; };
@@ -985,6 +987,7 @@
 				98F981C3216EBED500254A4C /* grn62full.png */,
 				9871B61221595A2800A6A6AB /* grn65full.png */,
 				98FA8E612156BF0C00EF5203 /* grn70full.png */,
+				989AFA262179BABB00F7DEE1 /* grn72full.png */,
 				98FA8E632156C06D00EF5203 /* grn84full.png */,
 				98A19A2F2167FEAA002A4296 /* grn88full.png */,
 				98A0D715215B14C300D90BCD /* grn94full.png */,
@@ -1265,6 +1268,7 @@
 				98F981CA216EC8B600254A4C /* grn16full.png in Resources */,
 				98478521216537F9004D51A8 /* m19139full.png in Resources */,
 				98A19A3E216817E8002A4296 /* grn263full.png in Resources */,
+				989AFA272179BABB00F7DEE1 /* grn72full.png in Resources */,
 				98E176BE2170191B00763F96 /* xln29full.png in Resources */,
 				98BEF4BD2178F3C400144C51 /* rix113full.png in Resources */,
 				98A19A4421681F8F002A4296 /* dom88full.png in Resources */,

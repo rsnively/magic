@@ -31,6 +31,11 @@ class Object: NSObject, NSCopying {
     var activatedAbilities:[ActivatedAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
     
+    private var baseDeathtouch: Bool = false
+    var deathtouch: Bool {
+        get { return applyContinuousEffects().baseDeathtouch}
+        set (newDeathtouch) { baseDeathtouch = newDeathtouch }
+    }
     var defender: Bool = false
     private var baseFlying: Bool = false
     var flying: Bool {
@@ -55,6 +60,7 @@ class Object: NSObject, NSCopying {
     var blocking: Bool = false
     var attackers: [Object] = []
     var markedDamage: Int = 0
+    var damagedByDeathtouch = false
     
     private var tapped: Bool = false
     var isTapped: Bool {
@@ -82,6 +88,7 @@ class Object: NSObject, NSCopying {
         copy.activatedAbilities = activatedAbilities
         copy.triggeredAbilities = triggeredAbilities
         
+        copy.baseDeathtouch = baseDeathtouch
         copy.defender = defender
         copy.flash = flash
         copy.baseFlying = baseFlying
@@ -98,6 +105,7 @@ class Object: NSObject, NSCopying {
         copy.blocking = blocking
         copy.attackers = attackers
         copy.markedDamage = markedDamage
+        copy.damagedByDeathtouch = damagedByDeathtouch
         copy.tapped = tapped
         copy.turnEnteredBattlefield = turnEnteredBattlefield
         
@@ -306,6 +314,9 @@ class Object: NSObject, NSCopying {
     func damage(to recipient: Object, _ amount: Int) {
         recipient.hasBeenDealtDamage(amount: amount)
         hasDealtDamage(amount: amount)
+        if deathtouch {
+            recipient.damagedByDeathtouch = true
+        }
     }
     func damage(to recipient: Player, amount: Int) {
         recipient.damage(amount)
