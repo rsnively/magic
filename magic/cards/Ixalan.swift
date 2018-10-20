@@ -537,7 +537,18 @@ enum XLN {
     // 192 Ixalli's Diviner
     // 193 Ixalli's Keeper
     // 194 Jade Guardian
-    // 195 Jungle Delver
+    static func JungleDelver() -> Card {
+        let jungleDelver = Card(name: "Jungle Delver", rarity: .Common, set: set, number: 195)
+        jungleDelver.setManaCost("G")
+        jungleDelver.setType(.Creature, .Merfolk, .Warrior)
+        jungleDelver.addUntargetedActivatedAbility(
+            cost: Cost("3G"),
+            effect: { jungleDelver.addCounter(.PlusOnePlusOne) })
+        jungleDelver.setFlavorText("\"There is no power too great to be used in the defense of our ancestral lands.\"")
+        jungleDelver.power = 1
+        jungleDelver.toughness = 1
+        return jungleDelver
+    }
     // 196 Kumena's Speaker
     // 197 Merfolk Branchwalker
     // 198 New Horizons

@@ -29,6 +29,23 @@ class CardNode: SKSpriteNode {
         return node
     }
     
+    private static func getCounterLabelNode(type: Counter, amount: Int, index: Int, cardSize: CGSize) -> SKNode {
+        let node = SKShapeNode(rectOf: CGSize(width: cardSize.width * 0.5, height: cardSize.height * 0.12))
+        node.strokeColor = UIColor(white: 0, alpha: 0.8)
+        node.fillColor = UIColor(white: 0, alpha: 0.8)
+        node.zPosition = 0.1
+        node.position = CGPoint(x: cardSize.width / 2.0, y: cardSize.height / 2.0 - cardSize.height * 0.11 * CGFloat(1 + index))
+        
+        let labelNode = SKLabelNode(text: type.rawValue + ": " + String(amount))
+        labelNode.fontColor = UIColor.green // todo, red when detrimental
+        labelNode.fontSize = cardSize.height * 0.09
+        labelNode.zPosition = 0.2
+        labelNode.position = CGPoint(x: 0, y: -labelNode.fontSize / 2.0)
+        node.addChild(labelNode)
+        
+        return node
+    }
+    
     init(card:Object, allowedSize:CGSize) {
         self.card = card
         let size = CardNode.getMaximumCardSize(for: allowedSize)
@@ -48,6 +65,12 @@ class CardNode: SKSpriteNode {
             addChild(powerToughnessNode)
         }
         addChild(CardNode.getImageNode(card: self.card, cardSize: self.size, full: true))
+        
+        var numCounterLabelNodes = 0
+        for (counter, amount) in card.counters {
+            addChild(CardNode.getCounterLabelNode(type: counter, amount: amount, index: numCounterLabelNodes, cardSize: size))
+            numCounterLabelNodes += 1
+        }
 
     }
     

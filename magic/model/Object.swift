@@ -27,6 +27,7 @@ class Object: NSObject, NSCopying {
     }
     var effects:[Effect] = []
     var activeEffects:[ContinuousEffect] = []
+    var counters:[Counter: Int] = [:]
     
     var activatedAbilities:[ActivatedAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
@@ -89,6 +90,7 @@ class Object: NSObject, NSCopying {
         copy.baseToughness = baseToughness
         copy.effects = effects
         copy.activeEffects = activeEffects
+        copy.counters = counters
         copy.activatedAbilities = activatedAbilities
         copy.triggeredAbilities = triggeredAbilities
         
@@ -196,11 +198,23 @@ class Object: NSObject, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
+    func addCounters(_ type: Counter, _ amount: Int) {
+        counters[type] = (counters[type] ?? 0) + amount
+    }
+    func addCounter(_ type: Counter) {
+        counters[type] = (counters[type] ?? 0) + 1
+    }
+    
     func applyContinuousEffects() -> Object {
         var object = self.copy() as! Object
         for activeEffect in activeEffects {
             object = activeEffect.apply(object)
         }
+        
+        let plusOnePlusOneCounters = counters[.PlusOnePlusOne] ?? 0
+        object.power = object.getBasePower() + plusOnePlusOneCounters
+        object.toughness = object.getBaseToughness() + plusOnePlusOneCounters
+        
         return object
     }
 

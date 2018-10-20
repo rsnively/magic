@@ -191,6 +191,8 @@
 		98BEF4C82178FA5A00144C51 /* rix140full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C72178FA5A00144C51 /* rix140full.png */; };
 		98BEF4CA2178FAB500144C51 /* rix143full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C92178FAB500144C51 /* rix143full.png */; };
 		98BEF4CE21792B1800144C51 /* grn124full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4CD21792B1800144C51 /* grn124full.png */; };
+		98C98467217A901700903CED /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C98466217A901700903CED /* Counter.swift */; };
+		98C98469217A91DE00903CED /* xln195full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C98468217A91DD00903CED /* xln195full.png */; };
 		98CBD081216F2A4E0085E669 /* m1913full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD080216F2A4E0085E669 /* m1913full.png */; };
 		98CBD083216F2B0D0085E669 /* m1915full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD082216F2B0D0085E669 /* m1915full.png */; };
 		98CBD085216F2CCF0085E669 /* m1923full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD084216F2CCF0085E669 /* m1923full.png */; };
@@ -491,6 +493,8 @@
 		98BEF4C72178FA5A00144C51 /* rix140full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix140full.png; sourceTree = "<group>"; };
 		98BEF4C92178FAB500144C51 /* rix143full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix143full.png; sourceTree = "<group>"; };
 		98BEF4CD21792B1800144C51 /* grn124full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn124full.png; sourceTree = "<group>"; };
+		98C98466217A901700903CED /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		98C98468217A91DD00903CED /* xln195full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln195full.png; sourceTree = "<group>"; };
 		98CBD080216F2A4E0085E669 /* m1913full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1913full.png; sourceTree = "<group>"; };
 		98CBD082216F2B0D0085E669 /* m1915full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1915full.png; sourceTree = "<group>"; };
 		98CBD084216F2CCF0085E669 /* m1923full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1923full.png; sourceTree = "<group>"; };
@@ -711,6 +715,7 @@
 				986EAA5920A10F0300F3CCDC /* Color.swift */,
 				98AA80222165F0DB004BFE0B /* ContinuousEffect.swift */,
 				98A19A3321680F51002A4296 /* Cost.swift */,
+				98C98466217A901700903CED /* Counter.swift */,
 				98E8A05020EAF79100A951DA /* Effect.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
 				9818425520CA07580068DC91 /* Mana.swift */,
@@ -973,6 +978,7 @@
 				98B87A642175E04000F7B32C /* xln175full.png */,
 				98B87A662175E12600F7B32C /* xln178full.png */,
 				98B87A682175E1F000F7B32C /* xln190full.png */,
+				98C98468217A91DD00903CED /* xln195full.png */,
 				98DCF1672176707D00B33E89 /* xln207full.png */,
 				98DCF1692176717B00B33E89 /* xln219full.png */,
 				98DCF16B217672B200B33E89 /* xln221full.png */,
@@ -1117,6 +1123,7 @@
 				98BEF4C82178FA5A00144C51 /* rix140full.png in Resources */,
 				98BEF4CE21792B1800144C51 /* grn124full.png in Resources */,
 				98ECCF2F215CCFCC0030ED51 /* lea220full.png in Resources */,
+				98C98469217A91DE00903CED /* xln195full.png in Resources */,
 				98FA8E602156BCF900EF5203 /* grn60full.png in Resources */,
 				9871B61321595A2800A6A6AB /* grn65full.png in Resources */,
 				98478520216537F9004D51A8 /* m1989full.png in Resources */,
@@ -1387,6 +1394,7 @@
 				98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */,
 				98BC88B4216D6A8600855756 /* PermanentsNode.swift in Sources */,
 				98D0438D20EE87B60009143E /* AIPlayer.swift in Sources */,
+				98C98467217A901700903CED /* Counter.swift in Sources */,
 				986D5C8A20D1BF55005E944E /* HandCardNode.swift in Sources */,
 				982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */,
 				9823DE032159AADE0080C806 /* Token.swift in Sources */,
