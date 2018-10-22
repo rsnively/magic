@@ -50,7 +50,11 @@ class Object: NSObject, NSCopying {
         set (newHaste) { baseHaste = newHaste }
     }
     var lifelink: Bool = false
-    var reach: Bool = false
+    private var baseReach: Bool = false
+    var reach: Bool {
+        get { return applyContinuousEffects().baseReach }
+        set (newReach) { baseReach = newReach }
+    }
     private var baseVigilance: Bool = false
     var vigilance: Bool {
         get { return applyContinuousEffects().baseVigilance }
@@ -100,7 +104,7 @@ class Object: NSObject, NSCopying {
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
         copy.lifelink = lifelink
-        copy.reach = reach
+        copy.baseReach = baseReach
         copy.baseVigilance = baseVigilance
         
         copy.owner = owner

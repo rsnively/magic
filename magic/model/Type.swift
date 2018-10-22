@@ -30,6 +30,7 @@ enum Subtype {
     case Cat
     case Centaur
     case Cleric
+    case Construct
     case Crab
     case Dinosaur
     case Dragon
@@ -76,6 +77,7 @@ enum Subtype {
     case Spirit
     case Swamp
     case Thopter
+    case Thrull
     case Treefolk
     case Unicorn
     case Vampire

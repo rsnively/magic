@@ -6,7 +6,16 @@ enum DOM {
 
     // 1 Karn, Scion of Urza
     // 2 Adamant Will
-    // 3 Aven Sentry
+    static func AvenSentry() -> Card {
+        let avenSentry = Card(name: "Aven Sentry", rarity: .Common, set: set, number: 3)
+        avenSentry.setManaCost("3W")
+        avenSentry.setType(.Creature, .Bird, .Soldier)
+        avenSentry.flying = true
+        avenSentry.setFlavorText("\"My flock flew from a distant continent ruined by cataclysm and war. Benalia gave us shelter to end our exodus.\"")
+        avenSentry.power = 3
+        avenSentry.toughness = 2
+        return avenSentry
+    }
     // 4 Baird, Steward of Argive
     // 5 Benalish Honor Guard
     // 6 Benalish Marshal
@@ -263,7 +272,16 @@ enum DOM {
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
     }
-    // 92 Feral Abomination
+    static func FeralAbomination() -> Card {
+        let feralAbomination = Card(name: "Feral Abomination", rarity: .Common, set: set, number: 92)
+        feralAbomination.setManaCost("5B")
+        feralAbomination.setType(.Creature, .Thrull)
+        feralAbomination.deathtouch = true
+        feralAbomination.setFlavorText("\"Urborg used to be lovely--scenic volcanoes, respectable lich lords. Since the Cabal came with their nightmares and thurlls, it's all gone to the worms.\"\n--Mister Lostspoons, Skulltown gossip")
+        feralAbomination.power = 5
+        feralAbomination.toughness = 5
+        return feralAbomination
+    }
     // 93 Final Parting
     static func FungalInfection() -> Card {
         let fungalInfection = Card(name: "Fungal Infection", rarity: .Common, set: set, number: 94)
@@ -376,7 +394,22 @@ enum DOM {
     // 152 Wizard's Lightning
     // 153 Adventurous Impulse
     // 154 Ancient Animus
-    // 155 Arbor Armament
+    static func ArborArmament() -> Card {
+        let arborArmament = Card(name: "Arbor Armament", rarity: .Common, set: set, number: 155)
+        arborArmament.setManaCost("G")
+        arborArmament.setType(.Instant)
+        arborArmament.addTargetedEffect(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                target.addCounter(.PlusOnePlusOne)
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.reach = true
+                    return object
+                }))
+        })
+        arborArmament.setFlavorText("\"Llanowar's boughs are ever ready\nTo unleash an autumn of steel leaves.\"\n--\"Song of Freyalise\"")
+        return arborArmament
+    }
     // 156 Baloth Gorger
     // 157 Broken Bond
     // 158 Corrosive Ooze
@@ -404,12 +437,30 @@ enum DOM {
     }
     // 169 Llanowar Envoy
     // 170 Llanowar Scout
-    // 171 Mammoth Spider
+    static func MammothSpider() -> Card {
+        let mammothSpider = Card(name: "Mammoth Spider", rarity: .Common, set: set, number: 171)
+        mammothSpider.setManaCost("4G")
+        mammothSpider.setType(.Creature, .Spider)
+        mammothSpider.reach = true
+        mammothSpider.setFlavorText("Most spiders of Llanowar disdain elvish alliances. No elf has as many beautiful eyes or as many strong arms.")
+        mammothSpider.power = 3
+        mammothSpider.toughness = 5
+        return mammothSpider
+    }
     // 172 Marwyn, the Nurturer
     // 173 The Mending of Dominaria
     // 174 Multani, Yavimaya's Avatar
     // 175 Nature's Spiral
-    // 176 Pierce the Sky
+    static func PierceTheSky() -> Card {
+        let pierceTheSky = Card(name: "Pierce the Sky", rarity: .Common, set: set, number: 176)
+        pierceTheSky.setManaCost("1G")
+        pierceTheSky.setType(.Instant)
+        pierceTheSky.addTargetedEffect(
+            restriction: { $0.isType(.Creature) && $0.flying },
+            effect: { pierceTheSky.damage(to: $0, 7) })
+        pierceTheSky.setFlavorText("Llanowar elves conceal their ballistae in the upper canopy of the forest, ready to clear the skies of any intruder.")
+        return pierceTheSky
+    }
     static func PrimordialWurm() -> Card {
         let primordialWurm = Card(name: "Primordial Wurm", rarity: .Common, set: set, number: 177)
         primordialWurm.setManaCost("4GG")
@@ -527,7 +578,19 @@ enum DOM {
     // 229 Short Sword
     // 230 Skittering Surveyor
     // 231 Sorcerer's Wand
-    // 232 Sparring Construct
+    static func SparringConstruct() -> Card {
+        let sparringConstruct = Card(name: "Sparring Construct", rarity: .Common, set: set, number: 232)
+        sparringConstruct.setManaCost("1")
+        sparringConstruct.setType(.Artifact, .Creature, .Construct)
+        sparringConstruct.addTargetedTriggeredAbility(
+            trigger: .ThisDies,
+            restriction: { $0.isType(.Creature) && $0.getController() == sparringConstruct.getController() },
+            effect: { $0.addCounter(.PlusOnePlusOne) })
+        sparringConstruct.setFlavorText("The trainers were a gift of gratitude from the wizards of Tolaria West to the knights of New Benalia for their aid during the Talas Incursion.")
+        sparringConstruct.power = 1
+        sparringConstruct.toughness = 1
+        return sparringConstruct
+    }
     // 233 Thran Temporal Gateway
     // 234 Traxos, Scourge of Kroog
     // 235 Urza's Tome
