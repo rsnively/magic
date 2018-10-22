@@ -18,7 +18,7 @@ class LandsCardNode: CardNode {
         touchPoint = nil
         if !moved {
             if Game.shared.isTargeting {
-                if Game.shared.targetingEffect!.meetsRestrictions(target: card) {
+                if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
                     Game.shared.selectTarget(card)
                     (self.scene as! GameScene).redraw()
                 }

@@ -59,7 +59,16 @@ class TargetedEffect: Effect {
     }
     
     func resolve() {
-        // todo: only if at least one target still valid
-        effect(targets)
+        // TODO: Still need to be able to partially invalidate effects with multiple targets (ie: Destroy two target creatures - if one target is no longer valid, the other creature still needs to get destroyed)
+        var targetsValid = true
+        for i in 0..<restrictions.count {
+            if !restrictions[i](targets[i]) {
+                targetsValid = false
+            }
+        }
+        if targetsValid {
+            effect(targets)
+        }
+        targets.removeAll()
     }
 }

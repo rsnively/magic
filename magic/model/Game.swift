@@ -10,15 +10,16 @@ class Game: NSObject {
     private var declaringAttackers: Bool
     private var declaringBlockers: Bool
     private var selectedBlocker: Object?
-    var targetingEffect: TargetedEffect?
+    var targetingEffects: [TargetedEffect] = []
     var isTargeting: Bool {
-        return targetingEffect != nil
+        return !targetingEffects.isEmpty
     }
     func selectTarget(_ target: Object) {
         assert(isTargeting)
-        targetingEffect!.selectTarget(target)
-        if targetingEffect!.allTargetsSelected() {
-            targetingEffect = nil
+        let targetingEffect = targetingEffects.last!
+        targetingEffect.selectTarget(target)
+        if targetingEffect.allTargetsSelected() {
+            _ = targetingEffects.popLast()
         }
     }
     
@@ -32,8 +33,8 @@ class Game: NSObject {
         for _ in 0..<15 {
             
             deck1.append(GRN.Plains())
-            deck1.append(GRN.HuntedWitness())
-            deck1.append(M19.AegisOfTheHeavens())
+            deck1.append(GRN.HealersHawk())
+            deck1.append(GRN.BladeInstructor())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())

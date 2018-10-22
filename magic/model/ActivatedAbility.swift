@@ -73,7 +73,7 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     func activate() {
         let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
         if Game.shared.hasTargets(effect!) {
-            Game.shared.targetingEffect = effect
+            Game.shared.targetingEffects.append(effect!)
             Game.shared.theStack.push(self)
         }
     }

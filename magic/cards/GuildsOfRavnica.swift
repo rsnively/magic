@@ -3,8 +3,25 @@ import Foundation
 enum GRN {
     static var set = "grn"
     static var count = 259
+    
+    static func Mentor(_ source: Object) -> TriggeredAbility {
+        return TargetedTriggeredAbility(
+            source: source,
+            trigger: .ThisAttacks,
+            restriction: { $0.isType(.Creature) && $0.attacking && $0.getPower() < source.getPower() },
+            effect: { $0.addCounter(.PlusOnePlusOne) })
+    }
 
-    // 1 Blade Instructor
+    static func BladeInstructor() -> Card {
+        let bladeInstructor = Card(name: "Blade Instructor", rarity: .Common, set: set, number: 1)
+        bladeInstructor.setManaCost("2W")
+        bladeInstructor.setType(.Creature, .Human, .Soldier)
+        bladeInstructor.triggeredAbilities.append(Mentor(bladeInstructor));
+        bladeInstructor.setFlavorText("\"Watch carefully. The gap between death and victory is thinner than your blade.\"")
+        bladeInstructor.power = 3
+        bladeInstructor.toughness = 1
+        return bladeInstructor
+    }
     // 2 Bounty Agent
     // 3 Candlelight Vigil
     static func CitywideBust() -> Card {
