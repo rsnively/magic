@@ -89,7 +89,24 @@ enum DOM {
         return mesaUnicorn
     }
     // 28 On Serra's Wings
-    // 29 Pegasus Courser
+    static func PegasusCourser() -> Card {
+        let pegasusCourser = Card(name: "Pegasus Couser", rarity: .Common, set: set, number: 29)
+        pegasusCourser.setManaCost("2W")
+        pegasusCourser.setType(.Creature, .Pegasus)
+        pegasusCourser.flying = true
+        pegasusCourser.addTargetedTriggeredAbility(
+            trigger: .ThisAttacks,
+            restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.flying = true
+                return object
+            }))
+        })
+        pegasusCourser.setFlavorText("A pegasus chooses its rider, bearing the worthy into the clouds and tossing all others to the ground.")
+        pegasusCourser.power = 1
+        pegasusCourser.toughness = 3
+        return pegasusCourser
+    }
     // 30 Sanctum Spirit
     // 31 Seal Away
     // 32 Sergeant-at-Arms
