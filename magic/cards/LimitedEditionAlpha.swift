@@ -47,7 +47,18 @@ enum LEA {
     // 23 Holy Armor
     // 24 Holy Strength
     // 25 Island Sanctuary
-    // 26 Karma
+    static func Karma() -> Card {
+        let karma = Card(name: "Karma", rarity: .Uncommon, set: set, number: 26)
+        karma.setManaCost("2WW")
+        karma.setType(.Enchantment)
+        karma.addUntargetedTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: {
+                let numSwamps = Game.shared.getActivePlayer().getPermanents().filter({ $0.isType(.Swamp) }).count
+                karma.damage(to: Game.shared.getActivePlayer(), numSwamps)
+        })
+        return karma
+    }
     // 27 Lance
     // 28 Mesa Pegasus
     // 29 Northern Paladin
@@ -65,7 +76,15 @@ enum LEA {
     // 33 Red Ward
     // 34 Resurrection
     // 35 Reverse Damage
-    // 36 Righteousness
+    static func Righteousness() -> Card {
+        let righteousness = Card(name: "Righteousness", rarity: .Rare, set: set, number: 36)
+        righteousness.setManaCost("W")
+        righteousness.setType(.Instant)
+        righteousness.addTargetedEffect(
+            restriction: { $0.isType(.Creature) && $0.blocking },
+            effect: { $0.pump(7, 7) })
+        return righteousness
+    }
     // 37 Samite Healer
     static func SavannahLions() -> Card {
         let savannahLions = Card(name: "Savannah Lions", rarity: .Rare, set: set, number: 38)
@@ -76,10 +95,30 @@ enum LEA {
         savannahLions.toughness = 1
         return savannahLions
     }
-    // 39 Serra Angel
+    static func SerraAngel() -> Card {
+        let serraAngel = Card(name: "Serra Angel", rarity: .Uncommon, set: set, number: 39)
+        serraAngel.setManaCost("3WW")
+        serraAngel.setType(.Creature, .Angel)
+        serraAngel.flying = true
+        serraAngel.vigilance = true
+        serraAngel.setFlavorText("Born with wings of light and a sword of faith, this heavenly incarnation embodies both fury and purity.")
+        serraAngel.power = 4
+        serraAngel.toughness = 4
+        return serraAngel
+    }
     // 40 Swords to Plowshares
     // 41 Veteran Bodyguard
-    // 42 Wall of Swords
+    static func WallOfSwords() -> Card {
+        let wallOfSwords = Card(name: "Wall of Swords", rarity: .Uncommon, set: set, number: 42)
+        wallOfSwords.setManaCost("3W")
+        wallOfSwords.setType(.Creature, .Wall)
+        wallOfSwords.defender = true
+        wallOfSwords.flying = true
+        wallOfSwords.setFlavorText("Just as the evil ones approached to slay Justina, she cast a great spell, imbuing her weapons with her own life force. Thus she fulfilled the prophecy: \"In the death of your savior will you find salvation.\"")
+        wallOfSwords.power = 3
+        wallOfSwords.toughness = 5
+        return wallOfSwords
+    }
     // 43 White Knight
     // 44 White Ward
     // 45 Wrath of God

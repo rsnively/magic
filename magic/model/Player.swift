@@ -150,7 +150,7 @@ class Player: NSObject {
                         blocker.damage(to: permanent, max(blocker.getPower(), 0))
                     }
                 } else {
-                    permanent.damage(to: Game.shared.getNonActivePlayer(), amount: max(permanent.getPower(), 0))
+                    permanent.damage(to: Game.shared.getNonActivePlayer(), max(permanent.getPower(), 0))
                 }
             }
         }

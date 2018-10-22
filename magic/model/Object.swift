@@ -343,7 +343,7 @@ class Object: NSObject, NSCopying {
             recipient.damagedByDeathtouch = true
         }
     }
-    func damage(to recipient: Player, amount: Int) {
+    func damage(to recipient: Player, _ amount: Int) {
         recipient.damage(amount)
         hasDealtDamage(amount: amount)
     }
