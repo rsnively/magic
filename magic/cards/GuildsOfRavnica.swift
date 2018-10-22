@@ -99,10 +99,33 @@ enum GRN {
     }
     // 17 Intrusive Packbeast
     // 18 Ledev Guardian
-    // 19 Light of the Legion
+    static func LightOfTheLegion() -> Card {
+        let lightOfTheLegion = Card(name: "Light of the Legion", rarity: .Rare, set: set, number: 19)
+        lightOfTheLegion.setManaCost("4WW")
+        lightOfTheLegion.setType(.Creature, .Angel)
+        lightOfTheLegion.flying = true
+        lightOfTheLegion.triggeredAbilities.append(Mentor(lightOfTheLegion))
+        lightOfTheLegion.addUntargetedTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { lightOfTheLegion.getController().getCreatures().filter({ $0.isColor(.White) }).forEach({ $0.addCounter(.PlusOnePlusOne)} )})
+        lightOfTheLegion.power = 5
+        lightOfTheLegion.toughness = 5
+        return lightOfTheLegion
+    }
     // 20 Loxodon Recruiter
     // 21 Luminous Bonds
-    // 22 Parhelion Patrol
+    static func ParhelionPatrol() -> Card {
+        let parhelionPatrol = Card(name: "Parhelion Patrol", rarity: .Common, set: set, number: 22)
+        parhelionPatrol.setManaCost("3W")
+        parhelionPatrol.setType(.Creature, .Human, .Knight)
+        parhelionPatrol.flying = true
+        parhelionPatrol.vigilance = true
+        parhelionPatrol.triggeredAbilities.append(Mentor(parhelionPatrol))
+        parhelionPatrol.setFlavorText("\"Too many have disappeared in these dark days. I am the light that will lead them home.\"")
+        parhelionPatrol.power = 2
+        parhelionPatrol.toughness = 3
+        return parhelionPatrol
+    }
     static func RighteousBlow() -> Card {
         let righteousBlow = Card(name: "Righteous Blow", rarity: .Common, set: set, number: 23)
         righteousBlow.setManaCost("W")
@@ -113,7 +136,24 @@ enum GRN {
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
     }
-    // 24 Roc Charger
+    static func RocCharger() -> Card {
+        let rocCharger = Card(name: "Roc Charger", rarity: .Uncommon, set: set, number: 24)
+        rocCharger.setManaCost("2W")
+        rocCharger.setType(.Creature, .Bird)
+        rocCharger.flying = true
+        rocCharger.addTargetedTriggeredAbility(
+            trigger: .ThisAttacks,
+            restriction: { $0.attacking && $0.isType(.Creature) && !$0.flying },
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.flying = true
+                return object
+            }))
+        })
+        rocCharger.setFlavorText("Rocs' innate fearlessness makes them ideal mounts for emergency response.")
+        rocCharger.power = 1
+        rocCharger.toughness = 3
+        return rocCharger
+    }
     // 25 Skyline Scout
     // 26 Sunhome Stalwart
     static func SwornCompanions() -> Card {
@@ -311,7 +351,19 @@ enum GRN {
         return ritualOfSoot
     }
     // 85 Severed Strands
-    // 86 Spinal Centipede
+    static func SpinalCentipede() -> Card {
+        let spinalCentipede = Card(name: "Spinal Centipede", rarity: .Common, set: set, number: 86)
+        spinalCentipede.setManaCost("2B")
+        spinalCentipede.setType(.Creature, .Insect)
+        spinalCentipede.addTargetedTriggeredAbility(
+            trigger: .ThisDies,
+            restriction: { $0.isType(.Creature) && $0.getController() == spinalCentipede.getController() },
+            effect: { $0.addCounter(.PlusOnePlusOne) })
+        spinalCentipede.setFlavorText("The Golgari adorn themselves with the exoskeletons of iridescent insects. It's only fair the insects do likewise.")
+        spinalCentipede.power = 3
+        spinalCentipede.toughness = 2
+        return spinalCentipede
+    }
     // 87 Undercity Necrolisk
     static func VeiledShade() -> Card {
         let veiledShade = Card(name: "Veiled Shade", rarity: .Common, set: set, number: 88)
@@ -328,7 +380,17 @@ enum GRN {
     // 89 Vicious Rumors
     // 90 Whispering Snitch
     // 91 Arclight Phoenix
-    // 92 Barging Sergeant
+    static func BargingSergeant() -> Card {
+        let bargingSergeant = Card(name: "Barging Sergeant", rarity: .Common, set: set, number: 92)
+        bargingSergeant.setManaCost("4R")
+        bargingSergeant.setType(.Creature, .Minotaur, .Soldier)
+        bargingSergeant.haste = true
+        bargingSergeant.triggeredAbilities.append(Mentor(bargingSergeant))
+        bargingSergeant.setFlavorText("\"Don't stop till your horns come out their back.\"")
+        bargingSergeant.power = 4
+        bargingSergeant.toughness = 2
+        return bargingSergeant
+    }
     // 93 Book Devourer
     static func CommandTheStorm() -> Card {
         let commandTheStorm = Card(name: "Command the Storm", rarity: .Common, set: set, number: 94)
@@ -367,7 +429,19 @@ enum GRN {
         return fearlessHalberdier
     }
     // 101 Fire Urchin
-    // 102 Goblin Banneret
+    static func GoblinBanneret() -> Card {
+        let goblinBanneret = Card(name: "Goblin Banneret", rarity: .Uncommon, set: set, number: 102)
+        goblinBanneret.setManaCost("R")
+        goblinBanneret.setType(.Creature, .Goblin, .Soldier)
+        goblinBanneret.triggeredAbilities.append(Mentor(goblinBanneret))
+        goblinBanneret.addUntargetedActivatedAbility(
+            cost: Cost("1R"),
+            effect: { goblinBanneret.pump(2, 0) })
+        goblinBanneret.setFlavorText("The Boros banner stands tall even if its bearer doesn't.")
+        goblinBanneret.power = 1
+        goblinBanneret.toughness = 1
+        return goblinBanneret
+    }
     // 103 Golin Cratermaker
     // 104 Goblin Locksmith
     // 105 Gravitic Punch
@@ -479,7 +553,19 @@ enum GRN {
         hitchlawRecluse.toughness = 4
         return hitchlawRecluse
     }
-    // 134 Ironshell Beetle
+    static func IronshellBeetle() -> Card {
+        let ironshellBeetle = Card(name: "Ironshell Beetle", rarity: .Common, set: set, number: 134)
+        ironshellBeetle.setManaCost("1G")
+        ironshellBeetle.setType(.Creature, .Insect)
+        ironshellBeetle.addTargetedTriggeredAbility(
+            trigger: .ThisETB,
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.addCounter(.PlusOnePlusOne) })
+        ironshellBeetle.setFlavorText("\"Please don't feed the beetles.\"\n--Promenade warning sign")
+        ironshellBeetle.power = 1
+        ironshellBeetle.toughness = 1
+        return ironshellBeetle
+    }
     static func KraulForagers() -> Card {
         let kraulForagers = Card(name: "Kraul Foragers", rarity: .Common, set: set, number: 135)
         kraulForagers.setManaCost("4G")
@@ -518,7 +604,17 @@ enum GRN {
     // 140 Pause for Reflection
     // 141 Pelt Collector
     // 142 Portcullis Vine
-    // 143 Prey Upon
+    static func PreyUpon() -> Card {
+        let preyUpon = Card(name: "Prey Upon", rarity: .Common, set: set, number: 143)
+        preyUpon.setManaCost("G")
+        preyUpon.setType(.Sorcery)
+        preyUpon.addTargetedEffect(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() == preyUpon.getController() },
+                           { $0.isType(.Creature) && $0.getController() != preyUpon.getController() }],
+            effect: { targets in targets[0].fight(targets[1]) })
+        preyUpon.setFlavorText("\"Light up the dark to find your way, and the dark may seek you out.\"\n--Zalin the Gutter Bard")
+        return preyUpon
+    }
     // 144 Siege Wurm
     // 145 Sprouting Renewal
     // 146 Urban Utopia
@@ -548,7 +644,7 @@ enum GRN {
     // 153 Aurelia, Exemplar of Justice
     // 154 Beacon Bolt
     // 155 Beamsplitter Mage
-    // 156 Boros Challenger
+    // 156 Boros Challenger -- CANDO
     static func Camaraderie() -> Card {
         let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
         camaraderie.setManaCost("4GW")
@@ -606,7 +702,7 @@ enum GRN {
     // 173 Glowspore Shaman
     // 174 Goblin Electromancer
     // 175 Golgari Findbroker
-    // 176 Hammer Dropper
+    // 176 Hammer Dropper -- CANDO
     // 177 House Guildmage
     // 178 Hypothesizzle
     // 179 Ionize

@@ -174,6 +174,7 @@ class Object: NSObject, NSCopying {
     func isType(_ type: Type) -> Bool { return types.contains(type) }
     func isType(_ supertype: Supertype) -> Bool { return supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
+    func isColor(_ color: Color) -> Bool { return colors.contains(color) }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     func isSpell() -> Bool { return false }
     
@@ -346,6 +347,11 @@ class Object: NSObject, NSCopying {
     func damage(to recipient: Player, _ amount: Int) {
         recipient.damage(amount)
         hasDealtDamage(amount: amount)
+    }
+    
+    func fight(_ opponent: Object) {
+        self.damage(to: opponent, max(getPower(), 0))
+        opponent.damage(to: self, max(opponent.getPower(), 0))
     }
     
     func removeDamage() {
