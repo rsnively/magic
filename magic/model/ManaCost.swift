@@ -19,6 +19,21 @@ class ManaCost: NSObject {
         super.init()
     }
     
+    func getString() -> String {
+        var ret = ""
+        if genericMana > 0 {
+            ret += String(genericMana)
+        }
+        for mana in coloredMana {
+            if let color = mana.getColor() {
+                ret += String(color.rawValue)
+            } else {
+                ret += "C"
+            }
+        }
+        return ret
+    }
+    
     func getColors() -> Set<Color> {
         var colors = Set<Color>()
         for mana in coloredMana {

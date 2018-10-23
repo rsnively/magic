@@ -51,9 +51,10 @@ class CommandButtonsNode: SKNode {
     
     private var touching = false
     func touchDown(atPoint pos:CGPoint) {
-        if okayButton.contains(pos) {
+        if okayButton.contains(pos) && !Game.shared.isTargeting && !Game.shared.isSelectingAbility {
             touching = true
             okayButton.color = SKColor.orange
+            (self.scene as! GameScene).redraw()
         }
     }
     
@@ -63,7 +64,6 @@ class CommandButtonsNode: SKNode {
             okayButton.color = SKColor.green
             if okayButton.contains(pos) {
                 Game.shared.advanceGame()
-                (self.scene as! GameScene).redraw()
             }
         }
     }

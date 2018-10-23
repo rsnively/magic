@@ -17,19 +17,26 @@ class LandsCardNode: CardNode {
     override func touchUp(atPoint pos : CGPoint) {
         touchPoint = nil
         if !moved {
+            if let abilitySelector = self.abilitySelector {
+                abilitySelector.touchUp(atPoint: convert(pos, from: parent!))
+                return
+            }
             if Game.shared.isTargeting {
                 if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
                     Game.shared.selectTarget(card)
                     (self.scene as! GameScene).redraw()
                 }
             } else if card.canActivateAbilities() {
-                // todo: multiple activated abilities
-                let ability = card.activatedAbilities.first!
-                if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost())  {
-                    card.getController().payFor(ability.getCost(), card)
-                    ability.activate()
-                    (self.scene as! GameScene).redraw()
-                    return
+                if card.activatedAbilities.count > 1 {
+                    Game.shared.selectingAbilityObject = self.card
+                } else {
+                    let ability = card.activatedAbilities.first!
+                    if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost()) {
+                        card.getController().payFor(ability.getCost(), card)
+                        ability.activate()
+                        (self.scene as! GameScene).redraw()
+                        return
+                    }
                 }
             }
         }

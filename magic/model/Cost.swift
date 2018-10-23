@@ -16,4 +16,19 @@ class Cost {
     func getTapCost() -> Bool {
         return tapCost
     }
+    
+    func getString() -> String {
+        var ret = ""
+        if manaCost.converted() > 0 {
+            ret += manaCost.getString()
+        }
+        if tapCost {
+            if !ret.isEmpty {
+                ret += ", "
+            }
+            ret += "TAP"
+        }
+        ret += ": "
+        return ret
+    }
 }

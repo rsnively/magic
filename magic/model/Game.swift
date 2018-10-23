@@ -14,6 +14,10 @@ class Game: NSObject {
     var isTargeting: Bool {
         return !targetingEffects.isEmpty
     }
+    var selectingAbilityObject: Object?
+    var isSelectingAbility: Bool {
+        return selectingAbilityObject != nil
+    }
     func selectTarget(_ target: Object) {
         assert(isTargeting)
         let targetingEffect = targetingEffects.last!
@@ -32,9 +36,9 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.HealersHawk())
-            deck1.append(GRN.BladeInstructor())
+            deck1.append(LEA.UndergroundSea())
+            deck1.append(DOM.FungalInfection())
+            deck1.append(M19.MysticArchaeologist())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())

@@ -583,7 +583,20 @@ enum LEA {
     // 282 Taiga
     // 283 Tropical Island
     // 284 Tundra
-    // 285 Underground Sea
+    static func UndergroundSea() -> Card {
+        let undergroundSea = Card(name: "Underground Sea", rarity: .Rare, set: set, number: 285)
+        undergroundSea.setManaCost("")
+        undergroundSea.setType(.Land, .Island, .Swamp)
+        undergroundSea.addUntargetedActivatedAbility(
+            cost: Cost("", tap: true),
+            effect: { undergroundSea.getController().addMana(color: .Black) },
+            manaAbility: true )
+        undergroundSea.addUntargetedActivatedAbility(
+            cost: Cost("", tap: true),
+            effect: { undergroundSea.getController().addMana(color: .Blue) },
+            manaAbility: true )
+        return undergroundSea
+    }
     // 286 Plains
     // 287 Plains
     // 288 Island

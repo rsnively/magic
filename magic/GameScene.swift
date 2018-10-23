@@ -172,6 +172,8 @@ class GameScene: SKScene {
             expandedCard = nil
             return
         }
+        let wasSelectingAbility = Game.shared.isSelectingAbility
+        
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
         playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchUp(atPoint:convert(pos, to:playerOtherPermanentsNode))
@@ -185,6 +187,9 @@ class GameScene: SKScene {
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
         
         Game.shared.deselectBlocker()
+        if wasSelectingAbility {
+            Game.shared.selectingAbilityObject = nil
+        }
         redraw()
     }
     

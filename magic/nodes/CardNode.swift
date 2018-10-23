@@ -4,6 +4,8 @@ import SpriteKit
 class CardNode: SKSpriteNode {
     unowned var card:Object
     
+    var abilitySelector: AbilitySelector?
+    
     private static let cardAspectRatio:CGFloat = 0.714
     private static func getMaximumCardSize(for size:CGSize) -> CGSize {
         return size.width > size.height * cardAspectRatio
@@ -70,6 +72,12 @@ class CardNode: SKSpriteNode {
         for (counter, amount) in card.counters {
             addChild(CardNode.getCounterLabelNode(type: counter, amount: amount, index: numCounterLabelNodes, cardSize: size))
             numCounterLabelNodes += 1
+        }
+        
+        if card.isSelectingAbility() {
+            abilitySelector = AbilitySelector(object: card, cardSize: size)
+            abilitySelector!.zPosition = 0.2
+            addChild(abilitySelector!)
         }
 
     }
