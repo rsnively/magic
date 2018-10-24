@@ -48,6 +48,7 @@ enum XLN {
         duskborneSkymarcher.setType(.Creature, .Vampire, .Cleric)
         duskborneSkymarcher.flying = true
         duskborneSkymarcher.addTargetedActivatedAbility(
+            string: "{W}, {T}: Target attacking Vampire gets +1/+1 until end of turn.",
             cost: Cost("W", tap: true),
             restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
             effect: { $0.pump(1, 1) })
@@ -417,6 +418,7 @@ enum XLN {
         fathomFleetFirebrand.setManaCost("1R")
         fathomFleetFirebrand.setType(.Creature, .Human, .Pirate)
         fathomFleetFirebrand.addUntargetedActivatedAbility(
+            string: "{1}{R}: ~ gets +1/+1 until end of turn.",
             cost: Cost("1R"),
             effect: { fathomFleetFirebrand.pump(1, 0) })
         fathomFleetFirebrand.setFlavorText("As she charges into battle, her arcane tattoos stir and crawl like fiery serpents.")
@@ -504,6 +506,7 @@ enum XLN {
         blossomDryad.setManaCost("2G")
         blossomDryad.setType(.Creature, .Dryad)
         blossomDryad.addTargetedActivatedAbility(
+            string: "{T}: Untap target land.",
             cost: Cost("", tap: true),
             restriction: { return $0.isType(.Land) },
             effect: { target in target.untap() })
@@ -542,6 +545,7 @@ enum XLN {
         jungleDelver.setManaCost("G")
         jungleDelver.setType(.Creature, .Merfolk, .Warrior)
         jungleDelver.addUntargetedActivatedAbility(
+            string: "{3}{G}: Put a +1/+1 counter on ~.",
             cost: Cost("3G"),
             effect: { jungleDelver.addCounter(.PlusOnePlusOne) })
         jungleDelver.setFlavorText("\"There is no power too great to be used in the defense of our ancestral lands.\"")

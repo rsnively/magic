@@ -40,7 +40,7 @@ class AbilitySelectorNode: SKNode {
         self.object = object
         self.index = index
         
-        self.labelNode = SKLabelNode(text: object.activatedAbilities[index].getCost().getString())
+        self.labelNode = SKLabelNode(text: object.activatedAbilities[index].getString())
         self.labelNode.fontColor = UIColor.white
         self.labelNode.fontSize = cardSize.height * 0.1;
         self.labelNode.position = CGPoint(x: cardSize.width * 0.25, y: cardSize.height * 0.11 * CGFloat(index) - cardSize.height * 0.05)

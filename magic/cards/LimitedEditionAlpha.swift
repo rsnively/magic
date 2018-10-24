@@ -588,10 +588,12 @@ enum LEA {
         undergroundSea.setManaCost("")
         undergroundSea.setType(.Land, .Island, .Swamp)
         undergroundSea.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { undergroundSea.getController().addMana(color: .Black) },
             manaAbility: true )
         undergroundSea.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { undergroundSea.getController().addMana(color: .Blue) },
             manaAbility: true )

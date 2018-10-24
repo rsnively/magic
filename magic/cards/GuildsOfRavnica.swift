@@ -370,6 +370,7 @@ enum GRN {
         veiledShade.setManaCost("2B")
         veiledShade.setType(.Creature, .Shade)
         veiledShade.addUntargetedActivatedAbility(
+            string: "{1}{B}: ~ gets +1/+1 until end of turn.",
             cost: Cost("1B"),
             effect: { veiledShade.pump(1, 1) })
         veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
@@ -435,6 +436,7 @@ enum GRN {
         goblinBanneret.setType(.Creature, .Goblin, .Soldier)
         goblinBanneret.triggeredAbilities.append(Mentor(goblinBanneret))
         goblinBanneret.addUntargetedActivatedAbility(
+            string: "{1}{R}: ~ gets +2/+0 until end of turn.",
             cost: Cost("1R"),
             effect: { goblinBanneret.pump(2, 0) })
         goblinBanneret.setFlavorText("The Boros banner stands tall even if its bearer doesn't.")
@@ -520,6 +522,7 @@ enum GRN {
         devkarinDissident.setManaCost("1G")
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
         devkarinDissident.addUntargetedActivatedAbility(
+            string: "{4}{G}: ~ gets +2/+2 until end of turn.",
             cost: Cost("4G"),
             effect: { devkarinDissident.pump(2, 2) })
         devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
@@ -834,6 +837,7 @@ enum GRN {
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
         plains.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { plains.getController().addMana(color: .White) },
             manaAbility: true)
@@ -844,6 +848,7 @@ enum GRN {
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
         island.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true)
@@ -854,6 +859,7 @@ enum GRN {
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
         swamp.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true)
@@ -864,6 +870,7 @@ enum GRN {
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
         mountain.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true)
@@ -874,6 +881,7 @@ enum GRN {
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
         forest.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true)

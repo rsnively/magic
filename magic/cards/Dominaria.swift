@@ -253,6 +253,7 @@ enum DOM {
         dreadShade.setManaCost("BBB")
         dreadShade.setType(.Creature, .Shade)
         dreadShade.addUntargetedActivatedAbility(
+            string: "{B}: ~ gets +1/+1 until end of turn.",
             cost: Cost("B"),
             effect: { dreadShade.pump(1, 1) })
         dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
@@ -427,6 +428,7 @@ enum DOM {
         llanowarElves.setManaCost("G")
         llanowarElves.setType(.Creature, .Elf)
         llanowarElves.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { llanowarElves.getController().addMana(color: .Green) },
             manaAbility: true)
@@ -547,6 +549,7 @@ enum DOM {
         icyManipulator.setManaCost("4")
         icyManipulator.setType(.Artifact)
         icyManipulator.addTargetedActivatedAbility(
+            string: "{1}, {T}: Tap target artifact, creature, or land.",
             cost: Cost("1", tap: true),
             restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
             effect: { target in target.tap() })
@@ -565,6 +568,7 @@ enum DOM {
         powerstoneShard.setManaCost("3")
         powerstoneShard.setType(.Artifact)
         powerstoneShard.addUntargetedActivatedAbility(
+            string: "{T}: Add {C} for each artifact you control named Powerstone Shard.",
             cost: Cost("", tap: true),
             effect: {
                 let count = powerstoneShard.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count

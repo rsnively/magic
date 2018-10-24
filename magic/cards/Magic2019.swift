@@ -310,6 +310,7 @@ enum M19 {
         mysticArchaeologist.setManaCost("1U")
         mysticArchaeologist.setType(.Creature, .Human, .Wizard)
         mysticArchaeologist.addUntargetedActivatedAbility(
+            string: "{3}{U}{U}: Draw two cards.",
             cost: Cost("3UU"),
             effect: { mysticArchaeologist.getController().drawCards(2) })
         mysticArchaeologist.setFlavorText("The delight of discovery drives the pursuit of knowledge.")
@@ -521,6 +522,7 @@ enum M19 {
         vampireNeonate.setManaCost("B")
         vampireNeonate.setType(.Creature, .Vampire)
         vampireNeonate.addUntargetedActivatedAbility(
+            string: "{2}, {T}: Each opponent loses 1 life and you gain 1 life.",
             cost: Cost("2", tap: true),
             effect: {
                 vampireNeonate.getController().getOpponent().loseLife(1)
@@ -611,6 +613,7 @@ enum M19 {
         goblinMotivator.setManaCost("R")
         goblinMotivator.setType(.Creature, .Goblin, .Warrior)
         goblinMotivator.addTargetedActivatedAbility(
+            string: "{T}: Target creature gains haste until end of turn.",
             cost: Cost("", tap: true),
             restriction: { return $0.isType(.Creature) },
             effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -714,6 +717,7 @@ enum M19 {
         druidOfTheCowl.setManaCost("1G")
         druidOfTheCowl.setType(.Creature, .Elf, .Druid)
         druidOfTheCowl.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { druidOfTheCowl.getController().addMana(color: .Green) },
             manaAbility: true)
@@ -877,6 +881,7 @@ enum M19 {
         arcaneEncyclopedia.setManaCost("3")
         arcaneEncyclopedia.setType(.Artifact)
         arcaneEncyclopedia.addUntargetedActivatedAbility(
+            string: "{3}, {T}: Draw a card.",
             cost: Cost("3", tap: true),
             effect: { arcaneEncyclopedia.getController().drawCard() })
         arcaneEncyclopedia.setFlavorText("Knowledge itself is neither good nor evil. Just as the wrong book in the wrong hands could doom all existence, the same book in the right hands could save it.")
@@ -939,6 +944,7 @@ enum M19 {
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
         plains.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { plains.getController().addMana(color: .White) },
             manaAbility: true )
@@ -952,6 +958,7 @@ enum M19 {
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
         island.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true )
@@ -965,6 +972,7 @@ enum M19 {
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
         swamp.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true )
@@ -978,6 +986,7 @@ enum M19 {
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
         mountain.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true )
@@ -991,6 +1000,7 @@ enum M19 {
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
         forest.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true )
@@ -1037,6 +1047,7 @@ enum M19 {
         dragon.setType(.Creature, .Dragon)
         dragon.flying = true
         dragon.addUntargetedActivatedAbility(
+            string: "{R}: ~ gets +1/+0 until end of turn.",
             cost: Cost("R"),
             effect: { dragon.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1

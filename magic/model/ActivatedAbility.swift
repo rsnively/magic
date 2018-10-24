@@ -3,17 +3,20 @@ import Foundation
 protocol ActivatedAbility {
     func getSource() -> Object
     func getCost() -> Cost
+    func getString() -> String
     func activate() -> Void
     func resolve() -> Void
 }
 
 class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var source: Object
+    private var string: String
     private var cost: Cost
     private var manaAbility: Bool
     
-    init(source: Object, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false) {
         self.source = source
+        self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
         super.init(name: "Activated Ability of " + source.getName())
@@ -23,6 +26,10 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     
     func getSource() -> Object {
         return source
+    }
+    
+    func getString() -> String {
+        return string
     }
     
     func getCost() -> Cost {
@@ -52,11 +59,13 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
 
 class TargetedActivatedAbility: Object, ActivatedAbility {
     private var source: Object
+    private var string: String
     private var cost: Cost
     private var manaAbility: Bool
     
-    init(source: Object, cost: Cost, restriction: @escaping(Object) -> Bool, effect:@escaping(Object) -> Void, manaAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, restriction: @escaping(Object) -> Bool, effect:@escaping(Object) -> Void, manaAbility: Bool = false) {
         self.source = source
+        self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
         super.init(name: "Activated Ability of " + source.getName())
@@ -68,6 +77,9 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     func getCost() -> Cost {
         return cost
+    }
+    func getString() -> String {
+        return string
     }
     
     func activate() {
