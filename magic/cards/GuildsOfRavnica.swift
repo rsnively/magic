@@ -647,7 +647,20 @@ enum GRN {
     // 153 Aurelia, Exemplar of Justice
     // 154 Beacon Bolt
     // 155 Beamsplitter Mage
-    // 156 Boros Challenger -- CANDO
+    static func BorosChallenger() -> Card {
+        let borosChallenger = Card(name: "Boros Challenger", rarity: .Uncommon, set: set, number: 156)
+        borosChallenger.setManaCost("RW")
+        borosChallenger.setType(.Creature, .Human, .Soldier)
+        borosChallenger.triggeredAbilities.append(Mentor(borosChallenger))
+        borosChallenger.addUntargetedActivatedAbility(
+            string: "{2}{R}{W}: ~ gets +1/+1 until end of turn.",
+            cost: Cost("2RW"),
+            effect: { borosChallenger.pump(1, 1) })
+        borosChallenger.setFlavorText("\"Send your champion. I could use a light workout.\"")
+        borosChallenger.power = 2
+        borosChallenger.toughness = 3
+        return borosChallenger
+    }
     static func Camaraderie() -> Card {
         let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
         camaraderie.setManaCost("4GW")
@@ -705,7 +718,16 @@ enum GRN {
     // 173 Glowspore Shaman
     // 174 Goblin Electromancer
     // 175 Golgari Findbroker
-    // 176 Hammer Dropper -- CANDO
+    static func HammerDropper() -> Card {
+        let hammerDropper = Card(name: "Hammer Dropper", rarity: .Common, set: set, number: 176)
+        hammerDropper.setManaCost("2RW")
+        hammerDropper.setType(.Creature, .Giant, .Soldier)
+        hammerDropper.triggeredAbilities.append(Mentor(hammerDropper))
+        hammerDropper.setFlavorText("Giants know a solid hit is one part strength, four parts leverage.")
+        hammerDropper.power = 5
+        hammerDropper.toughness = 2
+        return hammerDropper
+    }
     // 177 House Guildmage
     // 178 Hypothesizzle
     // 179 Ionize
@@ -725,7 +747,23 @@ enum GRN {
     // 184 Lazav, the Multifarious
     // 185 League Guildmage
     // 186 Ledev Champion
-    // 187 Legion Guildmage
+    static func LegionGuildmage() -> Card {
+        let legionGuildmage = Card(name: "Legion Guildmage", rarity: .Uncommon, set: set, number: 187)
+        legionGuildmage.setManaCost("RW")
+        legionGuildmage.setType(.Creature, .Human, .Wizard)
+        legionGuildmage.addUntargetedActivatedAbility(
+            string: "{5}{R}, {T}: ~ deals 3 damage to each opponent.",
+            cost: Cost("5R", tap: true),
+            effect: { legionGuildmage.damage(to: legionGuildmage.getController().getOpponent(), 3) })
+        legionGuildmage.addTargetedActivatedAbility(
+            string: "{2}{W}, {T}: Tap another target creature.",
+            cost: Cost("2W", tap: true),
+            restriction: { $0.isType(.Creature) && $0 != legionGuildmage },
+            effect: { $0.tap() })
+        legionGuildmage.power = 2
+        legionGuildmage.toughness = 2
+        return legionGuildmage
+    }
     // 188 March of the Multitudes
     // 189 Mnemonic Betrayal
     // 190 Molderhulk
@@ -770,7 +808,25 @@ enum GRN {
     // 207 Thousand-Year Storm
     // 208 Trostani Discordant
     // 209 Truefire Captain
-    // 210 Undercity Uprising
+    static func UndercityUprising() -> Card {
+        let undercityUprising = Card(name: "Undercity Uprising", rarity: .Common, set: set, number: 210)
+        undercityUprising.setManaCost("2BG")
+        undercityUprising.setType(.Sorcery)
+        undercityUprising.addTargetedEffect(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() == undercityUprising.getController() },
+                           { $0.isType(.Creature) && $0.getController() != undercityUprising.getController() }],
+            effect: { targets in
+                undercityUprising.getController().getCreatures().forEach({ creature in
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                        object.deathtouch = true
+                        return object
+                    }))
+                })
+                targets[0].fight(targets[1])
+        })
+        undercityUprising.setFlavorText("\"Now it's your turn to hide.\"\n--Vraska")
+        return undercityUprising
+    }
     // 211 Underrealm Lich
     // 212 Unmoored Ego
     // 213 Vraska, Golgari Queen
