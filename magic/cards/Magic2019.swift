@@ -258,7 +258,19 @@ enum M19 {
     // 42 Valiant Knight
     // 43 Aether Tunnel
     // 44 Anticipate
-    // 45 Aven Wind Mage
+    static func AvenWindMage() -> Card {
+        let avenWindMage = Card(name: "Aven Wind Mage", rarity: .Common, set: set, number: 45)
+        avenWindMage.setManaCost("2U")
+        avenWindMage.setType(.Creature, .Bird, .Wizard)
+        avenWindMage.flying = true
+        avenWindMage.addUntargetedTriggeredAbility(
+            trigger: .CastInstantOrSorcery,
+            effect: { avenWindMage.pump(1, 1) })
+        avenWindMage.setFlavorText("\"My skill sharpens with each beat of my wings.\"")
+        avenWindMage.power = 2
+        avenWindMage.toughness = 2
+        return avenWindMage
+    }
     static func AviationPioneer() -> Card {
         let aviationPioneer = Card(name: "Aviation Pioneer", rarity: .Common, set: set, number: 46)
         aviationPioneer.setManaCost("2U")
@@ -297,7 +309,19 @@ enum M19 {
     // 52 Djinn of Wishes
     // 53 Dwindle
     // 54 Essence Scatter
-    // 55 Exclusion Mage
+    static func ExclusionMage() -> Card {
+        let exclusionMage = Card(name: "Exclusion Mage", rarity: .Uncommon, set: set, number: 55)
+        exclusionMage.setManaCost("2U")
+        exclusionMage.setType(.Creature, .Human, .Wizard)
+        exclusionMage.addTargetedTriggeredAbility(
+            trigger: .ThisETB,
+            restriction: { $0.isType(.Creature) && $0.getController() != exclusionMage.getController() },
+            effect: { $0.bounce() })
+        exclusionMage.setFlavorText("Successful battles start with knowing who's worth fighting.")
+        exclusionMage.power = 2
+        exclusionMage.toughness = 2
+        return exclusionMage
+    }
     // 56 Frilled Sea Serpent
     // 57 Gearsmith Prodigy
     // 58 Ghostform
@@ -410,7 +434,16 @@ enum M19 {
     }
     // 90 Death Baron
     // 91 Demon of Catastrophes
-    // 92 Diregraf Ghoul
+    static func DiregrafGhoul() -> Card {
+        let diregrafGhoul = Card(name: "Diregraf Ghoul", rarity: .Uncommon, set: set, number: 92)
+        diregrafGhoul.setManaCost("B")
+        diregrafGhoul.setType(.Creature, .Zombie)
+        diregrafGhoul.entersTapped = true
+        diregrafGhoul.setFlavorText("\"At least this one still has arms and legs. Well, most of its legs.\"\n--Enslow, ghoulcaller of Nephalia")
+        diregrafGhoul.power = 2
+        diregrafGhoul.toughness = 2
+        return diregrafGhoul
+    }
     static func DoomedDissenter() -> Card {
         let doomedDissenter = Card(name: "Doomed Dissenter", rarity: .Common, set: set, number: 93)
         doomedDissenter.setManaCost("1B")
@@ -627,7 +660,18 @@ enum M19 {
         return goblinMotivator
     }
     // 144 Goblin Trashmaster
-    // 145 Guttersnipe
+    static func Guttersnipe() -> Card {
+        let guttersnipe = Card(name: "Guttersnipe", rarity: .Uncommon, set: set, number: 145)
+        guttersnipe.setManaCost("2R")
+        guttersnipe.setType(.Creature, .Goblin, .Shaman)
+        guttersnipe.addUntargetedTriggeredAbility(
+            trigger: .CastInstantOrSorcery,
+            effect: { guttersnipe.damage(to: guttersnipe.getController().getOpponent(), 2) })
+        guttersnipe.setFlavorText("\"I found a new toy. Wanna play?\"")
+        guttersnipe.power = 2
+        guttersnipe.toughness = 2
+        return guttersnipe
+    }
     // 146 Havoc Devils
     static func HostileMinotaur() -> Card {
         let hostileMinotaur = Card(name: "Hostile Minotaur", rarity: .Common, set: set, number: 147)
@@ -695,7 +739,22 @@ enum M19 {
         volcanicDragon.toughness = 4
         return volcanicDragon
     }
-    // 168 Volley Veteran
+    static func VolleyVeteran() -> Card {
+        let volleyVeteran = Card(name: "Volley Veteran", rarity: .Uncommon, set: set, number: 168)
+        volleyVeteran.setManaCost("3R")
+        volleyVeteran.setType(.Creature, .Goblin, .Warrior)
+        volleyVeteran.addTargetedTriggeredAbility(
+            trigger: .ThisETB,
+            restriction: { $0.isType(.Creature) && $0.getController() != volleyVeteran.getController() },
+            effect: { target in
+                let numGoblins = volleyVeteran.getController().getPermanents().filter({ $0.isType(.Goblin) }).count
+                volleyVeteran.damage(to: target, numGoblins)
+        })
+        volleyVeteran.setFlavorText("\"Fill the sky with stuff!\"")
+        volleyVeteran.power = 4
+        volleyVeteran.toughness = 2
+        return volleyVeteran
+    }
     // 169 Blanchwood Armor
     // 170 Bristling Boar
     static func CentaurCourser() -> Card {
@@ -709,7 +768,16 @@ enum M19 {
     }
     // 172 Colossal Dreadmaw
     // 173 Colossal Majesty
-    // 174 Daggerback Basilisk
+    static func DaggerbackBasilisk() -> Card {
+        let daggerbackBasilisk = Card(name: "Daggerback Basilisk", rarity: .Common, set: set, number: 174)
+        daggerbackBasilisk.setManaCost("2G")
+        daggerbackBasilisk.setType(.Creature, .Basilisk)
+        daggerbackBasilisk.deathtouch = true
+        daggerbackBasilisk.setFlavorText("Its ventricles weep venom, and it consumes only poison.")
+        daggerbackBasilisk.power = 2
+        daggerbackBasilisk.toughness = 2
+        return daggerbackBasilisk
+    }
     // 175 Declare Dominance
     // 176 Druid of Horns
     static func DruidOfTheCowl() -> Card {
@@ -797,7 +865,17 @@ enum M19 {
         return plummet
     }
     // 194 Prodigious Growth
-    // 195 Rabid Bite
+    static func RabidBite() -> Card {
+        let rabidBite = Card(name: "Rabid Bite", rarity: .Common, set: set, number: 195)
+        rabidBite.setManaCost("1G")
+        rabidBite.setType(.Sorcery)
+        rabidBite.addTargetedEffect(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() == rabidBite.getController() },
+                           { $0.isType(.Creature) && $0.getController() != rabidBite.getController() }],
+            effect: { targets in targets[0].damage(to: targets[1], max(0, targets[0].getPower())) })
+        rabidBite.setFlavorText("\"You should have seen the look on <i>both</i> their faces.\"\n--Morkamp, Lambholt innkeeper")
+        return rabidBite
+    }
     // 196 Reclamation Sage
     // 197 Recollect
     static func RhoxOracle() -> Card {
@@ -866,7 +944,23 @@ enum M19 {
     // 214 Chromium, the Mutable
     // 215 Draconic Disciple
     // 216 Enigma Drake
-    // 217 Heroic Reinforcements
+    static func HeroicReinforcements() -> Card {
+        let heroicReinforcements = Card(name: "Heroic Reinforcements", rarity: .Uncommon, set: set, number: 217)
+        heroicReinforcements.setManaCost("2RW")
+        heroicReinforcements.setType(.Sorcery)
+        heroicReinforcements.addUntargetedEffect {
+            heroicReinforcements.getController().createToken(Soldier())
+            heroicReinforcements.getController().createToken(Soldier())
+            heroicReinforcements.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.haste = true
+                    return object
+                }))
+            })
+        }
+        heroicReinforcements.setFlavorText("Cries of anguish quickly spurred cries of action.")
+        return heroicReinforcements
+    }
     // 218 Nicol Bolas, the Ravager // Nicol Bolas, the Arisen
     // 219 Palladia-Mors, the Ruiner
     // 220 Poison-Tip Archer
@@ -903,12 +997,68 @@ enum M19 {
         return fieldCreeper
     }
     // 235 Fountain of Renewal
-    // 236 Gargoyle Sentinel
+    static func GargoyleSentinel() -> Card {
+        let gargoyleSentinel = Card(name: "Gargoyle Sentinel", rarity: .Uncommon, set: set, number: 236)
+        gargoyleSentinel.setManaCost("3")
+        gargoyleSentinel.setType(.Artifact, .Creature, .Gargoyle)
+        gargoyleSentinel.defender = true
+        gargoyleSentinel.addUntargetedActivatedAbility(
+            string: "{3}: Until end of turn, ~ loses defender and gains flying.",
+            cost: Cost("3"),
+            effect: { gargoyleSentinel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                object.defender = false
+                object.flying = true
+                return object
+            }))
+        })
+        gargoyleSentinel.setFlavorText("\"Do not mistake a quiet rampart for one that is unguarded. Some things stir only when they need to.\"\n--Bonovar, siege commander")
+        gargoyleSentinel.power = 3
+        gargoyleSentinel.toughness = 3
+        return gargoyleSentinel
+    }
     // 237 Gearsmith Guardian
     // 238 Magistrate's Scepter
-    // 239 Manalith
+    static func Manalith() -> Card {
+        let manalith = Card(name: "Manalith", rarity: .Common, set: set, number: 239)
+        manalith.setManaCost("3")
+        manalith.setType(.Artifact)
+        manalith.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { manalith.getController().addMana(color: .White) })
+        manalith.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { manalith.getController().addMana(color: .Blue) })
+        manalith.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { manalith.getController().addMana(color: .Black) })
+        manalith.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { manalith.getController().addMana(color: .Red) })
+        manalith.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { manalith.getController().addMana(color: .Green) })
+        manalith.setFlavorText("Planeswalkers seek out great monuments throughout the Multiverse, knowing that their builders were unwittingly drawn by the convergence of mana in the area.")
+        return manalith
+    }
     // 240 Marauder's Axe
-    // 241 Meteor Golem
+    static func MeteorGolem() -> Card {
+        let meteorGolem = Card(name: "Meteor Golem", rarity: .Uncommon, set: set, number: 241)
+        meteorGolem.setManaCost("7")
+        meteorGolem.setType(.Artifact, .Creature, .Golem)
+        meteorGolem.addTargetedTriggeredAbility(
+            trigger: .ThisETB,
+            restriction: { $0.isPermanent() && !$0.isType(.Land) && $0.getController() != meteorGolem.getController() },
+            effect: { $0.destroy() })
+        meteorGolem.setFlavorText("The impact sent the soldiers scattering--then something came out of the creater.")
+        meteorGolem.power = 3
+        meteorGolem.toughness = 3
+        return meteorGolem
+    }
     // 242 Millstone
     // 243 Rogue's Gloves
     // 244 Sigiled Sword of Valeron
@@ -1031,7 +1181,14 @@ enum M19 {
         return knight;
     }
     // t5 Ox
-    // t6 Soldier
+    static func Soldier() -> Token {
+        let soldier = Token(name: "Soldier", set: set, number: 6)
+        soldier.colors = [Color.White]
+        soldier.setType(.Creature, .Soldier)
+        soldier.power = 1
+        soldier.toughness = 1
+        return soldier
+    }
     // t7 Bat
     static func Zombie() -> Token {
         let zombie = Token(name: "Zombie", set: set, number: 8)

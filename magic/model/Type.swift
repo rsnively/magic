@@ -22,6 +22,7 @@ enum Subtype {
     case Antelope
     case Artificer
     case Assassin
+    case Basilisk
     case Bat
     case Bear
     case Beast
@@ -46,6 +47,7 @@ enum Subtype {
     case Faerie
     case Forest
     case Fungus
+    case Gargoyle
     case Gate
     case Giant
     case Goblin
