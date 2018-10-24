@@ -36,7 +36,7 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(LEA.UndergroundSea())
+            deck1.append(GRN.DimirGuildgate())
             deck1.append(DOM.FungalInfection())
             deck1.append(M19.MysticArchaeologist())
             

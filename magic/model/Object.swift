@@ -38,12 +38,13 @@ class Object: NSObject, NSCopying {
         set (newDeathtouch) { baseDeathtouch = newDeathtouch }
     }
     var defender: Bool = false
+    var entersTapped: Bool = false
+    var flash: Bool = false
     private var baseFlying: Bool = false
     var flying: Bool {
         get { return applyContinuousEffects().baseFlying }
         set (newFlying) { baseFlying = newFlying }
     }
-    var flash: Bool = false
     private var baseHaste: Bool = false
     var haste: Bool {
         get { return applyContinuousEffects().baseHaste }
@@ -100,6 +101,7 @@ class Object: NSObject, NSCopying {
         
         copy.baseDeathtouch = baseDeathtouch
         copy.defender = defender
+        copy.entersTapped = entersTapped
         copy.flash = flash
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste

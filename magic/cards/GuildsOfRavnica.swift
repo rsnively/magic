@@ -815,20 +815,205 @@ enum GRN {
     // 240 Selsnya Locket
     // 241 Silent Dart
     // 242 Wand of Verterae
-    // 243 Boros Guildgate
-    // 244 Boros Guildgate
-    // 245 Dimir Guildgate
-    // 246 Dimir Guildgate
+    static func BorosGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? BorosGuildgate243() : BorosGuildgate244()
+    }
+    static func BorosGuildgate243() -> Card {
+        let borosGuildgate = Card(name: "Boros Guildgate", rarity: .Common, set: set, number: 243)
+        borosGuildgate.setManaCost("")
+        borosGuildgate.setType(.Land, .Gate)
+        borosGuildgate.entersTapped = true
+        borosGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { borosGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        borosGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { borosGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        borosGuildgate.setFlavorText("\"The more trust breaks down, the more we must throw open the front gates.\"\n--Aurelia")
+        return borosGuildgate
+    }
+    static func BorosGuildgate244() -> Card {
+        let borosGuildgate = Card(name: "Boros Guildgate", rarity: .Common, set: set, number: 244)
+        borosGuildgate.setManaCost("")
+        borosGuildgate.setType(.Land, .Gate)
+        borosGuildgate.entersTapped = true
+        borosGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { borosGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        borosGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { borosGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        borosGuildgate.setFlavorText("\"It is our duty to protect all those in need. But the other guilds have never shown themselves worthy of that protection.\"\n--Tajic")
+        return borosGuildgate
+    }
+    static func DimirGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? DimirGuildgate245() : DimirGuildgate246()
+    }
+    static func DimirGuildgate245() -> Card {
+        let dimirGuildgate = Card(name: "Dimir Guildgate", rarity: .Common, set: set, number: 245)
+        dimirGuildgate.setManaCost("")
+        dimirGuildgate.setType(.Land, .Gate)
+        dimirGuildgate.entersTapped = true
+        dimirGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { dimirGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        dimirGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { dimirGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        dimirGuildgate.setFlavorText("\"Every guild dreads infiltration. I should know--I've been a member of all of them.\"\n--Lazav")
+        return dimirGuildgate
+    }
+    static func DimirGuildgate246() -> Card {
+        let dimirGuildgate = Card(name: "Dimir Guildgate", rarity: .Common, set: set, number: 246)
+        dimirGuildgate.setManaCost("")
+        dimirGuildgate.setType(.Land, .Gate)
+        dimirGuildgate.entersTapped = true
+        dimirGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { dimirGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        dimirGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { dimirGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        dimirGuildgate.setFlavorText("\"You've found this place only because you were summoned. Pray you're worthy of the invitation.\"\n--Etrata")
+        return dimirGuildgate
+    }
     // 247 Gateway Plaza
-    // 248 Golgari Guildgate
-    // 249 Golgari Guildgate
+    static func GolgariGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? GolgariGuildgate248() : GolgariGuildgate249()
+    }
+    static func GolgariGuildgate248() -> Card {
+        let golgariGuildgate = Card(name: "Golgari Guildgate", rarity: .Common, set: set, number: 248)
+        golgariGuildgate.setManaCost("")
+        golgariGuildgate.setType(.Land, .Gate)
+        golgariGuildgate.entersTapped = true
+        golgariGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { golgariGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        golgariGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { golgariGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        golgariGuildgate.setFlavorText("\"Shut the gates. In the Underrealm we will outlast the coming doom.\"\n--Vraska")
+        return golgariGuildgate
+    }
+    static func GolgariGuildgate249() -> Card {
+        let golgariGuildgate = Card(name: "Golgari Guildgate", rarity: .Common, set: set, number: 249)
+        golgariGuildgate.setManaCost("")
+        golgariGuildgate.setType(.Land, .Gate)
+        golgariGuildgate.entersTapped = true
+        golgariGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { golgariGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        golgariGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { golgariGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        golgariGuildgate.setFlavorText("\"Jarad was a friend of the Devkarin. Now we slink through neglected tunnels, befriending those who crawl them.\"\n--Izoni")
+        return golgariGuildgate
+    }
     // 250 Guildmages' Forum
-    // 251 Izzet Guildgate
-    // 252 Izzet Guildgate
+    static func IzzetGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? IzzetGuildgate251() : IzzetGuildgate252()
+    }
+    static func IzzetGuildgate251() -> Card {
+        let izzetGuildgate = Card(name: "Izzet Guildgate", rarity: .Common, set: set, number: 251)
+        izzetGuildgate.setManaCost("")
+        izzetGuildgate.setType(.Land, .Gate)
+        izzetGuildgate.entersTapped = true
+        izzetGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { izzetGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        izzetGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { izzetGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        izzetGuildgate.setFlavorText("Every laboratory buzzes with new experiments, each a piece of Ral's ambitious project.")
+        return izzetGuildgate
+    }
+    static func IzzetGuildgate252() -> Card {
+        let izzetGuildgate = Card(name: "Izzet Guildgate", rarity: .Common, set: set, number: 252)
+        izzetGuildgate.setManaCost("")
+        izzetGuildgate.setType(.Land, .Gate)
+        izzetGuildgate.entersTapped = true
+        izzetGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { izzetGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        izzetGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { izzetGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        izzetGuildgate.setFlavorText("\"Yesterday I didn't recognize my own guild. Today I see why. And for tomorrow I must be prepared.\"\n--Niv-Mizzet")
+        return izzetGuildgate
+    }
     // 253 Overgrown Tomb
     // 254 Sacred Foundary
-    // 255 Selesnya Guildgate
-    // 256 Selesnya Guildgate
+    static func SelesnyaGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? SelesnyaGuildgate255() : SelesnyaGuildgate256()
+    }
+    static func SelesnyaGuildgate255() -> Card {
+        let selesnyaGuildgate = Card(name: "Selesnya Guildgate", rarity: .Common, set: set, number: 255)
+        selesnyaGuildgate.setManaCost("")
+        selesnyaGuildgate.setType(.Land, .Gate)
+        selesnyaGuildgate.entersTapped = true
+        selesnyaGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        selesnyaGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { selesnyaGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        selesnyaGuildgate.setFlavorText("\"Everyone who crosses that threshold is our most cherished friend. Everyone who crosses it again is our bitterest enemy.\"\n--Trostani")
+        return selesnyaGuildgate
+    }
+    static func SelesnyaGuildgate256() -> Card {
+        let selesnyaGuildgate = Card(name: "Selesnya Guildgate", rarity: .Common, set: set, number: 256)
+        selesnyaGuildgate.setManaCost("")
+        selesnyaGuildgate.setType(.Land, .Gate)
+        selesnyaGuildgate.entersTapped = true
+        selesnyaGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        selesnyaGuildgate.addUntargetedActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { selesnyaGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        selesnyaGuildgate.setFlavorText("\"We leave our gardens open, so all may know wonder, but guarded, so all may know peace.\"\n--Emmara")
+        return selesnyaGuildgate
+    }
     // 257 Steam Vents
     // 258 Temple Garden
     // 259 Watery Grave

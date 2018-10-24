@@ -46,6 +46,7 @@ enum Subtype {
     case Faerie
     case Forest
     case Fungus
+    case Gate
     case Giant
     case Goblin
     case Golem

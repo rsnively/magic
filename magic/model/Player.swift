@@ -178,6 +178,9 @@ class Player: NSObject {
                 Game.shared.theStack.push(card)
             }
             else {
+                if card.entersTapped {
+                    card.setTapped(true)
+                }
                 addPermanent(card)
             }
             
@@ -199,6 +202,9 @@ class Player: NSObject {
     
     func resolve(object: Object) {
         if object.isPermanent() {
+            if object.entersTapped {
+                object.setTapped(true)
+            }
             addPermanent(object)
         }
         else if object as? Card != nil {
