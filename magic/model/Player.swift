@@ -1,6 +1,10 @@
 import Foundation
 
-class Player: NSObject {
+protocol Damageable {
+    func takeDamage(_ amount: Int) -> Void
+}
+
+class Player: NSObject, Damageable {
     private var life = 20
     private var library: [Object]
     private var hand: [Object] = []
@@ -35,7 +39,7 @@ class Player: NSObject {
         return life
     }
     
-    func damage(_ amount: Int) {
+    func takeDamage(_ amount: Int) {
         self.loseLife(amount)
     }
     

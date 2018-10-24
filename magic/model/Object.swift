@@ -1,6 +1,6 @@
 import Foundation
 
-class Object: NSObject, NSCopying {
+class Object: NSObject, NSCopying, Damageable {
     var name:String?
     var colors:Set<Color> = []
     var manaCost:ManaCost?
@@ -143,6 +143,10 @@ class Object: NSObject, NSCopying {
     
     func getController() -> Player {
         return controller!
+    }
+    
+    func getOpponent() -> Player {
+        return controller!.getOpponent()
     }
     
     func setManaCost(_ manaCostString: String, setColorAccordingly: Bool = true) {
@@ -339,19 +343,20 @@ class Object: NSObject, NSCopying {
             getController().gainLife(amount)
         }
     }
-    private func hasBeenDealtDamage(amount: Int) {
+    
+    func takeDamage(_ amount: Int) {
         markedDamage += amount
     }
     
     func damage(to recipient: Object, _ amount: Int) {
-        recipient.hasBeenDealtDamage(amount: amount)
+        recipient.takeDamage(amount)
         hasDealtDamage(amount: amount)
         if deathtouch {
             recipient.damagedByDeathtouch = true
         }
     }
     func damage(to recipient: Player, _ amount: Int) {
-        recipient.damage(amount)
+        recipient.takeDamage(amount)
         hasDealtDamage(amount: amount)
     }
     

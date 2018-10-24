@@ -393,7 +393,7 @@ enum M19 {
         uncomfortableChill.setManaCost("2U")
         uncomfortableChill.setType(.Instant)
         uncomfortableChill.addUntargetedEffect {
-            uncomfortableChill.getController().getOpponent().getCreatures().forEach({ $0.pump(-2, 0) })
+            uncomfortableChill.getOpponent().getCreatures().forEach({ $0.pump(-2, 0) })
             uncomfortableChill.getController().drawCard()
         }
         uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
@@ -478,7 +478,7 @@ enum M19 {
         infectiousHorror.setType(.Creature, .Zombie, .Horror)
         infectiousHorror.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { infectiousHorror.getController().getOpponent().loseLife(2) })
+            effect: { infectiousHorror.getOpponent().loseLife(2) })
         infectiousHorror.setFlavorText("Not once in the history of Grixis has anyone died of old age.")
         infectiousHorror.power = 2
         infectiousHorror.toughness = 2
@@ -558,7 +558,7 @@ enum M19 {
             string: "{2}, {T}: Each opponent loses 1 life and you gain 1 life.",
             cost: Cost("2", tap: true),
             effect: {
-                vampireNeonate.getController().getOpponent().loseLife(1)
+                vampireNeonate.getOpponent().loseLife(1)
                 vampireNeonate.getController().gainLife(1)
         })
         vampireNeonate.setFlavorText("One day, they may be paragons of deadly elegance. For the moment, they possess nothing but thirst.")
@@ -666,7 +666,7 @@ enum M19 {
         guttersnipe.setType(.Creature, .Goblin, .Shaman)
         guttersnipe.addUntargetedTriggeredAbility(
             trigger: .CastInstantOrSorcery,
-            effect: { guttersnipe.damage(to: guttersnipe.getController().getOpponent(), 2) })
+            effect: { guttersnipe.damage(to: guttersnipe.getOpponent(), 2) })
         guttersnipe.setFlavorText("\"I found a new toy. Wanna play?\"")
         guttersnipe.power = 2
         guttersnipe.toughness = 2

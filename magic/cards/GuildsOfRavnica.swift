@@ -412,7 +412,7 @@ enum GRN {
         electrostaticField.defender = true
         electrostaticField.addUntargetedTriggeredAbility(
             trigger: .CastInstantOrSorcery,
-            effect: { electrostaticField.getController().getOpponent().damage(1) })
+            effect: { electrostaticField.damage(to: electrostaticField.getOpponent(), 1) })
         electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
         electrostaticField.power = 0
         electrostaticField.toughness = 4
@@ -754,7 +754,7 @@ enum GRN {
         legionGuildmage.addUntargetedActivatedAbility(
             string: "{5}{R}, {T}: ~ deals 3 damage to each opponent.",
             cost: Cost("5R", tap: true),
-            effect: { legionGuildmage.damage(to: legionGuildmage.getController().getOpponent(), 3) })
+            effect: { legionGuildmage.damage(to: legionGuildmage.getOpponent(), 3) })
         legionGuildmage.addTargetedActivatedAbility(
             string: "{2}{W}, {T}: Tap another target creature.",
             cost: Cost("2W", tap: true),
@@ -795,7 +795,7 @@ enum GRN {
         swathcutterGiant.vigilance = true
         swathcutterGiant.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { swathcutterGiant.getController().getOpponent().getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) })
+            effect: { swathcutterGiant.getOpponent().getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) })
         swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
         swathcutterGiant.power = 5
         swathcutterGiant.toughness = 5

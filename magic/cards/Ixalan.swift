@@ -354,7 +354,7 @@ enum XLN {
             effect: { target in
                 let controller = target.getController()
                 target.destroy()
-                controller.damage(2)
+                controller.loseLife(2)
         })
         spreadingRot.setFlavorText("\"What is this foul presence that defies the sun's cleansing rays.\"\n--Itzama the Crested")
         return spreadingRot
@@ -376,7 +376,7 @@ enum XLN {
         viciousConquistador.setType(.Creature, .Vampire, .Soldier)
         viciousConquistador.addUntargetedTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { viciousConquistador.getController().getOpponent().loseLife(1) })
+            effect: { viciousConquistador.getOpponent().loseLife(1) })
         viciousConquistador.setFlavorText("\"He is ambitious. Tireless. And utterly ruthless. Ideal for the frontier.\"\n--Viceroy Elia Sotonores, report to the queen")
         viciousConquistador.power = 1
         viciousConquistador.toughness = 2

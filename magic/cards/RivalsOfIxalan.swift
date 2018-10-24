@@ -204,7 +204,7 @@ enum RIX {
         gruesomeFate.setType(.Sorcery)
         gruesomeFate.addUntargetedEffect {
             let numCreatures = gruesomeFate.getController().getCreatures().count
-            gruesomeFate.getController().getOpponent().loseLife(numCreatures)
+            gruesomeFate.getOpponent().loseLife(numCreatures)
         }
         gruesomeFate.setFlavorText("\"You were keen enough to sink your fangs into us, vampire! And now you're afraid of a few little nibbles?\"\nUdvil \"Ratty\" Ratlock")
         return gruesomeFate
