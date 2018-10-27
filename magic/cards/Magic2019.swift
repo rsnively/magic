@@ -534,7 +534,7 @@ enum M19 {
             restriction: { _ in return true },
             effect: { target in
                 target.loseLife(3)
-                sovereignsBite.getController().loseLife(3)
+                sovereignsBite.getController().gainLife(3)
             }))
         sovereignsBite.setFlavorText("\"You have given all to your kingdom, dear knight. Serenity shall be your prize.\"\n--Queen Lian")
         return sovereignsBite

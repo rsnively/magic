@@ -80,14 +80,14 @@ class GameScene: SKScene {
         playCardHeight = size.height * 0.1
 
         playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
-        playerLifeNode = LifeNode(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        playerLifeNode = LifeNode(player: Game.shared.player1, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerOtherPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode = ManaPoolNode()
         stackNode = StackNode()
         
-        opponentLifeNode = LifeNode(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        opponentLifeNode = LifeNode(player: Game.shared.player2, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentLandsNode = LandsNode(lands: [], size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         
@@ -140,6 +140,7 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchDown(atPoint:convert(pos, to:playerHandNode))
+        playerLifeNode.touchDown(atPoint:convert(pos, to:playerLifeNode))
         playerLandsNode.touchDown(atPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchDown(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
@@ -148,6 +149,7 @@ class GameScene: SKScene {
         
         commandButtonsNode.touchDown(atPoint:convert(pos, to:commandButtonsNode))
         
+        opponentLifeNode.touchDown(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchDown(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchDown(atPoint:convert(pos, to:opponentCreaturesNode))
     }
@@ -157,12 +159,14 @@ class GameScene: SKScene {
             return
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
+        playerLifeNode.touchMoved(toPoint:convert(pos, to:playerLifeNode))
         playerLandsNode.touchMoved(toPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchMoved(toPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
         
+        opponentLifeNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchMoved(toPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchMoved(toPoint:convert(pos, to:opponentCreaturesNode))
     }
@@ -175,6 +179,7 @@ class GameScene: SKScene {
         let wasSelectingAbility = Game.shared.isSelectingAbility
         
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
+        playerLifeNode.touchUp(atPoint:convert(pos, to:playerLifeNode))
         playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchUp(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
@@ -183,6 +188,7 @@ class GameScene: SKScene {
         
         commandButtonsNode.touchUp(atPoint:convert(pos, to:commandButtonsNode))
         
+        opponentLifeNode.touchUp(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
         

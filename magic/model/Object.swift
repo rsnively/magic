@@ -219,10 +219,12 @@ class Object: Targetable, NSCopying {
             object = activeEffect.apply(object)
         }
         
-        let plusOnePlusOneCounters = counters[.PlusOnePlusOne] ?? 0
-        object.power = object.getBasePower() + plusOnePlusOneCounters
-        object.toughness = object.getBaseToughness() + plusOnePlusOneCounters
-        
+        if object.basePower != nil && object.baseToughness != nil {
+            let plusOnePlusOneCounters = counters[.PlusOnePlusOne] ?? 0
+            object.power = object.getBasePower() + plusOnePlusOneCounters
+            object.toughness = object.getBaseToughness() + plusOnePlusOneCounters
+        }
+            
         return object
     }
 
