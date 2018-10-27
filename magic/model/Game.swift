@@ -18,7 +18,7 @@ class Game: NSObject {
     var isSelectingAbility: Bool {
         return selectingAbilityObject != nil
     }
-    func selectTarget(_ target: Object) {
+    func selectTarget(_ target: Targetable) {
         assert(isTargeting)
         let targetingEffect = targetingEffects.last!
         targetingEffect.selectTarget(target)
@@ -36,9 +36,13 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
+            deck1.append(GRN.IzzetGuildgate())
             deck1.append(GRN.DimirGuildgate())
+            deck1.append(GRN.Swamp())
             deck1.append(DOM.FungalInfection())
             deck1.append(M19.MysticArchaeologist())
+            deck1.append(M19.Shock())
+            deck1.append(M19.SovereignsBite())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())
@@ -67,7 +71,7 @@ class Game: NSObject {
     }
     
     func getOtherPlayer(_ player: Player) -> Player {
-        if player == player1 {
+        if player === player1 {
             return player2
         }
         return player1

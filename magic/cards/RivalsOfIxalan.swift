@@ -12,9 +12,9 @@ enum RIX {
         let divineVerdict = Card(name: "Divine Verdict", rarity: .Common, set: set, number: 5)
         divineVerdict.setManaCost("3W")
         divineVerdict.setType(.Instant)
-        divineVerdict.addTargetedEffect(
+        divineVerdict.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking)},
-            effect: { $0.destroy() })
+            effect: { $0.destroy() }))
         divineVerdict.setFlavorText("Cunning warriors and dim-witted beasts alike fall under the church's harsh judgment.")
         return divineVerdict
     }
@@ -39,14 +39,15 @@ enum RIX {
         majesticHeliopterus.setManaCost("3W")
         majesticHeliopterus.setType(.Creature, .Dinosaur)
         majesticHeliopterus.flying = true
-        majesticHeliopterus.addTargetedTriggeredAbility(
+        majesticHeliopterus.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { return  $0 != majesticHeliopterus && $0.isType(.Dinosaur) },
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.flying = true
-                return object
-            }))
-        })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return  $0 !== majesticHeliopterus && $0.isType(.Dinosaur) },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.flying = true
+                    return object
+                }))
+        }))
         majesticHeliopterus.setFlavorText("\"Its rise is like the sun's, a beautiful beginning. Its descent is like the sun's, a frightening ending.\"\n--Huatli")
         majesticHeliopterus.power = 2
         majesticHeliopterus.toughness = 2
@@ -56,7 +57,7 @@ enum RIX {
         let martyrOfDusk = Card(name: "Martyr of Dusk", rarity: .Common, set: set, number: 14)
         martyrOfDusk.setManaCost("1W")
         martyrOfDusk.setType(.Creature, .Vampire, .Soldier)
-        martyrOfDusk.addUntargetedTriggeredAbility(
+        martyrOfDusk.addTriggeredAbility(
             trigger: .ThisDies,
             effect: { martyrOfDusk.getController().createToken(XLN.Vampire()) })
         martyrOfDusk.setFlavorText("\"Should I fall, take up our standard and carry on. The Legion must alwasy prevail.\"")
@@ -68,12 +69,12 @@ enum RIX {
         let momentOfTriump = Card(name: "Moment of Triumph", rarity: .Common, set: set, number: 15)
         momentOfTriump.setManaCost("W")
         momentOfTriump.setType(.Instant)
-        momentOfTriump.addTargetedEffect(
+        momentOfTriump.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) },
             effect: { target in
                 target.pump(2, 2)
                 momentOfTriump.getController().gainLife(2)
-            })
+            }))
         momentOfTriump.setFlavorText("\"The time of salvation is at hand. Dusk washes over the world, and the Legion will rise immortal!\"")
         return momentOfTriump
     }
@@ -162,7 +163,7 @@ enum RIX {
         let championOfDusk = Card(name: "Champion of Dusk", rarity: .Rare, set: set, number: 64)
         championOfDusk.setManaCost("3BB")
         championOfDusk.setType(.Creature, .Vampire, .Knight)
-        championOfDusk.addUntargetedTriggeredAbility(
+        championOfDusk.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
                 let numVampires = championOfDusk.getController().getPermanents().filter({$0.isType(.Vampire)}).count
@@ -183,7 +184,7 @@ enum RIX {
         let duskLegionZealot = Card(name: "Dusk Legion Zealot", rarity: .Common, set: set, number: 70)
         duskLegionZealot.setManaCost("1B")
         duskLegionZealot.setType(.Creature, .Vampire, .Soldier)
-        duskLegionZealot.addUntargetedTriggeredAbility(
+        duskLegionZealot.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
                 duskLegionZealot.getController().drawCard()
@@ -202,7 +203,7 @@ enum RIX {
         let gruesomeFate = Card(name: "Gruesome Fate", rarity: .Common, set: set, number: 75)
         gruesomeFate.setManaCost("2B")
         gruesomeFate.setType(.Sorcery)
-        gruesomeFate.addUntargetedEffect {
+        gruesomeFate.addEffect {
             let numCreatures = gruesomeFate.getController().getCreatures().count
             gruesomeFate.getOpponent().loseLife(numCreatures)
         }
@@ -213,9 +214,9 @@ enum RIX {
         let impale = Card(name: "Impale", rarity: .Common, set: set, number: 76)
         impale.setManaCost("2BB")
         impale.setType(.Sorcery)
-        impale.addTargetedEffect(
+        impale.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         impale.setFlavorText("Never let the glitter of gold distract you from the gleam of steel in the shadows.")
         return impale
     }
@@ -225,12 +226,12 @@ enum RIX {
         let momentOfCraving = Card(name: "Moment of Craving", rarity: .Common, set: set, number: 79)
         momentOfCraving.setManaCost("1B")
         momentOfCraving.setType(.Instant)
-        momentOfCraving.addTargetedEffect(
+        momentOfCraving.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) },
             effect: { target in
                 target.pump(-2, -2)
                 momentOfCraving.getController().gainLife(2)
-        })
+        }))
         momentOfCraving.setFlavorText("\"The time of condemnation is at hand. Dusk washes over the world, and I consign you to eternal darkness!\"")
         return momentOfCraving
     }
@@ -240,10 +241,11 @@ enum RIX {
         let ravenousChupacabra = Card(name: "Ravenous Chupacabra", rarity: .Uncommon, set: set, number: 82)
         ravenousChupacabra.setManaCost("2BB")
         ravenousChupacabra.setType(.Creature, .Beast, .Horror)
-        ravenousChupacabra.addTargetedTriggeredAbility(
+        ravenousChupacabra.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { return $0.isType(.Creature) && $0.getController() != ravenousChupacabra.getController() },
-            effect: { $0.destroy() })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.getController() !== ravenousChupacabra.getController() },
+                effect: { $0.destroy() }))
         ravenousChupacabra.setFlavorText("Opening Orazca released more horrors than just the Immortal Sun.")
         ravenousChupacabra.power = 2
         ravenousChupacabra.toughness = 2
@@ -272,9 +274,9 @@ enum RIX {
         let bombard = Card(name: "Bombard", rarity: .Common, set: set, number: 93)
         bombard.setManaCost("2R")
         bombard.setType(.Instant)
-        bombard.addTargetedEffect(
+        bombard.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { bombard.damage(to: $0, 4) })
+            effect: { bombard.damage(to: $0, 4) }))
         bombard.setFlavorText("\"Want to sink a ship? Blow a hole in the hull. Want to kill a regisaur? Same answer.\"\n--Captain Brandis Thorn")
         return bombard
     }
@@ -309,7 +311,7 @@ enum RIX {
         let shakeTheFoundations = Card(name: "Shake the Foundations", rarity: .Uncommon, set: set, number: 113)
         shakeTheFoundations.setManaCost("2R")
         shakeTheFoundations.setType(.Instant)
-        shakeTheFoundations.addUntargetedEffect {
+        shakeTheFoundations.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().filter({ return !$0.flying }).forEach({ shakeTheFoundations.damage(to: $0, 1) })
             })
@@ -322,9 +324,9 @@ enum RIX {
         let shatter = Card(name: "Shatter", rarity: .Common, set: set, number: 114)
         shatter.setManaCost("1R")
         shatter.setType(.Instant)
-        shatter.addTargetedEffect(
+        shatter.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         shatter.setFlavorText("Today it's a miracle of architecture, a marvel of stained glass, a symbol of the Legion's power. Tomorrow, driftwood.")
         return shatter
     }
@@ -339,12 +341,12 @@ enum RIX {
         let aggressiveUrge = Card(name: "Aggressive Urge", rarity: .Common, set: set, number: 122)
         aggressiveUrge.setManaCost("1G")
         aggressiveUrge.setType(.Instant)
-        aggressiveUrge.addTargetedEffect(
+        aggressiveUrge.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) },
             effect: { target in
                 target.pump(1, 1)
                 aggressiveUrge.getController().drawCard()
-        })
+        }))
         aggressiveUrge.setFlavorText("\"Our lives, our homes, and all our history are at risk. Do not speak to me of peace.\"")
         return aggressiveUrge
     }
@@ -364,10 +366,11 @@ enum RIX {
         let jadecraftArtisan = Card(name: "Jadecraft Artisan", rarity: .Common, set: set, number: 135)
         jadecraftArtisan.setManaCost("3G")
         jadecraftArtisan.setType(.Creature, .Merfolk, .Shaman)
-        jadecraftArtisan.addTargetedTriggeredAbility(
+        jadecraftArtisan.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { $0.isType(.Creature) },
-            effect: { $0.pump(2, 2) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.pump(2, 2) }))
         jadecraftArtisan.setFlavorText("\"A blade is not fully forged until it is given.\"")
         jadecraftArtisan.power = 3
         jadecraftArtisan.toughness = 3
@@ -380,9 +383,9 @@ enum RIX {
         let naturalize = Card(name: "Naturalize", rarity: .Common, set: set, number: 139)
         naturalize.setManaCost("1G")
         naturalize.setType(.Instant)
-        naturalize.addTargetedEffect(
+        naturalize.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         naturalize.setFlavorText("\"Better to let the sword go than to lose the arm with it.\"\n--Captain Lannery Storm")
         return naturalize
     }
@@ -401,9 +404,9 @@ enum RIX {
         let plummet = Card(name: "Plummet", rarity: .Common, set: set, number: 143)
         plummet.setManaCost("1G")
         plummet.setType(.Instant)
-        plummet.addTargetedEffect(
+        plummet.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.flying },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         plummet.setFlavorText("\"Still, the pterodon chasing the clouds from its skies must bow to the great forest below.\"\n--Mahuiz, Sun Empire archer")
         return plummet
     }

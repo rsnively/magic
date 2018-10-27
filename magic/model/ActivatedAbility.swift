@@ -63,13 +63,13 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     private var cost: Cost
     private var manaAbility: Bool
     
-    init(source: Object, string: String, cost: Cost, restriction: @escaping(Object) -> Bool, effect:@escaping(Object) -> Void, manaAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
         super.init(name: "Activated Ability of " + source.getName())
-        effects.append(TargetedEffect(restriction: restriction, effect: effect))
+        effects.append(effect)
     }
     
     func getSource() -> Object {

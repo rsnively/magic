@@ -43,6 +43,7 @@
 		982F9B32209BAD33009BBD8B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B31209BAD33009BBD8B /* Card.swift */; };
 		982F9B35209BBFE9009BBD8B /* PlayerHandNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */; };
 		982F9B37209BC14B009BBD8B /* CardNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B36209BC14B009BBD8B /* CardNode.swift */; };
+		983017522183E73300ED528C /* m19156full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983017512183E73300ED528C /* m19156full.png */; };
 		983373D4215C498B003CD4D0 /* TriggeredAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D3215C498B003CD4D0 /* TriggeredAbility.swift */; };
 		983373D6215C4A5D003CD4D0 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D5215C4A5D003CD4D0 /* Trigger.swift */; };
 		983373D8215C4FD1003CD4D0 /* grn129full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983373D7215C4FD1003CD4D0 /* grn129full.png */; };
@@ -237,6 +238,8 @@
 		98BEF4C82178FA5A00144C51 /* rix140full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C72178FA5A00144C51 /* rix140full.png */; };
 		98BEF4CA2178FAB500144C51 /* rix143full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C92178FAB500144C51 /* rix143full.png */; };
 		98BEF4CE21792B1800144C51 /* grn124full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4CD21792B1800144C51 /* grn124full.png */; };
+		98C769AD21827A17001BCFF7 /* m19120full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C769AC21827A16001BCFF7 /* m19120full.png */; };
+		98C769AF21827CB9001BCFF7 /* Targetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C769AE21827CB9001BCFF7 /* Targetable.swift */; };
 		98C98467217A901700903CED /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C98466217A901700903CED /* Counter.swift */; };
 		98C98469217A91DE00903CED /* xln195full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C98468217A91DD00903CED /* xln195full.png */; };
 		98CBD081216F2A4E0085E669 /* m1913full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD080216F2A4E0085E669 /* m1913full.png */; };
@@ -393,6 +396,7 @@
 		982F9B31209BAD33009BBD8B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		982F9B34209BBFE9009BBD8B /* PlayerHandNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandNode.swift; sourceTree = "<group>"; };
 		982F9B36209BC14B009BBD8B /* CardNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNode.swift; sourceTree = "<group>"; };
+		983017512183E73300ED528C /* m19156full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19156full.png; sourceTree = "<group>"; };
 		983373D3215C498B003CD4D0 /* TriggeredAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredAbility.swift; sourceTree = "<group>"; };
 		983373D5215C4A5D003CD4D0 /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		983373D7215C4FD1003CD4D0 /* grn129full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn129full.png; sourceTree = "<group>"; };
@@ -587,6 +591,8 @@
 		98BEF4C72178FA5A00144C51 /* rix140full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix140full.png; sourceTree = "<group>"; };
 		98BEF4C92178FAB500144C51 /* rix143full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix143full.png; sourceTree = "<group>"; };
 		98BEF4CD21792B1800144C51 /* grn124full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn124full.png; sourceTree = "<group>"; };
+		98C769AC21827A16001BCFF7 /* m19120full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19120full.png; sourceTree = "<group>"; };
+		98C769AE21827CB9001BCFF7 /* Targetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Targetable.swift; sourceTree = "<group>"; };
 		98C98466217A901700903CED /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		98C98468217A91DD00903CED /* xln195full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln195full.png; sourceTree = "<group>"; };
 		98CBD080216F2A4E0085E669 /* m1913full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1913full.png; sourceTree = "<group>"; };
@@ -827,6 +833,7 @@
 				982F9B2F209BACC7009BBD8B /* Player.swift */,
 				9840897D20CAF562005DA8F6 /* Rarity.swift */,
 				9840897F20CAFE8C005DA8F6 /* SpellStack.swift */,
+				98C769AE21827CB9001BCFF7 /* Targetable.swift */,
 				983373D5215C4A5D003CD4D0 /* Trigger.swift */,
 				983373D3215C498B003CD4D0 /* TriggeredAbility.swift */,
 				9823DE022159AADE0080C806 /* Token.swift */,
@@ -1011,6 +1018,7 @@
 				98CBD096216F35FB0085E669 /* m19101full.png */,
 				982232A420EFE64E00B07803 /* m19105full.png */,
 				9822329C20EFCFE100B07803 /* m19110full.png */,
+				98C769AC21827A16001BCFF7 /* m19120full.png */,
 				98CBD09A216F376C0085E669 /* m19121full.png */,
 				98CBD098216F36E80085E669 /* m19122full.png */,
 				98CBD09C216F38920085E669 /* m19124full.png */,
@@ -1022,6 +1030,7 @@
 				98B6FFAE21810DB900BC6FBD /* m19145full.png */,
 				98CBD0A2216F3AD10085E669 /* m19147full.png */,
 				982232A820EFE70400B07803 /* m19153full.png */,
+				983017512183E73300ED528C /* m19156full.png */,
 				982232AA20EFEB3200B07803 /* m19158full.png */,
 				98CBD0A4216F3BBC0085E669 /* m19165full.png */,
 				98CBD0A6216F3CB20085E669 /* m19167full.png */,
@@ -1468,6 +1477,7 @@
 				98B87A5F2175DD6100F7B32C /* xln143full.png in Resources */,
 				985D38F3216426CE001CF7FA /* dom189full.png in Resources */,
 				98B7E3702177F3E300551F3A /* rix26full.png in Resources */,
+				98C769AD21827A17001BCFF7 /* m19120full.png in Resources */,
 				98E8A05520EAFBF200A951DA /* m19265full.png in Resources */,
 				98F981CA216EC8B600254A4C /* grn16full.png in Resources */,
 				98B629DD217E72FB00D92E48 /* grn22full.png in Resources */,
@@ -1531,6 +1541,7 @@
 				98E176C62170191B00763F96 /* xln25full.png in Resources */,
 				98CBD089216F2DD50085E669 /* m1936full.png in Resources */,
 				98B7E36E2177F30A00551F3A /* rix19full.png in Resources */,
+				983017522183E73300ED528C /* m19156full.png in Resources */,
 				98CBD0AF216F3F790085E669 /* m19210full.png in Resources */,
 				98ECCF2C215CCFCC0030ED51 /* lea224full.png in Resources */,
 				98B87A5D2175DCA100F7B32C /* xln142full.png in Resources */,
@@ -1571,6 +1582,7 @@
 				9862984520D844A100CE8E10 /* LimitedEditionAlpha.swift in Sources */,
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
 				98DCF17021769C7300B33E89 /* RivalsOfIxalan.swift in Sources */,
+				98C769AF21827CB9001BCFF7 /* Targetable.swift in Sources */,
 				98E8A05120EAF79100A951DA /* Effect.swift in Sources */,
 				982F9B32209BAD33009BBD8B /* Card.swift in Sources */,
 				982F9B2E209BAC81009BBD8B /* Game.swift in Sources */,

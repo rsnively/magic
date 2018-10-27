@@ -9,11 +9,11 @@ enum LEA {
         let armageddon = Card(name: "Armageddon", rarity: .Rare, set: set, number: 2)
         armageddon.setManaCost("3W")
         armageddon.setType(.Sorcery)
-        armageddon.addUntargetedEffect({
+        armageddon.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getLands().forEach({ card in player.destroyPermanent(card) })
             })
-        })
+        }
         return armageddon
     }
     // 3 Balance
@@ -35,9 +35,9 @@ enum LEA {
         let disenchant = Card(name: "Disenchant", rarity: .Common, set: set, number: 18)
         disenchant.setManaCost("1W")
         disenchant.setType(.Instant)
-        disenchant.addTargetedEffect(
+        disenchant.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         return disenchant
     }
     // 19 Farmstead
@@ -51,7 +51,7 @@ enum LEA {
         let karma = Card(name: "Karma", rarity: .Uncommon, set: set, number: 26)
         karma.setManaCost("2WW")
         karma.setType(.Enchantment)
-        karma.addUntargetedTriggeredAbility(
+        karma.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: {
                 let numSwamps = Game.shared.getActivePlayer().getPermanents().filter({ $0.isType(.Swamp) }).count
@@ -80,9 +80,9 @@ enum LEA {
         let righteousness = Card(name: "Righteousness", rarity: .Rare, set: set, number: 36)
         righteousness.setManaCost("W")
         righteousness.setType(.Instant)
-        righteousness.addTargetedEffect(
+        righteousness.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) && $0.blocking },
-            effect: { $0.pump(7, 7) })
+            effect: { $0.pump(7, 7) }))
         return righteousness
     }
     // 37 Samite Healer
@@ -174,9 +174,9 @@ enum LEA {
         let unsummon = Card(name: "Unsummon", rarity: .Common, set: set, number: 86)
         unsummon.setManaCost("U")
         unsummon.setType(.Instant)
-        unsummon.addTargetedEffect(
+        unsummon.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.bounce() })
+            effect: { target in target.bounce() }))
         return unsummon
     }
     // 87 Vesuvan Doppleganger
@@ -202,11 +202,11 @@ enum LEA {
         let darkRitual = Card(name: "Dark Ritual", rarity: .Common, set: set, number: 98)
         darkRitual.setManaCost("B")
         darkRitual.setType(.Instant)
-        darkRitual.addUntargetedEffect({
+        darkRitual.addEffect {
             darkRitual.getController().addMana(color: .Black)
             darkRitual.getController().addMana(color: .Black)
             darkRitual.getController().addMana(color: .Black)
-        })
+        }
         return darkRitual
     }
     // 99 Darkpact
@@ -251,9 +251,9 @@ enum LEA {
         let sinkhole = Card(name: "Sinkhole", rarity: .Common, set: set, number: 129)
         sinkhole.setManaCost("BB")
         sinkhole.setType(.Sorcery)
-        sinkhole.addTargetedEffect(
+        sinkhole.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Land) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         return sinkhole
     }
     // 130 Terror
@@ -297,11 +297,11 @@ enum LEA {
         let flashfires = Card(name: "Flashfires", rarity: .Uncommon, set: set, number: 151)
         flashfires.setManaCost("3R")
         flashfires.setType(.Sorcery)
-        flashfires.addUntargetedEffect({
+        flashfires.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getLands().filter({$0.isType(.Plains)}).forEach({$0.destroy()})
             })
-        })
+        }
         return flashfires
     }
     // 152 Fork
@@ -361,9 +361,9 @@ enum LEA {
         let shatter = Card(name: "Shatter", rarity: .Common, set: set, number: 173)
         shatter.setManaCost("1R")
         shatter.setType(.Instant)
-        shatter.addTargetedEffect(
+        shatter.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         return shatter
     }
     // 174 Shivan Dragon
@@ -373,9 +373,9 @@ enum LEA {
         let stoneRain = Card(name: "Stone Rain", rarity: .Common, set: set, number: 177)
         stoneRain.setManaCost("2R")
         stoneRain.setType(.Sorcery)
-        stoneRain.addTargetedEffect(
+        stoneRain.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Land) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         return stoneRain
     }
     // 178 Tunnel
@@ -396,12 +396,12 @@ enum LEA {
         let wheelOfFortune = Card(name: "Wheel of Fortune", rarity: .Rare, set: set, number: 183)
         wheelOfFortune.setManaCost("2R")
         wheelOfFortune.setType(.Sorcery)
-        wheelOfFortune.addUntargetedEffect({
+        wheelOfFortune.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getHand().forEach({$0.discard()})
                 player.drawCards(7)
             })
-        })
+        }
         return wheelOfFortune
     }
     // 184 Aspect of Wolf
@@ -441,9 +441,9 @@ enum LEA {
         let iceStorm = Card(name: "Ice Rain", rarity: .Uncommon, set: set, number: 201)
         iceStorm.setManaCost("2G")
         iceStorm.setType(.Sorcery)
-        iceStorm.addTargetedEffect(
+        iceStorm.addEffect(TargetedEffect.SingleObject(
             restriction: {  return $0.isType(.Land) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         return iceStorm
     }
     // 202 Instill Energy
@@ -476,22 +476,22 @@ enum LEA {
         let tranquility = Card(name: "Tranquility", rarity: .Common, set: set, number: 220)
         tranquility.setManaCost("2G")
         tranquility.setType(.Sorcery)
-        tranquility.addUntargetedEffect({
+        tranquility.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getEnchantments().forEach({ card in player.destroyPermanent(card) })
             })
-        })
+        }
         return tranquility
     }
     static func Tsunami() -> Card {
         let tsunami = Card(name: "Tsunami", rarity: .Uncommon, set: set, number: 152)
         tsunami.setManaCost("3G")
         tsunami.setType(.Sorcery)
-        tsunami.addUntargetedEffect({
+        tsunami.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getLands().filter({$0.isType(.Island)}).forEach({$0.destroy()})
             })
-        })
+        }
         return tsunami
     }
     // 222 Verduran Enchantress
@@ -587,12 +587,12 @@ enum LEA {
         let undergroundSea = Card(name: "Underground Sea", rarity: .Rare, set: set, number: 285)
         undergroundSea.setManaCost("")
         undergroundSea.setType(.Land, .Island, .Swamp)
-        undergroundSea.addUntargetedActivatedAbility(
+        undergroundSea.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { undergroundSea.getController().addMana(color: .Black) },
             manaAbility: true )
-        undergroundSea.addUntargetedActivatedAbility(
+        undergroundSea.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { undergroundSea.getController().addMana(color: .Blue) },

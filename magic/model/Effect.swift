@@ -26,19 +26,59 @@ class UntargetedEffect: Effect {
 }
 
 class TargetedEffect: Effect {
-    private var restrictions: [(Object) -> Bool]
-    private var effect: ([Object]) -> Void
-    private var targets: [Object] = []
+    private var restrictions: [(Targetable) -> Bool]
+    private var effect: ([Targetable]) -> Void
+    private var targets: [Targetable] = []
     
-    init(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void) {
+    init(restrictions: [(Targetable) -> Bool], effect: @escaping ([Targetable]) -> Void) {
         self.restrictions = restrictions
         self.effect = effect
     }
     
-    convenience init(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
+    convenience init(restriction: @escaping (Targetable) -> Bool, effect: @escaping (Targetable) -> Void) {
         self.init(restrictions: [restriction], effect: { objects in effect(objects.first!) })
     }
     
+    static func SingleObject(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) -> TargetedEffect {
+        let targetableRestriction: (Targetable) -> Bool = { targetable in
+            if let targetableObject = targetable as? Object {
+                return restriction(targetableObject)
+            }
+            return false
+        }
+        let targetableEffect: (Targetable) -> Void = { effect($0 as! Object) }
+        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect)
+    }
+    static func MultiObject(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void) -> TargetedEffect {
+        var targetableRestrictions: [(Targetable) -> Bool] = []
+        for restriction in restrictions {
+            targetableRestrictions.append({ targetable in
+                if let targetableObject = targetable as? Object {
+                    return restriction(targetableObject)
+                }
+                return false
+            })
+        }
+        let targetableEffect: ([Targetable]) -> Void = { targets in
+            var objectTargets: [Object] = []
+            for target in targets {
+                objectTargets.append(target as! Object)
+            }
+            effect(objectTargets)
+        }
+        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect)
+    }
+    static func SinglePlayer(restriction: @escaping (Player) -> Bool, effect: @escaping (Player) -> Void) -> TargetedEffect {
+        let targetableRestriction: (Targetable) -> Bool = { targetable in
+            if let targetablePlayer = targetable as? Player {
+                return restriction(targetablePlayer)
+            }
+            return false
+        }
+        let targetableEffect: (Targetable) -> Void = { effect($0 as! Player) }
+        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect)
+    }
+        
     func requiresTarget() -> Bool {
         return true
     }
@@ -46,11 +86,11 @@ class TargetedEffect: Effect {
         return restrictions.count
     }
     
-    func meetsRestrictions(target: Object) -> Bool {
+    func meetsRestrictions(target: Targetable) -> Bool {
         return restrictions[targets.count](target)
     }
     
-    func selectTarget(_ target: Object) {
+    func selectTarget(_ target: Targetable) {
         self.targets.append(target)
     }
     

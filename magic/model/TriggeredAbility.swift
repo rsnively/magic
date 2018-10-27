@@ -48,11 +48,11 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
     
-    init(source: Object, trigger: Trigger, restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
+    init(source: Object, trigger: Trigger, effect: TargetedEffect) {
         self.source = source
         self.trigger = trigger
         super.init(name: "Triggered Ability of" + source.getName())
-        effects.append(TargetedEffect(restriction: restriction, effect: effect))
+        effects.append(effect)
     }
     
     func getTrigger() -> Trigger {

@@ -1,10 +1,6 @@
 import Foundation
 
-protocol Damageable {
-    func takeDamage(_ amount: Int) -> Void
-}
-
-class Player: NSObject, Damageable {
+class Player: Targetable {
     private var life = 20
     private var library: [Object]
     private var hand: [Object] = []
@@ -39,7 +35,7 @@ class Player: NSObject, Damageable {
         return life
     }
     
-    func takeDamage(_ amount: Int) {
+    override func takeDamage(_ amount: Int) {
         self.loseLife(amount)
     }
     
@@ -171,7 +167,7 @@ class Player: NSObject, Damageable {
     }
     
     func play(card:Card) {        
-        let cardIndex = hand.index(of: card)!
+        let cardIndex = hand.firstIndex(where: {$0 === card})!
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
             manaPool.payFor(card)
@@ -230,19 +226,19 @@ class Player: NSObject, Damageable {
     }
     
     func bouncePermanent(_ object: Object) {
-        let index = permanents.index(of: object as! Card)!
+        let index = permanents.firstIndex(where: {$0 === object})!
         permanents.remove(at: index)
-        (object as! Card).getOwner().hand.append(object as! Card)
+        object.getOwner().hand.append(object)
     }
     
     func discard(_ object: Object) {
-        let index = hand.index(of: object)!
+        let index = hand.firstIndex(where: {$0 === object})!
         hand.remove(at: index)
         graveyard.append(object)
     }
     
     func destroyPermanent(_ object: Object) {
-        let index = permanents.index(of: object)!
+        let index = permanents.firstIndex(where: {$0 === object})!
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)

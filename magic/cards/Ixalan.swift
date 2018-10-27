@@ -23,12 +23,12 @@ enum XLN {
         let brightReprisal = Card(name: "Bright Reprisal", rarity: .Uncommon, set: set, number: 7)
         brightReprisal.setManaCost("4W")
         brightReprisal.setType(.Instant)
-        brightReprisal.addTargetedEffect(
+        brightReprisal.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.attacking },
             effect: { target in
                 target.destroy()
                 brightReprisal.getController().drawCard()
-            })
+            }))
         brightReprisal.setFlavorText("Vampires know blood and the systems that carry it. And they know exactly where to strike to set it free.")
         return brightReprisal
     }
@@ -36,9 +36,9 @@ enum XLN {
         let demystify = Card(name: "Demystify", rarity: .Common, set: set, number: 8)
         demystify.setManaCost("W")
         demystify.setType(.Instant)
-        demystify.addTargetedEffect(
+        demystify.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Enchantment) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         demystify.setFlavorText("\"The River Heralds carve spells into jade, hoping to steer us from our course. But what right do they have to keep us from that which once was ours?\"")
         return demystify
     }
@@ -47,11 +47,12 @@ enum XLN {
         duskborneSkymarcher.setManaCost("W")
         duskborneSkymarcher.setType(.Creature, .Vampire, .Cleric)
         duskborneSkymarcher.flying = true
-        duskborneSkymarcher.addTargetedActivatedAbility(
+        duskborneSkymarcher.addActivatedAbility(
             string: "{W}, {T}: Target attacking Vampire gets +1/+1 until end of turn.",
             cost: Cost("W", tap: true),
-            restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
-            effect: { $0.pump(1, 1) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
+                effect: { $0.pump(1, 1) }))
         duskborneSkymarcher.setFlavorText("\"The hour of Dusk is come.\"")
         duskborneSkymarcher.power = 1
         duskborneSkymarcher.toughness = 1
@@ -66,17 +67,18 @@ enum XLN {
         imperialAerosaur.setManaCost("3W")
         imperialAerosaur.setType(.Creature, .Dinosaur)
         imperialAerosaur.flying = true
-        imperialAerosaur.addTargetedTriggeredAbility(
+        imperialAerosaur.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { return $0.isType(.Creature) && $0 != imperialAerosaur },
-            effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                // TODO: These should be different, because they are applied in different layers
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-                object.flying = true
-                return object
-            }))
-        })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0 !== imperialAerosaur },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    // TODO: These should be different, because they are applied in different layers
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                    object.flying = true
+                    return object
+                }))
+        }))
         imperialAerosaur.setFlavorText("Its assistance is unnervingly similar to its hunting technique.")
         imperialAerosaur.power = 3
         imperialAerosaur.toughness = 3
@@ -87,7 +89,7 @@ enum XLN {
         let inspiringCleric = Card(name: "Inspiring Cleric", rarity: .Uncommon, set: set, number: 16)
         inspiringCleric.setManaCost("2W")
         inspiringCleric.setType(.Creature, .Vampire, .Cleric)
-        inspiringCleric.addUntargetedTriggeredAbility(
+        inspiringCleric.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { inspiringCleric.getController().gainLife(4) })
         inspiringCleric.setFlavorText("\"The Immortal Sun will bring us true eternal life to replace the everlasting shadow of undeath.\"")
@@ -103,9 +105,9 @@ enum XLN {
         let legionsJudgment = Card(name: "Legion's Judgment", rarity: .Common, set: set, number: 21)
         legionsJudgment.setManaCost("2W")
         legionsJudgment.setType(.Sorcery)
-        legionsJudgment.addTargetedEffect(
+        legionsJudgment.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         legionsJudgment.setFlavorText("\"My lance was once wielded by Venerable Tarrian. In his name and by his might, I cast you down!\"")
         return legionsJudgment
     }
@@ -124,7 +126,7 @@ enum XLN {
         let paladinOfTheBloodstained = Card(name: "Paladin of the Bloodstained", rarity: .Common, set: set, number: 25)
         paladinOfTheBloodstained.setManaCost("3W")
         paladinOfTheBloodstained.setType(.Creature, .Vampire, .Knight)
-        paladinOfTheBloodstained.addUntargetedTriggeredAbility(
+        paladinOfTheBloodstained.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { paladinOfTheBloodstained.getController().createToken(Vampire()) })
         paladinOfTheBloodstained.setFlavorText("Closely linked to the Church of Dusk, the paladins of the Bloodstained order are devout to the point of fanaticism.")
@@ -139,7 +141,7 @@ enum XLN {
         let queensCommission = Card(name: "Queen's Commission", rarity: .Common, set: set, number: 29)
         queensCommission.setManaCost("2W")
         queensCommission.setType(.Sorcery)
-        queensCommission.addUntargetedEffect({
+        queensCommission.addEffect({
             queensCommission.getController().createToken(Vampire())
             queensCommission.getController().createToken(Vampire())
         })
@@ -150,7 +152,7 @@ enum XLN {
         let rallyingRoar = Card(name: "Rallying Roar", rarity: .Uncommon, set: set, number: 30)
         rallyingRoar.setManaCost("2W")
         rallyingRoar.setType(.Instant)
-        rallyingRoar.addUntargetedEffect({
+        rallyingRoar.addEffect({
             rallyingRoar.getController().getCreatures().forEach({ creature in
                 creature.pump(1, 1)
                 creature.untap()
@@ -172,7 +174,7 @@ enum XLN {
         let ritualOfRejuvenation = Card(name: "Ritual of Rejuvenation", rarity: .Common, set: set, number: 32)
         ritualOfRejuvenation.setManaCost("2W")
         ritualOfRejuvenation.setType(.Instant)
-        ritualOfRejuvenation.addUntargetedEffect({
+        ritualOfRejuvenation.addEffect({
             ritualOfRejuvenation.getController().gainLife(4)
             ritualOfRejuvenation.getController().drawCard()
         })
@@ -206,9 +208,9 @@ enum XLN {
         let slashOfTalons = Card(name: "Slash of Talons", rarity: .Common, set: set, number: 38)
         slashOfTalons.setManaCost("W")
         slashOfTalons.setType(.Instant)
-        slashOfTalons.addTargetedEffect(
+        slashOfTalons.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in slashOfTalons.damage(to: target, 2) })
+            effect: { target in slashOfTalons.damage(to: target, 2) }))
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")
         return slashOfTalons
     }
@@ -218,10 +220,11 @@ enum XLN {
         let territorialHammerskull = Card(name: "Territorial Hammerskull", rarity: .Common, set: set, number: 41)
         territorialHammerskull.setManaCost("2W")
         territorialHammerskull.setType(.Creature, .Dinosaur)
-        territorialHammerskull.addTargetedTriggeredAbility(
+        territorialHammerskull.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { return $0.isType(.Creature) && $0.getController() != territorialHammerskull.getController() },
-            effect: { target in target.tap() })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.getController() !== territorialHammerskull.getController() },
+                effect: { target in target.tap() }))
         territorialHammerskull.setFlavorText("From the eyes up, it's solid bone and stubbornness.")
         territorialHammerskull.power = 2
         territorialHammerskull.toughness = 3
@@ -349,13 +352,13 @@ enum XLN {
         let spreadingRot = Card(name: "Spreading Rot", rarity: .Common, set: set, number: 125)
         spreadingRot.setManaCost("4B")
         spreadingRot.setType(.Sorcery)
-        spreadingRot.addTargetedEffect(
+        spreadingRot.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Land) },
             effect: { target in
                 let controller = target.getController()
                 target.destroy()
                 controller.loseLife(2)
-        })
+        }))
         spreadingRot.setFlavorText("\"What is this foul presence that defies the sun's cleansing rays.\"\n--Itzama the Crested")
         return spreadingRot
     }
@@ -364,9 +367,9 @@ enum XLN {
         let vanquishTheWeak = Card(name: "Vanquish the Weak", rarity: .Common, set: set, number: 127)
         vanquishTheWeak.setManaCost("2B")
         vanquishTheWeak.setType(.Instant)
-        vanquishTheWeak.addTargetedEffect(
+        vanquishTheWeak.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getPower() <= 3 },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         vanquishTheWeak.setFlavorText("The clerics known as condemners punish those who do not recognize the righteous authority of the church.")
         return vanquishTheWeak
     }
@@ -374,7 +377,7 @@ enum XLN {
         let viciousConquistador = Card(name: "Vicious Conquistador", rarity: .Uncommon, set: set, number: 128)
         viciousConquistador.setManaCost("B")
         viciousConquistador.setType(.Creature, .Vampire, .Soldier)
-        viciousConquistador.addUntargetedTriggeredAbility(
+        viciousConquistador.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: { viciousConquistador.getOpponent().loseLife(1) })
         viciousConquistador.setFlavorText("\"He is ambitious. Tireless. And utterly ruthless. Ideal for the frontier.\"\n--Viceroy Elia Sotonores, report to the queen")
@@ -387,9 +390,9 @@ enum XLN {
         let walkThePlank = Card(name: "Walk the Plank", rarity: .Uncommon, set: set, number: 130)
         walkThePlank.setManaCost("BB")
         walkThePlank.setType(.Sorcery)
-        walkThePlank.addTargetedEffect(
+        walkThePlank.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Merfolk) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         walkThePlank.setFlavorText("When Captain Thorn adds a new ship to his fleet, he gives the crew a simple choice: follow me, or fall into the sea.")
         return walkThePlank
     }
@@ -405,9 +408,9 @@ enum XLN {
         let demolish = Card(name: "Demolish", rarity: .Common, set: set, number: 139)
         demolish.setManaCost("3R")
         demolish.setType(.Sorcery)
-        demolish.addTargetedEffect(
+        demolish.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Land) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         demolish.setFlavorText("What took months for human hands to carve took just seconds for the dinosaur's tail to ruin.")
         return demolish
     }
@@ -417,7 +420,7 @@ enum XLN {
         let fathomFleetFirebrand = Card(name: "Fathom Fleet Firebrand", rarity: .Common, set: set, number: 142)
         fathomFleetFirebrand.setManaCost("1R")
         fathomFleetFirebrand.setType(.Creature, .Human, .Pirate)
-        fathomFleetFirebrand.addUntargetedActivatedAbility(
+        fathomFleetFirebrand.addActivatedAbility(
             string: "{1}{R}: ~ gets +1/+1 until end of turn.",
             cost: Cost("1R"),
             effect: { fathomFleetFirebrand.pump(1, 0) })
@@ -430,7 +433,7 @@ enum XLN {
         let fieryCannonade = Card(name: "Fiery Cannonade", rarity: .Uncommon, set: set, number: 143)
         fieryCannonade.setManaCost("2R")
         fieryCannonade.setType(.Instant)
-        fieryCannonade.addUntargetedEffect({
+        fieryCannonade.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach({ creature in
                     if !creature.isType(.Pirate) {
@@ -438,7 +441,7 @@ enum XLN {
                     }
                 })
             })
-        })
+        }
         fieryCannonade.setFlavorText("Wary of the ferocious dinosaurs, the Legion of Dusk built up the walls of their fort--just in time for the pirates to burn them down.")
         return fieryCannonade
     }
@@ -505,11 +508,12 @@ enum XLN {
         let blossomDryad = Card(name: "Blossom Dryad", rarity: .Common, set: set, number: 178)
         blossomDryad.setManaCost("2G")
         blossomDryad.setType(.Creature, .Dryad)
-        blossomDryad.addTargetedActivatedAbility(
+        blossomDryad.addActivatedAbility(
             string: "{T}: Untap target land.",
             cost: Cost("", tap: true),
-            restriction: { return $0.isType(.Land) },
-            effect: { target in target.untap() })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Land) },
+                effect: { target in target.untap() }))
         blossomDryad.setFlavorText("The only force on Ixalan not interested in finding the golden city is Ixalan itself.")
         blossomDryad.power = 2
         blossomDryad.toughness = 2
@@ -544,7 +548,7 @@ enum XLN {
         let jungleDelver = Card(name: "Jungle Delver", rarity: .Common, set: set, number: 195)
         jungleDelver.setManaCost("G")
         jungleDelver.setType(.Creature, .Merfolk, .Warrior)
-        jungleDelver.addUntargetedActivatedAbility(
+        jungleDelver.addActivatedAbility(
             string: "{3}{G}: Put a +1/+1 counter on ~.",
             cost: Cost("3G"),
             effect: { jungleDelver.addCounter(.PlusOnePlusOne) })
@@ -568,12 +572,12 @@ enum XLN {
         let sliceInTwain = Card(name: "Slice in Twain", rarity: .Uncommon, set: set, number: 207)
         sliceInTwain.setManaCost("2GG")
         sliceInTwain.setType(.Instant)
-        sliceInTwain.addTargetedEffect(
+        sliceInTwain.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
                 target.destroy()
                 sliceInTwain.getController().drawCard()
-        })
+        }))
         sliceInTwain.setFlavorText("The magic of the River Heralds is so great that even a single shaman can fend off a pirate landing party.")
         return sliceInTwain
     }
@@ -592,7 +596,7 @@ enum XLN {
         let callToTheFeast = Card(name: "Call to the Feast", rarity: .Uncommon, set: set, number: 219)
         callToTheFeast.setManaCost("2WB")
         callToTheFeast.setType(.Sorcery)
-        callToTheFeast.addUntargetedEffect({
+        callToTheFeast.addEffect({
             callToTheFeast.getController().createToken(Vampire())
             callToTheFeast.getController().createToken(Vampire())
             callToTheFeast.getController().createToken(Vampire())
@@ -605,7 +609,7 @@ enum XLN {
         let direFleetCaptain = Card(name: "Dire Fleet Captain", rarity: .Uncommon, set: set, number: 221)
         direFleetCaptain.setManaCost("BR")
         direFleetCaptain.setType(.Creature, .Orc, .Pirate)
-        direFleetCaptain.addUntargetedTriggeredAbility(
+        direFleetCaptain.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
                 // TODO this just says "attacking pirates" does that matter?

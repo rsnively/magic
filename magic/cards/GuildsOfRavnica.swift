@@ -8,8 +8,9 @@ enum GRN {
         return TargetedTriggeredAbility(
             source: source,
             trigger: .ThisAttacks,
-            restriction: { $0.isType(.Creature) && $0.attacking && $0.getPower() < source.getPower() },
-            effect: { $0.addCounter(.PlusOnePlusOne) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.attacking && $0.getPower() < source.getPower() },
+                effect: { $0.addCounter(.PlusOnePlusOne) }))
     }
 
     static func BladeInstructor() -> Card {
@@ -28,7 +29,7 @@ enum GRN {
         let citywideBust = Card(name: "Citywide Bust", rarity: .Rare, set: set, number: 4)
         citywideBust.setManaCost("1WW")
         citywideBust.setType(.Sorcery)
-        citywideBust.addUntargetedEffect({
+        citywideBust.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getToughness() >= 4 {
@@ -36,7 +37,7 @@ enum GRN {
                     }
                 }
             })
-        })
+        }
         citywideBust.setFlavorText("\"Oh, you fellas are going to love the lockup. Excellent gruel. Very low ceilings.\"\n--Libuse, Boros sergeant")
         return citywideBust
     }
@@ -44,9 +45,9 @@ enum GRN {
         let cageTheCulprit = Card(name: "Cage the Culprit", rarity: .Common, set: set, number: 5)
         cageTheCulprit.setManaCost("3W")
         cageTheCulprit.setType(.Instant)
-        cageTheCulprit.addTargetedEffect(
+        cageTheCulprit.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
         return cageTheCulprit
     }
@@ -73,7 +74,7 @@ enum GRN {
         let huntedWitness = Card(name: "Hunted Witness", rarity: .Common, set: set, number: 15)
         huntedWitness.setManaCost("W")
         huntedWitness.setType(.Creature, .Human)
-        huntedWitness.addUntargetedTriggeredAbility(
+        huntedWitness.addTriggeredAbility(
             trigger: .ThisDies,
             effect: { huntedWitness.getController().createToken(Soldier()) })
         huntedWitness.setFlavorText("He ferried weapons, spells, exotic animals--but his most dangerous cargo was the truth.")
@@ -85,7 +86,7 @@ enum GRN {
         let inspiringUnicorn = Card(name: "Inspiring Unicorn", rarity: .Uncommon, set: set, number: 16)
         inspiringUnicorn.setManaCost("2WW")
         inspiringUnicorn.setType(.Creature, .Unicorn)
-        inspiringUnicorn.addUntargetedTriggeredAbility(
+        inspiringUnicorn.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
                 inspiringUnicorn.getController().getCreatures().forEach({ creature in
@@ -105,7 +106,7 @@ enum GRN {
         lightOfTheLegion.setType(.Creature, .Angel)
         lightOfTheLegion.flying = true
         lightOfTheLegion.triggeredAbilities.append(Mentor(lightOfTheLegion))
-        lightOfTheLegion.addUntargetedTriggeredAbility(
+        lightOfTheLegion.addTriggeredAbility(
             trigger: .ThisDies,
             effect: { lightOfTheLegion.getController().getCreatures().filter({ $0.isColor(.White) }).forEach({ $0.addCounter(.PlusOnePlusOne)} )})
         lightOfTheLegion.power = 5
@@ -130,9 +131,9 @@ enum GRN {
         let righteousBlow = Card(name: "Righteous Blow", rarity: .Common, set: set, number: 23)
         righteousBlow.setManaCost("W")
         righteousBlow.setType(.Instant)
-        righteousBlow.addTargetedEffect(
+        righteousBlow.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in righteousBlow.damage(to: target, 2) })
+            effect: { target in righteousBlow.damage(to: target, 2) }))
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
     }
@@ -141,14 +142,15 @@ enum GRN {
         rocCharger.setManaCost("2W")
         rocCharger.setType(.Creature, .Bird)
         rocCharger.flying = true
-        rocCharger.addTargetedTriggeredAbility(
+        rocCharger.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { $0.attacking && $0.isType(.Creature) && !$0.flying },
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.flying = true
-                return object
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.attacking && $0.isType(.Creature) && !$0.flying },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.flying = true
+                    return object
+                }))
             }))
-        })
         rocCharger.setFlavorText("Rocs' innate fearlessness makes them ideal mounts for emergency response.")
         rocCharger.power = 1
         rocCharger.toughness = 3
@@ -160,7 +162,7 @@ enum GRN {
         let swornCompanions = Card(name: "Sworn Companions", rarity: .Common, set: set, number: 27)
         swornCompanions.setManaCost("2W")
         swornCompanions.setType(.Sorcery)
-        swornCompanions.addUntargetedEffect({
+        swornCompanions.addEffect({
             swornCompanions.getController().createToken(Soldier())
             swornCompanions.getController().createToken(Soldier())
         })
@@ -171,12 +173,12 @@ enum GRN {
         let takeHeart = Card(name: "Take Heart", rarity: .Common, set: set, number: 28)
         takeHeart.setManaCost("W")
         takeHeart.setType(.Instant)
-        takeHeart.addTargetedEffect(
+        takeHeart.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.pump(2, 2)
                 takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({$0.attacking}).count)
-        })
+        }))
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
         return takeHeart
     }
@@ -184,10 +186,11 @@ enum GRN {
         let tenthDistrictGuard = Card(name: "Tenth District Guard", rarity: .Common, set: set, number: 29)
         tenthDistrictGuard.setManaCost("1W")
         tenthDistrictGuard.setType(.Creature, .Human, .Soldier)
-        tenthDistrictGuard.addTargetedTriggeredAbility(
+        tenthDistrictGuard.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { return $0.isType(.Creature) },
-            effect: { $0.pump(0, 1) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) },
+                effect: { $0.pump(0, 1) }))
         tenthDistrictGuard.setFlavorText("\"The Tenth has always been my home. This city is constantly embroiled in one crisis or another, but I'm determined to protect my piece.\"")
         tenthDistrictGuard.power = 2
         tenthDistrictGuard.toughness = 2
@@ -212,7 +215,7 @@ enum GRN {
         let murmuringMystic = Card(name: "Murmuring Mystic", rarity: .Uncommon, set: set, number: 45)
         murmuringMystic.setManaCost("3U")
         murmuringMystic.setType(.Creature, .Human, .Wizard)
-        murmuringMystic.addUntargetedTriggeredAbility(
+        murmuringMystic.addTriggeredAbility(
             trigger: .CastInstantOrSorcery,
             effect: { murmuringMystic.getController().createToken(BirdIllusion()) })
         murmuringMystic.setFlavorText("Rumors float through the city like crows, alighting on citizens seemingly at random.")
@@ -225,7 +228,7 @@ enum GRN {
         museDrake.setManaCost("3U")
         museDrake.setType(.Creature, .Drake)
         museDrake.flying = true
-        museDrake.addUntargetedTriggeredAbility(
+        museDrake.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { museDrake.getController().drawCard() })
         museDrake.setFlavorText("A composer wrote a symphony based on the drakes screeching outside her window. Reviews were mixed--except among the drakes.")
@@ -247,10 +250,11 @@ enum GRN {
         let vedalkenMesmerist = Card(name: "Vedalken Mesmerist", rarity: .Common, set: set , number: 57)
         vedalkenMesmerist.setManaCost("1U")
         vedalkenMesmerist.setType(.Creature, .Vedalken, .Wizard)
-        vedalkenMesmerist.addTargetedTriggeredAbility(
+        vedalkenMesmerist.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { return $0.isType(.Creature) &&  $0.getController() != vedalkenMesmerist.getController()},
-            effect: { $0.pump(-2, 0) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) &&  $0.getController() !== vedalkenMesmerist.getController()},
+                effect: { $0.pump(-2, 0) }))
         vedalkenMesmerist.setFlavorText("\"There's no need to sound the alarm. You are minding your post admirably. I am authorized. All is well.\"")
         vedalkenMesmerist.power = 2
         vedalkenMesmerist.toughness = 1
@@ -338,7 +342,7 @@ enum GRN {
         let ritualOfSoot = Card(name: "Ritual of Soot", rarity: .Rare, set: set, number: 84)
         ritualOfSoot.setManaCost("2BB")
         ritualOfSoot.setType(.Sorcery)
-        ritualOfSoot.addUntargetedEffect({
+        ritualOfSoot.addEffect {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getConvertedManaCost() <= 3 {
@@ -346,7 +350,7 @@ enum GRN {
                     }
                 }
             })
-        })
+        }
         ritualOfSoot.setFlavorText("Only the patrol's armor was found, so tainted with the acrid smell of sudden death that it could never be worn again.")
         return ritualOfSoot
     }
@@ -355,10 +359,11 @@ enum GRN {
         let spinalCentipede = Card(name: "Spinal Centipede", rarity: .Common, set: set, number: 86)
         spinalCentipede.setManaCost("2B")
         spinalCentipede.setType(.Creature, .Insect)
-        spinalCentipede.addTargetedTriggeredAbility(
+        spinalCentipede.addTriggeredAbility(
             trigger: .ThisDies,
-            restriction: { $0.isType(.Creature) && $0.getController() == spinalCentipede.getController() },
-            effect: { $0.addCounter(.PlusOnePlusOne) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === spinalCentipede.getController() },
+                effect: { $0.addCounter(.PlusOnePlusOne) }))
         spinalCentipede.setFlavorText("The Golgari adorn themselves with the exoskeletons of iridescent insects. It's only fair the insects do likewise.")
         spinalCentipede.power = 3
         spinalCentipede.toughness = 2
@@ -369,7 +374,7 @@ enum GRN {
         let veiledShade = Card(name: "Veiled Shade", rarity: .Common, set: set, number: 88)
         veiledShade.setManaCost("2B")
         veiledShade.setType(.Creature, .Shade)
-        veiledShade.addUntargetedActivatedAbility(
+        veiledShade.addActivatedAbility(
             string: "{1}{B}: ~ gets +1/+1 until end of turn.",
             cost: Cost("1B"),
             effect: { veiledShade.pump(1, 1) })
@@ -397,9 +402,9 @@ enum GRN {
         let commandTheStorm = Card(name: "Command the Storm", rarity: .Common, set: set, number: 94)
         commandTheStorm.setManaCost("4R")
         commandTheStorm.setType(.Instant)
-        commandTheStorm.addTargetedEffect(
+        commandTheStorm.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in commandTheStorm.damage(to: target, 5) })
+            effect: { target in commandTheStorm.damage(to: target, 5) }))
         commandTheStorm.setFlavorText("In the wake of Niv-Mizzet's disappearance, Ral found himself leading the guild. He had dreamed of this day, but couldn't help feeling like a pawn in someone else's game.")
         return commandTheStorm
     }
@@ -410,7 +415,7 @@ enum GRN {
         electrostaticField.setManaCost("1R")
         electrostaticField.setType(.Creature, .Wall)
         electrostaticField.defender = true
-        electrostaticField.addUntargetedTriggeredAbility(
+        electrostaticField.addTriggeredAbility(
             trigger: .CastInstantOrSorcery,
             effect: { electrostaticField.damage(to: electrostaticField.getOpponent(), 1) })
         electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
@@ -435,7 +440,7 @@ enum GRN {
         goblinBanneret.setManaCost("R")
         goblinBanneret.setType(.Creature, .Goblin, .Soldier)
         goblinBanneret.triggeredAbilities.append(Mentor(goblinBanneret))
-        goblinBanneret.addUntargetedActivatedAbility(
+        goblinBanneret.addActivatedAbility(
             string: "{1}{R}: ~ gets +2/+0 until end of turn.",
             cost: Cost("1R"),
             effect: { goblinBanneret.pump(2, 0) })
@@ -452,10 +457,11 @@ enum GRN {
         hellkiteWhelp.setManaCost("4R")
         hellkiteWhelp.setType(.Creature, .Dragon)
         hellkiteWhelp.flying = true
-        hellkiteWhelp.addTargetedTriggeredAbility(
+        hellkiteWhelp.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { return $0.getController() != hellkiteWhelp.getController() },
-            effect: { target in hellkiteWhelp.damage(to: target, 1) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.getController() !== hellkiteWhelp.getController() },
+                effect: { target in hellkiteWhelp.damage(to: target, 1) }))
         hellkiteWhelp.setFlavorText("\"They play by spitting fire at each other. Don't be offended if one gives you a love-scorch.\"\n--Esfir, Rakdos drangon wrangler")
         hellkiteWhelp.power = 3
         hellkiteWhelp.toughness = 3
@@ -472,10 +478,11 @@ enum GRN {
         let rubblebeltBoar = Card(name: "Rubblebelt Boar", rarity: .Common, set: set, number: 114)
         rubblebeltBoar.setManaCost("3R")
         rubblebeltBoar.setType(.Creature, .Boar)
-        rubblebeltBoar.addTargetedTriggeredAbility(
+        rubblebeltBoar.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { return $0.isType(.Creature) },
-            effect: { $0.pump(2, 0) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) },
+                effect: { $0.pump(2, 0) }))
         rubblebeltBoar.setFlavorText("Some Gruul druis believe that boars are spawn of the great Illharg, the mighty Raze-Boar who will one day rise and level the city.")
         rubblebeltBoar.power = 3
         rubblebeltBoar.toughness = 3
@@ -493,7 +500,7 @@ enum GRN {
         let beastWhisperer = Card(name: "Beast Whisperer", rarity: .Rare, set: set, number: 123)
         beastWhisperer.setManaCost("2GG")
         beastWhisperer.setType(.Creature, .Elf, .Druid)
-        beastWhisperer.addUntargetedTriggeredAbility(
+        beastWhisperer.addTriggeredAbility(
             trigger: .CastCreatureSpell,
             effect: { beastWhisperer.getController().drawCard() })
         beastWhisperer.setFlavorText("\"The tiniest mouse speaks louder to me than all the festival crowds on Tin Street.\"")
@@ -505,13 +512,13 @@ enum GRN {
         let bountyOfMight = Card(name: "Bounty of Might", rarity: .Rare, set: set, number: 124)
         bountyOfMight.setManaCost("4GG")
         bountyOfMight.setType(.Instant)
-        bountyOfMight.addTargetedEffect(
+        bountyOfMight.addEffect(TargetedEffect.MultiObject(
             restrictions: [{ $0.isType(.Creature) }, { $0.isType(.Creature) }, { $0.isType(.Creature) }],
             effect: { targets in
                 for target in targets {
                     target.pump(3, 3)
                 }
-            })
+            }))
         bountyOfMight.setFlavorText("\"I am the very soul of battle, but even I would never advise open war with the Conclave.\"\n--Aurelia")
         return bountyOfMight
     }
@@ -521,7 +528,7 @@ enum GRN {
         let devkarinDissident = Card(name: "Devkarin Dissident", rarity: .Common, set: set, number: 127)
         devkarinDissident.setManaCost("1G")
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
-        devkarinDissident.addUntargetedActivatedAbility(
+        devkarinDissident.addActivatedAbility(
             string: "{4}{G}: ~ gets +2/+2 until end of turn.",
             cost: Cost("4G"),
             effect: { devkarinDissident.pump(2, 2) })
@@ -535,7 +542,7 @@ enum GRN {
         let generousStray = Card(name: "Generous Stray", rarity: .Common, set: set, number: 129)
         generousStray.setManaCost("2G")
         generousStray.setType(.Creature, .Cat)
-        generousStray.addUntargetedTriggeredAbility(
+        generousStray.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { generousStray.getController().drawCard() })
         generousStray.setFlavorText("Cats place their gifts with care, so that a bare foot will step on them in the middle of the night.")
@@ -560,10 +567,11 @@ enum GRN {
         let ironshellBeetle = Card(name: "Ironshell Beetle", rarity: .Common, set: set, number: 134)
         ironshellBeetle.setManaCost("1G")
         ironshellBeetle.setType(.Creature, .Insect)
-        ironshellBeetle.addTargetedTriggeredAbility(
+        ironshellBeetle.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { $0.isType(.Creature) },
-            effect: { $0.addCounter(.PlusOnePlusOne) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.addCounter(.PlusOnePlusOne) }))
         ironshellBeetle.setFlavorText("\"Please don't feed the beetles.\"\n--Promenade warning sign")
         ironshellBeetle.power = 1
         ironshellBeetle.toughness = 1
@@ -573,7 +581,7 @@ enum GRN {
         let kraulForagers = Card(name: "Kraul Foragers", rarity: .Common, set: set, number: 135)
         kraulForagers.setManaCost("4G")
         kraulForagers.setType(.Creature, .Insect, .Scout)
-        kraulForagers.addUntargetedTriggeredAbility(
+        kraulForagers.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
                 let creaturesInGraveyard = kraulForagers.getController().getGraveyard().filter({$0.isType(.Creature)}).count
@@ -589,7 +597,7 @@ enum GRN {
         let mightOfTheMasses = Card(name: "Might of the Masses", rarity: .Uncommon, set: set, number: 137)
         mightOfTheMasses.setManaCost("G")
         mightOfTheMasses.setType(.Instant)
-        mightOfTheMasses.addTargetedEffect(
+        mightOfTheMasses.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -598,7 +606,7 @@ enum GRN {
                     object.toughness = object.getBaseToughness() + x
                     return object
                 }))
-        })
+        }))
         mightOfTheMasses.setFlavorText("\"There is nothing stronger than many hearts united for a single cause.\"\n--Emmara")
         return mightOfTheMasses
     }
@@ -611,10 +619,10 @@ enum GRN {
         let preyUpon = Card(name: "Prey Upon", rarity: .Common, set: set, number: 143)
         preyUpon.setManaCost("G")
         preyUpon.setType(.Sorcery)
-        preyUpon.addTargetedEffect(
-            restrictions: [{ $0.isType(.Creature) && $0.getController() == preyUpon.getController() },
-                           { $0.isType(.Creature) && $0.getController() != preyUpon.getController() }],
-            effect: { targets in targets[0].fight(targets[1]) })
+        preyUpon.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === preyUpon.getController() },
+                           { $0.isType(.Creature) && $0.getController() !== preyUpon.getController() }],
+            effect: { targets in targets[0].fight(targets[1]) }))
         preyUpon.setFlavorText("\"Light up the dark to find your way, and the dark may seek you out.\"\n--Zalin the Gutter Bard")
         return preyUpon
     }
@@ -652,7 +660,7 @@ enum GRN {
         borosChallenger.setManaCost("RW")
         borosChallenger.setType(.Creature, .Human, .Soldier)
         borosChallenger.triggeredAbilities.append(Mentor(borosChallenger))
-        borosChallenger.addUntargetedActivatedAbility(
+        borosChallenger.addActivatedAbility(
             string: "{2}{R}{W}: ~ gets +1/+1 until end of turn.",
             cost: Cost("2RW"),
             effect: { borosChallenger.pump(1, 1) })
@@ -665,12 +673,12 @@ enum GRN {
         let camaraderie = Card(name: "Camaraderie", rarity: .Rare, set: set, number: 157)
         camaraderie.setManaCost("4GW")
         camaraderie.setType(.Sorcery)
-        camaraderie.addUntargetedEffect({
+        camaraderie.addEffect {
             let numCreatures = camaraderie.getController().getCreatures().count
             camaraderie.getController().gainLife(numCreatures)
             camaraderie.getController().drawCards(numCreatures)
             camaraderie.getController().getCreatures().forEach({ $0.pump(1, 1) })
-        })
+        }
         camaraderie.setFlavorText("\"Within the song of Mat'Selesnya, one becomes all.\"\n--Heruj, Selesnya hierophant")
         return camaraderie
     }
@@ -678,7 +686,7 @@ enum GRN {
         let centaurPeacemaker = Card(name: "Centaur Peacemaker", rarity: .Common, set: set, number: 158)
         centaurPeacemaker.setManaCost("1GW")
         centaurPeacemaker.setType(.Creature, .Centaur, .Cleric)
-        centaurPeacemaker.addUntargetedTriggeredAbility(
+        centaurPeacemaker.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { Game.shared.bothPlayers({$0.gainLife(4)}) })
         centaurPeacemaker.setFlavorText("\"Please accept this offering. I sincerely hope to leave my mace at my side.\"")
@@ -693,7 +701,7 @@ enum GRN {
         conclaveCavalier.setManaCost("GGWW")
         conclaveCavalier.setType(.Creature, .Centaur, .Knight)
         conclaveCavalier.vigilance = true
-        conclaveCavalier.addUntargetedTriggeredAbility(
+        conclaveCavalier.addTriggeredAbility(
             trigger: .ThisDies,
             effect: {
                 conclaveCavalier.getController().createToken(ElfKnight())
@@ -737,9 +745,9 @@ enum GRN {
         let justiceStrike = Card(name: "Justice Strike", rarity: .Uncommon, set: set, number: 182)
         justiceStrike.setManaCost("RW")
         justiceStrike.setType(.Instant)
-        justiceStrike.addTargetedEffect(
+        justiceStrike.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.damage(to: target, target.getPower()) })
+            effect: { target in target.damage(to: target, target.getPower()) }))
         justiceStrike.setFlavorText("\"Those who show no mercy to the weak deserve no mercy from the strong.\"\n--Firemane Kavrova")
         return justiceStrike
     }
@@ -751,15 +759,16 @@ enum GRN {
         let legionGuildmage = Card(name: "Legion Guildmage", rarity: .Uncommon, set: set, number: 187)
         legionGuildmage.setManaCost("RW")
         legionGuildmage.setType(.Creature, .Human, .Wizard)
-        legionGuildmage.addUntargetedActivatedAbility(
+        legionGuildmage.addActivatedAbility(
             string: "{5}{R}, {T}: ~ deals 3 damage to each opponent.",
             cost: Cost("5R", tap: true),
             effect: { legionGuildmage.damage(to: legionGuildmage.getOpponent(), 3) })
-        legionGuildmage.addTargetedActivatedAbility(
+        legionGuildmage.addActivatedAbility(
             string: "{2}{W}, {T}: Tap another target creature.",
             cost: Cost("2W", tap: true),
-            restriction: { $0.isType(.Creature) && $0 != legionGuildmage },
-            effect: { $0.tap() })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0 !== legionGuildmage },
+                effect: { $0.tap() }))
         legionGuildmage.power = 2
         legionGuildmage.toughness = 2
         return legionGuildmage
@@ -793,7 +802,7 @@ enum GRN {
         swathcutterGiant.setManaCost("4RW")
         swathcutterGiant.setType(.Creature, .Giant, .Soldier)
         swathcutterGiant.vigilance = true
-        swathcutterGiant.addUntargetedTriggeredAbility(
+        swathcutterGiant.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: { swathcutterGiant.getOpponent().getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) })
         swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
@@ -812,9 +821,9 @@ enum GRN {
         let undercityUprising = Card(name: "Undercity Uprising", rarity: .Common, set: set, number: 210)
         undercityUprising.setManaCost("2BG")
         undercityUprising.setType(.Sorcery)
-        undercityUprising.addTargetedEffect(
-            restrictions: [{ $0.isType(.Creature) && $0.getController() == undercityUprising.getController() },
-                           { $0.isType(.Creature) && $0.getController() != undercityUprising.getController() }],
+        undercityUprising.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === undercityUprising.getController() },
+                           { $0.isType(.Creature) && $0.getController() !== undercityUprising.getController() }],
             effect: { targets in
                 undercityUprising.getController().getCreatures().forEach({ creature in
                     creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -823,7 +832,7 @@ enum GRN {
                     }))
                 })
                 targets[0].fight(targets[1])
-        })
+        }))
         undercityUprising.setFlavorText("\"Now it's your turn to hide.\"\n--Vraska")
         return undercityUprising
     }
@@ -835,7 +844,7 @@ enum GRN {
         weeDragonauts.setManaCost("1UR")
         weeDragonauts.setType(.Creature, .Faerie, .Wizard)
         weeDragonauts.flying = true
-        weeDragonauts.addUntargetedTriggeredAbility(
+        weeDragonauts.addTriggeredAbility(
             trigger: .CastInstantOrSorcery,
             effect: { weeDragonauts.pump(2, 0) })
         weeDragonauts.setFlavorText("\"Something's causing electrospheric disruption in the blazekite's spire-vanes. Find the cause, and tell them to keep it up!\"\n--Juzba, Izzet tinker.")
@@ -879,12 +888,12 @@ enum GRN {
         borosGuildgate.setManaCost("")
         borosGuildgate.setType(.Land, .Gate)
         borosGuildgate.entersTapped = true
-        borosGuildgate.addUntargetedActivatedAbility(
+        borosGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { borosGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
-        borosGuildgate.addUntargetedActivatedAbility(
+        borosGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { borosGuildgate.getController().addMana(color: .White) },
@@ -897,12 +906,12 @@ enum GRN {
         borosGuildgate.setManaCost("")
         borosGuildgate.setType(.Land, .Gate)
         borosGuildgate.entersTapped = true
-        borosGuildgate.addUntargetedActivatedAbility(
+        borosGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { borosGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
-        borosGuildgate.addUntargetedActivatedAbility(
+        borosGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { borosGuildgate.getController().addMana(color: .White) },
@@ -918,12 +927,12 @@ enum GRN {
         dimirGuildgate.setManaCost("")
         dimirGuildgate.setType(.Land, .Gate)
         dimirGuildgate.entersTapped = true
-        dimirGuildgate.addUntargetedActivatedAbility(
+        dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { dimirGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
-        dimirGuildgate.addUntargetedActivatedAbility(
+        dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { dimirGuildgate.getController().addMana(color: .Black) },
@@ -936,12 +945,12 @@ enum GRN {
         dimirGuildgate.setManaCost("")
         dimirGuildgate.setType(.Land, .Gate)
         dimirGuildgate.entersTapped = true
-        dimirGuildgate.addUntargetedActivatedAbility(
+        dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { dimirGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
-        dimirGuildgate.addUntargetedActivatedAbility(
+        dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { dimirGuildgate.getController().addMana(color: .Black) },
@@ -958,12 +967,12 @@ enum GRN {
         golgariGuildgate.setManaCost("")
         golgariGuildgate.setType(.Land, .Gate)
         golgariGuildgate.entersTapped = true
-        golgariGuildgate.addUntargetedActivatedAbility(
+        golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { golgariGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
-        golgariGuildgate.addUntargetedActivatedAbility(
+        golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { golgariGuildgate.getController().addMana(color: .Green) },
@@ -976,12 +985,12 @@ enum GRN {
         golgariGuildgate.setManaCost("")
         golgariGuildgate.setType(.Land, .Gate)
         golgariGuildgate.entersTapped = true
-        golgariGuildgate.addUntargetedActivatedAbility(
+        golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { golgariGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
-        golgariGuildgate.addUntargetedActivatedAbility(
+        golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { golgariGuildgate.getController().addMana(color: .Green) },
@@ -998,12 +1007,12 @@ enum GRN {
         izzetGuildgate.setManaCost("")
         izzetGuildgate.setType(.Land, .Gate)
         izzetGuildgate.entersTapped = true
-        izzetGuildgate.addUntargetedActivatedAbility(
+        izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { izzetGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
-        izzetGuildgate.addUntargetedActivatedAbility(
+        izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { izzetGuildgate.getController().addMana(color: .Red) },
@@ -1016,12 +1025,12 @@ enum GRN {
         izzetGuildgate.setManaCost("")
         izzetGuildgate.setType(.Land, .Gate)
         izzetGuildgate.entersTapped = true
-        izzetGuildgate.addUntargetedActivatedAbility(
+        izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { izzetGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
-        izzetGuildgate.addUntargetedActivatedAbility(
+        izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { izzetGuildgate.getController().addMana(color: .Red) },
@@ -1039,12 +1048,12 @@ enum GRN {
         selesnyaGuildgate.setManaCost("")
         selesnyaGuildgate.setType(.Land, .Gate)
         selesnyaGuildgate.entersTapped = true
-        selesnyaGuildgate.addUntargetedActivatedAbility(
+        selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
-        selesnyaGuildgate.addUntargetedActivatedAbility(
+        selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { selesnyaGuildgate.getController().addMana(color: .White) },
@@ -1057,12 +1066,12 @@ enum GRN {
         selesnyaGuildgate.setManaCost("")
         selesnyaGuildgate.setType(.Land, .Gate)
         selesnyaGuildgate.entersTapped = true
-        selesnyaGuildgate.addUntargetedActivatedAbility(
+        selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
-        selesnyaGuildgate.addUntargetedActivatedAbility(
+        selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { selesnyaGuildgate.getController().addMana(color: .White) },
@@ -1077,7 +1086,7 @@ enum GRN {
         let plains = Card(name: "Plains", rarity: .Common, set: set, number: 260)
         plains.setManaCost("")
         plains.setType(.Basic, .Land, .Plains)
-        plains.addUntargetedActivatedAbility(
+        plains.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
             effect: { plains.getController().addMana(color: .White) },
@@ -1088,7 +1097,7 @@ enum GRN {
         let island = Card(name: "Island", rarity: .Common, set: set, number: 261)
         island.setManaCost("")
         island.setType(.Basic, .Land, .Island)
-        island.addUntargetedActivatedAbility(
+        island.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
             effect: { island.getController().addMana(color: .Blue) },
@@ -1099,7 +1108,7 @@ enum GRN {
         let swamp = Card(name: "Swamp", rarity: .Common, set: set, number: 262)
         swamp.setManaCost("")
         swamp.setType(.Basic, .Land, .Swamp)
-        swamp.addUntargetedActivatedAbility(
+        swamp.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
             effect: { swamp.getController().addMana(color: .Black) },
@@ -1110,7 +1119,7 @@ enum GRN {
         let mountain = Card(name: "Mountain", rarity: .Common, set: set, number: 263)
         mountain.setManaCost("")
         mountain.setType(.Basic, .Land, .Mountain)
-        mountain.addUntargetedActivatedAbility(
+        mountain.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
             effect: { mountain.getController().addMana(color: .Red) },
@@ -1121,7 +1130,7 @@ enum GRN {
         let forest = Card(name: "Forest", rarity: .Common, set: set, number: 264)
         forest.setManaCost("")
         forest.setType(.Basic, .Land, .Forest)
-        forest.addUntargetedActivatedAbility(
+        forest.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { forest.getController().addMana(color: .Green) },

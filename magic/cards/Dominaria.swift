@@ -25,10 +25,10 @@ enum DOM {
         let callTheCavalry = Card(name: "Call the Cavalry", rarity: .Common, set: set, number: 9)
         callTheCavalry.setManaCost("3W")
         callTheCavalry.setType(.Sorcery)
-        callTheCavalry.addUntargetedEffect({
+        callTheCavalry.addEffect {
             callTheCavalry.getController().createToken(Knight())
             callTheCavalry.getController().createToken(Knight())
-        })
+        }
         callTheCavalry.setFlavorText("Benalish citizens born under the same constellation share a star-clan. Their loyalty to one another interlaces the Seven Houses.")
         return callTheCavalry
     }
@@ -36,9 +36,9 @@ enum DOM {
         let charge = Card(name: "Charge", rarity: .Common, set: set, number: 10)
         charge.setManaCost("W")
         charge.setType(.Instant)
-        charge.addUntargetedEffect({
+        charge.addEffect {
             charge.getController().getCreatures().forEach({ $0.pump(1, 1) })
-        })
+        }
         charge.setFlavorText("\"Honor rides before us. All we have to do is catch up\"\n--Danitha Capashen")
         return charge
     }
@@ -54,9 +54,9 @@ enum DOM {
         let gideonsReproach = Card(name: "Gideon's Reproach", rarity: .Common, set: set, number: 19)
         gideonsReproach.setManaCost("1W")
         gideonsReproach.setType(.Instant)
-        gideonsReproach.addTargetedEffect(
+        gideonsReproach.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
-            effect: { target in gideonsReproach.damage(to: target, 4) })
+            effect: { target in gideonsReproach.damage(to: target, 4) }))
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
     }
@@ -66,12 +66,12 @@ enum DOM {
         let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 22)
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
-        invokeTheDivine.addTargetedEffect(
+        invokeTheDivine.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
                 target.destroy()
                 invokeTheDivine.getController().gainLife(4)
-            })
+            }))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
         return invokeTheDivine
     }
@@ -103,14 +103,15 @@ enum DOM {
         pegasusCourser.setManaCost("2W")
         pegasusCourser.setType(.Creature, .Pegasus)
         pegasusCourser.flying = true
-        pegasusCourser.addTargetedTriggeredAbility(
+        pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
-            restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                object.flying = true
-                return object
-            }))
-        })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.attacking && $0.isType(.Creature) && $0 !== pegasusCourser },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.flying = true
+                    return object
+                }))
+        }))
         pegasusCourser.setFlavorText("A pegasus chooses its rider, bearing the worthy into the clouds and tossing all others to the ground.")
         pegasusCourser.power = 1
         pegasusCourser.toughness = 3
@@ -145,12 +146,12 @@ enum DOM {
         let befuddle = Card(name: "Befuddle", rarity: .Common, set: set, number: 45)
         befuddle.setManaCost("2U")
         befuddle.setType(.Instant)
-        befuddle.addTargetedEffect(
+        befuddle.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.pump(-4, 0)
                 befuddle.getController().drawCard()
-        })
+        }))
         befuddle.setFlavorText("\"The trick to talking sense into Keldons is getting them to hold still. I learned that from Radha.\"\n--Jhoira")
         return befuddle
     }
@@ -164,9 +165,9 @@ enum DOM {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 52)
         divination.setManaCost("2U")
         divination.setType(.Sorcery)
-        divination.addUntargetedEffect({
+        divination.addEffect {
             divination.getController().drawCards(2)
-        })
+        }
         divination.setFlavorText("\"Half your studies will be learning the laws of magic. The other half will be bending them.\"\n--Naru Meha, master wizard.")
         return divination
     }
@@ -184,9 +185,9 @@ enum DOM {
         let rescue = Card(name: "Rescue", rarity: .Common, set: set, number: 63)
         rescue.setManaCost("U")
         rescue.setType(.Instant)
-        rescue.addTargetedEffect(
-            restriction: { return $0.getController() == rescue.getController() },
-            effect: { target in target.bounce() })
+        rescue.addEffect(TargetedEffect.SingleObject(
+            restriction: { return $0.getController() === rescue.getController() },
+            effect: { target in target.bounce() }))
         rescue.setFlavorText("With just a few seconds to escape, Deryan saved Hurkyl's editions on restoring physical objects from ash.")
         return rescue
     }
@@ -227,9 +228,9 @@ enum DOM {
         let castDown = Card(name: "Cast Down", rarity: .Uncommon, set: set, number: 81)
         castDown.setManaCost("1B")
         castDown.setType(.Instant)
-        castDown.addTargetedEffect(
+        castDown.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
         return castDown
     }
@@ -239,7 +240,7 @@ enum DOM {
         let deathbloomThallid = Card(name: "Deathbloom Thallid", rarity: .Common, set: set, number: 84)
         deathbloomThallid.setManaCost("2B")
         deathbloomThallid.setType(.Creature, .Fungus)
-        deathbloomThallid.addUntargetedTriggeredAbility(
+        deathbloomThallid.addTriggeredAbility(
             trigger: .ThisDies,
             effect: { deathbloomThallid.getController().createToken(Saproling()) })
         deathbloomThallid.setFlavorText("\"Nature is not always gentle or kind, but all life begets life.\"\n--Marwyn of Llanowar")
@@ -252,7 +253,7 @@ enum DOM {
         let dreadShade = Card(name: "Dread Shade", rarity: .Rare, set: set, number: 88)
         dreadShade.setManaCost("BBB")
         dreadShade.setType(.Creature, .Shade)
-        dreadShade.addUntargetedActivatedAbility(
+        dreadShade.addActivatedAbility(
             string: "{B}: ~ gets +1/+1 until end of turn.",
             cost: Cost("B"),
             effect: { dreadShade.pump(1, 1) })
@@ -267,9 +268,9 @@ enum DOM {
         let eviscerate = Card(name: "Eviscerate", rarity: .Common, set: set, number: 91)
         eviscerate.setManaCost("3B")
         eviscerate.setType(.Sorcery)
-        eviscerate.addTargetedEffect(
+        eviscerate.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() })
+            effect: { target in target.destroy() }))
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
     }
@@ -288,12 +289,12 @@ enum DOM {
         let fungalInfection = Card(name: "Fungal Infection", rarity: .Common, set: set, number: 94)
         fungalInfection.setManaCost("B")
         fungalInfection.setType(.Instant)
-        fungalInfection.addTargetedEffect(
+        fungalInfection.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.pump(-1, -1)
                 fungalInfection.getController().createToken(Saproling())
-        })
+        }))
         fungalInfection.setFlavorText("To thallids, the whole world is just a pile of mulch to grow saprolings in.")
         return fungalInfection
     }
@@ -319,7 +320,7 @@ enum DOM {
         windgraceAcolyte.setManaCost("4B")
         windgraceAcolyte.setType(.Creature, .Cat, .Warrior)
         windgraceAcolyte.flying = true
-        windgraceAcolyte.addUntargetedTriggeredAbility(
+        windgraceAcolyte.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
                 windgraceAcolyte.getController().mill(3)
@@ -350,13 +351,14 @@ enum DOM {
         let firefistAdept = Card(name: "Firefist Adept", rarity: .Uncommon, set: set, number: 121)
         firefistAdept.setManaCost("4R")
         firefistAdept.setType(.Creature, .Human, .Wizard)
-        firefistAdept.addTargetedTriggeredAbility(
+        firefistAdept.addTriggeredAbility(
             trigger: .ThisETB,
-            restriction: { return $0.isType(.Creature) && $0.getController() != firefistAdept.getController() },
-            effect: { target in
-                let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
-                firefistAdept.damage(to: target, numWizards)
-        })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.getController() !== firefistAdept.getController() },
+                effect: { target in
+                    let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
+                    firefistAdept.damage(to: target, numWizards)
+        }))
         firefistAdept.setFlavorText("The versatile \"fiery gauntlet\" is among the first spells young Ghitu mages learn.")
         firefistAdept.power = 3
         firefistAdept.toughness = 2
@@ -399,7 +401,7 @@ enum DOM {
         let arborArmament = Card(name: "Arbor Armament", rarity: .Common, set: set, number: 155)
         arborArmament.setManaCost("G")
         arborArmament.setType(.Instant)
-        arborArmament.addTargetedEffect(
+        arborArmament.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) },
             effect: { target in
                 target.addCounter(.PlusOnePlusOne)
@@ -407,7 +409,7 @@ enum DOM {
                     object.reach = true
                     return object
                 }))
-        })
+        }))
         arborArmament.setFlavorText("\"Llanowar's boughs are ever ready\nTo unleash an autumn of steel leaves.\"\n--\"Song of Freyalise\"")
         return arborArmament
     }
@@ -427,7 +429,7 @@ enum DOM {
         let llanowarElves = Card(name: "Llanowar Elves", rarity: .Common, set: set, number: 168)
         llanowarElves.setManaCost("G")
         llanowarElves.setType(.Creature, .Elf)
-        llanowarElves.addUntargetedActivatedAbility(
+        llanowarElves.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
             effect: { llanowarElves.getController().addMana(color: .Green) },
@@ -457,9 +459,9 @@ enum DOM {
         let pierceTheSky = Card(name: "Pierce the Sky", rarity: .Common, set: set, number: 176)
         pierceTheSky.setManaCost("1G")
         pierceTheSky.setType(.Instant)
-        pierceTheSky.addTargetedEffect(
+        pierceTheSky.addEffect(TargetedEffect.SingleObject(
             restriction: { $0.isType(.Creature) && $0.flying },
-            effect: { pierceTheSky.damage(to: $0, 7) })
+            effect: { pierceTheSky.damage(to: $0, 7) }))
         pierceTheSky.setFlavorText("Llanowar elves conceal their ballistae in the upper canopy of the forest, ready to clear the skies of any intruder.")
         return pierceTheSky
     }
@@ -478,7 +480,7 @@ enum DOM {
         let sporeSwarm = Card(name: "Spore Swarm", rarity: .Uncommon, set: set, number: 180)
         sporeSwarm.setManaCost("3G")
         sporeSwarm.setType(.Instant)
-        sporeSwarm.addUntargetedEffect({
+        sporeSwarm.addEffect({
             sporeSwarm.getController().createToken(Saproling())
             sporeSwarm.getController().createToken(Saproling())
             sporeSwarm.getController().createToken(Saproling())
@@ -496,7 +498,7 @@ enum DOM {
         let verdantForce = Card(name: "Verdant Force", rarity: .Rare, set: set, number: 187)
         verdantForce.setManaCost("5GGG")
         verdantForce.setType(.Creature, .Elemental)
-        verdantForce.addUntargetedTriggeredAbility(
+        verdantForce.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: { verdantForce.getController().createToken(Saproling()) })
         verdantForce.setFlavorText("The bower shuddered. The stillness broke. The scurf shifted, and a being emerged from the flowers and ferns.")
@@ -509,7 +511,7 @@ enum DOM {
         let yavimayaSapherd = Card(name: "Yavimaya Sapherd", rarity: .Common, set: set, number: 189)
         yavimayaSapherd.setManaCost("2G")
         yavimayaSapherd.setType(.Creature, .Fungus)
-        yavimayaSapherd.addUntargetedTriggeredAbility(
+        yavimayaSapherd.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { yavimayaSapherd.getController().createToken(Saproling()) })
         yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
@@ -548,11 +550,12 @@ enum DOM {
         let icyManipulator = Card(name: "Icy Manipulator", rarity: .Uncommon, set: set, number: 219)
         icyManipulator.setManaCost("4")
         icyManipulator.setType(.Artifact)
-        icyManipulator.addTargetedActivatedAbility(
+        icyManipulator.addActivatedAbility(
             string: "{1}, {T}: Tap target artifact, creature, or land.",
             cost: Cost("1", tap: true),
-            restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
-            effect: { target in target.tap() })
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
+                effect: { target in target.tap() }))
         icyManipulator.setFlavorText("Ice may thaw, but malice never does.")
         return icyManipulator
     }
@@ -567,7 +570,7 @@ enum DOM {
         let powerstoneShard = Card(name: "Powerstone Shard", rarity: .Common, set: set, number: 227)
         powerstoneShard.setManaCost("3")
         powerstoneShard.setType(.Artifact)
-        powerstoneShard.addUntargetedActivatedAbility(
+        powerstoneShard.addActivatedAbility(
             string: "{T}: Add {C} for each artifact you control named Powerstone Shard.",
             cost: Cost("", tap: true),
             effect: {
@@ -586,10 +589,11 @@ enum DOM {
         let sparringConstruct = Card(name: "Sparring Construct", rarity: .Common, set: set, number: 232)
         sparringConstruct.setManaCost("1")
         sparringConstruct.setType(.Artifact, .Creature, .Construct)
-        sparringConstruct.addTargetedTriggeredAbility(
+        sparringConstruct.addTriggeredAbility(
             trigger: .ThisDies,
-            restriction: { $0.isType(.Creature) && $0.getController() == sparringConstruct.getController() },
-            effect: { $0.addCounter(.PlusOnePlusOne) })
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === sparringConstruct.getController() },
+                effect: { $0.addCounter(.PlusOnePlusOne) }))
         sparringConstruct.setFlavorText("The trainers were a gift of gratitude from the wizards of Tolaria West to the knights of New Benalia for their aid during the Talas Incursion.")
         sparringConstruct.power = 1
         sparringConstruct.toughness = 1

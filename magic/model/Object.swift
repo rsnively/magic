@@ -1,6 +1,6 @@
 import Foundation
 
-class Object: NSObject, NSCopying, Damageable {
+class Object: Targetable, NSCopying {
     var name:String?
     var colors:Set<Color> = []
     var manaCost:ManaCost?
@@ -195,14 +195,11 @@ class Object: NSObject, NSCopying, Damageable {
         self.tapped = tapped
     }
     
-    func addUntargetedEffect(_ effect: @escaping () -> Void) {
+    func addEffect(_ effect: @escaping () -> Void) {
         effects.append(UntargetedEffect(effect))
     }
-    func addTargetedEffect(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) {
-        effects.append(TargetedEffect(restriction: restriction, effect: effect))
-    }
-    func addTargetedEffect(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void) {
-        effects.append(TargetedEffect(restrictions: restrictions, effect: effect))
+    func addEffect(_ effect: TargetedEffect) {
+        effects.append(effect)
     }
     
     func addContinuousEffect(_ continuousEffect: ContinuousEffect) {
@@ -229,11 +226,11 @@ class Object: NSObject, NSCopying, Damageable {
         return object
     }
 
-    func addUntargetedTriggeredAbility(trigger: Trigger, effect:@escaping () -> Void) {
+    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void) {
         triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
     }
-    func addTargetedTriggeredAbility(trigger: Trigger, restriction: @escaping (Object) -> Bool, effect:@escaping (Object) -> Void) {
-        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, restriction: restriction, effect: effect))
+    func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect) {
+        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
     }
     
     
@@ -245,11 +242,11 @@ class Object: NSObject, NSCopying, Damageable {
         }
     }
     
-    func addUntargetedActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false) {
+    func addActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false) {
         activatedAbilities.append(UntargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility))
     }
-    func addTargetedActivatedAbility(string: String, cost: Cost, restriction: @escaping (Object) -> Bool, effect: @escaping(Object) -> Void, manaAbility: Bool = false) {
-        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, restriction: restriction, effect: effect, manaAbility: manaAbility))
+    func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false) {
+        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility))
     }
     
     func canActivateAbilities() -> Bool {
@@ -257,7 +254,7 @@ class Object: NSObject, NSCopying, Damageable {
     }
     
     func isSelectingAbility() -> Bool {
-        return Game.shared.isSelectingAbility && Game.shared.selectingAbilityObject! == self
+        return Game.shared.isSelectingAbility && Game.shared.selectingAbilityObject! === self
     }
     
     func requiresTargets() -> Bool {
@@ -344,20 +341,18 @@ class Object: NSObject, NSCopying, Damageable {
         }
     }
     
-    func takeDamage(_ amount: Int) {
+    override func takeDamage(_ amount: Int) {
         markedDamage += amount
     }
     
-    func damage(to recipient: Object, _ amount: Int) {
+    func damage(to recipient: Targetable, _ amount: Int) {
         recipient.takeDamage(amount)
         hasDealtDamage(amount: amount)
-        if deathtouch {
-            recipient.damagedByDeathtouch = true
+        if let objectRecipient = recipient as? Object {
+            if deathtouch {
+                objectRecipient.damagedByDeathtouch = true
+            }
         }
-    }
-    func damage(to recipient: Player, _ amount: Int) {
-        recipient.takeDamage(amount)
-        hasDealtDamage(amount: amount)
     }
     
     func fight(_ opponent: Object) {
