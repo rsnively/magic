@@ -5,7 +5,22 @@ enum DOM {
     static var count = 269
 
     // 1 Karn, Scion of Urza
-    // 2 Adamant Will
+    static func AdamantWill() -> Card {
+        let adamantWill = Card(name: "Adamant Will", rarity: .Common, set: set, number: 2)
+        adamantWill.setManaCost("1W")
+        adamantWill.setType(.Instant)
+        adamantWill.addEffect(TargetedEffect.SingleObject(
+            restriction: { return $0.isType(.Creature) },
+            effect: { target in
+                target.pump(2, 2)
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.indestructible = true
+                    return object
+                }))
+        }))
+        adamantWill.setFlavorText("The shield took a year to craft, a month to enchant, and a decade to master--all for one glorious moment.")
+        return adamantWill
+    }
     static func AvenSentry() -> Card {
         let avenSentry = Card(name: "Aven Sentry", rarity: .Common, set: set, number: 3)
         avenSentry.setManaCost("3W")

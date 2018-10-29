@@ -248,8 +248,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
                 if creature.getToughness() <= 0 {
-                    creature.destroy()
-                    actionPerformed = true
+                    actionPerformed = actionPerformed || creature.destroy(ignoreIndestructible: true)
                 }
             })
         })
@@ -258,8 +257,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
                 if creature.markedDamage >= creature.getToughness() {
-                    creature.destroy()
-                    actionPerformed = true
+                    actionPerformed = actionPerformed || creature.destroy()
                 }
             })
         })
@@ -268,8 +266,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach({ creature in
                 if creature.damagedByDeathtouch {
-                    creature.destroy()
-                    actionPerformed = true
+                    actionPerformed = actionPerformed || creature.destroy()
                 }
                 creature.damagedByDeathtouch = false
             })

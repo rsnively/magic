@@ -50,6 +50,11 @@ class Object: Targetable, NSCopying {
         get { return applyContinuousEffects().baseHaste }
         set (newHaste) { baseHaste = newHaste }
     }
+    private var baseIndestructible: Bool = false
+    var indestructible: Bool {
+        get { return applyContinuousEffects().baseIndestructible }
+        set (newIndestructible) { baseIndestructible = newIndestructible }
+    }
     var lifelink: Bool = false
     private var baseReach: Bool = false
     var reach: Bool {
@@ -105,6 +110,7 @@ class Object: Targetable, NSCopying {
         copy.flash = flash
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
+        copy.baseIndestructible = baseIndestructible
         copy.lifelink = lifelink
         copy.baseReach = baseReach
         copy.baseVigilance = baseVigilance
@@ -333,8 +339,12 @@ class Object: Targetable, NSCopying {
         getController().discard(self)
     }
     
-    func destroy() {
-        getController().destroyPermanent(self)
+    func destroy(ignoreIndestructible: Bool = false) -> Bool {
+        if !indestructible || ignoreIndestructible {
+            getController().destroyPermanent(self)
+            return true
+        }
+        return false
     }
     
     private func hasDealtDamage(amount: Int) {
