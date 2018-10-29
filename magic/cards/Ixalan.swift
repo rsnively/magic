@@ -70,7 +70,7 @@ enum XLN {
         imperialAerosaur.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Creature) && $0 !== imperialAerosaur },
+                restriction: { return $0.isType(.Creature) && $0.id != imperialAerosaur.id },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     // TODO: These should be different, because they are applied in different layers
                     object.power = object.getBasePower() + 1

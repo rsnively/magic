@@ -36,11 +36,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.Island())
-            deck1.append(GRN.Island())
-            deck1.append(DOM.Divination())
-            deck1.append(M19.PsychicCorrosion())
-            deck1.append(M19.PatientRebuilding())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.HealersHawk())
+            deck1.append(XLN.BishopsSoldier())
+            deck1.append(DOM.BenalishMarshal())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())
@@ -146,6 +146,13 @@ class Game: NSObject {
             }
             return false
         })
+    }
+    
+    func getStaticAbilities() -> [StaticAbility] {
+        var abilities: [StaticAbility] = []
+        abilities += player1.getStaticAbilities()
+        abilities += player2.getStaticAbilities()
+        return abilities
     }
     
     func nextPhase() {

@@ -1,6 +1,7 @@
 import Foundation
 
 class Object: Targetable, NSCopying {
+    var id:Int
     var name:String?
     var colors:Set<Color> = []
     var manaCost:ManaCost?
@@ -30,6 +31,7 @@ class Object: Targetable, NSCopying {
     var counters:[Counter: Int] = [:]
     
     var activatedAbilities:[ActivatedAbility] = []
+    var staticAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
     
     private var baseDeathtouch: Bool = false
@@ -84,13 +86,21 @@ class Object: Targetable, NSCopying {
     
     var turnEnteredBattlefield: Int?
     
-    init(name:String) {
+    // TODO: Some way of reusing old ids / guaranteeing always have one
+    static var currentId: Int = 0
+    static func GetId() -> Int {
+        currentId = currentId + 1
+        return currentId
+    }
+    
+    init(name:String, id: Int? = nil) {
+        self.id = id ?? Object.GetId()
         self.name = name
         super.init()
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Object(name: name!)
+        let copy = Object(name: name!, id: id)
         copy.colors = colors
         copy.manaCost = manaCost
         copy.supertypes = supertypes
@@ -212,6 +222,10 @@ class Object: Targetable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
+    func addStaticAbility(_ effect: @escaping (Object) -> Object) {
+        staticAbilities.append(StaticAbility(effect))
+    }
+    
     func addCounters(_ type: Counter, _ amount: Int) {
         counters[type] = (counters[type] ?? 0) + amount
     }
@@ -220,9 +234,15 @@ class Object: Targetable, NSCopying {
     }
     
     func applyContinuousEffects() -> Object {
+        // TODO: Layers
         var object = self.copy() as! Object
         for activeEffect in activeEffects {
             object = activeEffect.apply(object)
+        }
+        
+        // TODO: Should this be part of activeEffects? maybe custom getter
+        for staticAbility in Game.shared.getStaticAbilities() {
+            object = staticAbility.apply(object)
         }
         
         if object.basePower != nil && object.baseToughness != nil {
@@ -240,7 +260,6 @@ class Object: Targetable, NSCopying {
     func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect) {
         triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
     }
-    
     
     func triggerAbilities(_ trigger: Trigger) {
         for triggeredAbility in triggeredAbilities {
@@ -262,7 +281,7 @@ class Object: Targetable, NSCopying {
     }
     
     func isSelectingAbility() -> Bool {
-        return Game.shared.isSelectingAbility && Game.shared.selectingAbilityObject! === self
+        return Game.shared.isSelectingAbility && Game.shared.selectingAbilityObject!.id == self.id
     }
     
     func requiresTargets() -> Bool {

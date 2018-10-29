@@ -230,7 +230,7 @@ enum M19 {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0 !== pegasusCourser },
+                restriction: { $0.attacking && $0.isType(.Creature) && $0.id != pegasusCourser.id },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -407,7 +407,7 @@ enum M19 {
                         if !target.getLibrary().isEmpty {
                             let topOfLibrary = target.getLibrary().last!
                             target.mill(1)
-                            if topOfLibrary === target.getGraveyard().last! && topOfLibrary.isType(.Land) {
+                            if topOfLibrary.id == target.getGraveyard().last!.id && topOfLibrary.isType(.Land) {
                                 cardsToDraw = cardsToDraw + 1
                             }
                         }

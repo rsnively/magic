@@ -767,7 +767,7 @@ enum GRN {
             string: "{2}{W}, {T}: Tap another target creature.",
             cost: Cost("2W", tap: true),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0 !== legionGuildmage },
+                restriction: { $0.isType(.Creature) && $0.id != legionGuildmage.id },
                 effect: { $0.tap() }))
         legionGuildmage.power = 2
         legionGuildmage.toughness = 2

@@ -33,7 +33,22 @@ enum DOM {
     }
     // 4 Baird, Steward of Argive
     // 5 Benalish Honor Guard
-    // 6 Benalish Marshal
+    static func BenalishMarshal() -> Card {
+        let benalishMarshal = Card(name: "Benalish Marshal", rarity: .Rare, set: set, number: 6)
+        benalishMarshal.setManaCost("WWW")
+        benalishMarshal.setType(.Creature, .Human, .Knight)
+        benalishMarshal.addStaticAbility { object in
+            if object.id != benalishMarshal.id && object.isType(.Creature) && object.getController() === benalishMarshal.getController() {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        }
+        benalishMarshal.setFlavorText("\"Some aspire to climb the mountain of Honor. The Benalish are born upon its peak, and from there ascend among the stars.\"\n--History of Benalia")
+        benalishMarshal.power = 3
+        benalishMarshal.toughness = 3
+        return benalishMarshal
+    }
     // 7 Blessed Light
     // 8 Board the Weatherlight
     static func CallTheCavalry() -> Card {
@@ -121,7 +136,7 @@ enum DOM {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0 !== pegasusCourser },
+                restriction: { $0.attacking && $0.isType(.Creature) && $0.id != pegasusCourser.id },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object

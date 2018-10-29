@@ -42,7 +42,7 @@ enum RIX {
         majesticHeliopterus.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { return  $0 !== majesticHeliopterus && $0.isType(.Dinosaur) },
+                restriction: { return  $0.id != majesticHeliopterus.id && $0.isType(.Dinosaur) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object

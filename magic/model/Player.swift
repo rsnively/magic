@@ -78,6 +78,14 @@ class Player: Targetable {
         return permanents.filter { $0.isType(Type.Enchantment) }
     }
     
+    func getStaticAbilities() -> [StaticAbility] {
+        var abilities: [StaticAbility] = []
+        for permanent in getPermanents() {
+            abilities += permanent.staticAbilities
+        }
+        return abilities
+    }
+    
     func addMana(color: Color?, _ amount: Int = 1) {
         for _ in 0..<amount {
             manaPool.add(Mana(color))
@@ -174,7 +182,7 @@ class Player: Targetable {
     }
     
     func play(card:Card) {        
-        let cardIndex = hand.firstIndex(where: {$0 === card})!
+        let cardIndex = hand.firstIndex(where: {$0.id == card.id})!
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
             manaPool.payFor(card)
@@ -236,19 +244,19 @@ class Player: Targetable {
     }
     
     func bouncePermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: {$0 === object})!
+        let index = permanents.firstIndex(where: {$0.id == object.id})!
         permanents.remove(at: index)
         object.getOwner().hand.append(object)
     }
     
     func discard(_ object: Object) {
-        let index = hand.firstIndex(where: {$0 === object})!
+        let index = hand.firstIndex(where: {$0.id == object.id})!
         hand.remove(at: index)
         graveyard.append(object)
     }
     
     func destroyPermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: {$0 === object})!
+        let index = permanents.firstIndex(where: {$0.id == object.id})!
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)

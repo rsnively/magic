@@ -6,9 +6,9 @@ protocol ContinuousEffect {
 }
 
 class ContinuousEffectUntilEndOfTurn: ContinuousEffect {
-    private var effect: (Object) -> (Object)
+    private var effect: (Object) -> Object
 
-    init(_ effect: @escaping (Object) -> (Object)) {
+    init(_ effect: @escaping (Object) -> Object) {
         self.effect = effect
     }
     
@@ -16,6 +16,22 @@ class ContinuousEffectUntilEndOfTurn: ContinuousEffect {
         return true
     }
 
+    func apply(_ object: Object) -> Object {
+        return effect(object)
+    }
+}
+
+class StaticAbility: ContinuousEffect {
+    private var effect: (Object) -> Object
+    
+    init(_ effect: @escaping (Object) -> Object) {
+        self.effect = effect
+    }
+    
+    func isUntilEndOfTurn() -> Bool {
+        return false
+    }
+    
     func apply(_ object: Object) -> Object {
         return effect(object)
     }
