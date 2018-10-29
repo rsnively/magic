@@ -74,8 +74,10 @@ class Player: Targetable {
         return permanents.filter { $0.isType(Type.Enchantment) }
     }
     
-    func addMana(color: Color?) {
-        manaPool.add(Mana(color))
+    func addMana(color: Color?, _ amount: Int = 1) {
+        for _ in 0..<amount {
+            manaPool.add(Mana(color))
+        }
     }
     
     func getManaPool() -> ManaPool {

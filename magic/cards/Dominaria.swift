@@ -380,7 +380,19 @@ enum DOM {
     // 135 Keldon Raider
     // 136 Keldon Warcaller
     // 137 Orcish Vandal
-    // 138 Radiating Lightning
+    static func RadiatingLightning() -> Card {
+        let radiatingLightning = Card(name: "Radiating Lightning", rarity: .Common, set: set, number: 138)
+        radiatingLightning.setManaCost("3R")
+        radiatingLightning.setType(.Instant)
+        radiatingLightning.addEffect(TargetedEffect.SinglePlayer(
+            restriction: { _ in return true },
+            effect: { target in
+                radiatingLightning.damage(to: target, 3)
+                target.getCreatures().forEach({ radiatingLightning.damage(to: $0, 1) })
+        }))
+        radiatingLightning.setFlavorText("As the Cabal legions pushed into Shiv, they learned not to stand so close together.")
+        return radiatingLightning
+    }
     // 139 Rampaging Cyclops
     // 140 Run Amok
     // 141 Seismic Shift
@@ -439,7 +451,35 @@ enum DOM {
         llanowarElves.toughness = 1
         return llanowarElves
     }
-    // 169 Llanowar Envoy
+    static func LlanowarEnvoy() -> Card {
+        let llanowarEnvoy = Card(name: "Llanowar Envoy", rarity: .Common, set: set, number: 169)
+        llanowarEnvoy.setManaCost("2G")
+        llanowarEnvoy.setType(.Creature, .Elf, .Scout)
+        llanowarEnvoy.addActivatedAbility(
+            string: "{1}{G}: Add {W}.",
+            cost: Cost("1G"),
+            effect: { llanowarEnvoy.getController().addMana(color: .White) })
+        llanowarEnvoy.addActivatedAbility(
+            string: "{1}{G}: Add {U}.",
+            cost: Cost("1G"),
+            effect: { llanowarEnvoy.getController().addMana(color: .Blue) })
+        llanowarEnvoy.addActivatedAbility(
+            string: "{1}{G}: Add {B}.",
+            cost: Cost("1G"),
+            effect: { llanowarEnvoy.getController().addMana(color: .Black) })
+        llanowarEnvoy.addActivatedAbility(
+            string: "{1}{G}: Add {R}.",
+            cost: Cost("1G"),
+            effect: { llanowarEnvoy.getController().addMana(color: .Red) })
+        llanowarEnvoy.addActivatedAbility(
+            string: "{1}{G}: Add {G}.",
+            cost: Cost("1G"),
+            effect: { llanowarEnvoy.getController().addMana(color: .Green) })
+        llanowarEnvoy.setFlavorText("\"Cherish this world in honor of the martyrs who saved it. We too must be prepared to give our lives.\"\n--The Mending of Dominaria")
+        llanowarEnvoy.power = 3
+        llanowarEnvoy.toughness = 2
+        return llanowarEnvoy
+    }
     // 170 Llanowar Scout
     static func MammothSpider() -> Card {
         let mammothSpider = Card(name: "Mammoth Spider", rarity: .Common, set: set, number: 171)
@@ -542,7 +582,33 @@ enum DOM {
     // 212 Bloodtallow Candle
     // 213 Damping Sphere
     // 214 Forebear's Blade
-    // 215 Gilded Lotus
+    static func GildedLotus() -> Card {
+        let gildedLotus = Card(name: "Gilded Lotus", rarity: .Rare, set: set, number: 215)
+        gildedLotus.setManaCost("5")
+        gildedLotus.setType(.Artifact)
+        gildedLotus.addActivatedAbility(
+            string: "{T}: Add {W}{W}{W}.",
+            cost: Cost("", tap: true),
+            effect: { gildedLotus.getController().addMana(color: .White, 3) })
+        gildedLotus.addActivatedAbility(
+            string: "{T}: Add {U}{U}{U}.",
+            cost: Cost("", tap: true),
+            effect: { gildedLotus.getController().addMana(color: .Blue, 3) })
+        gildedLotus.addActivatedAbility(
+            string: "{T}: Add {B}{B}{B}.",
+            cost: Cost("", tap: true),
+            effect: { gildedLotus.getController().addMana(color: .Black, 3) })
+        gildedLotus.addActivatedAbility(
+            string: "{T}: Add {R}{R}{R}.",
+            cost: Cost("", tap: true),
+            effect: { gildedLotus.getController().addMana(color: .Red, 3) })
+        gildedLotus.addActivatedAbility(
+            string: "{T}: Add {G}{G}{G}.",
+            cost: Cost("", tap: true),
+            effect: { gildedLotus.getController().addMana(color: .Green, 3) })
+        gildedLotus.setFlavorText("\"The perfection of the lotus reminds me of my hopes for this world... and my failures. I will not rest until I've atoned for them.\"\n--Karn")
+        return gildedLotus
+    }
     // 216 Guardians of Koilos
     // 217 Helm of the Host
     // 218 Howling Golem
@@ -604,7 +670,26 @@ enum DOM {
     // 235 Urza's Tome
     // 236 Voltaic Servant
     // 237 Weatherlight
-    // 238 Cabal Stronghold
+    static func CabalStronghold() -> Card {
+        let cabalStronghold = Card(name: "Cabal Stronghold", rarity: .Rare, set: set, number: 238)
+        cabalStronghold.setManaCost("")
+        cabalStronghold.setType(.Land)
+        cabalStronghold.addActivatedAbility(
+            string: "{T}: Add {C}.",
+            cost: Cost("", tap: true),
+            effect: { cabalStronghold.getController().addMana(color: nil) },
+            manaAbility: true)
+        cabalStronghold.addActivatedAbility(
+            string: "{3}, {T}: Add {B} for each basic Swamp you control.",
+            cost: Cost("", tap: true),
+            effect: {
+                let numSwamps = cabalStronghold.getController().getPermanents().filter({ return $0.isType(.Basic) && $0.isType(.Swamp) }).count
+                cabalStronghold.getController().addMana(color: nil, numSwamps)
+            },
+            manaAbility: true)
+        cabalStronghold.setFlavorText("The seat of Belzenlok's power, the Stronghold serves as the gathering place for the Cabal as their dark influence spreads from Urborg.")
+        return cabalStronghold
+    }
     // 239 Clifftop Retreat
     // 240 Hinterland Harbor
     // 241 Isolated Chapel
