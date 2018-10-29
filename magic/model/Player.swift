@@ -47,6 +47,10 @@ class Player: Targetable {
         life += amount
     }
     
+    func getLibrary() -> [Object] {
+        return library
+    }
+    
     func getHand() -> [Object] {
         return hand
     }
@@ -99,6 +103,7 @@ class Player: Targetable {
     func drawCard() {
         // todo, milling
         hand.append(library.popLast()!)
+        getPermanents().forEach({ $0.triggerAbilities(.YouDrawCard)} );
     }
     
     func drawCards(_ amt: Int) {
@@ -187,10 +192,13 @@ class Player: Targetable {
             }
             
             if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
-                getPermanents().forEach({ $0.triggerAbilities(.CastInstantOrSorcery) })
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastInstantOrSorcery) })
             }
             if card.isSpell() && card.isType(.Creature) {
-                getPermanents().forEach({ $0.triggerAbilities(.CastCreatureSpell) })
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastCreatureSpell) })
+            }
+            if card.isSpell() && card.isType(.Enchantment) {
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastEnchantmentSpell) })
             }
         }
         else {

@@ -177,7 +177,22 @@ enum M19 {
         return loxodonLineBreaker
     }
     // 25 Luminous Bonds
-    // 26 Make a Stand
+    static func MakeAStand() -> Card {
+        let makeAStand = Card(name: "Make a Stand", rarity: .Uncommon, set: set, number: 26)
+        makeAStand.setManaCost("2W")
+        makeAStand.setType(.Instant)
+        makeAStand.addEffect {
+            makeAStand.getController().getCreatures().forEach({ creature in
+                creature.pump(1, 0)
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    object.indestructible = true
+                    return object
+                }))
+            })
+        }
+        makeAStand.setFlavorText("For a moment they stood tall, all fear forgotten.")
+        return makeAStand
+    }
     // 27 Mentor of the Meek
     static func MightyLeap() -> Card {
         let mightyLeap = Card(name: "Mighty Leap", rarity: .Common, set: set, number: 28)
@@ -285,7 +300,7 @@ enum M19 {
         avenWindMage.setType(.Creature, .Bird, .Wizard)
         avenWindMage.flying = true
         avenWindMage.addTriggeredAbility(
-            trigger: .CastInstantOrSorcery,
+            trigger: .YouCastInstantOrSorcery,
             effect: { avenWindMage.pump(1, 1) })
         avenWindMage.setFlavorText("\"My skill sharpens with each beat of my wings.\"")
         avenWindMage.power = 2
@@ -378,8 +393,40 @@ enum M19 {
         oneWithTheMachine.setFlavorText("\"When I grafted the Planar Bridge into myself I felt my Planeswalker spark flare beyond my body. The multiverse was my plaything. It felt... incredible.\"\n--Tezzeret")
         return oneWithTheMachine
     }
-    // 67 Patient Rebuilding
-    // 68 Psychic Corrosion
+    static func PatientRebuilding() -> Card {
+        let patientRebuilding = Card(name: "Patient Rebuilding", rarity: .Rare, set: set, number: 67)
+        patientRebuilding.setManaCost("3UU")
+        patientRebuilding.setType(.Enchantment)
+        patientRebuilding.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { return $0 !== patientRebuilding.getController() },
+                effect: { target in
+                    var cardsToDraw = 0
+                    for _ in 0..<3 {
+                        if !target.getLibrary().isEmpty {
+                            let topOfLibrary = target.getLibrary().last!
+                            target.mill(1)
+                            if topOfLibrary === target.getGraveyard().last! && topOfLibrary.isType(.Land) {
+                                cardsToDraw = cardsToDraw + 1
+                            }
+                        }
+                    }
+                    patientRebuilding.getController().drawCards(cardsToDraw)
+        }))
+        patientRebuilding.setFlavorText("Nicol Bolas would not rest until he was restored to his former glory.")
+        return patientRebuilding
+    }
+    static func PsychicCorrosion() -> Card {
+        let psychicCorrosion = Card(name: "Psychic Corrosion", rarity: .Uncommon, set: set, number: 68)
+        psychicCorrosion.setManaCost("2U")
+        psychicCorrosion.setType(.Enchantment)
+        psychicCorrosion.addTriggeredAbility(
+            trigger: .YouDrawCard,
+            effect: { psychicCorrosion.getOpponent().mill(2) })
+        psychicCorrosion.setFlavorText("\"To break another's mind is to deliver a fate worse than death. It is a terrifying power.\"\n--Jace Beleren")
+        return psychicCorrosion
+    }
     // 69 Sai, Master Thopterist
     // 70 Salvager of Secrets
     // 71 Scholar of Stars
@@ -543,8 +590,38 @@ enum M19 {
     // 115 Ravenous Harpy
     // 116 Reassembling Skeleton
     // 117 Rise from the Grave
-    // 118 Skeleton Archer
-    // 119 Skymarch Bloodletter
+    static func SkeletonArcher() -> Card {
+        let skeletonArcher = Card(name: "Skeleton Archer", rarity: .Common, set: set, number: 118)
+        skeletonArcher.setManaCost("3B")
+        skeletonArcher.setType(.Creature, .Skeleton, .Archer)
+        skeletonArcher.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect(
+                restriction: { _ in return true },
+                effect: { skeletonArcher.damage(to: $0, 1) }))
+        skeletonArcher.setFlavorText("\"When it comes to killing with precision, a soul is but a hindrance.\"\n--Izareth the Awakener")
+        skeletonArcher.power = 3
+        skeletonArcher.toughness = 3
+        return skeletonArcher
+    }
+    static func SkymarchBloodletter() -> Card {
+        let skymarchBloodletter = Card(name: "Skymarch Bloodletter", rarity: .Common, set: set, number: 119)
+        skymarchBloodletter.setManaCost("2B")
+        skymarchBloodletter.setType(.Creature, .Vampire, .Soldier)
+        skymarchBloodletter.flying = true
+        skymarchBloodletter.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== skymarchBloodletter.getController() },
+                effect: { target in
+                    target.loseLife(1)
+                    skymarchBloodletter.getController().gainLife(1)
+            }))
+        skymarchBloodletter.setFlavorText("From the perpetual shadowsmoke that hung above the ship, a silent form emerged, lips curled with malice and anticipation.")
+        skymarchBloodletter.power = 2
+        skymarchBloodletter.toughness = 2
+        return skymarchBloodletter
+    }
     static func SovereignsBite() -> Card {
         let sovereignsBite = Card(name: "Sovereign's Bite", rarity: .Common, set: set, number: 120)
         sovereignsBite.setManaCost("1B")
@@ -600,7 +677,24 @@ enum M19 {
         vampireNeonate.toughness = 3
         return vampireNeonate
     }
-    // 125 Vampire Sovereign
+    static func VampireSovereign() -> Card {
+        let vampireSovereign = Card(name: "Vampire Sovereign", rarity: .Uncommon, set: set, number: 123)
+        vampireSovereign.setManaCost("3BB")
+        vampireSovereign.setType(.Creature, .Vampire)
+        vampireSovereign.flying = true
+        vampireSovereign.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== vampireSovereign.getController() },
+                effect: { target in
+                    target.loseLife(3)
+                    vampireSovereign.getController().gainLife(3)
+            }))
+        vampireSovereign.setFlavorText("\"Your service shall be rewarded.\"\n--Queen Lian")
+        vampireSovereign.power = 3
+        vampireSovereign.toughness = 4
+        return vampireSovereign
+    }
     static func WalkingCorpse() -> Card {
         let walkingCorpse = Card(name: "Walking Corpse", rarity: .Common, set: set, number: 124)
         walkingCorpse.setManaCost("1B")
@@ -700,7 +794,7 @@ enum M19 {
         guttersnipe.setManaCost("2R")
         guttersnipe.setType(.Creature, .Goblin, .Shaman)
         guttersnipe.addTriggeredAbility(
-            trigger: .CastInstantOrSorcery,
+            trigger: .YouCastInstantOrSorcery,
             effect: { guttersnipe.damage(to: guttersnipe.getOpponent(), 2) })
         guttersnipe.setFlavorText("\"I found a new toy. Wanna play?\"")
         guttersnipe.power = 2
@@ -722,7 +816,16 @@ enum M19 {
     // 149 Lathliss, Dragon Queen
     // 150 Lava Axe
     // 151 Lightning Mare
-    // 152 Lightning Strike
+    static func LightningStrike() -> Card {
+        let lightningStrike = Card(name: "Lightning Strike", rarity: .Uncommon, set: set, number: 152)
+        lightningStrike.setManaCost("1R")
+        lightningStrike.setType(.Instant)
+        lightningStrike.addEffect(TargetedEffect(
+            restriction: { _ in return true },
+            effect: { lightningStrike.damage(to: $0, 3) }))
+        lightningStrike.setFlavorText("To wield lightning is to tame chaose.")
+        return lightningStrike
+    }
     static func OnakkeOgre() -> Card {
         let onakkeOgre = Card(name: "Onakke Ogre", rarity: .Common, set: set, number: 153)
         onakkeOgre.setManaCost("2R")
@@ -1011,7 +1114,18 @@ enum M19 {
     // 220 Poison-Tip Archer
     // 221 Psychic Symbiont
     // 222 Regal Bloodlord
-    // 223 Satyr Enchanter
+    static func SatyrEnchanter() -> Card {
+        let satyrEnchanter = Card(name: "Satyr Enchanter", rarity: .Uncommon, set: set, number: 223)
+        satyrEnchanter.setManaCost("1GW")
+        satyrEnchanter.setType(.Creature, .Satyr, .Druid)
+        satyrEnchanter.addTriggeredAbility(
+            trigger: .YouCastEnchantmentSpell,
+            effect: { satyrEnchanter.getController().drawCard() })
+        satyrEnchanter.setFlavorText("\"The threads of magic that protect this place were woven by my will.\"")
+        satyrEnchanter.power = 2
+        satyrEnchanter.toughness = 2
+        return satyrEnchanter
+    }
     // 224 Skyrider Patrol
     // 225 Vaevictis Asmadi, the Dire
     // 226 Amulet of Safekeeping
@@ -1105,7 +1219,19 @@ enum M19 {
         meteorGolem.toughness = 3
         return meteorGolem
     }
-    // 242 Millstone
+    static func Millstone() -> Card {
+        let millstone = Card(name: "Millstone", rarity: .Uncommon, set: set, number: 242)
+        millstone.setManaCost("2")
+        millstone.setType(.Artifact)
+        millstone.addActivatedAbility(
+            string: "{2}, {T}: Target player puts the top two cards of their library into their graveyard.",
+            cost: Cost("2", tap: true),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { _ in return true },
+                effect: { $0.mill(2) }))
+        millstone.setFlavorText("Minds, like mountains, are never so grand and mighty that they can't be reduced to dust.")
+        return millstone
+    }
     // 243 Rogue's Gloves
     // 244 Sigiled Sword of Valeron
     static func Skyscanner() -> Card {

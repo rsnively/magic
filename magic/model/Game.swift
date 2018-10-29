@@ -36,13 +36,11 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<15 {
             
-            deck1.append(GRN.IzzetGuildgate())
-            deck1.append(GRN.DimirGuildgate())
-            deck1.append(GRN.Swamp())
-            deck1.append(DOM.FungalInfection())
-            deck1.append(M19.MysticArchaeologist())
-            deck1.append(M19.Shock())
-            deck1.append(M19.SovereignsBite())
+            deck1.append(GRN.Island())
+            deck1.append(GRN.Island())
+            deck1.append(DOM.Divination())
+            deck1.append(M19.PsychicCorrosion())
+            deck1.append(M19.PatientRebuilding())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())
@@ -138,6 +136,9 @@ class Game: NSObject {
     
     func hasTargets(_ effect: TargetedEffect) -> Bool {
         return eitherPlayer({ player in
+            if effect.meetsRestrictions(target: player) {
+                return true
+            }
             for permanent in player.getPermanents() {
                 if effect.meetsRestrictions(target: permanent) {
                     return true

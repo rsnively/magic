@@ -216,7 +216,7 @@ enum GRN {
         murmuringMystic.setManaCost("3U")
         murmuringMystic.setType(.Creature, .Human, .Wizard)
         murmuringMystic.addTriggeredAbility(
-            trigger: .CastInstantOrSorcery,
+            trigger: .YouCastInstantOrSorcery,
             effect: { murmuringMystic.getController().createToken(BirdIllusion()) })
         murmuringMystic.setFlavorText("Rumors float through the city like crows, alighting on citizens seemingly at random.")
         murmuringMystic.power = 1
@@ -416,7 +416,7 @@ enum GRN {
         electrostaticField.setType(.Creature, .Wall)
         electrostaticField.defender = true
         electrostaticField.addTriggeredAbility(
-            trigger: .CastInstantOrSorcery,
+            trigger: .YouCastInstantOrSorcery,
             effect: { electrostaticField.damage(to: electrostaticField.getOpponent(), 1) })
         electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
         electrostaticField.power = 0
@@ -501,7 +501,7 @@ enum GRN {
         beastWhisperer.setManaCost("2GG")
         beastWhisperer.setType(.Creature, .Elf, .Druid)
         beastWhisperer.addTriggeredAbility(
-            trigger: .CastCreatureSpell,
+            trigger: .YouCastCreatureSpell,
             effect: { beastWhisperer.getController().drawCard() })
         beastWhisperer.setFlavorText("\"The tiniest mouse speaks louder to me than all the festival crowds on Tin Street.\"")
         beastWhisperer.power = 2
@@ -845,7 +845,7 @@ enum GRN {
         weeDragonauts.setType(.Creature, .Faerie, .Wizard)
         weeDragonauts.flying = true
         weeDragonauts.addTriggeredAbility(
-            trigger: .CastInstantOrSorcery,
+            trigger: .YouCastInstantOrSorcery,
             effect: { weeDragonauts.pump(2, 0) })
         weeDragonauts.setFlavorText("\"Something's causing electrospheric disruption in the blazekite's spire-vanes. Find the cause, and tell them to keep it up!\"\n--Juzba, Izzet tinker.")
         weeDragonauts.power = 1

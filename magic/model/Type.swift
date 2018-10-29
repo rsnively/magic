@@ -20,6 +20,7 @@ enum Type {
 enum Subtype {
     case Angel
     case Antelope
+    case Archer
     case Artificer
     case Assassin
     case Basilisk
@@ -71,10 +72,12 @@ enum Subtype {
     case Plant
     case Rhino
     case Saproling
+    case Satyr
     case Scarecrow
     case Scout
     case Shade
     case Shaman
+    case Skeleton
     case Soldier
     case Spider
     case Spirit
