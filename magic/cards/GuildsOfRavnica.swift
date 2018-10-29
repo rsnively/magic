@@ -47,7 +47,7 @@ enum GRN {
         cageTheCulprit.setType(.Instant)
         cageTheCulprit.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         cageTheCulprit.setFlavorText("\"Reports of Gruul rioters in four districts. Start with the big ones and work your way up.\"\n--Libuse, Boros sergeant")
         return cageTheCulprit
     }

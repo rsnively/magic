@@ -14,7 +14,26 @@ enum M19 {
         aegisOfTheHeavens.setFlavorText("Inner strength is never seen until it makes all the difference.")
         return aegisOfTheHeavens
     }
-    // 2 Aethershield Artificer
+    static func AethershieldArtificer() -> Card {
+        let aethershieldArtificer = Card(name: "Aethershield Artificer", rarity: .Uncommon, set: set, number: 2)
+        aethershieldArtificer.setManaCost("3W")
+        aethershieldArtificer.setType(.Creature, .Dwarf, .Artificer)
+        aethershieldArtificer.addTriggeredAbility(
+            trigger: .YourBeginCombat,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Artifact) && $0.isType(.Creature) && $0.getController() === aethershieldArtificer.getController() },
+                effect: { target in
+                    target.pump(2, 2)
+                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                        object.indestructible = true
+                        return object
+                    }))
+        }))
+        aethershieldArtificer.setFlavorText("Most smiths shape metal, but some prefer more delicate materials.")
+        aethershieldArtificer.power = 3
+        aethershieldArtificer.toughness = 3
+        return aethershieldArtificer
+    }
     // 3 Ajani, Adversary of Tyrants
     // 4 Ajani's Last Stand
     // 5 Ajani's Pridemate
@@ -108,7 +127,7 @@ enum M19 {
         invokeTheDivine.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
-                target.destroy()
+                let _ = target.destroy()
                 invokeTheDivine.getController().gainLife(4)
             }))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
@@ -252,7 +271,7 @@ enum M19 {
         takeVengeance.setType(.Sorcery)
         takeVengeance.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.isTapped },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         takeVengeance.setFlavorText("\"Your death will be a balm, your passing a welcome revision, and all will sigh with peace to know your demise.\"")
         return takeVengeance
     }
@@ -497,7 +516,7 @@ enum M19 {
         lichsCaress.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
             effect: { target in
-                target.destroy()
+                let _ = target.destroy()
                 lichsCaress.getController().gainLife(3)
         }))
         lichsCaress.setFlavorText("A lich must consume mortal souls to feed its eternal life.")
@@ -513,7 +532,7 @@ enum M19 {
         murder.setType(.Instant)
         murder.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
         return murder
     }
@@ -732,7 +751,7 @@ enum M19 {
         smelt.setType(.Instant)
         smelt.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         smelt.setFlavorText("The creation of new weapons demands the destruction of others.")
         return smelt
     }
@@ -874,7 +893,7 @@ enum M19 {
         naturalize.setType(.Instant)
         naturalize.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
         return naturalize
     }
@@ -886,7 +905,7 @@ enum M19 {
         plummet.setType(.Instant)
         plummet.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.flying },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         plummet.setFlavorText("\"Let nothing own the skies but the wind.\"\n--Dejara, Giltwood druid")
         return plummet
     }
@@ -1080,7 +1099,7 @@ enum M19 {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isPermanent() && !$0.isType(.Land) && $0.getController() !== meteorGolem.getController() },
-                effect: { $0.destroy() }))
+                effect: { let _ = $0.destroy() }))
         meteorGolem.setFlavorText("The impact sent the soldiers scattering--then something came out of the creater.")
         meteorGolem.power = 3
         meteorGolem.toughness = 3

@@ -37,7 +37,7 @@ enum LEA {
         disenchant.setType(.Instant)
         disenchant.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         return disenchant
     }
     // 19 Farmstead
@@ -253,7 +253,7 @@ enum LEA {
         sinkhole.setType(.Sorcery)
         sinkhole.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Land) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         return sinkhole
     }
     // 130 Terror
@@ -299,7 +299,7 @@ enum LEA {
         flashfires.setType(.Sorcery)
         flashfires.addEffect {
             Game.shared.bothPlayers({ player in
-                player.getLands().filter({$0.isType(.Plains)}).forEach({$0.destroy()})
+                player.getLands().filter({$0.isType(.Plains)}).forEach({ let _ = $0.destroy()})
             })
         }
         return flashfires
@@ -363,7 +363,7 @@ enum LEA {
         shatter.setType(.Instant)
         shatter.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         return shatter
     }
     // 174 Shivan Dragon
@@ -375,7 +375,7 @@ enum LEA {
         stoneRain.setType(.Sorcery)
         stoneRain.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Land) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         return stoneRain
     }
     // 178 Tunnel
@@ -443,7 +443,7 @@ enum LEA {
         iceStorm.setType(.Sorcery)
         iceStorm.addEffect(TargetedEffect.SingleObject(
             restriction: {  return $0.isType(.Land) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         return iceStorm
     }
     // 202 Instill Energy
@@ -489,7 +489,7 @@ enum LEA {
         tsunami.setType(.Sorcery)
         tsunami.addEffect {
             Game.shared.bothPlayers({ player in
-                player.getLands().filter({$0.isType(.Island)}).forEach({$0.destroy()})
+                player.getLands().filter({$0.isType(.Island)}).forEach({let _ = $0.destroy()})
             })
         }
         return tsunami

@@ -26,7 +26,7 @@ enum XLN {
         brightReprisal.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.attacking },
             effect: { target in
-                target.destroy()
+                let _ = target.destroy()
                 brightReprisal.getController().drawCard()
             }))
         brightReprisal.setFlavorText("Vampires know blood and the systems that carry it. And they know exactly where to strike to set it free.")
@@ -38,7 +38,7 @@ enum XLN {
         demystify.setType(.Instant)
         demystify.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         demystify.setFlavorText("\"The River Heralds carve spells into jade, hoping to steer us from our course. But what right do they have to keep us from that which once was ours?\"")
         return demystify
     }
@@ -107,7 +107,7 @@ enum XLN {
         legionsJudgment.setType(.Sorcery)
         legionsJudgment.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getToughness() >= 4 },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         legionsJudgment.setFlavorText("\"My lance was once wielded by Venerable Tarrian. In his name and by his might, I cast you down!\"")
         return legionsJudgment
     }
@@ -356,7 +356,7 @@ enum XLN {
             restriction: { return $0.isType(.Land) },
             effect: { target in
                 let controller = target.getController()
-                target.destroy()
+                let _ = target.destroy()
                 controller.loseLife(2)
         }))
         spreadingRot.setFlavorText("\"What is this foul presence that defies the sun's cleansing rays.\"\n--Itzama the Crested")
@@ -369,7 +369,7 @@ enum XLN {
         vanquishTheWeak.setType(.Instant)
         vanquishTheWeak.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.getPower() <= 3 },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         vanquishTheWeak.setFlavorText("The clerics known as condemners punish those who do not recognize the righteous authority of the church.")
         return vanquishTheWeak
     }
@@ -392,7 +392,7 @@ enum XLN {
         walkThePlank.setType(.Sorcery)
         walkThePlank.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Merfolk) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         walkThePlank.setFlavorText("When Captain Thorn adds a new ship to his fleet, he gives the crew a simple choice: follow me, or fall into the sea.")
         return walkThePlank
     }
@@ -410,7 +410,7 @@ enum XLN {
         demolish.setType(.Sorcery)
         demolish.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Land) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         demolish.setFlavorText("What took months for human hands to carve took just seconds for the dinosaur's tail to ruin.")
         return demolish
     }
@@ -575,7 +575,7 @@ enum XLN {
         sliceInTwain.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
-                target.destroy()
+                let _ = target.destroy()
                 sliceInTwain.getController().drawCard()
         }))
         sliceInTwain.setFlavorText("The magic of the River Heralds is so great that even a single shaman can fend off a pirate landing party.")

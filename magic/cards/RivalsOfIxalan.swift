@@ -14,7 +14,7 @@ enum RIX {
         divineVerdict.setType(.Instant)
         divineVerdict.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking)},
-            effect: { $0.destroy() }))
+            effect: { let _ = $0.destroy() }))
         divineVerdict.setFlavorText("Cunning warriors and dim-witted beasts alike fall under the church's harsh judgment.")
         return divineVerdict
     }
@@ -216,7 +216,7 @@ enum RIX {
         impale.setType(.Sorcery)
         impale.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         impale.setFlavorText("Never let the glitter of gold distract you from the gleam of steel in the shadows.")
         return impale
     }
@@ -245,7 +245,7 @@ enum RIX {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Creature) && $0.getController() !== ravenousChupacabra.getController() },
-                effect: { $0.destroy() }))
+                effect: { let _ = $0.destroy() }))
         ravenousChupacabra.setFlavorText("Opening Orazca released more horrors than just the Immortal Sun.")
         ravenousChupacabra.power = 2
         ravenousChupacabra.toughness = 2
@@ -326,7 +326,7 @@ enum RIX {
         shatter.setType(.Instant)
         shatter.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         shatter.setFlavorText("Today it's a miracle of architecture, a marvel of stained glass, a symbol of the Legion's power. Tomorrow, driftwood.")
         return shatter
     }
@@ -385,7 +385,7 @@ enum RIX {
         naturalize.setType(.Instant)
         naturalize.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         naturalize.setFlavorText("\"Better to let the sword go than to lose the arm with it.\"\n--Captain Lannery Storm")
         return naturalize
     }
@@ -406,7 +406,7 @@ enum RIX {
         plummet.setType(.Instant)
         plummet.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && $0.flying },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         plummet.setFlavorText("\"Still, the pterodon chasing the clouds from its skies must bow to the great forest below.\"\n--Mahuiz, Sun Empire archer")
         return plummet
     }

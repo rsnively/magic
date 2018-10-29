@@ -84,7 +84,7 @@ enum DOM {
         invokeTheDivine.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
             effect: { target in
-                target.destroy()
+                let _ = target.destroy()
                 invokeTheDivine.getController().gainLife(4)
             }))
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
@@ -245,7 +245,7 @@ enum DOM {
         castDown.setType(.Instant)
         castDown.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
         return castDown
     }
@@ -285,7 +285,7 @@ enum DOM {
         eviscerate.setType(.Sorcery)
         eviscerate.addEffect(TargetedEffect.SingleObject(
             restriction: { return $0.isType(.Creature) },
-            effect: { target in target.destroy() }))
+            effect: { target in let _ = target.destroy() }))
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
     }
