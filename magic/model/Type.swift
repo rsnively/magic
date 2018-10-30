@@ -47,6 +47,7 @@ enum Subtype {
     case Elf
     case Elk
     case Faerie
+    case Fish
     case Forest
     case Fungus
     case Gargoyle

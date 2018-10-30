@@ -77,7 +77,23 @@ enum XLN {
     }
     // 10 Emissary of Sunrise
     // 11 Encampment Keeper
-    // 12 Glorifier of Dusk
+    static func GlorifierOfDusk() -> Card {
+        let glorifierOfDusk = Card(name: "Glorifier of Dusk", rarity: .Uncommon, set: set, number: 12)
+        glorifierOfDusk.setManaCost("3WW")
+        glorifierOfDusk.setType(.Creature, .Vampire, .Soldier)
+        glorifierOfDusk.addActivatedAbility(
+            string: "Pay 2 life: ~ gains flying until end of turn.",
+            cost: Cost("", tap: false, life: 2),
+            effect: { glorifierOfDusk.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
+        glorifierOfDusk.addActivatedAbility(
+            string: "Pay 2 life: ~ gains vigilance until end of turn.",
+            cost: Cost("", tap: false, life: 2),
+            effect: { glorifierOfDusk.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))})
+        glorifierOfDusk.setFlavorText("\"The blood of the enemy is a sacrament. The strength it gives is proof that our cause is just.\"")
+        glorifierOfDusk.power = 4
+        glorifierOfDusk.toughness = 4
+        return glorifierOfDusk
+    }
     // 13 Goring Ceratops
     static func ImperialAerosaur() -> Card {
         let imperialAerosaur = Card(name: "Imperial Aerosaur", rarity: .Uncommon, set: set, number: 14)
@@ -153,7 +169,21 @@ enum XLN {
     }
     // 26 Pious Interdiction
     // 27 Priest of the Wakening Sun
-    // 28 Pterodon Knight
+    static func PterodonKnight() -> Card {
+        let pterodonKnight = Card(name: "Pterodon Knight", rarity: .Common, set: set, number: 28)
+        pterodonKnight.setManaCost("3W")
+        pterodonKnight.setType(.Creature, .Human, .Knight)
+        pterodonKnight.addStaticAbility { object in
+            if object.id == pterodonKnight.id && !object.getController().getPermanents().filter({ return $0.isType(.Dinosaur) }).isEmpty {
+                object.flying = true
+            }
+            return object
+        }
+        pterodonKnight.setFlavorText("\"To rise like the sun--there is no greater feeling.\"")
+        pterodonKnight.power = 3
+        pterodonKnight.toughness = 3
+        return pterodonKnight
+    }
     static func QueensCommission() -> Card {
         let queensCommission = Card(name: "Queen's Commission", rarity: .Common, set: set, number: 29)
         queensCommission.setManaCost("2W")
@@ -231,7 +261,22 @@ enum XLN {
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")
         return slashOfTalons
     }
-    // 39 Steadfast Armasaur
+    static func SteadfastArmasaur() -> Card {
+        let steadfastArmasaur = Card(name: "Steadfast Armasaur", rarity: .Uncommon, set: set, number: 39)
+        steadfastArmasaur.setManaCost("3W")
+        steadfastArmasaur.setType(.Creature, .Dinosaur)
+        steadfastArmasaur.vigilance = true
+        steadfastArmasaur.addActivatedAbility(
+            string: "{1}{W}, {T}: ~ deals damage equal to its power to target creature blocking or blocked by it.",
+            cost: Cost("1W", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { target in return target.isType(.Creature) && steadfastArmasaur.blockers.contains(where: { $0.id == target.id }) || steadfastArmasaur.attackers.contains(where: { $0.id == target.id }) },
+                effect: { steadfastArmasaur.damage(to: $0, steadfastArmasaur.getPower()) }))
+        steadfastArmasaur.setFlavorText("\"Like the mighty armasaur, we will defend against all who invade our shores.\"\n--Itzama the Crested")
+        steadfastArmasaur.power = 2
+        steadfastArmasaur.toughness = 3
+        return steadfastArmasaur
+    }
     // 40 Sunrise Seeker
     static func TerritorialHammerskull() -> Card {
         let territorialHammerskull = Card(name: "Territorial Hammerskull", rarity: .Common, set: set, number: 41)
@@ -270,8 +315,37 @@ enum XLN {
     // 53 Dive Down
     // 54 Dreamcaller Siren
     // 55 Entrancing Melody
-    // 56 Favorable Winds
-    // 57 Fleet Swallower
+    static func FavorableWinds() -> Card {
+        let favorableWinds = Card(name: "Favorable Winds", rarity: .Uncommon, set: set, number: 56)
+        favorableWinds.setManaCost("1U")
+        favorableWinds.setType(.Enchantment)
+        favorableWinds.addStaticAbility { object in
+            if object.isType(.Creature) && object.getController() === favorableWinds.getController() && object.flying {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        }
+        favorableWinds.setFlavorText("\"Like ribbons of wind and wisdom the coatls fly, twisting mystery into truth, shaping the clouds to suit their inscrutible will.\"\n--Huatli")
+        return favorableWinds
+    }
+    static func FleetSwallower() -> Card {
+        let fleetSwallower = Card(name: "Fleet Swallower", rarity: .Rare, set: set, number: 57)
+        fleetSwallower.setManaCost("5UU")
+        fleetSwallower.setType(.Creature, .Fish)
+        fleetSwallower.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { _ in return true },
+                effect: { target in
+                    let millCount = Int(ceil(Double(target.getLibrary().count) / 2.0))
+                    target.mill(millCount)
+            }))
+        fleetSwallower.setFlavorText("\"Captain, I think that island is following us.\"")
+        fleetSwallower.power = 6
+        fleetSwallower.toughness = 6
+        return fleetSwallower
+    }
     static func HeadwaterSentries() -> Card {
         let headwaterSentries = Card(name: "Headwater Sentries", rarity: .Common, set: set, number: 58)
         headwaterSentries.setManaCost("3U")
@@ -288,16 +362,50 @@ enum XLN {
     // 63 Navigator's Ruin
     // 64 One With the Wind
     // 65 Opt
-    // 66 Overflowing Insight
+    static func OverflowingInsight() -> Card {
+        let overflowingInsight = Card(name: "Overflowing Insight", rarity: .Mythic, set: set, number: 66)
+        overflowingInsight.setManaCost("4UUU")
+        overflowingInsight.setType(.Sorcery)
+        overflowingInsight.addEffect(TargetedEffect.SinglePlayer(
+            restriction: { _ in return true },
+            effect: { $0.drawCards(7) }
+        ))
+        overflowingInsight.setFlavorText("The truth came to Kumena like the Great River's torrent: the only way to keep his enemies away from the hidden city was to claim its power for himself.")
+        return overflowingInsight
+    }
     // 67 Perilous Voyage
     // 68 Pirate's Prize
     // 69 Prosperous Pirates
     // 70 River Sneak
-    // 71 River's Rebuke
+    static func RiversRebuke() -> Card {
+        let riversRebuke = Card(name: "River's Rebuke", rarity: .Rare, set: set, number: 71)
+        riversRebuke.setManaCost("4UU")
+        riversRebuke.setType(.Sorcery)
+        riversRebuke.addEffect(TargetedEffect.SinglePlayer(
+            restriction: { _ in return true },
+            effect: { $0.getPermanents().filter({ return !$0.isType(.Land) }).forEach({ $0.bounce() }) }
+        ))
+        riversRebuke.setFlavorText("Carefully following the thaumatic compass Bolas had given her, Vraska blundered straight into the River Heralds' trap.")
+        return riversRebuke
+    }
     // 72 Run Aground
     // 73 Sailor of Means
     // 74 Search for Azcanta // Azcanta, the Sunken Ruin
-    // 75 Shaper Apprentice
+    static func ShaperApprentice() -> Card {
+        let shaperApprentice = Card(name: "Shaper Apprentice", rarity: .Common, set: set, number: 75)
+        shaperApprentice.setManaCost("1U")
+        shaperApprentice.setType(.Creature, .Merfolk, .Wizard)
+        shaperApprentice.addStaticAbility { object in
+            if object.id == shaperApprentice.id && !object.getController().getPermanents().filter({ return $0.id != object.id && $0.isType(.Merfolk) }).isEmpty {
+                object.flying = true
+            }
+            return object
+        }
+        shaperApprentice.setFlavorText("The River Heralds would wreck a thousand ships to keep intruders from finding the golden city.")
+        shaperApprentice.power = 2
+        shaperApprentice.toughness = 1
+        return shaperApprentice
+    }
     // 76 Shipwreck Looter
     // 77 Shore Keeper
     // 78 Siren Lookout
@@ -308,7 +416,21 @@ enum XLN {
     // 83 Storm Fleet Aerialist
     // 84 Storm Fleet Spy
     // 85 Storm Sculptor
-    // 86 Tempest Caller
+    static func TempestCaller() -> Card {
+        let tempestCaller = Card(name: "Tempest Caller", rarity: .Uncommon, set: set, number: 86)
+        tempestCaller.setManaCost("2UU")
+        tempestCaller.setType(.Creature, .Merfolk, .Wizard)
+        tempestCaller.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== tempestCaller.getController() },
+                effect: { $0.getCreatures().forEach({ $0.tap() })}
+        ))
+        tempestCaller.setFlavorText("\"I <i>am</i> the storm.\"")
+        tempestCaller.power = 2
+        tempestCaller.toughness = 2
+        return tempestCaller
+    }
     // 87 Watertrap Weaver
     static func WindStrider() -> Card {
         let windStrider = Card(name: "Wind Strider", rarity: .Common, set: set, number: 88)
@@ -323,13 +445,42 @@ enum XLN {
     }
     // 89 Anointed Deacon
     // 90 Arguel's Blood Fast // Temple of Aclazotz
-    // 91 Bishop of the Bloodstained
+    static func BishopOfTheBloodstained() -> Card {
+        let bishopOfTheBloodstained = Card(name: "Bishop of the Bloodstained", rarity: .Uncommon, set: set, number: 91)
+        bishopOfTheBloodstained.setManaCost("3BB")
+        bishopOfTheBloodstained.setType(.Creature, .Vampire, .Cleric)
+        bishopOfTheBloodstained.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { return $0 !== bishopOfTheBloodstained.getController() },
+                effect: { target in
+                    let numVampires = bishopOfTheBloodstained.getController().getPermanents().filter({ $0.isType(.Vampire) }).count
+                    target.loseLife(numVampires)
+            }
+        ))
+        bishopOfTheBloodstained.setFlavorText("\"They shall give us all they have as penance for their resistance. Their ships. Their goods. Their rebellious blood.\"")
+        bishopOfTheBloodstained.power = 3
+        bishopOfTheBloodstained.toughness = 3
+        return bishopOfTheBloodstained
+    }
     // 92 Blight Keeper
     // 93 Bloodcrazed Paladin
     // 94 Boneyard Parley
     // 95 Contract Killing
     // 96 Costly Plunder
-    // 97 Dark Nourishment
+    static func DarkNourishment() -> Card {
+        let darkNourishment = Card(name: "Dark Nourishment", rarity: .Uncommon, set: set, number: 97)
+        darkNourishment.setManaCost("4B")
+        darkNourishment.setType(.Instant)
+        darkNourishment.addEffect(TargetedEffect(
+            restriction: { _ in return true },
+            effect: { target in
+                darkNourishment.damage(to: target, 3)
+                darkNourishment.getController().gainLife(3)
+        }))
+        darkNourishment.setFlavorText("Demons lurk in the shadows of ancient ruines, spreading plague and corruption across the land.")
+        return darkNourishment
+    }
     // 98 Deadeye Tormenter
     // 99 Deadeye Tracker
     // 100 Deathless Ancient
