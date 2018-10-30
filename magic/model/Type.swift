@@ -35,6 +35,7 @@ enum Subtype {
     case Construct
     case Crab
     case Dinosaur
+    case Djinn
     case Dragon
     case Drake
     case Druid
@@ -70,6 +71,7 @@ enum Subtype {
     case Pirate
     case Plains
     case Plant
+    case Rat
     case Rhino
     case Saproling
     case Satyr

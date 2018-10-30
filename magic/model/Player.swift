@@ -152,7 +152,11 @@ class Player: Targetable {
     }
     
     func declareBlockers() {
-        // Something will happen here maybe
+        for permanent in permanents {
+            if permanent.blocking {
+                permanent.triggerAbilities(.ThisBlocks)
+            }
+        }
     }
     
     func dealCombatDamage() {

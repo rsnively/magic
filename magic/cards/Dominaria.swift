@@ -32,7 +32,22 @@ enum DOM {
         return avenSentry
     }
     // 4 Baird, Steward of Argive
-    // 5 Benalish Honor Guard
+    static func BenalishHonorGuard() -> Card {
+        let benalishHonorGuard = Card(name: "Benalish Honor Guard", rarity: .Common, set: set, number: 5)
+        benalishHonorGuard.setManaCost("1W")
+        benalishHonorGuard.setType(.Creature, .Human, .Knight)
+        benalishHonorGuard.addStaticAbility { object in
+            if object.id == benalishHonorGuard.id {
+                let numLegends = object.getController().getCreatures().filter({ $0.isType(.Legendary) }).count
+                object.power = object.getBasePower() + numLegends
+            }
+            return object
+        }
+        benalishHonorGuard.setFlavorText("\"The true measure of all heroes is not what they achieve, but who they inspire.\"\n--Triumph of Gerrard")
+        benalishHonorGuard.power = 2
+        benalishHonorGuard.toughness = 2
+        return benalishHonorGuard
+    }
     static func BenalishMarshal() -> Card {
         let benalishMarshal = Card(name: "Benalish Marshal", rarity: .Rare, set: set, number: 6)
         benalishMarshal.setManaCost("WWW")
@@ -225,7 +240,23 @@ enum DOM {
     // 65 Sentinel of the Pearl Trident
     // 66 Slinn Voda, the Rising Deep
     // 67 Syncopate
-    // 68 Tempest Djinn
+    static func TempestDjinn() -> Card {
+        let tempestDjinn = Card(name: "Tempest Djinn", rarity: .Rare, set: set, number: 68)
+        tempestDjinn.setManaCost("UUU")
+        tempestDjinn.setType(.Creature, .Djinn)
+        tempestDjinn.flying = true
+        tempestDjinn.addStaticAbility { object in
+            if object.id == tempestDjinn.id {
+                let numIslands = object.getController().getPermanents().filter({ $0.isType(.Basic) && $0.isType(.Island) }).count
+                object.power = object.getBasePower() + numIslands
+            }
+            return object
+        }
+        tempestDjinn.setFlavorText("The first to arrive on Dominaria from their distant home, the marids are the oldest tribe of djinn and the most respected by storm and sea.")
+        tempestDjinn.power = 0
+        tempestDjinn.toughness = 4
+        return tempestDjinn
+    }
     // 69 Tetsuko Umezawa, Fugitive
     // 70 Time of Ice
     static func TolarianScholar() -> Card {
@@ -334,7 +365,23 @@ enum DOM {
     // 98 Lich's Mastery
     // 99 Lingering Phantom
     // 100 Phyrexian Scriptures
-    // 101 Rat Colony
+    static func RatColony() -> Card {
+        let ratColony = Card(name: "Rat Colony", rarity: .Common, set: set, number: 101)
+        ratColony.setManaCost("1B")
+        ratColony.setType(.Creature, .Rat)
+        ratColony.addStaticAbility { object in
+            if object.id == ratColony.id {
+                let numOtherRats = object.getController().getPermanents().filter({ $0.id != object.id && $0.isType(.Rat) }).count
+                object.power = object.getBasePower() + numOtherRats
+            }
+            return object
+        }
+        // TODO: deckbuilding restriction ability
+        ratColony.setFlavorText("Wreckage from the Phyrexian Invasion provided the rats with a seemingly unlimited number of breeding grounds.")
+        ratColony.power = 2
+        ratColony.toughness = 1
+        return ratColony
+    }
     // 102 Rite of Belzenlok
     // 103 Settle the Score
     // 104 Soul Salvage
@@ -399,7 +446,25 @@ enum DOM {
     // 124 Frenzied Rage
     // 125 Ghitu Chronicler
     // 126 Ghitu Journeymage
-    // 127 Ghitu Lavarunner
+    static func GhituLavarunner() -> Card {
+        let ghituLavarunner = Card(name: "Ghitu Lavarunner", rarity: .Common, set: set, number: 127)
+        ghituLavarunner.setManaCost("R")
+        ghituLavarunner.setType(.Creature, .Human, .Wizard)
+        ghituLavarunner.addStaticAbility { object in
+            if object.id == ghituLavarunner.id {
+                if object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count >= 2 {
+                    object.power = object.getBasePower() + 1
+                    // TODO: Should these be separate effects?
+                    object.haste = true
+                }
+            }
+            return object
+        }
+        ghituLavarunner.setFlavorText("Tolarians teach the theory of pyromancy. The Ghitu prefer applied research.")
+        ghituLavarunner.power = 1
+        ghituLavarunner.toughness = 2
+        return ghituLavarunner
+    }
     // 128 Goblin Barrage
     // 129 Goblin Chainwhirler
     // 130 Goblin Warchief
@@ -558,7 +623,22 @@ enum DOM {
         sporeSwarm.setFlavorText("As the irrepressible power of a dormant Multani courses through Yavimaya, the forest passes judgment on travelers and natives alike. Only the fungus prospers.")
         return sporeSwarm
     }
-    // 181 Sporecrown Thallid
+    static func SporecrownThallid() -> Card {
+        let sporecrownThallid = Card(name: "Sporecrown Thallid", rarity: .Uncommon, set: set, number: 181)
+        sporecrownThallid.setManaCost("1G")
+        sporecrownThallid.setType(.Creature, .Fungus)
+        sporecrownThallid.addStaticAbility { object in
+            if object.id != sporecrownThallid.id && object.isType(.Creature) && object.getController() === sporecrownThallid.getController() && (object.isType(.Fungus) || (object.isType(.Saproling))) {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        }
+        sporecrownThallid.setFlavorText("\"The identifying ornamental growths of alpha thallids may be hereditary, or catalyzed by some chemical signal.\"\n--Sarpadian Empires, vol. III")
+        sporecrownThallid.power = 2
+        sporecrownThallid.toughness = 2
+        return sporecrownThallid
+    }
     // 182 Steel Leaf Champion
     // 183 Sylvan Awakening
     // 184 Territorial Allosaurus
@@ -607,7 +687,20 @@ enum DOM {
     // 207 Teferi, Hero of Dominaria
     // 208 Tiana, Ship's Caretaker
     // 209 Aesthir Glider
-    // 210 Amaranthine Wall
+    static func AmaranthineWall() -> Card {
+        let amaranthineWall = Card(name: "Amaranthine Wall", rarity: .Uncommon, set: set, number: 210)
+        amaranthineWall.setManaCost("4")
+        amaranthineWall.setType(.Creature, .Wall)
+        amaranthineWall.defender = true
+        amaranthineWall.addActivatedAbility(
+            string: "{2}: ~ gains indestructible until end of turn.",
+            cost: Cost("2"),
+            effect: { amaranthineWall.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in object.indestructible = true; return object }))})
+        amaranthineWall.setFlavorText("Neither its appearance nor its temperature varies as the years pass, an eternal testament to the forces that shaped Dominaria.")
+        amaranthineWall.power = 0
+        amaranthineWall.toughness = 6
+        return amaranthineWall
+    }
     // 211 Blackblade Reforged
     // 212 Bloodtallow Candle
     // 213 Damping Sphere
@@ -641,7 +734,21 @@ enum DOM {
     }
     // 216 Guardians of Koilos
     // 217 Helm of the Host
-    // 218 Howling Golem
+    static func HowlingGolem() -> Card {
+        let howlingGolem = Card(name: "Howling Golem", rarity: .Uncommon, set: set, number: 218)
+        howlingGolem.setManaCost("3")
+        howlingGolem.setType(.Artifact, .Creature, .Golem)
+        howlingGolem.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: { Game.shared.bothPlayers({ $0.drawCard() })})
+        howlingGolem.addTriggeredAbility(
+            trigger: .ThisBlocks,
+            effect: { Game.shared.bothPlayers({ $0.drawCard() })})
+        howlingGolem.setFlavorText("It wails of buried riches and the souls lost seeking them.")
+        howlingGolem.power = 2
+        howlingGolem.toughness = 3
+        return howlingGolem
+    }
     static func IcyManipulator() -> Card {
         let icyManipulator = Card(name: "Icy Manipulator", rarity: .Uncommon, set: set, number: 219)
         icyManipulator.setManaCost("4")
@@ -698,7 +805,20 @@ enum DOM {
     // 233 Thran Temporal Gateway
     // 234 Traxos, Scourge of Kroog
     // 235 Urza's Tome
-    // 236 Voltaic Servant
+    static func VoltaicServant() -> Card {
+        let voltaicServant = Card(name: "Voltaic Servant", rarity: .Common, set: set, number: 236)
+        voltaicServant.setManaCost("2")
+        voltaicServant.setType(.Artifact, .Creature, .Construct)
+        voltaicServant.addTriggeredAbility(
+            trigger: .YourEndStep,
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Artifact) },
+                effect: { $0.untap() }))
+        voltaicServant.setFlavorText("A missing piece in search of a puzzle.")
+        voltaicServant.power = 1
+        voltaicServant.toughness = 3
+        return voltaicServant
+    }
     // 237 Weatherlight
     static func CabalStronghold() -> Card {
         let cabalStronghold = Card(name: "Cabal Stronghold", rarity: .Rare, set: set, number: 238)
