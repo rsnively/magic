@@ -53,6 +53,7 @@
 		98333F652187E823008F43EE /* dom210full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F642187E823008F43EE /* dom210full.png */; };
 		98333F672187E91D008F43EE /* dom218full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F662187E91D008F43EE /* dom218full.png */; };
 		98333F692187E9EE008F43EE /* dom236full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F682187E9EE008F43EE /* dom236full.png */; };
+		98333F6D2187EF12008F43EE /* xln1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F6C2187EF12008F43EE /* xln1full.png */; };
 		983373D4215C498B003CD4D0 /* TriggeredAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D3215C498B003CD4D0 /* TriggeredAbility.swift */; };
 		983373D6215C4A5D003CD4D0 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983373D5215C4A5D003CD4D0 /* Trigger.swift */; };
 		983373D8215C4FD1003CD4D0 /* grn129full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983373D7215C4FD1003CD4D0 /* grn129full.png */; };
@@ -430,6 +431,7 @@
 		98333F642187E823008F43EE /* dom210full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom210full.png; sourceTree = "<group>"; };
 		98333F662187E91D008F43EE /* dom218full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom218full.png; sourceTree = "<group>"; };
 		98333F682187E9EE008F43EE /* dom236full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom236full.png; sourceTree = "<group>"; };
+		98333F6C2187EF12008F43EE /* xln1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln1full.png; sourceTree = "<group>"; };
 		983373D3215C498B003CD4D0 /* TriggeredAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredAbility.swift; sourceTree = "<group>"; };
 		983373D5215C4A5D003CD4D0 /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		983373D7215C4FD1003CD4D0 /* grn129full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn129full.png; sourceTree = "<group>"; };
@@ -1147,6 +1149,7 @@
 		98E176A6217001DE00763F96 /* xln */ = {
 			isa = PBXGroup;
 			children = (
+				98333F6C2187EF12008F43EE /* xln1full.png */,
 				98E176AA2170191900763F96 /* xln6full.png */,
 				98E176B82170191B00763F96 /* xln7full.png */,
 				98E176B52170191A00763F96 /* xln8full.png */,
@@ -1528,6 +1531,7 @@
 				98DCF1732176A29500B33E89 /* rix5full.png in Resources */,
 				98ECCF29215CCFCC0030ED51 /* lea151full.png in Resources */,
 				98F981C2216EBE3800254A4C /* grn46full.png in Resources */,
+				98333F6D2187EF12008F43EE /* xln1full.png in Resources */,
 				989AFA2B2179BEC000F7DEE1 /* m197full.png in Resources */,
 				98CBD0A5216F3BBC0085E669 /* m19165full.png in Resources */,
 				98A19A40216819D2002A4296 /* dom10full.png in Resources */,

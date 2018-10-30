@@ -26,7 +26,7 @@ class PermanentNode: CardNode {
             } else if card.canActivateAbilities() {
                 // todo: multiple activated abilities
                 let ability = card.activatedAbilities.first!
-                if card.getController().getManaPool().canAfford(ability) && (!(card.isTapped || card.hasSummoningSickness()) || !ability.getCost().getTapCost()) {
+                if card.getController().getManaPool().canAfford(ability) && (!(card.isTapped || card.hasSummoningSickness()) || !ability.getCost().getTapCost()) && (ability.getCost().getLifeCost() <= card.getController().getLife()) {
                     card.getController().payFor(ability.getCost(), card)
                     ability.activate()
                     (self.scene as! GameScene).redraw()

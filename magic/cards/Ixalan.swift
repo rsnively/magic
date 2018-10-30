@@ -4,7 +4,24 @@ enum XLN {
     static var set = "xln"
     static var count = 279
     
-    // 1 Adanto Vanguard
+    static func AdantoVanguard() -> Card {
+        let adantoVanguard = Card(name: "Adanto Vanguard", rarity: .Uncommon, set: set, number: 1)
+        adantoVanguard.setManaCost("1W")
+        adantoVanguard.setType(.Creature, .Vampire, .Soldier)
+        adantoVanguard.addStaticAbility { object in
+            if object.id == adantoVanguard.id && object.attacking {
+                object.power = object.getBasePower() + 2
+            }
+            return object
+        }
+        adantoVanguard.addActivatedAbility(
+            string: "Pay 4 life: ~ gains indestructible until end of turn.",
+            cost: Cost("", tap: false, life: 4),
+            effect: { adantoVanguard.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in object.indestructible = true; return object }))})
+        adantoVanguard.power = 1
+        adantoVanguard.toughness = 1
+        return adantoVanguard
+    }
     // 2 Ashes of the Abhorrent
     // 3 Axis of Mortality
     // 4 Bellowing Aegisaur

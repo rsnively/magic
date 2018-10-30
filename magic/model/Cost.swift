@@ -3,10 +3,12 @@ import Foundation
 class Cost {
     private var manaCost: ManaCost
     private var tapCost: Bool
+    private var lifeCost: Int
     
-    init(_ manaString: String, tap: Bool = false) {
+    init(_ manaString: String, tap: Bool = false, life: Int = 0) {
         self.manaCost = ManaCost(manaString)
         self.tapCost = tap
+        self.lifeCost = life
     }
     
     func getManaCost() -> ManaCost {
@@ -15,6 +17,10 @@ class Cost {
     
     func getTapCost() -> Bool {
         return tapCost
+    }
+    
+    func getLifeCost() -> Int {
+        return lifeCost
     }
     
     func getString() -> String {

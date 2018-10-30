@@ -101,6 +101,7 @@ class Player: Targetable {
         if cost.getTapCost() {
             source.tap()
         }
+        loseLife(cost.getLifeCost())
     }
     
     func pregameActions() {
