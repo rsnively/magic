@@ -23,6 +23,7 @@ enum Subtype {
     case Archer
     case Artificer
     case Assassin
+    case Avatar
     case Basilisk
     case Bat
     case Bear
@@ -56,6 +57,7 @@ enum Subtype {
     case Giant
     case Goblin
     case Golem
+    case Homarid
     case Horror
     case Human
     case Illusion

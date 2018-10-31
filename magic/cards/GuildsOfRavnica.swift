@@ -551,7 +551,21 @@ enum GRN {
         return generousStray
     }
     // 130 Golgari Raiders
-    // 131 Grappling Sundew
+    static func GrapplingSundew() -> Card {
+        let grapplingSundew = Card(name: "Grappling Sundew", rarity: .Uncommon, set: set, number: 131)
+        grapplingSundew.setManaCost("1G")
+        grapplingSundew.setType(.Creature, .Plant)
+        grapplingSundew.defender = true
+        grapplingSundew.reach = true
+        grapplingSundew.addActivatedAbility(
+            string: "{4}{G}: ~ gains indestructible until end of turn.",
+            cost: Cost("4G"),
+            effect: { grapplingSundew.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))})
+        grapplingSundew.setFlavorText("Some rooftop gardens attract bees; others capture dragons.")
+        grapplingSundew.power = 0
+        grapplingSundew.toughness = 4
+        return grapplingSundew
+    }
     // 132 Hatchery Spider
     static func HitchclawRecluse() -> Card {
         let hitchlawRecluse = Card(name: "Hitchclaw Recluse", rarity: .Common, set: set, number: 133)
@@ -718,7 +732,18 @@ enum GRN {
     // 165 Deafening Clarion
     // 166 Dimir Spybug
     // 167 Disinformation Campaign
-    // 168 Emmara, Soul of the Accord
+    static func EmmaraSoulOfTheAccord() -> Card {
+        let emmara = Card(name: "Emmara, Soul of the Accord", rarity: .Rare, set: set, number: 168)
+        emmara.setManaCost("GW")
+        emmara.setType(.Legendary, .Creature, .Elf, .Cleric)
+        emmara.addTriggeredAbility(
+            trigger: .ThisBecomesTapped,
+            effect: { emmara.getController().createToken(Soldier()) })
+        emmara.setFlavorText("\"Whatever hatred destroys, a single act of trust can revive.\"")
+        emmara.power = 2
+        emmara.toughness = 2
+        return emmara
+    }
     // 169 Erstwhile Trooper
     // 170 Etrata, the Silencer
     // 171 Firemind's Research

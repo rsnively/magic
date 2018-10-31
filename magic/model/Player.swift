@@ -35,6 +35,14 @@ class Player: Targetable {
         return life
     }
     
+    func setLife(_ amount: Int) {
+        if amount > getLife() {
+            gainLife(amount - getLife())
+        } else if amount < getLife() {
+            loseLife(getLife() - amount)
+        }
+    }
+    
     override func takeDamage(_ amount: Int) {
         self.loseLife(amount)
     }
@@ -251,6 +259,9 @@ class Player: Targetable {
         permanents.append(object)
         object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
         object.triggerAbilities(.ThisETB)
+        if object.isType(.Land) {
+            getPermanents().forEach({ $0.triggerAbilities(.Landfall) })
+        }
     }
     
     func bouncePermanent(_ object: Object) {

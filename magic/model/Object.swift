@@ -201,6 +201,9 @@ class Object: Targetable, NSCopying {
     func isSpell() -> Bool { return false }
     
     func tap() {
+        if !tapped {
+            triggerAbilities(.ThisBecomesTapped)
+        }
         tapped = true
     }
     func untap() {

@@ -2,7 +2,9 @@ import Foundation
 
 enum Trigger {
     case EachUpkeep
+    case Landfall
     case ThisAttacks
+    case ThisBecomesTapped
     case ThisBlocks
     case ThisDies
     case ThisETB

@@ -92,7 +92,25 @@ enum DOM {
     // 13 Daring Archaeologist
     // 14 Dauntless Bodygyard
     // 15 Dub
-    // 16 Evra, Halcyon Witness
+    static func EvraHalcyonWitness() -> Card {
+        let evra = Card(name: "Evra, Halcyon Witness", rarity: .Rare, set: set, number: 16)
+        evra.setManaCost("4WW")
+        evra.setType(.Legendary, .Creature, .Avatar)
+        evra.lifelink = true
+        evra.addActivatedAbility(
+            string: "{4}: Exchange your life total with ~'s power.",
+            cost: Cost("4"),
+            effect: {
+                let temp = evra.getController().getLife()
+                evra.getController().setLife(evra.getPower())
+                // TODO: Since we're setting base power, it doesn't currently display on card
+                evra.power = temp
+        })
+        evra.setFlavorText("\"Light from the Null Moon took form--a mirage made real, alone in grandeur, isolated in a world that once had been its own.\"\n--Fall of the Thran")
+        evra.power = 4
+        evra.toughness = 4
+        return evra
+    }
     // 17 Excavation Elephant
     // 18 Fall of the Thran
     static func GideonsReproach() -> Card {
@@ -216,7 +234,20 @@ enum DOM {
         divination.setFlavorText("\"Half your studies will be learning the laws of magic. The other half will be bending them.\"\n--Naru Meha, master wizard.")
         return divination
     }
-    // 53 Homarid Explorer
+    static func HomaridExplorer() -> Card {
+        let homaridExplorer = Card(name: "Homarid Explorer", rarity: .Common, set: set, number: 53)
+        homaridExplorer.setManaCost("3U")
+        homaridExplorer.setType(.Creature, .Homarid, .Scout)
+        homaridExplorer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { _ in return true },
+                effect: { $0.mill(4) }))
+        homaridExplorer.setFlavorText("\"Homarids spread northward from Sarpadia as the climate cooled, raiding coastal settlements for supplies.\"\n--Time of Ice")
+        homaridExplorer.power = 3
+        homaridExplorer.toughness = 3
+        return homaridExplorer
+    }
     // 54 In Bolas's Clutches
     // 55 Karn's Temporal Sundering
     // 56 Merfolk Trickster
@@ -270,10 +301,36 @@ enum DOM {
     }
     // 72 Unwind
     // 73 Vodalian Arcanist
-    // 74 Weight of Memory
+    static func WeightOfMemory() -> Card {
+        let weightOfMemory = Card(name: "Weight of Memory", rarity: .Uncommon, set: set, number: 74)
+        weightOfMemory.setManaCost("3UU")
+        weightOfMemory.setType(.Sorcery)
+        weightOfMemory.addEffect(TargetedEffect.SinglePlayer(
+            restriction: { _ in return true },
+            effect: { target in
+                weightOfMemory.getController().drawCards(3)
+                target.mill(3)
+        }))
+        weightOfMemory.setFlavorText("In lives that have stretched for centuries, there are bound to be a few awkward silences.")
+        return weightOfMemory
+    }
     // 75 Wizard's Retort
     // 76 Zahid, Djinn of the Lamp
-    // 77 Blessing of Belzenlok
+    static func BlessingOfBelzenlok() -> Card {
+        let blessingOfBelzenlok = Card(name: "Blessing of Belzenlok", rarity: .Common, set: set, number: 77)
+        blessingOfBelzenlok.setManaCost("B")
+        blessingOfBelzenlok.setType(.Instant)
+        blessingOfBelzenlok.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                target.pump(2, 1)
+                if target.isType(.Legendary) {
+                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                }
+        }))
+        blessingOfBelzenlok.setFlavorText("\"My heart is not mine, it is Belzenlok's. All hearts are his, and all blood.\"\n--\"Rite of Belzenlok\"")
+        return blessingOfBelzenlok
+    }
     static func CabalEvangel() -> Card {
         let cabalEvangel = Card(name: "Cabal Evangel", rarity: .Common, set: set, number: 78)
         cabalEvangel.setManaCost("2B")
@@ -323,7 +380,22 @@ enum DOM {
         dreadShade.toughness = 3
         return dreadShade
     }
-    // 89 Drudge Sentinel
+    static func DrudgeSentinel() -> Card {
+        let drudgeSentinel = Card(name: "Drudge Sentinel", rarity: .Common, set: set, number: 89)
+        drudgeSentinel.setManaCost("2B")
+        drudgeSentinel.setType(.Creature, .Skeleton, .Warrior)
+        drudgeSentinel.addActivatedAbility(
+            string: "{3}: Tap ~. It gains indestructible until end of turn.",
+            cost: Cost("3"),
+            effect: {
+                drudgeSentinel.tap()
+                drudgeSentinel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
+        })
+        drudgeSentinel.setFlavorText("The Cabal assured the Seven Houses that hostages receive all the food and rest they require.")
+        drudgeSentinel.power = 2
+        drudgeSentinel.toughness = 1
+        return drudgeSentinel
+    }
     // 90 The Eldest Reborn
     static func Eviscerate() -> Card {
         let eviscerate = Card(name: "Eviscerate", rarity: .Common, set: set, number: 91)
@@ -511,7 +583,22 @@ enum DOM {
     // 151 Warlord's Fury
     // 152 Wizard's Lightning
     // 153 Adventurous Impulse
-    // 154 Ancient Animus
+    static func AncientAnimus() -> Card {
+        let ancientAnimus = Card(name: "Ancient Animus", rarity: .Common, set: set, number: 154)
+        ancientAnimus.setManaCost("1G")
+        ancientAnimus.setType(.Instant)
+        ancientAnimus.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === ancientAnimus.getController()},
+                           { $0.isType(.Creature) && $0.getController() !== ancientAnimus.getController()}],
+            effect: { targets in
+                if targets[0].isType(.Legendary) {
+                    targets[0].addCounter(.PlusOnePlusOne)
+                }
+                targets[0].fight(targets[1])
+        }))
+        ancientAnimus.setFlavorText("Multani's mind grasped for consciousness as rage itself rebuilt his body.")
+        return ancientAnimus
+    }
     static func ArborArmament() -> Card {
         let arborArmament = Card(name: "Arbor Armament", rarity: .Common, set: set, number: 155)
         arborArmament.setManaCost("G")
@@ -675,8 +762,38 @@ enum DOM {
         yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
         return yavimayaSapherd
     }
-    // 190 Adeliz, the Cinder Wind
-    // 191 Arvad, the Cursed
+    static func AdelizTheCinderWind() -> Card {
+        let adeliz = Card(name: "Adeliz, the Cinder Wind", rarity: .Uncommon, set: set, number: 190)
+        adeliz.setManaCost("1UR")
+        adeliz.setType(.Legendary, .Creature, .Human, .Wizard)
+        adeliz.flying = true
+        adeliz.haste = true
+        adeliz.addTriggeredAbility(
+            trigger: .YouCastInstantOrSorcery,
+            effect: { adeliz.getController().getPermanents().filter({ $0.isType(.Wizard) }).forEach({ $0.pump(1, 1) }) })
+        adeliz.setFlavorText("The passionate intensity of the Ghitu tempered by the cool insight of Tolarian training.")
+        adeliz.power = 2
+        adeliz.toughness = 2
+        return adeliz
+    }
+    static func ArvadTheCursed() -> Card {
+        let arvad = Card(name: "Arvad the Cursed", rarity: .Uncommon, set: set, number: 191)
+        arvad.setManaCost("3WB")
+        arvad.setType(.Legendary, .Creature, .Vampire, .Knight)
+        arvad.deathtouch = true
+        arvad.lifelink = true
+        arvad.addStaticAbility { object in
+            if object.id != arvad.id && object.isType(.Legendary) && object.isType(.Creature) {
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+            }
+            return object
+        }
+        arvad.setFlavorText("\"I won't abandon the <i>Weatherlight</i>. My destiny is to serve at Jhoira's side. This 'illness' means I must trust my faith more and myself less.\"")
+        arvad.power = 3
+        arvad.toughness = 3
+        return arvad
+    }
     // 192 Aryel, Knight of Windgrace
     // 193 Darigaaz Reincarnated
     // 194 Garna, the Bloodflame
@@ -691,7 +808,21 @@ enum DOM {
     // 203 Rona, Disciple of Ghix
     // 204 Shanna, Sisay's Legacy
     // 205 Slimefoot, the Stowaway
-    // 206 Tatyova, Benthic Druid
+    static func TatyovaBenthicDruid() -> Card {
+        let tatyova = Card(name: "Tatyova, Benthic Druid", rarity: .Uncommon, set: set, number: 206)
+        tatyova.setManaCost("3GU")
+        tatyova.setType(.Legendary, .Creature, .Merfolk, .Druid)
+        tatyova.addTriggeredAbility(
+            trigger: .Landfall,
+            effect: {
+                tatyova.getController().gainLife(1)
+                tatyova.getController().drawCard()
+        })
+        tatyova.setFlavorText("\"Yavimaya is one being--one vastness of rippling leaves, one deepness of roots, and one chatter of animals--of which I am one part.\"")
+        tatyova.power = 3
+        tatyova.toughness = 3
+        return tatyova
+    }
     // 207 Teferi, Hero of Dominaria
     // 208 Tiana, Ship's Caretaker
     // 209 Aesthir Glider
