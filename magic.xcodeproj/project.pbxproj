@@ -285,6 +285,11 @@
 		98C269D72189A59500911698 /* dom190full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269D62189A59400911698 /* dom190full.png */; };
 		98C269D92189A65A00911698 /* dom191full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269D82189A65A00911698 /* dom191full.png */; };
 		98C269DB2189A81000911698 /* dom206full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269DA2189A81000911698 /* dom206full.png */; };
+		98C269DE2189AA6400911698 /* KhansOfTarkir.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C269DD2189AA6400911698 /* KhansOfTarkir.swift */; };
+		98C269E02189AC7300911698 /* ktk4full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269DF2189AC7300911698 /* ktk4full.png */; };
+		98C269E22189AD4A00911698 /* ktk6full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269E12189AD4900911698 /* ktk6full.png */; };
+		98C269E42189ADC400911698 /* ktk7full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269E32189ADC400911698 /* ktk7full.png */; };
+		98C269E62189AF9C00911698 /* ktk13full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269E52189AF9C00911698 /* ktk13full.png */; };
 		98C769AD21827A17001BCFF7 /* m19120full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C769AC21827A16001BCFF7 /* m19120full.png */; };
 		98C769AF21827CB9001BCFF7 /* Targetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C769AE21827CB9001BCFF7 /* Targetable.swift */; };
 		98C98467217A901700903CED /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C98466217A901700903CED /* Counter.swift */; };
@@ -686,6 +691,11 @@
 		98C269D62189A59400911698 /* dom190full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom190full.png; sourceTree = "<group>"; };
 		98C269D82189A65A00911698 /* dom191full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom191full.png; sourceTree = "<group>"; };
 		98C269DA2189A81000911698 /* dom206full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom206full.png; sourceTree = "<group>"; };
+		98C269DD2189AA6400911698 /* KhansOfTarkir.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KhansOfTarkir.swift; sourceTree = "<group>"; };
+		98C269DF2189AC7300911698 /* ktk4full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk4full.png; sourceTree = "<group>"; };
+		98C269E12189AD4900911698 /* ktk6full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk6full.png; sourceTree = "<group>"; };
+		98C269E32189ADC400911698 /* ktk7full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk7full.png; sourceTree = "<group>"; };
+		98C269E52189AF9C00911698 /* ktk13full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk13full.png; sourceTree = "<group>"; };
 		98C769AC21827A16001BCFF7 /* m19120full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19120full.png; sourceTree = "<group>"; };
 		98C769AE21827CB9001BCFF7 /* Targetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Targetable.swift; sourceTree = "<group>"; };
 		98C98466217A901700903CED /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
@@ -824,6 +834,7 @@
 				98FA8E562156B52400EF5203 /* GuildsOfRavnica.swift */,
 				98E176A7217001FC00763F96 /* Ixalan.swift */,
 				9818425120CA03D50068DC91 /* Kaladesh.swift */,
+				98C269DD2189AA6400911698 /* KhansOfTarkir.swift */,
 				9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */,
 				986D5C8720D1B853005E944E /* Magic2019.swift */,
 				98DCF16F21769C7300B33E89 /* RivalsOfIxalan.swift */,
@@ -1040,6 +1051,17 @@
 			path = dom;
 			sourceTree = "<group>";
 		};
+		98C269DC2189AA4C00911698 /* ktk */ = {
+			isa = PBXGroup;
+			children = (
+				98C269DF2189AC7300911698 /* ktk4full.png */,
+				98C269E12189AD4900911698 /* ktk6full.png */,
+				98C269E32189ADC400911698 /* ktk7full.png */,
+				98C269E52189AF9C00911698 /* ktk13full.png */,
+			);
+			path = ktk;
+			sourceTree = "<group>";
+		};
 		98D0438B20EE87AD0009143E /* ai */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1115,7 @@
 			children = (
 				986ED55D215F06F9008B44DC /* dom */,
 				98FA8E582156B85700EF5203 /* grn */,
+				98C269DC2189AA4C00911698 /* ktk */,
 				9823DDEF215982360080C806 /* lea */,
 				98DFD47420D9DC9700B2EEA1 /* m19 */,
 				98DCF17121769CB700B33E89 /* rix */,
@@ -1423,11 +1446,13 @@
 				98B6FFA52181062400BC6FBD /* grn187full.png in Resources */,
 				989AFA2D2179C00C00F7DEE1 /* m1928full.png in Resources */,
 				983373DA215C5663003CD4D0 /* grn135full.png in Resources */,
+				98C269E22189AD4A00911698 /* ktk6full.png in Resources */,
 				98333F7F2187FB30008F43EE /* xln75full.png in Resources */,
 				98B6FF912180FE1A00BC6FBD /* grn244full.png in Resources */,
 				98A8CA392162095F009E92FB /* dom91full.png in Resources */,
 				98BEF4C82178FA5A00144C51 /* rix140full.png in Resources */,
 				98BEF4CE21792B1800144C51 /* grn124full.png in Resources */,
+				98C269E62189AF9C00911698 /* ktk13full.png in Resources */,
 				98ECCF2F215CCFCC0030ED51 /* lea220full.png in Resources */,
 				98C98469217A91DE00903CED /* xln195full.png in Resources */,
 				98FA8E602156BCF900EF5203 /* grn60full.png in Resources */,
@@ -1481,6 +1506,7 @@
 				98CBD08B216F2ECE0085E669 /* m1946full.png in Resources */,
 				98BEF4C12178F4FD00144C51 /* rix122full.png in Resources */,
 				987858CE2171770000A07DB3 /* dom121full.png in Resources */,
+				98C269E42189ADC400911698 /* ktk7full.png in Resources */,
 				98B87A672175E12600F7B32C /* xln178full.png in Resources */,
 				98B6FFA12181061400BC6FBD /* grn156full.png in Resources */,
 				98333F672187E91D008F43EE /* dom218full.png in Resources */,
@@ -1703,6 +1729,7 @@
 				9868006020E5419B00E6E730 /* m19171full.png in Resources */,
 				98C269CF2189A1B800911698 /* dom74full.png in Resources */,
 				98CBD0A1216F3A3A0085E669 /* m19t9full.png in Resources */,
+				98C269E02189AC7300911698 /* ktk4full.png in Resources */,
 				98B87A512175D73B00F7B32C /* xln115full.png in Resources */,
 				98C269D72189A59500911698 /* dom190full.png in Resources */,
 				98E176BB2170191B00763F96 /* xln16full.png in Resources */,
@@ -1767,6 +1794,7 @@
 				9818425620CA07580068DC91 /* Mana.swift in Sources */,
 				986D5C9420D1E60B005E944E /* ManaPool.swift in Sources */,
 				983373D4215C498B003CD4D0 /* TriggeredAbility.swift in Sources */,
+				98C269DE2189AA6400911698 /* KhansOfTarkir.swift in Sources */,
 				98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */,
 				981CDDEB216D7B490007F434 /* PermanentNode.swift in Sources */,
 				98CD093B217F8F7300DA91F7 /* AbilitySelector.swift in Sources */,

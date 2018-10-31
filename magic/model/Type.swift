@@ -63,6 +63,7 @@ enum Subtype {
     case Illusion
     case Insect
     case Island
+    case Kirin
     case Knight
     case Lizard
     case Merfolk

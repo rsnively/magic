@@ -235,6 +235,9 @@ class Object: Targetable, NSCopying {
     func addCounter(_ type: Counter) {
         counters[type] = (counters[type] ?? 0) + 1
     }
+    func getCounters(_ type: Counter) -> Int {
+        return counters[type] ?? 0
+    }
     
     func applyContinuousEffects() -> Object {
         // TODO: Layers
@@ -249,7 +252,7 @@ class Object: Targetable, NSCopying {
         }
         
         if object.basePower != nil && object.baseToughness != nil {
-            let plusOnePlusOneCounters = counters[.PlusOnePlusOne] ?? 0
+            let plusOnePlusOneCounters = getCounters(.PlusOnePlusOne)
             object.power = object.getBasePower() + plusOnePlusOneCounters
             object.toughness = object.getBaseToughness() + plusOnePlusOneCounters
         }
