@@ -712,23 +712,28 @@ enum DOM {
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {W}{W}{W}.",
             cost: Cost("", tap: true),
-            effect: { gildedLotus.getController().addMana(color: .White, 3) })
+            effect: { gildedLotus.getController().addMana(color: .White, 3) },
+            manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {U}{U}{U}.",
             cost: Cost("", tap: true),
-            effect: { gildedLotus.getController().addMana(color: .Blue, 3) })
+            effect: { gildedLotus.getController().addMana(color: .Blue, 3) },
+            manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {B}{B}{B}.",
             cost: Cost("", tap: true),
-            effect: { gildedLotus.getController().addMana(color: .Black, 3) })
+            effect: { gildedLotus.getController().addMana(color: .Black, 3) },
+            manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {R}{R}{R}.",
             cost: Cost("", tap: true),
-            effect: { gildedLotus.getController().addMana(color: .Red, 3) })
+            effect: { gildedLotus.getController().addMana(color: .Red, 3) },
+            manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {G}{G}{G}.",
             cost: Cost("", tap: true),
-            effect: { gildedLotus.getController().addMana(color: .Green, 3) })
+            effect: { gildedLotus.getController().addMana(color: .Green, 3) },
+            manaAbility: true)
         gildedLotus.setFlavorText("\"The perfection of the lotus reminds me of my hopes for this world... and my failures. I will not rest until I've atoned for them.\"\n--Karn")
         return gildedLotus
     }

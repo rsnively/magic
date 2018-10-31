@@ -1184,23 +1184,28 @@ enum M19 {
         manalith.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost("", tap: true),
-            effect: { manalith.getController().addMana(color: .White) })
+            effect: { manalith.getController().addMana(color: .White) },
+            manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {U}.",
             cost: Cost("", tap: true),
-            effect: { manalith.getController().addMana(color: .Blue) })
+            effect: { manalith.getController().addMana(color: .Blue) },
+            manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {B}.",
             cost: Cost("", tap: true),
-            effect: { manalith.getController().addMana(color: .Black) })
+            effect: { manalith.getController().addMana(color: .Black) },
+            manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {R}.",
             cost: Cost("", tap: true),
-            effect: { manalith.getController().addMana(color: .Red) })
+            effect: { manalith.getController().addMana(color: .Red) },
+            manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {G}.",
             cost: Cost("", tap: true),
-            effect: { manalith.getController().addMana(color: .Green) })
+            effect: { manalith.getController().addMana(color: .Green) },
+            manaAbility: true)
         manalith.setFlavorText("Planeswalkers seek out great monuments throughout the Multiverse, knowing that their builders were unwittingly drawn by the convergence of mana in the area.")
         return manalith
     }
