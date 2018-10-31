@@ -277,7 +277,7 @@ class Object: Targetable, NSCopying {
     }
     
     func canActivateAbilities() -> Bool {
-        return !activatedAbilities.isEmpty && !Game.shared.isSelectingAbility && !Game.shared.isTargeting && !Game.shared.isDeclaringAttackers() && !Game.shared.isDeclaringBlockers() && getController().hasPriority
+        return !activatedAbilities.isEmpty && !Game.shared.isSelecting() && getController().hasPriority
     }
     
     func isSelectingAbility() -> Bool {

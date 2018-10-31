@@ -21,12 +21,17 @@ class LandsCardNode: CardNode {
                 abilitySelector.touchUp(atPoint: convert(pos, from: parent!))
                 return
             }
+            if Game.shared.isChoosingLegendaryToKeep && card.name == Game.shared.choosingLegendaryToKeep {
+                Game.shared.chooseLegendaryToKeep(card)
+                return
+            }
             if Game.shared.isTargeting {
                 if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
                     Game.shared.selectTarget(card)
-                    (self.scene as! GameScene).redraw()
+                    return
                 }
-            } else if card.canActivateAbilities() {
+            }
+            if card.canActivateAbilities() {
                 if card.activatedAbilities.count > 1 {
                     Game.shared.selectingAbilityObject = self.card
                 } else {
@@ -34,7 +39,6 @@ class LandsCardNode: CardNode {
                     if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost()) && (ability.getCost().getLifeCost() <= card.getController().getLife()) {
                         card.getController().payFor(ability.getCost(), card)
                         ability.activate()
-                        (self.scene as! GameScene).redraw()
                         return
                     }
                 }

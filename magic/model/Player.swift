@@ -160,6 +160,10 @@ class Player: Targetable {
         }
     }
     
+    func chooseLegendaryToKeep(name: String) {
+        Game.shared.choosingLegendaryToKeep = name
+    }
+    
     func dealCombatDamage() {
         for permanent in permanents {
             if permanent.attacking {
@@ -202,6 +206,7 @@ class Player: Targetable {
                     card.setTapped(true)
                 }
                 addPermanent(card)
+                Game.shared.checkStateBasedActions()
             }
             
             if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {

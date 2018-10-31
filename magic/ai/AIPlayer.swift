@@ -36,4 +36,9 @@ class AIPlayer: Player {
     override func declareBlockers() {
         super.declareBlockers()
     }
+    
+    override func chooseLegendaryToKeep(name: String) {
+        super.chooseLegendaryToKeep(name: name)
+        Game.shared.chooseLegendaryToKeep(getPermanents().first(where: { $0.name == Game.shared.choosingLegendaryToKeep })!)
+    }
 }

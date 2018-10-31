@@ -20,31 +20,40 @@ class CreaturesCardNode: CardNode {
     override func touchUp(atPoint pos : CGPoint) {
         touchPoint = nil
         if !moved {
+            if let abilitySelector = self.abilitySelector {
+                abilitySelector.touchUp(atPoint: convert(pos, from: parent!))
+                return
+            }
+            if Game.shared.isChoosingLegendaryToKeep && card.name == Game.shared.choosingLegendaryToKeep {
+                Game.shared.chooseLegendaryToKeep(card)
+                return
+            }
             if Game.shared.isTargeting {
                 if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
                     Game.shared.selectTarget(card)
-                    (self.scene as! GameScene).redraw()
                     return
                 }
-            } else if card.canActivateAbilities() {
-                // todo: multiple activated abilities
-                let ability = card.activatedAbilities.first!
-                if card.getController().getManaPool().canAfford(ability) && (!(card.isTapped || card.hasSummoningSickness()) || !ability.getCost().getTapCost()) && (ability.getCost().getLifeCost() <= card.getController().getLife()) {
-                    card.getController().payFor(ability.getCost(), card)
-                    ability.activate()
-                    (self.scene as! GameScene).redraw()
-                    return
-                }
-            } else if let selectedBlocker = Game.shared.getSelectedBlocker() {
+            }
+            if let selectedBlocker = Game.shared.getSelectedBlocker() {
                 if card.attacking && selectedBlocker.canBlockAttacker(card) {
                     selectedBlocker.block(card)
                     return
                 }
             }
-            (self.scene as! GameScene).expandedCard = self.card
+            if card.canActivateAbilities() {
+                if card.activatedAbilities.count > 1 {
+                    Game.shared.selectingAbilityObject = self.card
+                } else {
+                    let ability = card.activatedAbilities.first!
+                    if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost()) && (ability.getCost().getLifeCost() <= card.getController().getLife()) {
+                        card.getController().payFor(ability.getCost(), card)
+                        ability.activate()
+                        return
+                    }
+                }
+            }
         } else if card.canAttack() {
             card.attacking = !card.attacking
-            (self.scene as! GameScene).redraw()
         }
     }
 }

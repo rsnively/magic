@@ -26,6 +26,25 @@ class Game: NSObject {
             _ = targetingEffects.popLast()
         }
     }
+    var choosingLegendaryToKeep : String? = nil
+    var isChoosingLegendaryToKeep: Bool {
+        return choosingLegendaryToKeep != nil
+    }
+    func chooseLegendaryToKeep(_ object: Object) {
+        assert(isChoosingLegendaryToKeep)
+        assert(object.name == choosingLegendaryToKeep)
+        object.getController().getPermanents().forEach({ permanent in
+            if permanent.isType(.Legendary) && permanent.id != object.id && permanent.name == object.name {
+                let _ = permanent.destroy(ignoreIndestructible: true)
+            }
+        })
+        choosingLegendaryToKeep = nil
+        checkStateBasedActions()
+    }
+    
+    func isSelecting() -> Bool {
+        return isTargeting || isSelectingAbility || isChoosingLegendaryToKeep || declaringBlockers || declaringAttackers
+    }
     
     private var turnNumber: Int
     
@@ -34,13 +53,12 @@ class Game: NSObject {
     override private init() {
         var deck1: [Card] = []
         var deck2: [Card] = []
-        for _ in 0..<15 {
+        for _ in 0..<6 {
             
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.HealersHawk())
-            deck1.append(XLN.BishopsSoldier())
-            deck1.append(DOM.BenalishMarshal())
+            deck1.append(GRN.Swamp())
+            deck1.append(GRN.Swamp())
+            deck1.append(M19.Manalith())
+            deck1.append(DOM.YargleGluttonOfUrborg())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())
@@ -281,7 +299,21 @@ class Game: NSObject {
         })
         
         // If a planeswalker has loyalty 0, it's put into its owner's graveyard.
+        
         // If a player controls two or more legendary permanents with the same name, that player chooses one of them and puts the rest into their owners' graveyards.
+        for permanent in getActivePlayer().getPermanents() {
+            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
+                getActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
+                return
+            }
+        }
+        for permanent in getNonActivePlayer().getPermanents() {
+            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
+                getNonActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
+                return
+            }
+        }
+        
         // If an aura is attached to an illegal object or player, or is not attached to an object or player, that aura is put into its owner's graveyard.
         // If an equipment or fortification is attached to an illegal permanent, it becomes unattached from that permanent. It remains on the battlefield.
         // If a creature (or any permanent that is not an aura, equipment, or fortification) is attached to an object or player, it becomes unattached and remains on the battlefield.

@@ -408,7 +408,15 @@ enum DOM {
         windgraceAcolyte.toughness = 2
         return windgraceAcolyte
     }
-    // 113 Yargle, Glutton of Urborg
+    static func YargleGluttonOfUrborg() -> Card {
+        let yargle = Card(name: "Yargle, Glutton of Urborg", rarity: .Uncommon, set: set, number: 113)
+        yargle.setManaCost("4B")
+        yargle.setType(.Legendary, .Creature, .Frog, .Spirit)
+        yargle.setFlavorText("When Belzenlok's lieutenant Yar-Kul grew too ambitious, the Demonlord transformed him into a maggot. The frog that ate the maggot grew and grew, until a ravneous spirit burst from its body.")
+        yargle.power = 9
+        yargle.toughness = 3
+        return yargle
+    }
     // 114 Yawgmoth's Vile Offering
     // 115 Bloodstone Goblin
     // 116 Champion of the Flame
