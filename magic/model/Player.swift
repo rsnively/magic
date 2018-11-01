@@ -223,6 +223,9 @@ class Player: Targetable {
             if card.isSpell() && card.isType(.Creature) {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastCreatureSpell) })
             }
+            if card.isSpell() && !card.isType(.Creature) {
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastNoncreatureSpell) })
+            }
             if card.isSpell() && card.isType(.Enchantment) {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastEnchantmentSpell) })
             }

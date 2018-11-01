@@ -65,6 +65,7 @@ enum Subtype {
     case Island
     case Kirin
     case Knight
+    case Lammasu
     case Lizard
     case Merfolk
     case Minotaur
@@ -85,6 +86,7 @@ enum Subtype {
     case Shade
     case Shaman
     case Skeleton
+    case Snake
     case Soldier
     case Spider
     case Spirit
