@@ -985,6 +985,7 @@ enum M19 {
         highlandGame.addTriggeredAbility(
             trigger: .ThisDies,
             effect: { highlandGame.getController().gainLife(2) })
+        highlandGame.setFlavorText("\"Bring down a stag and fix its horns upon Arel's head. She hears the wisdom of our ancestors.\"\n--Chianul, Who Whispers Twice")
         highlandGame.power = 2
         highlandGame.toughness = 1
         return highlandGame

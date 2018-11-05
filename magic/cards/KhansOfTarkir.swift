@@ -1,5 +1,11 @@
 import Foundation
 
+extension Object {
+    func ferocious() -> Bool {
+        return getController().getPermanents().first(where: { $0.getPower() >= 4 }) != nil
+    }
+}
+
 enum KTK {
     static let set = "ktk"
     static let count = 269
@@ -340,6 +346,260 @@ enum KTK {
         return throttle
     }
     // 94 Unyielding Krumar - First strike
+    // 95 Act of Treason - Control changing effects
+    // 96 Ainok Tracker - First strike, morph
+    // 97 Arc Lightning - Variable number of targets, divided as you like
+    // 98 Arrow Storm - Raid, unpreventable damage
+    // 99 Ashcloud Phoenix - Morph, face up trigger
+    // 100 Barrage of Boulders - Can't block effect
+    static func BloodfireExpert() -> Card {
+        let bloodfireExpert = Card(name: "Bloodfire Expert", rarity: .Common, set: set, number: 101)
+        bloodfireExpert.setManaCost("2R")
+        bloodfireExpert.setType(.Creature, .Efreet, .Monk)
+        bloodfireExpert.triggeredAbilities.append(Prowess(bloodfireExpert))
+        bloodfireExpert.setFlavorText("Some efreet abandon their homes in the volcanic Fire Rim to embrace the Jeskai Way and discipline their innate flames.")
+        bloodfireExpert.power = 3
+        bloodfireExpert.toughness = 1
+        return bloodfireExpert
+    }
+    // 102 Bloodfire Mentor - discard
+    static func BringLow() -> Card {
+        let bringLow = Card(name: "Bring Low", rarity: .Common, set: set, number: 103)
+        bringLow.setManaCost("3R")
+        bringLow.setType(.Instant)
+        bringLow.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                let hasP1P1Counter = target.getCounters(.PlusOnePlusOne) > 0
+                bringLow.damage(to: target, hasP1P1Counter ? 5 : 3)
+        }))
+        bringLow.setFlavorText("\"People are often humbled by the elements. But the elements, too, can be humbled.\"\n-Surrak, khan of the Temur")
+        return bringLow
+    }
+    // 104 Burn Away - Exile, when that creature dies this turn trigger
+    // 105 Canyon Lurkers - Morph
+    // 106 Crater's Claws - X in casting cost
+    // 107 Dragon's Grip - Aura, ability on card in hand, First strike
+    // 108 Dragon-Style Twins - Double strike
+    // 109 Goblinslide - Optional effects NOTE - the goblin token below does not have haste, it's for hordeling outburst
+    // 110 Horde Ambusher - Morph, revealing card from hand as cost, face up trigger, can't block effect
+    static func HordelingOutburst() -> Card {
+        let hordelingOutburst = Card(name: "Hordeling Outburst", rarity: .Uncommon, set: set, number: 111)
+        hordelingOutburst.setManaCost("1RR")
+        hordelingOutburst.setType(.Sorcery)
+        hordelingOutburst.addEffect {
+            hordelingOutburst.getController().createToken(Goblin())
+            hordelingOutburst.getController().createToken(Goblin())
+            hordelingOutburst.getController().createToken(Goblin())
+        }
+        hordelingOutburst.setFlavorText("\"Leave no scraps, lest you attract pests.\"\n--Mardu threat")
+        return hordelingOutburst
+    }
+    // 112 Howl of the Horde - Spell copying, next instant or sorcery trigger, raid
+    // 113 Jeering Instigator - Morph, face up trigger, control-changing effects
+    static func LeapingMaster() -> Card {
+        let leapingMaster = Card(name: "Leaping Master", rarity: .Common, set: set, number: 114)
+        leapingMaster.setManaCost("1R")
+        leapingMaster.setType(.Creature, .Human, .Monk)
+        leapingMaster.addActivatedAbility(
+            string: "{2}{W}: ~ gains flying until end of turn.",
+            cost: Cost("2W"),
+            effect: { leapingMaster.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
+        leapingMaster.setFlavorText("\"Strength batters down barriers. Discipline ignores them.\"")
+        leapingMaster.power = 2
+        leapingMaster.toughness = 1
+        return leapingMaster
+    }
+    // 115 Mardu Blazebringer - Sacrifice, delayed triggered ability
+    // 116 Mardu Heart-Piercer - Raid
+    // 117 Mardu Warshrieker - Raid
+    static func MonasterySwiftspear() -> Card {
+        let monasterySwiftspear = Card(name: "Monastery Swiftspear", rarity: .Uncommon, set: set, number: 118)
+        monasterySwiftspear.setManaCost("R")
+        monasterySwiftspear.setType(.Creature, .Human, .Monk)
+        monasterySwiftspear.haste = true
+        monasterySwiftspear.triggeredAbilities.append(Prowess(monasterySwiftspear))
+        monasterySwiftspear.setFlavorText("The calligraphy of combat is written with strokes of sudden blood.")
+        monasterySwiftspear.power = 1
+        monasterySwiftspear.toughness = 2
+        return monasterySwiftspear
+    }
+    // 119 Sarkhan, the Dragonspeaker - Planeswalkers, type-setting effects, base pt effects, emblem
+    static func Shatter() -> Card {
+        let shatter = Card(name: "Shatter", rarity: .Common, set: set, number: 120)
+        shatter.setManaCost("1R")
+        shatter.setType(.Instant)
+        shatter.addEffect(TargetedEffect.SingleObject(
+            restriction: { return $0.isType(.Artifact) },
+            effect: { target in let _ = target.destroy() }))
+        shatter.setFlavorText("The ogre's mind snapped. The bow was next. The archer followed quickly after.")
+        return shatter
+    }
+    static func SummitProwler() -> Card {
+        let summitProwler = Card(name: "Summit Prowler", rarity: .Common, set: set, number: 121)
+        summitProwler.setManaCost("2RR")
+        summitProwler.setType(.Creature, .Yeti)
+        summitProwler.setFlavorText("\"Do you hunt the yetis of the high peaks, stripling? They are as fierce as the bear that fears no foe and as sly as mink that creeps unseen. You will be as much prey as they.\"\n--Nitula, the Hunt Caller")
+        summitProwler.power = 4
+        summitProwler.toughness = 3
+        return summitProwler
+    }
+    static func SwiftKick() -> Card {
+        let swiftKick = Card(name: "Swift Kick", rarity: .Common, set: set, number: 122)
+        swiftKick.setManaCost("1R")
+        swiftKick.setType(.Instant)
+        swiftKick.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === swiftKick.getController() },
+                           { $0.isType(.Creature) && $0.getController() !== swiftKick.getController() }],
+            effect: { targets in
+                targets[0].pump(1, 0)
+                targets[0].fight(targets[1])
+        }))
+        swiftKick.setFlavorText("Shintan sensed the malice in his opponent, but he did not strike until the orc's muscles tensed in preparation to throw the first punch.")
+        return swiftKick
+    }
+    // 123 Tormenting Voice - Discarding card as cost
+    static func TrumpetBlast() -> Card {
+        let trumpetBlast = Card(name: "Trumpet Blast", rarity: .Common, set: set, number: 124)
+        trumpetBlast.setManaCost("2R")
+        trumpetBlast.setType(.Instant)
+        trumpetBlast.addEffect {
+            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ $0.pump(2, 0) }) })
+        }
+        trumpetBlast.setFlavorText("Do you hear that, Sarkhan? The glory of the horde! I made a legend from what you abandoned.\"\n--Zurgo, khan of the Mardu")
+        return trumpetBlast
+    }
+    // 125 Valley Dasher - Attacks if able
+    // 126 War-Name Aspriant - Raid, can't be blocked by creatures power 1 or less effect
+    static func AlpineGrizzly() -> Card {
+        let alpineGrizzly = Card(name: "Alpine Grizzly", rarity: .Common, set: set, number: 127)
+        alpineGrizzly.setManaCost("2G")
+        alpineGrizzly.setType(.Creature, .Bear)
+        alpineGrizzly.setFlavorText("The Temur welcome bears into the clan, fighting alongside them in battle. The relationship dates back to when they labored side by side under Sultai rule.")
+        alpineGrizzly.power = 4
+        alpineGrizzly.toughness = 2
+        return alpineGrizzly
+    }
+    static func ArchersParapet() -> Card {
+        let archersParapet = Card(name: "Archers' Parapet", rarity: .Common, set: set, number: 128)
+        archersParapet.setManaCost("1G")
+        archersParapet.setType(.Creature, .Wall)
+        archersParapet.defender = true
+        archersParapet.addActivatedAbility(
+            string: "{1}{B}, {T}: Each opponent loses 1 life.",
+            cost: Cost("1B", tap: true),
+            effect: { archersParapet.getOpponent().loseLife(1) })
+        archersParapet.setFlavorText("Every shaft is graven with a name from a kin tree, calling upon the spirits of the ancestors to make it fly true.")
+        archersParapet.power = 0
+        archersParapet.toughness = 5
+        return archersParapet
+    }
+    // 129 Awaken the Bear - Trample
+    // 130 Become Immense - Delve
+    static func DragonscaleBoon() -> Card {
+        let dragonscaleBoon = Card(name: "Dragonscale Boon", rarity: .Common, set: set, number: 131)
+        dragonscaleBoon.setManaCost("3G")
+        dragonscaleBoon.setType(.Instant)
+        dragonscaleBoon.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                target.addCounters(.PlusOnePlusOne, 2)
+                target.untap()
+        }))
+        dragonscaleBoon.setFlavorText("\"When we were lost and weary, the ainok showed us how to survive. They have earned the right to call themselves Abzan, and to wear the Scale.\"\n--Anafenze, khan of the Abzan")
+        return dragonscaleBoon
+    }
+    static func FeedTheClan() -> Card {
+        let feedTheClan = Card(name: "Feed the Clan", rarity: .Common, set: set, number: 132)
+        feedTheClan.setManaCost("1G")
+        feedTheClan.setType(.Instant)
+        feedTheClan.addEffect {
+            feedTheClan.getController().gainLife(feedTheClan.ferocious() ? 10 : 5)
+        }
+        feedTheClan.setFlavorText("The Temur believe three things only are needed in life: a hot fire, a full belly, and a strong companion.")
+        return feedTheClan
+    }
+    // 133 Hardened Scales - Replacement effects
+    // 134 Heir of the Wilds - Conditional triggered abilities
+    static func HighlandGame() -> Card {
+        let highlandGame = Card(name: "Highland Game", rarity: .Common, set: set, number: 135)
+        highlandGame.setManaCost("1G")
+        highlandGame.setType(.Creature, .Elk)
+        highlandGame.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { highlandGame.getController().gainLife(2) })
+        highlandGame.setFlavorText("\"Bring down a stag and fix its horns upon Arel's head. This one hears the whispers.\"\n--Chianul, at the weaving of Arel")
+        highlandGame.power = 2
+        highlandGame.toughness = 1
+        return highlandGame
+    }
+    // 136 Hooded Hydra - X in mana cost, Morph, face up trigger
+    // 137 Hooting Mandrills - Delve, Trample
+    static func IncrementalGrowth() -> Card {
+        let incrementalGrowth = Card(name: "Incremental Growth", rarity: .Uncommon, set: set, number: 138)
+        incrementalGrowth.setManaCost("3GG")
+        incrementalGrowth.setType(.Sorcery)
+        incrementalGrowth.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) },
+                           { $0.isType(.Creature) },
+                           { $0.isType(.Creature) }],
+            effect: { targets in
+                targets[0].addCounter(.PlusOnePlusOne)
+                targets[1].addCounters(.PlusOnePlusOne, 2)
+                targets[2].addCounters(.PlusOnePlusOne, 3)
+        }))
+        incrementalGrowth.setFlavorText("The bonds of family cross the boundaries of race.")
+        return incrementalGrowth
+    }
+    // 139 Kin-Tree Warden - Morph, Regenerate
+    // 140 Mardu Longshot - Outlast
+    // 141 Meandering Towershell - Landwalk, Exile, Delayed triggered abilities
+    static func Naturalize() -> Card {
+        let naturalize = Card(name: "Naturalize", rarity: .Common, set: set, number: 142)
+        naturalize.setManaCost("1G")
+        naturalize.setType(.Instant)
+        naturalize.addEffect(TargetedEffect.SingleObject(
+            restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            effect: { target in let _ = target.destroy() }))
+        naturalize.setFlavorText("The remains of ancient sky tyrants now feed the war-torn land.")
+        return naturalize
+    }
+    // 143 Pine Walker - Morph, face up trigger
+    // 144 Rattleclaw Mystic - Morph, face up trigger
+    // 145 Roar of Challenge - all block if able effect
+    // 146 Sagu Archer - Morph
+    static func SavagePunch() -> Card {
+        let savagePunch = Card(name: "Savage Punch", rarity: .Common, set: set, number: 147)
+        savagePunch.setManaCost("1G")
+        savagePunch.setType(.Sorcery)
+        savagePunch.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === savagePunch.getController() },
+                           { $0.isType(.Creature) && $0.getController() !== savagePunch.getController() }],
+            effect: { targets in
+                if savagePunch.ferocious() { targets[0].pump(2, 2) }
+                targets[0].fight(targets[1])
+        }))
+        return savagePunch
+    }
+    // 148 Scout the Borders - Card selection
+    // 149 See the Unwritten - Card selection
+    // 150 Seek the Horizon - Card selection
+    // 151 Smoke Teller - Morph, revealing morphs
+    // 152 Sultai Flayer - Creature you control with toughness 4 or greater dies trigger
+    // 153 Temur Charger - Morph, revealing card as cost, face up trigger, trample
+    // 154 Trail of Mystery - Morph, face-down creature ETB trigger, card selection, face up trigger
+    static func TuskedColossodon() -> Card {
+        let tuskedColossodon = Card(name: "Tusked Colossodon", rarity: .Common, set: set, number: 155)
+        tuskedColossodon.setManaCost("4GG")
+        tuskedColossodon.setType(.Creature, .Beast)
+        tuskedColossodon.setFlavorText("A band of Temur hunters, fleeing the Mardu, dug a hideout beneath such a creature as it slept. The horde found them and attacked. For three days the Temur held them at bay, and all the while the great beast slumbered.")
+        tuskedColossodon.power = 6
+        tuskedColossodon.toughness = 5
+        return tuskedColossodon
+    }
+    // 156 Tuskguard Captain - Outlast, Trample
+    // 157 Windstorm - X in casting cost
+    // 158 Woolly Loxodon - Morph
     
     static func Bird() -> Token {
         let bird = Token(name: "Bird", set: set, number: 1)

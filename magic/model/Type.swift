@@ -42,6 +42,7 @@ enum Subtype {
     case Druid
     case Dryad
     case Dwarf
+    case Efreet
     case Egg
     case Elemental
     case Elephant
@@ -102,5 +103,6 @@ enum Subtype {
     case Wizard
     case Wolf
     case Wurm
+    case Yeti
     case Zombie
 }
