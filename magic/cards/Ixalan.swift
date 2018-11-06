@@ -355,7 +355,21 @@ enum XLN {
         headwaterSentries.toughness = 5
         return headwaterSentries
     }
-    // 59 Herald of Secret Streams
+    static func HeraldOfSecretStreams() -> Card {
+        let heraldOfSecretStreams = Card(name: "Herald of Secret Streams", rarity: .Rare, set: set, number: 59)
+        heraldOfSecretStreams.setManaCost("3U")
+        heraldOfSecretStreams.setType(.Creature, .Merfolk, .Warrior)
+        heraldOfSecretStreams.addStaticAbility { object in
+            if object.isType(.Creature) && object.getController() === heraldOfSecretStreams.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.unblockable = true
+            }
+            return object
+        }
+        heraldOfSecretStreams.setFlavorText("\"You might as well try to stop the waterfall.\"")
+        heraldOfSecretStreams.power = 2
+        heraldOfSecretStreams.toughness = 3
+        return heraldOfSecretStreams
+    }
     // 60 Jace, Cunning Castaway
     // 61 Kopala, Warden of Waves
     // 62 Lookout's Dispersal

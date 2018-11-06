@@ -84,6 +84,7 @@ enum Subtype {
     case Satyr
     case Scarecrow
     case Scout
+    case Serpent
     case Shade
     case Shaman
     case Skeleton

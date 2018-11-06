@@ -122,7 +122,16 @@ enum RIX {
     // 40 Induced Amnesia
     // 41 Kitesail Corsair
     // 42 Kumena's Awakening
-    // 43 Mist-Cloaked Herald
+    static func MistCloakedHerald() -> Card {
+        let mistCloakedHerald = Card(name: "Mist-Cloaked Herald", rarity: .Common, set: set, number: 43)
+        mistCloakedHerald.setManaCost("U")
+        mistCloakedHerald.setType(.Creature, .Merfolk, .Warrior)
+        mistCloakedHerald.unblockable = true
+        mistCloakedHerald.setFlavorText("With matchless speed, the River Heralds fought a running battle against the three enemy forces.")
+        mistCloakedHerald.power = 1
+        mistCloakedHerald.toughness = 1
+        return mistCloakedHerald
+    }
     // 44 Negate
     // 45 Nezahal, Primal Tide
     // 46 Release to the Wind
@@ -438,7 +447,17 @@ enum RIX {
     // 169 Relentless Raptor
     // 170 Resplendent Griffin
     // 171 Siegehorn Ceratops
-    // 172 Storm Fleet Sprinter
+    static func StormFleetSprinter() -> Card {
+        let stormFleetSprinter = Card(name: "Storm Fleet Sprinter", rarity: .Uncommon, set: set, number: 172)
+        stormFleetSprinter.setManaCost("1UR")
+        stormFleetSprinter.setType(.Creature, .Human, .Pirate)
+        stormFleetSprinter.haste = true
+        stormFleetSprinter.unblockable = true
+        stormFleetSprinter.setFlavorText("\"Charge like a red-hot cannonball straight to your target. You slow down, you sink.\"\n--Captain Lannery Storm")
+        stormFleetSprinter.power = 2
+        stormFleetSprinter.toughness = 2
+        return stormFleetSprinter
+    }
     // 173 Storm the Vault // Vault of Catlacan
     // 174 Zacama, Primal Calamity
     // 175 Awakened Amalgam

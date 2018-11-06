@@ -359,7 +359,20 @@ enum M19 {
         exclusionMage.toughness = 2
         return exclusionMage
     }
-    // 56 Frilled Sea Serpent
+    static func FrilledSeaSerpent() -> Card {
+        let frilledSeaSerpent = Card(name: "Frilled Sea Serpent", rarity: .Common, set: set, number: 56)
+        frilledSeaSerpent.setManaCost("4UU")
+        frilledSeaSerpent.setType(.Creature, .Serpent)
+        frilledSeaSerpent.addActivatedAbility(
+            string: "{5}{U}{U}: ~ can't be blocked this turn.",
+            cost: Cost("5UU"),
+            effect: { frilledSeaSerpent.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
+        })
+        frilledSeaSerpent.setFlavorText("\"Reel it in. No, wait! Throw it back!\"\n--Gertrude, deep-sea angler")
+        frilledSeaSerpent.power = 4
+        frilledSeaSerpent.toughness = 6
+        return frilledSeaSerpent
+    }
     // 57 Gearsmith Prodigy
     // 58 Ghostform
     // 59 Horizon Scholar
@@ -1252,7 +1265,23 @@ enum M19 {
         skyscanner.toughness = 1
         return skyscanner
     }
-    // 246 Suspicious Bookcase
+    static func SuspiciousBookcase() -> Card {
+        let suspiciousBookcase = Card(name: "Suspicious Bookcase", rarity: .Uncommon, set: set, number: 246)
+        suspiciousBookcase.setManaCost("2")
+        suspiciousBookcase.setType(.Artifact, .Creature, .Wall)
+        suspiciousBookcase.defender = true
+        suspiciousBookcase.addActivatedAbility(
+            string: "{3}, {T}: Target creature can't be blocked this turn.",
+            cost: Cost("3", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
+        }))
+        suspiciousBookcase.setFlavorText("All the books were dusty with disuse, save the one titled <i>Camouflage and Its Practical Applications</i>.")
+        suspiciousBookcase.power = 0
+        suspiciousBookcase.toughness = 4
+        return suspiciousBookcase
+    }
     // 247 Transmogrifying Wand
     // 248 Cinder Barrens
     // 249 Detection Tower

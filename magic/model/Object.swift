@@ -261,6 +261,9 @@ class Object: Targetable, NSCopying {
     func getCounters(_ type: Counter) -> Int {
         return counters[type] ?? 0
     }
+    func hasCounter(_ type: Counter) -> Bool {
+        return counters[type] != nil
+    }
     
     func applyContinuousEffects() -> Object {
         // TODO: Layers
