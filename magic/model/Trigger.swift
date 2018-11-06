@@ -8,6 +8,7 @@ enum Trigger {
     case ThisBlocks
     case ThisDies
     case ThisETB
+    case YouCastBlueSpell
     case YouCastCreatureSpell
     case YouCastEnchantmentSpell
     case YouCastInstantOrSorcery

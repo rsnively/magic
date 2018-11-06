@@ -205,7 +205,19 @@ enum GRN {
     // 36 Dimir Informant
     // 37 Disdainful Stroke
     // 38 Dream Eater
-    // 39 Drowned Secrets
+    static func DrownedSecrets() -> Card {
+        let drownedSecrets = Card(name: "Drowned Secrets", rarity: .Rare, set: set, number: 39)
+        drownedSecrets.setManaCost("1U")
+        drownedSecrets.setType(.Enchantment)
+        drownedSecrets.addTriggeredAbility(
+            trigger: .YouCastBlueSpell,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { _ in return true },
+                effect: { $0.mill(2) }
+        ))
+        drownedSecrets.setFlavorText("Beneath Ravnica's streets runs a layer of tunnels, then caverns and waterways, then terrors and nightmares.")
+        return drownedSecrets
+    }
     // 40 Enhanced Surveillance
     // 41 Guild Summit
     // 42 Leapfrog

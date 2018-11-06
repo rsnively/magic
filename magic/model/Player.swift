@@ -229,6 +229,10 @@ class Player: Targetable {
             if card.isSpell() && card.isType(.Enchantment) {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastEnchantmentSpell) })
             }
+            
+            if card.isSpell() && card.isColor(.Blue) {
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastBlueSpell) })
+            }
         }
         else {
             return
