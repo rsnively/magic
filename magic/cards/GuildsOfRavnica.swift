@@ -251,7 +251,22 @@ enum GRN {
     // 47 Narcomeba
     // 48 Nightveil Sprite
     // 49 Omnispell Adept
-    // 50 Passwall Adept
+    static func PasswallAdept() -> Card {
+        let passwallAdept = Card(name: "Passwall Adept", rarity: .Common, set: set, number: 50)
+        passwallAdept.setManaCost("1U")
+        passwallAdept.setType(.Creature, .Human, .Wizard)
+        passwallAdept.addActivatedAbility(
+            string: "{2}{U}: Target creature can't be blocked this turn.",
+            cost: Cost("2U"),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))}
+        ))
+        passwallAdept.setFlavorText("\"My doors are called trespassing, my signatures, forgeries. They don't respect my talents, and I don't respect their labels.\"")
+        passwallAdept.power = 1
+        passwallAdept.toughness = 3
+        return passwallAdept
+    }
     // 51 Quasiduplicate
     // 52 Radical Idea
     // 53 Selective Snare

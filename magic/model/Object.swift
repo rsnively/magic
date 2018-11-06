@@ -368,6 +368,7 @@ class Object: Targetable, NSCopying {
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
+        if attacker.unblockable { return false }
         if attacker.flying && !(flying || reach) { return false }
         return true
     }
