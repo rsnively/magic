@@ -600,6 +600,500 @@ enum KTK {
     // 156 Tuskguard Captain - Outlast, Trample
     // 157 Windstorm - X in casting cost
     // 158 Woolly Loxodon - Morph
+    // 159 Abomination of Gudul - Combat damage to player trigger, optional effect, discard, morph
+    // 160 Abzan Ascendancy - Nontoken creature you control dies trigger
+    // 161 Abzan Charm - Modal spells, Exile, One or two targets
+    // 162 Abzan Guide - Morph
+    // 163 Anafenza, the Foremost - Exile, replacement effects
+    // 164 Ankle Shanker - First strike
+    // 165 Armament Corps - One or two targets
+    // 166 Avalanche Tusker - Blocks if able effect
+    static func BearsCompanion() -> Card {
+        let bearsCompanion = Card(name: "Bear's Companion", rarity: .Uncommon, set: set, number: 167)
+        bearsCompanion.setManaCost("2GUR")
+        bearsCompanion.setType(.Creature, .Human, .Warrior)
+        bearsCompanion.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { bearsCompanion.getController().createToken(Bear()) })
+        bearsCompanion.setFlavorText("\"The Sultai came hunting for a bear hide. Now I have a belt of naga skin and my friend has a full belly.\"")
+        bearsCompanion.power = 2
+        bearsCompanion.toughness = 2
+        return bearsCompanion
+    }
+    // 168 Butcher of the Horde - Sacrifice another creature as cost
+    static func ChiefOfTheEdge() -> Card {
+        let chiefOfTheEdge = Card(name: "Chief of the Edge", rarity: .Uncommon, set: set, number: 169)
+        chiefOfTheEdge.setManaCost("WB")
+        chiefOfTheEdge.setType(.Creature, .Human, .Warrior)
+        chiefOfTheEdge.addStaticAbility { object in
+            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheEdge.getController() && object.id != chiefOfTheEdge.id {
+                object.power = object.getBasePower() + 1
+            }
+            return object
+        }
+        chiefOfTheEdge.setFlavorText("\"We are the swift, the strong, the blade's sharp shriek! Fear nothing, and strike!\"")
+        chiefOfTheEdge.power = 3
+        chiefOfTheEdge.toughness = 2
+        return chiefOfTheEdge
+    }
+    static func ChiefOfTheScale() -> Card {
+        let chiefOfTheScale = Card(name: "Chief of the Scale", rarity: .Uncommon, set: set, number: 170)
+        chiefOfTheScale.setManaCost("WB")
+        chiefOfTheScale.setType(.Creature, .Human, .Warrior)
+        chiefOfTheScale.addStaticAbility { object in
+            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheScale.getController() && object.id != chiefOfTheScale.id {
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        }
+        chiefOfTheScale.setFlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
+        chiefOfTheScale.power = 2
+        chiefOfTheScale.toughness = 3
+        return chiefOfTheScale
+    }
+    // 171 Crackling Doom - Sacrifice
+    // 172 Death Frenzy - Adding triggered abilities to game state
+    // 173 Deflecting Palm - Damage prevention, choosing damage source, reflexive trigger
+    // 174 Duneblast - Up to one creature, choosing vs targeting
+    // 175 Efreet Weaponmaster - First strike, morph, face up trigger
+    // 176 Flying Crane Technique - Double Strike
+    // 177 Highspire Mantis - Trample
+    // 178 Icefeather Aven - Morph, face up trigger
+    // 179 Ivorytusk Fortress - Untapping during both upkeeps (not a triggered ability)
+    // 180 Jeskai Ascendancy - Optional effect, discard
+    // 181 Jeskai Charm - Modal spells
+    // 182 Kheru Lich Lord - Optional effects, trample, exile, delayed triggers, replacement effects
+    // 183 Kin-Tree Invocation - Token with base power/toughness X
+    static func MantisRider() -> Card {
+        let mantisRider = Card(name: "Mantis Rider", rarity: .Rare, set: set, number: 184)
+        mantisRider.setManaCost("URW")
+        mantisRider.setType(.Creature, .Human, .Monk)
+        mantisRider.flying = true
+        mantisRider.vigilance = true
+        mantisRider.haste = true
+        mantisRider.setFlavorText("Mantis riders know their mounts owe them no allegience. Even a mantis ridden for years would consume a rider who loses focus for only a moment.")
+        mantisRider.power = 3
+        mantisRider.toughness = 3
+        return mantisRider
+    }
+    // 185 Mardu Ascendanct - Whenever a nontoken creature you control attacks trigger, sacrifice this as cost
+    // 186 Mardu Charm - Modal spells, first strike, revealing hand, card selection, discard
+    // 187 Mardu Roughrider - Can't block effect
+    static func MasterTheWay() -> Card {
+        let masterTheWay = Card(name: "Master the Way", rarity: .Rare, set: set, number: 188)
+        masterTheWay.setManaCost("3UR")
+        masterTheWay.setType(.Sorcery)
+        masterTheWay.addEffect(TargetedEffect(
+            restriction: { _ in return true },
+            effect: { target in
+                masterTheWay.getController().drawCard()
+                let cardsInHand = masterTheWay.getController().getHand().count
+                masterTheWay.damage(to: target, cardsInHand)
+        }))
+        masterTheWay.setFlavorText("\"The Way has no beginning and no end. It is simply the path.\"\n--Narset, khan of the Jeskai")
+        return masterTheWay
+    }
+    // 189 Mindswipe - Optional effects, countering spells
+    // 190 Narset, Enlightened Master - First strike, hexproof, exile, cast without paying cost
+    // 191 Ponyback Brigade - Morph, face up trigger
+    // 192 Rakshasa Deathdealer - Regeneration
+    // 193 Rakshasa Vizier - Exile, whenever cards are put into exile from graveyard trigger
+    // 194 Ride Down - Trample
+    static func SageOfTheInwardEye() -> Card {
+        let sageOfTheInwardEye = Card(name: "Sage of the Inward Eye", rarity: .Rare, set: set, number: 195)
+        sageOfTheInwardEye.setManaCost("2URW")
+        sageOfTheInwardEye.setType(.Creature, .Djinn, .Wizard)
+        sageOfTheInwardEye.flash = true
+        sageOfTheInwardEye.addTriggeredAbility(
+            trigger: .YouCastNoncreatureSpell,
+            effect: { sageOfTheInwardEye.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+            })
+        })
+        sageOfTheInwardEye.setFlavorText("\"No one petal claims beauty for the lotus.\"")
+        sageOfTheInwardEye.power = 3
+        sageOfTheInwardEye.toughness = 4
+        return sageOfTheInwardEye
+    }
+    // 196 Sagu Mauler - Trample, Hexproof, Morph
+    // 197 Savage Knuckleblade - Activate this only once per turn
+    // 198 Secret Plans - Morph, Face up trigger
+    // 199 Sidisi, Brood Tyrant - Whenever one or more creature cards are put into your graveyard from your library trigger
+    // 200 Siege Rhino - Trample
+    // 201 Snowhorn Rider - Trample, Morph
+    // 202 Sorin, Solemn Visitor - Planeswalkers, Emblem, Sacrifice
+    // 203 Sultai Ascendancy - Card selection
+    // 204 Sultai Charm - Modal Spells, Discard
+    // 205 Sultai Soothsayer - Card selection
+    // 206 Surrak Dragonclaw - Uncounterable, Trample
+    // 207 Temur Ascendancy - Creature with power 4 or greater ETB trigger
+    // 208 Temur Charm - Modal spells, Countering spells, Optional effects, can't block effect
+    // 209 Trap Essence - Countering spells, up to one target
+    // 210 Utter End - Exile
+    // 211 Villainous Wealth - X in casting cost, exile, cast without paying cost
+    // 212 Warden of the Eye - Targeting cards in graveyard
+    // 213 Winterflame - Modal Spells
+    // 214 Zurgo Helmsmasher - Attacks if able effect, Creature dealt damage by this dies trigger
+    // 215 Abzan Banner - Sacrifice this as cost
+    // 216 Altar of the Brood - Whenever another permanent enters the battlefield under your control trigger
+    // 217 Briber's Purse - X in casting cost, Removing counters as cost, Can't attack effect, Can't block effect
+    // 218 Cranial Archive - Exile this as cost
+    // 219 Dragon Throne of Tarkir - Equipment, Giving activated abilities, Trample
+    // 220 Ghostfire Blade - Equipment, Cost-reducing effects
+    // 221 Heart-Piercer Bow - Equipment, Whenever equipped creature attacks trigger
+    // 222 Jeskai Banner - Sacrifice this as cost
+    // 223 Lens of Clarity - Revealed top of library, revealed face-down creatures, morph
+    // 224 Mardu Banner - Sacrifice this as cost
+    // 225 Sultai Banner - Sacrifice this as cost
+    // 226 Temur  Banner - Sacrifice this as cost
+    // 227 Ugin's Nexus - Extra turns, replacement effects, Exile
+    // 228 Witness of the Ages - Morph
+    static func BloodfellCaves() -> Card {
+        let bloodfellCaves = Card(name: "Bloodfell Caves", rarity: .Common, set: set, number: 229)
+        bloodfellCaves.setManaCost("")
+        bloodfellCaves.setType(.Land)
+        bloodfellCaves.entersTapped = true
+        bloodfellCaves.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { bloodfellCaves.getController().gainLife(1) })
+        bloodfellCaves.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { bloodfellCaves.getController().addMana(color: .Black) },
+            manaAbility: true)
+        bloodfellCaves.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { bloodfellCaves.getController().addMana(color: .Red) },
+            manaAbility: true)
+        return bloodfellCaves
+    }
+    // 230 Bloodstained Mire - Sacrificing this as cost, card selection
+    static func BlossomingSands() -> Card {
+        let blossomingSands = Card(name: "Blossoming Sands", rarity: .Common, set: set, number: 231)
+        blossomingSands.setManaCost("")
+        blossomingSands.setType(.Land)
+        blossomingSands.entersTapped = true
+        blossomingSands.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { blossomingSands.getController().gainLife(1) })
+        blossomingSands.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { blossomingSands.getController().addMana(color: .Green) },
+            manaAbility: true)
+        blossomingSands.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { blossomingSands.getController().addMana(color: .White) },
+            manaAbility: true)
+        return blossomingSands
+    }
+    static func DismalBackwater() -> Card {
+        let dismalBackwater = Card(name: "Dismal Backwater", rarity: .Common, set: set, number: 232)
+        dismalBackwater.setManaCost("")
+        dismalBackwater.setType(.Land)
+        dismalBackwater.entersTapped = true
+        dismalBackwater.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { dismalBackwater.getController().gainLife(1) })
+        dismalBackwater.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { dismalBackwater.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        dismalBackwater.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { dismalBackwater.getController().addMana(color: .Black) },
+            manaAbility: true)
+        return dismalBackwater
+    }
+    // 233 Flooded Strand - Sacrificing this as cost, card selection
+    static func FrontierBivouac() -> Card {
+        let frontierBivouac = Card(name: "Frontier Bivouac", rarity: .Uncommon, set: set, number: 234)
+        frontierBivouac.setManaCost("")
+        frontierBivouac.setType(.Land)
+        frontierBivouac.entersTapped = true
+        frontierBivouac.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { frontierBivouac.getController().addMana(color: .Green) },
+            manaAbility: true)
+        frontierBivouac.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { frontierBivouac.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        frontierBivouac.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { frontierBivouac.getController().addMana(color: .Red) },
+            manaAbility: true)
+        frontierBivouac.setFlavorText("\"The most powerful dreams visit those who shelter in a dragon's skull.\"\n--Chinaul, Who Whispers Twice")
+        return frontierBivouac
+    }
+    static func JungleHollow() -> Card {
+        let jungleHollow = Card(name: "Jungle Hollow", rarity: .Common, set: set, number: 235)
+        jungleHollow.setManaCost("")
+        jungleHollow.setType(.Land)
+        jungleHollow.entersTapped = true
+        jungleHollow.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { jungleHollow.getController().gainLife(1) })
+        jungleHollow.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { jungleHollow.getController().addMana(color: .Black) },
+            manaAbility: true)
+        jungleHollow.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { jungleHollow.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return jungleHollow
+    }
+    static func MysticMonastery() -> Card {
+        let mysticMonastery = Card(name: "Mystic Monastery", rarity: .Uncommon, set: set, number: 236)
+        mysticMonastery.setManaCost("")
+        mysticMonastery.setType(.Land)
+        mysticMonastery.entersTapped = true
+        mysticMonastery.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { mysticMonastery.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        mysticMonastery.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { mysticMonastery.getController().addMana(color: .Red) },
+            manaAbility: true)
+        mysticMonastery.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { mysticMonastery.getController().addMana(color: .White) },
+            manaAbility: true)
+        mysticMonastery.setFlavorText("When asked how many paths reach enlightenment, the monk kicked a heap of sand. \"Count,\" he smiled, \"and then find more grains.\"")
+        return mysticMonastery
+    }
+    static func NomadOutpost() -> Card {
+        let nomadOutpost = Card(name: "Nomad Outpost", rarity: .Uncommon, set: set, number: 237)
+        nomadOutpost.setManaCost("")
+        nomadOutpost.setType(.Land)
+        nomadOutpost.entersTapped = true
+        nomadOutpost.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { nomadOutpost.getController().addMana(color: .Red) },
+            manaAbility: true)
+        nomadOutpost.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { nomadOutpost.getController().addMana(color: .White) },
+            manaAbility: true)
+        nomadOutpost.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { nomadOutpost.getController().addMana(color: .Black) },
+            manaAbility: true)
+        nomadOutpost.setFlavorText("\"Only the weak imprison themselves behind walls. We live free under the wind, and our freedom makes us strong.\"\n--Zurgo, khan of the Mardu")
+        return nomadOutpost
+    }
+    static func OpulentPalace() -> Card {
+        let opulentPalace = Card(name: "Opulent Palace", rarity: .Uncommon, set: set, number: 238)
+        opulentPalace.setManaCost("")
+        opulentPalace.setType(.Land)
+        opulentPalace.entersTapped = true
+        opulentPalace.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { opulentPalace.getController().addMana(color: .Black) },
+            manaAbility: true)
+        opulentPalace.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { opulentPalace.getController().addMana(color: .Green) },
+            manaAbility: true)
+        opulentPalace.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { opulentPalace.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        opulentPalace.setFlavorText("The dense jungle surrenders to a lush and lavish expanse. At its center uncoil the spires of Qarsi Palace.")
+        return opulentPalace
+    }
+    // 239 Polluted Delta - Sacrificing this as a cost, card selection
+    static func RuggedHighlands() -> Card {
+        let ruggedHighlands = Card(name: "Rugged Highlands", rarity: .Common, set: set, number: 240)
+        ruggedHighlands.setManaCost("")
+        ruggedHighlands.setType(.Land)
+        ruggedHighlands.entersTapped = true
+        ruggedHighlands.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { ruggedHighlands.getController().gainLife(1) })
+        ruggedHighlands.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { ruggedHighlands.getController().addMana(color: .Red) },
+            manaAbility: true)
+        ruggedHighlands.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { ruggedHighlands.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return ruggedHighlands
+    }
+    static func SandsteppeCitadel() -> Card {
+        let sandsteppeCitadel = Card(name: "Sandsteppe Citadel", rarity: .Uncommon, set: set, number: 241)
+        sandsteppeCitadel.setManaCost("")
+        sandsteppeCitadel.setType(.Land)
+        sandsteppeCitadel.entersTapped = true
+        sandsteppeCitadel.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { sandsteppeCitadel.getController().addMana(color: .White) },
+            manaAbility: true)
+        sandsteppeCitadel.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { sandsteppeCitadel.getController().addMana(color: .Black) },
+            manaAbility: true)
+        sandsteppeCitadel.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { sandsteppeCitadel.getController().addMana(color: .Green) },
+            manaAbility: true)
+        sandsteppeCitadel.setFlavorText("That which endures, survives.")
+        return sandsteppeCitadel
+    }
+    static func ScouredBarrens() -> Card {
+        let scouredBarrens = Card(name: "Scoured Barrens", rarity: .Common, set: set, number: 242)
+        scouredBarrens.setManaCost("")
+        scouredBarrens.setType(.Land)
+        scouredBarrens.entersTapped = true
+        scouredBarrens.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { scouredBarrens.getController().gainLife(1) })
+        scouredBarrens.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { scouredBarrens.getController().addMana(color: .White) },
+            manaAbility: true)
+        scouredBarrens.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { scouredBarrens.getController().addMana(color: .Black) },
+            manaAbility: true)
+        return scouredBarrens
+    }
+    static func SwiftwaterCliffs() -> Card {
+        let swiftwaterCliffs = Card(name: "Swiftwater Cliffs", rarity: .Common, set: set, number: 243)
+        swiftwaterCliffs.setManaCost("")
+        swiftwaterCliffs.setType(.Land)
+        swiftwaterCliffs.entersTapped = true
+        swiftwaterCliffs.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { swiftwaterCliffs.getController().gainLife(1) })
+        swiftwaterCliffs.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { swiftwaterCliffs.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        swiftwaterCliffs.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { swiftwaterCliffs.getController().addMana(color: .Red) },
+            manaAbility: true)
+        return swiftwaterCliffs
+    }
+    static func ThornwoodFalls() -> Card {
+        let thornwoodFalls = Card(name: "Thornwood Falls", rarity: .Common, set: set, number: 244)
+        thornwoodFalls.setManaCost("")
+        thornwoodFalls.setType(.Land)
+        thornwoodFalls.entersTapped = true
+        thornwoodFalls.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { thornwoodFalls.getController().gainLife(1) })
+        thornwoodFalls.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { thornwoodFalls.getController().addMana(color: .Green) },
+            manaAbility: true)
+        thornwoodFalls.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { thornwoodFalls.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        return thornwoodFalls
+    }
+    static func TombOfTheSpiritDragon() -> Card {
+        let tombOfTheSpiritDragon = Card(name: "Tomb of the Spirit Dragon", rarity: .Uncommon, set: set, number: 245)
+        tombOfTheSpiritDragon.setManaCost("")
+        tombOfTheSpiritDragon.setType(.Land)
+        tombOfTheSpiritDragon.addActivatedAbility(
+            string: "{T}: Add {C}.",
+            cost: Cost("", tap: true),
+            effect: { tombOfTheSpiritDragon.getController().addMana(color: nil) },
+            manaAbility: true)
+        tombOfTheSpiritDragon.addActivatedAbility(
+            string: "{2}, {T}: You gain 1 life for each colorless creature you control.",
+            cost: Cost("2", tap: true),
+            effect: {
+                let numColorlessCreatures = tombOfTheSpiritDragon.getController().getCreatures().filter({ $0.isColorless() }).count
+                tombOfTheSpiritDragon.getController().gainLife(numColorlessCreatures)
+        })
+        tombOfTheSpiritDragon.setFlavorText("\"The voice calls me here, yet I see only bones. Is this more dragon trickery?\"\n--Sarkhan Vol")
+        return tombOfTheSpiritDragon
+    }
+    static func TranquilCove() -> Card {
+        let tranquilCove = Card(name: "Tranquil Cove", rarity: .Common, set: set, number: 246)
+        tranquilCove.setManaCost("")
+        tranquilCove.setType(.Land)
+        tranquilCove.entersTapped = true
+        tranquilCove.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { tranquilCove.getController().gainLife(1) })
+        tranquilCove.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { tranquilCove.getController().addMana(color: .White) },
+            manaAbility: true)
+        tranquilCove.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { tranquilCove.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        return tranquilCove
+    }
+    static func WindScarredCrag() -> Card {
+        let windScarredCrag = Card(name: "Wind-Scarred Crag", rarity: .Common, set: set, number: 247)
+        windScarredCrag.setManaCost("")
+        windScarredCrag.setType(.Land)
+        windScarredCrag.entersTapped = true
+        windScarredCrag.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { windScarredCrag.getController().gainLife(1) })
+        windScarredCrag.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { windScarredCrag.getController().addMana(color: .Red) },
+            manaAbility: true)
+        windScarredCrag.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { windScarredCrag.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return windScarredCrag
+    }
+    // 248 Windswept Heath - Sacrificing this as a cost, card selection
+    // 249 Wooded Foothills - Sacrificing this as a cost, card selection
+    // 250 - 253 Plains
+    // 254 - 257 Island
+    // 258 - 261 Swamp
+    // 262 - 265 Mountain
+    // 266 - 269 Forest
+
+    
     
     static func Bird() -> Token {
         let bird = Token(name: "Bird", set: set, number: 1)
