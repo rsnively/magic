@@ -36,12 +36,24 @@ class Object: Targetable, NSCopying {
     
     private var baseDeathtouch: Bool = false
     var deathtouch: Bool {
-        get { return applyContinuousEffects().baseDeathtouch}
+        get { return applyContinuousEffects().baseDeathtouch }
         set (newDeathtouch) { baseDeathtouch = newDeathtouch }
     }
-    var defender: Bool = false
-    var entersTapped: Bool = false
-    var flash: Bool = false
+    private var baseDefender: Bool = false
+    var defender: Bool {
+        get { return applyContinuousEffects().baseDefender }
+        set (newDefender) { baseDefender = newDefender }
+    }
+    private var baseEntersTapped: Bool = false
+    var entersTapped: Bool {
+        get { return applyContinuousEffects().baseEntersTapped }
+        set (newEntersTapped) { baseEntersTapped = newEntersTapped }
+    }
+    private var baseFlash: Bool = false
+    var flash: Bool {
+        get { return applyContinuousEffects().baseFlash }
+        set (newFlash) { baseFlash = newFlash }
+    }
     private var baseFlying: Bool = false
     var flying: Bool {
         get { return applyContinuousEffects().baseFlying }
@@ -57,11 +69,20 @@ class Object: Targetable, NSCopying {
         get { return applyContinuousEffects().baseIndestructible }
         set (newIndestructible) { baseIndestructible = newIndestructible }
     }
-    var lifelink: Bool = false
+    private var baseLifelink: Bool = false
+    var lifelink: Bool {
+        get { return applyContinuousEffects().baseLifelink }
+        set (newLifelink) { baseLifelink = newLifelink }
+    }
     private var baseReach: Bool = false
     var reach: Bool {
         get { return applyContinuousEffects().baseReach }
         set (newReach) { baseReach = newReach }
+    }
+    private var baseUnblockable: Bool = false
+    var unblockable: Bool {
+        get { return applyContinuousEffects().baseUnblockable }
+        set (newUnblockable) { baseUnblockable = newUnblockable }
     }
     private var baseVigilance: Bool = false
     var vigilance: Bool {
@@ -115,15 +136,16 @@ class Object: Targetable, NSCopying {
         copy.triggeredAbilities = triggeredAbilities
         
         copy.baseDeathtouch = baseDeathtouch
-        copy.defender = defender
-        copy.entersTapped = entersTapped
-        copy.flash = flash
+        copy.baseDefender = baseDefender
+        copy.baseEntersTapped = baseEntersTapped
+        copy.baseFlash = baseFlash
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
         copy.baseIndestructible = baseIndestructible
-        copy.lifelink = lifelink
+        copy.baseLifelink = baseLifelink
         copy.baseReach = baseReach
         copy.baseVigilance = baseVigilance
+        copy.baseUnblockable = baseUnblockable
         
         copy.owner = owner
         copy.controller = controller
