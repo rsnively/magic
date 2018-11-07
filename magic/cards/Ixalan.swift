@@ -866,13 +866,145 @@ enum XLN {
         dragonskullSummit.setFlavorText("When the Planeswalker Angrath called dinosaurs \"dragons,\" the name stuck in certain pirate circles.")
         return dragonskullSummit
     }
-    // 253 Drowned Catacomb
+    static func DrownedCatacomb() -> Card {
+        let drownedCatacomb = Card(name: "Drowned Catacomb", rarity: .Rare, set: set, number: 253)
+        drownedCatacomb.setManaCost("")
+        drownedCatacomb.setType(.Land)
+        drownedCatacomb.addStaticAbility({ object in
+            if object.id == drownedCatacomb.id {
+                let controlsIsland = !drownedCatacomb.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                let controlsSwamp = !drownedCatacomb.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
+                object.entersTapped = !(controlsIsland || controlsSwamp)
+            }
+            return object
+        })
+        drownedCatacomb.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { drownedCatacomb.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        drownedCatacomb.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { drownedCatacomb.getController().addMana(color: .Black) },
+            manaAbility: true)
+        drownedCatacomb.setFlavorText("None can tell how many vessles are tangled up on the sea floor--or how much treasure rmains unclaimed.")
+        return drownedCatacomb
+    }
     // 254 Field of Ruin
-    // 255 Glacial Fortress
-    // 256 Rootbound Crag
-    // 257 Sunpetal Grove
+    static func GlacialFortress() -> Card {
+        let glacialFortress = Card(name: "Glacial Fortress", rarity: .Rare, set: set, number: 255)
+        glacialFortress.setManaCost("")
+        glacialFortress.setType(.Land)
+        glacialFortress.addStaticAbility({ object in
+            if object.id == glacialFortress.id {
+                let controlsPlains = !glacialFortress.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+                let controlsIsland = !glacialFortress.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                object.entersTapped = !(controlsPlains || controlsIsland)
+            }
+            return object
+        })
+        glacialFortress.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { glacialFortress.getController().addMana(color: .White) },
+            manaAbility: true)
+        glacialFortress.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { glacialFortress.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        glacialFortress.setFlavorText("Ships blown north in their voyage across the Stormwreck Sea become trapped in the unmelting ice.")
+        return glacialFortress
+    }
+    static func RootboundCrag() -> Card {
+        let rootboundCrag = Card(name: "Rootbound Crag", rarity: .Rare, set: set, number: 256)
+        rootboundCrag.setManaCost("")
+        rootboundCrag.setType(.Land)
+        rootboundCrag.addStaticAbility({ object in
+            if object.id == rootboundCrag.id {
+                let controlsMountain = !rootboundCrag.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                let controlsForest = !rootboundCrag.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
+                object.entersTapped = !(controlsMountain || controlsForest)
+            }
+            return object
+        })
+        rootboundCrag.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { rootboundCrag.getController().addMana(color: .Red) },
+            manaAbility: true)
+        rootboundCrag.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { rootboundCrag.getController().addMana(color: .Green) },
+            manaAbility: true)
+        rootboundCrag.setFlavorText("Cliffs echo and branches quake at the roar of life.")
+        return rootboundCrag
+    }
+    static func SunpetalGrove() -> Card {
+        let sunpetalGrove = Card(name: "Sunpetal Grove", rarity: .Rare, set: set, number: 257)
+        sunpetalGrove.setManaCost("")
+        sunpetalGrove.setType(.Land)
+        sunpetalGrove.addStaticAbility({ object in
+            if object.id == sunpetalGrove.id {
+                let controlsForest = !sunpetalGrove.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
+                let controlsPlains = !sunpetalGrove.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+                object.entersTapped = !(controlsForest || controlsPlains)
+            }
+            return object
+        })
+        sunpetalGrove.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { sunpetalGrove.getController().addMana(color: .Green) },
+            manaAbility: true)
+        sunpetalGrove.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { sunpetalGrove.getController().addMana(color: .White) },
+            manaAbility: true)
+        sunpetalGrove.setFlavorText("To the Sun Empire, any place where daylight brightens the jungle floor is sacred ground.")
+        return sunpetalGrove
+    }
     // 258 Unclaimed Territory
-    // 259 Unknown Shores
+    static func UnknownShores() -> Card {
+        let unknownShores = Card(name: "Unknown Shores", rarity: .Common, set: set, number: 259)
+        unknownShores.setManaCost("")
+        unknownShores.setType(.Land)
+        unknownShores.addActivatedAbility(
+            string: "{T}: Add {C}.",
+            cost: Cost("", tap: true),
+            effect: { unknownShores.getController().addMana(color: nil)},
+            manaAbility: true)
+        unknownShores.addActivatedAbility(
+            string: "{1}, {T}: Add {W}.",
+            cost: Cost("1", tap: true),
+            effect: { unknownShores.getController().addMana(color: .White)},
+            manaAbility: true)
+        unknownShores.addActivatedAbility(
+            string: "{1}, {T}: Add {U}.",
+            cost: Cost("1", tap: true),
+            effect: { unknownShores.getController().addMana(color: .Blue)},
+            manaAbility: true)
+        unknownShores.addActivatedAbility(
+            string: "{1}, {T}: Add {B}.",
+            cost: Cost("1", tap: true),
+            effect: { unknownShores.getController().addMana(color: .Black)},
+            manaAbility: true)
+        unknownShores.addActivatedAbility(
+            string: "{1}, {T}: Add {R}.",
+            cost: Cost("1", tap: true),
+            effect: { unknownShores.getController().addMana(color: .Red)},
+            manaAbility: true)
+        unknownShores.addActivatedAbility(
+            string: "{1}, {T}: Add {G}.",
+            cost: Cost("1", tap: true),
+            effect: { unknownShores.getController().addMana(color: .Green)},
+            manaAbility: true)
+        unknownShores.setFlavorText("\"Just imagine what's waiting around the bend. Adventure. Discovery. Riches for the taking. This is why I sail.\"\n--Captain Lannery Storm")
+        return unknownShores
+    }
     // Basics
     
     static func Vampire() -> Token {
