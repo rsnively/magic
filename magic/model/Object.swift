@@ -248,8 +248,8 @@ class Object: Targetable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
-    func addStaticAbility(_ effect: @escaping (Object) -> Object) {
-        staticAbilities.append(StaticAbility(effect))
+    func addStaticAbility(_ effect: @escaping (Object) -> Object, allZones: Bool = false) {
+        staticAbilities.append(StaticAbility(effect, allZones: allZones))
     }
     
     func addCounters(_ type: Counter, _ amount: Int) {

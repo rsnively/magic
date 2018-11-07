@@ -480,6 +480,7 @@
 		98FA8E682156C4B100EF5203 /* grn149full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E652156C4B100EF5203 /* grn149full.png */; };
 		98FA8E692156C4B100EF5203 /* grn150full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E662156C4B100EF5203 /* grn150full.png */; };
 		98FA8E6A2156C4B100EF5203 /* grn100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA8E672156C4B100EF5203 /* grn100full.png */; };
+		98FB88382192362000A410C8 /* xln252full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FB88372192362000A410C8 /* xln252full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -958,6 +959,7 @@
 		98FA8E652156C4B100EF5203 /* grn149full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn149full.png; sourceTree = "<group>"; };
 		98FA8E662156C4B100EF5203 /* grn150full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn150full.png; sourceTree = "<group>"; };
 		98FA8E672156C4B100EF5203 /* grn100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn100full.png; sourceTree = "<group>"; };
+		98FB88372192362000A410C8 /* xln252full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln252full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1492,6 +1494,7 @@
 				98DCF1692176717B00B33E89 /* xln219full.png */,
 				98DCF16B217672B200B33E89 /* xln221full.png */,
 				98DCF16D217673FF00B33E89 /* xln239full.png */,
+				98FB88372192362000A410C8 /* xln252full.png */,
 				98E176B62170191A00763F96 /* xlnt1full.png */,
 			);
 			path = xln;
@@ -1791,6 +1794,7 @@
 				98B87A532175D86500F7B32C /* xln125full.png in Resources */,
 				98D53E61219147F3008EB501 /* ktk243full.png in Resources */,
 				98ECCF07215CB51E0030ED51 /* lea98full.png in Resources */,
+				98FB88382192362000A410C8 /* xln252full.png in Resources */,
 				98A0D716215B14C300D90BCD /* grn94full.png in Resources */,
 				98533876218A699E004B22F3 /* ktkt4full.png in Resources */,
 				98A67708217DBF6500EF8D7B /* dom176full.png in Resources */,

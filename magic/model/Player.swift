@@ -91,6 +91,13 @@ class Player: Targetable {
         for permanent in getPermanents() {
             abilities += permanent.staticAbilities
         }
+        for card in getHand() {
+            for ability in card.staticAbilities {
+                if ability.appliesInAllZones() {
+                    abilities += [ability]
+                }
+            }
+        }
         return abilities
     }
     
@@ -198,7 +205,7 @@ class Player: Targetable {
         }
     }
     
-    func play(card:Card) {        
+    func play(card:Card) {
         let cardIndex = hand.firstIndex(where: {$0.id == card.id})!
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
@@ -210,9 +217,6 @@ class Player: Targetable {
                 Game.shared.theStack.push(card)
             }
             else {
-                if card.entersTapped {
-                    card.setTapped(true)
-                }
                 addPermanent(card)
                 Game.shared.checkStateBasedActions()
             }
@@ -245,9 +249,6 @@ class Player: Targetable {
     
     func resolve(object: Object) {
         if object.isPermanent() {
-            if object.entersTapped {
-                object.setTapped(true)
-            }
             addPermanent(object)
         }
         else if object as? Card != nil {
@@ -264,6 +265,9 @@ class Player: Targetable {
     
     func addPermanent(_ object: Object) {
         permanents.append(object)
+        if object.entersTapped {
+            object.setTapped(true)
+        }
         object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
         object.triggerAbilities(.ThisETB)
         if object.isType(.Land) {

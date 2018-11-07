@@ -71,14 +71,14 @@ enum KTK {
         highSentinelsOfArashin.setManaCost("3W")
         highSentinelsOfArashin.setType(.Creature, .Bird, .Soldier)
         highSentinelsOfArashin.flying = true
-        highSentinelsOfArashin.addStaticAbility { object in
+        highSentinelsOfArashin.addStaticAbility({ object in
             if object.id == highSentinelsOfArashin.id {
                 let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0.id != highSentinelsOfArashin.id && $0.getCounters(.PlusOnePlusOne) > 0}).count
                 object.power = object.getBasePower() + numOtherCreaturesWithCounters
                 object.toughness = object.getBaseToughness() + numOtherCreaturesWithCounters
             }
             return object
-        }
+        })
         highSentinelsOfArashin.addActivatedAbility(
             string: "{3}{W}: Put a +1/+1 counter on target creature.",
             cost: Cost("3W"),
@@ -625,12 +625,12 @@ enum KTK {
         let chiefOfTheEdge = Card(name: "Chief of the Edge", rarity: .Uncommon, set: set, number: 169)
         chiefOfTheEdge.setManaCost("WB")
         chiefOfTheEdge.setType(.Creature, .Human, .Warrior)
-        chiefOfTheEdge.addStaticAbility { object in
+        chiefOfTheEdge.addStaticAbility({ object in
             if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheEdge.getController() && object.id != chiefOfTheEdge.id {
                 object.power = object.getBasePower() + 1
             }
             return object
-        }
+        })
         chiefOfTheEdge.setFlavorText("\"We are the swift, the strong, the blade's sharp shriek! Fear nothing, and strike!\"")
         chiefOfTheEdge.power = 3
         chiefOfTheEdge.toughness = 2
@@ -640,12 +640,12 @@ enum KTK {
         let chiefOfTheScale = Card(name: "Chief of the Scale", rarity: .Uncommon, set: set, number: 170)
         chiefOfTheScale.setManaCost("WB")
         chiefOfTheScale.setType(.Creature, .Human, .Warrior)
-        chiefOfTheScale.addStaticAbility { object in
+        chiefOfTheScale.addStaticAbility({ object in
             if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheScale.getController() && object.id != chiefOfTheScale.id {
                 object.toughness = object.getBaseToughness() + 1
             }
             return object
-        }
+        })
         chiefOfTheScale.setFlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
         chiefOfTheScale.power = 2
         chiefOfTheScale.toughness = 3

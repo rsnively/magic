@@ -8,12 +8,12 @@ enum XLN {
         let adantoVanguard = Card(name: "Adanto Vanguard", rarity: .Uncommon, set: set, number: 1)
         adantoVanguard.setManaCost("1W")
         adantoVanguard.setType(.Creature, .Vampire, .Soldier)
-        adantoVanguard.addStaticAbility { object in
+        adantoVanguard.addStaticAbility({ object in
             if object.id == adantoVanguard.id && object.attacking {
                 object.power = object.getBasePower() + 2
             }
             return object
-        }
+        })
         adantoVanguard.addActivatedAbility(
             string: "Pay 4 life: ~ gains indestructible until end of turn.",
             cost: Cost("", tap: false, life: 4),
@@ -173,12 +173,12 @@ enum XLN {
         let pterodonKnight = Card(name: "Pterodon Knight", rarity: .Common, set: set, number: 28)
         pterodonKnight.setManaCost("3W")
         pterodonKnight.setType(.Creature, .Human, .Knight)
-        pterodonKnight.addStaticAbility { object in
+        pterodonKnight.addStaticAbility({ object in
             if object.id == pterodonKnight.id && !object.getController().getPermanents().filter({ return $0.isType(.Dinosaur) }).isEmpty {
                 object.flying = true
             }
             return object
-        }
+        })
         pterodonKnight.setFlavorText("\"To rise like the sun--there is no greater feeling.\"")
         pterodonKnight.power = 3
         pterodonKnight.toughness = 3
@@ -319,13 +319,13 @@ enum XLN {
         let favorableWinds = Card(name: "Favorable Winds", rarity: .Uncommon, set: set, number: 56)
         favorableWinds.setManaCost("1U")
         favorableWinds.setType(.Enchantment)
-        favorableWinds.addStaticAbility { object in
+        favorableWinds.addStaticAbility({ object in
             if object.isType(.Creature) && object.getController() === favorableWinds.getController() && object.flying {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
             return object
-        }
+        })
         favorableWinds.setFlavorText("\"Like ribbons of wind and wisdom the coatls fly, twisting mystery into truth, shaping the clouds to suit their inscrutible will.\"\n--Huatli")
         return favorableWinds
     }
@@ -359,12 +359,12 @@ enum XLN {
         let heraldOfSecretStreams = Card(name: "Herald of Secret Streams", rarity: .Rare, set: set, number: 59)
         heraldOfSecretStreams.setManaCost("3U")
         heraldOfSecretStreams.setType(.Creature, .Merfolk, .Warrior)
-        heraldOfSecretStreams.addStaticAbility { object in
+        heraldOfSecretStreams.addStaticAbility({ object in
             if object.isType(.Creature) && object.getController() === heraldOfSecretStreams.getController() && object.hasCounter(.PlusOnePlusOne) {
                 object.unblockable = true
             }
             return object
-        }
+        })
         heraldOfSecretStreams.setFlavorText("\"You might as well try to stop the waterfall.\"")
         heraldOfSecretStreams.power = 2
         heraldOfSecretStreams.toughness = 3
@@ -409,12 +409,12 @@ enum XLN {
         let shaperApprentice = Card(name: "Shaper Apprentice", rarity: .Common, set: set, number: 75)
         shaperApprentice.setManaCost("1U")
         shaperApprentice.setType(.Creature, .Merfolk, .Wizard)
-        shaperApprentice.addStaticAbility { object in
+        shaperApprentice.addStaticAbility({ object in
             if object.id == shaperApprentice.id && !object.getController().getPermanents().filter({ return $0.id != object.id && $0.isType(.Merfolk) }).isEmpty {
                 object.flying = true
             }
             return object
-        }
+        })
         shaperApprentice.setFlavorText("The River Heralds would wreck a thousand ships to keep intruders from finding the golden city.")
         shaperApprentice.power = 2
         shaperApprentice.toughness = 1
@@ -794,8 +794,8 @@ enum XLN {
         direFleetCaptain.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
-                // TODO this just says "attacking pirates" does that matter?
-                let numPirates = direFleetCaptain.getController().getCreatures().filter({ return $0.isType(.Pirate) && $0.attacking }).count
+                let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0.id != direFleetCaptain.id }).count +
+                                 direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0.id != direFleetCaptain.id }).count
                 direFleetCaptain.pump(numPirates, numPirates)
         })
         direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")
@@ -841,7 +841,31 @@ enum XLN {
     // 249 Thaumatic Compass // Spires of Orazca
     // 250 Treasure Map // Treasure Cove
     // 251 Vanquisher's Bannner
-    // 252 Dragonskull Summit
+    static func DragonskullSummit() -> Card {
+        let dragonskullSummit = Card(name: "Dragonskull Summit", rarity: .Rare, set: set, number: 252)
+        dragonskullSummit.setManaCost("")
+        dragonskullSummit.setType(.Land)
+        dragonskullSummit.addStaticAbility({ object in
+            if object.id == dragonskullSummit.id {
+                let controlsSwamp = !dragonskullSummit.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
+                let controlsMountain = !dragonskullSummit.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                object.entersTapped = !(controlsSwamp || controlsMountain)
+            }
+            return object
+        })
+        dragonskullSummit.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { dragonskullSummit.getController().addMana(color: .Black) },
+            manaAbility: true)
+        dragonskullSummit.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { dragonskullSummit.getController().addMana(color: .Red) },
+            manaAbility: true)
+        dragonskullSummit.setFlavorText("When the Planeswalker Angrath called dinosaurs \"dragons,\" the name stuck in certain pirate circles.")
+        return dragonskullSummit
+    }
     // 253 Drowned Catacomb
     // 254 Field of Ruin
     // 255 Glacial Fortress

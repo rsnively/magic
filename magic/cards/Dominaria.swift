@@ -36,13 +36,13 @@ enum DOM {
         let benalishHonorGuard = Card(name: "Benalish Honor Guard", rarity: .Common, set: set, number: 5)
         benalishHonorGuard.setManaCost("1W")
         benalishHonorGuard.setType(.Creature, .Human, .Knight)
-        benalishHonorGuard.addStaticAbility { object in
+        benalishHonorGuard.addStaticAbility({ object in
             if object.id == benalishHonorGuard.id {
                 let numLegends = object.getController().getCreatures().filter({ $0.isType(.Legendary) }).count
                 object.power = object.getBasePower() + numLegends
             }
             return object
-        }
+        })
         benalishHonorGuard.setFlavorText("\"The true measure of all heroes is not what they achieve, but who they inspire.\"\n--Triumph of Gerrard")
         benalishHonorGuard.power = 2
         benalishHonorGuard.toughness = 2
@@ -52,13 +52,13 @@ enum DOM {
         let benalishMarshal = Card(name: "Benalish Marshal", rarity: .Rare, set: set, number: 6)
         benalishMarshal.setManaCost("WWW")
         benalishMarshal.setType(.Creature, .Human, .Knight)
-        benalishMarshal.addStaticAbility { object in
+        benalishMarshal.addStaticAbility({ object in
             if object.id != benalishMarshal.id && object.isType(.Creature) && object.getController() === benalishMarshal.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
             return object
-        }
+        })
         benalishMarshal.setFlavorText("\"Some aspire to climb the mountain of Honor. The Benalish are born upon its peak, and from there ascend among the stars.\"\n--History of Benalia")
         benalishMarshal.power = 3
         benalishMarshal.toughness = 3
@@ -276,13 +276,13 @@ enum DOM {
         tempestDjinn.setManaCost("UUU")
         tempestDjinn.setType(.Creature, .Djinn)
         tempestDjinn.flying = true
-        tempestDjinn.addStaticAbility { object in
+        tempestDjinn.addStaticAbility({ object in
             if object.id == tempestDjinn.id {
                 let numIslands = object.getController().getPermanents().filter({ $0.isType(.Basic) && $0.isType(.Island) }).count
                 object.power = object.getBasePower() + numIslands
             }
             return object
-        }
+        })
         tempestDjinn.setFlavorText("The first to arrive on Dominaria from their distant home, the marids are the oldest tribe of djinn and the most respected by storm and sea.")
         tempestDjinn.power = 0
         tempestDjinn.toughness = 4
@@ -441,13 +441,13 @@ enum DOM {
         let ratColony = Card(name: "Rat Colony", rarity: .Common, set: set, number: 101)
         ratColony.setManaCost("1B")
         ratColony.setType(.Creature, .Rat)
-        ratColony.addStaticAbility { object in
+        ratColony.addStaticAbility({ object in
             if object.id == ratColony.id {
                 let numOtherRats = object.getController().getPermanents().filter({ $0.id != object.id && $0.isType(.Rat) }).count
                 object.power = object.getBasePower() + numOtherRats
             }
             return object
-        }
+        })
         // TODO: deckbuilding restriction ability
         ratColony.setFlavorText("Wreckage from the Phyrexian Invasion provided the rats with a seemingly unlimited number of breeding grounds.")
         ratColony.power = 2
@@ -530,7 +530,7 @@ enum DOM {
         let ghituLavarunner = Card(name: "Ghitu Lavarunner", rarity: .Common, set: set, number: 127)
         ghituLavarunner.setManaCost("R")
         ghituLavarunner.setType(.Creature, .Human, .Wizard)
-        ghituLavarunner.addStaticAbility { object in
+        ghituLavarunner.addStaticAbility({ object in
             if object.id == ghituLavarunner.id {
                 if object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count >= 2 {
                     object.power = object.getBasePower() + 1
@@ -539,7 +539,7 @@ enum DOM {
                 }
             }
             return object
-        }
+        })
         ghituLavarunner.setFlavorText("Tolarians teach the theory of pyromancy. The Ghitu prefer applied research.")
         ghituLavarunner.power = 1
         ghituLavarunner.toughness = 2
@@ -722,13 +722,13 @@ enum DOM {
         let sporecrownThallid = Card(name: "Sporecrown Thallid", rarity: .Uncommon, set: set, number: 181)
         sporecrownThallid.setManaCost("1G")
         sporecrownThallid.setType(.Creature, .Fungus)
-        sporecrownThallid.addStaticAbility { object in
+        sporecrownThallid.addStaticAbility({ object in
             if object.id != sporecrownThallid.id && object.isType(.Creature) && object.getController() === sporecrownThallid.getController() && (object.isType(.Fungus) || (object.isType(.Saproling))) {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
             return object
-        }
+        })
         sporecrownThallid.setFlavorText("\"The identifying ornamental growths of alpha thallids may be hereditary, or catalyzed by some chemical signal.\"\n--Sarpadian Empires, vol. III")
         sporecrownThallid.power = 2
         sporecrownThallid.toughness = 2
@@ -782,13 +782,13 @@ enum DOM {
         arvad.setType(.Legendary, .Creature, .Vampire, .Knight)
         arvad.deathtouch = true
         arvad.lifelink = true
-        arvad.addStaticAbility { object in
+        arvad.addStaticAbility({ object in
             if object.id != arvad.id && object.isType(.Legendary) && object.isType(.Creature) {
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 2
             }
             return object
-        }
+        })
         arvad.setFlavorText("\"I won't abandon the <i>Weatherlight</i>. My destiny is to serve at Jhoira's side. This 'illness' means I must trust my faith more and myself less.\"")
         arvad.power = 3
         arvad.toughness = 3
