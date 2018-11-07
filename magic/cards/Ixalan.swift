@@ -132,7 +132,22 @@ enum XLN {
     }
     // 17 Ixalan's Binding
     // 18 Kinjalli's Caller
-    // 19 Kinjalli's Sunwing
+    static func KinallisSunwing() -> Card {
+        let kinjallisSunwing = Card(name: "Kinjalli's Sunwing", rarity: .Rare, set: set, number: 19)
+        kinjallisSunwing.setManaCost("2W")
+        kinjallisSunwing.setType(.Creature, .Dinosaur)
+        kinjallisSunwing.flying = true
+        kinjallisSunwing.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() !== kinjallisSunwing.getController() {
+                object.entersTapped = true
+            }
+            return object
+        })
+        kinjallisSunwing.setFlavorText("\"There are moments when I feel I could fly like the sunwing. Far away I would soar, but always a golden gale pushes me back.\"\n--Huatli")
+        kinjallisSunwing.power = 2
+        kinjallisSunwing.toughness = 3
+        return kinjallisSunwing
+    }
     // 20 Legion Conquistador
     static func LegionsJudgment() -> Card {
         let legionsJudgment = Card(name: "Legion's Judgment", rarity: .Common, set: set, number: 21)
@@ -320,7 +335,7 @@ enum XLN {
         favorableWinds.setManaCost("1U")
         favorableWinds.setType(.Enchantment)
         favorableWinds.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === favorableWinds.getController() && object.flying {
+            if object.isType(.Creature) && object.getController() === favorableWinds.getController() && object.getBaseFlying() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -829,7 +844,26 @@ enum XLN {
         gildedSentinel.toughness = 3
         return gildedSentinel
     }
-    // 240 Hierophant's Chalice
+    static func HierophantsChalice() -> Card {
+        let hierophantsChalice = Card(name: "Heirophant's Chalice", rarity: .Common, set: set, number: 240)
+        hierophantsChalice.setManaCost("3")
+        hierophantsChalice.setType(.Artifact)
+        hierophantsChalice.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== hierophantsChalice.getController() },
+                effect: { target in
+                    target.loseLife(1)
+                    hierophantsChalice.getController().gainLife(1)
+            }))
+        hierophantsChalice.addActivatedAbility(
+            string: "{T}: Add {C}.",
+            cost: Cost("", tap: true),
+            effect: { hierophantsChalice.getController().addMana(color: nil)},
+            manaAbility: true)
+        hierophantsChalice.setFlavorText("In the Rite of Redemption, nobles take the same vows as Elenda, the first vampire, and make the same eternal sacrifice.")
+        return hierophantsChalice
+    }
     // 241 Pillar of Origins
     // 242 Pirate's Cutlass
     // 243 Primal Amulet // Primal Wellspring

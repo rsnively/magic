@@ -59,6 +59,7 @@ class Object: Targetable, NSCopying {
         get { return applyContinuousEffects().baseFlying }
         set (newFlying) { baseFlying = newFlying }
     }
+    func getBaseFlying() -> Bool { return baseFlying }
     private var baseHaste: Bool = false
     var haste: Bool {
         get { return applyContinuousEffects().baseHaste }
