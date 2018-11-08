@@ -55,14 +55,9 @@ class Game: NSObject {
         var deck2: [Card] = []
         for _ in 0..<6 {
             
-            deck1.append(XLN.GlacialFortress())
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.Island())
-            deck1.append(XLN.KinallisSunwing())
-            deck1.append(XLN.FavorableWinds())
-            deck1.append(GRN.HealersHawk())
-            deck1.append(XLN.DuskborneSkymarcher())
-            deck1.append(GRN.MuseDrake())
+            deck1.append(GRN.Swamp())
+            deck1.append(LEA.DarkRitual())
+            deck1.append(LEA.RoyalAssassin())
             
             deck2.append(GRN.Plains())
             deck2.append(XLN.BishopsSoldier())

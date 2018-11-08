@@ -22,14 +22,39 @@ enum LEA {
     // 6 Blaze of Glory
     // 7 Blessing
     // 8 Blue Ward
-    // 9 Castle
+    static func Castle() -> Card {
+        let castle = Card(name: "Castle", rarity: .Uncommon, set: set, number: 9)
+        castle.setManaCost("3W")
+        castle.setType(.Enchantment)
+        // As of 6th edition, the second part of the ability was removed
+        // http://gatherer.wizards.com/Pages/Card/Discussion.aspx?multiverseid=240
+        castle.addStaticAbility({ object in
+            if !object.isTapped && object.isType(.Creature) && object.getController() === castle.getController() {
+                object.toughness = object.getBaseToughness() + 2
+            }
+            return object
+        })
+        return castle
+    }
     // 10 Circle of Protection: Blue
     // 11 Circle of Protection: Green
     // 12 Circle of Protection: Red
     // 13 Circle of Protection: White
     // 14 Consecrate Land
     // 15 Conversion
-    // 16 Crusade
+    static func Crusade() -> Card {
+        let crusade = Card(name: "Crusade", rarity: .Rare, set: set, number: 16)
+        crusade.setManaCost("WW")
+        crusade.setType(.Enchantment)
+        crusade.addStaticAbility({ object in
+            if object.isColor(.White) && object.isType(.Creature) {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        return crusade
+    }
     // 17 Death Ward
     static func Disenchant() -> Card {
         let disenchant = Card(name: "Disenchant", rarity: .Common, set: set, number: 18)
@@ -61,7 +86,21 @@ enum LEA {
     }
     // 27 Lance
     // 28 Mesa Pegasus
-    // 29 Northern Paladin
+    static func NorthernPaladin() -> Card {
+        let northernPaladin = Card(name: "Northern Paladin", rarity: .Rare, set: set, number: 29)
+        northernPaladin.setManaCost("2WW")
+        northernPaladin.setType(.Creature, .Human, .Knight)
+        northernPaladin.addActivatedAbility(
+            string: "{W}{W}, {T}: Destroy target black permanent.",
+            cost: Cost("WW", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isPermanent() && $0.isColor(.Black) },
+                effect: { let _ = $0.destroy() }))
+        northernPaladin.setFlavorText("\"Look to the north; there you will find aid and comfort.\"\n--The Book of Tal")
+        northernPaladin.power = 3
+        northernPaladin.toughness = 3
+        return northernPaladin
+    }
     static func PearledUnicorn() -> Card {
         let pearledUnicorn = Card(name: "Pearled Unicorn", rarity: .Common, set: set, number: 30)
         pearledUnicorn.setManaCost("2W")
@@ -122,8 +161,26 @@ enum LEA {
     // 43 White Knight
     // 44 White Ward
     // 45 Wrath of God
-    // 46 Air Elemental
-    // 47 Ancestrall Recall
+    static func AirElemental() -> Card {
+        let airElemental = Card(name: "Air Elemental", rarity: .Uncommon, set: set, number: 46)
+        airElemental.setManaCost("3UU")
+        airElemental.setType(.Creature, .Elemental)
+        airElemental.flying = true
+        airElemental.setFlavorText("These spirits of air are winsome and wild and cannot be truly contained. Only marginally intelligent, they often substitute whimsy for strategy, delighting in mischief and mayhem.")
+        airElemental.power = 4
+        airElemental.toughness = 3
+        return airElemental
+    }
+    static func AncestrallRecall() -> Card {
+        let ancestrallRecall = Card(name: "Ancestrall Recall", rarity: .Rare, set: set, number: 47)
+        ancestrallRecall.setManaCost("U")
+        ancestrallRecall.setType(.Instant)
+        ancestrallRecall.addEffect(TargetedEffect.SinglePlayer(
+            restriction: { _ in return true },
+            effect: { $0.drawCards(3) }
+        ))
+        return ancestrallRecall
+    }
     // 48 Animate Artifact
     // 49 Blue Elemental Blast
     // 50 Braingeyser
@@ -136,11 +193,29 @@ enum LEA {
     // 57 Feedback
     // 58 Flight
     // 59 Invisibility
-    // 60 Jump
+    static func Jump() -> Card {
+        let jump = Card(name: "Jump", rarity: .Common, set: set, number: 60)
+        jump.setManaCost("U")
+        jump.setType(.Instant)
+        jump.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))
+        }))
+        return jump
+    }
     // 61 Lifetap
     // 62 Lord of Atlantis
     // 63 Magical Hack
-    // 64 Mahamoti Djinn
+    static func MahamotiDjinn() -> Card {
+        let mahamotiDjinn = Card(name: "Mahamoti Djinn", rarity: .Rare, set: set, number: 64)
+        mahamotiDjinn.setManaCost("4UU")
+        mahamotiDjinn.setType(.Creature, .Djinn)
+        mahamotiDjinn.flying = true
+        mahamotiDjinn.setFlavorText("Of royal blood amongst the spirits of the air, the Mahamoti Djinn rids on the wings of the winds. As dangerous in the gambling hall as he is in battle, he is a master of trickery and misdirection.")
+        mahamotiDjinn.power = 5
+        mahamotiDjinn.toughness = 6
+        return mahamotiDjinn
+    }
     // 65 Mana Short
     static func MerfolkOfThePearlTrident() -> Card {
         let merfolkOfThePearlTrident = Card(name: "Merfolk of the Pearl Trident", rarity: .Common, set: set, number: 66)
@@ -153,12 +228,46 @@ enum LEA {
     }
     // 67 Phantasmal Forces
     // 68 Phantasmal Terrain
-    // 69 Phantom Monster
+    static func PhantomMonster() -> Card {
+        let phantomMonster = Card(name: "Phantom Monster", rarity: .Uncommon, set: set, number: 69)
+        phantomMonster.setManaCost("3U")
+        phantomMonster.setType(.Creature, .Illusion)
+        phantomMonster.flying = true
+        phantomMonster.setFlavorText("\"While, like a ghastly rapid river,\nThrough the pale door,\nA hideous throng rush out forever,\nAnd laugh--but smile no more.\"\n--Edgar Allen Poe, \"The Haunted Palace\"")
+        phantomMonster.power = 3
+        phantomMonster.toughness = 3
+        return phantomMonster
+    }
     // 70 Pirate Ship
     // 71 Power Leak
     // 72 Power Sink
-    // 73 Prodigal Sorcerer
-    // 74 Psionic Blast
+    static func ProdigalSorcerer() -> Card {
+        let prodigalSorcerer = Card(name: "Prodigal Sorcerer", rarity: .Common, set: set, number: 73)
+        prodigalSorcerer.setManaCost("2U")
+        prodigalSorcerer.setType(.Creature, .Human, .Wizard)
+        prodigalSorcerer.addActivatedAbility(
+            string: "{T}: ~ deals 1 damage to any target.",
+            cost: Cost("", tap: true),
+            effect: TargetedEffect(
+                restriction: { _ in return true },
+                effect: { prodigalSorcerer.damage(to: $0, 1) }))
+        prodigalSorcerer.setFlavorText("Occasionally a member of the Institute of Arcane Study acquires a taste for worldly pleasures. Seldom do they have trouble finding employment.")
+        prodigalSorcerer.power = 1
+        prodigalSorcerer.toughness = 1
+        return prodigalSorcerer
+    }
+    static func PsionicBlast() -> Card {
+        let psionicBlast = Card(name: "Psionic Blast", rarity: .Uncommon, set: set, number: 74)
+        psionicBlast.setManaCost("2U")
+        psionicBlast.setType(.Instant)
+        psionicBlast.addEffect(TargetedEffect(
+            restriction: { _ in return true },
+            effect: { target in
+                psionicBlast.damage(to: target, 4)
+                psionicBlast.damage(to: psionicBlast.getController(), 2)
+        }))
+        return psionicBlast
+    }
     // 75 Psychic Venom
     // 76 Sea Serpent
     // 77 Siren's Call
@@ -181,8 +290,31 @@ enum LEA {
     }
     // 87 Vesuvan Doppleganger
     // 88 Volcanic Eruption
-    // 89 Wall of Air
-    // 90 Wall of Water
+    static func WallOfAir() -> Card {
+        let wallOfAir = Card(name: "Wall of Air", rarity: .Uncommon, set: set, number: 89)
+        wallOfAir.setManaCost("1UU")
+        wallOfAir.setType(.Creature, .Wall)
+        wallOfAir.defender = true
+        wallOfAir.flying = true
+        wallOfAir.setFlavorText("\"This 'standing windstorm' can hold us off indefinitely? Ridiculous!\" Saying nothing, she put a pinch of salt on the table. With a bang she clapped her hands, and the salt disappeared, blown away.")
+        wallOfAir.power = 1
+        wallOfAir.toughness = 5
+        return wallOfAir
+    }
+    static func WallOfWater() -> Card {
+        let wallOfWater = Card(name: "Wall of Water", rarity: .Uncommon, set: set, number: 90)
+        wallOfWater.setManaCost("1UU")
+        wallOfWater.setType(.Creature, .Wall)
+        wallOfWater.defender = true
+        wallOfWater.addActivatedAbility(
+            string: "{U}: ~ gets +1/+0 until end of turn.",
+            cost: Cost("U"),
+            effect: { wallOfWater.pump(1, 0) })
+        wallOfWater.setFlavorText("A deafening roar arose as the fury of an enormous vertical river supplanted our serenity. Eddies turned into whirling geysers, leveling everything in their path.")
+        wallOfWater.power = 0
+        wallOfWater.toughness = 5
+        return wallOfWater
+    }
     static func WaterElemental() -> Card {
         let waterElemental = Card(name: "Water Elemental", rarity: .Uncommon, set: set, number: 91)
         waterElemental.setManaCost("3UU")
@@ -193,7 +325,19 @@ enum LEA {
         return waterElemental
     }
     // 92 Animate Dead
-    // 93 Bad Moon
+    static func BadMoon() -> Card {
+        let badMoon = Card(name: "Bad Moon", rarity: .Rare, set: set, number: 93)
+        badMoon.setManaCost("1B")
+        badMoon.setType(.Enchantment)
+        badMoon.addStaticAbility({ object in
+            if object.isColor(.Black) && object.isType(.Creature) {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        return badMoon
+    }
     // 94 Black Knight
     // 95 Bog Wraith
     // 96 Contract from Below
@@ -219,7 +363,19 @@ enum LEA {
     // 106 Drudge Skeletons
     // 107 Evil Presence
     // 108 Fear
-    // 109 Frozen Shade
+    static func FrozenShade() -> Card {
+        let frozenShade = Card(name: "Frozen Shade", rarity: .Common, set: set, number: 109)
+        frozenShade.setManaCost("2B")
+        frozenShade.setType(.Creature, .Shade)
+        frozenShade.addActivatedAbility(
+            string: "{B}: ~ gets +1/+1 until end of turn.",
+            cost: Cost("B"),
+            effect: { frozenShade.pump(1, 1) })
+        frozenShade.setFlavorText("\"There are some qualities--some incorporate things,/ That have a double life, which thus is made/ A type of twin entity which springs/ From matter and light, evinced in solid and shade.\"\n--Edgar Allen Poe, \"Silence\"")
+        frozenShade.power = 2
+        frozenShade.toughness = 2
+        return frozenShade
+    }
     // 110 Gloom
     // 111 Howl from Beyond
     // 112 Hypnotic Spectre
@@ -233,7 +389,23 @@ enum LEA {
     // 120 Pestilence
     // 121 Plague Rats
     // 122 Raise Dead
-    // 123 Royal Assassin
+    static func RoyalAssassin() -> Card {
+        let royalAssassin = Card(name: "Royal Assassin", rarity: .Rare, set: set, number: 123)
+        royalAssassin.setManaCost("1BB")
+        royalAssassin.setType(.Creature, .Human, .Assassin)
+        royalAssassin.addActivatedAbility(
+            string: "{T}: Destroy target tapped creature.",
+            cost: Cost("", tap: true),
+            // TODO: Shouldn't be able to target itself, as targets are selected before costs are paid
+            // https://mtg.gamepedia.com/Casting_spells
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.isTapped },
+                effect: { let _ = $0.destroy() }))
+        royalAssassin.setFlavorText("Trained in the arts of stealth, the royal assassins choose their victims carefully, relying on timing and precision rather than brute force.")
+        royalAssassin.power = 1
+        royalAssassin.toughness = 1
+        return royalAssassin
+    }
     // 124 Sacrifice
     static func ScatheZombies() -> Card {
         let scatheZombies = Card(name: "Scathe Zombies", rarity: .Common, set: set, number: 125)
@@ -268,8 +440,36 @@ enum LEA {
     // 139 Chaoslace
     // 140 Disintegrate
     // 141 Dragon Whelp
-    // 142 Dwarven Demolition Team
-    // 143 Dwarven Warriors
+    static func DwarvenDemoltionTeam() -> Card {
+        let dwarvenDemolitionTeam = Card(name: "Dwarven Demolition Team", rarity: .Uncommon, set: set, number: 142)
+        dwarvenDemolitionTeam.setManaCost("2R")
+        dwarvenDemolitionTeam.setType(.Creature, .Dwarf)
+        dwarvenDemolitionTeam.addActivatedAbility(
+            string: "{T}: Destroy target Wall.",
+            cost: Cost("", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Wall) },
+                effect: { let _ = $0.destroy() }))
+        dwarvenDemolitionTeam.setFlavorText("Foolishly, Najib retreated to his castle at El-Abar; the next morning he was dead. In just one night, the dwarves had reduced the mighty walls to mere rubble.")
+        dwarvenDemolitionTeam.power = 1
+        dwarvenDemolitionTeam.toughness = 1
+        return dwarvenDemolitionTeam
+    }
+    static func DwarvenWarriors() -> Card {
+        let dwarvenWarriors = Card(name: "Dwarven Warriors", rarity: .Common, set: set, number: 143)
+        dwarvenWarriors.setManaCost("2R")
+        dwarvenWarriors.setType(.Creature, .Dwarf, .Warrior)
+        dwarvenWarriors.addActivatedAbility(
+            string: "{T}: Target creature with power 2 or less can't be blocked this turn.",
+            cost: Cost("", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getPower() <= 2 },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
+        }))
+        dwarvenWarriors.power = 1
+        dwarvenWarriors.toughness = 1
+        return dwarvenWarriors
+    }
     static func EarthElemental() -> Card {
         let earthElemental = Card(name: "Earth Elemental", rarity: .Uncommon, set: set, number: 144)
         earthElemental.setManaCost("3RR")
@@ -305,9 +505,34 @@ enum LEA {
         return flashfires
     }
     // 152 Fork
-    // 153 Goblin Balloon Brigade
+    static func GoblinBalloonBridgade() -> Card {
+        let goblinBalloonBrigade = Card(name: "Goblin Balloon Brigade", rarity: .Uncommon, set: set, number: 153)
+        goblinBalloonBrigade.setManaCost("R")
+        goblinBalloonBrigade.setType(.Creature, .Goblin, .Warrior)
+        goblinBalloonBrigade.addActivatedAbility(
+            string: "{R}: ~ gains flying until end of turn.",
+            cost: Cost("R"),
+            effect: { goblinBalloonBrigade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
+        goblinBalloonBrigade.setFlavorText("\"From up here we can drop rocks and arrows and more rocks!\" \"Uh, yeah boss, but how do we get down?")
+        goblinBalloonBrigade.power = 1
+        goblinBalloonBrigade.toughness = 1
+        return goblinBalloonBrigade
+    }
     // 154 Goblin King
-    // 155 Granite Gargoyle
+    static func GraniteGargoyle() -> Card {
+        let graniteGargoyle = Card(name: "Granite Gargoyle", rarity: .Rare, set: set, number: 155)
+        graniteGargoyle.setManaCost("2R")
+        graniteGargoyle.setType(.Creature, .Gargoyle)
+        graniteGargoyle.flying = true
+        graniteGargoyle.addActivatedAbility(
+            string: "{R}: ~ gets +0/+1 until end of turn.",
+            cost: Cost("R"),
+            effect: { graniteGargoyle.pump(0, 1) })
+        graniteGargoyle.setFlavorText("\"While most overworlders fortunately don't realize this, Gargoyles can be most delicious, providing you have the appropriate tools to carve them.\"\n--The Underworld Cookbook by Asmoranomardicadaistinaculdacar")
+        graniteGargoyle.power = 2
+        graniteGargoyle.toughness = 2
+        return graniteGargoyle
+    }
     static func GrayOgre() -> Card {
         let grayOgre = Card(name: "Gray Ogre", rarity: .Common, set: set, number: 156)
         grayOgre.setManaCost("2R")
@@ -337,7 +562,15 @@ enum LEA {
     }
     // 159 Ironclaw Orcs
     // 160 Keldon Warlord
-    // 161 Lightning Bolt
+    static func LightningBolt() -> Card {
+        let lightningBolt = Card(name: "Lightning Bolt", rarity: .Common, set: set, number: 161)
+        lightningBolt.setManaCost("R")
+        lightningBolt.setType(.Instant)
+        lightningBolt.addEffect(TargetedEffect(
+            restriction: { _ in return true },
+            effect: { lightningBolt.damage(to: $0, 3) }))
+        return lightningBolt
+    }
     // 162 Mana Flare
     // 163 Manabarbs
     static func MonssGoblinRaiders() -> Card {
@@ -349,12 +582,49 @@ enum LEA {
         monssGoblinRaiders.toughness = 1
         return monssGoblinRaiders
     }
-    // 165 Orcish Artillery
-    // 166 Orcish Oriflamme
+    static func OrcishArtillery() -> Card {
+        let orcishArtillery = Card(name: "Orcish Artillery", rarity: .Uncommon, set: set, number: 165)
+        orcishArtillery.setManaCost("1R")
+        orcishArtillery.setType(.Creature, .Orc, .Warrior)
+        orcishArtillery.addActivatedAbility(
+            string: "{T}: ~ deals 2 damage to any target and 3 damage to you.",
+            cost: Cost("", tap: true),
+            effect: TargetedEffect(
+                restriction: { _ in return true },
+                effect: { target in
+                    orcishArtillery.damage(to: target, 2)
+                    orcishArtillery.damage(to: orcishArtillery.getController(), 3)
+        }))
+        orcishArtillery.setFlavorText("In a rare display of ingenuity, the Orcs invented an incredibly destructive weapon. Most Orcish artillerists are those who dared criticize its effectiveness.")
+        orcishArtillery.power = 1
+        orcishArtillery.toughness = 3
+        return orcishArtillery
+    }
+    static func OrcishOriflamme() -> Card {
+        let orcishOriflamme = Card(name: "Orcish Oriflamme", rarity: .Uncommon, set: set, number: 166)
+        orcishOriflamme.setManaCost("1R")
+        orcishOriflamme.setType(.Enchantment)
+        orcishOriflamme.addStaticAbility({ object in
+            if object.attacking && object.isType(.Creature) && object.getController() === orcishOriflamme.getController() {
+                object.power = object.getBasePower() + 1
+            }
+            return object
+        })
+        return orcishOriflamme
+    }
     // 167 Power Surge
     // 168 Raging River
     // 169 Red Elemental Blast
-    // 170 Roc of Kher Ridges
+    static func RocOfKherRidges() -> Card {
+        let rocOfKherRidges = Card(name: "Roc of Kher Ridges", rarity: .Rare, set: set, number: 170)
+        rocOfKherRidges.setManaCost("3R")
+        rocOfKherRidges.setType(.Creature, .Bird)
+        rocOfKherRidges.flying = true
+        rocOfKherRidges.setFlavorText("We encountered a valley topped with immense boulders and eerie rock formations. Suddenly one of those boulders toppled from its perch and spread gargauntuan wings, casting a shadow of darkness and sending us fleeing in terror.")
+        rocOfKherRidges.power = 3
+        rocOfKherRidges.toughness = 3
+        return rocOfKherRidges
+    }
     // 171 Rock Hydra
     // 172 Sedge Troll
     static func Shatter() -> Card {
@@ -366,7 +636,20 @@ enum LEA {
             effect: { target in let _ = target.destroy() }))
         return shatter
     }
-    // 174 Shivan Dragon
+    static func ShivanDragon() -> Card {
+        let shivanDragon = Card(name: "Shivan Dragon", rarity: .Rare, set: set, number: 174)
+        shivanDragon.setManaCost("4RR")
+        shivanDragon.setType(.Creature, .Dragon)
+        shivanDragon.flying = true
+        shivanDragon.addActivatedAbility(
+            string: "{R}: ~ gets +1/+0 until end of turn.",
+            cost: Cost("R"),
+            effect: { shivanDragon.pump(1, 0) })
+        shivanDragon.setFlavorText("While it's true most dragons are cruel, the Shivan Dragon seems to take particular glee in the misery of others, often tormenting its victims much like a cat plays with a mouse before delivering the final blow.")
+        shivanDragon.power = 5
+        shivanDragon.toughness = 5
+        return shivanDragon
+    }
     // 175 Smoke
     // 176 Stone Giant
     static func StoneRain() -> Card {
@@ -381,7 +664,20 @@ enum LEA {
     // 178 Tunnel
     // 179 Two-Headed Giant of Foriys
     // 180 Uthden Troll
-    // 181 Wall of Fire
+    static func WallOfFire() -> Card {
+        let wallOfFire = Card(name: "Wall of Fire", rarity: .Uncommon, set: set, number: 181)
+        wallOfFire.setManaCost("1RR")
+        wallOfFire.setType(.Creature, .Wall)
+        wallOfFire.defender = true
+        wallOfFire.addActivatedAbility(
+            string: "{R}: ~ gets +1/+0 until end of turn.",
+            cost: Cost("R"),
+            effect: { wallOfFire.pump(1, 0) })
+        wallOfFire.setFlavorText("Conjured from the bowels of hell, the fiery wall forms an impassible barrier, searing the soul of any creature attempting to pass through its terrible bursts of flame.")
+        wallOfFire.power = 0
+        wallOfFire.toughness = 5
+        return wallOfFire
+    }
     static func WallOfStone() -> Card {
         let wallOfStone = Card(name: "Wall of Stone", rarity: .Uncommon, set: set, number: 182)
         wallOfStone.setManaCost("1RR")
@@ -406,7 +702,40 @@ enum LEA {
     }
     // 184 Aspect of Wolf
     // 185 Berserk
-    // 186 Birds of Paradise
+    static func BirdsOfParadise() -> Card {
+        let birdsOfParadise = Card(name: "Birds of Paradise", rarity: .Rare, set: set, number: 186)
+        birdsOfParadise.setManaCost("G")
+        birdsOfParadise.setType(.Creature, .Bird)
+        birdsOfParadise.flying = true
+        birdsOfParadise.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { birdsOfParadise.getController().addMana(color: .White) },
+            manaAbility: true)
+        birdsOfParadise.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { birdsOfParadise.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        birdsOfParadise.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { birdsOfParadise.getController().addMana(color: .Black) },
+            manaAbility: true)
+        birdsOfParadise.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { birdsOfParadise.getController().addMana(color: .Red) },
+            manaAbility: true)
+        birdsOfParadise.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { birdsOfParadise.getController().addMana(color: .Green) },
+            manaAbility: true)
+        birdsOfParadise.power = 0
+        birdsOfParadise.toughness = 1
+        return birdsOfParadise
+    }
     // 187 Camouflage
     // 188 Channel
     // 189 Cockatrice
