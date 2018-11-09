@@ -436,7 +436,19 @@ enum GRN {
         veiledShade.toughness = 2
         return veiledShade
     }
-    // 89 Vicious Rumors
+    static func ViciousRumors() -> Card {
+        let viciousRumors = Card(name: "Vicious Rumors", rarity: .Common, set: set, number: 91)
+        viciousRumors.setManaCost("B")
+        viciousRumors.setType(.Sorcery)
+        viciousRumors.addEffect({
+            viciousRumors.damage(to: viciousRumors.getOpponent(), 1)
+            viciousRumors.getOpponent().discard()
+            viciousRumors.getOpponent().mill(1)
+            viciousRumors.getController().gainLife(1)
+        })
+        viciousRumors.setFlavorText("\"The alliances were already frayed. All we do is find the loose threads and pluck.\"\n--Lazav")
+        return viciousRumors
+    }
     // 90 Whispering Snitch
     // 91 Arclight Phoenix
     static func BargingSergeant() -> Card {

@@ -73,6 +73,7 @@ enum Subtype {
     case Minotaur
     case Monk
     case Mountain
+    case Nightmare
     case Ogre
     case Orc
     case Pegasus

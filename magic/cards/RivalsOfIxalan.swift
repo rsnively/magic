@@ -169,7 +169,21 @@ enum RIX {
     // 59 Timestream Navigator
     // 60 Warkite Marauder
     // 61 Waterknot
-    // 62 Arterial Flow
+    static func ArterialFlow() -> Card {
+        let arterialFlow = Card(name: "Arterial Flow", rarity: .Uncommon, set: set, number: 62)
+        arterialFlow.setManaCost("1BB")
+        arterialFlow.setType(.Sorcery)
+        arterialFlow.addEffect({
+            arterialFlow.getOpponent().discard(2)
+            let controlVampire = !arterialFlow.getController().getPermanents().filter({ $0.isType(.Vampire) }).isEmpty
+            if controlVampire {
+                arterialFlow.getOpponent().loseLife(2)
+                arterialFlow.getController().gainLife(2)
+            }
+        })
+        arterialFlow.setFlavorText("\"It is impious to admit, but I do enjoy pirate blood. Something in the salty tang of it, the spice of rebellion.\"")
+        return arterialFlow
+    }
     static func CanalMonitor() -> Card {
         let canalMonitor = Card(name: "Canal Monitor", rarity: .Common, set: set, number: 63)
         canalMonitor.setManaCost("4B")

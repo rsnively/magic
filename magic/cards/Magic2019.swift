@@ -469,7 +469,17 @@ enum M19 {
     // 69 Sai, Master Thopterist
     // 70 Salvager of Secrets
     // 71 Scholar of Stars
-    // 72 Sift
+    static func Sift() -> Card {
+        let sift = Card(name: "Sift", rarity: .Uncommon, set: set, number: 72)
+        sift.setManaCost("3U")
+        sift.setType(.Sorcery)
+        sift.addEffect({
+            sift.getController().drawCards(3)
+            sift.getController().discard()
+        })
+        sift.setFlavorText("Dwell longest on the thoughts that shine brightest.")
+        return sift
+    }
     // 73 Skilled Animator
     // 74 Sleep
     static func SnappingDrake() -> Card {
@@ -611,7 +621,17 @@ enum M19 {
     // 106 Liliana, Untouched by Death
     // 107 Liliana's Contract
     // 108 Macabre Waltz
-    // 109 Mind Rot
+    static func MindRot() -> Card {
+        let mindRot = Card(name: "Mind Rot", rarity: .Common, set: set, number: 109)
+        mindRot.setManaCost("2B")
+        mindRot.setType(.Sorcery)
+        mindRot.addEffect(TargetedEffect.SinglePlayer(
+            // TODO: name for this function
+            restriction: { _ in return true },
+            effect: { $0.discard(2) }))
+        mindRot.setFlavorText("Many an inventor has collapsed under the pressure to create a flawless design.")
+        return mindRot
+    }
     static func Murder() -> Card {
         let murder = Card(name: "Murder", rarity: .Uncommon, set: set, number: 110)
         murder.setManaCost("1BB")
@@ -1201,7 +1221,24 @@ enum M19 {
     // 218 Nicol Bolas, the Ravager // Nicol Bolas, the Arisen
     // 219 Palladia-Mors, the Ruiner
     // 220 Poison-Tip Archer
-    // 221 Psychic Symbiont
+    static func PsychicSymbiont() -> Card {
+        let psychicSymbiont = Card(name: "Psychic Symbiont", rarity: .Uncommon, set: set, number: 221)
+        psychicSymbiont.setManaCost("4UB")
+        psychicSymbiont.setType(.Creature, .Nightmare, .Horror)
+        psychicSymbiont.flying = true
+        psychicSymbiont.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== psychicSymbiont.getController() },
+                effect: { target in
+                    target.discard()
+                    psychicSymbiont.getController().drawCard()
+        }))
+        psychicSymbiont.setFlavorText("\"I turn around and see nothing, yet I know it is behind me. Its fingers rummage in my mind, crafting new ideas.\"")
+        psychicSymbiont.power = 3
+        psychicSymbiont.toughness = 3
+        return psychicSymbiont
+    }
     // 222 Regal Bloodlord
     static func SatyrEnchanter() -> Card {
         let satyrEnchanter = Card(name: "Satyr Enchanter", rarity: .Uncommon, set: set, number: 223)

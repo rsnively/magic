@@ -44,7 +44,7 @@ class AIPlayer: Player {
     
     override func discard(_ amount: Int) {
         super.discard(amount)
-        for _ in 1 ... cardsToDiscard {
+        for _ in 0 ..< cardsToDiscard {
             let r = Int.random(in: 0 ..< getHand().count)
             chooseCardToDiscard(getHand()[r])
         }
