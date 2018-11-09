@@ -20,4 +20,8 @@ class Token : Object {
     func getCollectorsNumber() -> Int {
         return collectorsNumber
     }
+    
+    override func isToken() -> Bool {
+        return true
+    }
 }

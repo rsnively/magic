@@ -137,7 +137,18 @@ enum RIX {
     // 46 Release to the Wind
     // 47 River Darter
     // 48 Riverwise Augur
-    // 49 Sailor of Means
+    static func SailorOfMeans() -> Card {
+        let sailorOfMeans = Card(name: "Sailor of Means", rarity: .Common, set: set, number: 49)
+        sailorOfMeans.setManaCost("2U")
+        sailorOfMeans.setType(.Creature, .Human, .Pirate)
+        sailorOfMeans.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { sailorOfMeans.getController().createToken(XLN.Treasure()) })
+        sailorOfMeans.setFlavorText("The rising tide of Orazca's plunder lifted all ships.")
+        sailorOfMeans.power = 1
+        sailorOfMeans.toughness = 4
+        return sailorOfMeans
+    }
     // 50 Sea Legs
     // 51 Seafloor Oracle
     // 52 Secrets of the Golden City
@@ -289,14 +300,52 @@ enum RIX {
         bombard.setFlavorText("\"Want to sink a ship? Blow a hole in the hull. Want to kill a regisaur? Same answer.\"\n--Captain Brandis Thorn")
         return bombard
     }
-    // 94 Brass's Bounty
-    // 95 Brazen Freebooter
+    static func BrasssBounty() -> Card {
+        let brasssBounty = Card(name: "Brass's Bounty", rarity: .Rare, set: set, number: 94)
+        brasssBounty.setManaCost("6R")
+        brasssBounty.setType(.Sorcery)
+        brasssBounty.addEffect({
+            let numLands = brasssBounty.getController().getLands().count
+            for _ in 1 ... numLands {
+                brasssBounty.getController().createToken(XLN.Treasure())
+            }
+        })
+        brasssBounty.setFlavorText("\"Why squabble for trinkets when we could be living large off all this gold?\"\n--Admiral Beckett Brass")
+        return brasssBounty
+    }
+    static func BrazenFreebooter() -> Card {
+        let brazenFreebooter = Card(name: "Brazen Freebooter", rarity: .Common, set: set, number: 95)
+        brazenFreebooter.setManaCost("3R")
+        brazenFreebooter.setType(.Creature, .Human, .Pirate)
+        brazenFreebooter.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { brazenFreebooter.getController().createToken(XLN.Treasure()) })
+        brazenFreebooter.setFlavorText("Finders, keepers.")
+        brazenFreebooter.power = 3
+        brazenFreebooter.toughness = 3
+        return brazenFreebooter
+    }
     // 96 Buccaneer's Bravado
     // 97 Charging Tuskodon
     // 98 Daring Buccaneer
     // 99 Dire Fleet Daredevil
     // 100 Etali, Primal Storm
-    // 101 Fanatical Firebrand
+    static func FanaticalFirebrand() -> Card {
+        let fanaticalFirebrand = Card(name: "Fanatical Firebrand", rarity: .Common, set: set, number: 101)
+        fanaticalFirebrand.setManaCost("R")
+        fanaticalFirebrand.setType(.Creature, .Goblin, .Pirate)
+        fanaticalFirebrand.haste = true
+        fanaticalFirebrand.addActivatedAbility(
+            string: "{T}, Sacrifice ~: It deals 1 damage to any target.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect(
+                restriction: { _ in return true },
+                effect: { fanaticalFirebrand.damage(to: $0, 1) }))
+        fanaticalFirebrand.setFlavorText("\"The Brazen Coalition is a firecannon pointed at our enemies. Goblins like him are the spark to its powder.\"\n--Admiral Beckett Brass")
+        fanaticalFirebrand.power = 1
+        fanaticalFirebrand.toughness = 1
+        return fanaticalFirebrand
+    }
     // 102 Forerunner of the Empire
     // 103 Form of the Dinosaur
     // 104 Frilled Deathspitter
@@ -423,7 +472,21 @@ enum RIX {
     // 145 Strength of the Pack
     // 146 Swift Warden
     // 147 Tendershoot Dryad
-    // 148 Thrashing Brontodon
+    static func ThrashingBrontodon() -> Card {
+        let thrashingBrontodon = Card(name: "Thrashing Brontodon", rarity: .Uncommon, set: set, number: 148)
+        thrashingBrontodon.setManaCost("1GG")
+        thrashingBrontodon.setType(.Creature, .Dinosaur)
+        thrashingBrontodon.addActivatedAbility(
+            string: "{1}, Sacrifice ~: Destroy target artifact or enchantment.",
+            cost: Cost("1", tap: false, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+                effect: { let _ = $0.destroy() }))
+        thrashingBrontodon.setFlavorText("It cares more about preserving the herd's territory than about preserving itself.")
+        thrashingBrontodon.power = 3
+        thrashingBrontodon.toughness = 4
+        return thrashingBrontodon
+    }
     // 149 Thunderherd Migration
     // 150 Wayward Swordtooth
     // 151 World Shaper
@@ -463,7 +526,19 @@ enum RIX {
     // 175 Awakened Amalgam
     // 176 Azor's Gateway // Sanctum of the Sun
     // 177 Captain's Hook
-    // 178 Gleaming Barrier
+    static func GleamingBarrier() -> Card {
+        let gleamingBarrier = Card(name: "Gleaming Barrier", rarity: .Common, set: set, number: 178)
+        gleamingBarrier.setManaCost("2")
+        gleamingBarrier.setType(.Artifact, .Creature, .Wall)
+        gleamingBarrier.defender = true
+        gleamingBarrier.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { gleamingBarrier.getController().createToken(XLN.Treasure()) })
+        gleamingBarrier.setFlavorText("\"Gold without freedom might as well be lead.\"\n--Angrath")
+        gleamingBarrier.power = 0
+        gleamingBarrier.toughness = 4
+        return gleamingBarrier
+    }
     // 179 Golden Guardian // Gold-Forge Garrison
     // 180 The Immortal Sun
     // 181 Orazca Relic

@@ -326,7 +326,19 @@ enum XLN {
     // 49 Daring Saboteur
     // 50 Deadeye Quartermaster
     // 51 Deeproot Waters
-    // 52 Depths of Desire
+    static func DepthsOfDesire() -> Card {
+        let depthsOfDesire = Card(name: "Depths of Desire", rarity: .Common, set: set, number: 52)
+        depthsOfDesire.setManaCost("2U")
+        depthsOfDesire.setType(.Instant)
+        depthsOfDesire.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                target.bounce()
+                depthsOfDesire.getController().createToken(Treasure())
+        }))
+        depthsOfDesire.setFlavorText("Pockets full of gold, lungs full of brine.")
+        return depthsOfDesire
+    }
     // 53 Dive Down
     // 54 Dreamcaller Siren
     // 55 Entrancing Melody
@@ -403,8 +415,29 @@ enum XLN {
         return overflowingInsight
     }
     // 67 Perilous Voyage
-    // 68 Pirate's Prize
-    // 69 Prosperous Pirates
+    static func PiratesPrize() -> Card {
+        let piratesPrize = Card(name: "Pirate's Prize", rarity: .Common, set: set, number: 68)
+        piratesPrize.setManaCost("3U")
+        piratesPrize.setType(.Sorcery)
+        piratesPrize.addEffect({
+            piratesPrize.getController().drawCards(2)
+            piratesPrize.getController().createToken(Treasure())
+        })
+        piratesPrize.setFlavorText("Nothing warms the heart like plunder.")
+        return piratesPrize
+    }
+    static func ProsperousPirates() -> Card {
+        let prosperousPirates = Card(name: "Prosperous Pirates", rarity: .Common, set: set, number: 69)
+        prosperousPirates.setManaCost("4U")
+        prosperousPirates.setType(.Creature, .Human, .Pirate)
+        prosperousPirates.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { prosperousPirates.getController().createToken(Treasure()) })
+        prosperousPirates.setFlavorText("The floating city of High and Dry hasn't yet sunk under the weight of gold, but it's not for want of trying.")
+        prosperousPirates.power = 3
+        prosperousPirates.toughness = 4
+        return prosperousPirates
+    }
     // 70 River Sneak
     static func RiversRebuke() -> Card {
         let riversRebuke = Card(name: "River's Rebuke", rarity: .Rare, set: set, number: 71)
@@ -418,7 +451,18 @@ enum XLN {
         return riversRebuke
     }
     // 72 Run Aground
-    // 73 Sailor of Means
+    static func SailorOfMeans() -> Card {
+        let sailorOfMeans = Card(name: "Sailor of Means", rarity: .Common, set: set, number: 73)
+        sailorOfMeans.setManaCost("2U")
+        sailorOfMeans.setType(.Creature, .Human, .Pirate)
+        sailorOfMeans.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { sailorOfMeans.getController().createToken(Treasure()) })
+        sailorOfMeans.setFlavorText("In the Brazen Coalition, the wheels of business are greased with plunder.")
+        sailorOfMeans.power = 1
+        sailorOfMeans.toughness = 4
+        return sailorOfMeans
+    }
     // 74 Search for Azcanta // Azcanta, the Sunken Ruin
     static func ShaperApprentice() -> Card {
         let shaperApprentice = Card(name: "Shaper Apprentice", rarity: .Common, set: set, number: 75)
@@ -436,7 +480,19 @@ enum XLN {
         return shaperApprentice
     }
     // 76 Shipwreck Looter
-    // 77 Shore Keeper
+    static func ShoreKeeper() -> Card {
+        let shoreKeeper = Card(name: "Shore Keeper", rarity: .Common, set: set, number: 77)
+        shoreKeeper.setManaCost("U")
+        shoreKeeper.setType(.Creature, .Trilobite)
+        shoreKeeper.addActivatedAbility(
+            string: "{7}{U}, {T}, Sacrifice ~: Draw three cards.",
+            cost: Cost("7U", tap: true, life: 0, sacrificeSelf: true),
+            effect: { shoreKeeper.getController().drawCards(3) })
+        shoreKeeper.setFlavorText("Over their long life spans, the larger trilobites accumulate vast treasure troves in their guts.")
+        shoreKeeper.power = 0
+        shoreKeeper.toughness = 3
+        return shoreKeeper
+    }
     // 78 Siren Lookout
     // 79 Siren Stormtamer
     // 80 Siren's Ruse
@@ -492,10 +548,41 @@ enum XLN {
         bishopOfTheBloodstained.toughness = 3
         return bishopOfTheBloodstained
     }
-    // 92 Blight Keeper
+    static func BlightKeeper() -> Card {
+        let blightKeeper = Card(name: "Blight Keeper", rarity: .Common, set: set, number: 92)
+        blightKeeper.setManaCost("B")
+        blightKeeper.setType(.Creature, .Bat, .Imp)
+        blightKeeper.flying = true
+        blightKeeper.addActivatedAbility(
+            string: "{7}{B}, {T}, Sacrifice ~: Target opponent loses 4 life and you gain 4 life.",
+            cost: Cost("7B", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== blightKeeper.getController() },
+                effect: { target in
+                    target.loseLife(4)
+                    blightKeeper.getController().gainLife(4)
+        }))
+        blightKeeper.setFlavorText("It withers fruit and flesh alike.")
+        blightKeeper.power = 1
+        blightKeeper.toughness = 1
+        return blightKeeper
+    }
     // 93 Bloodcrazed Paladin
     // 94 Boneyard Parley
-    // 95 Contract Killing
+    static func ContractKilling() -> Card {
+        let contractKilling = Card(name: "Contract Killing", rarity: .Common, set: set, number: 95)
+        contractKilling.setManaCost("3BB")
+        contractKilling.setType(.Sorcery)
+        contractKilling.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                let _ = target.destroy()
+                contractKilling.getController().createToken(Treasure())
+                contractKilling.getController().createToken(Treasure())
+        }))
+        contractKilling.setFlavorText("For a price, the floating city of High and Dry offers all the amenities a pirate could want: rest, recreation, and revenge.")
+        return contractKilling
+    }
     // 96 Costly Plunder
     static func DarkNourishment() -> Card {
         let darkNourishment = Card(name: "Dark Nourishment", rarity: .Uncommon, set: set, number: 97)
@@ -514,7 +601,18 @@ enum XLN {
     // 99 Deadeye Tracker
     // 100 Deathless Ancient
     // 101 Desperate Castaways
-    // 102 Dire Fleet Hoarder
+    static func DireFleetHoarder() -> Card {
+        let direFleetHoarder = Card(name: "Dire Fleet Hoarder", rarity: .Common, set: set, number: 102)
+        direFleetHoarder.setManaCost("1B")
+        direFleetHoarder.setType(.Creature, .Human, .Pirate)
+        direFleetHoarder.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { direFleetHoarder.getController().createToken(Treasure()) })
+        direFleetHoarder.setFlavorText("Among the pirates of the Brazen Coalition, the only thing more dangerous than failure is success.")
+        direFleetHoarder.power = 2
+        direFleetHoarder.toughness = 1
+        return direFleetHoarder
+    }
     // 103 Dire Fleet Interloper
     // 104 Dire Fleet Ravager
     // 105 Duress
@@ -593,7 +691,23 @@ enum XLN {
         walkThePlank.setFlavorText("When Captain Thorn adds a new ship to his fleet, he gives the crew a simple choice: follow me, or fall into the sea.")
         return walkThePlank
     }
-    // 131 Wanted Scoundrels
+    static func WantedScoundrels() -> Card {
+        let wantedScoundrels = Card(name: "Wanted Scoundrels", rarity: .Uncommon, set: set, number: 131)
+        wantedScoundrels.setManaCost("1B")
+        wantedScoundrels.setType(.Creature, .Human, .Pirate)
+        wantedScoundrels.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== wantedScoundrels.getController() },
+                effect: { target in
+                    target.createToken(Treasure())
+                    target.createToken(Treasure())
+        }))
+        wantedScoundrels.setFlavorText("\"Trust me. The reward's not worth it.\"")
+        wantedScoundrels.power = 4
+        wantedScoundrels.toughness = 3
+        return wantedScoundrels
+    }
     // 132 Angrath's Marauders
     // 133 Bonded Horncrest
     // 134 Brazen Buccaneers
@@ -689,7 +803,18 @@ enum XLN {
     // 171 Trove of Temptation
     // 172 Unfriendly Fire
     // 173 Vance's Blasting Cannons // Spitfire Bastion
-    // 174 Wily Goblin
+    static func WilyGoblin() -> Card {
+        let wilyGoblin = Card(name: "Wily Goblin", rarity: .Uncommon, set: set, number: 174)
+        wilyGoblin.setManaCost("RR")
+        wilyGoblin.setType(.Creature, .Goblin, .Pirate)
+        wilyGoblin.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { wilyGoblin.getController().createToken(Treasure()) })
+        wilyGoblin.setFlavorText("Goblins climb and swing with ease, whether through a pirate ship's rigging or a tree's branches.")
+        wilyGoblin.power = 1
+        wilyGoblin.toughness = 1
+        return wilyGoblin
+    }
     static func AncientBrontodon() -> Card {
         let ancientBrontodon = Card(name: "Ancient Brontodon", rarity: .Common, set: set, number: 175)
         ancientBrontodon.setManaCost("6GG")
@@ -801,7 +926,27 @@ enum XLN {
         callToTheFeast.setFlavorText("By the law of church and crown, vampires feed only on the blood of the guilty--those declared heretics, rebels, or enemies of war.")
         return callToTheFeast
     }
-    // 220 Deadeye Plunderers
+    static func DeadeyePlunderers() -> Card {
+        let deadeyePlunderers = Card(name: "Deadeye Plunderers", rarity: .Uncommon, set: set, number: 220)
+        deadeyePlunderers.setManaCost("3UB")
+        deadeyePlunderers.setType(.Creature, .Human, .Pirate)
+        deadeyePlunderers.addStaticAbility({ object in
+            if object.id == deadeyePlunderers.id {
+                let numArtifacts = object.getController().getArtifacts().count
+                object.power = object.getBasePower() + numArtifacts
+                object.toughness = object.getBaseToughness() + numArtifacts
+            }
+            return object
+        })
+        deadeyePlunderers.addActivatedAbility(
+            string: "{2}{U}{B}: Create a colorless Treasure artifact token with \"{T}: Sacrifice this artifact: Add one mana of any color to your mana pool.\"",
+            cost: Cost("2UB"),
+            effect: { deadeyePlunderers.getController().createToken(Treasure()) })
+        deadeyePlunderers.setFlavorText("\"Keep your friends close and your enemies within range.\"")
+        deadeyePlunderers.power = 3
+        deadeyePlunderers.toughness = 3
+        return deadeyePlunderers
+    }
     static func DireFleetCaptain() -> Card {
         let direFleetCaptain = Card(name: "Dire Fleet Captain", rarity: .Uncommon, set: set, number: 221)
         direFleetCaptain.setManaCost("BR")
@@ -1055,5 +1200,38 @@ enum XLN {
     // 4 Pirate
     // 5 Dinosaur
     // 6 Plant
-    // 7 - 10, Treasure
+    static func Treasure() -> Token {
+        let r = Int.random(in: 7 ... 10)
+        return makeTreasure(number: r)
+    }
+    private static func makeTreasure(number: Int) -> Token {
+        let treasure = Token(name: "Treasure", set: set, number: number)
+        treasure.setType(.Artifact, .Treasure)
+        treasure.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {W}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { treasure.getController().addMana(color: .White) },
+            manaAbility: true)
+        treasure.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {U}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { treasure.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        treasure.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {B}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { treasure.getController().addMana(color: .Black) },
+            manaAbility: true)
+        treasure.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {R}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { treasure.getController().addMana(color: .Red) },
+            manaAbility: true)
+        treasure.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {G}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { treasure.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return treasure
+    }
 }

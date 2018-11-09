@@ -534,7 +534,23 @@ enum GRN {
     // 116 Smelt-Ward Minotaur
     // 117 Street Riot
     // 118 Sure Strike
-    // 119 Torch Courier
+    static func TorchCourier() -> Card {
+        let torchCourier = Card(name: "Torch Courier", rarity: .Common, set: set, number: 119)
+        torchCourier.setManaCost("R")
+        torchCourier.setType(.Creature, .Goblin)
+        torchCourier.haste = true
+        torchCourier.addActivatedAbility(
+            string: "Sacrifice ~: Another target creature gains haste until end of turn.",
+            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.id != torchCourier.id && $0.isType(.Creature) },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.haste = true; return $0 }))
+        }))
+        torchCourier.setFlavorText("\"Light a torch and deliver this letter\" were his instructions, which he unfortunately reversed.")
+        torchCourier.power = 1
+        torchCourier.toughness = 1
+        return torchCourier
+    }
     // 120 Wojek Bodyguard
     // 121 Affectionate Indrik
     // 122 Arboretum Elemental
@@ -945,7 +961,19 @@ enum GRN {
     // 238 Izzet Locket
     // 239 Rampaging Monument
     // 240 Selsnya Locket
-    // 241 Silent Dart
+    static func SilentDart() -> Card {
+        let silentDart = Card(name: "Silent Dart", rarity: .Uncommon, set: set, number: 241)
+        silentDart.setManaCost("1")
+        silentDart.setType(.Artifact)
+        silentDart.addActivatedAbility(
+            string: "{4}, {T}, Sacrifice ~: It deals 3 damage to target creature.",
+            cost: Cost("4", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { silentDart.damage(to: $0, 3) }))
+        silentDart.setFlavorText("\"These terms are acceptable to House Dimir. Shall we shake on it?\"")
+        return silentDart
+    }
     // 242 Wand of Verterae
     static func BorosGuildgate() -> Card {
         return (Int.random(in: 1 ... 2) == 1) ? BorosGuildgate243() : BorosGuildgate244()

@@ -188,6 +188,10 @@ class Object: Targetable, NSCopying {
         return controller!.getOpponent()
     }
     
+    func isToken() -> Bool {
+        return false
+    }
+    
     func setManaCost(_ manaCostString: String, setColorAccordingly: Bool = true) {
         manaCost = ManaCost(manaCostString)
         if setColorAccordingly {

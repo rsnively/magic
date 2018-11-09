@@ -841,7 +841,19 @@ enum DOM {
         return amaranthineWall
     }
     // 211 Blackblade Reforged
-    // 212 Bloodtallow Candle
+    static func BloodtallowCandle() -> Card {
+        let bloodtallowCandle = Card(name: "Bloodtallow Candle", rarity: .Common, set: set, number: 212)
+        bloodtallowCandle.setManaCost("1")
+        bloodtallowCandle.setType(.Artifact)
+        bloodtallowCandle.addActivatedAbility(
+            string: "{6}, {T}, Sacrifice ~: Target creature gets -5/-5 until end of turn.",
+            cost: Cost("6", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.pump(-5, -5) }))
+        bloodtallowCandle.setFlavorText("\"Bring me an angel feather, and I will give you one death in return. There can be no turning back once the candle is lit.\"\n--Whisper, blood liturgist")
+        return bloodtallowCandle
+    }
     // 213 Damping Sphere
     // 214 Forebear's Blade
     static func GildedLotus() -> Card {
@@ -988,10 +1000,60 @@ enum DOM {
     // 240 Hinterland Harbor
     // 241 Isolated Chapel
     // 242 Memorial to Folly
-    // 243 Memorial to Genius
-    // 244 Memorial to Glory
+    static func MemorialToGenius() -> Card {
+        let memorialToGenius = Card(name: "Memorial to Genius", rarity: .Uncommon, set: set, number: 243)
+        memorialToGenius.setManaCost("")
+        memorialToGenius.setType(.Land)
+        memorialToGenius.entersTapped = true
+        memorialToGenius.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { memorialToGenius.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        memorialToGenius.addActivatedAbility(
+            string: "{4}{U}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost("4U", tap: true, life: 0, sacrificeSelf: true),
+            effect: { memorialToGenius.getController().drawCards(2) })
+        return memorialToGenius
+    }
+    static func MemorialToGlory() -> Card {
+        let memorialToGlory = Card(name: "Memorial to Glory", rarity: .Uncommon, set: set, number: 244)
+        memorialToGlory.setManaCost("")
+        memorialToGlory.setType(.Land)
+        memorialToGlory.entersTapped = true
+        memorialToGlory.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { memorialToGlory.getController().addMana(color: .White) },
+            manaAbility: true)
+        memorialToGlory.addActivatedAbility(
+            string: "{3}{W}, {T}, Sacrifice ~: Create two 1/1 white Soldier creature tokens.",
+            cost: Cost("3W", tap: true, life: 0, sacrificeSelf: true),
+            effect: {
+                memorialToGlory.getController().createToken(Soldier())
+                memorialToGlory.getController().createToken(Soldier())
+        })
+        return memorialToGlory
+    }
     // 245 Memorial to Unity
-    // 246 Memorial to War
+    static func MemorialToWar() -> Card {
+        let memorialToWar = Card(name: "Memorial to War", rarity: .Uncommon, set: set, number: 246)
+        memorialToWar.setManaCost("")
+        memorialToWar.setType(.Land)
+        memorialToWar.entersTapped = true
+        memorialToWar.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { memorialToWar.getController().addMana(color: .Red) },
+            manaAbility: true)
+        memorialToWar.addActivatedAbility(
+            string: "{4}{R}, {T}, Sacrifice ~: Destroy target land.",
+            cost: Cost("4R", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Land) },
+                effect: { let _ = $0.destroy() }))
+        return memorialToWar
+    }
     // 247 Sulfur Falls
     // 248 Woodland Cemetary
     // 249 Zhalfirin Void
@@ -1020,7 +1082,14 @@ enum DOM {
         knight2.toughness = 2
         return knight2;
     }
-    // 3 Soldier
+    static func Soldier() -> Token {
+        let soldier = Token(name: "Soldier", set: set, number: 3)
+        soldier.colors = [Color.White]
+        soldier.setType(.Creature, .Soldier)
+        soldier.power = 1
+        soldier.toughness = 1
+        return soldier
+    }
     // 4 Cleric
     // 5 Zombie Knight
     // 6 Nightmare Horror

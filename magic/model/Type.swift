@@ -62,6 +62,7 @@ enum Subtype {
     case Horror
     case Human
     case Illusion
+    case Imp
     case Insect
     case Island
     case Kirin
@@ -95,7 +96,9 @@ enum Subtype {
     case Swamp
     case Thopter
     case Thrull
+    case Treasure
     case Treefolk
+    case Trilobite
     case Unicorn
     case Vampire
     case Vedalken

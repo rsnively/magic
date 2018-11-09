@@ -146,7 +146,33 @@ enum M19 {
     }
     // 19 Knight's Pledge
     // 20 Knightly Valor
-    // 21 Lena, Selfless Champion
+    static func LenaSelflessChampion() -> Card {
+        let lena = Card(name: "Lena, Selfless Champion", rarity: .Rare, set: set, number: 21)
+        lena.setManaCost("4WW")
+        lena.setType(.Legendary, .Creature, .Human, .Knight)
+        lena.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                let numNontokenCreatures = lena.getController().getCreatures().filter({ !$0.isToken() }).count
+                for _ in 1 ... numNontokenCreatures {
+                    lena.getController().createToken(Soldier())
+                }
+        })
+        lena.addActivatedAbility(
+            string: "Sacrifice ~: Creature you control with power less than ~'s power gain indestructible until end of turn.",
+            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            // TODO: Should use last-known information when determining Lena's power
+            effect: { lena.getController().getCreatures().forEach({ creature in
+                if creature.getPower() < lena.getPower() {
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
+                }
+            })
+        })
+        lena.setFlavorText("\"Those who do evil and those who do nothing are equally worthy of contempt.\"")
+        lena.power = 3
+        lena.toughness = 3
+        return lena
+    }
     // 22 Leonin Vanguard
     static func LeoninWarleader() -> Card {
         let leoninWarleader = Card(name: "Leonin Warleader", rarity: .Rare, set: set, number: 23)
@@ -722,7 +748,19 @@ enum M19 {
     // 129 Apex of Power
     // 130 Banefire
     // 131 Boggart Brute
-    // 132 Catalyst Elemental
+    static func CatalystElemental() -> Card {
+        let catalystElemental = Card(name: "Catalyst Elemental", rarity: .Common, set: set, number: 132)
+        catalystElemental.setManaCost("2R")
+        catalystElemental.setType(.Creature, .Elemental)
+        catalystElemental.addActivatedAbility(
+            string: "Sacrifice ~: Add {R}{R}.",
+            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            effect: { catalystElemental.getController().addMana(color: .Red, 2) })
+        catalystElemental.setFlavorText("As the hyperstormic generator crept past redline, a being emerged from the arc.")
+        catalystElemental.power = 2
+        catalystElemental.toughness = 2
+        return catalystElemental
+    }
     // 133 Crash Through
     // 134 Dark-Dweller Oracle
     // 135 Demanding Dragon
@@ -1104,7 +1142,44 @@ enum M19 {
     // 212 Arcades, the Strategist
     // 213 Brawl-Bash Ogre
     // 214 Chromium, the Mutable
-    // 215 Draconic Disciple
+    static func DraconicDisciple() -> Card {
+        let draconicDisciple = Card(name: "DraconicDisciple", rarity: .Uncommon, set: set, number: 215)
+        draconicDisciple.setManaCost("1RG")
+        draconicDisciple.setType(.Creature, .Human, .Shaman)
+        draconicDisciple.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { draconicDisciple.getController().addMana(color: .White) },
+            manaAbility: true)
+        draconicDisciple.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { draconicDisciple.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        draconicDisciple.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { draconicDisciple.getController().addMana(color: .Black) },
+            manaAbility: true)
+        draconicDisciple.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { draconicDisciple.getController().addMana(color: .Red) },
+            manaAbility: true)
+        draconicDisciple.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { draconicDisciple.getController().addMana(color: .Green) },
+            manaAbility: true)
+        draconicDisciple.addActivatedAbility(
+            string: "{7}, {T}, Sacrifice ~: Create a 5/5 red Dragon creature token with flying.",
+            cost: Cost("7", tap: true, life: 0, sacrificeSelf: true),
+            effect: { draconicDisciple.getController().createToken(Dragon()) })
+        draconicDisciple.setFlavorText("\"If I am to die, I will die in the embrace of immeasurable flame.\"")
+        draconicDisciple.power = 2
+        draconicDisciple.toughness = 2
+        return draconicDisciple
+    }
     // 216 Enigma Drake
     static func HeroicReinforcements() -> Card {
         let heroicReinforcements = Card(name: "Heroic Reinforcements", rarity: .Uncommon, set: set, number: 217)
@@ -1159,7 +1234,19 @@ enum M19 {
     // 230 Desecrated Tomb
     // 231 Diamond Mare
     // 232 Dragon's Hoard
-    // 233 Explosive Apparatus
+    static func ExplosiveApparatus() -> Card {
+        let explosiveApparatus = Card(name: "Explosive Apparatus", rarity: .Common, set: set, number: 233)
+        explosiveApparatus.setManaCost("1")
+        explosiveApparatus.setType(.Artifact)
+        explosiveApparatus.addActivatedAbility(
+            string: "{2}, {T}, Sacrifice ~: It deals 2 damage to any target.",
+            cost: Cost("2", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect(
+                restriction: { _ in return true },
+                effect: { explosiveApparatus.damage(to: $0, 2) }))
+        explosiveApparatus.setFlavorText("\"Souls are volatile things. When compressed and loaded into a handheld device, their destructive potential is quite impressive.\"\n--Dierk, geistmage")
+        return explosiveApparatus
+    }
     static func FieldCreeper() -> Card {
         let fieldCreeper = Card(name: "Field Creeper", rarity: .Common, set: set, number: 234)
         fieldCreeper.setManaCost("2")
@@ -1169,7 +1256,20 @@ enum M19 {
         fieldCreeper.toughness = 1
         return fieldCreeper
     }
-    // 235 Fountain of Renewal
+    static func FountainOfRenewal() -> Card {
+        let fountainOfRenewal = Card(name: "Fountain of Renewal", rarity: .Uncommon, set: set, number: 235)
+        fountainOfRenewal.setManaCost("1")
+        fountainOfRenewal.setType(.Artifact)
+        fountainOfRenewal.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: { fountainOfRenewal.getController().gainLife(1) })
+        fountainOfRenewal.addActivatedAbility(
+            string: "{3}, Sacrifice ~: Draw a card.",
+            cost: Cost("3", tap: false, life: 0, sacrificeSelf: true),
+            effect: { fountainOfRenewal.getController().drawCard() })
+        fountainOfRenewal.setFlavorText("Entrepeneurs have attempted to sell the water, but to no avail. Whatever magic it contains disappears upon bottling.")
+        return fountainOfRenewal
+    }
     static func GargoyleSentinel() -> Card {
         let gargoyleSentinel = Card(name: "Gargoyle Sentinel", rarity: .Uncommon, set: set, number: 236)
         gargoyleSentinel.setManaCost("3")
@@ -1422,7 +1522,15 @@ enum M19 {
         dragon.toughness = 2
         return dragon
     }
-    // t10 Dragon
+    static func Dragon() -> Token {
+        let dragon = Token(name: "Dragon", set: set, number: 10)
+        dragon.colors = [.Red]
+        dragon.setType(.Creature, .Dragon)
+        dragon.flying = true
+        dragon.power = 5
+        dragon.toughness = 5
+        return dragon
+    }
     static func Goblin() -> Token {
         let goblin = Token(name: "Goblin", set: set, number: 11)
         goblin.colors = [.Red]
