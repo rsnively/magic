@@ -15,6 +15,9 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isTargeting {
             return "(Choose targets)"
         }
+        if Game.shared.isChoosingCardToDiscard {
+            return "Choose Card to Discard"
+        }
         if Game.shared.isChoosingLegendaryToKeep {
             return "Choose " + Game.shared.choosingLegendaryToKeep! + " to keep"
         }
@@ -54,7 +57,7 @@ class CommandButtonsNode: SKNode {
     
     private var touching = false
     func touchDown(atPoint pos:CGPoint) {
-        if okayButton.contains(pos) && !Game.shared.isTargeting && !Game.shared.isSelectingAbility && !Game.shared.isChoosingLegendaryToKeep {
+        if okayButton.contains(pos) && !Game.shared.isSelectingBesidesAttackBlock() && !Game.shared.isChoosingLegendaryToKeep {
             touching = true
             okayButton.color = SKColor.orange
             (self.scene as! GameScene).redraw()

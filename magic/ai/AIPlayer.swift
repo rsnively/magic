@@ -41,4 +41,12 @@ class AIPlayer: Player {
         super.chooseLegendaryToKeep(name: name)
         Game.shared.chooseLegendaryToKeep(getPermanents().first(where: { $0.name == Game.shared.choosingLegendaryToKeep })!)
     }
+    
+    override func discard(_ amount: Int) {
+        super.discard(amount)
+        for _ in 1 ... cardsToDiscard {
+            let r = Int.random(in: 0 ..< getHand().count)
+            chooseCardToDiscard(getHand()[r])
+        }
+    }
 }

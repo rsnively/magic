@@ -393,7 +393,7 @@ class Object: Targetable, NSCopying {
     }
     
     func discard() {
-        getController().discard(self)
+        getController().discardCard(self)
     }
     
     func destroy(ignoreIndestructible: Bool = false) -> Bool {

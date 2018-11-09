@@ -10,6 +10,10 @@ class Player: Targetable {
 
     var active = false
     var hasPriority = false
+    var cardsToDiscard: Int = 0
+    var isDiscarding: Bool {
+        get { return cardsToDiscard > 0 }
+    }
     
     init(deck: [Card]) {
         self.library = deck
@@ -291,10 +295,19 @@ class Player: Targetable {
         object.getOwner().hand.append(object)
     }
     
-    func discard(_ object: Object) {
+    func discard(_ amount: Int = 1) {
+        cardsToDiscard += min(hand.count, amount)
+    }
+    
+    func discardCard(_ object: Object) {
         let index = hand.firstIndex(where: {$0.id == object.id})!
         hand.remove(at: index)
         graveyard.append(object)
+    }
+    
+    func chooseCardToDiscard(_ object: Object) {
+        discardCard(object)
+        cardsToDiscard -= 1
     }
     
     func destroyPermanent(_ object: Object) {

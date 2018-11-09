@@ -334,7 +334,18 @@ enum GRN {
         return bartizanBats
     }
     // 63 Blood Operative
-    // 64 Burglar Rat
+    static func BurglarRat() -> Card {
+        let burglarRat = Card(name: "Burglar Rat", rarity: .Common, set: set, number: 64)
+        burglarRat.setManaCost("1B")
+        burglarRat.setType(.Creature, .Rat)
+        burglarRat.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { burglarRat.getOpponent().discard() })
+        burglarRat.setFlavorText("\"Even rats hoard their treasures. Are your precious things so different?\"\n--Izoni")
+        burglarRat.power = 1
+        burglarRat.toughness = 1
+        return burglarRat
+    }
     static func ChildOfNight() -> Card {
         let childOfNight = Card(name: "Child of Night", rarity: .Common, set: set, number: 65)
         childOfNight.setManaCost("1B")

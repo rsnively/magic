@@ -26,6 +26,11 @@ class Game: NSObject {
             _ = targetingEffects.popLast()
         }
     }
+    
+    var isChoosingCardToDiscard: Bool {
+        return player1.cardsToDiscard > 0 || player2.cardsToDiscard > 0
+    }
+    
     var choosingLegendaryToKeep : String? = nil
     var isChoosingLegendaryToKeep: Bool {
         return choosingLegendaryToKeep != nil
@@ -42,8 +47,12 @@ class Game: NSObject {
         checkStateBasedActions()
     }
     
+    func isSelectingBesidesAttackBlock() -> Bool {
+        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep
+    }
+    
     func isSelecting() -> Bool {
-        return isTargeting || isSelectingAbility || isChoosingLegendaryToKeep || declaringBlockers || declaringAttackers
+        return isSelectingBesidesAttackBlock() || declaringBlockers || declaringAttackers
     }
     
     private var turnNumber: Int
@@ -57,10 +66,10 @@ class Game: NSObject {
             
             deck1.append(GRN.Swamp())
             deck1.append(LEA.DarkRitual())
-            deck1.append(LEA.RoyalAssassin())
+            deck1.append(GRN.BurglarRat())
             
-            deck2.append(GRN.Plains())
-            deck2.append(XLN.BishopsSoldier())
+            deck2.append(GRN.Swamp())
+            deck2.append(GRN.BurglarRat())
         }
         
         player1 = Player(deck: deck1)
