@@ -111,6 +111,12 @@ class Player: Targetable {
         return manaPool
     }
     
+    func canAfford(_ cost: Cost, source: Object) -> Bool {
+        return manaPool.canAfford(cost.getManaCost())
+            && ( !cost.getTapCost() || (!source.isTapped && !source.hasSummoningSickness()))
+            && ( cost.getLifeCost() <= 0 || getLife() >= cost.getLifeCost())
+    }
+    
     func payFor(_ cost: Cost, _ source: Object) {
         manaPool.payFor(cost.getManaCost())
         if cost.getTapCost() {
@@ -210,6 +216,7 @@ class Player: Targetable {
     
     func play(card:Card) {
         let cardIndex = hand.firstIndex(where: {$0.id == card.id})!
+        // TODO: Card's manaCost should be cost, and then we can use player.canAfford here
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
             manaPool.payFor(card)

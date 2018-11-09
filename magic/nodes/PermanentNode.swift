@@ -36,7 +36,7 @@ class PermanentNode: CardNode {
                     Game.shared.selectingAbilityObject = self.card
                 } else {
                     let ability = card.activatedAbilities.first!
-                    if card.getController().getManaPool().canAfford(ability) && (!card.isTapped || !ability.getCost().getTapCost()) && (ability.getCost().getLifeCost() <= card.getController().getLife()) {
+                    if card.getController().canAfford(ability.getCost(), source: card) && ability.hasValidTargets() {
                         card.getController().payFor(ability.getCost(), card)
                         ability.activate()
                         return

@@ -4,6 +4,7 @@ protocol ActivatedAbility {
     func getSource() -> Object
     func getCost() -> Cost
     func getString() -> String
+    func hasValidTargets() -> Bool // TODO: I hate this name / decision. Untargeted abilities don't have valid targets
     func activate() -> Void
     func resolve() -> Void
 }
@@ -34,6 +35,10 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     
     func getCost() -> Cost {
         return cost
+    }
+    
+    func hasValidTargets() -> Bool {
+        return true
     }
     
     func activate() {
@@ -80,6 +85,15 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     func getString() -> String {
         return string
+    }
+    
+    func hasValidTargets() -> Bool {
+        if let effect = effects.first {
+            if let targetedEffect = effect as? TargetedEffect {
+                return Game.shared.hasTargets(targetedEffect)
+            }
+        }
+        return false
     }
     
     func activate() {

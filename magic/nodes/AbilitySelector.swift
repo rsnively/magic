@@ -60,7 +60,7 @@ class AbilitySelectorNode: SKNode {
     }
     
     func touchUp(atPoint pos: CGPoint) {
-        if object.getController().getManaPool().canAfford(ability) && ((!object.isTapped && !object.hasSummoningSickness()) || !ability.getCost().getTapCost()) {
+        if object.getController().canAfford(ability.getCost(), source: object) && ability.hasValidTargets() {
             object.getController().payFor(ability.getCost(), object)
             ability.activate()
         }
