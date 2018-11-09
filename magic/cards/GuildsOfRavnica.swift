@@ -23,7 +23,22 @@ enum GRN {
         bladeInstructor.toughness = 1
         return bladeInstructor
     }
-    // 2 Bounty Agent
+    static func BountyAgent() -> Card {
+        let bountyAgent = Card(name: "Bounty Agent", rarity: .Rare, set: set, number: 2)
+        bountyAgent.setManaCost("1W")
+        bountyAgent.setType(.Creature, .Human, .Soldier)
+        bountyAgent.vigilance = true
+        bountyAgent.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Destroy target legendary permanent that's an artifact, creature, or enchantment.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Legendary) && $0.isPermanent() && ($0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Enchantment)) },
+                effect: { let _ = $0.destroy() }))
+        bountyAgent.setFlavorText("\"Lately I've seen the biggest bounties of my career--and for the biggest names.\"")
+        bountyAgent.power = 2
+        bountyAgent.toughness = 2
+        return bountyAgent
+    }
     // 3 Candlelight Vigil
     static func CitywideBust() -> Card {
         let citywideBust = Card(name: "Citywide Bust", rarity: .Rare, set: set, number: 4)

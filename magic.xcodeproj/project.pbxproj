@@ -23,6 +23,7 @@
 		9814E32B2194D1DB00B156F9 /* lea174full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9814E32A2194D1DB00B156F9 /* lea174full.png */; };
 		9814E32D2194D35400B156F9 /* lea181full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9814E32C2194D35400B156F9 /* lea181full.png */; };
 		9814E32F2194D3EA00B156F9 /* lea186full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9814E32E2194D3E900B156F9 /* lea186full.png */; };
+		9814E3312194FD4700B156F9 /* grn2full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9814E3302194FD4700B156F9 /* grn2full.png */; };
 		9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425120CA03D50068DC91 /* Kaladesh.swift */; };
 		9818425420CA07050068DC91 /* ManaCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425320CA07050068DC91 /* ManaCost.swift */; };
 		9818425620CA07580068DC91 /* Mana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9818425520CA07580068DC91 /* Mana.swift */; };
@@ -533,6 +534,7 @@
 		9814E32A2194D1DB00B156F9 /* lea174full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea174full.png; sourceTree = "<group>"; };
 		9814E32C2194D35400B156F9 /* lea181full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea181full.png; sourceTree = "<group>"; };
 		9814E32E2194D3E900B156F9 /* lea186full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea186full.png; sourceTree = "<group>"; };
+		9814E3302194FD4700B156F9 /* grn2full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn2full.png; sourceTree = "<group>"; };
 		9818425120CA03D50068DC91 /* Kaladesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kaladesh.swift; sourceTree = "<group>"; };
 		9818425320CA07050068DC91 /* ManaCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManaCost.swift; sourceTree = "<group>"; };
 		9818425520CA07580068DC91 /* Mana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mana.swift; sourceTree = "<group>"; };
@@ -1603,6 +1605,7 @@
 			isa = PBXGroup;
 			children = (
 				98B629D8217E6ACE00D92E48 /* grn1full.png */,
+				9814E3302194FD4700B156F9 /* grn2full.png */,
 				98FA8E592156B86B00EF5203 /* grn4full.png */,
 				98FA8E5B2156B9D600EF5203 /* grn5full.png */,
 				98F981BF216EB04900254A4C /* grn14full.png */,
@@ -1871,6 +1874,7 @@
 				98FB885921926ACC00A410C8 /* xln253full.png in Resources */,
 				98B5220D21870BEB0085F5EB /* m1968full.png in Resources */,
 				98A19A3B216817E8002A4296 /* grn261full.png in Resources */,
+				9814E3312194FD4700B156F9 /* grn2full.png in Resources */,
 				983373DC215C5916003CD4D0 /* grn158full.png in Resources */,
 				98A8CA3B2162095F009E92FB /* dom71full.png in Resources */,
 				98D53E6A219178DC008EB501 /* grn39full.png in Resources */,

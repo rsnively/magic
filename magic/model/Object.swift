@@ -400,6 +400,10 @@ class Object: Targetable, NSCopying {
         return false
     }
     
+    func sacrifice() {
+        let _ = self.destroy(ignoreIndestructible: true)
+    }
+    
     private func hasDealtDamage(amount: Int) {
         if lifelink {
             getController().gainLife(amount)

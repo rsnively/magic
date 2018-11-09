@@ -4,11 +4,13 @@ class Cost {
     private var manaCost: ManaCost
     private var tapCost: Bool
     private var lifeCost: Int
+    private var sacrificeSelf: Bool
     
-    init(_ manaString: String, tap: Bool = false, life: Int = 0) {
+    init(_ manaString: String, tap: Bool = false, life: Int = 0, sacrificeSelf: Bool = false) {
         self.manaCost = ManaCost(manaString)
         self.tapCost = tap
         self.lifeCost = life
+        self.sacrificeSelf = sacrificeSelf
     }
     
     func getManaCost() -> ManaCost {
@@ -23,18 +25,7 @@ class Cost {
         return lifeCost
     }
     
-    func getString() -> String {
-        var ret = ""
-        if manaCost.converted() > 0 {
-            ret += manaCost.getString()
-        }
-        if tapCost {
-            if !ret.isEmpty {
-                ret += ", "
-            }
-            ret += "TAP"
-        }
-        ret += ": "
-        return ret
+    func getSacrificeSelf() -> Bool {
+        return sacrificeSelf
     }
 }

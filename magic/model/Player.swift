@@ -116,6 +116,9 @@ class Player: Targetable {
         if cost.getTapCost() {
             source.tap()
         }
+        if cost.getSacrificeSelf() {
+            source.sacrifice()
+        }
         loseLife(cost.getLifeCost())
     }
     
