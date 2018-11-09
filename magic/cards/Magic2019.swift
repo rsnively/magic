@@ -626,8 +626,7 @@ enum M19 {
         mindRot.setManaCost("2B")
         mindRot.setType(.Sorcery)
         mindRot.addEffect(TargetedEffect.SinglePlayer(
-            // TODO: name for this function
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { $0.discard(2) }))
         mindRot.setFlavorText("Many an inventor has collapsed under the pressure to create a flawless design.")
         return mindRot
@@ -656,7 +655,7 @@ enum M19 {
         skeletonArcher.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyTarget,
                 effect: { skeletonArcher.damage(to: $0, 1) }))
         skeletonArcher.setFlavorText("\"When it comes to killing with precision, a soul is but a hindrance.\"\n--Izareth the Awakener")
         skeletonArcher.power = 3
@@ -686,7 +685,7 @@ enum M19 {
         sovereignsBite.setManaCost("1B")
         sovereignsBite.setType(.Sorcery)
         sovereignsBite.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { target in
                 target.loseLife(3)
                 sovereignsBite.getController().gainLife(3)
@@ -892,7 +891,7 @@ enum M19 {
         lightningStrike.setManaCost("1R")
         lightningStrike.setType(.Instant)
         lightningStrike.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { lightningStrike.damage(to: $0, 3) }))
         lightningStrike.setFlavorText("To wield lightning is to tame chaose.")
         return lightningStrike
@@ -913,7 +912,7 @@ enum M19 {
         shock.setManaCost("R");
         shock.setType(.Instant);
         shock.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { shock.damage(to: $0, 2) }))
         shock.setFlavorText("The tools of invention became the weapons of revolution.");
         return shock
@@ -1279,7 +1278,7 @@ enum M19 {
             string: "{2}, {T}, Sacrifice ~: It deals 2 damage to any target.",
             cost: Cost("2", tap: true, life: 0, sacrificeSelf: true),
             effect: TargetedEffect(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyTarget,
                 effect: { explosiveApparatus.damage(to: $0, 2) }))
         explosiveApparatus.setFlavorText("\"Souls are volatile things. When compressed and loaded into a handheld device, their destructive potential is quite impressive.\"\n--Dierk, geistmage")
         return explosiveApparatus
@@ -1383,7 +1382,7 @@ enum M19 {
             string: "{2}, {T}: Target player puts the top two cards of their library into their graveyard.",
             cost: Cost("2", tap: true),
             effect: TargetedEffect.SinglePlayer(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyPlayer,
                 effect: { $0.mill(2) }))
         millstone.setFlavorText("Minds, like mountains, are never so grand and mighty that they can't be reduced to dust.")
         return millstone

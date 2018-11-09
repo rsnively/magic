@@ -227,7 +227,7 @@ enum GRN {
         drownedSecrets.addTriggeredAbility(
             trigger: .YouCastBlueSpell,
             effect: TargetedEffect.SinglePlayer(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyPlayer,
                 effect: { $0.mill(2) }
         ))
         drownedSecrets.setFlavorText("Beneath Ravnica's streets runs a layer of tunnels, then caverns and waterways, then terrors and nightmares.")

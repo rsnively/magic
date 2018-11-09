@@ -363,7 +363,7 @@ enum XLN {
         fleetSwallower.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SinglePlayer(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyPlayer,
                 effect: { target in
                     let millCount = Int(ceil(Double(target.getLibrary().count) / 2.0))
                     target.mill(millCount)
@@ -408,7 +408,7 @@ enum XLN {
         overflowingInsight.setManaCost("4UUU")
         overflowingInsight.setType(.Sorcery)
         overflowingInsight.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { $0.drawCards(7) }
         ))
         overflowingInsight.setFlavorText("The truth came to Kumena like the Great River's torrent: the only way to keep his enemies away from the hidden city was to claim its power for himself.")
@@ -444,7 +444,7 @@ enum XLN {
         riversRebuke.setManaCost("4UU")
         riversRebuke.setType(.Sorcery)
         riversRebuke.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { $0.getPermanents().filter({ return !$0.isType(.Land) }).forEach({ $0.bounce() }) }
         ))
         riversRebuke.setFlavorText("Carefully following the thaumatic compass Bolas had given her, Vraska blundered straight into the River Heralds' trap.")
@@ -589,7 +589,7 @@ enum XLN {
         darkNourishment.setManaCost("4B")
         darkNourishment.setType(.Instant)
         darkNourishment.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { target in
                 darkNourishment.damage(to: target, 3)
                 darkNourishment.getController().gainLife(3)

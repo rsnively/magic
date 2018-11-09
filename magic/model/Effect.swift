@@ -30,6 +30,17 @@ class TargetedEffect: Effect {
     private var effect: ([Targetable]) -> Void
     private var targets: [Targetable] = []
     
+    static func AnyPlayer(_ player: Player) -> Bool { return true }
+    static func AnyTarget(_ targetable: Targetable) -> Bool {
+        if let object = targetable as? Object {
+            return object.isType(.Creature) || object.isType(.Planeswalker)
+        }
+        if let _ = targetable as? Player {
+            return true
+        }
+        return false
+    }
+    
     init(restrictions: [(Targetable) -> Bool], effect: @escaping ([Targetable]) -> Void) {
         self.restrictions = restrictions
         self.effect = effect

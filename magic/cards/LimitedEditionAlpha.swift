@@ -176,7 +176,7 @@ enum LEA {
         ancestrallRecall.setManaCost("U")
         ancestrallRecall.setType(.Instant)
         ancestrallRecall.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { $0.drawCards(3) }
         ))
         return ancestrallRecall
@@ -249,7 +249,7 @@ enum LEA {
             string: "{T}: ~ deals 1 damage to any target.",
             cost: Cost("", tap: true),
             effect: TargetedEffect(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyTarget,
                 effect: { prodigalSorcerer.damage(to: $0, 1) }))
         prodigalSorcerer.setFlavorText("Occasionally a member of the Institute of Arcane Study acquires a taste for worldly pleasures. Seldom do they have trouble finding employment.")
         prodigalSorcerer.power = 1
@@ -261,7 +261,7 @@ enum LEA {
         psionicBlast.setManaCost("2U")
         psionicBlast.setType(.Instant)
         psionicBlast.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { target in
                 psionicBlast.damage(to: target, 4)
                 psionicBlast.damage(to: psionicBlast.getController(), 2)
@@ -567,7 +567,7 @@ enum LEA {
         lightningBolt.setManaCost("R")
         lightningBolt.setType(.Instant)
         lightningBolt.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { lightningBolt.damage(to: $0, 3) }))
         return lightningBolt
     }
@@ -590,7 +590,7 @@ enum LEA {
             string: "{T}: ~ deals 2 damage to any target and 3 damage to you.",
             cost: Cost("", tap: true),
             effect: TargetedEffect(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyTarget,
                 effect: { target in
                     orcishArtillery.damage(to: target, 2)
                     orcishArtillery.damage(to: orcishArtillery.getController(), 3)

@@ -241,7 +241,7 @@ enum DOM {
         homaridExplorer.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SinglePlayer(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyPlayer,
                 effect: { $0.mill(4) }))
         homaridExplorer.setFlavorText("\"Homarids spread northward from Sarpadia as the climate cooled, raiding coastal settlements for supplies.\"\n--Time of Ice")
         homaridExplorer.power = 3
@@ -306,7 +306,7 @@ enum DOM {
         weightOfMemory.setManaCost("3UU")
         weightOfMemory.setType(.Sorcery)
         weightOfMemory.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { target in
                 weightOfMemory.getController().drawCards(3)
                 target.mill(3)
@@ -560,7 +560,7 @@ enum DOM {
         radiatingLightning.setManaCost("3R")
         radiatingLightning.setType(.Instant)
         radiatingLightning.addEffect(TargetedEffect.SinglePlayer(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyPlayer,
             effect: { target in
                 radiatingLightning.damage(to: target, 3)
                 target.getCreatures().forEach({ radiatingLightning.damage(to: $0, 1) })

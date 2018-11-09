@@ -353,7 +353,7 @@ enum RIX {
             string: "{T}, Sacrifice ~: It deals 1 damage to any target.",
             cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
             effect: TargetedEffect(
-                restriction: { _ in return true },
+                restriction: TargetedEffect.AnyTarget,
                 effect: { fanaticalFirebrand.damage(to: $0, 1) }))
         fanaticalFirebrand.setFlavorText("\"The Brazen Coalition is a firecannon pointed at our enemies. Goblins like him are the spark to its powder.\"\n--Admiral Beckett Brass")
         fanaticalFirebrand.power = 1

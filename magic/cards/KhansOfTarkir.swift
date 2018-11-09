@@ -684,7 +684,7 @@ enum KTK {
         masterTheWay.setManaCost("3UR")
         masterTheWay.setType(.Sorcery)
         masterTheWay.addEffect(TargetedEffect(
-            restriction: { _ in return true },
+            restriction: TargetedEffect.AnyTarget,
             effect: { target in
                 masterTheWay.getController().drawCard()
                 let cardsInHand = masterTheWay.getController().getHand().count
