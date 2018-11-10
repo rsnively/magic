@@ -1,5 +1,11 @@
 import Foundation
 
+extension Object {
+    func isHistoric() -> Bool {
+        return isType(.Artifact) || isType(.Legendary) || isType(.Saga)
+    }
+}
+
 enum DOM {
     static var set = "dom"
     static var count = 269
@@ -87,7 +93,20 @@ enum DOM {
         charge.setFlavorText("\"Honor rides before us. All we have to do is catch up\"\n--Danitha Capashen")
         return charge
     }
-    // 11 D'Avenant Trapper
+    static func DAvenantTrapper() -> Card {
+        let dAvenantTrapper = Card(name: "D'Avenant Trapper", rarity: .Common, set: set, number: 11)
+        dAvenantTrapper.setManaCost("2W")
+        dAvenantTrapper.setType(.Creature, .Human, .Archer)
+        dAvenantTrapper.addTriggeredAbility(
+            trigger: .YouCastHistoricSpell,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() !== dAvenantTrapper.getController() },
+                effect: { $0.tap() }))
+        dAvenantTrapper.setFlavorText("\"Go swiftly, clever arrows, and teach\nThe philosophy of stillness.\"\n--D'Avenant verse")
+        dAvenantTrapper.power = 3
+        dAvenantTrapper.toughness = 2
+        return dAvenantTrapper
+    }
     // 12 Danitha Capashen, Pargaon
     // 13 Daring Archaeologist
     // 14 Dauntless Bodygyard
@@ -223,7 +242,20 @@ enum DOM {
     // 48 Cold-Water Snapper
     // 49 Curator's Ward
     // 50 Deep Freeze
-    // 51 Diligent Excavator
+    static func DiligentExcavator() -> Card {
+        let diligentExcavator = Card(name: "Diligent Excavator", rarity: .Uncommon, set: set, number: 51)
+        diligentExcavator.setManaCost("1U")
+        diligentExcavator.setType(.Creature, .Human, .Artificer)
+        diligentExcavator.addTriggeredAbility(
+            trigger: .YouCastHistoricSpell,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetedEffect.AnyPlayer,
+                effect: { $0.mill(2) }))
+        diligentExcavator.setFlavorText("Archaeologists don't just dig in the dirt. The excavate time, scraping off the years grain by grain.")
+        diligentExcavator.power = 1
+        diligentExcavator.toughness = 3
+        return diligentExcavator
+    }
     static func Divination() -> Card {
         let divination = Card(name: "Divination", rarity: .Common, set: set, number: 52)
         divination.setManaCost("2U")
@@ -340,7 +372,18 @@ enum DOM {
         cabalEvangel.toughness = 2
         return cabalEvangel
     }
-    // 79 Cabal Paladin
+    static func CabalPaladin() -> Card {
+        let cabalPaladin = Card(name: "Cabal Paladin", rarity: .Common, set: set, number: 77)
+        cabalPaladin.setManaCost("3B")
+        cabalPaladin.setType(.Creature, .Human, .Knight)
+        cabalPaladin.addTriggeredAbility(
+            trigger: .YouCastHistoricSpell,
+            effect: { cabalPaladin.damage(to: cabalPaladin.getOpponent(), 2) })
+        cabalPaladin.setFlavorText("\"The Demonlord has ruled every age. Every ruin, myth, and nightmare proves his power.\"\n--\"Rite of Belzenlok\"")
+        cabalPaladin.power = 4
+        cabalPaladin.toughness = 2
+        return cabalPaladin
+    }
     // 80 Caligo Skin-Witch
     static func CastDown() -> Card {
         let castDown = Card(name: "Cast Down", rarity: .Uncommon, set: set, number: 81)
@@ -553,7 +596,20 @@ enum DOM {
     // 133 Jaya's Immolating Inferno
     // 134 Keldon Overseer
     // 135 Keldon Raider
-    // 136 Keldon Warcaller
+    static func KeldonWarcaller() -> Card {
+        let keldonWarcaller = Card(name: "Keldon Warcaller", rarity: .Common, set: set, number: 136)
+        keldonWarcaller.setManaCost("1R")
+        keldonWarcaller.setType(.Creature, .Human, .Warrior)
+        keldonWarcaller.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Saga) && $0.getController() === keldonWarcaller.getController() },
+                effect: { $0.addCounter(.Lore) }))
+        keldonWarcaller.setFlavorText("\"The Mountain gave the Flame to Kradak to light the furnaces of his people's hearts. The wanderers became Keldons, and he the first warlord.\"\n--\"The Flame of Keld\"")
+        keldonWarcaller.power = 2
+        keldonWarcaller.toughness = 2
+        return keldonWarcaller
+    }
     // 137 Orcish Vandal
     static func RadiatingLightning() -> Card {
         let radiatingLightning = Card(name: "Radiating Lightning", rarity: .Common, set: set, number: 138)
@@ -799,7 +855,18 @@ enum DOM {
     // 194 Garna, the Bloodflame
     // 195 Grand Warlord Radha
     // 196 Hallar, the Firefletcher
-    // 197 Jhoira, Weatherlight Captain
+    static func JhoiraWeatherlightCaptain() -> Card {
+        let jhoira = Card(name: "Jhoira, Weatherlight Captain", rarity: .Mythic, set: set, number: 197)
+        jhoira.setManaCost("2UR")
+        jhoira.setType(.Legendary, .Creature, .Human, .Artificer)
+        jhoira.addTriggeredAbility(
+            trigger: .YouCastHistoricSpell,
+            effect: { jhoira.getController().drawCard() })
+        jhoira.setFlavorText("As she took the wheel of the <i>Weatherlight</i> for the first time in a millennium, Jhoira knew she'd been right to restore the ship. Anything was possible now.")
+        jhoira.power = 3
+        jhoira.toughness = 3
+        return jhoira
+    }
     // 198 Jodah, Archmage Eternal
     // 199 Muldrotha, the Gravetide
     // 200 Oath of Teferi
@@ -996,9 +1063,81 @@ enum DOM {
         cabalStronghold.setFlavorText("The seat of Belzenlok's power, the Stronghold serves as the gathering place for the Cabal as their dark influence spreads from Urborg.")
         return cabalStronghold
     }
-    // 239 Clifftop Retreat
-    // 240 Hinterland Harbor
-    // 241 Isolated Chapel
+    static func ClifftopRetreat() -> Card {
+        let clifftopRetreat = Card(name: "Clifftop Retreat", rarity: .Rare, set: set, number: 239)
+        clifftopRetreat.setManaCost("")
+        clifftopRetreat.setType(.Land)
+        clifftopRetreat.addStaticAbility({ object in
+            if object.id == clifftopRetreat.id {
+                let controlsMountain = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                let controlsPlains = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+                object.entersTapped = !(controlsMountain || controlsPlains)
+            }
+            return object
+        })
+        clifftopRetreat.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { clifftopRetreat.getController().addMana(color: .Red) },
+            manaAbility: true)
+        clifftopRetreat.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { clifftopRetreat.getController().addMana(color: .White) },
+            manaAbility: true)
+        clifftopRetreat.setFlavorText("The sunlight falls pristine on the temple at Epityr, softened by the remembered shadows of angelic saviors' wings.")
+        return clifftopRetreat
+    }
+    static func HinterlandHarbor() -> Card {
+        let hinterlandHarbor = Card(name: "Hinterland Harbor", rarity: .Rare, set: set, number: 240)
+        hinterlandHarbor.setManaCost("")
+        hinterlandHarbor.setType(.Land)
+        hinterlandHarbor.addStaticAbility({ object in
+            if object.id == hinterlandHarbor.id {
+                let controlsForest = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
+                let controlsIsland = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                object.entersTapped = !(controlsForest || controlsIsland)
+            }
+            return object
+        })
+        hinterlandHarbor.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { hinterlandHarbor.getController().addMana(color: .Green) },
+            manaAbility: true)
+        hinterlandHarbor.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { hinterlandHarbor.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        hinterlandHarbor.setFlavorText("\"Our ancestors brought down a Phyrexian portal ship, then built our town on its hull. We're pretty proud of that.\"\n--Alene of Riverspan")
+        return hinterlandHarbor
+    }
+    static func IsolatedChapel() -> Card {
+        let isolatedChapel = Card(name: "Isolated Chapel", rarity: .Rare, set: set, number: 241)
+        isolatedChapel.setManaCost("")
+        isolatedChapel.setType(.Land)
+        isolatedChapel.addStaticAbility({ object in
+            if object.id == isolatedChapel.id {
+                let controlsPlains = !isolatedChapel.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+                let controlsSwamp = !isolatedChapel.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
+                object.entersTapped = !(controlsPlains || controlsSwamp)
+            }
+            return object
+        })
+        isolatedChapel.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { isolatedChapel.getController().addMana(color: .White) },
+            manaAbility: true)
+        isolatedChapel.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { isolatedChapel.getController().addMana(color: .Black) },
+            manaAbility: true)
+        isolatedChapel.setFlavorText("Serra's blessing lies strongest upon Sursi, where her holy chapels are untouched even as the Cabal encroaches.")
+        return isolatedChapel
+    }
     // 242 Memorial to Folly
     static func MemorialToGenius() -> Card {
         let memorialToGenius = Card(name: "Memorial to Genius", rarity: .Uncommon, set: set, number: 243)
@@ -1054,8 +1193,56 @@ enum DOM {
                 effect: { let _ = $0.destroy() }))
         return memorialToWar
     }
-    // 247 Sulfur Falls
-    // 248 Woodland Cemetary
+    static func SulfurFalls() -> Card {
+        let sulfurFalls = Card(name: "Sulfur Falls", rarity: .Rare, set: set, number: 247)
+        sulfurFalls.setManaCost("")
+        sulfurFalls.setType(.Land)
+        sulfurFalls.addStaticAbility({ object in
+            if object.id == sulfurFalls.id {
+                let controlsIsland = !sulfurFalls.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                let controlsMountain = !sulfurFalls.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                object.entersTapped = !(controlsIsland || controlsMountain)
+            }
+            return object
+        })
+        sulfurFalls.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { sulfurFalls.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        sulfurFalls.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { sulfurFalls.getController().addMana(color: .Red) },
+            manaAbility: true)
+        sulfurFalls.setFlavorText("\"We have inherited the mysteries of the Thran, but few of the answers.\"\n--Jhoira")
+        return sulfurFalls
+    }
+    static func WoodlandCemetery() -> Card {
+        let woodlandCemetery = Card(name: "Woodland Cemetery", rarity: .Rare, set: set, number: 248)
+        woodlandCemetery.setManaCost("")
+        woodlandCemetery.setType(.Land)
+        woodlandCemetery.addStaticAbility({ object in
+            if object.id == woodlandCemetery.id {
+                let controlsIsland = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                let controlsMountain = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                object.entersTapped = !(controlsIsland || controlsMountain)
+            }
+            return object
+        })
+        woodlandCemetery.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { woodlandCemetery.getController().addMana(color: .Black) },
+            manaAbility: true)
+        woodlandCemetery.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { woodlandCemetery.getController().addMana(color: .Green) },
+            manaAbility: true)
+        woodlandCemetery.setFlavorText("\"They never found the body of young Josu, or that of his murderous sister.\"\n--\"The Fall of the House of Vess\"")
+        return woodlandCemetery
+    }
     // 249 Zhalfirin Void
     // Basics
 

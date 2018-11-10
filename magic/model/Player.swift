@@ -248,6 +248,10 @@ class Player: Targetable {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastEnchantmentSpell) })
             }
             
+            if card.isSpell() && card.isHistoric() {
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastHistoricSpell) })
+            }
+            
             if card.isSpell() && card.isColor(.Blue) {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastBlueSpell) })
             }

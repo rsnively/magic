@@ -381,7 +381,23 @@ enum GRN {
         return hiredPoisoner
     }
     // 73 Kraul Swarm
-    // 74 Lotleth Giant
+    static func LotlethGiant() -> Card {
+        let lotlethGiant = Card(name: "Lotleth Giant", rarity: .Common, set: set, number: 74)
+        lotlethGiant.setManaCost("6B")
+        lotlethGiant.setType(.Creature, .Zombie, .Giant)
+        lotlethGiant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== lotlethGiant.getController() },
+                effect: { target in
+                    let creaturesInGraveyard = lotlethGiant.getController().getGraveyard().filter({ $0.isType(.Creature) }).count
+                    lotlethGiant.damage(to: target, creaturesInGraveyard)
+        }))
+        lotlethGiant.setFlavorText("\"I prefer the big and looming to the small and skittering.\"\n--Cevraya, Golgari shaman")
+        lotlethGiant.power = 6
+        lotlethGiant.toughness = 5
+        return lotlethGiant
+    }
     // 75 Mausoleum Secrets
     // 76 Mephitic Vapors
     // 77 Midnight Repear

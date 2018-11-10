@@ -82,6 +82,7 @@ enum Subtype {
     case Plant
     case Rat
     case Rhino
+    case Saga
     case Saproling
     case Satyr
     case Scarecrow
