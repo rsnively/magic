@@ -10,10 +10,12 @@ protocol TriggeredAbility {
 class UntargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
+    private var restriction: () -> Bool
     
-    init(source: Object, trigger: Trigger, effect:@escaping () -> Void) {
+    init(source: Object, trigger: Trigger, effect:@escaping () -> Void, restriction: @escaping () -> Bool = { return true }) {
         self.source = source
         self.trigger = trigger
+        self.restriction = restriction
         super.init(name: "Triggered Ability of " + source.getName())
         effects.append(UntargetedEffect(effect))
     }
@@ -28,7 +30,9 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
         return false
     }
     func triggerAbility() {
-        Game.shared.theStack.push(self)
+        if restriction() {
+            Game.shared.theStack.push(self)
+        }
     }
     
     override func getController() -> Player {
@@ -36,7 +40,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     }
     
     override func resolve() {
-        if !effects.isEmpty {
+        if restriction() {
             for effect in effects {
                 effect.resolve()
             }
@@ -47,10 +51,12 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
 class TargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
+    private var restriction: () -> Bool
     
-    init(source: Object, trigger: Trigger, effect: TargetedEffect) {
+    init(source: Object, trigger: Trigger, effect: TargetedEffect, restriction: @escaping () -> Bool = { return true }) {
         self.source = source
         self.trigger = trigger
+        self.restriction = restriction
         super.init(name: "Triggered Ability of" + source.getName())
         effects.append(effect)
     }
@@ -66,7 +72,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     }
     func triggerAbility() {
         let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
-        if Game.shared.hasTargets(effect!) {
+        if restriction() && Game.shared.hasTargets(effect!) {
             Game.shared.targetingEffects.append(effect!)
             Game.shared.theStack.push(self)
         }
@@ -77,7 +83,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     }
     
     override func resolve() {
-        if !effects.isEmpty {
+        if restriction() {
             for effect in effects {
                 effect.resolve()
             }

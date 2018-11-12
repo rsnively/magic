@@ -208,6 +208,9 @@ class Game: NSObject {
                 getActivePlayer().drawCard()
             }
         }
+        else if currentPhase == .BeginCombat {
+            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourBeginCombat) })
+        }
         else if currentPhase == .Attack {
             declaringAttackers = true
             if !yourTurn() { advanceGame() }

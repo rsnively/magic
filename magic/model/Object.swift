@@ -291,11 +291,11 @@ class Object: Targetable, NSCopying {
         return object
     }
 
-    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void) {
-        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
+    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void, restriction: @escaping () -> Bool = { return true }) {
+        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, restriction: restriction))
     }
-    func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect) {
-        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect))
+    func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect, restriction: @escaping () -> Bool = { return true }) {
+        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, restriction: restriction))
     }
     
     func triggerAbilities(_ trigger: Trigger) {

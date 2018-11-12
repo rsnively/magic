@@ -173,7 +173,22 @@ enum M19 {
         lena.toughness = 3
         return lena
     }
-    // 22 Leonin Vanguard
+    static func LeoninVanguard() -> Card {
+        let leoninVanguard = Card(name: "Leonin Vangaurd", rarity: .Uncommon, set: set, number: 22)
+        leoninVanguard.setManaCost("W")
+        leoninVanguard.setType(.Creature, .Cat, .Soldier)
+        leoninVanguard.addTriggeredAbility(
+            trigger: .YourBeginCombat,
+            effect: {
+                leoninVanguard.pump(1, 1)
+                leoninVanguard.getController().gainLife(1)
+            },
+            restriction: { leoninVanguard.getController().getCreatures().count >= 3 })
+        leoninVanguard.setFlavorText("The best fighters are skilled in both harming and healing.")
+        leoninVanguard.power = 1
+        leoninVanguard.toughness = 1
+        return leoninVanguard
+    }
     static func LeoninWarleader() -> Card {
         let leoninWarleader = Card(name: "Leonin Warleader", rarity: .Rare, set: set, number: 23)
         leoninWarleader.setManaCost("2WW")
