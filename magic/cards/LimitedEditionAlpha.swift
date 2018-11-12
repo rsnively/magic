@@ -754,8 +754,25 @@ enum LEA {
     // 194 Force of Nature
     // 195 Fungusaur
     // 196 Gaea's Liege
-    // 197 Giant Growth
-    // 198 Giant Spider
+    static func GiantGrowth() -> Card {
+        let giantGrowth = Card(name: "Giant Growth", rarity: .Common, set: set, number: 197)
+        giantGrowth.setManaCost("G")
+        giantGrowth.setType(.Instant)
+        giantGrowth.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.pump(3, 3) }))
+        return giantGrowth
+    }
+    static func GiantSpider() -> Card {
+        let giantSpider = Card(name: "Giant Spider", rarity: .Common, set: set, number: 198)
+        giantSpider.setManaCost("3G")
+        giantSpider.setType(.Creature, .Spider)
+        giantSpider.reach = true
+        giantSpider.setFlavorText("While it possesses potent venom, the Giant Spider often chooses not to paralyze its victims. Perhaps the creature enjoys the gentle rocking motion caused by its captives' struggles to escape its web.")
+        giantSpider.power = 2
+        giantSpider.toughness = 4
+        return giantSpider
+    }
     static func GrizzlyBears() -> Card {
         let grizzlyBears = Card(name: "Grizzly Bears", rarity: .Common, set: set, number: 199)
         grizzlyBears.setManaCost("1G")
@@ -786,17 +803,53 @@ enum LEA {
         return ironrootTreefolk
     }
     // 204 Kudzu
-    // 205 Ley Druid
+    static func LeyDruid() -> Card {
+        let leyDruid = Card(name: "Ley Druid", rarity: .Uncommon, set: set, number: 205)
+        leyDruid.setManaCost("2G")
+        leyDruid.setType(.Creature, .Human, .Druid)
+        leyDruid.addActivatedAbility(
+            string: "{T}: Untap target land.",
+            cost: Cost("", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Land) },
+                effect: { target in target.untap() }))
+        leyDruid.setFlavorText("After years of training, the Druid becomes one with nature, drawing power from the land and returning it when needed.")
+        leyDruid.power = 1
+        leyDruid.toughness = 1
+        return leyDruid
+    }
     // 206 Lifeforce
     // 207 Lifelace
     // 208 Living Artifact
     // 209 Living Lands
-    // 210 Llanowar Elves
+    static func LlanowarElves() -> Card {
+        let llanowarElves = Card(name: "Llanowar Elves", rarity: .Common, set: set, number: 210)
+        llanowarElves.setManaCost("G")
+        llanowarElves.setType(.Creature, .Elf)
+        llanowarElves.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { llanowarElves.getController().addMana(color: .Green) },
+            manaAbility: true)
+        llanowarElves.setFlavorText("Whenever the Llanowar Elves gather the fruits of their forest, they leave one plant of each type untouched, considering that nature's portion.")
+        llanowarElves.power = 1
+        llanowarElves.toughness = 1
+        return llanowarElves
+    }
     // 211 Lure
     // 212 Natural Selection
     // 213 Regeneration
     // 214 Regrowth
-    // 215 Scryb Sprites
+    static func ScrybSprites() -> Card {
+        let scrybSprites = Card(name: "Scryb Sprites", rarity: .Common, set: set, number: 215)
+        scrybSprites.setManaCost("G")
+        scrybSprites.setType(.Creature, .Faerie)
+        scrybSprites.flying = true
+        scrybSprites.setFlavorText("The only sound was the gentle clicking of the Faeries' wings. Then those intruders who were still standing turned and fled. One thing was certain: they didn't think the Scryb were very funny anymore.")
+        scrybSprites.power = 1
+        scrybSprites.toughness = 1
+        return scrybSprites
+    }
     // 216 Shanodin Dryads
     // 217 Stream of Life
     // 218 Thicket Basilisk
@@ -823,7 +876,18 @@ enum LEA {
         }
         return tsunami
     }
-    // 222 Verduran Enchantress
+    static func VerduranEnchantress() -> Card {
+        let verduranEnchantress = Card(name: "Verduran Enchantress", rarity: .Rare, set: set, number: 222)
+        verduranEnchantress.setManaCost("1GG")
+        verduranEnchantress.setType(.Creature, .Human, .Druid)
+        verduranEnchantress.addTriggeredAbility(
+            trigger: .YouCastEnchantmentSpell,
+            effect: { verduranEnchantress.getController().drawCard() })
+        verduranEnchantress.setFlavorText("Some say magic was first practiced by women, who have always felt strong ties to the land.")
+        verduranEnchantress.power = 0
+        verduranEnchantress.toughness = 2
+        return verduranEnchantress
+    }
     // 223 Wall of Brambles
     static func WallOfIce() -> Card {
         let wallOfIce = Card(name: "Wall of Ice", rarity: .Uncommon, set: set, number: 224)
@@ -851,13 +915,81 @@ enum LEA {
     // 229 Wild Growth
     // 230 Ankh of Mishra
     // 231 Basalt Monolith
-    // 232 Black Lotus
+    static func BlackLotus() -> Card {
+        let blackLotus = Card(name: "Black Lotus", rarity: .Rare, set: set, number: 232)
+        blackLotus.setManaCost("")
+        blackLotus.setType(.Artifact)
+        blackLotus.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {W}{W}{W}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { blackLotus.getController().addMana(color: .White, 3) },
+            manaAbility: true)
+        blackLotus.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {U}{U}{U}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { blackLotus.getController().addMana(color: .Blue, 3) },
+            manaAbility: true)
+        blackLotus.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {B}{B}{B}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { blackLotus.getController().addMana(color: .Black, 3) },
+            manaAbility: true)
+        blackLotus.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {R}{R}{R}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { blackLotus.getController().addMana(color: .Red, 3) },
+            manaAbility: true)
+        blackLotus.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Add {G}{G}{G}.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { blackLotus.getController().addMana(color: .Green, 3) },
+            manaAbility: true)
+        return blackLotus
+    }
     // 233 Black Vise
-    // 234 Celestial Prism
+    static func CelestialPrism() -> Card {
+        let celestialPrism = Card(name: "Celestial Prism", rarity: .Uncommon, set: set, number: 234)
+        celestialPrism.setManaCost("3")
+        celestialPrism.setType(.Artifact)
+        celestialPrism.addActivatedAbility(
+            string: "{2}, {T}: Add {W}.",
+            cost: Cost("2", tap: true),
+            effect: { celestialPrism.getController().addMana(color: .White) },
+            manaAbility: true)
+        celestialPrism.addActivatedAbility(
+            string: "{2}, {T}: Add {U}.",
+            cost: Cost("2", tap: true),
+            effect: { celestialPrism.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        celestialPrism.addActivatedAbility(
+            string: "{2}, {T}: Add {B}.",
+            cost: Cost("2", tap: true),
+            effect: { celestialPrism.getController().addMana(color: .Black) },
+            manaAbility: true)
+        celestialPrism.addActivatedAbility(
+            string: "{2}, {T}: Add {R}.",
+            cost: Cost("2", tap: true),
+            effect: { celestialPrism.getController().addMana(color: .Red) },
+            manaAbility: true)
+        celestialPrism.addActivatedAbility(
+            string: "{2}, {T}: Add {G}.",
+            cost: Cost("2", tap: true),
+            effect: { celestialPrism.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return celestialPrism
+    }
     // 235 Chaos Orbb
     // 236 Clockwork Beast
     // 237 Conservator
-    // 238 Copper Tablet
+    static func CopperTablet() -> Card {
+        let copperTablet = Card(name: "Copper Tablet", rarity: .Uncommon, set: set, number: 238)
+        copperTablet.setManaCost("2")
+        copperTablet.setType(.Artifact)
+        copperTablet.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { copperTablet.damage(to: Game.shared.getActivePlayer(), 1) })
+        return copperTablet
+    }
     // 239 Crystal Rod
     // 240 Cyclopean Tomb
     // 241 Dingus Egg
@@ -866,26 +998,120 @@ enum LEA {
     // 244 Gauntlet of Might
     // 245 Glasses of Urza
     // 246 Helm of Chatzuk
-    // 247 Howling Mine
-    // 248 Icy Manipulator
+    static func HowlingMine() -> Card {
+        let howlingMine = Card(name: "Howling Mine", rarity: .Rare, set: set, number: 247)
+        howlingMine.setManaCost("2")
+        howlingMine.setType(.Artifact)
+        howlingMine.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { Game.shared.getActivePlayer().drawCard() },
+            restriction: { !howlingMine.isTapped })
+        return howlingMine
+    }
+    static func IcyManipulator() -> Card {
+        let icyManipulator = Card(name: "Icy Manipulator", rarity: .Uncommon, set: set, number: 248)
+        icyManipulator.setManaCost("4")
+        icyManipulator.setType(.Artifact)
+        icyManipulator.addActivatedAbility(
+            string: "{1}, {T}: Tap target artifact, creature, or land.",
+            cost: Cost("1", tap: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
+                effect: { target in target.tap() }))
+        return icyManipulator
+    }
     // 249 Illusionary Mask
     // 250 Iron Star
     // 251 Ivory Cup
     // 252 Jade Monolith
     // 253 Jade Statue
-    // 254 Jayemdae Tome
+    static func JayemdaeTome() -> Card {
+        let jayemdaeTome = Card(name: "Jayemdae Tome", rarity: .Rare, set: set, number: 254)
+        jayemdaeTome.setManaCost("4")
+        jayemdaeTome.setType(.Artifact)
+        jayemdaeTome.addActivatedAbility(
+            string: "{4}, {T}: Draw a card",
+            cost: Cost("4", tap: true),
+            effect: { jayemdaeTome.getController().drawCard() })
+        return jayemdaeTome
+    }
     // 255 Juggernaut
     // 256 Kormus Bell
     // 257 Library of Leng
     // 258 Living Wall
     // 259 Mana Vault
     // 260 Meekstone
-    // 261 Mox Emerald
-    // 262 Mox Jet
-    // 263 Mox Pearl
-    // 264 Mox Ruby
-    // 265 Mox Sapphire
-    // 266 Nevinyrral's Disk
+    static func MoxEmerald() -> Card {
+        let moxEmerald = Card(name: "Mox Emerald", rarity: .Rare, set: set, number: 261)
+        moxEmerald.setManaCost("")
+        moxEmerald.setType(.Artifact)
+        moxEmerald.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { moxEmerald.getController().addMana(color: .Green) },
+            manaAbility: true)
+        return moxEmerald
+    }
+    static func MoxJet() -> Card {
+        let moxJet = Card(name: "Mox Jet", rarity: .Rare, set: set, number: 262)
+        moxJet.setManaCost("")
+        moxJet.setType(.Artifact)
+        moxJet.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { moxJet.getController().addMana(color: .Black) },
+            manaAbility: true)
+        return moxJet
+    }
+    static func MoxPearl() -> Card {
+        let moxPearl = Card(name: "Mox Pearl", rarity: .Rare, set: set, number: 263)
+        moxPearl.setManaCost("")
+        moxPearl.setType(.Artifact)
+        moxPearl.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { moxPearl.getController().addMana(color: .White) },
+            manaAbility: true)
+        return moxPearl
+    }
+    static func MoxRuby() -> Card {
+        let moxRuby = Card(name: "Mox Ruby", rarity: .Rare, set: set, number: 264)
+        moxRuby.setManaCost("")
+        moxRuby.setType(.Artifact)
+        moxRuby.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { moxRuby.getController().addMana(color: .Red) },
+            manaAbility: true)
+        return moxRuby
+    }
+    static func MoxSapphire() -> Card {
+        let moxSapphire = Card(name: "Mox Sapphire", rarity: .Rare, set: set, number: 265)
+        moxSapphire.setManaCost("")
+        moxSapphire.setType(.Artifact)
+        moxSapphire.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { moxSapphire.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        return moxSapphire
+    }
+    static func NevinyrralsDisk() -> Card {
+        let nevinyrralsDisk = Card(name: "Nevinyrral's Disk", rarity: .Rare, set: set, number: 266)
+        nevinyrralsDisk.setManaCost("4")
+        nevinyrralsDisk.setType(.Artifact)
+        nevinyrralsDisk.entersTapped = true
+        nevinyrralsDisk.addActivatedAbility(
+            string: "{1}, {T}: Destroy all artifacts, creatures, and enchantments.",
+            cost: Cost("1", tap: true),
+            effect: { Game.shared.bothPlayers({ player in
+                player.getArtifacts().forEach({ card in player.destroyPermanent(card) })
+                player.getCreatures().forEach({ card in player.destroyPermanent(card) })
+                player.getEnchantments().forEach({ card in player.destroyPermanent(card) })
+            })
+        })
+        return nevinyrralsDisk
+    }
     static func ObsianusGolem() -> Card {
         let obsianusGolem = Card(name: "Obsianus Golem", rarity: .Uncommon, set: set, number: 267)
         obsianusGolem.setManaCost("6")
@@ -895,8 +1121,29 @@ enum LEA {
         obsianusGolem.toughness = 6
         return obsianusGolem
     }
-    // 268 Rod of Ruin
-    // 269 Sol Ring
+    static func RodOfRuin() -> Card {
+        let rodOfRuin = Card(name: "Rod of Ruin", rarity: .Uncommon, set: set, number: 268)
+        rodOfRuin.setManaCost("4")
+        rodOfRuin.setType(.Artifact)
+        rodOfRuin.addActivatedAbility(
+            string: "{3}, {T}: ~ deals 1 damage to any target.",
+            cost: Cost("3", tap: true),
+            effect: TargetedEffect(
+                restriction: TargetedEffect.AnyTarget,
+                effect: { rodOfRuin.damage(to: $0, 1) }))
+        return rodOfRuin
+    }
+    static func SolRing() -> Card {
+        let solRing = Card(name: "Sol Ring", rarity: .Uncommon, set: set, number: 269)
+        solRing.setManaCost("1")
+        solRing.setType(.Artifact)
+        solRing.addActivatedAbility(
+            string: "{T}: Add {C}{C}.",
+            cost: Cost("", tap: true),
+            effect: { solRing.getController().addMana(color: nil, 2) },
+            manaAbility: true)
+        return solRing
+    }
     // 270 Soul Net
     // 271 Sunglasses of Urza
     // 272 The Hive
