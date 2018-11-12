@@ -59,6 +59,7 @@ class Player: Targetable {
     func gainLife(_ amount: Int) {
         life += amount
         lifeGainedThisTurn += amount
+        getPermanents().forEach({ $0.triggerAbilities(.YouGainLife) })
     }
     
     func getLibrary() -> [Object] {

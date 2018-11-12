@@ -433,7 +433,21 @@ enum M19 {
         frilledSeaSerpent.toughness = 6
         return frilledSeaSerpent
     }
-    // 57 Gearsmith Prodigy
+    static func GearsmithProdigy() -> Card {
+        let gearsmithProdigy = Card(name: "Gearsmith Prodigy", rarity: .Common, set: set, number: 57)
+        gearsmithProdigy.setManaCost("U")
+        gearsmithProdigy.setType(.Creature, .Human, .Artificer)
+        gearsmithProdigy.addStaticAbility({ object in
+            if object.id == gearsmithProdigy.id && !object.getController().getArtifacts().isEmpty {
+                object.power = object.getBasePower() + 1
+            }
+            return object
+        })
+        gearsmithProdigy.setFlavorText("Young artificers on Kaladesh let their imaginations run wild.")
+        gearsmithProdigy.power = 1
+        gearsmithProdigy.toughness = 2
+        return gearsmithProdigy
+    }
     // 58 Ghostform
     // 59 Horizon Scholar
     // 60 Metamorphic Alteration
@@ -526,7 +540,23 @@ enum M19 {
         snappingDrake.toughness = 2
         return snappingDrake
     }
-    // 76 Supreme Phantom
+    static func SupremePhantom() -> Card {
+        let supremePhantom = Card(name: "Supreme Phantom", rarity: .Rare, set: set, number: 76)
+        supremePhantom.setManaCost("1U")
+        supremePhantom.setType(.Creature, .Spirit)
+        supremePhantom.flying = true
+        supremePhantom.addStaticAbility({ object in
+            if object.id != supremePhantom.id  && object.isType(.Spirit) && object.getController() === supremePhantom.getController() {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness()
+            }
+            return object
+        })
+        supremePhantom.setFlavorText("A king's knowledge does not vanish when the heart stops beating.")
+        supremePhantom.power = 1
+        supremePhantom.toughness = 3
+        return supremePhantom
+    }
     // 77 Surge Mare
     // 78 Switcheroo
     // 79 Tezzeret, Artifice Master
@@ -584,7 +614,24 @@ enum M19 {
         childOfNight.toughness = 1
         return childOfNight
     }
-    // 90 Death Baron
+    static func DeathBaron() -> Card {
+        let deathBaron = Card(name: "Death Baron", rarity: .Rare, set: set, number: 90)
+        deathBaron.setManaCost("1BB")
+        deathBaron.setType(.Creature, .Zombie, .Wizard)
+        deathBaron.addStaticAbility({ object in
+            if object.getController() === deathBaron.getController() && (object.isType(.Skeleton) || (object.isType(.Zombie) && object.id != deathBaron.id)) {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                // TODO: These should apply in different layers
+                object.deathtouch = true
+            }
+            return object
+        })
+        deathBaron.setFlavorText("For the necromancer barons, killing and recruitment are one in the same.")
+        deathBaron.power = 2
+        deathBaron.toughness = 2
+        return deathBaron
+    }
     // 91 Demon of Catastrophes
     static func DiregrafGhoul() -> Card {
         let diregrafGhoul = Card(name: "Diregraf Ghoul", rarity: .Uncommon, set: set, number: 92)
@@ -609,7 +656,18 @@ enum M19 {
         return doomedDissenter
     }
     // 94 Duress
-    // 95 Epicure of Blood
+    static func EpicureOfBlood() -> Card {
+        let epicureOfBlood = Card(name: "Epicure of Blood", rarity: .Common, set: set, number: 95)
+        epicureOfBlood.setManaCost("4B")
+        epicureOfBlood.setType(.Creature, .Vampire)
+        epicureOfBlood.addTriggeredAbility(
+            trigger: .YouGainLife,
+            effect: { epicureOfBlood.getOpponent().loseLife(1) })
+        epicureOfBlood.setFlavorText("\"Fleshy, with just a hint of leather. A fine vintage.\"")
+        epicureOfBlood.power = 3
+        epicureOfBlood.toughness = 3
+        return epicureOfBlood
+    }
     // 96 Fell Specter
     // 97 Fraying Omnipotence
     // 98 Gravedigger
@@ -675,7 +733,20 @@ enum M19 {
         murder.setFlavorText("\"It's not work if you enjoy it.\"")
         return murder
     }
-    // 111 Nightmare's Thirst
+    static func NightmaresThirst() -> Card {
+        let nightmaresThirst = Card(name: "Nightmare's Thirst", rarity: .Uncommon, set: set, number: 111)
+        nightmaresThirst.setManaCost("B")
+        nightmaresThirst.setType(.Instant)
+        nightmaresThirst.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                nightmaresThirst.getController().gainLife(1)
+                let amt = nightmaresThirst.getController().lifeGainedThisTurn * -1
+                target.pump(amt, amt)
+        }))
+        nightmaresThirst.setFlavorText("That feeling of something on your chest is usually sleep paralysis. Occasionally, it's something else.")
+        return nightmaresThirst
+    }
     // 112 Open the Graves
     // 113 Phylactery Lich
     // 114 Plague Mare
@@ -1019,7 +1090,17 @@ enum M19 {
         return centaurCourser
     }
     // 172 Colossal Dreadmaw
-    // 173 Colossal Majesty
+    static func ColossalMajesty() -> Card {
+        let colossalMajesty = Card(name: "Colossal Majesty", rarity: .Uncommon, set: set, number: 173)
+        colossalMajesty.setManaCost("2G")
+        colossalMajesty.setType(.Enchantment)
+        colossalMajesty.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: { colossalMajesty.getController().drawCard() },
+            restriction: { !colossalMajesty.getController().getCreatures().filter({ $0.getPower() >= 4 }).isEmpty })
+        colossalMajesty.setFlavorText("\"Might doesn't just build empires. It protects them.\"\n--Inti, Sun Empire knight")
+        return colossalMajesty
+    }
     static func DaggerbackBasilisk() -> Card {
         let daggerbackBasilisk = Card(name: "Daggerback Basilisk", rarity: .Common, set: set, number: 174)
         daggerbackBasilisk.setManaCost("2G")
@@ -1191,7 +1272,23 @@ enum M19 {
         wallOfVines.toughness = 3
         return wallOfVines
     }
-    // 211 Aerial Engineer
+    static func AerialEngineer() -> Card {
+        let aerialEngineer = Card(name: "Aerial Engineer", rarity: .Uncommon, set: set, number: 211)
+        aerialEngineer.setManaCost("2WU")
+        aerialEngineer.setType(.Creature, .Human, .Artificer)
+        aerialEngineer.addStaticAbility({ object in
+            if object.id == aerialEngineer.id && !object.getController().getArtifacts().isEmpty {
+                object.power = object.getBasePower() + 2
+                // TODO: These should be in separate layers
+                object.flying = true
+            }
+            return object
+        })
+        aerialEngineer.setFlavorText("The best of their trade know every bolt of their rigs, stem to stern.")
+        aerialEngineer.power = 2
+        aerialEngineer.toughness = 4
+        return aerialEngineer
+    }
     // 212 Arcades, the Strategist
     // 213 Brawl-Bash Ogre
     // 214 Chromium, the Mutable
@@ -1272,7 +1369,20 @@ enum M19 {
         psychicSymbiont.toughness = 3
         return psychicSymbiont
     }
-    // 222 Regal Bloodlord
+    static func RegalBloodlord() -> Card {
+        let regalBloodlord = Card(name: "Regal Bloodlord", rarity: .Uncommon, set: set, number: 222)
+        regalBloodlord.setManaCost("3WB")
+        regalBloodlord.setType(.Creature, .Vampire, .Soldier)
+        regalBloodlord.flying = true
+        regalBloodlord.addTriggeredAbility(
+            trigger: .EachEndStep,
+            effect: { regalBloodlord.getController().createToken(Bat()) },
+            restriction: { regalBloodlord.getController().lifeGainedThisTurn > 0 })
+        regalBloodlord.setFlavorText("Those of esteemed birth earn a most esteemed death.")
+        regalBloodlord.power = 3
+        regalBloodlord.toughness = 3
+        return regalBloodlord
+    }
     static func SatyrEnchanter() -> Card {
         let satyrEnchanter = Card(name: "Satyr Enchanter", rarity: .Uncommon, set: set, number: 223)
         satyrEnchanter.setManaCost("1GW")
@@ -1359,7 +1469,21 @@ enum M19 {
         gargoyleSentinel.toughness = 3
         return gargoyleSentinel
     }
-    // 237 Gearsmith Guardian
+    static func GearsmithGuardian() -> Card {
+        let gearsmithGuardian = Card(name: "Gearsmith Guardian", rarity: .Common, set: set, number: 237)
+        gearsmithGuardian.setManaCost("5")
+        gearsmithGuardian.setType(.Artifact, .Creature, .Construct)
+        gearsmithGuardian.addStaticAbility({ object in
+            if object.id == gearsmithGuardian.id && !object.getController().getCreatures().filter({ $0.isColor(.Blue) }).isEmpty {
+                object.power = object.getBasePower() + 2
+            }
+            return object
+        })
+        gearsmithGuardian.setFlavorText("Made in its creator's image, though slightly more clangy.")
+        gearsmithGuardian.power = 3
+        gearsmithGuardian.toughness = 5
+        return gearsmithGuardian
+    }
     // 238 Magistrate's Scepter
     static func Manalith() -> Card {
         let manalith = Card(name: "Manalith", rarity: .Common, set: set, number: 239)
@@ -1575,7 +1699,15 @@ enum M19 {
         soldier.toughness = 1
         return soldier
     }
-    // t7 Bat
+    static func Bat() -> Token {
+        let bat = Token(name: "Bat", set: set, number: 7)
+        bat.colors = [.Black]
+        bat.setType(.Creature, .Bat)
+        bat.flying = true
+        bat.power = 1
+        bat.toughness = 1
+        return bat
+    }
     static func Zombie() -> Token {
         let zombie = Token(name: "Zombie", set: set, number: 8)
         zombie.colors = [.Black]
