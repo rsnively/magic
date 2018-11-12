@@ -1,6 +1,7 @@
 import Foundation
 
 enum Trigger {
+    case EachEndStep
     case EachUpkeep
     case Landfall
     case ThisAttacks

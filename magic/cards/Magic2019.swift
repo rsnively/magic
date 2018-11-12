@@ -283,7 +283,26 @@ enum M19 {
         return pegasusCourser
     }
     // 33 Remorseful Cleric
-    // 34 Resplendent Angel
+    static func ResplendentAngel() -> Card {
+        let resplendentAngel = Card(name: "Resplendent Angel", rarity: .Mythic, set: set, number: 34)
+        resplendentAngel.setManaCost("1WW")
+        resplendentAngel.setType(.Creature, .Angel)
+        resplendentAngel.flying = true
+        resplendentAngel.addTriggeredAbility(
+            trigger: .EachEndStep,
+            effect: { resplendentAngel.getController().createToken(Angel()) },
+            restriction: { resplendentAngel.getController().lifeGainedThisTurn >= 5 })
+        resplendentAngel.addActivatedAbility(
+            string: "{3}{W}{W}{W}: Until end of turn, ~ gets +2/+2 and gains lifelink.",
+            cost: Cost("3WWW"),
+            effect: {
+                resplendentAngel.pump(2, 2)
+                resplendentAngel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+        })
+        resplendentAngel.power = 3
+        resplendentAngel.toughness = 3
+        return resplendentAngel
+    }
     static func Revitalize() -> Card {
         let revitalize = Card(name: "Revitalize", rarity: .Common, set: set, number: 35)
         revitalize.setManaCost("1W")
@@ -1518,7 +1537,16 @@ enum M19 {
     // 279 Forest
     // 280 Forest
     
-    // t1 Angel
+    static func Angel() -> Token {
+        let angel = Token(name: "Angel", set: set, number: 1)
+        angel.colors = [.White]
+        angel.setType(.Creature, .Angel)
+        angel.flying = true
+        angel.vigilance = true
+        angel.power = 4
+        angel.toughness = 4
+        return angel
+    }
     // t2 Avatar
     static func Cat() -> Token {
         let cat = Token(name: "Cat", set: set, number: 3)

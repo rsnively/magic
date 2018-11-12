@@ -14,6 +14,7 @@ class Player: Targetable {
     var isDiscarding: Bool {
         get { return cardsToDiscard > 0 }
     }
+    var lifeGainedThisTurn = 0
     
     init(deck: [Card]) {
         self.library = deck
@@ -57,6 +58,7 @@ class Player: Targetable {
     
     func gainLife(_ amount: Int) {
         life += amount
+        lifeGainedThisTurn += amount
     }
     
     func getLibrary() -> [Object] {

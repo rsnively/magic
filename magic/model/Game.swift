@@ -191,6 +191,8 @@ class Game: NSObject {
             turnNumber = turnNumber + 1
             swap(&player1.active, &player2.active)
             landPlayedThisTurn = false
+            player1.lifeGainedThisTurn = 0
+            player2.lifeGainedThisTurn = 0
             getActivePlayer().untapAllPermanents()
             
             // would potential untap triggers get pushed to upkeep anyway?
@@ -226,6 +228,9 @@ class Game: NSObject {
         }
         else if currentPhase == .SecondMain {
             bothPlayers({ $0.removeCreaturesFromCombat() })
+        }
+        else if currentPhase == .End {
+            bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachEndStep) }) })
         }
         else if currentPhase == .Cleanup {
             // todo, discard to hand size
