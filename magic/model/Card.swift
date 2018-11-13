@@ -7,7 +7,10 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-        return GRN.RandomCard()
+        if Int.random(in: 1 ... 2) == 1 {
+            return GRN.RandomCard()
+        }
+        return DOM.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {
