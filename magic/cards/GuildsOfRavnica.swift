@@ -138,7 +138,23 @@ enum GRN {
         inspiringUnicorn.toughness = 2
         return inspiringUnicorn
     }
-    // 17 Intrusive Packbeast
+    static func IntrusivePackbeast() -> Card {
+        let intrusivePackbeast = Card(name: "Intrusive Packbeast", rarity: .Common, set: set, number: 17)
+        intrusivePackbeast.setManaCost("4W")
+        intrusivePackbeast.setType(.Creature, .Beast)
+        intrusivePackbeast.vigilance = true
+        intrusivePackbeast.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.MultiObject(
+                restrictions: [{ $0.isType(.Creature) && $0.getController() !== intrusivePackbeast.getController() },
+                               { $0.isType(.Creature) && $0.getController() !== intrusivePackbeast.getController() }],
+                effect: { $0.forEach({ $0.tap() }) },
+                requiredTargets: 0))
+        intrusivePackbeast.setFlavorText("Good at carrying things. Really good at knocking them down.")
+        intrusivePackbeast.power = 3
+        intrusivePackbeast.toughness = 3
+        return intrusivePackbeast
+    }
     // 18 Ledev Guardian
     static func LightOfTheLegion() -> Card {
         let lightOfTheLegion = Card(name: "Light of the Legion", rarity: .Rare, set: set, number: 19)
