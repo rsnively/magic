@@ -2,7 +2,8 @@ import Foundation
 
 protocol Effect {
     func requiresTarget() -> Bool
-    func numTargets() -> Int
+    func numPossibleTargets() -> Int
+    func numRequiredTargets() -> Int
     func resolve() -> Void
 }
 
@@ -16,7 +17,10 @@ class UntargetedEffect: Effect {
     func requiresTarget() -> Bool {
         return false
     }
-    func numTargets() -> Int {
+    func numPossibleTargets() -> Int {
+        return 0
+    }
+    func numRequiredTargets() -> Int {
         return 0
     }
     
@@ -29,6 +33,7 @@ class TargetedEffect: Effect {
     private var restrictions: [(Targetable) -> Bool]
     private var effect: ([Targetable]) -> Void
     private var targets: [Targetable] = []
+    private var requiredTargets: Int
     
     static func AnyPlayer(_ player: Player) -> Bool { return true }
     static func AnyTarget(_ targetable: Targetable) -> Bool {
@@ -41,16 +46,17 @@ class TargetedEffect: Effect {
         return false
     }
     
-    init(restrictions: [(Targetable) -> Bool], effect: @escaping ([Targetable]) -> Void) {
+    init(restrictions: [(Targetable) -> Bool], effect: @escaping ([Targetable]) -> Void, requiredTargets: Int? = nil) {
         self.restrictions = restrictions
         self.effect = effect
+        self.requiredTargets = requiredTargets ?? restrictions.count
     }
     
-    convenience init(restriction: @escaping (Targetable) -> Bool, effect: @escaping (Targetable) -> Void) {
-        self.init(restrictions: [restriction], effect: { objects in effect(objects.first!) })
+    convenience init(restriction: @escaping (Targetable) -> Bool, effect: @escaping (Targetable) -> Void, optional: Bool = false) {
+        self.init(restrictions: [restriction], effect: { objects in effect(objects.first!) }, requiredTargets: optional ? 0 : 1)
     }
     
-    static func SingleObject(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void) -> TargetedEffect {
+    static func SingleObject(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void, optional: Bool = false) -> TargetedEffect {
         let targetableRestriction: (Targetable) -> Bool = { targetable in
             if let targetableObject = targetable as? Object {
                 return restriction(targetableObject)
@@ -58,9 +64,9 @@ class TargetedEffect: Effect {
             return false
         }
         let targetableEffect: (Targetable) -> Void = { effect($0 as! Object) }
-        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect)
+        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect, optional: optional)
     }
-    static func MultiObject(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void) -> TargetedEffect {
+    static func MultiObject(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void, requiredTargets: Int? = nil) -> TargetedEffect {
         var targetableRestrictions: [(Targetable) -> Bool] = []
         for restriction in restrictions {
             targetableRestrictions.append({ targetable in
@@ -77,9 +83,9 @@ class TargetedEffect: Effect {
             }
             effect(objectTargets)
         }
-        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect)
+        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect, requiredTargets: requiredTargets)
     }
-    static func SinglePlayer(restriction: @escaping (Player) -> Bool, effect: @escaping (Player) -> Void) -> TargetedEffect {
+    static func SinglePlayer(restriction: @escaping (Player) -> Bool, effect: @escaping (Player) -> Void, optional: Bool = false) -> TargetedEffect {
         let targetableRestriction: (Targetable) -> Bool = { targetable in
             if let targetablePlayer = targetable as? Player {
                 return restriction(targetablePlayer)
@@ -87,15 +93,25 @@ class TargetedEffect: Effect {
             return false
         }
         let targetableEffect: (Targetable) -> Void = { effect($0 as! Player) }
-        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect)
+        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect, optional: optional)
     }
         
     func requiresTarget() -> Bool {
         return true
     }
-    func numTargets() -> Int {
+    
+    func numPossibleTargets() -> Int {
         return restrictions.count
     }
+    
+    func numRequiredTargets() -> Int {
+        return requiredTargets
+    }
+    
+    func canFinishTargeting() -> Bool {
+        return targets.count >= requiredTargets
+    }
+    
     
     func meetsRestrictions(target: Targetable) -> Bool {
         return restrictions[targets.count](target)
@@ -113,8 +129,10 @@ class TargetedEffect: Effect {
         // TODO: Still need to be able to partially invalidate effects with multiple targets (ie: Destroy two target creatures - if one target is no longer valid, the other creature still needs to get destroyed)
         var targetsValid = true
         for i in 0..<restrictions.count {
-            if !restrictions[i](targets[i]) {
-                targetsValid = false
+            if i < targets.count {
+                if !restrictions[i](targets[i]) {
+                    targetsValid = false
+                }
             }
         }
         if targetsValid {

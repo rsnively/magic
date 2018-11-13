@@ -12,6 +12,9 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isDeclaringBlockers() {
             return "Block"
         }
+        if Game.shared.isTargeting && Game.shared.canFinishTargeting() {
+            return "Done selecting targets"
+        }
         if Game.shared.isTargeting {
             return "(Choose targets)"
         }
@@ -57,7 +60,7 @@ class CommandButtonsNode: SKNode {
     
     private var touching = false
     func touchDown(atPoint pos:CGPoint) {
-        if okayButton.contains(pos) && !Game.shared.isSelectingBesidesAttackBlock() && !Game.shared.isChoosingLegendaryToKeep {
+        if okayButton.contains(pos) && (!Game.shared.isSelectingBesidesAttackBlock() || (Game.shared.isTargeting && Game.shared.canFinishTargeting())) {
             touching = true
             okayButton.color = SKColor.orange
             (self.scene as! GameScene).redraw()

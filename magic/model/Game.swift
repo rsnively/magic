@@ -18,6 +18,11 @@ class Game: NSObject {
     var isSelectingAbility: Bool {
         return selectingAbilityObject != nil
     }
+    func canFinishTargeting() -> Bool {
+        assert(isTargeting)
+        let targetingEffect = targetingEffects.last!
+        return targetingEffect.canFinishTargeting()
+    }
     func selectTarget(_ target: Targetable) {
         assert(isTargeting)
         let targetingEffect = targetingEffects.last!
@@ -269,6 +274,9 @@ class Game: NSObject {
             declaringBlockers = false
             getActivePlayer().givePriority()
             return
+        }
+        if isTargeting && canFinishTargeting() {
+            _ = targetingEffects.popLast()
         }
         if getActivePlayer().hasPriority {
             passPriority()
