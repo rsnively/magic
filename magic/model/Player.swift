@@ -290,6 +290,7 @@ class Player: Targetable {
             object.setTapped(true)
         }
         object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
+        object.replaceEvent(.ThisETB)
         object.triggerAbilities(.ThisETB)
         if object.isType(.Land) {
             getPermanents().forEach({ $0.triggerAbilities(.Landfall) })

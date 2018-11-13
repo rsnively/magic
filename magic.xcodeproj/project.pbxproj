@@ -101,6 +101,9 @@
 		982FF0B5218B72B200F3BF11 /* ktk114full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982FF0B4218B72B200F3BF11 /* ktk114full.png */; };
 		982FF0B7218B742B00F3BF11 /* ktk118full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982FF0B6218B742A00F3BF11 /* ktk118full.png */; };
 		983017522183E73300ED528C /* m19156full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983017512183E73300ED528C /* m19156full.png */; };
+		9831998B219A71A40026317F /* grn235full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9831998A219A71A40026317F /* grn235full.png */; };
+		9831998D219A72260026317F /* ReplacementEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9831998C219A72260026317F /* ReplacementEffect.swift */; };
+		9831998F219A754D0026317F /* grn130full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9831998E219A754D0026317F /* grn130full.png */; };
 		98333F592187A3E8008F43EE /* dom6full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F582187A3E7008F43EE /* dom6full.png */; };
 		98333F5B2187D968008F43EE /* dom5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F5A2187D968008F43EE /* dom5full.png */; };
 		98333F5D2187E0E0008F43EE /* dom68full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98333F5C2187E0DF008F43EE /* dom68full.png */; };
@@ -699,6 +702,9 @@
 		982FF0B4218B72B200F3BF11 /* ktk114full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk114full.png; sourceTree = "<group>"; };
 		982FF0B6218B742A00F3BF11 /* ktk118full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ktk118full.png; sourceTree = "<group>"; };
 		983017512183E73300ED528C /* m19156full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19156full.png; sourceTree = "<group>"; };
+		9831998A219A71A40026317F /* grn235full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn235full.png; sourceTree = "<group>"; };
+		9831998C219A72260026317F /* ReplacementEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplacementEffect.swift; sourceTree = "<group>"; };
+		9831998E219A754D0026317F /* grn130full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn130full.png; sourceTree = "<group>"; };
 		98333F582187A3E7008F43EE /* dom6full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom6full.png; sourceTree = "<group>"; };
 		98333F5A2187D968008F43EE /* dom5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom5full.png; sourceTree = "<group>"; };
 		98333F5C2187E0DF008F43EE /* dom68full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom68full.png; sourceTree = "<group>"; };
@@ -1369,6 +1375,7 @@
 				98E549A420D88CA200D64482 /* Phase.swift */,
 				982F9B2F209BACC7009BBD8B /* Player.swift */,
 				9840897D20CAF562005DA8F6 /* Rarity.swift */,
+				9831998C219A72260026317F /* ReplacementEffect.swift */,
 				9840897F20CAFE8C005DA8F6 /* SpellStack.swift */,
 				98C769AE21827CB9001BCFF7 /* Targetable.swift */,
 				983373D5215C4A5D003CD4D0 /* Trigger.swift */,
@@ -1897,6 +1904,7 @@
 				98BEF4CD21792B1800144C51 /* grn124full.png */,
 				98A19A3121680C1C002A4296 /* grn127full.png */,
 				983373D7215C4FD1003CD4D0 /* grn129full.png */,
+				9831998E219A754D0026317F /* grn130full.png */,
 				98C269C621899A7900911698 /* grn131full.png */,
 				98F981C5216EC03D00254A4C /* grn133full.png */,
 				98B629E6217E763300D92E48 /* grn134full.png */,
@@ -1917,6 +1925,7 @@
 				987858C52171709900A07DB3 /* grn202full.png */,
 				98B6FFA62181062A00BC6FBD /* grn210full.png */,
 				98E176A4216FE8D400763F96 /* grn214full.png */,
+				9831998A219A71A40026317F /* grn235full.png */,
 				9814E3342195278B00B156F9 /* grn241full.png */,
 				98B6FF8E2180FE1A00BC6FBD /* grn243full.png */,
 				98B6FF8D2180FE1A00BC6FBD /* grn244full.png */,
@@ -2139,6 +2148,7 @@
 				98AA80272166022E004BFE0B /* grn137full.png in Resources */,
 				98333F792187F851008F43EE /* xln57full.png in Resources */,
 				98CBD095216F35000085E669 /* m1983full.png in Resources */,
+				9831998B219A71A40026317F /* grn235full.png in Resources */,
 				98B7E3722177F5EC00551F3A /* rix58full.png in Resources */,
 				98CBD0AD216F3EDE0085E669 /* m19205full.png in Resources */,
 				98A9A9672196CA540071D81F /* dom51full.png in Resources */,
@@ -2316,6 +2326,7 @@
 				98E176BC2170191B00763F96 /* xln37full.png in Resources */,
 				989D9D6F21997CAD0024D563 /* m19111full.png in Resources */,
 				98B52207218705A60085F5EB /* m192full.png in Resources */,
+				9831998F219A754D0026317F /* grn130full.png in Resources */,
 				98B87A4C2175D45000F7B32C /* xln45full.png in Resources */,
 				98771687219034E10009758F /* ktk120full.png in Resources */,
 				98533878218A69E0004B22F3 /* ktkt5full.png in Resources */,
@@ -2601,6 +2612,7 @@
 				986D5C9020D1CDB6005E944E /* ManaPoolNode.swift in Sources */,
 				986D5C8820D1B853005E944E /* Magic2019.swift in Sources */,
 				9818425420CA07050068DC91 /* ManaCost.swift in Sources */,
+				9831998D219A72260026317F /* ReplacementEffect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

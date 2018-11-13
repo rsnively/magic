@@ -33,6 +33,7 @@ class Object: Targetable, NSCopying {
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
+    var replacementEffects:[ReplacementEffect] = []
     
     private var baseDeathtouch: Bool = false
     var deathtouch: Bool {
@@ -302,6 +303,19 @@ class Object: Targetable, NSCopying {
         for triggeredAbility in triggeredAbilities {
             if triggeredAbility.getTrigger() == trigger {
                 triggeredAbility.triggerAbility()
+            }
+        }
+    }
+    
+    func addReplacementEffect(event: Trigger, effect: @escaping () -> Void) {
+        replacementEffects.append(ReplacementEffect(source: self, event: event, effect: effect))
+    }
+    
+    func replaceEvent(_ event: Trigger) {
+        // TODO: prevent normal things from happening
+        for replacementEffect in replacementEffects {
+            if replacementEffect.getEvent() == event {
+                replacementEffect.replace()
             }
         }
     }
