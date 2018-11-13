@@ -6,6 +6,10 @@ class Card: Object {
     private var setCode: String
     private var collectorsNumber: Int
     
+    static func randomCard() -> Card {
+        return GRN.RandomCard()
+    }
+    
     init(name: String, rarity: Rarity, set: String, number: Int) {
         self.rarity = rarity
         self.setCode = set

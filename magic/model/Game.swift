@@ -62,14 +62,23 @@ class Game: NSObject {
     override private init() {
         var deck1: [Card] = []
         var deck2: [Card] = []
-        for _ in 0..<6 {
-            
+        for _ in 0..<35 {
+            deck1.append(Card.randomCard())
+            deck2.append(Card.randomCard())
+        }
+        
+        for _ in 0..<5 {
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.Island())
             deck1.append(GRN.Swamp())
-            deck1.append(LEA.DarkRitual())
-            deck1.append(GRN.BurglarRat())
+            deck1.append(GRN.Mountain())
+            deck1.append(GRN.Forest())
             
+            deck2.append(GRN.Plains())
+            deck2.append(GRN.Island())
             deck2.append(GRN.Swamp())
-            deck2.append(GRN.BurglarRat())
+            deck2.append(GRN.Mountain())
+            deck2.append(GRN.Forest())
         }
         
         player1 = Player(deck: deck1)

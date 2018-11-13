@@ -10,6 +10,10 @@ enum GRN {
     ]
     // Impervious Greatwurm
     
+    static func RandomCard() -> Card {
+        return cards[Int.random(in: 0 ..< cards.count)]()
+    }
+    
     static func Mentor(_ source: Object) -> TriggeredAbility {
         return TargetedTriggeredAbility(
             source: source,
