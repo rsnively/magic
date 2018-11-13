@@ -219,6 +219,10 @@ class Game: NSObject {
                 getActivePlayer().drawCard()
             }
         }
+        else if currentPhase == .FirstMain {
+            getActivePlayer().getPermanents().forEach({ $0.replaceEvent(.YourFirstMain) })
+            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourFirstMain) })
+        }
         else if currentPhase == .BeginCombat {
             getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourBeginCombat) })
         }

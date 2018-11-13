@@ -259,10 +259,15 @@ class Object: Targetable, NSCopying {
     }
     
     func addCounters(_ type: Counter, _ amount: Int) {
-        counters[type] = (counters[type] ?? 0) + amount
+        for _ in 1 ... amount {
+            addCounter(type)
+        }
     }
     func addCounter(_ type: Counter) {
         counters[type] = (counters[type] ?? 0) + 1
+        if type == Counter.Lore {
+            triggerAbilities(.ThisGetsLoreCounter)
+        }
     }
     func getCounters(_ type: Counter) -> Int {
         return counters[type] ?? 0

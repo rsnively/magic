@@ -9,6 +9,7 @@ enum Trigger {
     case ThisBlocks
     case ThisDies
     case ThisETB
+    case ThisGetsLoreCounter
     case YouCastBlueSpell
     case YouCastCreatureSpell
     case YouCastEnchantmentSpell
@@ -18,6 +19,7 @@ enum Trigger {
     case YouDrawCard
     case YouGainLife
     case YourBeginCombat
+    case YourFirstMain
     case YourEndStep
     case YourUpkeep
 }

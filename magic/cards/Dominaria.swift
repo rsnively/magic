@@ -9,6 +9,15 @@ extension Object {
 enum DOM {
     static var set = "dom"
     static var count = 269
+    
+    static private func Saga(_ object: Object) {
+        object.addReplacementEffect(
+            event: .ThisETB,
+            effect: { object.addCounter(.Lore) })
+        object.addReplacementEffect(
+            event: .YourFirstMain,
+            effect: { object.addCounter(.Lore) })
+    }
 
     // 1 Karn, Scion of Urza
     static func AdamantWill() -> Card {
@@ -143,7 +152,28 @@ enum DOM {
         return gideonsReproach
     }
     // 20 Healing Grace
-    // 21 History of Benalia
+    static func HistoryOfBenalia() -> Card {
+        let historyOfBenalia = Card(name: "History of Benalia", rarity: .Mythic, set: set, number: 21)
+        historyOfBenalia.setManaCost("1WW")
+        historyOfBenalia.setType(.Enchantment, .Saga)
+        Saga(historyOfBenalia)
+        historyOfBenalia.addTriggeredAbility(
+            trigger: .ThisGetsLoreCounter,
+            effect: {
+                let loreCounters = historyOfBenalia.getCounters(.Lore)
+                if loreCounters == 1 || loreCounters == 2 {
+                    historyOfBenalia.getController().createToken(Knight())
+                }
+                else if loreCounters == 3 {
+                    historyOfBenalia.getController().getCreatures().filter({ $0.isType(.Knight) }).forEach({ $0.pump(2, 1) })
+                }
+
+                if loreCounters >= 3 {
+                    historyOfBenalia.sacrifice()
+                }
+        })
+        return historyOfBenalia
+    }
     static func InvokeTheDivine() -> Card {
         let invokeTheDivine = Card(name: "Invoke the Divine", rarity: .Common, set: set, number: 22)
         invokeTheDivine.setManaCost("2W")
