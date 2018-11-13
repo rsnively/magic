@@ -249,6 +249,7 @@ class Game: NSObject {
         }
         else if currentPhase == .End {
             bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachEndStep) }) })
+            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourEndStep) })
         }
         else if currentPhase == .Cleanup {
             // todo, discard to hand size
