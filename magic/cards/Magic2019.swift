@@ -1347,6 +1347,7 @@ enum M19 {
             heroicReinforcements.getController().createToken(Soldier())
             heroicReinforcements.getController().createToken(Soldier())
             heroicReinforcements.getController().getCreatures().forEach({ creature in
+                creature.pump(1, 1)
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.haste = true
                     return object
