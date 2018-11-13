@@ -443,6 +443,8 @@ enum DOM {
             trigger: .ThisDies,
             effect: { deathbloomThallid.getController().createToken(Saproling()) })
         deathbloomThallid.setFlavorText("\"Nature is not always gentle or kind, but all life begets life.\"\n--Marwyn of Llanowar")
+        deathbloomThallid.power = 3
+        deathbloomThallid.toughness = 2
         return deathbloomThallid
     }
     // 85 Demonic Vigor
