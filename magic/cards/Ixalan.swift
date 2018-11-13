@@ -500,7 +500,21 @@ enum XLN {
     // 82 Spell Swindle
     // 83 Storm Fleet Aerialist
     // 84 Storm Fleet Spy
-    // 85 Storm Sculptor
+    static func StormSculptor() -> Card {
+        let stormSculptor = Card(name: "Storm Sculptor", rarity: .Common, set: set, number: 85)
+        stormSculptor.setManaCost("3U")
+        stormSculptor.setType(.Creature, .Merfolk, .Wizard)
+        stormSculptor.unblockable = true
+        stormSculptor.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === stormSculptor.getController() },
+                effect: { $0.bounce() }))
+        stormSculptor.setFlavorText("In his hands, the wind can become a weapon or a means of escape.")
+        stormSculptor.power = 3
+        stormSculptor.toughness = 2
+        return stormSculptor
+    }
     static func TempestCaller() -> Card {
         let tempestCaller = Card(name: "Tempest Caller", rarity: .Uncommon, set: set, number: 86)
         tempestCaller.setManaCost("2UU")
@@ -640,9 +654,51 @@ enum XLN {
     // 119 Ruthless Knave
     // 120 Sanctum Seeker
     // 121 Seekers' Squire
-    // 122 Skittering Heartstopper
-    // 123 Skulduggery
-    // 124 Skymarch Bloodletter
+    static func SkitteringHeartstopper() -> Card {
+        let skitteringHeartstopper = Card(name: "Skittering Heartstopper", rarity: .Common, set: set, number: 122)
+        skitteringHeartstopper.setManaCost("B")
+        skitteringHeartstopper.setType(.Creature, .Insect)
+        skitteringHeartstopper.addActivatedAbility(
+            string: "{B}: ~ gains deathtouch until end of turn.",
+            cost: Cost("B"),
+            effect: { skitteringHeartstopper.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
+        skitteringHeartstopper.setFlavorText("It flows like water over the forest floor, as deadly as the swiftest current.")
+        skitteringHeartstopper.power = 1
+        skitteringHeartstopper.toughness = 2
+        return skitteringHeartstopper
+    }
+    static func Skulduggery() -> Card {
+        let skulduggery = Card(name: "Skulduggery", rarity: .Common, set: set, number: 123)
+        skulduggery.setManaCost("B")
+        skulduggery.setType(.Instant)
+        skulduggery.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === skulduggery.getController() },
+                           { $0.isType(.Creature) && $0.getController() !== skulduggery.getController() }],
+            effect: { targets in
+                targets[0].pump(1, 1)
+                targets[1].pump(-1, -1)
+        }))
+        skulduggery.setFlavorText("\"They're so much more willing to parley once they're hanging from a boom by the ankle!\"")
+        return skulduggery
+    }
+    static func SkymarchBloodletter() -> Card {
+        let skymarchBloodletter = Card(name: "Skymarch Bloodletter", rarity: .Common, set: set, number: 124)
+        skymarchBloodletter.setManaCost("2B")
+        skymarchBloodletter.setType(.Creature, .Vampire, .Soldier)
+        skymarchBloodletter.flying = true
+        skymarchBloodletter.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== skymarchBloodletter.getController() },
+                effect: { target in
+                    target.loseLife(1)
+                    skymarchBloodletter.getController().gainLife(1)
+            }))
+        skymarchBloodletter.setFlavorText("From the perpetual shadowsmoke that hung above the ship, a silent form emerged, lips curled with malice and anticipation.")
+        skymarchBloodletter.power = 2
+        skymarchBloodletter.toughness = 2
+        return skymarchBloodletter
+    }
     static func SpreadingRot() -> Card {
         let spreadingRot = Card(name: "Spreading Rot", rarity: .Common, set: set, number: 125)
         spreadingRot.setManaCost("4B")
@@ -711,7 +767,26 @@ enum XLN {
     // 132 Angrath's Marauders
     // 133 Bonded Horncrest
     // 134 Brazen Buccaneers
-    // 135 Burning Sun's Avatar
+    static func BurningSunsAvatar() -> Card {
+        let burningSunsAvatar = Card(name: "Burning Sun's Avatar", rarity: .Rare, set: set, number: 135)
+        burningSunsAvatar.setManaCost("3RRR")
+        burningSunsAvatar.setType(.Creature, .Dinosaur)
+        burningSunsAvatar.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect(
+                restrictions: [{ potentialTarget in if let player = potentialTarget as? Player { return player !== burningSunsAvatar.getController(); } else { return false; }},
+                               { potentialTarget in if let object = potentialTarget as? Object { return object.isType(.Creature); } else { return false; }}],
+                effect: { targets in
+                    for target in targets {
+                        burningSunsAvatar.damage(to: target, 3)
+                    }
+                },
+                requiredTargets: 1))
+        burningSunsAvatar.setFlavorText("\"Tilonalli's searing rays carry the spark of life's eventual destruction as all light fades.\"\n--Chitlati, Lightning Rider")
+        burningSunsAvatar.power = 6
+        burningSunsAvatar.toughness = 6
+        return burningSunsAvatar
+    }
     // 136 Captain Lannery Storm
     // 137 Captivating Crew
     // 138 Charging Monstrosaur
@@ -726,7 +801,22 @@ enum XLN {
         return demolish
     }
     // 140 Dinosaur Stampede
-    // 141 Dual Shot
+    static func DualShot() -> Card {
+        let dualShot = Card(name: "Dual Shot", rarity: .Common, set: set, number: 141)
+        dualShot.setManaCost("R")
+        dualShot.setType(.Instant)
+        dualShot.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) },
+                           { $0.isType(.Creature) }],
+            effect: { targets in
+                for target in targets {
+                    dualShot.damage(to: target, 1)
+                }
+            },
+            requiredTargets: 0))
+        dualShot.setFlavorText("\"Through me the rage of Tilonalli burns twice as bright.\"")
+        return dualShot
+    }
     static func FathomFleetFirebrand() -> Card {
         let fathomFleetFirebrand = Card(name: "Fathom Fleet Firebrand", rarity: .Common, set: set, number: 142)
         fathomFleetFirebrand.setManaCost("1R")
@@ -769,7 +859,16 @@ enum XLN {
     }
     // 147 Headstrong Brute
     // 148 Hijack
-    // 149 Lightning Strike
+    static func LightningStrike() -> Card {
+        let lightningStrike = Card(name: "Lightning Strike", rarity: .Uncommon, set: set, number: 149)
+        lightningStrike.setManaCost("1R")
+        lightningStrike.setType(.Instant)
+        lightningStrike.addEffect(TargetedEffect(
+            restriction: TargetedEffect.AnyTarget,
+            effect: { lightningStrike.damage(to: $0, 3) }))
+        lightningStrike.setFlavorText("\"Storm on the horizon, cap'n!\"\n--Grick Doobin, last words")
+        return lightningStrike
+    }
     // 150 Lightning-Rig Crew
     // 151 Makeshift Munitions
     static func NestRobber() -> Card {
@@ -798,10 +897,31 @@ enum XLN {
     // 166 Sure Strike
     // 167 Swashbuckling
     // 168 Thrash of Raptors
-    // 169 Tilonalli's Knight
+    static func TilonallisKnight() -> Card {
+        let tilonallisKnight = Card(name: "Tilonalli's Knight", rarity: .Common, set: set, number: 169)
+        tilonallisKnight.setManaCost("1R")
+        tilonallisKnight.setType(.Creature, .Human, .Knight)
+        tilonallisKnight.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: { tilonallisKnight.pump(1, 1) },
+            restriction: { !tilonallisKnight.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty })
+        tilonallisKnight.setFlavorText("The people of the Sun Empire worship the sun in three aspects. Tilonalli is the Burning Sun, associated with ferocity, fire, and passion.")
+        tilonallisKnight.power = 2
+        tilonallisKnight.toughness = 2
+        return tilonallisKnight
+    }
     // 170 Tilonalli's Skinshifter
     // 171 Trove of Temptation
-    // 172 Unfriendly Fire
+    static func UnfriendlyFire() -> Card {
+        let unfriendlyFire = Card(name: "Unfriendly Fire", rarity: .Common, set: set, number: 172)
+        unfriendlyFire.setManaCost("4R")
+        unfriendlyFire.setType(.Instant)
+        unfriendlyFire.addEffect(TargetedEffect(
+            restriction: TargetedEffect.AnyTarget,
+            effect: { unfriendlyFire.damage(to: $0, 4) }))
+        unfriendlyFire.setFlavorText("Disputes within the Brazen Coalition can escalate from insult to broadside in the blink of an eye.")
+        return unfriendlyFire
+    }
     // 173 Vance's Blasting Cannons // Spitfire Bastion
     static func WilyGoblin() -> Card {
         let wilyGoblin = Card(name: "Wily Goblin", rarity: .Uncommon, set: set, number: 174)
@@ -847,9 +967,60 @@ enum XLN {
     // 182 Crash the Ramparts
     // 183 Crushing Canopy
     // 184 Deathgorge Scavenger
-    // 185 Deeproot Champion
+    static func DeeprootChampion() -> Card {
+        let deeprootChampion = Card(name: "Deeproot Champion", rarity: .Rare, set: set, number: 185)
+        deeprootChampion.setManaCost("1G")
+        deeprootChampion.setType(.Creature, .Merfolk, .Warrior)
+        deeprootChampion.addTriggeredAbility(
+            trigger: .YouCastNoncreatureSpell,
+            effect: { deeprootChampion.addCounter(.PlusOnePlusOne) })
+        deeprootChampion.setFlavorText("\"No good will come from what you seek. Turn back now or suffer an ignoble death far from your home.\"")
+        deeprootChampion.power = 1
+        deeprootChampion.toughness = 1
+        return deeprootChampion
+    }
     // 186 Deeproot Warrior
-    // 187 Drover of the Mighty
+    static func DroverOfTheMight() -> Card {
+        let droverOfTheMighty = Card(name: "Drover of the Mighty", rarity: .Uncommon, set: set, number: 187)
+        droverOfTheMighty.setManaCost("1G")
+        droverOfTheMighty.setType(.Creature, .Human, .Druid)
+        droverOfTheMighty.addStaticAbility({ object in
+            if object.id == droverOfTheMighty.id && !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty {
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+            }
+            return object
+        })
+        droverOfTheMighty.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost("", tap: true),
+            effect: { droverOfTheMighty.getController().addMana(color: .White) },
+            manaAbility: true)
+        droverOfTheMighty.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost("", tap: true),
+            effect: { droverOfTheMighty.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        droverOfTheMighty.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost("", tap: true),
+            effect: { droverOfTheMighty.getController().addMana(color: .Black) },
+            manaAbility: true)
+        droverOfTheMighty.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost("", tap: true),
+            effect: { droverOfTheMighty.getController().addMana(color: .Red) },
+            manaAbility: true)
+        droverOfTheMighty.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost("", tap: true),
+            effect: { droverOfTheMighty.getController().addMana(color: .Green) },
+            manaAbility: true)
+        droverOfTheMighty.setFlavorText("\"I do not lead. They do not follow. We walk together.\"")
+        droverOfTheMighty.power = 1
+        droverOfTheMighty.toughness = 1
+        return droverOfTheMighty
+    }
     // 188 Emergent Growth
     // 189 Emperor's Vanguard
     static func GrazingWhiptail() -> Card {
@@ -879,15 +1050,55 @@ enum XLN {
         jungleDelver.toughness = 1
         return jungleDelver
     }
-    // 196 Kumena's Speaker
+    static func KumenasSpeaker() -> Card {
+        let kumenasSpeaker = Card(name: "Kumena's Speaker", rarity: .Uncommon, set: set, number: 196)
+        kumenasSpeaker.setManaCost("G")
+        kumenasSpeaker.setType(.Creature, .Merfolk, .Shaman)
+        kumenasSpeaker.addStaticAbility({ object in
+            if object.id == kumenasSpeaker.id {
+                let controlsOtherMerfolk = !object.getController().getPermanents().filter({ $0.isType(.Merfolk) && $0.id != object.id }).isEmpty
+                let controlsIsland = !object.getController().getPermanents().filter({ $0.isType(.Island) }).isEmpty
+                if controlsOtherMerfolk || controlsIsland {
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                }
+            }
+            return object
+        })
+        kumenasSpeaker.setFlavorText("\"The same power that drives the river ever onward flows through the roots and branches--to me.\"")
+        kumenasSpeaker.power = 1
+        kumenasSpeaker.toughness = 1
+        return kumenasSpeaker
+    }
     // 197 Merfolk Branchwalker
     // 198 New Horizons
     // 199 Old Growth Dryads
-    // 200 Pounce
+    static func Pounce() -> Card {
+        let pounce = Card(name: "Pounce", rarity: .Common, set: set, number: 200)
+        pounce.setManaCost("1G")
+        pounce.setType(.Instant)
+        pounce.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) && $0.getController() === pounce.getController()},
+                           { $0.isType(.Creature) && $0.getController() !== pounce.getController()}],
+            effect: { targets in targets[0].fight(targets[1]) }))
+        pounce.setFlavorText("The drive to hunt and feed is raw instinct for dinosaurs. The trick is simply to channel it in the right direction.")
+        return pounce
+    }
     // 201 Ranging Raptors
     // 202 Ravenous Daggertooth
     // 203 Ripjaw Raptor
-    // 204 River Heralds' Boon
+    static func RiverHeraldsBoon() -> Card {
+        let riverHeraldsBoon = Card(name: "River Heralds' Boon", rarity: .Common, set: set, number: 204)
+        riverHeraldsBoon.setManaCost("1G")
+        riverHeraldsBoon.setType(.Instant)
+        riverHeraldsBoon.addEffect(TargetedEffect.MultiObject(
+            restrictions: [{ $0.isType(.Creature) },
+                           { $0.isType(.Merfolk) }],
+            effect: { $0.forEach({ $0.addCounter(.PlusOnePlusOne) }) },
+            requiredTargets: 1))
+        riverHeraldsBoon.setFlavorText("\"We are kin to the trees, and their strength is their own.\"")
+        return riverHeraldsBoon
+    }
     // 205 Savage Stomp
     // 206 Shaper's Sanctuary
     static func SliceInTwain() -> Card {
