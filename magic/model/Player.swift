@@ -24,10 +24,14 @@ class Player: Targetable {
             card.setOwner(owner: self)
         }
         
-//        for _ in 0..<4 {
-//            permanents.append(GRN.Forest())
-//        }
-//        permanents.forEach({$0.setOwner(owner: self)})
+        for _ in 0..<2 {
+            permanents.append(GRN.Plains())
+            permanents.append(GRN.Island())
+            permanents.append(GRN.Swamp())
+            permanents.append(GRN.Mountain())
+            permanents.append(GRN.Forest())
+        }
+        permanents.forEach({$0.setOwner(owner: self)})
         
         self.pregameActions()
     }

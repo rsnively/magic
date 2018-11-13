@@ -7,8 +7,12 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-        if Int.random(in: 1 ... 2) == 1 {
+        let r = Int.random(in: 1 ... 3)
+        if r == 1 {
             return GRN.RandomCard()
+        }
+        if r == 2 {
+            return M19.RandomCard()
         }
         return DOM.RandomCard()
     }
