@@ -632,7 +632,7 @@ enum RIX {
         return huntTheWeak
     }
     static func JadeBearer() -> Card {
-        let jadeBearer = Card(name: "Jade Bearer", rarity: .Common, set: set, number: 136)
+        let jadeBearer = Card(name: "Jade Bearer", rarity: .Common, set: set, number: 134)
         jadeBearer.setManaCost("G")
         jadeBearer.setType(.Creature, .Merfolk, .Shaman)
         jadeBearer.addTriggeredAbility(
