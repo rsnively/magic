@@ -24,7 +24,7 @@ class Player: Targetable {
             card.setOwner(owner: self)
         }
         
-        for _ in 0..<2 {
+        for _ in 0..<1 {
             permanents.append(GRN.Plains())
             permanents.append(GRN.Island())
             permanents.append(GRN.Swamp())
