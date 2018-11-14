@@ -35,6 +35,7 @@ enum Subtype {
     case Cleric
     case Construct
     case Crab
+    case Devil
     case Dinosaur
     case Djinn
     case Dragon

@@ -81,6 +81,11 @@ class Object: Targetable, NSCopying {
         get { return applyContinuousEffects().baseReach }
         set (newReach) { baseReach = newReach }
     }
+    private var baseTrample: Bool = false
+    var trample: Bool {
+        get { return applyContinuousEffects().baseTrample }
+        set (newTrample) { baseTrample = newTrample }
+    }
     private var baseUnblockable: Bool = false
     var unblockable: Bool {
         get { return applyContinuousEffects().baseUnblockable }
@@ -146,6 +151,7 @@ class Object: Targetable, NSCopying {
         copy.baseIndestructible = baseIndestructible
         copy.baseLifelink = baseLifelink
         copy.baseReach = baseReach
+        copy.baseTrample = baseTrample
         copy.baseVigilance = baseVigilance
         copy.baseUnblockable = baseUnblockable
         

@@ -789,7 +789,17 @@ enum XLN {
     }
     // 136 Captain Lannery Storm
     // 137 Captivating Crew
-    // 138 Charging Monstrosaur
+    static func ChargingMonstrosaur() -> Card {
+        let chargingMonstrosaur = Card(name: "Charging Monstrosaur", rarity: .Uncommon, set: set, number: 138)
+        chargingMonstrosaur.setManaCost("4R")
+        chargingMonstrosaur.setType(.Creature, .Dinosaur)
+        chargingMonstrosaur.trample = true
+        chargingMonstrosaur.haste = true
+        chargingMonstrosaur.setFlavorText("\"I knew I should have stayed with the boat. Always stay with the boat!")
+        chargingMonstrosaur.power = 5
+        chargingMonstrosaur.toughness = 5
+        return chargingMonstrosaur
+    }
     static func Demolish() -> Card {
         let demolish = Card(name: "Demolish", rarity: .Common, set: set, number: 139)
         demolish.setManaCost("3R")
@@ -800,7 +810,23 @@ enum XLN {
         demolish.setFlavorText("What took months for human hands to carve took just seconds for the dinosaur's tail to ruin.")
         return demolish
     }
-    // 140 Dinosaur Stampede
+    static func DinosaurStampede() -> Card {
+        let dinosaurStampede = Card(name: "Dinosaur Stampede", rarity: .Uncommon, set: set, number: 140)
+        dinosaurStampede.setManaCost("2R")
+        dinosaurStampede.setType(.Instant)
+        dinosaurStampede.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getCreatures().filter({ $0.attacking }).forEach({ creature in
+                    creature.pump(2, 0)
+                })
+            })
+            dinosaurStampede.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).forEach({ dinosaur in
+                dinosaur.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+            })
+        })
+        dinosaurStampede.setFlavorText("If you're in the way of a ceratops charge and you're made of mere flesh and bone, then you're not really in the way.")
+        return dinosaurStampede
+    }
     static func DualShot() -> Card {
         let dualShot = Card(name: "Dual Shot", rarity: .Common, set: set, number: 141)
         dualShot.setManaCost("R")
@@ -886,7 +912,20 @@ enum XLN {
     // 155 Raptor Hatchling
     // 156 Repeating Barrage
     // 157 Rigging Runner
-    // 158 Rile
+    static func Rile() -> Card {
+        let rile = Card(name: "Rile", rarity: .Common, set: set, number: 158)
+        rile.setManaCost("R")
+        rile.setType(.Sorcery)
+        rile.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) && $0.getController() === rile.getController() },
+            effect: { target in
+                rile.damage(to: target, 1)
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                rile.getController().drawCard()
+        }))
+        rile.setFlavorText("The enormous can still be at the mercy of the small.")
+        return rile
+    }
     // 159 Rowdy Crew
     // 160 Rummaging Goblin
     // 161 Star of Extinction
@@ -896,7 +935,23 @@ enum XLN {
     // 165 Sunbird's Invocation
     // 166 Sure Strike
     // 167 Swashbuckling
-    // 168 Thrash of Raptors
+    static func ThrashOfRaptors() -> Card {
+        let thrashOfRaptors = Card(name: "Thrash of Raptors", rarity: .Common, set: set, number: 168)
+        thrashOfRaptors.setManaCost("3R")
+        thrashOfRaptors.setType(.Creature, .Dinosaur)
+        thrashOfRaptors.addStaticAbility({ object in
+            if object.id == thrashOfRaptors.id && !thrashOfRaptors.getController().getPermanents().filter({ $0.isType(.Dinosaur) && $0.id != thrashOfRaptors.id }).isEmpty {
+                object.power = object.getBasePower() + 2
+                // TODO: These should be in separate layers
+                object.trample = true
+            }
+            return object
+        })
+        thrashOfRaptors.setFlavorText("They glide through the undergrowth, drawn to sounds of disturbance. They attack in unison and all share in the kill. And then they move on.")
+        thrashOfRaptors.power = 3
+        thrashOfRaptors.toughness = 3
+        return thrashOfRaptors
+    }
     static func TilonallisKnight() -> Card {
         let tilonallisKnight = Card(name: "Tilonalli's Knight", rarity: .Common, set: set, number: 169)
         tilonallisKnight.setManaCost("1R")
@@ -962,9 +1017,30 @@ enum XLN {
         return blossomDryad
     }
     // 179 Carnage Tyrant
-    // 180 Colossal Dreadmaw
+    static func ColossalDreadmaw() -> Card {
+        let colossalDreadmaw = Card(name: "Colossal Dreadmaw", rarity: .Common, set: set, number: 180)
+        colossalDreadmaw.setManaCost("4GG")
+        colossalDreadmaw.setType(.Creature, .Dinosaur)
+        colossalDreadmaw.trample = true
+        colossalDreadmaw.setFlavorText("If you feel the ground quake, run. If you hear its bellow, flee. If you see its teeth, it's too late.")
+        colossalDreadmaw.power = 6
+        colossalDreadmaw.toughness = 6
+        return colossalDreadmaw
+    }
     // 181 Commune with Dinosaurs
-    // 182 Crash the Ramparts
+    static func CrashTheRamparts() -> Card {
+        let crashTheRamparts = Card(name: "Crash the Ramparts", rarity: .Common, set: set, number: 182)
+        crashTheRamparts.setManaCost("2G")
+        crashTheRamparts.setType(.Instant)
+        crashTheRamparts.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                target.pump(3, 3)
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+        }))
+        crashTheRamparts.setFlavorText("The Legion's conquistadors could endure Ixalan's sun. Their forst could withstand a charging ceratops. But nothing can stop a ceratops strengthened by the sun.")
+        return crashTheRamparts
+    }
     // 183 Crushing Canopy
     // 184 Deathgorge Scavenger
     static func DeeprootChampion() -> Card {
@@ -1035,7 +1111,24 @@ enum XLN {
     }
     // 191 Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun
     // 192 Ixalli's Diviner
-    // 193 Ixalli's Keeper
+    static func IxallisKeeper() -> Card {
+        let ixallisKeeper = Card(name: "Ixalli's Keeper", rarity: .Common, set: set, number: 193)
+        ixallisKeeper.setManaCost("1G")
+        ixallisKeeper.setType(.Creature, .Human, .Shaman)
+        ixallisKeeper.addActivatedAbility(
+            string: "{7}{G}, {T}, Sacrifice ~: Target creature gets +5/+5 and gains trample until end of turn.",
+            cost: Cost("7G", tap: true, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { target in
+                    target.pump(5, 5)
+                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+        }))
+        ixallisKeeper.setFlavorText("The people of the Sun Empire worship the sun in three aspects. Ixalli is the Verdant Sun, who fosters growth in all things.")
+        ixallisKeeper.power = 2
+        ixallisKeeper.toughness = 2
+        return ixallisKeeper
+    }
     // 194 Jade Guardian
     static func JungleDelver() -> Card {
         let jungleDelver = Card(name: "Jungle Delver", rarity: .Common, set: set, number: 195)
@@ -1116,7 +1209,26 @@ enum XLN {
     }
     // 208 Snapping Sailback
     // 209 Spike-Tailed Ceratops
-    // 210 Thundering Spineback
+    static func ThunderingSpineback() -> Card {
+        let thunderingSpineback = Card(name: "Thundering Spineback", rarity: .Uncommon, set: set, number: 210)
+        thunderingSpineback.setManaCost("5GG")
+        thunderingSpineback.setType(.Creature, .Dinosaur)
+        thunderingSpineback.addStaticAbility({ object in
+            if object.id != thunderingSpineback.id && object.isType(.Dinosaur) && object.getController() === thunderingSpineback.getController() {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        thunderingSpineback.addActivatedAbility(
+            string: "{5}{G}: Create a 3/3 green Dinosaur creature token with trample.",
+            cost: Cost("5G"),
+            effect: { thunderingSpineback.getController().createToken(Dinosaur()) })
+        thunderingSpineback.setFlavorText("\"It appears that nature has risen up against us.\"\n--Captain Brinely Rage")
+        thunderingSpineback.power = 5
+        thunderingSpineback.toughness = 5
+        return thunderingSpineback
+    }
     // 211 Tishana's Wayfinder
     // 212 Verdant Rebirth
     // 213 Verdant Sun's Avatar
@@ -1178,8 +1290,44 @@ enum XLN {
     // 223 Hostage Taker
     // 224 Huatli, Warrior Poet
     // 225 Marauding Looter
-    // 226 Raging Swordtooth
-    // 227 Regisaur Alpha
+    static func RagingSwordtooth() -> Card {
+        let ragingSwordtooth = Card(name: "Raging Swordtooth", rarity: .Uncommon, set: set, number: 226)
+        ragingSwordtooth.setManaCost("3RG")
+        ragingSwordtooth.setType(.Creature, .Dinosaur)
+        ragingSwordtooth.trample = true
+        ragingSwordtooth.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { Game.shared.bothPlayers({ player in
+                player.getCreatures().forEach({ creature in
+                    if creature.id != ragingSwordtooth.id {
+                        ragingSwordtooth.damage(to: creature, 1)
+                    }
+                })
+            })
+        })
+        ragingSwordtooth.setFlavorText("Carnivorous dinosaurs developed a taste for undead flesh, tracking the vampires by the scent of blood on their breath.")
+        ragingSwordtooth.power = 5
+        ragingSwordtooth.toughness = 5
+        return ragingSwordtooth
+    }
+    static func RegisaurAlpha() -> Card {
+        let regisaurAlpha = Card(name: "Regisaur Alpha", rarity: .Rare, set: set, number: 227)
+        regisaurAlpha.setManaCost("3RG")
+        regisaurAlpha.setType(.Creature, .Dinosaur)
+        regisaurAlpha.addStaticAbility({ object in
+            if object.id != regisaurAlpha.id && object.isType(.Dinosaur) && object.getController() === regisaurAlpha.getController() {
+                object.haste = true
+            }
+            return object
+        })
+        regisaurAlpha.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { regisaurAlpha.getController().createToken(Dinosaur()) })
+        regisaurAlpha.setFlavorText("\"Seeing a pack of these monsters hunt together, I'm at a loss to imagine the size of their prey.\"\n--Adrain Adanto of Lujio")
+        regisaurAlpha.power = 3
+        regisaurAlpha.toughness = 3
+        return regisaurAlpha
+    }
     // 228 Shapers of Nature
     // 229 Sky Terror
     // 230 Tishana, Voice of Thunder
@@ -1409,7 +1557,15 @@ enum XLN {
     // 2 Illusion
     // 3 Merfolk
     // 4 Pirate
-    // 5 Dinosaur
+    static func Dinosaur() -> Token {
+        let dinosaur = Token(name: "Dinosaur", set: set, number: 5)
+        dinosaur.colors = [.Green]
+        dinosaur.setType(.Creature, .Dinosaur)
+        dinosaur.trample = true
+        dinosaur.power = 3
+        dinosaur.toughness = 3
+        return dinosaur
+    }
     // 6 Plant
     static func Treasure() -> Token {
         let r = Int.random(in: 7 ... 10)

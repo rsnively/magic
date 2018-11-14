@@ -205,11 +205,19 @@ class Player: Targetable {
                 if permanent.blocked {
                     //todo order blockers / double blocks
                     if let blocker = permanent.blockers.first {
-                        permanent.damage(to: blocker, max(permanent.getPower(), 0))
+                        
+                        if permanent.trample {
+                            let damageToBlocker = max(min(permanent.getPower(), blocker.getToughness()), 0)
+                            let damageToPlayer = max(permanent.getPower() - damageToBlocker, 0)
+                            permanent.damage(to: blocker, damageToBlocker)
+                            permanent.damage(to: permanent.getOpponent(), damageToPlayer)
+                        } else {
+                            permanent.damage(to: blocker, max(permanent.getPower(), 0))
+                        }
                         blocker.damage(to: permanent, max(blocker.getPower(), 0))
                     }
                 } else {
-                    permanent.damage(to: Game.shared.getNonActivePlayer(), max(permanent.getPower(), 0))
+                    permanent.damage(to: permanent.getOpponent(), max(permanent.getPower(), 0))
                 }
             }
         }
@@ -261,6 +269,9 @@ class Player: Targetable {
             
             if card.isSpell() && card.isColor(.Blue) {
                 getPermanents().forEach({ $0.triggerAbilities(.YouCastBlueSpell) })
+            }
+            if card.isSpell() && card.colors.count > 1 {
+                getPermanents().forEach({ $0.triggerAbilities(.YouCastMulticoloredSpell) })
             }
         }
         else {

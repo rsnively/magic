@@ -405,7 +405,20 @@ enum RIX {
     // 115 Silverclad Ferocidons
     // 116 Stampeding Horncrest
     // 117 Storm Fleet Swashbuckler
-    // 118 Sun-Collared Raptor
+    static func SunCollaredRaptor() -> Card {
+        let sunCollaredRaptor = Card(name: "Sun-Collared Raptor", rarity: .Common, set: set, number: 118)
+        sunCollaredRaptor.setManaCost("1R")
+        sunCollaredRaptor.setType(.Creature, .Dinosaur)
+        sunCollaredRaptor.trample = true
+        sunCollaredRaptor.addActivatedAbility(
+            string: "{2}{R}: ~ gets +3/+0 until end of turn.",
+            cost: Cost("2R"),
+            effect: { sunCollaredRaptor.pump(3, 0) })
+        sunCollaredRaptor.setFlavorText("\"With Tilonalli's gifts, even the smallest of us can become great.\"\n--Huatli")
+        sunCollaredRaptor.power = 1
+        sunCollaredRaptor.toughness = 2
+        return sunCollaredRaptor
+    }
     // 119 Swaggering Corsair
     // 120 Tilonalli's Crown
     // 121 Tilonalli's Summoner
@@ -424,8 +437,29 @@ enum RIX {
     }
     // 123 Cacophodon
     // 124 Cherished Hatchling
-    // 125 Colossal Dreadmaw
-    // 126 Crested Herdcaller
+    static func ColossalDreadmaw() -> Card {
+        let colossalDreadmaw = Card(name: "Colossal Dreadmaw", rarity: .Common, set: set, number: 125)
+        colossalDreadmaw.setManaCost("4GG")
+        colossalDreadmaw.setType(.Creature, .Dinosaur)
+        colossalDreadmaw.trample = true
+        colossalDreadmaw.setFlavorText("\"Remember when it was the most terrifying thing you'd ever seen?\"\n--Captain Lannery Storm")
+        colossalDreadmaw.power = 6
+        colossalDreadmaw.toughness = 6
+        return colossalDreadmaw
+    }
+    static func CrestedHerdcaller() -> Card {
+        let crestedHerdcaller = Card(name: "Crested Herdcaller", rarity: .Uncommon, set: set, number: 126)
+        crestedHerdcaller.setManaCost("3GG")
+        crestedHerdcaller.setType(.Creature, .Dinosaur)
+        crestedHerdcaller.trample = true
+        crestedHerdcaller.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { crestedHerdcaller.getController().createToken(XLN.Dinosaur()) })
+        crestedHerdcaller.setFlavorText("\"Our survival, like theirs, depends on our ability to work together.\"\n--Huatli, to Tishana")
+        crestedHerdcaller.power = 3
+        crestedHerdcaller.toughness = 3
+        return crestedHerdcaller
+    }
     // 127 Deeproot Elite
     // 128 Enter the Unknown
     // 129 Forerunner of the Heralds

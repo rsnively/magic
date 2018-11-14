@@ -5,7 +5,7 @@ enum GRN {
     static var count = 259
     
     private static let cards = [
-        BladeInstructor, BountyAgent, /* CandlelightVigil, */ CitywideBust, CollarTheCulprit, /* ConclaveTribunal, */ /* CrushContraband, */ /* DawnOfHope, */ /* Demotion, */ /* DivineVisitation, */ /* FlightOfEquenauts, */ GirdForBattle, /* HaazdaMarshal, */ HealersHawk, HuntedWitness, InspiringUnicorn, /* IntrusivePackbeast, */ /* LedevGuardian, */ LightOfTheLegion, /* LoxodonRestorer, */ /* LuminousBonds, */ ParhelionPatrol, RighteousBlow, RocCharger, /* SkylineScout, */ /* SunhomeStalwart, */ SwornCompanions, TakeHeart, TenthDistrictGuard, /* Venerated Loxodon, */ /* CaptureSphere, */ /* Chemister's Insight, */ /* Citywatch Sphinx, */ /* Dazzling Lights, */ /* DeviousCoverUp, */ /* DimirInformant, */ /* DisdainfulStroke, */ /* DreamEater, */ DrownedSecrets, /* EnhancedSurveillance, */ /* GuildSummit, */ /* Leapfrog, */ /* MaximizeAltitude, */ /* MissionBriefing, */ MurmuringMystic, MuseDrake, /* Narcomoeba, */ /* NightveilSprite, */ /* OmnispellAdept, */ PasswallAdept, /* Quasiduplicate, */ /* RadicalIdea, */ /* SelectiveSnare, */ /* SinisterSabotage, */ /* ThoughtboundPhantasm, */ /* UnexplainedDisappearance, */ VedalkenMesmerist, WallOfMist, /* WatcherInTheMist, */ WishcoinCrab, /* BarrierOfBones, */ BartizanBats, /* BloodOperative, */ BurglarRat, ChildOfNight, /* CreepingChill, */ /* DeadWeight, */ /* DeadlyVisit, */ /* DoomWhisperer, */ DouserOfLights, /* GruesomeMenagerie, */ HiredPoisoner, /* KraulSwarm, */ LotlethGiant, /* MausoleumSecrets, */ /* MephiticVapors, */ /* MidnightReaper, */ /* MoodmarkPainter, */ /* NecroticWound, */ /* NeverHappened, */ /* PilferingImp, */ /* Plaguecrafter, */ /* PriceOfFame, */ RitualOfSoot, /* SeveredStrands, */ SpinalCentipede, /* UndercityNecrolisk, */ VeiledShade, ViciousRumors, /* WhisperingSnitch, */ /* ArclightPhoenix, */ BargingSergeant, /* BookDevourer, */ CommandTheStorm, /* CosmotronicWave, */ /* DirectCurrent, */ ElectrostaticField, /* ErraticCyclops, */ /* ExperimentalFrenzy, */ FearlessHalberdier, /* FireUrchin, */ GoblinBanneret, /* GoblinCratermaker, */ /* GoblinLocksmith, */ /* GraviticPunch, */ HellkiteWhelp, /* InescapableBlaze, */ /* LavaCoil, */ /* LegionWarboss, */ /* ManiacalRage, */ /* MaximizeVelocity, */ /* OrneryGoblin, */ /* RiskFactor, */ RubblebeltBoar, /* RunawaySteamKin, */ /* SmeltWardMintoaur, */ /* StreetRiot, */ /* SureStrike, */ TorchCourier, /* WojekBodyguard, */ /* AffectionateIndrik, */ /* AboretumElemental, */ BeastWhisperer, BountyOfMight, /* CurcuitousRoute, */ /* CrushingCanopy, */ DevkarinDissident, /* DistrictGuide, */ GenerousStray, GolgariRaiders, GrapplingSundew, /* HatcherySpider, */ HitchclawRecluse, IronshellBeetle, KraulForagers, /* KraulHarpooner, */ MightOfTheMasses, /* NullhideFerox, */ /* PacksFavor, */ /* PauseForReflection, */ /* PeltCollector, */ /* PortcullisVine, */ PreyUpon, /* SiegeWurm, */ /* SproutingRenewal, */ /* UrbanUtopia, */ /* VigorsporeWurm, */ /* VividRevival, */ WaryOkapi, WildCeratok, /* ArtfulTakedown, */ /* AssassinsTrophy, */ /* AureliaExemplarOfJustice, */ /* BeaconBolt, */ /* BeamsplitterMage, */ BorosChallenger, Camaraderie, CentaurPeacemaker, /* ChanceForGlory, */ /* CharnelTroll, */ ConclaveCavalier, /* ConclaveGuildmage, */ /* CracklingDrake, */ /* DarkbladeAgent, */ /* DeafeningClarion, */ /* DimirSpybug, */ /* DisinformationCampaign, */ EmmaraSoulOfTheAccord, /* ErstwhileTrooper, */ /* EtrataTheSilencer, */ /* FiremindsResearch, */ /* GarrisonSergeant, */ /* GlowsporeShaman, */ /* GoblinElectromancer, */ /* GolgariFindbroker, */ HammerDropper, /* HouseGuildmage, */ /* Hypothesizzle, */ /* Ionize, */ /* IzoneThousandEyed, */ /* JoinShields, */ JusticeStrike, /* KnightOfAutumn, */ /* LazavTheMultifarious, */ /* LeagueGuildmage, */ /* LedevChampion, */ LegionGuildmage, /* MarchOfTheMultitudes, */ /* MnemonicBetrayal, */ /* Molderhulk, */ /* NightveilPredator, */ /* NivMizzetParun, */ /* NotionRain, */ /* OchranAssassin, */ /* RalIzzetViceroy, */ /* RhizomeLurcher, */ /* RosemaneCentaur, */ SkyknightLegionnaire, /* SonicAssault, */ /* SumalaWoodshaper, */ /* SwarmGuildmage, */ SwathcutterGiant, /* SwiftbladeVindicator, */ /* TajicLegionsEdge, */ /* ThiefOfSanity, */ /* ThoughtErasure, */ /* ThousandYearStorm, */ /* TrostaniDiscordant, */ /* TruefireCaptain, */ UndercityUprising, /* UnderrealmLich, */ /* UnmooredEgo, */ /* VraskaGolgariQueen, */ WeeDragonauts, /* WorldsoulColossus, */ /* FreshFacedRecruit, */ /* PistonFistCyclops, */ /* PitilessGorgon, */ /* VernadiShieldmate, */ /* WhisperAgent, */ /* AssureAssemble, */ /* ConniveConcoct, */ /* DiscoveryDispersal, */ /* ExpansionExplosion, */ /* FindFinality, */ /* FlowerFlourish, */ /* IntegrityIntervention, */ /* InvertInvent, */ /* ResponseResurgence, */ /* StatusStatue, */ /* BorosLocket, */ /* ChamberSentry, */ /* ChromaticLantern, */ /* DimirLocket, */ GatekeeperGargoyle, /* GlaiveOfTheGuildpact, */ /* GolgariLocket, */ /* IzzetLocket, */ /* RampagingMonument, */ /* SelesnyaLocket, */ SilentDart, /* WandOfVertebrae, */ BorosGuildgate243, BorosGuildgate244, DimirGuildgate245, DimirGuildgate246, /* GatewayPlaza, */ GolgariGuildgate248, GolgariGuildgate249, /* GuildmagesForum, */ IzzetGuildgate251, IzzetGuildgate252, /* OvergrownTomb, */ /* SacredFoundry, */ SelesnyaGuildgate255, SelesnyaGuildgate256, /* SteamVents, */ /* TempleGarden, */ /* WateryGrave, */ Plains, Island, Swamp, Mountain, Forest,
+        BladeInstructor, BountyAgent, /* CandlelightVigil, */ CitywideBust, CollarTheCulprit, /* ConclaveTribunal, */ /* CrushContraband, */ /* DawnOfHope, */ /* Demotion, */ /* DivineVisitation, */ /* FlightOfEquenauts, */ GirdForBattle, /* HaazdaMarshal, */ HealersHawk, HuntedWitness, InspiringUnicorn, /* IntrusivePackbeast, */ /* LedevGuardian, */ LightOfTheLegion, /* LoxodonRestorer, */ /* LuminousBonds, */ ParhelionPatrol, RighteousBlow, RocCharger, /* SkylineScout, */ /* SunhomeStalwart, */ SwornCompanions, TakeHeart, TenthDistrictGuard, /* Venerated Loxodon, */ /* CaptureSphere, */ /* Chemister's Insight, */ /* Citywatch Sphinx, */ /* Dazzling Lights, */ /* DeviousCoverUp, */ /* DimirInformant, */ /* DisdainfulStroke, */ /* DreamEater, */ DrownedSecrets, /* EnhancedSurveillance, */ /* GuildSummit, */ /* Leapfrog, */ /* MaximizeAltitude, */ /* MissionBriefing, */ MurmuringMystic, MuseDrake, /* Narcomoeba, */ /* NightveilSprite, */ /* OmnispellAdept, */ PasswallAdept, /* Quasiduplicate, */ /* RadicalIdea, */ /* SelectiveSnare, */ /* SinisterSabotage, */ /* ThoughtboundPhantasm, */ /* UnexplainedDisappearance, */ VedalkenMesmerist, WallOfMist, /* WatcherInTheMist, */ WishcoinCrab, /* BarrierOfBones, */ BartizanBats, /* BloodOperative, */ BurglarRat, ChildOfNight, /* CreepingChill, */ /* DeadWeight, */ /* DeadlyVisit, */ /* DoomWhisperer, */ DouserOfLights, /* GruesomeMenagerie, */ HiredPoisoner, /* KraulSwarm, */ LotlethGiant, /* MausoleumSecrets, */ /* MephiticVapors, */ /* MidnightReaper, */ /* MoodmarkPainter, */ /* NecroticWound, */ /* NeverHappened, */ /* PilferingImp, */ /* Plaguecrafter, */ /* PriceOfFame, */ RitualOfSoot, /* SeveredStrands, */ SpinalCentipede, /* UndercityNecrolisk, */ VeiledShade, ViciousRumors, /* WhisperingSnitch, */ /* ArclightPhoenix, */ BargingSergeant, /* BookDevourer, */ CommandTheStorm, /* CosmotronicWave, */ /* DirectCurrent, */ ElectrostaticField, /* ErraticCyclops, */ /* ExperimentalFrenzy, */ FearlessHalberdier, FireUrchin, GoblinBanneret, /* GoblinCratermaker, */ /* GoblinLocksmith, */ /* GraviticPunch, */ HellkiteWhelp, /* InescapableBlaze, */ /* LavaCoil, */ /* LegionWarboss, */ /* ManiacalRage, */ /* MaximizeVelocity, */ /* OrneryGoblin, */ /* RiskFactor, */ RubblebeltBoar, /* RunawaySteamKin, */ /* SmeltWardMintoaur, */ StreetRiot, /* SureStrike, */ TorchCourier, /* WojekBodyguard, */ /* AffectionateIndrik, */ /* AboretumElemental, */ BeastWhisperer, BountyOfMight, /* CurcuitousRoute, */ /* CrushingCanopy, */ DevkarinDissident, /* DistrictGuide, */ GenerousStray, GolgariRaiders, GrapplingSundew, /* HatcherySpider, */ HitchclawRecluse, IronshellBeetle, KraulForagers, /* KraulHarpooner, */ MightOfTheMasses, /* NullhideFerox, */ /* PacksFavor, */ /* PauseForReflection, */ /* PeltCollector, */ /* PortcullisVine, */ PreyUpon, /* SiegeWurm, */ /* SproutingRenewal, */ /* UrbanUtopia, */ /* VigorsporeWurm, */ /* VividRevival, */ WaryOkapi, WildCeratok, /* ArtfulTakedown, */ /* AssassinsTrophy, */ AureliaExemplarOfJustice, /* BeaconBolt, */ /* BeamsplitterMage, */ BorosChallenger, Camaraderie, CentaurPeacemaker, /* ChanceForGlory, */ /* CharnelTroll, */ ConclaveCavalier, ConclaveGuildmage, /* CracklingDrake, */ /* DarkbladeAgent, */ /* DeafeningClarion, */ /* DimirSpybug, */ /* DisinformationCampaign, */ EmmaraSoulOfTheAccord, /* ErstwhileTrooper, */ /* EtrataTheSilencer, */ /* FiremindsResearch, */ /* GarrisonSergeant, */ /* GlowsporeShaman, */ /* GoblinElectromancer, */ /* GolgariFindbroker, */ HammerDropper, /* HouseGuildmage, */ /* Hypothesizzle, */ /* Ionize, */ /* IzoneThousandEyed, */ /* JoinShields, */ JusticeStrike, /* KnightOfAutumn, */ /* LazavTheMultifarious, */ /* LeagueGuildmage, */ /* LedevChampion, */ LegionGuildmage, /* MarchOfTheMultitudes, */ /* MnemonicBetrayal, */ /* Molderhulk, */ /* NightveilPredator, */ /* NivMizzetParun, */ /* NotionRain, */ /* OchranAssassin, */ /* RalIzzetViceroy, */ /* RhizomeLurcher, */ /* RosemaneCentaur, */ SkyknightLegionnaire, /* SonicAssault, */ /* SumalaWoodshaper, */ /* SwarmGuildmage, */ SwathcutterGiant, /* SwiftbladeVindicator, */ /* TajicLegionsEdge, */ /* ThiefOfSanity, */ /* ThoughtErasure, */ /* ThousandYearStorm, */ /* TrostaniDiscordant, */ /* TruefireCaptain, */ UndercityUprising, /* UnderrealmLich, */ /* UnmooredEgo, */ /* VraskaGolgariQueen, */ WeeDragonauts, /* WorldsoulColossus, */ /* FreshFacedRecruit, */ /* PistonFistCyclops, */ /* PitilessGorgon, */ /* VernadiShieldmate, */ /* WhisperAgent, */ /* AssureAssemble, */ /* ConniveConcoct, */ /* DiscoveryDispersal, */ /* ExpansionExplosion, */ /* FindFinality, */ /* FlowerFlourish, */ /* IntegrityIntervention, */ /* InvertInvent, */ /* ResponseResurgence, */ /* StatusStatue, */ /* BorosLocket, */ /* ChamberSentry, */ /* ChromaticLantern, */ /* DimirLocket, */ GatekeeperGargoyle, /* GlaiveOfTheGuildpact, */ /* GolgariLocket, */ /* IzzetLocket, */ RampagingMonument, /* SelesnyaLocket, */ SilentDart, /* WandOfVertebrae, */ BorosGuildgate243, BorosGuildgate244, DimirGuildgate245, DimirGuildgate246, /* GatewayPlaza, */ GolgariGuildgate248, GolgariGuildgate249, /* GuildmagesForum, */ IzzetGuildgate251, IzzetGuildgate252, /* OvergrownTomb, */ /* SacredFoundry, */ SelesnyaGuildgate255, SelesnyaGuildgate256, /* SteamVents, */ /* TempleGarden, */ /* WateryGrave, */ Plains, Island, Swamp, Mountain, Forest,
         
     ]
     // Impervious Greatwurm
@@ -556,7 +556,19 @@ enum GRN {
         fearlessHalberdier.toughness = 2
         return fearlessHalberdier
     }
-    // 101 Fire Urchin
+    static func FireUrchin() -> Card {
+        let fireUrchin = Card(name: "Fire Urchin", rarity: .Common, set: set, number: 101)
+        fireUrchin.setManaCost("1R")
+        fireUrchin.setType(.Creature, .Elemental)
+        fireUrchin.trample = true
+        fireUrchin.addTriggeredAbility(
+            trigger: .YouCastInstantOrSorcery,
+            effect: { fireUrchin.pump(1, 0) })
+        fireUrchin.setFlavorText("Rain runoff in the Smelting District is known to spontaneously burst into flame.")
+        fireUrchin.power = 1
+        fireUrchin.toughness = 3
+        return fireUrchin
+    }
     static func GoblinBanneret() -> Card {
         let goblinBanneret = Card(name: "Goblin Banneret", rarity: .Uncommon, set: set, number: 102)
         goblinBanneret.setManaCost("R")
@@ -612,7 +624,21 @@ enum GRN {
     }
     // 115 Runaway Steam-Kin
     // 116 Smelt-Ward Minotaur
-    // 117 Street Riot
+    static func StreetRiot() -> Card {
+        let streetRiot = Card(name: "Street Riot", rarity: .Uncommon, set: set, number: 117)
+        streetRiot.setManaCost("4R")
+        streetRiot.setType(.Enchantment)
+        streetRiot.addStaticAbility({ object in
+            if streetRiot.getController().active && object.isType(.Creature) && object.getController() === streetRiot.getController() {
+                streetRiot.power = streetRiot.getBasePower() + 1
+                // TODO: These should be in different layers
+                streetRiot.trample = true
+            }
+            return streetRiot
+        })
+        streetRiot.setFlavorText("\"They said obey and you'll be happy. They said you'll be safe. But we're not safe. We're not happy. And we will not obey.\"\n--Domri Rade")
+        return streetRiot
+    }
     // 118 Sure Strike
     static func TorchCourier() -> Card {
         let torchCourier = Card(name: "Torch Courier", rarity: .Common, set: set, number: 119)
@@ -819,7 +845,30 @@ enum GRN {
     }
     // 151 Artful Takedown
     // 152 Assassin's Trophy
-    // 153 Aurelia, Exemplar of Justice
+    static func AureliaExemplarOfJustice() -> Card {
+        let aurelia = Card(name: "Aurelia, Exemplar of Justice", rarity: .Mythic, set: set, number: 153)
+        aurelia.setManaCost("2RW")
+        aurelia.setType(.Legendary, .Creature, .Angel)
+        aurelia.flying = true
+        aurelia.triggeredAbilities.append(Mentor(aurelia))
+        aurelia.addTriggeredAbility(
+            trigger: .YourBeginCombat,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === aurelia.getController() },
+                effect: { target in
+                    target.pump(2, 0)
+                    if target.isColor(.Red) {
+                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                    }
+                    if target.isColor(.White) {
+                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                    }
+                },
+                optional: true))
+        aurelia.power = 2
+        aurelia.toughness = 5
+        return aurelia
+    }
     // 154 Beacon Bolt
     // 155 Beamsplitter Mage
     static func BorosChallenger() -> Card {
@@ -879,7 +928,24 @@ enum GRN {
         conclaveCavalier.toughness = 4
         return conclaveCavalier
     }
-    // 162 Conclave Guildmage
+    static func ConclaveGuildmage() -> Card {
+        let conclaveGuildmage = Card(name: "Conclave Guildmage", rarity: .Uncommon, set: set, number: 162)
+        conclaveGuildmage.setManaCost("GW")
+        conclaveGuildmage.setType(.Creature, .Elf, .Cleric)
+        conclaveGuildmage.addActivatedAbility(
+            string: "{G}, {T}: Creatures you control gain trample until end of turn.",
+            cost: Cost("G", tap: true),
+            effect: { conclaveGuildmage.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+            })})
+        conclaveGuildmage.addActivatedAbility(
+            string: "{5}{W}, {T}: Create a 2/2 green and white Elf Knight creature token with vigilance.",
+            cost: Cost("5W", tap: true),
+            effect: { conclaveGuildmage.getController().createToken(ElfKnight()) })
+        conclaveGuildmage.power = 2
+        conclaveGuildmage.toughness = 2
+        return conclaveGuildmage
+    }
     // 163 Crackling Drake
     // 164 Darkblade Agent
     // 165 Deafening Clarion
@@ -1069,7 +1135,22 @@ enum GRN {
     // 236 Glaive of the Guildpact
     // 237 Golgari Locket
     // 238 Izzet Locket
-    // 239 Rampaging Monument
+    static func RampagingMonument() -> Card {
+        let rampagingMonument = Card(name: "Rampaging Monument", rarity: .Uncommon, set: set, number: 239)
+        rampagingMonument.setManaCost("4")
+        rampagingMonument.setType(.Artifact, .Creature, .Cleric)
+        rampagingMonument.trample = true
+        rampagingMonument.addReplacementEffect(
+            event: .ThisETB,
+            effect: { rampagingMonument.addCounters(.PlusOnePlusOne, 3) })
+        rampagingMonument.addTriggeredAbility(
+            trigger: .YouCastMulticoloredSpell,
+            effect: { rampagingMonument.addCounter(.PlusOnePlusOne) })
+        rampagingMonument.setFlavorText("\"Be advised: suspect is nine stories tall, marble hair, answers to Saint Gusztav.\"")
+        rampagingMonument.power = 0
+        rampagingMonument.toughness = 0
+        return rampagingMonument
+    }
     // 240 Selsnya Locket
     static func SilentDart() -> Card {
         let silentDart = Card(name: "Silent Dart", rarity: .Uncommon, set: set, number: 241)
