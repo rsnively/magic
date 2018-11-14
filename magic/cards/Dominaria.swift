@@ -960,7 +960,7 @@ enum DOM {
     static func AmaranthineWall() -> Card {
         let amaranthineWall = Card(name: "Amaranthine Wall", rarity: .Uncommon, set: set, number: 210)
         amaranthineWall.setManaCost("4")
-        amaranthineWall.setType(.Creature, .Wall)
+        amaranthineWall.setType(.Artifact, .Creature, .Wall)
         amaranthineWall.defender = true
         amaranthineWall.addActivatedAbility(
             string: "{2}: ~ gains indestructible until end of turn.",
