@@ -7,14 +7,17 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-        let r = Int.random(in: 1 ... 3)
+        let r = Int.random(in: 1 ... 4)
         if r == 1 {
             return GRN.RandomCard()
         }
         if r == 2 {
             return M19.RandomCard()
         }
-        return DOM.RandomCard()
+        if r == 3 {
+            return DOM.RandomCard()
+        }
+        return RIX.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {
