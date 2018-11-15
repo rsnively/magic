@@ -849,7 +849,7 @@ enum M19 {
         return vampireNeonate
     }
     static func VampireSovereign() -> Card {
-        let vampireSovereign = Card(name: "Vampire Sovereign", rarity: .Uncommon, set: set, number: 123)
+        let vampireSovereign = Card(name: "Vampire Sovereign", rarity: .Uncommon, set: set, number: 125)
         vampireSovereign.setManaCost("3BB")
         vampireSovereign.setType(.Creature, .Vampire)
         vampireSovereign.flying = true
