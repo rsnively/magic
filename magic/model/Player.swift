@@ -16,6 +16,8 @@ class Player: Targetable {
     }
     var lifeGainedThisTurn = 0
     
+    var citysBlessing = false
+    
     init(deck: [Card]) {
         self.library = deck
         super.init()

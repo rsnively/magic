@@ -59,8 +59,10 @@ enum Subtype {
     case Giant
     case Goblin
     case Golem
+    case Griffin
     case Homarid
     case Horror
+    case Horse
     case Human
     case Illusion
     case Imp

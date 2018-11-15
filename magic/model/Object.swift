@@ -265,7 +265,7 @@ class Object: Targetable, NSCopying {
     }
     
     func addCounters(_ type: Counter, _ amount: Int) {
-        for _ in 1 ... amount {
+        for _ in 0 ..< amount {
             addCounter(type)
         }
     }

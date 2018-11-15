@@ -1,12 +1,19 @@
 import Foundation
 
+extension Object {
+    func ascend() {
+        if getController().getPermanents().count >= 10 {
+            getController().citysBlessing = true
+        }
+    }
+}
+
 enum RIX {
     static var set = "rix"
     static var count = 196
     
-    // TODO (Ascend): Pride of Conquerors, Skymarcher Aspirant, SnubhornSentry, Kumena's Awakening, Secrets of the Golden City, Spire Winder, Dusk Charger, Golden Demise, Tendershoot Dryad, Resplendent Griffin
     static private let cards = [
-        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, ImperialCeratops, LegionConquistador, LuminousBonds, */ MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, PrideOfConquerors, RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, /* SkymarcherAspirant, SlaughterTheStrong, SnubhornSentry, SphinxsDecree, SquiresDevotion, */ SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, /* KumenasAwakening, */ MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, /* SeaLegs, SeafloorOracle, SecretsOfTheGoldenCity, SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, SpireWinder, */ SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, /* DuskCharger, */ DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, GoldenDemise, */ GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, /* FrilledDeathspitter, GoblinTrailblazer, Mutiny, NeedletoothRaptor, */ OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, TilonallisCrown, TilonallisSummoner, */ AggressiveUrge, /* Cacophodon, CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, /* OvergrownArmasaur, PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, TendershootDryad, */ ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, ResplendentGriffin, SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, ImperialCeratops, LegionConquistador, LuminousBonds, */ MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, SquiresDevotion, */ SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, /* SeaLegs, SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, /* FrilledDeathspitter, GoblinTrailblazer, Mutiny, NeedletoothRaptor, */ OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, TilonallisCrown, TilonallisSummoner, */ AggressiveUrge, /* Cacophodon, CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, /* OvergrownArmasaur, PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, /* SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
     ]
     
     static func RandomCard() -> Card {
@@ -88,7 +95,17 @@ enum RIX {
         return momentOfTriump
     }
     // 16 Paladin of Atonement
-    // 17 Pride of Conquerors
+    static func PrideOfConquerors() -> Card {
+        let prideOfConquerors = Card(name: "Pride of Conquerors", rarity: .Uncommon, set: set, number: 17)
+        prideOfConquerors.setManaCost("1W")
+        prideOfConquerors.setType(.Instant)
+        prideOfConquerors.addEffect({
+            prideOfConquerors.ascend()
+            let amount = prideOfConquerors.getController().citysBlessing ? 2 : 1
+            prideOfConquerors.getController().getCreatures().forEach({ $0.pump(amount, amount) })
+        })
+        return prideOfConquerors
+    }
     // 18 Radiant Destiny
     static func RaptorCompanion() -> Card {
         let raptorCompanion = Card(name: "Raptor Companion", rarity: .Common, set: set, number: 19)
@@ -113,9 +130,43 @@ enum RIX {
         sanguineGlorifier.toughness = 3
         return sanguineGlorifier
     }
-    // 21 Skymarcher Aspirant
+    static func SkymarcherAspirant() -> Card {
+        let skymarcherAspirant = Card(name: "Skymarcher Aspirant", rarity: .Uncommon, set: set, number: 21)
+        skymarcherAspirant.setManaCost("W")
+        skymarcherAspirant.setType(.Creature, .Vampire, .Soldier)
+        skymarcherAspirant.addStaticAbility({ object in
+            if object.id == skymarcherAspirant.id {
+                object.ascend()
+                if object.getController().citysBlessing {
+                    object.flying = true
+                }
+            }
+            return object
+        })
+        skymarcherAspirant.setFlavorText("\"I was born to glory.\"")
+        skymarcherAspirant.power = 2
+        skymarcherAspirant.toughness = 1
+        return skymarcherAspirant
+    }
     // 22 Slaughter the Strong
-    // 23 Snubhorn Sentry
+    static func SnubhornSentry() -> Card {
+        let snubhornSentry = Card(name: "Snubhorn Sentry", rarity: .Common, set: set, number: 23)
+        snubhornSentry.setManaCost("W")
+        snubhornSentry.setType(.Creature, .Dinosaur)
+        snubhornSentry.addStaticAbility({ object in
+            if object.id == snubhornSentry.id {
+                object.ascend()
+                if object.getController().citysBlessing {
+                    object.power = object.getBasePower() + 3
+                }
+            }
+            return object
+        })
+        snubhornSentry.setFlavorText("They're fun to train--if you like stubborn, aggressive, and fiercly territorial.")
+        snubhornSentry.power = 0
+        snubhornSentry.toughness = 3
+        return snubhornSentry
+    }
     // 24 Sphinx's Decree
     // 25 Squire's Devotion
     static func SunSentinel() -> Card {
@@ -172,7 +223,26 @@ enum RIX {
         kitesailCorsair.toughness = 1
         return kitesailCorsair
     }
-    // 42 Kumena's Awakening
+    static func KumenasAwakening() -> Card {
+        let kumenasAwakening = Card(name: "Kumena's Awakening", rarity: .Rare, set: set, number: 42)
+        kumenasAwakening.setManaCost("2UU")
+        kumenasAwakening.setType(.Enchantment)
+        kumenasAwakening.addStaticAbility({ object in
+            if object.id == kumenasAwakening.id {
+                object.ascend()
+            }
+            return object
+        })
+        kumenasAwakening.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: {
+                kumenasAwakening.getController().drawCard()
+                if !kumenasAwakening.getController().citysBlessing {
+                    kumenasAwakening.getOpponent().drawCard()
+                }
+        })
+        return kumenasAwakening
+    }
     static func MistCloakedHerald() -> Card {
         let mistCloakedHerald = Card(name: "Mist-Cloaked Herald", rarity: .Common, set: set, number: 43)
         mistCloakedHerald.setManaCost("U")
@@ -202,12 +272,41 @@ enum RIX {
     }
     // 50 Sea Legs
     // 51 Seafloor Oracle
-    // 52 Secrets of the Golden City
+    static func SecretsOfTheGoldenCity() -> Card {
+        let secretsOfTheGoldenCity = Card(name: "Secrets of the Golden City", rarity: .Common, set: set, number: 52)
+        secretsOfTheGoldenCity.setManaCost("1UU")
+        secretsOfTheGoldenCity.setType(.Sorcery)
+        secretsOfTheGoldenCity.addEffect({
+            secretsOfTheGoldenCity.ascend()
+            let amount = secretsOfTheGoldenCity.getController().citysBlessing ? 3 : 2
+            secretsOfTheGoldenCity.getController().drawCards(amount)
+        })
+        secretsOfTheGoldenCity.setFlavorText("Stolen knowledge can never be stolen back.")
+        return secretsOfTheGoldenCity
+    }
     // 53 Silvergill Adept
     // 54 Siren Reaver
     // 55 Slippery Scoundrel
     // 56 Soul of the Rapids
-    // 57 Spire Winder
+    static func SpireWinder() -> Card {
+        let spireWinder = Card(name: "Spire Winder", rarity: .Common, set: set, number: 57)
+        spireWinder.setManaCost("3U")
+        spireWinder.setType(.Creature, .Snake)
+        spireWinder.flying = true
+        spireWinder.addStaticAbility({ object in
+            if object.id == spireWinder.id {
+                object.ascend()
+                if object.getController().citysBlessing {
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
+                }
+            }
+            return object
+        })
+        spireWinder.power = 2
+        spireWinder.toughness = 3
+        return spireWinder
+    }
     static func SwornGuardian() -> Card {
         let swornGuardian = Card(name: "Sworn Guardian", rarity: .Common, set: set, number: 58)
         swornGuardian.setManaCost("1U")
@@ -281,7 +380,25 @@ enum RIX {
         direFleetPoisoner.toughness = 2
         return direFleetPoisoner
     }
-    // 69 Dusk Charger
+    static func DuskCharger() -> Card {
+        let duskCharger = Card(name: "Dusk Charger", rarity: .Common, set: set, number: 69)
+        duskCharger.setManaCost("3B")
+        duskCharger.setType(.Creature, .Horse)
+        duskCharger.addStaticAbility({ object in
+            if object.id == duskCharger.id {
+                object.ascend()
+                if object.getController().citysBlessing {
+                    object.power = object.getBasePower() + 2
+                    object.toughness = object.getBaseToughness() + 2
+                }
+            }
+            return object
+        })
+        duskCharger.setFlavorText("Stories say demon blood runs in its veins, making it fearless and bloodthirsty.")
+        duskCharger.power = 3
+        duskCharger.toughness = 3
+        return duskCharger
+    }
     static func DuskLegionZealot() -> Card {
         let duskLegionZealot = Card(name: "Dusk Legion Zealot", rarity: .Common, set: set, number: 70)
         duskLegionZealot.setManaCost("1B")
@@ -311,7 +428,19 @@ enum RIX {
         return fathomFleetBoarder
     }
     // 72 Forerunner of the Coalition
-    // 73 Golden Demise
+    static func GoldenDemise() -> Card {
+        let goldenDemise = Card(name: "Golden Demise", rarity: .Uncommon, set: set, number: 73)
+        goldenDemise.setManaCost("1BB")
+        goldenDemise.setType(.Sorcery)
+        goldenDemise.addEffect({
+            goldenDemise.ascend()
+            goldenDemise.getOpponent().getCreatures().forEach({ $0.pump(-2, -2) })
+            if goldenDemise.getController().citysBlessing {
+                goldenDemise.getController().getCreatures().forEach({ $0.pump(-2, -2) })
+            }
+        })
+        return goldenDemise
+    }
     static func GraspingScoundrel() -> Card {
         let graspingScoundrel = Card(name: "Grasping Scoundrel", rarity: .Common, set: set, number: 74)
         graspingScoundrel.setManaCost("B")
@@ -705,7 +834,30 @@ enum RIX {
         return strengthOfThePack
     }
     // 146 Swift Warden
-    // 147 Tendershoot Dryad
+    static func TendershootDryad() -> Card {
+        let tendershootDryad = Card(name: "Tendershoot Dryad", rarity: .Rare, set: set, number: 147)
+        tendershootDryad.setManaCost("4G")
+        tendershootDryad.setType(.Creature, .Dryad)
+        tendershootDryad.addStaticAbility({ object in
+            if object.id == tendershootDryad.id {
+                object.ascend()
+            }
+            return object
+        })
+        tendershootDryad.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { tendershootDryad.getController().createToken(Saproling()) })
+        tendershootDryad.addStaticAbility({ object in
+            if object.isType(.Saproling) && object.getController() === tendershootDryad.getController() && tendershootDryad.getController().citysBlessing {
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+            }
+            return object
+        })
+        tendershootDryad.power = 2
+        tendershootDryad.toughness = 2
+        return tendershootDryad
+    }
     static func ThrashingBrontodon() -> Card {
         let thrashingBrontodon = Card(name: "Thrashing Brontodon", rarity: .Uncommon, set: set, number: 148)
         thrashingBrontodon.setManaCost("1GG")
@@ -799,7 +951,28 @@ enum RIX {
         return ragingRegisaur
     }
     // 169 Relentless Raptor
-    // 170 Resplendent Griffin
+    static func ResplendentGriffin() -> Card {
+        let resplendentGriffin = Card(name: "Resplendent Griffin", rarity: .Uncommon, set: set, number: 170)
+        resplendentGriffin.setManaCost("1WU")
+        resplendentGriffin.setType(.Creature, .Griffin)
+        resplendentGriffin.flying = true
+        resplendentGriffin.addStaticAbility({ object in
+            if object.id == resplendentGriffin.id {
+                object.ascend()
+            }
+            return object
+        })
+        resplendentGriffin.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: {
+                if resplendentGriffin.getController().citysBlessing {
+                    resplendentGriffin.addCounter(.PlusOnePlusOne)
+                }
+        })
+        resplendentGriffin.power = 2
+        resplendentGriffin.toughness = 2
+        return resplendentGriffin
+    }
     // 171 Siegehorn Ceratops
     static func StormFleetSprinter() -> Card {
         let stormFleetSprinter = Card(name: "Storm Fleet Sprinter", rarity: .Uncommon, set: set, number: 172)
@@ -848,5 +1021,19 @@ enum RIX {
     // 194 Swamp
     // 195 Forest
     // 196 Mountain
+    
+    // T1 Elemental (from rekindling phoenix)
+    // T2 Elemental (1/1)
+    static func Saproling() -> Token {
+        let saproling = Token(name: "Saproling", set: set, number: 3)
+        saproling.colors = [.Green]
+        saproling.setType(.Creature, .Saproling)
+        saproling.power = 1
+        saproling.toughness = 1
+        return saproling
+    }
+    // T4 Golem
+    // T5 Huatli Emblem
+    // T6 City's Blessing Marker
 }
 
