@@ -13,7 +13,7 @@ enum RIX {
     static var count = 196
     
     static private let cards = [
-        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, ImperialCeratops, LegionConquistador, LuminousBonds, */ MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, SquiresDevotion, */ SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, /* SeaLegs, SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, /* FrilledDeathspitter, GoblinTrailblazer, Mutiny, NeedletoothRaptor, */ OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, TilonallisCrown, TilonallisSummoner, */ AggressiveUrge, /* Cacophodon, CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, /* OvergrownArmasaur, PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, /* SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, LuminousBonds, */ MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, SquiresDevotion, */ SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, /* SeaLegs, SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, TilonallisCrown, TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, /* SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
     ]
     
     static func RandomCard() -> Card {
@@ -47,7 +47,18 @@ enum RIX {
     }
     // 8 Famished Paladin
     // 9 Forerunner of the Legion
-    // 10 Imperial Ceratops
+    static func ImperialCeratops() -> Card {
+        let imperialCeratops = Card(name: "Ravenous Dagertooth", rarity: .Uncommon, set: set, number: 10)
+        imperialCeratops.setManaCost("4W")
+        imperialCeratops.setType(.Creature, .Dinosaur)
+        imperialCeratops.addTriggeredAbility(
+            trigger: .ThisDealtDamage,
+            effect: { imperialCeratops.getController().gainLife(2) })
+        imperialCeratops.setFlavorText("\"The music of blades against its silver armor merely inspires it to bellow more full-throated melodies.\"\n--Huatli")
+        imperialCeratops.power = 3
+        imperialCeratops.toughness = 5
+        return imperialCeratops
+    }
     // 11 Legion Conquistador
     // 12 Luminous Bonds
     static func MajesticHeliopterus() -> Card {
@@ -601,10 +612,36 @@ enum RIX {
         }))
         return formOfTheDinosaur
     }
-    // 104 Frilled Deathspitter
+    static func FrilledDeathspitter() -> Card {
+        let frilledDeathspitter = Card(name: "Frilled Deathspitter", rarity: .Common, set: set, number: 104)
+        frilledDeathspitter.setManaCost("2R")
+        frilledDeathspitter.setType(.Creature, .Dinosaur)
+        frilledDeathspitter.addTriggeredAbility(
+            trigger: .ThisDealtDamage,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: { $0 !== frilledDeathspitter.getController() },
+                effect: { frilledDeathspitter.damage(to: $0, 2) }))
+        frilledDeathspitter.setFlavorText("Nothing says trouble like a reedy hiss with a hint of liquid gurgle.")
+        frilledDeathspitter.power = 3
+        frilledDeathspitter.toughness = 2
+        return frilledDeathspitter
+    }
     // 105 Goblin Trailblazer
     // 106 Mutiny
-    // 107 Needletooth Raptor
+    static func NeedletoothRaptor() -> Card {
+        let needletoothRaptor = Card(name: "Needletooth Raptor", rarity: .Uncommon, set: set, number: 107)
+        needletoothRaptor.setManaCost("3R")
+        needletoothRaptor.setType(.Creature, .Dinosaur)
+        needletoothRaptor.addTriggeredAbility(
+            trigger: .ThisDealtDamage,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() !== needletoothRaptor.getController() },
+                effect: { needletoothRaptor.damage(to: $0, 5) }))
+        needletoothRaptor.setFlavorText("It hatches with its ferocity fully grown.")
+        needletoothRaptor.power = 2
+        needletoothRaptor.toughness = 2
+        return needletoothRaptor
+    }
     static func OrazcaRaptor() -> Card {
         let orazcaRaptor = Card(name: "Orazca Raptor", rarity: .Common, set: set, number: 108)
         orazcaRaptor.setManaCost("2RR")
@@ -701,7 +738,20 @@ enum RIX {
         aggressiveUrge.setFlavorText("\"Our lives, our homes, and all our history are at risk. Do not speak to me of peace.\"")
         return aggressiveUrge
     }
-    // 123 Cacophodon
+    static func Cacophodon() -> Card {
+        let cacophodon = Card(name: "Cacophodon", rarity: .Uncommon, set: set, number: 123)
+        cacophodon.setManaCost("3G")
+        cacophodon.setType(.Creature, .Dinosaur)
+        cacophodon.addTriggeredAbility(
+            trigger: .ThisDealtDamage,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isPermanent() },
+                effect: { $0.untap() }))
+        cacophodon.setFlavorText("When a cacophodon is angry, the whole jungle knows.")
+        cacophodon.power = 2
+        cacophodon.toughness = 5
+        return cacophodon
+    }
     // 124 Cherished Hatchling
     static func ColossalDreadmaw() -> Card {
         let colossalDreadmaw = Card(name: "Colossal Dreadmaw", rarity: .Common, set: set, number: 125)
@@ -810,7 +860,18 @@ enum RIX {
         orazcaFrillback.toughness = 2
         return orazcaFrillback
     }
-    // 141 Overgrown Armasaur
+    static func OvergrownArmasaur() -> Card {
+        let overgrownArmasaur = Card(name: "Overgrown Armasaur", rarity: .Common, set: set, number: 141)
+        overgrownArmasaur.setManaCost("3GG")
+        overgrownArmasaur.setType(.Creature, .Dinosaur)
+        overgrownArmasaur.addTriggeredAbility(
+            trigger: .ThisDealtDamage,
+            effect: { overgrownArmasaur.getController().createToken(Saproling()) })
+        overgrownArmasaur.setFlavorText("It embodies the riotous growth of the jungle, where creatures crowd upon creatures, where roots sprawl and vines swarm.")
+        overgrownArmasaur.power = 4
+        overgrownArmasaur.toughness = 4
+        return overgrownArmasaur
+    }
     // 142 Path of Discovery
     static func Plummet() -> Card {
         let plummet = Card(name: "Plummet", rarity: .Common, set: set, number: 143)

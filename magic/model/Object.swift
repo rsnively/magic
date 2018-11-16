@@ -441,6 +441,7 @@ class Object: Targetable, NSCopying {
     
     override func takeDamage(_ amount: Int) {
         markedDamage += amount
+        triggerAbilities(.ThisDealtDamage)
     }
     
     func damage(to recipient: Targetable, _ amount: Int) {
