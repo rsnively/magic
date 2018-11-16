@@ -30,11 +30,13 @@ enum Subtype {
     case Beast
     case Bird
     case Boar
+    case Camel
     case Cat
     case Centaur
     case Cleric
     case Construct
     case Crab
+    case Desert
     case Devil
     case Dinosaur
     case Djinn
@@ -60,14 +62,17 @@ enum Subtype {
     case Goblin
     case Golem
     case Griffin
+    case Hellion
     case Homarid
     case Horror
     case Horse
     case Human
+    case Hydra
     case Illusion
     case Imp
     case Insect
     case Island
+    case Jackal
     case Kirin
     case Knight
     case Lammasu
@@ -76,6 +81,7 @@ enum Subtype {
     case Minotaur
     case Monk
     case Mountain
+    case Naga
     case Nightmare
     case Ogre
     case Orc
