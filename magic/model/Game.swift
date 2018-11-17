@@ -312,7 +312,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
                 if creature.getToughness() <= 0 {
-                    actionPerformed = actionPerformed || creature.destroy(ignoreIndestructible: true)
+                    actionPerformed = creature.destroy(ignoreIndestructible: true) || actionPerformed
                 }
             })
         })
@@ -321,7 +321,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach( { creature in
                 if creature.markedDamage >= creature.getToughness() {
-                    actionPerformed = actionPerformed || creature.destroy()
+                    actionPerformed = creature.destroy() || actionPerformed
                 }
             })
         })
@@ -330,7 +330,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getCreatures().forEach({ creature in
                 if creature.damagedByDeathtouch {
-                    actionPerformed = actionPerformed || creature.destroy()
+                    actionPerformed = creature.destroy() || actionPerformed
                 }
                 creature.damagedByDeathtouch = false
             })
@@ -342,12 +342,14 @@ class Game: NSObject {
         for permanent in getActivePlayer().getPermanents() {
             if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
                 getActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
+                actionPerformed = true
                 return
             }
         }
         for permanent in getNonActivePlayer().getPermanents() {
             if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
                 getNonActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
+                actionPerformed = true
                 return
             }
         }
