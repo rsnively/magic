@@ -5,7 +5,7 @@ enum M19 {
     static var count = 280
     
     private static let cards = [
-        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ /* AjanisPridemate, */ /* AjanisWelcome, */ AngelOfTheDawn, /* CavalryDrillmaster, */ /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, /* Isolate, */ KnightOfTheTusk, /* KnightsPledge, */ /* KnightlyValor, */ LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, /* LuminousBonds, */ MakeAStand, /* MentorOfTheMeek, */ MightyLeap, /* MilitiaBugler, */ /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, /* RemorsefulCleric, */ ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ /* ValiantKnight, */ /* AetherTunnel, */ /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ /* ScholarOfStars, */ Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, /* TotallyLost, */ UncomfortableChill, WallOfMist, /* WindreaderSphinx, */ /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, /* Duress, */ EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, /* InfernalReckoning, */ /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, /* SiegebreakerGiant, */ Smelt, /* SparktongueDragon, */ /* SpitFlame, */ /* SureStrike, */ /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, /* BlanchwoodArmor, */ /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ /* ElvishClancaller, */ /* ElvishRejuvenator, */ /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, /* Oakenform, */ PelakkaWurm, Plummet, /* ProdigiousGrowth, */ RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ /* VivienReid, */ /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, /* EnigmaDrake, */ HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
+        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ /* AjanisPridemate, */ /* AjanisWelcome, */ AngelOfTheDawn, /* CavalryDrillmaster, */ /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, /* Isolate, */ KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, /* MilitiaBugler, */ /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, /* RemorsefulCleric, */ ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ /* ValiantKnight, */ AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, /* TotallyLost, */ UncomfortableChill, WallOfMist, /* WindreaderSphinx, */ /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, /* Duress, */ EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, /* InfernalReckoning, */ /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */ /* SureStrike, */ /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ /* ElvishClancaller, */ /* ElvishRejuvenator, */ /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ /* VivienReid, */ /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, /* EnigmaDrake, */ HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
     ]
     
     static func RandomCard() -> Card {
@@ -152,8 +152,38 @@ enum M19 {
         knightOfTheTusk.toughness = 7
         return knightOfTheTusk
     }
-    // 19 Knight's Pledge
-    // 20 Knightly Valor
+    static func KnightsPledge() -> Card {
+        let knightsPledge = Card(name: "Knight's Pledge", rarity: .Common, set: set, number: 19)
+        knightsPledge.setManaCost("1W")
+        knightsPledge.setType(.Enchantment, .Aura)
+        knightsPledge.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                return object
+        })
+        knightsPledge.setFlavorText("\"As long as my faith persists, so shall I.\"")
+        return knightsPledge
+    }
+    static func KnightlyValor() -> Card {
+        let knightlyValor = Card(name: "Knightly Valor", rarity: .Uncommon, set: set, number: 20)
+        knightlyValor.setManaCost("4W")
+        knightlyValor.setType(.Enchantment, .Aura)
+        knightlyValor.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                // TODO: Layers
+                object.vigilance = true
+                return object
+        })
+        knightlyValor.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { knightlyValor.getController().createToken(Knight()) })
+        return knightlyValor
+    }
     static func LenaSelflessChampion() -> Card {
         let lena = Card(name: "Lena, Selfless Champion", rarity: .Rare, set: set, number: 21)
         lena.setManaCost("4WW")
@@ -225,7 +255,20 @@ enum M19 {
         loxodonLineBreaker.toughness = 2
         return loxodonLineBreaker
     }
-    // 25 Luminous Bonds
+    static func LuminousBonds() -> Card {
+        let luminousBonds = Card(name: "Luminous Bonds", rarity: .Common, set: set, number: 25)
+        luminousBonds.setManaCost("2W")
+        luminousBonds.setType(.Enchantment, .Aura)
+        luminousBonds.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.cantAttack = true
+                object.cantBlock = true
+                return object
+        })
+        luminousBonds.setFlavorText("\"Your part in this fight is done, vampire. Get used to your thirst.\"")
+        return luminousBonds
+    }
     static func MakeAStand() -> Card {
         let makeAStand = Card(name: "Make a Stand", rarity: .Uncommon, set: set, number: 26)
         makeAStand.setManaCost("2W")
@@ -360,7 +403,21 @@ enum M19 {
     }
     // 41 Trusty Packbeast
     // 42 Valiant Knight
-    // 43 Aether Tunnel
+    static func AetherTunnel() -> Card {
+        let aetherTunnel = Card(name: "Aether Tunnel", rarity: .Common, set: set, number: 43)
+        aetherTunnel.setManaCost("1U")
+        aetherTunnel.setType(.Enchantment, .Aura)
+        aetherTunnel.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 1
+                // TODO: Layers
+                object.unblockable = true
+                return object
+        })
+        aetherTunnel.setFlavorText("If you can't find a doorway, make one.")
+        return aetherTunnel
+    }
     // 44 Anticipate
     static func AvenWindMage() -> Card {
         let avenWindMage = Card(name: "Aven Wind Mage", rarity: .Common, set: set, number: 45)
@@ -524,7 +581,19 @@ enum M19 {
     }
     // 69 Sai, Master Thopterist
     // 70 Salvager of Secrets
-    // 71 Scholar of Stars
+    static func ScholarOfStars() -> Card {
+        let scholarOfStars = Card(name: "Scholar of Stars", rarity: .Common, set: set, number: 71)
+        scholarOfStars.setManaCost("3U")
+        scholarOfStars.setType(.Creature, .Human, .Artificer)
+        scholarOfStars.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { scholarOfStars.getController().drawCard() },
+            restriction: { !scholarOfStars.getController().getArtifacts().isEmpty })
+        scholarOfStars.setFlavorText("\"The path of the stars is as reliable as the instruments that measure them.\"")
+        scholarOfStars.power = 3
+        scholarOfStars.toughness = 2
+        return scholarOfStars
+    }
     static func Sift() -> Card {
         let sift = Card(name: "Sift", rarity: .Uncommon, set: set, number: 72)
         sift.setManaCost("3U")
@@ -1050,7 +1119,22 @@ enum M19 {
         shock.setFlavorText("The tools of invention became the weapons of revolution.");
         return shock
     }
-    // 157 Siegebreaker Giant
+    static func SiegebreakerGiant() -> Card {
+        let siegebreakerGiant = Card(name: "Siegebreaker Giant", rarity: .Uncommon, set: set, number: 157)
+        siegebreakerGiant.setManaCost("3RR")
+        siegebreakerGiant.setType(.Creature, .Giant, .Warrior)
+        siegebreakerGiant.trample = true
+        siegebreakerGiant.addActivatedAbility(
+            string: "{3}{R}: Target creature can't block this turn.",
+            cost: Cost("3R"),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }))}))
+        siegebreakerGiant.setFlavorText("No rampart can withstand the fury of a giant.")
+        siegebreakerGiant.power = 6
+        siegebreakerGiant.toughness = 3
+        return siegebreakerGiant
+    }
     static func Smelt() -> Card {
         let smelt = Card(name: "Smelt", rarity: .Common, set: set, number: 158)
         smelt.setManaCost("R")
@@ -1106,7 +1190,20 @@ enum M19 {
         volleyVeteran.toughness = 2
         return volleyVeteran
     }
-    // 169 Blanchwood Armor
+    static func BlanchwoodArmor() -> Card {
+        let blanchwoodArmor = Card(name: "Blanchwood Armor", rarity: .Common, set: set, number: 169)
+        blanchwoodArmor.setManaCost("2G")
+        blanchwoodArmor.setType(.Enchantment, .Aura)
+        blanchwoodArmor.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                let numForests = blanchwoodArmor.getController().getPermanents().filter({ $0.isType(.Forest) }).count
+                object.power = object.getBasePower() + numForests
+                object.toughness = object.getBaseToughness() + numForests
+                return object
+        })
+        return blanchwoodArmor
+    }
     // 170 Bristling Boar
     static func CentaurCourser() -> Card {
         let centaurCourser = Card(name: "Centaur Courser", rarity: .Common, set: set, number: 171)
@@ -1223,7 +1320,20 @@ enum M19 {
         naturalize.setFlavorText("\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n--Iveta, rooftop runner")
         return naturalize
     }
-    // 191 Oakenform
+    static func Oakenform() -> Card {
+        let oakenform = Card(name: "Oakenform", rarity: .Common, set: set, number: 191)
+        oakenform.setManaCost("2G")
+        oakenform.setType(.Enchantment, .Aura)
+        oakenform.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 3
+                object.toughness = object.getBaseToughness() + 3
+                return object
+        })
+        oakenform.setFlavorText("\"When the beast cloaks itself in the might oak, what good is a bow? When the oak wraps itself around the snarling beast, what good is a hatchet?\"\n--Dionus, elvish archdruid")
+        return oakenform
+    }
     static func PelakkaWurm() -> Card {
         let pelakkaWurm = Card(name: "Pelakka Wurm", rarity: .Rare, set: set, number: 192)
         pelakkaWurm.setManaCost("4GGG")
@@ -1250,7 +1360,22 @@ enum M19 {
         plummet.setFlavorText("\"Let nothing own the skies but the wind.\"\n--Dejara, Giltwood druid")
         return plummet
     }
-    // 194 Prodigious Growth
+    static func ProdigiousGrowth() -> Card {
+        let prodigiousGrowth = Card(name: "Prodigious Growth", rarity: .Rare, set: set, number: 194)
+        prodigiousGrowth.setManaCost("4GG")
+        prodigiousGrowth.setType(.Enchantment, .Aura)
+        prodigiousGrowth.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 7
+                object.toughness = object.getBaseToughness() + 7
+                // TODO: Layers
+                object.trample = true
+                return object
+        })
+        prodigiousGrowth.setFlavorText("\"Look how cute it is now!\"\n--Vivien Reid")
+        return prodigiousGrowth
+    }
     static func RabidBite() -> Card {
         let rabidBite = Card(name: "Rabid Bite", rarity: .Common, set: set, number: 195)
         rabidBite.setManaCost("1G")

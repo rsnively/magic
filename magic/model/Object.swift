@@ -38,6 +38,16 @@ class Object: Targetable, NSCopying {
     var triggeredAbilities:[TriggeredAbility] = []
     var replacementEffects:[ReplacementEffect] = []
     
+    private var baseCantAttack: Bool = false
+    var cantAttack: Bool {
+        get { return applyContinuousEffects().baseCantAttack }
+        set (newCantAttack) { baseCantAttack = newCantAttack }
+    }
+    private var baseCantBlock: Bool = false
+    var cantBlock: Bool {
+        get { return applyContinuousEffects().baseCantBlock }
+        set (newCantBlock) { baseCantBlock = newCantBlock }
+    }
     private var baseDeathtouch: Bool = false
     var deathtouch: Bool {
         get { return applyContinuousEffects().baseDeathtouch }
@@ -152,6 +162,8 @@ class Object: Targetable, NSCopying {
         copy.activatedAbilities = activatedAbilities
         copy.triggeredAbilities = triggeredAbilities
         
+        copy.baseCantAttack = baseCantAttack
+        copy.baseCantBlock = baseCantBlock
         copy.baseDeathtouch = baseDeathtouch
         copy.baseDefender = baseDefender
         copy.baseEntersTapped = baseEntersTapped
@@ -428,7 +440,7 @@ class Object: Targetable, NSCopying {
     }
     
     func canAttack() -> Bool {
-        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !defender && !tapped
+        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !cantAttack && !defender && !tapped
     }
     
     func canBlock() -> Bool {
@@ -437,6 +449,7 @@ class Object: Targetable, NSCopying {
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
         if attacker.unblockable { return false }
+        if self.cantBlock { return false }
         if attacker.flying && !(flying || reach) { return false }
         return true
     }

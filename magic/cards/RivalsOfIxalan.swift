@@ -13,7 +13,7 @@ enum RIX {
     static var count = 196
     
     static private let cards = [
-        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, LuminousBonds, */ MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, SquiresDevotion, */ SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, /* SeaLegs, SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, TilonallisCrown, TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, /* SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        /* BafflingEnd, BishopOfBinding, BlazingHope, CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, ZetalpaPrimalDawn, AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, DeadeyeRigHauler, ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, /* DarkInquiry, DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, SeeRed, */ ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, /* StormFleetSwashbuckler, */ SunCollaredRaptor, /* SwaggeringCorsair, */ TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, DeadeyeBrawler, */ DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, /* SiegehornCeratops, */ StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, StriderHarness, TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
     ]
     
     static func RandomCard() -> Card {
@@ -60,7 +60,20 @@ enum RIX {
         return imperialCeratops
     }
     // 11 Legion Conquistador
-    // 12 Luminous Bonds
+    static func LuminousBonds() -> Card {
+        let luminousBonds = Card(name: "Luminous Bonds", rarity: .Common, set: set, number: 12)
+        luminousBonds.setManaCost("2W")
+        luminousBonds.setType(.Enchantment, .Aura)
+        luminousBonds.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.cantAttack = true
+                object.cantBlock = true
+                return object
+        })
+        luminousBonds.setFlavorText("\"Your part in this fight is done, vampire. Get used to your thirst.\"")
+        return luminousBonds
+    }
     static func MajesticHeliopterus() -> Card {
         let majesticHeliopterus = Card(name: "Majestic Heliopterus", rarity: .Uncommon, set: set, number: 13)
         majesticHeliopterus.setManaCost("3W")
@@ -179,7 +192,24 @@ enum RIX {
         return snubhornSentry
     }
     // 24 Sphinx's Decree
-    // 25 Squire's Devotion
+    static func SquiresDevotion() -> Card {
+        let squiresDevotion = Card(name: "Squire's Devotion", rarity: .Common, set: set, number: 25)
+        squiresDevotion.setManaCost("2W")
+        squiresDevotion.setType(.Enchantment, .Aura)
+        squiresDevotion.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+                // TODO: Layers
+                object.lifelink = true
+                return object
+        })
+        squiresDevotion.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { squiresDevotion.getController().createToken(XLN.Vampire()) })
+        return squiresDevotion
+    }
     static func SunSentinel() -> Card {
         let sunSentinel = Card(name: "Sun Sentinel", rarity: .Common, set: set, number: 26)
         sunSentinel.setManaCost("1W")
@@ -281,7 +311,24 @@ enum RIX {
         sailorOfMeans.toughness = 4
         return sailorOfMeans
     }
-    // 50 Sea Legs
+    static func SeaLegs() -> Card {
+        let seaLegs = Card(name: "Sea Legs", rarity: .Common, set: set, number: 50)
+        seaLegs.setManaCost("U")
+        seaLegs.setType(.Enchantment, .Aura)
+        seaLegs.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                if object.isType(.Pirate) {
+                    object.toughness = object.getBaseToughness() + 2
+                }
+                else {
+                    object.power = object.getBasePower() - 2
+                }
+                return object
+        })
+        seaLegs.setFlavorText("\"When the waves pick up, either you find your feet or you lose your lunch.\"")
+        return seaLegs
+    }
     // 51 Seafloor Oracle
     static func SecretsOfTheGoldenCity() -> Card {
         let secretsOfTheGoldenCity = Card(name: "Secrets of the Golden City", rarity: .Common, set: set, number: 52)
@@ -723,7 +770,27 @@ enum RIX {
         return sunCollaredRaptor
     }
     // 119 Swaggering Corsair
-    // 120 Tilonalli's Crown
+    static func TilonallisCrown() -> Card {
+        let tilonallisCrown = Card(name: "Tilonalli's Crown", rarity: .Common, set: set, number: 120)
+        tilonallisCrown.setManaCost("1R")
+        tilonallisCrown.setType(.Enchantment, .Aura)
+        tilonallisCrown.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 3
+                // TODO: Layers
+                object.trample = true
+                return object
+        })
+        tilonallisCrown.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                if let attachedTo = tilonallisCrown.attachedTo {
+                    tilonallisCrown.damage(to: attachedTo, 1)
+                }
+        })
+        return tilonallisCrown
+    }
     // 121 Tilonalli's Summoner
     static func AggressiveUrge() -> Card {
         let aggressiveUrge = Card(name: "Aggressive Urge", rarity: .Common, set: set, number: 122)

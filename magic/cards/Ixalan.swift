@@ -5,7 +5,7 @@ enum XLN {
     static var count = 279
         
     static private let cards = [
-        AdantoVanguard, /* AshesOfTheAbhorrent, AxisOfMortality, */ BellowingAegisaur, /* BishopOfRebirth, */ BishopsSoldier, BrightReprisal, Demolish, DuskborneSkymarcher, /* EmissaryOfSunrise, EncampmentKeeper, */ GlorifierOfDusk, /* GoringCeratops, */ ImperialAerosaur, /* ImperialLancer, */ InspiringCleric, /* IxalansBinding, KinjallisCaller, */ KinallisSunwing, /* LegionConquistador, */ LegionsJudgment, LoomingAltisaur, /* MavrenFeinDuskApostle, */ PaladinOfTheBloodstained, /* PiousInterdiction, PriestOfTheWakeningSun, */ PterodonKnight, QueensCommission, RallyingRoar, RaptorCompanion, RitualOfRejuvenation, /* SanguineSacrament, SettleTheWreckage, ShelteringLight, */ ShiningAerosaur, SkybladeOfTheLegion, SlashOfTalons, SteadfastArmasaur, /* SunriseSeeker, */ TerritorialHammerskull, /* TocatliHonorGuard, VampiresZeal, WakeningSunsAvatar, */ AirElemental, /* ArcaneAdaptation, Cancel, ChartACourse, DaringSaboteur, DeadeyeQuartermaster, DeeprootWaters, */ DepthsOfDesire, /* DiveDown, DreamcallerSiren, EntrancingMelody, */ FavorableWinds, FleetSwallower, HeadwaterSentries, HeraldOfSecretStreams, /* JaceCunningCastaway, KopalaWardenOfWaves, LookoutsDispersal, NavigatorsRuin, OneWithTheWind, Opt, */ OverflowingInsight, /* PerilousVoyage, */ PiratesPrize, ProsperousPirates, /* RiverSneak, */ RiversRebuke, /* RunAground, */ SailorOfMeans, ShaperApprentice, /* ShipwreckLooter, */ ShoreKeeper, /* SirenLookout, SirenStormtamer, SirensRuse, SpellPierce, SpellSwindle, StormFleetAerialist, StormFleetSpy, */ StormSculptor, TempestCaller, /* WatertrapWeaver, */ WindStrider, /* AnointedDeacon, */ BishopOfTheBloodstained, BlightKeeper, /* BloodcrazedPaladin, BoneyardParley, */ ContractKilling, /* CostlyPlunder, */ DarkNourishment, /* DeadeyeTormenter, DeadeyeTracker, DeathlessAncient, DesperateCastaways, */ DireFleetHoarder, /* DireFleetInterloper, DireFleetRavager, Duress, FathomFleetCaptain, FathomFleetCutthroat, GrimCaptainsCall, HeartlessPillage, KitesailFreebooter, LurkingChupacabra, MarchOfTheDrowned, MarkOfTheVampire, QueensAgent, */ QueensBaySoldier, /* RaidersWake, RevelInRiches, RuinRaider, RuthlessKnave, SanctumSeeker, SeekersSquire, */ SkitteringHeartstopper, Skulduggery, SkymarchBloodletter, SpreadingRot, /* SwordPointDiplomacy, */ VanquishTheWeak, ViciousConquistador, /* VraskasContempt, */ WalkThePlank, WantedScoundrels, /* AngrathsMarauders, BondedHorncrest, BrazenBuccaneers, */ BurningSunsAvatar, /* CaptainLanneryStorm, CaptivatingCrew, */ ChargingMonstrosaur, Demolish, DinosaurStampede, DualShot, FathomFleetFirebrand, FieryCannonade, /* FireShrineKeeper, FirecannonBlast, */ FrenziedRaptor, /* HeadstrongBrute, Hijack, */ LightningStrike, /* LightningRigCrew, MakeshiftMunitions, */ NestRobber, /* OtepecHuntmaster, RampagingFerocidon, */ RaptorHatchling, /* RepeatingBarrage, RiggingRunner, */ Rile, /* RowdyCrew, RummagingGoblin, StarOfExtinction, StormFleetArsonist, StormFleetPyromancer, */ SunCrownedHunters, /* SunbirdsInvocation, SureStrike, Swashbuckling, */ ThrashOfRaptors, TilonallisKnight, /* TilonallisSkinshifter, TroveOfTemptation, */ UnfriendlyFire, WilyGoblin, AncientBrontodon, /* AtzocanArcher, BlindingFog, */ BlossomDryad, /* CarnageTyrant, */ ColossalDreadmaw, /* CommuneWithDinosaurs, */ CrashTheRamparts, /* CrushingCanopy, DeathgorgeScavenger, */ DeeprootChampion, /* DeeprootWarrior, */ DroverOfTheMighty, /* EmergentGrowth, EmperorsVanguard, */ GrazingWhiptail, /* IxallisDiviner, */ IxallisKeeper, /* JadeGuardian, */ JungleDelver, KumenasSpeaker, /* MerfolkBranchwalker, NewHorizons, OldGrowthDryads, */ Pounce, /* RangingRaptors, */ RavenousDaggertooth, RipjawRaptor, RiverHeraldsBoon, /* SavageStomp, ShapersSanctuary, */ SliceInTwain, SnappingSailback, /* SpikeTailedCeratops, */ ThunderingSpineback, /* TishanasWayfinder, VerdantRebirth, VerdantSunsAvatar, VineshaperMystic, WakerOfTheWilds, WildgrowthWalker, AdmiralBeckettBrass, BelligerentBrontodon, */ CallToTheFeast, DeadeyePlunderers, DireFleetCaptain, /* GishathSunsAvatar, HostageTaker, HuatliWarriorPoet, MaraudingLooter, */ RagingSwordtooth, RegisaurAlpha, /* ShapersOfNature, SkyTerror, TishanaVoiceOfThunder, VonaButcherOfMagan, VraskaRelicSeeker, LegionsLanding, SearchForAzcanta, ArguelsBloodFast, VancesBlastingCannons, GrowingRitesOfItlimoc, ConquerorsGalleon, DowsingDagger, PrimalAmulet, ThaumaticCompass, TreasureMap, CobbledWings, DuskLegionDreadnought, ElaborateFirecannon, FellFlagship, */ GildedSentinel, HierophantsChalice, /* PillarOfOrigins, PiratesCutlass, PryingBlade, SentinelTotem, ShadowedCaravel, SleekSchooner, SorcerousSpyglass, VanquishersBanner, */ DragonskullSummit, DrownedCatacomb, /* FieldOfRuin, */ GlacialFortress, RootboundCrag, SunpetalGrove, /* UnclaimedTerritory, */ UnknownShores
+        AdantoVanguard, /* AshesOfTheAbhorrent, AxisOfMortality, */ BellowingAegisaur, /* BishopOfRebirth, */ BishopsSoldier, BrightReprisal, Demolish, DuskborneSkymarcher, /* EmissaryOfSunrise, EncampmentKeeper, */ GlorifierOfDusk, /* GoringCeratops, */ ImperialAerosaur, /* ImperialLancer, */ InspiringCleric, /* IxalansBinding, KinjallisCaller, */ KinallisSunwing, /* LegionConquistador, */ LegionsJudgment, LoomingAltisaur, /* MavrenFeinDuskApostle, */ PaladinOfTheBloodstained, PiousInterdiction, /* PriestOfTheWakeningSun, */ PterodonKnight, QueensCommission, RallyingRoar, RaptorCompanion, RitualOfRejuvenation, /* SanguineSacrament, SettleTheWreckage, ShelteringLight, */ ShiningAerosaur, SkybladeOfTheLegion, SlashOfTalons, SteadfastArmasaur, /* SunriseSeeker, */ TerritorialHammerskull, /* TocatliHonorGuard, VampiresZeal, WakeningSunsAvatar, */ AirElemental, /* ArcaneAdaptation, Cancel, ChartACourse, DaringSaboteur, DeadeyeQuartermaster, DeeprootWaters, */ DepthsOfDesire, /* DiveDown, DreamcallerSiren, EntrancingMelody, */ FavorableWinds, FleetSwallower, HeadwaterSentries, HeraldOfSecretStreams, /* JaceCunningCastaway, KopalaWardenOfWaves, LookoutsDispersal, NavigatorsRuin, */ OneWithTheWind, /* Opt, */ OverflowingInsight, /* PerilousVoyage, */ PiratesPrize, ProsperousPirates, /* RiverSneak, */ RiversRebuke, /* RunAground, */ SailorOfMeans, ShaperApprentice, /* ShipwreckLooter, */ ShoreKeeper, /* SirenLookout, SirenStormtamer, SirensRuse, SpellPierce, SpellSwindle, StormFleetAerialist, StormFleetSpy, */ StormSculptor, TempestCaller, /* WatertrapWeaver, */ WindStrider, /* AnointedDeacon, */ BishopOfTheBloodstained, BlightKeeper, /* BloodcrazedPaladin, BoneyardParley, */ ContractKilling, /* CostlyPlunder, */ DarkNourishment, /* DeadeyeTormenter, DeadeyeTracker, DeathlessAncient, */ DesperateCastaways, DireFleetHoarder, /* DireFleetInterloper, DireFleetRavager, Duress, FathomFleetCaptain, FathomFleetCutthroat, GrimCaptainsCall, HeartlessPillage, KitesailFreebooter, LurkingChupacabra, MarchOfTheDrowned, */ MarkOfTheVampire, /* QueensAgent, */ QueensBaySoldier, /* RaidersWake, RevelInRiches, RuinRaider, RuthlessKnave, SanctumSeeker, SeekersSquire, */ SkitteringHeartstopper, Skulduggery, SkymarchBloodletter, SpreadingRot, /* SwordPointDiplomacy, */ VanquishTheWeak, ViciousConquistador, /* VraskasContempt, */ WalkThePlank, WantedScoundrels, /* AngrathsMarauders, BondedHorncrest, BrazenBuccaneers, */ BurningSunsAvatar, /* CaptainLanneryStorm, CaptivatingCrew, */ ChargingMonstrosaur, Demolish, DinosaurStampede, DualShot, FathomFleetFirebrand, FieryCannonade, /* FireShrineKeeper, FirecannonBlast, */ FrenziedRaptor, /* HeadstrongBrute, Hijack, */ LightningStrike, /* LightningRigCrew, MakeshiftMunitions, */ NestRobber, /* OtepecHuntmaster, RampagingFerocidon, */ RaptorHatchling, /* RepeatingBarrage, RiggingRunner, */ Rile, /* RowdyCrew, RummagingGoblin, StarOfExtinction, StormFleetArsonist, StormFleetPyromancer, */ SunCrownedHunters, /* SunbirdsInvocation, SureStrike, */ Swashbuckling, ThrashOfRaptors, TilonallisKnight, /* TilonallisSkinshifter, TroveOfTemptation, */ UnfriendlyFire, WilyGoblin, AncientBrontodon, /* AtzocanArcher, BlindingFog, */ BlossomDryad, /* CarnageTyrant, */ ColossalDreadmaw, /* CommuneWithDinosaurs, */ CrashTheRamparts, /* CrushingCanopy, DeathgorgeScavenger, */ DeeprootChampion, /* DeeprootWarrior, */ DroverOfTheMighty, /* EmergentGrowth, EmperorsVanguard, */ GrazingWhiptail, /* IxallisDiviner, */ IxallisKeeper, /* JadeGuardian, */ JungleDelver, KumenasSpeaker, /* MerfolkBranchwalker, NewHorizons, OldGrowthDryads, */ Pounce, /* RangingRaptors, */ RavenousDaggertooth, RipjawRaptor, RiverHeraldsBoon, /* SavageStomp, ShapersSanctuary, */ SliceInTwain, SnappingSailback, /* SpikeTailedCeratops, */ ThunderingSpineback, /* TishanasWayfinder, VerdantRebirth, VerdantSunsAvatar, VineshaperMystic, WakerOfTheWilds, WildgrowthWalker, AdmiralBeckettBrass, BelligerentBrontodon, */ CallToTheFeast, DeadeyePlunderers, DireFleetCaptain, /* GishathSunsAvatar, HostageTaker, HuatliWarriorPoet, MaraudingLooter, */ RagingSwordtooth, RegisaurAlpha, /* ShapersOfNature, SkyTerror, TishanaVoiceOfThunder, VonaButcherOfMagan, VraskaRelicSeeker, LegionsLanding, SearchForAzcanta, ArguelsBloodFast, VancesBlastingCannons, GrowingRitesOfItlimoc, ConquerorsGalleon, DowsingDagger, PrimalAmulet, ThaumaticCompass, TreasureMap, CobbledWings, DuskLegionDreadnought, ElaborateFirecannon, FellFlagship, */ GildedSentinel, HierophantsChalice, /* PillarOfOrigins, PiratesCutlass, PryingBlade, SentinelTotem, ShadowedCaravel, SleekSchooner, SorcerousSpyglass, VanquishersBanner, */ DragonskullSummit, DrownedCatacomb, /* FieldOfRuin, */ GlacialFortress, RootboundCrag, SunpetalGrove, /* UnclaimedTerritory, */ UnknownShores
     ]
     
     static func RandomCard() -> Card {
@@ -206,7 +206,23 @@ enum XLN {
         paladinOfTheBloodstained.toughness = 2
         return paladinOfTheBloodstained
     }
-    // 26 Pious Interdiction
+    static func PiousInterdiction() -> Card {
+        let piousInterdiction = Card(name: "Pious Interdiction", rarity: .Common, set: set, number: 26)
+        piousInterdiction.setManaCost("3W")
+        piousInterdiction.setType(.Enchantment, .Aura)
+        piousInterdiction.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.cantAttack = true
+                object.cantBlock = true
+                return object
+        })
+        piousInterdiction.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { piousInterdiction.getController().gainLife(2) })
+        piousInterdiction.setFlavorText("\"Ours is the true and righteous path. You will bow before our might.\"")
+        return piousInterdiction
+    }
     // 27 Priest of the Wakening Sun
     static func PterodonKnight() -> Card {
         let pterodonKnight = Card(name: "Pterodon Knight", rarity: .Common, set: set, number: 28)
@@ -425,7 +441,22 @@ enum XLN {
     // 61 Kopala, Warden of Waves
     // 62 Lookout's Dispersal
     // 63 Navigator's Ruin
-    // 64 One With the Wind
+    static func OneWithTheWind() -> Card {
+        let oneWithTheWind = Card(name: "One With the Wind", rarity: .Common, set: set, number: 64)
+        oneWithTheWind.setManaCost("1U")
+        oneWithTheWind.setType(.Enchantment, .Aura)
+        oneWithTheWind.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                // TODO Layers
+                object.flying = true
+                return object
+        })
+        oneWithTheWind.setFlavorText("\"River and sea, jungle and sky. Water flows freely between the two halves of the world. We are creatures of the water.\"\n--Shaper Tuvasa")
+        return oneWithTheWind
+    }
     // 65 Opt
     static func OverflowingInsight() -> Card {
         let overflowingInsight = Card(name: "Overflowing Insight", rarity: .Mythic, set: set, number: 66)
@@ -638,7 +669,21 @@ enum XLN {
     // 98 Deadeye Tormenter
     // 99 Deadeye Tracker
     // 100 Deathless Ancient
-    // 101 Desperate Castaways
+    static func DesperateCastaways() -> Card {
+        let desperateCastaways = Card(name: "Desperate Castaways", rarity: .Common, set: set, number: 101)
+        desperateCastaways.setManaCost("1B")
+        desperateCastaways.setType(.Creature, .Human, .Pirate)
+        desperateCastaways.addStaticAbility({ object in
+            if object.id == desperateCastaways.id {
+                object.cantAttack = object.getController().getArtifacts().isEmpty
+            }
+            return object
+        })
+        desperateCastaways.setFlavorText("A pirate crew without a ship is a crew that will do anything to get one.")
+        desperateCastaways.power = 2
+        desperateCastaways.toughness = 3
+        return desperateCastaways
+    }
     static func DireFleetHoarder() -> Card {
         let direFleetHoarder = Card(name: "Dire Fleet Hoarder", rarity: .Common, set: set, number: 102)
         direFleetHoarder.setManaCost("1B")
@@ -661,7 +706,22 @@ enum XLN {
     // 110 Kitesail Freebooter
     // 111 Lurking Chupacabra
     // 112 March of the Drowned
-    // 113 Mark of the Vampire
+    static func MarkOfTheVampire() -> Card {
+        let markOfTheVampire = Card(name: "Mark of the Vampire", rarity: .Common, set: set, number: 113)
+        markOfTheVampire.setManaCost("3B")
+        markOfTheVampire.setType(.Enchantment, .Aura)
+        markOfTheVampire.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                // TODO Layers
+                object.lifelink = true
+                return object
+        })
+        markOfTheVampire.setFlavorText("\"Through your sacrifice of self, you become holy. Through your strength, all will be saved.\"\n--From the Rite of Redemption")
+        return markOfTheVampire
+    }
     // 114 Queen's Agent
     static func QueensBaySoldier() -> Card {
         let queensBaySoldier = Card(name: "Queen's Bay Soldier", rarity: .Common, set: set, number: 115)
@@ -983,7 +1043,22 @@ enum XLN {
     }
     // 165 Sunbird's Invocation
     // 166 Sure Strike
-    // 167 Swashbuckling
+    static func Swashbuckling() -> Card {
+        let swashbuckling = Card(name: "Swashbuckling", rarity: .Common, set: set, number: 167)
+        swashbuckling.setManaCost("1R")
+        swashbuckling.setType(.Enchantment, .Aura)
+        swashbuckling.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                // TODO Layers
+                object.haste = true
+                return object
+        })
+        swashbuckling.setFlavorText("The pirates of the Brazen Coalition are the descendants of those displaced by the Legion of Dusk, and they are eager for vengeance.")
+        return swashbuckling
+    }
     static func ThrashOfRaptors() -> Card {
         let thrashOfRaptors = Card(name: "Thrash of Raptors", rarity: .Common, set: set, number: 168)
         thrashOfRaptors.setManaCost("3R")
