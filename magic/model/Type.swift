@@ -23,6 +23,7 @@ enum Subtype {
     case Archer
     case Artificer
     case Assassin
+    case Aura
     case Avatar
     case Basilisk
     case Bat

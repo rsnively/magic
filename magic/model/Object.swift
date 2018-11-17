@@ -30,6 +30,9 @@ class Object: Targetable, NSCopying {
     var activeEffects:[ContinuousEffect] = []
     var counters:[Counter: Int] = [:]
     
+    var attachedTo: Object?
+    var auraRestriction: ((Object) -> Bool)?
+    
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
@@ -121,6 +124,11 @@ class Object: Targetable, NSCopying {
         return currentId
     }
     
+    func exists() -> Bool {
+        //TODO: Don't know if this'll work with flicker and stuff
+        return !getController().getPermanents().filter({ $0.id == self.id }).isEmpty
+    }
+    
     init(name:String, id: Int? = nil) {
         self.id = id ?? Object.GetId()
         self.name = name
@@ -139,6 +147,8 @@ class Object: Targetable, NSCopying {
         copy.effects = effects
         copy.activeEffects = activeEffects
         copy.counters = counters
+        copy.attachedTo = attachedTo
+        copy.auraRestriction = auraRestriction
         copy.activatedAbilities = activatedAbilities
         copy.triggeredAbilities = triggeredAbilities
         
@@ -280,6 +290,31 @@ class Object: Targetable, NSCopying {
     }
     func hasCounter(_ type: Counter) -> Bool {
         return counters[type] != nil
+    }
+    
+    func addEnchantAbility(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object) {
+        self.auraRestriction = restriction
+        addEffect(TargetedEffect.SingleObject(
+            restriction: restriction,
+            effect: { self.attachTo($0) }))
+        addStaticAbility({ object in
+            if self.isAttachedTo(object) {
+                return effect(object)
+            }
+            return object
+        })
+    }
+    func attachTo(_ object: Object) {
+        self.attachedTo = object
+    }
+    func isAttachedTo(_ object: Object) -> Bool {
+        if let attachedTo = self.attachedTo {
+            return attachedTo.id == object.id
+        }
+        return false
+    }
+    func canEnchant(_ object: Object) -> Bool {
+        return self.isType(.Aura) && self.auraRestriction != nil && auraRestriction!(object)
     }
     
     func applyContinuousEffects() -> Object {

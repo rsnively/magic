@@ -342,19 +342,27 @@ class Game: NSObject {
         for permanent in getActivePlayer().getPermanents() {
             if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
                 getActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
-                actionPerformed = true
                 return
             }
         }
         for permanent in getNonActivePlayer().getPermanents() {
             if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
                 getNonActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
-                actionPerformed = true
                 return
             }
         }
         
         // If an aura is attached to an illegal object or player, or is not attached to an object or player, that aura is put into its owner's graveyard.
+        bothPlayers({ player in
+            player.getPermanents().filter({ $0.isType(.Aura) }).forEach({ aura in
+                if aura.attachedTo == nil || !aura.canEnchant(aura.attachedTo!) || aura.isAttachedTo(aura) || !aura.attachedTo!.exists() {
+                    aura.attachedTo = nil
+                    _ = aura.destroy(ignoreIndestructible: true) // TODO: Does this count as destroying?
+                    actionPerformed = true
+                }
+            })
+        })
+        
         // If an equipment or fortification is attached to an illegal permanent, it becomes unattached from that permanent. It remains on the battlefield.
         // If a creature (or any permanent that is not an aura, equipment, or fortification) is attached to an object or player, it becomes unattached and remains on the battlefield.
         // If a permanent has both a +1/+1 counter and a -1/-1 counter on it, N +1/+1 counters and N -1/-1 counters are removed from it, where N is the smaller of the number of +1/+1 and -1/-1 counters on it.
