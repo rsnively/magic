@@ -41,11 +41,10 @@ class Card: Object {
     func canPlay() -> Bool {
         if Game.shared.isSelecting() { return false }
         if !getController().hasPriority { return false }
-        if !(isType(.Instant) || flash) && !(Game.shared.theStack.isEmpty && getController().active && Game.shared.getCurrentPhase().sorcerySpeed()) { return false }
+        if !(isType(.Instant) || flash) && !(getController().canCastSorcery()) { return false }
         if (isType(.Land) && Game.shared.landWasPlayedThisTurn()) { return false }
         
         return true
-
     }
     
     func getSetCode() -> String {

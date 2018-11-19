@@ -124,6 +124,10 @@ class Player: Targetable {
         return manaPool
     }
     
+    func canCastSorcery() -> Bool {
+        return Game.shared.theStack.isEmpty && active && Game.shared.getCurrentPhase().sorcerySpeed()
+    }
+    
     func canAfford(_ cost: Cost, source: Object) -> Bool {
         return manaPool.canAfford(cost.getManaCost())
             && ( !cost.getTapCost() || (!source.isTapped && !source.hasSummoningSickness()))

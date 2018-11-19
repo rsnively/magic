@@ -7,6 +7,7 @@ protocol ActivatedAbility {
     func hasValidTargets() -> Bool // TODO: I hate this name / decision. Untargeted abilities don't have valid targets
     func activate() -> Void
     func resolve() -> Void
+    func isSorcerySpeed() -> Bool
 }
 
 class UntargetedActivatedAbility: Object, ActivatedAbility {
@@ -14,12 +15,14 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var string: String
     private var cost: Cost
     private var manaAbility: Bool
+    private var sorcerySpeed: Bool
     
-    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
+        self.sorcerySpeed = sorcerySpeed
         super.init(name: "Activated Ability of " + source.getName())
         effects.append(UntargetedEffect(effect))
     }
@@ -35,6 +38,10 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     
     func getCost() -> Cost {
         return cost
+    }
+    
+    func isSorcerySpeed() -> Bool {
+        return sorcerySpeed
     }
     
     func hasValidTargets() -> Bool {
@@ -67,12 +74,14 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     private var string: String
     private var cost: Cost
     private var manaAbility: Bool
+    private var sorcerySpeed: Bool
     
-    init(source: Object, string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
+        self.sorcerySpeed = sorcerySpeed
         super.init(name: "Activated Ability of " + source.getName())
         effects.append(effect)
     }
@@ -85,6 +94,10 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     func getString() -> String {
         return string
+    }
+    
+    func isSorcerySpeed() -> Bool {
+        return sorcerySpeed
     }
     
     func hasValidTargets() -> Bool {
