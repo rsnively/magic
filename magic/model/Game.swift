@@ -364,7 +364,27 @@ class Game: NSObject {
         })
         
         // If an equipment or fortification is attached to an illegal permanent, it becomes unattached from that permanent. It remains on the battlefield.
+        bothPlayers({ player in
+            player.getPermanents().filter({ $0.isType(.Equipment) }).forEach({ equipment in
+                if let equippedCreature = equipment.attachedTo {
+                    if equipment.isType(.Creature) || !equippedCreature.isType(.Creature) || equippedCreature.id == equipment.id {
+                        equipment.attachedTo = nil
+                        actionPerformed = true
+                    }
+                }
+            })
+        })
+        
         // If a creature (or any permanent that is not an aura, equipment, or fortification) is attached to an object or player, it becomes unattached and remains on the battlefield.
+        bothPlayers({ player in
+            player.getPermanents().filter({ !$0.isType(.Aura) && !$0.isType(.Equipment) }).forEach({ permanent in
+                if let _ = permanent.attachedTo {
+                    permanent.attachedTo = nil
+                    actionPerformed = true
+                }
+            })
+        })
+        
         // If a permanent has both a +1/+1 counter and a -1/-1 counter on it, N +1/+1 counters and N -1/-1 counters are removed from it, where N is the smaller of the number of +1/+1 and -1/-1 counters on it.
         // If a permanent with an ability that says it can’t have more than N counters of a certain kind on it has more than N counters of that kind on it, all but N of those counters are removed from it.
         // If the number of lore counters on a saga is greater than or equal to its final chapter number, and it isn't the source of a chapter ability on the stack, that saga's controller sacrifices it

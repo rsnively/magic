@@ -329,6 +329,23 @@ class Object: Targetable, NSCopying {
         return self.isType(.Aura) && self.auraRestriction != nil && auraRestriction!(object)
     }
     
+    func addEquipAbility(string: String, cost: Cost, effect: @escaping (Object) -> Object, restriction: @escaping (Object) -> Bool = { _ in return true }) {
+        addActivatedAbility(
+            string: string,
+            cost: cost,
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === self.getController() && restriction($0) },
+                effect: { self.attachTo($0) }),
+            manaAbility: false,
+            sorcerySpeed: true)
+        addStaticAbility({ object in
+            if self.isAttachedTo(object) {
+                return effect(object)
+            }
+            return object
+        })
+    }
+    
     func applyContinuousEffects() -> Object {
         // TODO: Layers
         var object = self.copy() as! Object
@@ -378,11 +395,11 @@ class Object: Targetable, NSCopying {
         }
     }
     
-    func addActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false) {
-        activatedAbilities.append(UntargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility))
+    func addActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
+        activatedAbilities.append(UntargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed))
     }
-    func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false) {
-        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility))
+    func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
+        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed))
     }
     
     func canActivateAbilities() -> Bool {
