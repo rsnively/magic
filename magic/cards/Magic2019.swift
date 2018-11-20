@@ -1383,7 +1383,7 @@ enum M19 {
         rabidBite.addEffect(TargetedEffect.MultiObject(
             restrictions: [{ $0.isType(.Creature) && $0.getController() === rabidBite.getController() },
                            { $0.isType(.Creature) && $0.getController() !== rabidBite.getController() }],
-            effect: { targets in targets[0].damage(to: targets[1], max(0, targets[0].getPower())) }))
+            effect: { targets in targets[0].damage(to: targets[1], targets[0].getPower()) }))
         rabidBite.setFlavorText("\"You should have seen the look on <i>both</i> their faces.\"\n--Morkamp, Lambholt innkeeper")
         return rabidBite
     }

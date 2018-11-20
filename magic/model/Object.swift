@@ -505,6 +505,7 @@ class Object: Targetable, NSCopying {
     }
     
     override func takeDamage(_ amount: Int) {
+        let amount = max(amount, 0)
         markedDamage += amount
         triggerAbilities(.ThisDealtDamage)
     }
@@ -520,8 +521,8 @@ class Object: Targetable, NSCopying {
     }
     
     func fight(_ opponent: Object) {
-        self.damage(to: opponent, max(getPower(), 0))
-        opponent.damage(to: self, max(opponent.getPower(), 0))
+        self.damage(to: opponent, getPower())
+        opponent.damage(to: self, opponent.getPower())
     }
     
     func removeDamage() {

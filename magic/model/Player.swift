@@ -55,6 +55,7 @@ class Player: Targetable {
     }
     
     override func takeDamage(_ amount: Int) {
+        let amount = max(amount, 0)
         self.loseLife(amount)
     }
     
@@ -213,17 +214,17 @@ class Player: Targetable {
                     if let blocker = permanent.blockers.first {
                         
                         if permanent.trample {
-                            let damageToBlocker = max(min(permanent.getPower(), blocker.getToughness()), 0)
-                            let damageToPlayer = max(permanent.getPower() - damageToBlocker, 0)
+                            let damageToBlocker = min(permanent.getPower(), blocker.getToughness())
+                            let damageToPlayer = permanent.getPower() - damageToBlocker
                             permanent.damage(to: blocker, damageToBlocker)
                             permanent.damage(to: permanent.getOpponent(), damageToPlayer)
                         } else {
-                            permanent.damage(to: blocker, max(permanent.getPower(), 0))
+                            permanent.damage(to: blocker, permanent.getPower())
                         }
-                        blocker.damage(to: permanent, max(blocker.getPower(), 0))
+                        blocker.damage(to: permanent, blocker.getPower())
                     }
                 } else {
-                    permanent.damage(to: permanent.getOpponent(), max(permanent.getPower(), 0))
+                    permanent.damage(to: permanent.getOpponent(), permanent.getPower())
                 }
             }
         }

@@ -655,7 +655,7 @@ enum RIX {
                 restriction: { $0.isType(.Creature) && $0.getController() !== formOfTheDinosaur.getController() },
                 effect: { target in
                     formOfTheDinosaur.damage(to: target, 15)
-                    target.damage(to: formOfTheDinosaur.getController(), max(target.getPower(), 0))
+                    target.damage(to: formOfTheDinosaur.getController(), target.getPower())
         }))
         return formOfTheDinosaur
     }

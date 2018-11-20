@@ -343,7 +343,7 @@ enum HOU {
                            { $0.isType(.Creature) && $0.getController() !== ambuscade.getController() }],
             effect: { targets in
                 targets[0].pump(1, 0)
-                targets[0].damage(to: targets[0], max(targets[1].getPower(), 0))
+                targets[0].damage(to: targets[0], targets[1].getPower())
         }))
         ambuscade.setFlavorText("\"Spent a lifetime learning from predators. Picked up a few tricks.\"")
         return ambuscade
