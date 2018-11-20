@@ -217,14 +217,14 @@ class Player: Targetable {
                             let damageToBlocker = min(permanent.getPower(), blocker.getToughness())
                             let damageToPlayer = permanent.getPower() - damageToBlocker
                             permanent.damage(to: blocker, damageToBlocker)
-                            permanent.damage(to: permanent.getOpponent(), damageToPlayer)
+                            permanent.damage(to: permanent.getOpponent(), damageToPlayer, combatDamage: true)
                         } else {
                             permanent.damage(to: blocker, permanent.getPower())
                         }
                         blocker.damage(to: permanent, blocker.getPower())
                     }
                 } else {
-                    permanent.damage(to: permanent.getOpponent(), permanent.getPower())
+                    permanent.damage(to: permanent.getOpponent(), permanent.getPower(), combatDamage: true)
                 }
             }
         }

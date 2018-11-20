@@ -7,6 +7,7 @@ enum Trigger {
     case ThisAttacks
     case ThisBecomesTapped
     case ThisBlocks
+    case ThisDealsCombatDamageToPlayer
     case ThisDealtDamage
     case ThisDies
     case ThisETB

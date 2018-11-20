@@ -510,12 +510,17 @@ class Object: Targetable, NSCopying {
         triggerAbilities(.ThisDealtDamage)
     }
     
-    func damage(to recipient: Targetable, _ amount: Int) {
+    func damage(to recipient: Targetable, _ amount: Int, combatDamage: Bool = false) {
         recipient.takeDamage(amount)
         hasDealtDamage(amount: amount)
         if let objectRecipient = recipient as? Object {
             if deathtouch {
                 objectRecipient.damagedByDeathtouch = true
+            }
+        }
+        if let _ = recipient as? Player {
+            if amount > 0 && combatDamage {
+                triggerAbilities(.ThisDealsCombatDamageToPlayer)
             }
         }
     }
