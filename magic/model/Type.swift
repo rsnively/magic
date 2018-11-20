@@ -118,6 +118,7 @@ enum Subtype {
     case Unicorn
     case Vampire
     case Vedalken
+    case Viashino
     case Wall
     case Warrior
     case Wizard

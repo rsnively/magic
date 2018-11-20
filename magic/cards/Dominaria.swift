@@ -9,13 +9,9 @@ extension Object {
 enum DOM {
     static var set = "dom"
     static var count = 269
-    
-    // TODO: Champion of the Flame, Goblin Chainwhirler, Warlord's Fury, Jousting Lance
-    // M19 First/Double strike
-    // GRN First/Doule strik
-    
+        
     private static let cards = [
-        /* KarnScionOfUrza, */ AdamantWill, AvenSentry, /* BairdStewardOfArgive, */ BenalishHonorGuard, BenalishMarshal, /* Blessed Light, */ /* BoardTheWeatherlight, */ CallTheCavalry, Charge, DAvenantTrapper, /* DanithaCapashenParagon, */ /* DaringArchaeologist, */ /* DauntlessBodyguard, */ /* Dub, */ EvraHalcyonWitness, /* ExcavationElephant, */ /* FallOfTheThran, */ GideonsReproach, /* HealingGrace, */ HistoryOfBenalia, InvokeTheDivine, /* KnightOfGrace, */ KnightOfNewBenalia, KwendePrideOfFemeref, LyraDawnbringer, MesaUnicorn, /* OnSerrasWings, */ PegasusCourser, /* SanctumSpirit, */ /* SealAway, */ /* SergeantAtArms, */ SerraAngel, SerraDisciple, /* ShalaiVoiceOfPlenty, */ /* TesharAncestorsApostle, */ /* TragicPoet, */ TriumphOfGerrard, /* UrzasRuinousBlast, */ /* AcademyDrake, */ /* AcademyJourneymage, */ /* TheAntiquitiesWar, */ ArcaneFlight, /* ArtificersAssistant, */ Befuddle, /* BlinkOfAnEye, */ /* CloudreaderSphinx, */ /* ColdWaterSnapper, */ /* CuratorsWard, */ /* DeepFreeze, */ DiligentExcavator, Divination, HomaridExplorer, /* InBolassClutches, */ /* KarnsTemporalSundering, */ /* MerfolkTrickster, */ /* TheMirariConjecture, */ /* NabanDeanOfIteration, */ /* NaruMehaMasterWizard, */ /* Opt, */ /* PrecognitionField, */ /* RelicRunner, */ Rescue, /* SageOfNatLam, */ /* SentinelOfThePearlTrident, */ /* SlinnVodaTheRisingDeep, */ /* Syncopate, */ TempestDjinn, TetsukoUmezawaFugitive, /* TimeOfIce, */ TolarianScholar, /* Unwind, */ /* VodalianArcanist, */ WeightOfMemory, /* WizardsRetort, */ /* ZahidDjiinOfTheLamp, */ BlessingOfBelzenlok, CabalEvangel, CabalPaladin, /* CaligoSkinWitch, */ CastDown, /* ChainersTorment, */ /* DarkBargain, */ DeathbloomThallid, /* DemonicVigor, */ /* DemonlordBelzenlok, */ /* Divest, */ DreadShade, DrudgeSentinel, /* TheEldestReborn, */ Eviscerate, FeralAbomination, /* FinalParting, */ FungalInfection, /* JosuVessLichKnight, */ /* KazarovSengirPureblood, */ /* KnightOfMalice, */ /* LichsMastery, */ /* LingeringPhantom, */ /* PhyrexianScriptures, */ RatColony, /* RiteOfBelzenlok, */ /* SettleTheScore, */ /* SoulSalvage, */ /* StrongholdConfessor, */ /* ThallidOmnivore, */ /* ThallidSoothsayer, */ /* TorgaarFamineIncarnate, */ /* UrgorosTheEmptyOne, */ /* ViciousOffering, */ /* WhisperBloodLiturgist, */ WindgraceAcolyte, YargleGluttonOfUrborg, /* YawgmothsVileOffering, */ /* BloodstoneGoblin, */ /* ChampionOfTheFlame, */ FerventStrike, /* FieryIntervention, */ /* FightWithFire, */ FireElemental, FirefistAdept, /* TheFirstEruption, */ /* TheFlameOfKeld, */ /* FrenziedRage, */ /* GhituChronicler, */ GhituJourneymage, GhituLavarunner, /* GoblinBarrage, */ /* GoblinChainwhirler, */ /* GoblinWarchief, */ /* HaphazardBombardment, */ /* JayaBallard, */ /* JayasImmolatingInferno, */ /* KeldonOverseer, */ /* KeldonRaider, */ KeldonWarcaller, /* OrcishVandal, */ RadiatingLightning, /* RampagingCyclops, */ RunAmok, /* SeismicShift, */ /* ShivanFire, */ /* SiegeGangCommander, */ /* SkirkProspector, */ /* Skizzik, */ /* SqueeTheImmortal, */ /* TwoHeadedGiant, */ /* ValdukKeeperOfTheFlame, */ /* VerixBladewing, */ /* WarcryPhoenix, */ /* WarlordsFury, */ /* WizardsLightning, */ /* AdventurousImpulse, */ AncientAnimus, ArborArmament, /* BalothGorger, */ /* BrokenBond, */ /* CorrosiveOoze, */ /* ElfhameDruid, */ /* FungalPlots, */ /* GaeasBlessing, */ /* GaeasProtector, */ /* GiftOfGrowth, */ /* GromFromTheAshes, */ /* GrunnTheLonelyKing, */ /* KamahlsDruidicVow, */ /* KrosanDruid, */ LlanowarElves, LlanowarEnvoy, /* LlanowarScout, */ MammothSpider, /* MarwynTheNurturer, */ /* TheMendingOfDominaria, */ /* MultaniYavimayasAvatar, */ /* NaturesSpiral, */ PierceTheSky, PrimordialWurm, /* SaprolingMigration, */ /* SongOfFreyalise, */ SporeSwarm, SporecrownThallid, /* SteelLeafChampion, */ /* SylvanAwakening, */ /* TerritorialAllosaurus, */ /* ThornElemental, */ /* UntamedKavu, */ VerdantForce, /* WildOnslaught, */ YavimayaSapherd, AdelizTheCinderWind, ArvadTheCursed, /* AryelKnightOfWindgrace, */ /* DarigaazReincarnated, */ /* GarnaTheBloodflame, */ /* GrandWarlordRadha, */ /* HallarTheFirefletcher, */ JhoiraWeatherlightCaptain, /* JodahArchmageEternal, */ /* MuldrothaTheGravetide, */ /* OathOfTeferi, */ /* PrimevalsGloriousRebirth, */ /* RaffCapashenShipsMage, */ /* RonaDiscipleOfGix, */ /* ShannaSisaysLegacy, */ /* SlimefootTheStowaway, */ TatyovaBenthicDruid, /* TeferiHeroOfDominaria, */ /* TianaShipsCaretaker, */ /* AesthirGlider, */ AmaranthineWall, BlackbladeReforged, BloodtallowCandle, /* DampingSphere, */ /* ForebearsBlade, */ GildedLotus, /* GuardiansOfKoilos, */ /* HelmOfTheHost, */ HowlingGolem, IcyManipulator, /* JhoirasFamiliar, */ /* JoustingLance, */ /* Juggernaut, */ /* MishrasSelfReplicator, */ /* MoxAmber, */ /* NavigatorsCompass, */ PardicWanderer, PowerstoneShard, /* ShieldOfTheRealm, */ ShortSword, /* SkitteringSurveyor, */ /* SorcerersWand, */ SparringConstruct, /* ThranTemporalGateway, */ /* TraxosScourgeOfKroog, */ /* UrzasTome, */ VoltaicServant, /* Weatherlight, */ CabalStronghold, ClifftopRetreat, HinterlandHarbor, IsolatedChapel, /* MemorialToFolly, */ MemorialToGenius, MemorialToGlory, /* MemorialToUnity, */ MemorialToWar, SulfurFalls, WoodlandCemetery, /* ZhalfirinVoid, */
+        /* KarnScionOfUrza, */ AdamantWill, AvenSentry, /* BairdStewardOfArgive, */ BenalishHonorGuard, BenalishMarshal, /* Blessed Light, */ /* BoardTheWeatherlight, */ CallTheCavalry, Charge, DAvenantTrapper, /* DanithaCapashenParagon, */ /* DaringArchaeologist, */ /* DauntlessBodyguard, */ /* Dub, */ EvraHalcyonWitness, /* ExcavationElephant, */ /* FallOfTheThran, */ GideonsReproach, /* HealingGrace, */ HistoryOfBenalia, InvokeTheDivine, /* KnightOfGrace, */ KnightOfNewBenalia, KwendePrideOfFemeref, LyraDawnbringer, MesaUnicorn, /* OnSerrasWings, */ PegasusCourser, /* SanctumSpirit, */ /* SealAway, */ /* SergeantAtArms, */ SerraAngel, SerraDisciple, /* ShalaiVoiceOfPlenty, */ /* TesharAncestorsApostle, */ /* TragicPoet, */ TriumphOfGerrard, /* UrzasRuinousBlast, */ /* AcademyDrake, */ /* AcademyJourneymage, */ /* TheAntiquitiesWar, */ ArcaneFlight, /* ArtificersAssistant, */ Befuddle, /* BlinkOfAnEye, */ /* CloudreaderSphinx, */ /* ColdWaterSnapper, */ /* CuratorsWard, */ /* DeepFreeze, */ DiligentExcavator, Divination, HomaridExplorer, /* InBolassClutches, */ /* KarnsTemporalSundering, */ /* MerfolkTrickster, */ /* TheMirariConjecture, */ /* NabanDeanOfIteration, */ /* NaruMehaMasterWizard, */ /* Opt, */ /* PrecognitionField, */ /* RelicRunner, */ Rescue, /* SageOfNatLam, */ /* SentinelOfThePearlTrident, */ /* SlinnVodaTheRisingDeep, */ /* Syncopate, */ TempestDjinn, TetsukoUmezawaFugitive, /* TimeOfIce, */ TolarianScholar, /* Unwind, */ /* VodalianArcanist, */ WeightOfMemory, /* WizardsRetort, */ /* ZahidDjiinOfTheLamp, */ BlessingOfBelzenlok, CabalEvangel, CabalPaladin, /* CaligoSkinWitch, */ CastDown, /* ChainersTorment, */ /* DarkBargain, */ DeathbloomThallid, /* DemonicVigor, */ /* DemonlordBelzenlok, */ /* Divest, */ DreadShade, DrudgeSentinel, /* TheEldestReborn, */ Eviscerate, FeralAbomination, /* FinalParting, */ FungalInfection, /* JosuVessLichKnight, */ /* KazarovSengirPureblood, */ /* KnightOfMalice, */ /* LichsMastery, */ /* LingeringPhantom, */ /* PhyrexianScriptures, */ RatColony, /* RiteOfBelzenlok, */ /* SettleTheScore, */ /* SoulSalvage, */ /* StrongholdConfessor, */ /* ThallidOmnivore, */ /* ThallidSoothsayer, */ /* TorgaarFamineIncarnate, */ /* UrgorosTheEmptyOne, */ /* ViciousOffering, */ /* WhisperBloodLiturgist, */ WindgraceAcolyte, YargleGluttonOfUrborg, /* YawgmothsVileOffering, */ /* BloodstoneGoblin, */ ChampionOfTheFlame, FerventStrike, /* FieryIntervention, */ /* FightWithFire, */ FireElemental, FirefistAdept, /* TheFirstEruption, */ /* TheFlameOfKeld, */ /* FrenziedRage, */ /* GhituChronicler, */ GhituJourneymage, GhituLavarunner, /* GoblinBarrage, */ GoblinChainwhirler, /* GoblinWarchief, */ /* HaphazardBombardment, */ /* JayaBallard, */ /* JayasImmolatingInferno, */ /* KeldonOverseer, */ /* KeldonRaider, */ KeldonWarcaller, /* OrcishVandal, */ RadiatingLightning, /* RampagingCyclops, */ RunAmok, /* SeismicShift, */ /* ShivanFire, */ /* SiegeGangCommander, */ /* SkirkProspector, */ /* Skizzik, */ /* SqueeTheImmortal, */ /* TwoHeadedGiant, */ /* ValdukKeeperOfTheFlame, */ /* VerixBladewing, */ /* WarcryPhoenix, */ WarlordsFury, /* WizardsLightning, */ /* AdventurousImpulse, */ AncientAnimus, ArborArmament, /* BalothGorger, */ /* BrokenBond, */ /* CorrosiveOoze, */ /* ElfhameDruid, */ /* FungalPlots, */ /* GaeasBlessing, */ /* GaeasProtector, */ /* GiftOfGrowth, */ /* GromFromTheAshes, */ /* GrunnTheLonelyKing, */ /* KamahlsDruidicVow, */ /* KrosanDruid, */ LlanowarElves, LlanowarEnvoy, /* LlanowarScout, */ MammothSpider, /* MarwynTheNurturer, */ /* TheMendingOfDominaria, */ /* MultaniYavimayasAvatar, */ /* NaturesSpiral, */ PierceTheSky, PrimordialWurm, /* SaprolingMigration, */ /* SongOfFreyalise, */ SporeSwarm, SporecrownThallid, /* SteelLeafChampion, */ /* SylvanAwakening, */ /* TerritorialAllosaurus, */ /* ThornElemental, */ /* UntamedKavu, */ VerdantForce, /* WildOnslaught, */ YavimayaSapherd, AdelizTheCinderWind, ArvadTheCursed, /* AryelKnightOfWindgrace, */ /* DarigaazReincarnated, */ /* GarnaTheBloodflame, */ /* GrandWarlordRadha, */ /* HallarTheFirefletcher, */ JhoiraWeatherlightCaptain, /* JodahArchmageEternal, */ /* MuldrothaTheGravetide, */ /* OathOfTeferi, */ /* PrimevalsGloriousRebirth, */ /* RaffCapashenShipsMage, */ /* RonaDiscipleOfGix, */ /* ShannaSisaysLegacy, */ /* SlimefootTheStowaway, */ TatyovaBenthicDruid, /* TeferiHeroOfDominaria, */ /* TianaShipsCaretaker, */ /* AesthirGlider, */ AmaranthineWall, BlackbladeReforged, BloodtallowCandle, /* DampingSphere, */ /* ForebearsBlade, */ GildedLotus, /* GuardiansOfKoilos, */ /* HelmOfTheHost, */ HowlingGolem, IcyManipulator, /* JhoirasFamiliar, */ JoustingLance, /* Juggernaut, */ /* MishrasSelfReplicator, */ /* MoxAmber, */ /* NavigatorsCompass, */ PardicWanderer, PowerstoneShard, /* ShieldOfTheRealm, */ ShortSword, /* SkitteringSurveyor, */ /* SorcerersWand, */ SparringConstruct, /* ThranTemporalGateway, */ /* TraxosScourgeOfKroog, */ /* UrzasTome, */ VoltaicServant, /* Weatherlight, */ CabalStronghold, ClifftopRetreat, HinterlandHarbor, IsolatedChapel, /* MemorialToFolly, */ MemorialToGenius, MemorialToGlory, /* MemorialToUnity, */ MemorialToWar, SulfurFalls, WoodlandCemetery, /* ZhalfirinVoid, */
     ]
     
     static func RandomCard() -> Card {
@@ -685,7 +681,25 @@ enum DOM {
     }
     // 114 Yawgmoth's Vile Offering
     // 115 Bloodstone Goblin
-    // 116 Champion of the Flame
+    static func ChampionOfTheFlame() -> Card {
+        let championOfTheFlame = Card(name: "Champion of the Flame", rarity: .Uncommon, set: set, number: 116)
+        championOfTheFlame.setManaCost("1R")
+        championOfTheFlame.setType(.Creature, .Human, .Warrior)
+        championOfTheFlame.trample = true
+        championOfTheFlame.addStaticAbility({ object in
+            if object.id == championOfTheFlame.id {
+                let numAttachments = object.getController().getPermanents().filter({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isAttachedTo(object) }).count
+                let bonus = numAttachments * 2
+                object.power = object.getBasePower() + bonus
+                object.toughness = object.getBaseToughness() + bonus
+            }
+            return object
+        })
+        championOfTheFlame.setFlavorText("Grand Warlord Radha's challengers are always defeated, but she rewards the most passionate with the Flame of Keld. After that, they burn for her.")
+        championOfTheFlame.power = 1
+        championOfTheFlame.toughness = 1
+        return championOfTheFlame
+    }
     static func FerventStrike() -> Card {
         let ferventStrike = Card(name: "Fervent Strike", rarity: .Common, set: set, number: 117)
         ferventStrike.setManaCost("R")
@@ -768,7 +782,23 @@ enum DOM {
         return ghituLavarunner
     }
     // 128 Goblin Barrage
-    // 129 Goblin Chainwhirler
+    static func GoblinChainwhirler() -> Card {
+        let goblinChainwhirler = Card(name: "Goblin Chainwhirler", rarity: .Rare, set: set, number: 129)
+        goblinChainwhirler.setManaCost("RRR")
+        goblinChainwhirler.setType(.Creature, .Goblin, .Warrior)
+        goblinChainwhirler.firstStrike = true
+        goblinChainwhirler.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                goblinChainwhirler.damage(to: goblinChainwhirler.getOpponent(), 1)
+                goblinChainwhirler.getOpponent().getCreatures().forEach({ goblinChainwhirler.damage(to: $0, 1) })
+                // TODO: Also planeswalkers (in same call as creatures because might be both)
+        })
+        goblinChainwhirler.setFlavorText("\"The trick is, once you get moving, don't stop!\"")
+        goblinChainwhirler.power = 3
+        goblinChainwhirler.toughness = 3
+        return goblinChainwhirler
+    }
     // 130 Goblin Warchief
     // 131 Haphazard Bombardment
     // 132 Jaya Ballard
@@ -827,7 +857,19 @@ enum DOM {
     // 148 Valduk, Keeper of the Flame
     // 149 Verix Bladewing
     // 150 Warcry Phoenix
-    // 151 Warlord's Fury
+    static func WarlordsFury() -> Card {
+        let warlordsFury = Card(name: "Warlord's Fury", rarity: .Common, set: set, number: 151)
+        warlordsFury.setManaCost("R")
+        warlordsFury.setType(.Sorcery)
+        warlordsFury.addEffect({
+            warlordsFury.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.firstStrike = true; return $0 }))
+            })
+            warlordsFury.getController().drawCard()
+        })
+        warlordsFury.setFlavorText("\"The old ways were for a winter world. We do what's best for us, not for the past. We are Keldons!\"\n--Grand Warlord Radha")
+        return warlordsFury
+    }
     // 152 Wizard's Lightning
     // 153 Adventurous Impulse
     static func AncientAnimus() -> Card {
@@ -1200,7 +1242,23 @@ enum DOM {
         return icyManipulator
     }
     // 220 Jhoira's Familiar
-    // 221 Jousting Lance
+    static func JoustingLance() -> Card {
+        let joustingLance = Card(name: "Jousting Lance", rarity: .Common, set: set, number: 221)
+        joustingLance.setManaCost("2")
+        joustingLance.setType(.Artifact, .Equipment)
+        joustingLance.addEquipAbility(
+            string: "{3}: Equip.",
+            cost: Cost("3"),
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                // TODO: Layers
+                if object.getController().active {
+                    object.firstStrike = true
+                }
+                return object
+        })
+        return joustingLance
+    }
     // 222 Juggernaut
     // 223 Mishra's Self Replicator
     // 224 Mox Ambber
