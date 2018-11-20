@@ -8,7 +8,7 @@ enum Phase: Int {
     case BeginCombat
     case Attack
     case Block
-    //todo: case FirstStrike
+    case FirstStrike
     case Damage
     case EndCombat
     case SecondMain
@@ -24,6 +24,7 @@ enum Phase: Int {
         case .BeginCombat: return "Beginning of Combat Step"
         case .Attack: return "Declare Attackers Step"
         case .Block: return "Declare Blockers Step"
+        case .FirstStrike: return "First Strike Damage"
         case .Damage: return "Combat Damage Step"
         case .EndCombat: return "End of Combat Step"
         case .SecondMain: return "2nd Main Phase"

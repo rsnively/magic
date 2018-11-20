@@ -58,10 +58,20 @@ class Object: Targetable, NSCopying {
         get { return applyContinuousEffects().baseDefender }
         set (newDefender) { baseDefender = newDefender }
     }
+    private var baseDoubleStrike: Bool = false
+    var doubleStrike: Bool {
+        get { return applyContinuousEffects().baseDoubleStrike }
+        set (newDoubleStrike) { baseDoubleStrike = newDoubleStrike }
+    }
     private var baseEntersTapped: Bool = false
     var entersTapped: Bool {
         get { return applyContinuousEffects().baseEntersTapped }
         set (newEntersTapped) { baseEntersTapped = newEntersTapped }
+    }
+    private var baseFirstStrike: Bool = false
+    var firstStrike: Bool {
+        get { return applyContinuousEffects().baseFirstStrike }
+        set (newFirstStrike) { baseFirstStrike = newFirstStrike }
     }
     private var baseFlash: Bool = false
     var flash: Bool {
@@ -166,7 +176,9 @@ class Object: Targetable, NSCopying {
         copy.baseCantBlock = baseCantBlock
         copy.baseDeathtouch = baseDeathtouch
         copy.baseDefender = baseDefender
+        copy.baseDoubleStrike = baseDoubleStrike
         copy.baseEntersTapped = baseEntersTapped
+        copy.baseFirstStrike = baseFirstStrike
         copy.baseFlash = baseFlash
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
@@ -479,6 +491,7 @@ class Object: Targetable, NSCopying {
     }
     
     func bounce() {
+        removeFromCombat()
         getController().bouncePermanent(self)
     }
     
@@ -488,6 +501,7 @@ class Object: Targetable, NSCopying {
     
     func destroy(ignoreIndestructible: Bool = false) -> Bool {
         if !indestructible || ignoreIndestructible {
+            removeFromCombat()
             getController().destroyPermanent(self)
             return true
         }
@@ -496,6 +510,7 @@ class Object: Targetable, NSCopying {
     
     func sacrifice() {
         let _ = self.destroy(ignoreIndestructible: true)
+        removeFromCombat()
     }
     
     private func hasDealtDamage(amount: Int) {
@@ -528,6 +543,14 @@ class Object: Targetable, NSCopying {
     func fight(_ opponent: Object) {
         self.damage(to: opponent, getPower())
         opponent.damage(to: self, opponent.getPower())
+    }
+    
+    func removeFromCombat() {
+        attacking = false
+        blocking = false
+        blockers.removeAll()
+        attackers.removeAll()
+        blocked = false
     }
     
     func removeDamage() {

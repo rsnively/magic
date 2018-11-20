@@ -48,6 +48,7 @@ enum Subtype {
     case Dwarf
     case Efreet
     case Egg
+    case Elder
     case Elemental
     case Elephant
     case Elf
@@ -68,6 +69,7 @@ enum Subtype {
     case Homarid
     case Horror
     case Horse
+    case Hound
     case Human
     case Hydra
     case Illusion

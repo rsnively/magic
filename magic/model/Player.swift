@@ -206,22 +206,26 @@ class Player: Targetable {
         Game.shared.choosingLegendaryToKeep = name
     }
     
-    func dealCombatDamage() {
+    func dealCombatDamage(firstStrike: Bool = false) {
         for permanent in permanents {
             if permanent.attacking {
                 if permanent.blocked {
                     //todo order blockers / double blocks
                     if let blocker = permanent.blockers.first {
                         
-                        if permanent.trample {
-                            let damageToBlocker = min(permanent.getPower(), blocker.getToughness())
-                            let damageToPlayer = permanent.getPower() - damageToBlocker
-                            permanent.damage(to: blocker, damageToBlocker)
-                            permanent.damage(to: permanent.getOpponent(), damageToPlayer, combatDamage: true)
-                        } else {
-                            permanent.damage(to: blocker, permanent.getPower())
+                        if (firstStrike && (permanent.firstStrike || permanent.doubleStrike)) || (!firstStrike && (!permanent.firstStrike || permanent.doubleStrike)) {
+                            if permanent.trample {
+                                let damageToBlocker = min(permanent.getPower(), blocker.getToughness())
+                                let damageToPlayer = permanent.getPower() - damageToBlocker
+                                permanent.damage(to: blocker, damageToBlocker)
+                                permanent.damage(to: permanent.getOpponent(), damageToPlayer, combatDamage: true)
+                            } else {
+                                permanent.damage(to: blocker, permanent.getPower())
+                            }
                         }
-                        blocker.damage(to: permanent, blocker.getPower())
+                        if (firstStrike && (blocker.firstStrike || blocker.doubleStrike)) || (!firstStrike && (!blocker.firstStrike || blocker.doubleStrike)) {
+                            blocker.damage(to: permanent, blocker.getPower())
+                        }
                     }
                 } else {
                     permanent.damage(to: permanent.getOpponent(), permanent.getPower(), combatDamage: true)
@@ -231,13 +235,7 @@ class Player: Targetable {
     }
     
     func removeCreaturesFromCombat() {
-        for permanent in permanents {
-            permanent.attacking = false
-            permanent.blocking = false
-            permanent.blockers.removeAll()
-            permanent.attackers.removeAll()
-            permanent.blocked = false
-        }
+        permanents.forEach({ $0.removeFromCombat() })
     }
     
     func play(card:Card) {

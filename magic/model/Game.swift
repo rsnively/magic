@@ -241,6 +241,21 @@ class Game: NSObject {
             if yourTurn() { advanceGame() }
             return
         }
+        else if currentPhase == .FirstStrike {
+            let attackerOrBlockerWithFirstStrike = eitherPlayer({ player in
+                for creature in player.getCreatures() {
+                    if (creature.attacking || creature.blocking) && (creature.firstStrike || creature.doubleStrike) {
+                        return true
+                    }
+                }
+                return false
+            })
+            if !attackerOrBlockerWithFirstStrike {
+                nextPhase()
+            } else {
+                bothPlayers({ $0.dealCombatDamage(firstStrike: true) })
+            }
+        }
         else if currentPhase == .EndCombat {
             bothPlayers({ $0.dealCombatDamage() })
         }
