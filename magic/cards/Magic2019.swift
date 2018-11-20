@@ -1695,7 +1695,20 @@ enum M19 {
         manalith.setFlavorText("Planeswalkers seek out great monuments throughout the Multiverse, knowing that their builders were unwittingly drawn by the convergence of mana in the area.")
         return manalith
     }
-    // 240 Marauder's Axe
+    static func MaraudersAxe() -> Card {
+        let maraudersAxe = Card(name: "Marauder's Axe", rarity: .Common, set: set, number: 240)
+        maraudersAxe.setManaCost("2")
+        maraudersAxe.setType(.Artifact, .Equipment)
+        maraudersAxe.addEquipAbility(
+            string: "{2}: Equip.",
+            cost: Cost("2"),
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                return object
+        })
+        maraudersAxe.setFlavorText("A sharp axe solves most problems.")
+        return maraudersAxe
+    }
     static func MeteorGolem() -> Card {
         let meteorGolem = Card(name: "Meteor Golem", rarity: .Uncommon, set: set, number: 241)
         meteorGolem.setManaCost("7")
