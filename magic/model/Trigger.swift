@@ -1,6 +1,7 @@
 import Foundation
 
 enum Trigger {
+    case CreatureWithFlyingAttacks
     case EachEndStep
     case EachUpkeep
     case Landfall

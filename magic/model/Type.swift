@@ -107,6 +107,7 @@ enum Subtype {
     case Skeleton
     case Snake
     case Soldier
+    case Sphinx
     case Spider
     case Spirit
     case Swamp

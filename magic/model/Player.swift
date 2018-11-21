@@ -187,6 +187,9 @@ class Player: Targetable {
         for permanent in permanents {
             if permanent.attacking {
                 permanent.triggerAbilities(.ThisAttacks)
+                if permanent.isType(.Creature) && permanent.flying {
+                    Game.shared.bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.CreatureWithFlyingAttacks) }) })
+                }
                 if !permanent.vigilance {
                     permanent.tap()
                 }
