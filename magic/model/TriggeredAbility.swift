@@ -12,12 +12,12 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     private var trigger: Trigger
     private var restriction: () -> Bool
     
-    init(source: Object, trigger: Trigger, effect:@escaping () -> Void, restriction: @escaping () -> Bool = { return true }) {
+    init(source: Object, trigger: Trigger, effect:@escaping () -> Void, effectOptional: Bool = false, restriction: @escaping () -> Bool = { return true }) {
         self.source = source
         self.trigger = trigger
         self.restriction = restriction
         super.init(name: "Triggered Ability of " + source.getName())
-        effects.append(UntargetedEffect(effect))
+        effects.append(UntargetedEffect(effect: effect, optional: effectOptional))
     }
     
     func getTrigger() -> Trigger {
@@ -42,7 +42,12 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     override func resolve() {
         if restriction() {
             for effect in effects {
-                effect.resolve()
+                if effect.isOptional() {
+                    Game.shared.resolvingOptionalEffect = effect
+                }
+                else {
+                    effect.resolve()
+                }
             }
         }
     }
@@ -85,7 +90,12 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     override func resolve() {
         if restriction() {
             for effect in effects {
-                effect.resolve()
+                if effect.isOptional() {
+                    Game.shared.resolvingOptionalEffect = effect
+                }
+                else {
+                    effect.resolve()
+                }
             }
         }
     }

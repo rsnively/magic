@@ -3,6 +3,7 @@ import SpriteKit
 
 class CommandButtonsNode: SKNode {
     var okayButton: SKSpriteNode
+    var notOkayButton: SKSpriteNode
     var phaseLabel: SKLabelNode
     
     func getOkayButtonText() -> String {
@@ -24,17 +25,29 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isChoosingLegendaryToKeep {
             return "Choose " + Game.shared.choosingLegendaryToKeep! + " to keep"
         }
+        if Game.shared.isResolvingOptionalEffect {
+            return "Take Action"
+        }
         if !Game.shared.theStack.isEmpty {
             return "Okay"
         }
         return "Next Phase"
     }
     
+    func getNotOkayButtonText() -> String? {
+        if Game.shared.isResolvingOptionalEffect {
+            return "Decline"
+        }
+        return nil
+    }
+    
     init(size: CGSize) {
         okayButton = SKSpriteNode(color: SKColor.green, size:size)
+        notOkayButton = SKSpriteNode(color: SKColor.red, size: size)
         phaseLabel = SKLabelNode(text: Game.shared.getCurrentPhase().toString())
         super.init()
         addChild(okayButton)
+        addChild(notOkayButton)
         addChild(phaseLabel)
         update()
     }
@@ -44,35 +57,71 @@ class CommandButtonsNode: SKNode {
     }
     
     func update() {
+        let fontName = "HelveticaNeue"
+        let fontColor = UIColor.black
+        let fontSize: CGFloat = 16.0
+        
         okayButton.removeAllChildren()
         let labelNode = SKLabelNode(text:self.getOkayButtonText())
-        labelNode.fontName = "HelveticaNeue"
-        labelNode.fontColor = UIColor.black
-        labelNode.fontSize = 16
+        labelNode.fontName = fontName
+        labelNode.fontColor = fontColor
+        labelNode.fontSize = fontSize
         okayButton.addChild(labelNode)
+        
+        notOkayButton.removeAllChildren()
+        if let notOkayText = self.getNotOkayButtonText() {
+            notOkayButton.alpha = 1.0
+            let notOkayLabelNode = SKLabelNode(text: notOkayText)
+            notOkayLabelNode.fontName = fontName
+            notOkayLabelNode.fontColor = fontColor
+            notOkayLabelNode.fontSize = fontSize
+            notOkayButton.addChild(notOkayLabelNode)
+        } else {
+            notOkayButton.alpha = 0.0
+        }
+        notOkayButton.position.y = okayButton.position.y - okayButton.size.height
         
         phaseLabel.text = (Game.shared.yourTurn() ? "Your " : "Opponent's ") + Game.shared.getCurrentPhase().toString()
         phaseLabel.position.y = okayButton.position.y + okayButton.size.height
-        phaseLabel.fontName = "HelveticaNeue"
-        phaseLabel.fontColor = UIColor.black
-        phaseLabel.fontSize = 16
+        phaseLabel.fontName = fontName
+        phaseLabel.fontColor = fontColor
+        phaseLabel.fontSize = fontSize
     }
     
-    private var touching = false
+    private var touchingOkay = false
+    private var touchingNotOkay = false
     func touchDown(atPoint pos:CGPoint) {
-        if okayButton.contains(pos) && (!Game.shared.isSelectingBesidesAttackBlock() || (Game.shared.isTargeting && Game.shared.canFinishTargeting())) {
-            touching = true
+        if okayButton.contains(pos) && (!Game.shared.isSelectingBesidesAttackBlock() || (Game.shared.isTargeting && Game.shared.canFinishTargeting()) || Game.shared.isResolvingOptionalEffect) {
+            touchingOkay = true
             okayButton.color = SKColor.orange
+            (self.scene as! GameScene).redraw()
+        }
+        else if notOkayButton.contains(pos) && (Game.shared.isResolvingOptionalEffect) {
+            touchingNotOkay = true
+            notOkayButton.color = SKColor.gray
             (self.scene as! GameScene).redraw()
         }
     }
     
     func touchUp(atPoint pos:CGPoint) {
-        if touching {
-            touching = false
+        if touchingOkay {
+            touchingOkay = false
             okayButton.color = SKColor.green
             if okayButton.contains(pos) {
-                Game.shared.advanceGame()
+                if Game.shared.isResolvingOptionalEffect {
+                    Game.shared.resolvingOptionalEffect!.resolve()
+                    Game.shared.resolvingOptionalEffect = nil
+                }
+                else {
+                    Game.shared.advanceGame()
+                }
+            }
+        }
+        else if touchingNotOkay {
+            touchingNotOkay = false
+            notOkayButton.color = SKColor.red
+            if notOkayButton.contains(pos) {
+                Game.shared.resolvingOptionalEffect = nil
             }
         }
     }

@@ -284,7 +284,7 @@ class Object: Targetable, NSCopying {
     }
     
     func addEffect(_ effect: @escaping () -> Void) {
-        effects.append(UntargetedEffect(effect))
+        effects.append(UntargetedEffect(effect: effect))
     }
     func addEffect(_ effect: TargetedEffect) {
         effects.append(effect)
@@ -379,8 +379,8 @@ class Object: Targetable, NSCopying {
         return object
     }
 
-    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void, restriction: @escaping () -> Bool = { return true }) {
-        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, restriction: restriction))
+    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void, effectOptional: Bool = false, restriction: @escaping () -> Bool = { return true }) {
+        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, effectOptional: effectOptional, restriction: restriction))
     }
     func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect, restriction: @escaping () -> Bool = { return true }) {
         triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, restriction: restriction))

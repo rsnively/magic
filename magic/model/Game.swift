@@ -32,6 +32,11 @@ class Game: NSObject {
         }
     }
     
+    var resolvingOptionalEffect: Effect?
+    var isResolvingOptionalEffect: Bool {
+    return resolvingOptionalEffect != nil
+    }
+    
     var isChoosingCardToDiscard: Bool {
         return player1.cardsToDiscard > 0 || player2.cardsToDiscard > 0
     }
@@ -53,7 +58,7 @@ class Game: NSObject {
     }
     
     func isSelectingBesidesAttackBlock() -> Bool {
-        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep
+        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep  || isResolvingOptionalEffect
     }
     
     func isSelecting() -> Bool {

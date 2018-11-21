@@ -955,7 +955,7 @@ enum GRN {
                         target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
                     }
                 },
-                optional: true))
+                targetOptional: true))
         aurelia.power = 2
         aurelia.toughness = 5
         return aurelia

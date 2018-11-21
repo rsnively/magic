@@ -24,7 +24,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
         self.manaAbility = manaAbility
         self.sorcerySpeed = sorcerySpeed
         super.init(name: "Activated Ability of " + source.getName())
-        effects.append(UntargetedEffect(effect))
+        effects.append(UntargetedEffect(effect: effect))
     }
     
     
