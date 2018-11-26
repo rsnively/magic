@@ -1168,7 +1168,7 @@ enum XLN {
     // 151 Makeshift Munitions
     static func NestRobber() -> Card {
         let nestRobber = Card(name: "Nest Robber", rarity: .Common, set: set, number: 152)
-        nestRobber.setManaCost("2R")
+        nestRobber.setManaCost("1R")
         nestRobber.setType(.Creature, .Dinosaur)
         nestRobber.haste = true
         nestRobber.setFlavorText("\"These sailors on our shores are like the dinosaurs that plunder eggs from nests. They live on the labor of others.\"\n--Itzama the Crested")
