@@ -510,7 +510,7 @@ class Object: Targetable, NSCopying {
     
     func sacrifice() {
         let _ = self.destroy(ignoreIndestructible: true)
-        removeFromCombat()
+        getController().getPermanents().forEach({ $0.triggerAbilities(.YouSacrificeTreasure) })
     }
     
     private func hasDealtDamage(amount: Int) {

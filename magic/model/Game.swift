@@ -210,8 +210,11 @@ class Game: NSObject {
             turnNumber = turnNumber + 1
             swap(&player1.active, &player2.active)
             landPlayedThisTurn = false
+            // TODO player beginning of turn thingys
             player1.lifeGainedThisTurn = 0
             player2.lifeGainedThisTurn = 0
+            player1.attackedWithCreatureThisTurn = false
+            player2.attackedWithCreatureThisTurn = true
             getActivePlayer().untapAllPermanents()
             
             // would potential untap triggers get pushed to upkeep anyway?

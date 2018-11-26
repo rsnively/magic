@@ -15,6 +15,7 @@ class Player: Targetable {
         get { return cardsToDiscard > 0 }
     }
     var lifeGainedThisTurn = 0
+    var attackedWithCreatureThisTurn = false
     
     var citysBlessing = false
     
@@ -186,6 +187,9 @@ class Player: Targetable {
     func declareAttackers() {
         for permanent in permanents {
             if permanent.attacking {
+                if permanent.isType(.Creature) {
+                    attackedWithCreatureThisTurn = true
+                }
                 permanent.triggerAbilities(.ThisAttacks)
                 if permanent.isType(.Creature) && permanent.flying {
                     Game.shared.bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.CreatureWithFlyingAttacks) }) })
