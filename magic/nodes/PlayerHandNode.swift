@@ -3,6 +3,7 @@ import SpriteKit
 
 class PlayerHandNode: SKNode {
     var cardNodes:[HandCardNode] = []
+    private let rotateCards: Bool
     
     private let cardMargin:CGFloat = 3.0
     
@@ -15,11 +16,15 @@ class PlayerHandNode: SKNode {
         }
         for i in 0 ..< cardNodes.count {
             cardNodes[i].position.x = (CGFloat(i)  - CGFloat(cardNodes.count) / 2.0 + 0.5) * (cardNodes[i].size.width + cardMargin)
+            if rotateCards {
+                cardNodes[i].zRotation = CGFloat.pi
+            }
             addChild(cardNodes[i])
         }
     }
     
-    init(hand:[Object], size:CGSize) {
+    init(hand:[Object], rotateCards: Bool, size:CGSize) {
+        self.rotateCards = rotateCards
         super.init()
         setHand(cards: hand, size: size)
     }

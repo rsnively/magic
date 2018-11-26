@@ -14,6 +14,7 @@ class GameScene: SKScene {
     
     var stackNode:StackNode
     
+    var opponentHandNode:PlayerHandNode
     var opponentLifeNode:LifeNode
     var opponentLandsNode:LandsNode
     var opponentCreaturesNode:CreaturesNode
@@ -39,6 +40,9 @@ class GameScene: SKScene {
     }
     
     static func getAllowedPlayerHandSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width:gameSize.width * 0.6, height:gameSize.height * 0.2)
+    }
+    static func getAllowedOpponentHandSize(gameSize: CGSize) -> CGSize {
         return CGSize(width:gameSize.width * 0.6, height:gameSize.height * 0.2)
     }
     
@@ -79,7 +83,7 @@ class GameScene: SKScene {
     override init(size:CGSize) {
         playCardHeight = size.height * 0.1
 
-        playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), rotateCards: false, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode = LifeNode(player: Game.shared.player1, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerOtherPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
@@ -87,6 +91,7 @@ class GameScene: SKScene {
         manaPoolNode = ManaPoolNode()
         stackNode = StackNode()
         
+        opponentHandNode = PlayerHandNode(hand: Game.shared.player2.getHand(), rotateCards: true,  size: GameScene.getAllowedOpponentHandSize(gameSize: size))
         opponentLifeNode = LifeNode(player: Game.shared.player2, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentLandsNode = LandsNode(lands: [], size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
@@ -111,6 +116,7 @@ class GameScene: SKScene {
         
         stackNode.position = CGPoint(x: size.width * 0.33, y: size.height * 0.66)
         
+        opponentHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * 1.07)
         opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.95)
         opponentLandsNode.position = CGPoint(x: size.width * 0.25, y: size.height * 0.85)
         opponentCreaturesNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
@@ -125,6 +131,7 @@ class GameScene: SKScene {
         addChild(playerCreaturesNode)
         addChild(manaPoolNode)
         addChild(stackNode)
+        addChild(opponentHandNode)
         addChild(opponentLifeNode)
         addChild(opponentLandsNode)
         addChild(opponentCreaturesNode)
@@ -149,6 +156,7 @@ class GameScene: SKScene {
         
         commandButtonsNode.touchDown(atPoint:convert(pos, to:commandButtonsNode))
         
+        opponentHandNode.touchDown(atPoint:convert(pos, to: opponentHandNode))
         opponentLifeNode.touchDown(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchDown(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchDown(atPoint:convert(pos, to:opponentCreaturesNode))
@@ -166,6 +174,7 @@ class GameScene: SKScene {
         
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
         
+        opponentHandNode.touchMoved(toPoint: convert(pos, to: opponentHandNode))
         opponentLifeNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchMoved(toPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchMoved(toPoint:convert(pos, to:opponentCreaturesNode))
@@ -188,6 +197,7 @@ class GameScene: SKScene {
         
         commandButtonsNode.touchUp(atPoint:convert(pos, to:commandButtonsNode))
         
+        opponentHandNode.touchUp(atPoint: convert(pos, to: opponentHandNode))
         opponentLifeNode.touchUp(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
@@ -228,6 +238,7 @@ class GameScene: SKScene {
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
+        opponentHandNode.setHand(cards: Game.shared.player2.getHand(), size: GameScene.getAllowedOpponentHandSize(gameSize: size))
         opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentLandsNode.setLands(lands: Game.shared.player2.getLands(), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode.setCreatures(creatures: Game.shared.player2.getCreatures(), size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))

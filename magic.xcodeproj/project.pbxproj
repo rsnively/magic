@@ -702,6 +702,9 @@
 		98DCF1732176A29500B33E89 /* rix5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1722176A29500B33E89 /* rix5full.png */; };
 		98DCF1752176A31400B33E89 /* rix7full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1742176A31400B33E89 /* rix7full.png */; };
 		98DCF1772176A42A00B33E89 /* rix13full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1762176A42A00B33E89 /* rix13full.png */; };
+		98DDC6B221AC9FF100EB4639 /* cardback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98DDC6B121AC9FF100EB4639 /* cardback.jpg */; };
+		98DDC6B421ACA7B400EB4639 /* TestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DDC6B321ACA7B400EB4639 /* TestCards.swift */; };
+		98DDC6B721ACAE1600EB4639 /* test1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DDC6B621ACAE1600EB4639 /* test1full.png */; };
 		98DFD47120D9D5C300B2EEA1 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */; };
 		98E1769D216FDF0800763F96 /* grnt3full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E1769C216FDF0800763F96 /* grnt3full.png */; };
 		98E1769F216FDF1300763F96 /* grn45full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E1769E216FDF1200763F96 /* grn45full.png */; };
@@ -1493,6 +1496,9 @@
 		98DCF1722176A29500B33E89 /* rix5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix5full.png; sourceTree = "<group>"; };
 		98DCF1742176A31400B33E89 /* rix7full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix7full.png; sourceTree = "<group>"; };
 		98DCF1762176A42A00B33E89 /* rix13full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix13full.png; sourceTree = "<group>"; };
+		98DDC6B121AC9FF100EB4639 /* cardback.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cardback.jpg; sourceTree = "<group>"; };
+		98DDC6B321ACA7B400EB4639 /* TestCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCards.swift; sourceTree = "<group>"; };
+		98DDC6B621ACAE1600EB4639 /* test1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test1full.png; sourceTree = "<group>"; };
 		98DFD47020D9D5C300B2EEA1 /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		98E1769C216FDF0800763F96 /* grnt3full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grnt3full.png; sourceTree = "<group>"; };
 		98E1769E216FDF1200763F96 /* grn45full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn45full.png; sourceTree = "<group>"; };
@@ -1609,6 +1615,7 @@
 				9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */,
 				986D5C8720D1B853005E944E /* Magic2019.swift */,
 				98DCF16F21769C7300B33E89 /* RivalsOfIxalan.swift */,
+				98DDC6B321ACA7B400EB4639 /* TestCards.swift */,
 			);
 			path = cards;
 			sourceTree = "<group>";
@@ -2112,6 +2119,14 @@
 			path = rix;
 			sourceTree = "<group>";
 		};
+		98DDC6B521ACA7D300EB4639 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				98DDC6B621ACAE1600EB4639 /* test1full.png */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		98DFD47220D9DC6C00B2EEA1 /* res */ = {
 			isa = PBXGroup;
 			children = (
@@ -2123,6 +2138,7 @@
 		98DFD47320D9DC8C00B2EEA1 /* card */ = {
 			isa = PBXGroup;
 			children = (
+				98DDC6B121AC9FF100EB4639 /* cardback.jpg */,
 				986ED55D215F06F9008B44DC /* dom */,
 				98FA8E582156B85700EF5203 /* grn */,
 				98A9DFDA219EA52B00D99213 /* hou */,
@@ -2130,6 +2146,7 @@
 				9823DDEF215982360080C806 /* lea */,
 				98DFD47420D9DC9700B2EEA1 /* m19 */,
 				98DCF17121769CB700B33E89 /* rix */,
+				98DDC6B521ACA7D300EB4639 /* test */,
 				98E176A6217001DE00763F96 /* xln */,
 			);
 			path = card;
@@ -2599,6 +2616,7 @@
 				98A9E014219ED74B00D99213 /* hou143full.png in Resources */,
 				982232AB20EFEB3200B07803 /* m19158full.png in Resources */,
 				9853388A218A7266004B22F3 /* ktk53full.png in Resources */,
+				98DDC6B721ACAE1600EB4639 /* test1full.png in Resources */,
 				98AA80252165F5EA004BFE0B /* grn28full.png in Resources */,
 				98BEF4BF2178F40B00144C51 /* rix114full.png in Resources */,
 				98B5220B2187099C0085F5EB /* m1967full.png in Resources */,
@@ -2698,6 +2716,7 @@
 				98333F692187E9EE008F43EE /* dom236full.png in Resources */,
 				98E8A05920EAFFB000A951DA /* m1931full.png in Resources */,
 				989D9D9821998B0A0024D563 /* lea263full.png in Resources */,
+				98DDC6B221AC9FF100EB4639 /* cardback.jpg in Resources */,
 				9810CDE8219D195F00967142 /* rix170full.png in Resources */,
 				9823DDFF21598D210080C806 /* lea86full.png in Resources */,
 				9814E36D21953FB600B156F9 /* xln49full.png in Resources */,
@@ -3363,6 +3382,7 @@
 				986D5C9620D1ECC5005E944E /* CreaturesNode.swift in Sources */,
 				982F9B30209BACC7009BBD8B /* Player.swift in Sources */,
 				98AA80232165F0DB004BFE0B /* ContinuousEffect.swift in Sources */,
+				98DDC6B421ACA7B400EB4639 /* TestCards.swift in Sources */,
 				98BC88B4216D6A8600855756 /* PermanentsNode.swift in Sources */,
 				98D0438D20EE87B60009143E /* AIPlayer.swift in Sources */,
 				98C98467217A901700903CED /* Counter.swift in Sources */,

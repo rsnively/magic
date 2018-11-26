@@ -99,7 +99,7 @@ class Game: NSObject {
         declaringAttackers = false
         declaringBlockers = false
         selectedBlocker = nil
-        turnNumber = 0
+        turnNumber = 1
         super.init()
         player1.active = true
         player1.hasPriority = true

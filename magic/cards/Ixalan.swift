@@ -525,7 +525,7 @@ enum XLN {
                 restriction: { $0 !== navigatorsRuin.getController() },
                 effect: { $0.mill(4) }),
             restriction: { navigatorsRuin.getController().attackedWithCreatureThisTurn })
-        navigatorsRuin.setManaCost("\"You won't be needing this. Or this. Or these...\"")
+        navigatorsRuin.setFlavorText("\"You won't be needing this. Or this. Or these...\"")
         return navigatorsRuin
     }
     static func OneWithTheWind() -> Card {

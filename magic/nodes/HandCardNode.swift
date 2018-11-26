@@ -17,7 +17,9 @@ class HandCardNode: CardNode {
     override func touchMoved(toPoint pos: CGPoint) {
         assert(touching)
         moved = true
-        position = pos - touchPoint!
+        if self.card.ownedByHuman() {
+            position = pos - touchPoint!
+        }
     }
     
     override func touchUp(atPoint pos : CGPoint) {
@@ -28,7 +30,7 @@ class HandCardNode: CardNode {
             } else {
                 (self.scene as! GameScene).expandedCard = self.card
             }
-        } else if pos.y > (self.scene as! GameScene).playCardHeight && (card as! Card).canPlay() {
+        } else if self.card.ownedByHuman() && pos.y > (self.scene as! GameScene).playCardHeight && (card as! Card).canPlay() {
             self.card.getOwner().play(card: (self.card as! Card))
         } else {
             let moveAction = SKAction.move(to: startingPosition, duration: 0.5)

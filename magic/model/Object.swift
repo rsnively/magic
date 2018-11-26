@@ -121,7 +121,10 @@ class Object: Targetable, NSCopying {
     }
     
     private weak var owner: Player?
-    weak var controller: Player?
+    private weak var controller: Player?
+    private var revealedToOwner: Bool = false
+    private var revealedToOpponent: Bool = false
+    
     var attacking: Bool = false
     var blocked: Bool = false
     var blockers: [Object] = []
@@ -191,6 +194,8 @@ class Object: Targetable, NSCopying {
         
         copy.owner = owner
         copy.controller = controller
+        copy.revealedToOwner = revealedToOwner
+        copy.revealedToOpponent = revealedToOpponent
         copy.attacking = attacking
         copy.blocked = blocked
         copy.blockers = blockers
@@ -217,6 +222,10 @@ class Object: Targetable, NSCopying {
         return owner!
     }
     
+    func ownedByHuman() -> Bool {
+        return getOwner() === Game.shared.player1
+    }
+    
     func setController(controller: Player) {
         self.controller = controller
     }
@@ -227,6 +236,58 @@ class Object: Targetable, NSCopying {
     
     func getOpponent() -> Player {
         return controller!.getOpponent()
+    }
+    
+    private func setRevealedToOwner(_ revealed: Bool) {
+        revealedToOwner = revealed
+    }
+    private func setRevealedToOpponent(_ revealed: Bool) {
+        revealedToOpponent = revealed
+    }
+    func isRevealedToOwner() -> Bool {
+        return revealedToOwner
+    }
+    func isRevealedToOpponent() -> Bool {
+        return revealedToOpponent
+    }
+    func isRevealedToHuman() -> Bool {
+        return (getController() === Game.shared.player1 && isRevealedToOwner()) || (getController() === Game.shared.player2 && isRevealedToOpponent())
+    }
+    
+    func revealToOwner() {
+        setRevealedToOwner(true)
+    }
+    func revealToOpponent() {
+        setRevealedToOpponent(true)
+    }
+    func revealTo(_ player: Player) {
+        if player === getOwner() {
+            revealToOwner()
+        } else {
+            revealToOpponent()
+        }
+    }
+    func reveal() {
+        revealToOwner()
+        revealToOpponent()
+    }
+    
+    func hideFromOwner() {
+        setRevealedToOwner(false)
+    }
+    func hideFromOpponent() {
+        setRevealedToOpponent(false)
+    }
+    func hideFrom(_ player: Player) {
+        if player === getOwner() {
+            hideFromOwner()
+        } else {
+            hideFromOpponent()
+        }
+    }
+    func hide() {
+        hideFromOwner()
+        hideFromOpponent()
     }
     
     func isToken() -> Bool {

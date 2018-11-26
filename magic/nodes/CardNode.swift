@@ -15,7 +15,9 @@ class CardNode: SKSpriteNode {
     
     private static func getImageNode(card:Object, cardSize: CGSize, full: Bool) -> SKNode {
         var texture: SKTexture
-        if let token = card as? Token {
+        if !card.isRevealedToHuman() {
+            texture = SKTexture(imageNamed: "cardback.jpg")
+        } else if let token = card as? Token {
             texture = SKTexture(imageNamed: token.getSetCode() + "t" + String(token.getCollectorsNumber()) + (full ? "full" : ""))
         } else if let nontoken = card as? Card {
             texture = SKTexture(imageNamed: nontoken.getSetCode() + String(nontoken.getCollectorsNumber()) + (full ? "full" : ""))
@@ -79,7 +81,6 @@ class CardNode: SKSpriteNode {
             abilitySelector!.zPosition = 0.2
             addChild(abilitySelector!)
         }
-
     }
     
     required init?(coder aDecoder: NSCoder) {

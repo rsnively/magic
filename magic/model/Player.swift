@@ -34,7 +34,7 @@ class Player: Targetable {
             permanents.append(GRN.Mountain())
             permanents.append(GRN.Forest())
         }
-        permanents.forEach({$0.setOwner(owner: self)})
+        permanents.forEach({ $0.setOwner(owner: self); $0.reveal() })
         
         self.pregameActions()
     }
@@ -154,7 +154,9 @@ class Player: Targetable {
     
     func drawCard() {
         // todo, milling
-        hand.append(library.popLast()!)
+        let card = library.popLast()!
+        card.revealToOwner()
+        hand.append(card)
         getPermanents().forEach({ $0.triggerAbilities(.YouDrawCard)} );
     }
     
@@ -167,6 +169,7 @@ class Player: Targetable {
     func mill(_ amt: Int) {
         for _ in 0..<amt {
             if let card = library.popLast() {
+                card.reveal()
                 graveyard.append(card)
             }
         }
@@ -293,6 +296,7 @@ class Player: Targetable {
         if (card.isType(Type.Land)) {
             Game.shared.setLandPlayedThisTurn()
         }
+        card.reveal()
     }
     
     func resolve(object: Object) {
@@ -312,6 +316,7 @@ class Player: Targetable {
     }
     
     func addPermanent(_ object: Object) {
+        object.reveal()
         permanents.append(object)
         if object.entersTapped {
             object.setTapped(true)
@@ -337,6 +342,7 @@ class Player: Targetable {
     func discardCard(_ object: Object) {
         let index = hand.firstIndex(where: {$0.id == object.id})!
         hand.remove(at: index)
+        object.reveal()
         graveyard.append(object)
     }
     
@@ -350,5 +356,9 @@ class Player: Targetable {
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)
+    }
+    
+    func revealHandTo(_ player: Player) {
+        getHand().forEach({ $0.revealTo(player) })
     }
 }
