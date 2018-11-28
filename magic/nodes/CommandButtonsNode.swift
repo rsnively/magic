@@ -19,6 +19,9 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isTargeting {
             return "(Choose targets)"
         }
+        if Game.shared.isSelectingCards {
+            return "Done Selecting"
+        }
         if Game.shared.isChoosingCardToDiscard {
             return "Choose Card to Discard"
         }
@@ -91,7 +94,7 @@ class CommandButtonsNode: SKNode {
     private var touchingOkay = false
     private var touchingNotOkay = false
     func touchDown(atPoint pos:CGPoint) {
-        if okayButton.contains(pos) && (!Game.shared.isSelectingBesidesAttackBlock() || (Game.shared.isTargeting && Game.shared.canFinishTargeting()) || Game.shared.isResolvingOptionalEffect) {
+        if okayButton.contains(pos) && (!Game.shared.isSelectingBesidesAttackBlock() || (Game.shared.isTargeting && Game.shared.canFinishTargeting()) || Game.shared.isResolvingOptionalEffect || (Game.shared.isSelectingCards)) {
             touchingOkay = true
             okayButton.color = SKColor.orange
             (self.scene as! GameScene).redraw()
@@ -111,6 +114,9 @@ class CommandButtonsNode: SKNode {
                 if Game.shared.isResolvingOptionalEffect {
                     Game.shared.resolvingOptionalEffect!.resolve()
                     Game.shared.resolvingOptionalEffect = nil
+                }
+                else if Game.shared.isSelectingCards {
+                    Game.shared.doneSelectingCards()
                 }
                 else {
                     Game.shared.advanceGame()

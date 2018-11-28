@@ -702,6 +702,8 @@
 		98DCF1732176A29500B33E89 /* rix5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1722176A29500B33E89 /* rix5full.png */; };
 		98DCF1752176A31400B33E89 /* rix7full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1742176A31400B33E89 /* rix7full.png */; };
 		98DCF1772176A42A00B33E89 /* rix13full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DCF1762176A42A00B33E89 /* rix13full.png */; };
+		98DD662021AE178300BE172B /* CardSelectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DD661F21AE178300BE172B /* CardSelectionNode.swift */; };
+		98DD662221AE28E600BE172B /* m1994full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DD662121AE28E600BE172B /* m1994full.png */; };
 		98DDC6B221AC9FF100EB4639 /* cardback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98DDC6B121AC9FF100EB4639 /* cardback.jpg */; };
 		98DDC6B421ACA7B400EB4639 /* TestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DDC6B321ACA7B400EB4639 /* TestCards.swift */; };
 		98DDC6B721ACAE1600EB4639 /* test1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DDC6B621ACAE1600EB4639 /* test1full.png */; };
@@ -1496,6 +1498,8 @@
 		98DCF1722176A29500B33E89 /* rix5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix5full.png; sourceTree = "<group>"; };
 		98DCF1742176A31400B33E89 /* rix7full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix7full.png; sourceTree = "<group>"; };
 		98DCF1762176A42A00B33E89 /* rix13full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix13full.png; sourceTree = "<group>"; };
+		98DD661F21AE178300BE172B /* CardSelectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSelectionNode.swift; sourceTree = "<group>"; };
+		98DD662121AE28E600BE172B /* m1994full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1994full.png; sourceTree = "<group>"; };
 		98DDC6B121AC9FF100EB4639 /* cardback.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cardback.jpg; sourceTree = "<group>"; };
 		98DDC6B321ACA7B400EB4639 /* TestCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCards.swift; sourceTree = "<group>"; };
 		98DDC6B621ACAE1600EB4639 /* test1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test1full.png; sourceTree = "<group>"; };
@@ -1779,6 +1783,7 @@
 			children = (
 				98CD093A217F8F7300DA91F7 /* AbilitySelector.swift */,
 				982F9B36209BC14B009BBD8B /* CardNode.swift */,
+				98DD661F21AE178300BE172B /* CardSelectionNode.swift */,
 				986D5C9D20D1FE8C005E944E /* CommandButtonsNode.swift */,
 				986D5C9520D1ECC5005E944E /* CreaturesNode.swift */,
 				986D5C9720D1ECFA005E944E /* CreaturesCardNode.swift */,
@@ -2206,6 +2211,7 @@
 				989D9D66219976D20024D563 /* m1990full.png */,
 				98B6FFAC21810CB500BC6FBD /* m1992full.png */,
 				98478517216537F8004D51A8 /* m1993full.png */,
+				98DD662121AE28E600BE172B /* m1994full.png */,
 				989D9D68219977B50024D563 /* m1995full.png */,
 				98D0438720EE86920009143E /* m19100full.png */,
 				98CBD096216F35FB0085E669 /* m19101full.png */,
@@ -2799,6 +2805,7 @@
 				989974D52192E4F100B9DB82 /* lea89full.png in Resources */,
 				9814E33F21952AE300B156F9 /* xlnt10full.png in Resources */,
 				986EA95B219618E100C3E253 /* grn89full.png in Resources */,
+				98DD662221AE28E600BE172B /* m1994full.png in Resources */,
 				989974D92192E5E700B9DB82 /* lea93full.png in Resources */,
 				98C6D247219E50FB00AF1754 /* xln208full.png in Resources */,
 				98A19A3221680C1C002A4296 /* grn127full.png in Resources */,
@@ -3354,6 +3361,7 @@
 				982F9B1B209BAAFF009BBD8B /* GameScene.swift in Sources */,
 				982F9B37209BC14B009BBD8B /* CardNode.swift in Sources */,
 				98E176A8217001FC00763F96 /* Ixalan.swift in Sources */,
+				98DD662021AE178300BE172B /* CardSelectionNode.swift in Sources */,
 				985E0F8320A26339006759B3 /* BasicLand.swift in Sources */,
 				985E0F8120A25B04006759B3 /* Geometry.swift in Sources */,
 				9818425620CA07580068DC91 /* Mana.swift in Sources */,

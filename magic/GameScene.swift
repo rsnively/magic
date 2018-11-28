@@ -14,6 +14,8 @@ class GameScene: SKScene {
     
     var stackNode:StackNode
     
+    var cardSelectionNode:CardSelectionNode?
+    
     var opponentHandNode:PlayerHandNode
     var opponentLifeNode:LifeNode
     var opponentLandsNode:LandsNode
@@ -37,6 +39,10 @@ class GameScene: SKScene {
                 expandedCardNode!.position = expandedCardNode!.convert(CGPoint(x:size.width / 2.0, y:size.height / 2.0), from:self)
             }
         }
+    }
+    
+    static func getCardSelectionCardSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: gameSize.width * 0.2, height: gameSize.height * 0.5)
     }
     
     static func getAllowedPlayerHandSize(gameSize: CGSize) -> CGSize {
@@ -153,6 +159,7 @@ class GameScene: SKScene {
         playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchDown(atPoint:convert(pos, to:stackNode))
+        cardSelectionNode?.touchDown(atPoint:convert(pos, to:cardSelectionNode!))
         
         commandButtonsNode.touchDown(atPoint:convert(pos, to:commandButtonsNode))
         
@@ -173,6 +180,7 @@ class GameScene: SKScene {
         playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchMoved(toPoint:convert(pos, to:stackNode))
+        cardSelectionNode?.touchMoved(toPoint: convert(pos, to: cardSelectionNode!))
         
         opponentHandNode.touchMoved(toPoint: convert(pos, to: opponentHandNode))
         opponentLifeNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
@@ -194,6 +202,7 @@ class GameScene: SKScene {
         playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
         
         stackNode.touchUp(atPoint:convert(pos, to:stackNode))
+        cardSelectionNode?.touchUp(atPoint: convert(pos, to:cardSelectionNode!))
         
         commandButtonsNode.touchUp(atPoint:convert(pos, to:commandButtonsNode))
         
@@ -243,5 +252,17 @@ class GameScene: SKScene {
         opponentLandsNode.setLands(lands: Game.shared.player2.getLands(), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode.setCreatures(creatures: Game.shared.player2.getCreatures(), size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         commandButtonsNode.update()
+        
+        if cardSelectionNode != nil && !Game.shared.isSelectingCards {
+            cardSelectionNode?.removeFromParent()
+            cardSelectionNode = nil
+        }
+        else if cardSelectionNode == nil && Game.shared.isSelectingCards {
+            cardSelectionNode = CardSelectionNode(cardSize: GameScene.getCardSelectionCardSize(gameSize: size), cards: Game.shared.selectingCardsFrom, restrictions: Game.shared.selectingCardsRestrictions)
+            cardSelectionNode?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+            cardSelectionNode?.zPosition = 0.1
+            addChild(cardSelectionNode!)
+        }
+        cardSelectionNode?.update(cardSize: GameScene.getCardSelectionCardSize(gameSize: size))
     }
 }

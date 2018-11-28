@@ -361,4 +361,17 @@ class Player: Targetable {
     func revealHandTo(_ player: Player) {
         getHand().forEach({ $0.revealTo(player) })
     }
+    
+    func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object]) -> Void) {
+        Game.shared.selectingCardsFrom = from
+        Game.shared.selectingCardsRestrictions = restrictions
+        Game.shared.selectingCardsAction = action
+    }
+    func chooseCard(from: [Object], restriction: @escaping (Object) -> Bool, action: @escaping (Object?) -> Void) {
+        let action_: ([Object]) -> Void = { objects in
+            action(objects.first)
+        }
+        chooseCards(from: from, restrictions: [restriction], action: action_)
+    }
+
 }

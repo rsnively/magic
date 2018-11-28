@@ -32,6 +32,29 @@ class Game: NSObject {
         }
     }
     
+    var selectingCardsFrom: [Object] = []
+    var selectingCardsRestrictions: [(Object) -> Bool] = []
+    var selectingCardsAction: (([Object]) -> ())? = nil
+    var selectedCards: [Object] = []
+    var isSelectingCards: Bool {
+        return !selectingCardsRestrictions.isEmpty && selectingCardsAction != nil
+    }
+    func selectCard(_ card: Object) {
+        assert(selectingCardsRestrictions[selectedCards.count](card))
+        selectedCards.append(card)
+        if selectedCards.count == selectingCardsRestrictions.count {
+            doneSelectingCards()
+        }
+    }
+    func doneSelectingCards() {
+        selectingCardsAction!(selectedCards)
+        
+        selectingCardsFrom.removeAll()
+        selectingCardsRestrictions.removeAll()
+        selectingCardsAction = nil
+        selectedCards.removeAll()
+    }
+    
     var resolvingOptionalEffect: Effect?
     var isResolvingOptionalEffect: Bool {
     return resolvingOptionalEffect != nil
@@ -58,7 +81,7 @@ class Game: NSObject {
     }
     
     func isSelectingBesidesAttackBlock() -> Bool {
-        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep  || isResolvingOptionalEffect
+        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep  || isResolvingOptionalEffect || isSelectingCards
     }
     
     func isSelecting() -> Bool {
