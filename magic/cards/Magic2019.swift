@@ -801,7 +801,6 @@ enum M19 {
         duress.addEffect(TargetedEffect.SinglePlayer(
             restriction: { $0 !== duress.getController() },
             effect: { target in
-                target.revealHandTo(duress.getController())
                 duress.getController().chooseCard(
                     from: target.getHand(),
                     restriction: { !$0.isType(.Creature) && !$0.isType(.Land) },

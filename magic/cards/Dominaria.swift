@@ -1049,6 +1049,8 @@ enum DOM {
             trigger: .ThisETB,
             effect: { yavimayaSapherd.getController().createToken(Saproling()) })
         yavimayaSapherd.setFlavorText("\"When their community grows cluttered, thallids begin a traditional bobbing dance, then trek out in all directions.\"\n--Sarpadian Empires, vol. III")
+        yavimayaSapherd.power = 2
+        yavimayaSapherd.toughness = 2
         return yavimayaSapherd
     }
     static func AdelizTheCinderWind() -> Card {

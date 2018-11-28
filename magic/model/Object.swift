@@ -556,6 +556,10 @@ class Object: Targetable, NSCopying {
         getController().bouncePermanent(self)
     }
     
+    func putIntoHand() {
+        getController().putIntoHand(self);
+    }
+    
     func discard() {
         getController().discardCard(self)
     }

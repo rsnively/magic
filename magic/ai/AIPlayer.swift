@@ -49,4 +49,9 @@ class AIPlayer: Player {
             chooseCardToDiscard(getHand()[r])
         }
     }
+    
+    override func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object]) -> Void) {
+        super.chooseCards(from: from, restrictions: restrictions, action: action)
+        Game.shared.doneSelectingCards()
+    }
 }

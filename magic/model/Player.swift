@@ -34,6 +34,8 @@ class Player: Targetable {
             permanents.append(GRN.Mountain())
             permanents.append(GRN.Forest())
         }
+        graveyard.forEach({ $0.setOwner(owner: self); $0.reveal() })
+        hand.forEach({ $0.setOwner(owner: self); $0.revealToOwner() })
         permanents.forEach({ $0.setOwner(owner: self); $0.reveal() })
         
         self.pregameActions()
@@ -147,8 +149,12 @@ class Player: Targetable {
         loseLife(cost.getLifeCost())
     }
     
-    func pregameActions() {
+    func shuffleLibrary() {
         library.shuffle()
+    }
+    
+    func pregameActions() {
+        shuffleLibrary()
         drawCards(7)
     }
     
@@ -335,6 +341,17 @@ class Player: Targetable {
         object.getOwner().hand.append(object)
     }
     
+    func putIntoHand(_ object: Object) {
+        if let graveyardIndex = graveyard.firstIndex(where: {$0.id == object.id}) {
+            graveyard.remove(at: graveyardIndex)
+        }
+        else if let libraryIndex = library.firstIndex(where: {$0.id == object.id}) {
+            library.remove(at: libraryIndex)
+        }
+        object.revealToOwner()
+        object.getOwner().hand.append(object)
+    }
+    
     func discard(_ amount: Int = 1) {
         cardsToDiscard += min(hand.count, amount)
     }
@@ -363,6 +380,7 @@ class Player: Targetable {
     }
     
     func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object]) -> Void) {
+        from.forEach({ $0.revealTo(self) })
         Game.shared.selectingCardsFrom = from
         Game.shared.selectingCardsRestrictions = restrictions
         Game.shared.selectingCardsAction = action

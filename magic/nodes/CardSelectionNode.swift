@@ -62,11 +62,12 @@ class CardSelectionNode: SKNode {
     }
     
     func touchDown(atPoint pos: CGPoint) {
+        let scrollDelta: CGFloat = 400.0
         if leftScrollNode.contains(pos) {
-            scrollAmount -= 100.0
+            scrollAmount -= scrollDelta
         }
         else if rightScrollNode.contains(pos) {
-            scrollAmount += 100.0
+            scrollAmount += scrollDelta
         }
         
         // TODO: Should probably make sure touch begins in card...
