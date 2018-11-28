@@ -554,6 +554,7 @@ class Object: Targetable, NSCopying {
     func bounce() {
         removeFromCombat()
         getController().bouncePermanent(self)
+        triggerAbilities(.ThisLTB)
     }
     
     func putIntoHand() {
@@ -568,14 +569,22 @@ class Object: Targetable, NSCopying {
         if !indestructible || ignoreIndestructible {
             removeFromCombat()
             getController().destroyPermanent(self)
+            triggerAbilities(.ThisLTB)
             return true
         }
         return false
     }
     
+    func exile() {
+        removeFromCombat()
+        getController().exilePermanent(self)
+        triggerAbilities(.ThisLTB)
+    }
+    
     func sacrifice() {
         let _ = self.destroy(ignoreIndestructible: true)
         getController().getPermanents().forEach({ $0.triggerAbilities(.YouSacrificeTreasure) })
+        triggerAbilities(.ThisLTB)
     }
     
     private func hasDealtDamage(amount: Int) {

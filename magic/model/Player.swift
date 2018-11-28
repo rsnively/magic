@@ -375,6 +375,12 @@ class Player: Targetable {
         object.triggerAbilities(.ThisDies)
     }
     
+    func exilePermanent(_ object: Object) {
+        let index = permanents.firstIndex(where: { $0.id == object.id })!
+        permanents.remove(at: index)
+        Game.shared.exile.append(object)
+    }
+    
     func revealHandTo(_ player: Player) {
         getHand().forEach({ $0.revealTo(player) })
     }

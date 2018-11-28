@@ -3,6 +3,7 @@ import Foundation
 class Game: NSObject {
     var player1: Player
     var player2: AIPlayer
+    var exile: [Object] = []
     var theStack: SpellStack
     private var currentPhase: Phase
     
