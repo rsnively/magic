@@ -1,7 +1,7 @@
 import Foundation
 
 class Object: Targetable, Hashable, NSCopying {
-    var id:Int
+    private var id:Int
     var name:String?
     var colors:Set<Color> = []
     var manaCost:ManaCost?
@@ -149,6 +149,10 @@ class Object: Targetable, Hashable, NSCopying {
     
     static func == (lhs: Object, rhs: Object) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    static func != (lhs: Object, rhs: Object) -> Bool {
+        return lhs.id != rhs.id
     }
     
     func hash(into hasher: inout Hasher) {

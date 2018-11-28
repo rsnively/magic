@@ -60,7 +60,7 @@ enum DOM {
         benalishHonorGuard.setManaCost("1W")
         benalishHonorGuard.setType(.Creature, .Human, .Knight)
         benalishHonorGuard.addStaticAbility({ object in
-            if object.id == benalishHonorGuard.id {
+            if object == benalishHonorGuard {
                 let numLegends = object.getController().getCreatures().filter({ $0.isType(.Legendary) }).count
                 object.power = object.getBasePower() + numLegends
             }
@@ -76,7 +76,7 @@ enum DOM {
         benalishMarshal.setManaCost("WWW")
         benalishMarshal.setType(.Creature, .Human, .Knight)
         benalishMarshal.addStaticAbility({ object in
-            if object.id != benalishMarshal.id && object.isType(.Creature) && object.getController() === benalishMarshal.getController() {
+            if object != benalishMarshal && object.isType(.Creature) && object.getController() === benalishMarshal.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -254,7 +254,7 @@ enum DOM {
         lyra.firstStrike = true
         lyra.lifelink = true
         lyra.addStaticAbility({ object in
-            if object.id != lyra.id && object.isType(.Angel) && object.getController() === lyra.getController() {
+            if object != lyra && object.isType(.Angel) && object.getController() === lyra.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
                 // TODO: Layers
@@ -286,7 +286,7 @@ enum DOM {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0.id != pegasusCourser.id },
+                restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -465,7 +465,7 @@ enum DOM {
         tempestDjinn.setType(.Creature, .Djinn)
         tempestDjinn.flying = true
         tempestDjinn.addStaticAbility({ object in
-            if object.id == tempestDjinn.id {
+            if object == tempestDjinn {
                 let numIslands = object.getController().getPermanents().filter({ $0.isType(.Basic) && $0.isType(.Island) }).count
                 object.power = object.getBasePower() + numIslands
             }
@@ -657,8 +657,8 @@ enum DOM {
         ratColony.setManaCost("1B")
         ratColony.setType(.Creature, .Rat)
         ratColony.addStaticAbility({ object in
-            if object.id == ratColony.id {
-                let numOtherRats = object.getController().getPermanents().filter({ $0.id != object.id && $0.isType(.Rat) }).count
+            if object == ratColony {
+                let numOtherRats = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Rat) }).count
                 object.power = object.getBasePower() + numOtherRats
             }
             return object
@@ -712,7 +712,7 @@ enum DOM {
         championOfTheFlame.setType(.Creature, .Human, .Warrior)
         championOfTheFlame.trample = true
         championOfTheFlame.addStaticAbility({ object in
-            if object.id == championOfTheFlame.id {
+            if object == championOfTheFlame {
                 let numAttachments = object.getController().getPermanents().filter({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isAttachedTo(object) }).count
                 let bonus = numAttachments * 2
                 object.power = object.getBasePower() + bonus
@@ -781,7 +781,7 @@ enum DOM {
         ghituJourneymage.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { ghituJourneymage.damage(to: ghituJourneymage.getOpponent(), 2)},
-            restriction: { !ghituJourneymage.getController().getPermanents().filter({ $0.isType(.Wizard) && $0.id != ghituJourneymage.id }).isEmpty })
+            restriction: { !ghituJourneymage.getController().getPermanents().filter({ $0.isType(.Wizard) && $0 != ghituJourneymage }).isEmpty })
         ghituJourneymage.setFlavorText("The Ghitu of Shiv are as fierce and uncompromising as their volcanic home.")
         ghituJourneymage.power = 3
         ghituJourneymage.toughness = 2
@@ -792,7 +792,7 @@ enum DOM {
         ghituLavarunner.setManaCost("R")
         ghituLavarunner.setType(.Creature, .Human, .Wizard)
         ghituLavarunner.addStaticAbility({ object in
-            if object.id == ghituLavarunner.id {
+            if object == ghituLavarunner {
                 if object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count >= 2 {
                     object.power = object.getBasePower() + 1
                     // TODO: Should these be separate effects?
@@ -1037,7 +1037,7 @@ enum DOM {
         sporecrownThallid.setManaCost("1G")
         sporecrownThallid.setType(.Creature, .Fungus)
         sporecrownThallid.addStaticAbility({ object in
-            if object.id != sporecrownThallid.id && object.isType(.Creature) && object.getController() === sporecrownThallid.getController() && (object.isType(.Fungus) || (object.isType(.Saproling))) {
+            if object != sporecrownThallid && object.isType(.Creature) && object.getController() === sporecrownThallid.getController() && (object.isType(.Fungus) || (object.isType(.Saproling))) {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -1099,7 +1099,7 @@ enum DOM {
         arvad.deathtouch = true
         arvad.lifelink = true
         arvad.addStaticAbility({ object in
-            if object.id != arvad.id && object.isType(.Legendary) && object.isType(.Creature) {
+            if object  != arvad  && object.isType(.Legendary) && object.isType(.Creature) {
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 2
             }
@@ -1390,7 +1390,7 @@ enum DOM {
         clifftopRetreat.setManaCost("")
         clifftopRetreat.setType(.Land)
         clifftopRetreat.addStaticAbility({ object in
-            if object.id == clifftopRetreat.id {
+            if object == clifftopRetreat {
                 let controlsMountain = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 let controlsPlains = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
                 object.entersTapped = !(controlsMountain || controlsPlains)
@@ -1415,7 +1415,7 @@ enum DOM {
         hinterlandHarbor.setManaCost("")
         hinterlandHarbor.setType(.Land)
         hinterlandHarbor.addStaticAbility({ object in
-            if object.id == hinterlandHarbor.id {
+            if object == hinterlandHarbor {
                 let controlsForest = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
                 let controlsIsland = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 object.entersTapped = !(controlsForest || controlsIsland)
@@ -1440,7 +1440,7 @@ enum DOM {
         isolatedChapel.setManaCost("")
         isolatedChapel.setType(.Land)
         isolatedChapel.addStaticAbility({ object in
-            if object.id == isolatedChapel.id {
+            if object == isolatedChapel {
                 let controlsPlains = !isolatedChapel.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
                 let controlsSwamp = !isolatedChapel.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
                 object.entersTapped = !(controlsPlains || controlsSwamp)
@@ -1520,7 +1520,7 @@ enum DOM {
         sulfurFalls.setManaCost("")
         sulfurFalls.setType(.Land)
         sulfurFalls.addStaticAbility({ object in
-            if object.id == sulfurFalls.id {
+            if object == sulfurFalls {
                 let controlsIsland = !sulfurFalls.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 let controlsMountain = !sulfurFalls.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 object.entersTapped = !(controlsIsland || controlsMountain)
@@ -1545,7 +1545,7 @@ enum DOM {
         woodlandCemetery.setManaCost("")
         woodlandCemetery.setType(.Land)
         woodlandCemetery.addStaticAbility({ object in
-            if object.id == woodlandCemetery.id {
+            if object == woodlandCemetery {
                 let controlsIsland = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 let controlsMountain = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 object.entersTapped = !(controlsIsland || controlsMountain)

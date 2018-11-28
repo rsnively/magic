@@ -756,7 +756,7 @@ enum GRN {
             string: "Sacrifice ~: Another target creature gains haste until end of turn.",
             cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.id != torchCourier.id && $0.isType(.Creature) },
+                restriction: { $0 != torchCourier && $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.haste = true; return $0 }))
         }))
         torchCourier.setFlavorText("\"Light a torch and deliver this letter\" were his instructions, which he unfortunately reversed.")
@@ -1093,7 +1093,7 @@ enum GRN {
         garrisonSergeant.setManaCost("3RW")
         garrisonSergeant.setType(.Creature, .Viashino, .Soldier)
         garrisonSergeant.addStaticAbility({ object in
-            if object.id == garrisonSergeant.id {
+            if object == garrisonSergeant {
                 let controlsGate = !object.getController().getPermanents().filter({ $0.isType(.Gate) }).isEmpty
                 if controlsGate {
                     object.doubleStrike = true
@@ -1150,7 +1150,7 @@ enum GRN {
             string: "{2}{W}, {T}: Tap another target creature.",
             cost: Cost("2W", tap: true),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.id != legionGuildmage.id },
+                restriction: { $0.isType(.Creature) && $0 != legionGuildmage },
                 effect: { $0.tap() }))
         legionGuildmage.power = 2
         legionGuildmage.toughness = 2

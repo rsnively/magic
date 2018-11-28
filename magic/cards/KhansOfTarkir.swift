@@ -72,8 +72,8 @@ enum KTK {
         highSentinelsOfArashin.setType(.Creature, .Bird, .Soldier)
         highSentinelsOfArashin.flying = true
         highSentinelsOfArashin.addStaticAbility({ object in
-            if object.id == highSentinelsOfArashin.id {
-                let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0.id != highSentinelsOfArashin.id && $0.getCounters(.PlusOnePlusOne) > 0}).count
+            if object == highSentinelsOfArashin {
+                let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0 != highSentinelsOfArashin && $0.getCounters(.PlusOnePlusOne) > 0}).count
                 object.power = object.getBasePower() + numOtherCreaturesWithCounters
                 object.toughness = object.getBaseToughness() + numOtherCreaturesWithCounters
             }
@@ -626,7 +626,7 @@ enum KTK {
         chiefOfTheEdge.setManaCost("WB")
         chiefOfTheEdge.setType(.Creature, .Human, .Warrior)
         chiefOfTheEdge.addStaticAbility({ object in
-            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheEdge.getController() && object.id != chiefOfTheEdge.id {
+            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheEdge.getController() && object != chiefOfTheEdge {
                 object.power = object.getBasePower() + 1
             }
             return object
@@ -641,7 +641,7 @@ enum KTK {
         chiefOfTheScale.setManaCost("WB")
         chiefOfTheScale.setType(.Creature, .Human, .Warrior)
         chiefOfTheScale.addStaticAbility({ object in
-            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheScale.getController() && object.id != chiefOfTheScale.id {
+            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheScale.getController() && object != chiefOfTheScale {
                 object.toughness = object.getBaseToughness() + 1
             }
             return object

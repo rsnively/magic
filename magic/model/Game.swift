@@ -77,7 +77,7 @@ class Game: NSObject {
         assert(isChoosingLegendaryToKeep)
         assert(object.name == choosingLegendaryToKeep)
         object.getController().getPermanents().forEach({ permanent in
-            if permanent.isType(.Legendary) && permanent.id != object.id && permanent.name == object.name {
+            if permanent.isType(.Legendary) && permanent != object && permanent.name == object.name {
                 let _ = permanent.destroy(ignoreIndestructible: true)
             }
         })
@@ -391,13 +391,13 @@ class Game: NSObject {
         
         // If a player controls two or more legendary permanents with the same name, that player chooses one of them and puts the rest into their owners' graveyards.
         for permanent in getActivePlayer().getPermanents() {
-            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
+            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0 != permanent }) {
                 getActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
                 return
             }
         }
         for permanent in getNonActivePlayer().getPermanents() {
-            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0.id != permanent.id }) {
+            if permanent.isType(.Legendary) && permanent.getController().getPermanents().contains(where: { return $0.isType(.Legendary) && $0.name == permanent.name && $0 != permanent }) {
                 getNonActivePlayer().chooseLegendaryToKeep(name: permanent.getName())
                 return
             }
@@ -418,7 +418,7 @@ class Game: NSObject {
         bothPlayers({ player in
             player.getPermanents().filter({ $0.isType(.Equipment) }).forEach({ equipment in
                 if let equippedCreature = equipment.attachedTo {
-                    if equipment.isType(.Creature) || !equippedCreature.isType(.Creature) || equippedCreature.id == equipment.id {
+                    if equipment.isType(.Creature) || !equippedCreature.isType(.Creature) || equippedCreature == equipment {
                         equipment.attachedTo = nil
                         actionPerformed = true
                     }

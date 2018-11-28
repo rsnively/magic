@@ -350,7 +350,7 @@ enum M19 {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0.id != pegasusCourser.id },
+                restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -432,10 +432,10 @@ enum M19 {
     // 41 Trusty Packbeast
     static func ValiantKnight() -> Card {
         let valiantKnight = Card(name: "Valiant Knight", rarity: .Rare, set: set, number: 42)
-        valiantKnight.setManaCost("2WW")
+        valiantKnight.setManaCost("3W")
         valiantKnight.setType(.Creature, .Human, .Knight)
         valiantKnight.addStaticAbility({ object in
-            if object.id != valiantKnight.id && object.isType(.Knight) && object.getController() === valiantKnight.getController() {
+            if object != valiantKnight && object.isType(.Knight) && object.getController() === valiantKnight.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -552,7 +552,7 @@ enum M19 {
         gearsmithProdigy.setManaCost("U")
         gearsmithProdigy.setType(.Creature, .Human, .Artificer)
         gearsmithProdigy.addStaticAbility({ object in
-            if object.id == gearsmithProdigy.id && !object.getController().getArtifacts().isEmpty {
+            if object == gearsmithProdigy && !object.getController().getArtifacts().isEmpty {
                 object.power = object.getBasePower() + 1
             }
             return object
@@ -608,7 +608,7 @@ enum M19 {
                         if !target.getLibrary().isEmpty {
                             let topOfLibrary = target.getLibrary().last!
                             target.mill(1)
-                            if topOfLibrary.id == target.getGraveyard().last!.id && topOfLibrary.isType(.Land) {
+                            if topOfLibrary == target.getGraveyard().last! && topOfLibrary.isType(.Land) {
                                 cardsToDraw = cardsToDraw + 1
                             }
                         }
@@ -672,7 +672,7 @@ enum M19 {
         supremePhantom.setType(.Creature, .Spirit)
         supremePhantom.flying = true
         supremePhantom.addStaticAbility({ object in
-            if object.id != supremePhantom.id  && object.isType(.Spirit) && object.getController() === supremePhantom.getController() {
+            if object != supremePhantom  && object.isType(.Spirit) && object.getController() === supremePhantom.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness()
             }
@@ -758,7 +758,7 @@ enum M19 {
         deathBaron.setManaCost("1BB")
         deathBaron.setType(.Creature, .Zombie, .Wizard)
         deathBaron.addStaticAbility({ object in
-            if object.getController() === deathBaron.getController() && (object.isType(.Skeleton) || (object.isType(.Zombie) && object.id != deathBaron.id)) {
+            if object.getController() === deathBaron.getController() && (object.isType(.Skeleton) || (object.isType(.Zombie) && object != deathBaron)) {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
                 // TODO: These should apply in different layers
@@ -1557,7 +1557,7 @@ enum M19 {
         aerialEngineer.setManaCost("2WU")
         aerialEngineer.setType(.Creature, .Human, .Artificer)
         aerialEngineer.addStaticAbility({ object in
-            if object.id == aerialEngineer.id && !object.getController().getArtifacts().isEmpty {
+            if object == aerialEngineer && !object.getController().getArtifacts().isEmpty {
                 object.power = object.getBasePower() + 2
                 // TODO: These should be in separate layers
                 object.flying = true
@@ -1755,7 +1755,7 @@ enum M19 {
         gearsmithGuardian.setManaCost("5")
         gearsmithGuardian.setType(.Artifact, .Creature, .Construct)
         gearsmithGuardian.addStaticAbility({ object in
-            if object.id == gearsmithGuardian.id && !object.getController().getCreatures().filter({ $0.isColor(.Blue) }).isEmpty {
+            if object == gearsmithGuardian && !object.getController().getCreatures().filter({ $0.isColor(.Blue) }).isEmpty {
                 object.power = object.getBasePower() + 2
             }
             return object

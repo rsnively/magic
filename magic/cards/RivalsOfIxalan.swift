@@ -106,7 +106,7 @@ enum RIX {
         majesticHeliopterus.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { return  $0.id != majesticHeliopterus.id && $0.isType(.Dinosaur) },
+                restriction: { return  $0 != majesticHeliopterus && $0.isType(.Dinosaur) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -171,7 +171,7 @@ enum RIX {
         sanguineGlorifier.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.id != sanguineGlorifier.id && $0.isType(.Vampire) && $0.getController() === sanguineGlorifier.getController() },
+                restriction: { $0 != sanguineGlorifier && $0.isType(.Vampire) && $0.getController() === sanguineGlorifier.getController() },
                 effect: { $0.addCounter(.PlusOnePlusOne) }))
         sanguineGlorifier.setFlavorText("For the Legion of Dusk, the Immortal Sun is a source of eternal life. When they reclaim it, they will no longer be forced to subsist on the blood of the wicked.")
         sanguineGlorifier.power = 3
@@ -183,7 +183,7 @@ enum RIX {
         skymarcherAspirant.setManaCost("W")
         skymarcherAspirant.setType(.Creature, .Vampire, .Soldier)
         skymarcherAspirant.addStaticAbility({ object in
-            if object.id == skymarcherAspirant.id {
+            if object == skymarcherAspirant {
                 object.ascend()
                 if object.getController().citysBlessing {
                     object.flying = true
@@ -202,7 +202,7 @@ enum RIX {
         snubhornSentry.setManaCost("W")
         snubhornSentry.setType(.Creature, .Dinosaur)
         snubhornSentry.addStaticAbility({ object in
-            if object.id == snubhornSentry.id {
+            if object == snubhornSentry {
                 object.ascend()
                 if object.getController().citysBlessing {
                     object.power = object.getBasePower() + 3
@@ -250,7 +250,7 @@ enum RIX {
         sunCrestedPterodon.setType(.Creature, .Dinosaur)
         sunCrestedPterodon.flying = true
         sunCrestedPterodon.addStaticAbility({ object in
-            if object.id == sunCrestedPterodon.id && !object.getController().getPermanents().filter({ $0.id != object.id && $0.isType(.Dinosaur) }).isEmpty {
+            if object == sunCrestedPterodon && !object.getController().getPermanents().filter({ $0 != object && $0.isType(.Dinosaur) }).isEmpty {
                 sunCrestedPterodon.vigilance = true
             }
             return sunCrestedPterodon
@@ -307,7 +307,7 @@ enum RIX {
         kitesailCorsair.setManaCost("1U")
         kitesailCorsair.setType(.Creature, .Human, .Pirate)
         kitesailCorsair.addStaticAbility({ object in
-            if object.id == kitesailCorsair.id && object.attacking {
+            if object == kitesailCorsair && object.attacking {
                 object.flying = true
             }
             return object
@@ -322,7 +322,7 @@ enum RIX {
         kumenasAwakening.setManaCost("2UU")
         kumenasAwakening.setType(.Enchantment)
         kumenasAwakening.addStaticAbility({ object in
-            if object.id == kumenasAwakening.id {
+            if object == kumenasAwakening {
                 object.ascend()
             }
             return object
@@ -405,7 +405,7 @@ enum RIX {
         spireWinder.setType(.Creature, .Snake)
         spireWinder.flying = true
         spireWinder.addStaticAbility({ object in
-            if object.id == spireWinder.id {
+            if object == spireWinder {
                 object.ascend()
                 if object.getController().citysBlessing {
                     object.power = object.getBasePower() + 1
@@ -496,7 +496,7 @@ enum RIX {
         duskCharger.setManaCost("3B")
         duskCharger.setType(.Creature, .Horse)
         duskCharger.addStaticAbility({ object in
-            if object.id == duskCharger.id {
+            if object == duskCharger {
                 object.ascend()
                 if object.getController().citysBlessing {
                     object.power = object.getBasePower() + 2
@@ -532,7 +532,7 @@ enum RIX {
         fathomFleetBoarder.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { fathomFleetBoarder.getController().loseLife(2) },
-            restriction: { fathomFleetBoarder.getController().getPermanents().filter({ $0.id != fathomFleetBoarder.id && $0.isType(.Pirate) }).isEmpty })
+            restriction: { fathomFleetBoarder.getController().getPermanents().filter({ $0 != fathomFleetBoarder && $0.isType(.Pirate) }).isEmpty })
         fathomFleetBoarder.setFlavorText("Without frequent raids, orcs sometimes get bored and plunder their own ships.")
         fathomFleetBoarder.power = 3
         fathomFleetBoarder.toughness = 3
@@ -557,7 +557,7 @@ enum RIX {
         graspingScoundrel.setManaCost("B")
         graspingScoundrel.setType(.Creature, .Human, .Pirate)
         graspingScoundrel.addStaticAbility({ object in
-            if object.id == graspingScoundrel.id && object.attacking {
+            if object == graspingScoundrel && object.attacking {
                 object.power = object.getBasePower() + 1
             }
             return object
@@ -816,7 +816,7 @@ enum RIX {
         stampedingHorncrest.setManaCost("4R")
         stampedingHorncrest.setType(.Creature, .Dinosaur)
         stampedingHorncrest.addStaticAbility({ object in
-            if object.id == stampedingHorncrest.id && !object.getController().getPermanents().filter({ $0.id != object.id && $0.isType(.Dinosaur) }).isEmpty {
+            if object == stampedingHorncrest && !object.getController().getPermanents().filter({ $0 != object && $0.isType(.Dinosaur) }).isEmpty {
                 object.haste = true
             }
             return object
@@ -831,7 +831,7 @@ enum RIX {
         stormFleetSwashbuckler.setManaCost("1R")
         stormFleetSwashbuckler.setType(.Creature, .Human, .Pirate)
         stormFleetSwashbuckler.addStaticAbility({ object in
-            if object.id == stormFleetSwashbuckler.id {
+            if object == stormFleetSwashbuckler {
                 object.ascend()
                 if object.getController().citysBlessing {
                     object.doubleStrike = true
@@ -957,7 +957,7 @@ enum RIX {
         hardyVeteran.setManaCost("1G")
         hardyVeteran.setType(.Creature, .Human, .Warrior)
         hardyVeteran.addStaticAbility({ object in
-            if object.id == hardyVeteran.id && hardyVeteran.getController().active {
+            if object == hardyVeteran && hardyVeteran.getController().active {
                 object.toughness = object.getBaseToughness() + 2
             }
             return object
@@ -988,7 +988,7 @@ enum RIX {
         jadeBearer.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.id != jadeBearer.id && $0.isType(.Merfolk) && $0.getController() === jadeBearer.getController() },
+                restriction: { $0 != jadeBearer && $0.isType(.Merfolk) && $0.getController() === jadeBearer.getController() },
                 effect: { $0.addCounter(.PlusOnePlusOne) }))
         jadeBearer.setFlavorText("\"Sisora wore this, who defeated the tyrant of Azcanta, and before her Natena of Vuhana's band. May it bring you their strength.\"")
         jadeBearer.power = 1
@@ -1071,7 +1071,7 @@ enum RIX {
         tendershootDryad.setManaCost("4G")
         tendershootDryad.setType(.Creature, .Dryad)
         tendershootDryad.addStaticAbility({ object in
-            if object.id == tendershootDryad.id {
+            if object == tendershootDryad {
                 object.ascend()
             }
             return object
@@ -1117,7 +1117,7 @@ enum RIX {
         deadeyeBrawler.setType(.Creature, .Human, .Pirate)
         deadeyeBrawler.deathtouch = true
         deadeyeBrawler.addStaticAbility({ object in
-            if object.id == deadeyeBrawler.id {
+            if object == deadeyeBrawler {
                 deadeyeBrawler.ascend()
             }
             return object
@@ -1156,7 +1156,7 @@ enum RIX {
         legionLieutenant.setManaCost("WB")
         legionLieutenant.setType(.Creature, .Vampire, .Knight)
         legionLieutenant.addStaticAbility({ object in
-            if object.id != legionLieutenant.id && object.isType(.Vampire) && object.getController() === legionLieutenant.getController() {
+            if object != legionLieutenant && object.isType(.Vampire) && object.getController() === legionLieutenant.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -1172,7 +1172,7 @@ enum RIX {
         merfolkMistbinder.setManaCost("GU")
         merfolkMistbinder.setType(.Creature, .Merfolk, .Shaman)
         merfolkMistbinder.addStaticAbility({ object in
-            if object.id != merfolkMistbinder.id && object.isType(.Merfolk) && object.getController() === merfolkMistbinder.getController() {
+            if object != merfolkMistbinder && object.isType(.Merfolk) && object.getController() === merfolkMistbinder.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -1207,7 +1207,7 @@ enum RIX {
         resplendentGriffin.setType(.Creature, .Griffin)
         resplendentGriffin.flying = true
         resplendentGriffin.addStaticAbility({ object in
-            if object.id == resplendentGriffin.id {
+            if object == resplendentGriffin {
                 object.ascend()
             }
             return object

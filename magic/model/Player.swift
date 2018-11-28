@@ -255,7 +255,7 @@ class Player: Targetable {
     }
     
     func play(card:Card) {
-        let cardIndex = hand.firstIndex(where: {$0.id == card.id})!
+        let cardIndex = hand.firstIndex(where: { $0 == card })!
         // TODO: Card's manaCost should be cost, and then we can use player.canAfford here
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
@@ -336,16 +336,16 @@ class Player: Targetable {
     }
     
     func bouncePermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: {$0.id == object.id})!
+        let index = permanents.firstIndex(where: { $0 == object })!
         permanents.remove(at: index)
         object.getOwner().hand.append(object)
     }
     
     func putIntoHand(_ object: Object) {
-        if let graveyardIndex = graveyard.firstIndex(where: {$0.id == object.id}) {
+        if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
             graveyard.remove(at: graveyardIndex)
         }
-        else if let libraryIndex = library.firstIndex(where: {$0.id == object.id}) {
+        else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
             library.remove(at: libraryIndex)
         }
         object.revealToOwner()
@@ -357,7 +357,7 @@ class Player: Targetable {
     }
     
     func discardCard(_ object: Object) {
-        let index = hand.firstIndex(where: {$0.id == object.id})!
+        let index = hand.firstIndex(where: { $0 == object })!
         hand.remove(at: index)
         object.reveal()
         graveyard.append(object)
@@ -369,14 +369,14 @@ class Player: Targetable {
     }
     
     func destroyPermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: {$0.id == object.id})!
+        let index = permanents.firstIndex(where: { $0 == object })!
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)
     }
     
     func exilePermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: { $0.id == object.id })!
+        let index = permanents.firstIndex(where: { $0 == object })!
         permanents.remove(at: index)
         Game.shared.exile.append(object)
     }

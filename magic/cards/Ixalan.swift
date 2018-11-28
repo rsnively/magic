@@ -17,7 +17,7 @@ enum XLN {
         adantoVanguard.setManaCost("1W")
         adantoVanguard.setType(.Creature, .Vampire, .Soldier)
         adantoVanguard.addStaticAbility({ object in
-            if object.id == adantoVanguard.id && object.attacking {
+            if object == adantoVanguard && object.attacking {
                 object.power = object.getBasePower() + 2
             }
             return object
@@ -39,7 +39,7 @@ enum XLN {
         bellowingAegisaur.addTriggeredAbility(
             trigger: .ThisDealtDamage,
             effect: { bellowingAegisaur.getController().getCreatures().forEach({ creature in
-                if creature.id != bellowingAegisaur.id {
+                if creature != bellowingAegisaur {
                     creature.addCounter(.PlusOnePlusOne)
                 }
             })
@@ -141,7 +141,7 @@ enum XLN {
             trigger: .ThisAttacks,
             effect: {
                 goringCeratops.getController().getCreatures().forEach({ creature in
-                    if creature.id != goringCeratops.id {
+                    if creature != goringCeratops {
                         creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.doubleStrike = true; return $0 }))
                     }
                 })
@@ -159,7 +159,7 @@ enum XLN {
         imperialAerosaur.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Creature) && $0.id != imperialAerosaur.id },
+                restriction: { return $0.isType(.Creature) && $0 != imperialAerosaur },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     // TODO: These should be different, because they are applied in different layers
                     object.power = object.getBasePower() + 1
@@ -178,7 +178,7 @@ enum XLN {
         imperialLancer.setManaCost("W")
         imperialLancer.setType(.Creature, .Human, .Knight)
         imperialLancer.addStaticAbility({ object in
-            if object.id == imperialLancer.id {
+            if object == imperialLancer {
                 let controlsDinosaur = !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty
                 if controlsDinosaur {
                     object.doubleStrike = true
@@ -278,7 +278,7 @@ enum XLN {
         pterodonKnight.setManaCost("3W")
         pterodonKnight.setType(.Creature, .Human, .Knight)
         pterodonKnight.addStaticAbility({ object in
-            if object.id == pterodonKnight.id && !object.getController().getPermanents().filter({ return $0.isType(.Dinosaur) }).isEmpty {
+            if object == pterodonKnight && !object.getController().getPermanents().filter({ return $0.isType(.Dinosaur) }).isEmpty {
                 object.flying = true
             }
             return object
@@ -374,7 +374,7 @@ enum XLN {
             string: "{1}{W}, {T}: ~ deals damage equal to its power to target creature blocking or blocked by it.",
             cost: Cost("1W", tap: true),
             effect: TargetedEffect.SingleObject(
-                restriction: { target in return target.isType(.Creature) && steadfastArmasaur.blockers.contains(where: { $0.id == target.id }) || steadfastArmasaur.attackers.contains(where: { $0.id == target.id }) },
+                restriction: { target in return target.isType(.Creature) && steadfastArmasaur.blockers.contains(where: { $0 == target }) || steadfastArmasaur.attackers.contains(where: { $0 == target }) },
                 effect: { steadfastArmasaur.damage(to: $0, steadfastArmasaur.getPower()) }))
         steadfastArmasaur.setFlavorText("\"Like the mighty armasaur, we will defend against all who invade our shores.\"\n--Itzama the Crested")
         steadfastArmasaur.power = 2
@@ -611,7 +611,7 @@ enum XLN {
         shaperApprentice.setManaCost("1U")
         shaperApprentice.setType(.Creature, .Merfolk, .Wizard)
         shaperApprentice.addStaticAbility({ object in
-            if object.id == shaperApprentice.id && !object.getController().getPermanents().filter({ return $0.id != object.id && $0.isType(.Merfolk) }).isEmpty {
+            if object == shaperApprentice && !object.getController().getPermanents().filter({ return $0 != object && $0.isType(.Merfolk) }).isEmpty {
                 object.flying = true
             }
             return object
@@ -819,7 +819,7 @@ enum XLN {
         desperateCastaways.setManaCost("1B")
         desperateCastaways.setType(.Creature, .Human, .Pirate)
         desperateCastaways.addStaticAbility({ object in
-            if object.id == desperateCastaways.id {
+            if object == desperateCastaways {
                 object.cantAttack = object.getController().getArtifacts().isEmpty
             }
             return object
@@ -1289,7 +1289,7 @@ enum XLN {
         thrashOfRaptors.setManaCost("3R")
         thrashOfRaptors.setType(.Creature, .Dinosaur)
         thrashOfRaptors.addStaticAbility({ object in
-            if object.id == thrashOfRaptors.id && !thrashOfRaptors.getController().getPermanents().filter({ $0.isType(.Dinosaur) && $0.id != thrashOfRaptors.id }).isEmpty {
+            if object == thrashOfRaptors && !thrashOfRaptors.getController().getPermanents().filter({ $0.isType(.Dinosaur) && $0 != thrashOfRaptors }).isEmpty {
                 object.power = object.getBasePower() + 2
                 // TODO: These should be in separate layers
                 object.trample = true
@@ -1410,7 +1410,7 @@ enum XLN {
         droverOfTheMighty.setManaCost("1G")
         droverOfTheMighty.setType(.Creature, .Human, .Druid)
         droverOfTheMighty.addStaticAbility({ object in
-            if object.id == droverOfTheMighty.id && !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty {
+            if object == droverOfTheMighty && !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty {
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 2
             }
@@ -1497,8 +1497,8 @@ enum XLN {
         kumenasSpeaker.setManaCost("G")
         kumenasSpeaker.setType(.Creature, .Merfolk, .Shaman)
         kumenasSpeaker.addStaticAbility({ object in
-            if object.id == kumenasSpeaker.id {
-                let controlsOtherMerfolk = !object.getController().getPermanents().filter({ $0.isType(.Merfolk) && $0.id != object.id }).isEmpty
+            if object == kumenasSpeaker {
+                let controlsOtherMerfolk = !object.getController().getPermanents().filter({ $0.isType(.Merfolk) && $0 != object }).isEmpty
                 let controlsIsland = !object.getController().getPermanents().filter({ $0.isType(.Island) }).isEmpty
                 if controlsOtherMerfolk || controlsIsland {
                     object.power = object.getBasePower() + 1
@@ -1597,7 +1597,7 @@ enum XLN {
         thunderingSpineback.setManaCost("5GG")
         thunderingSpineback.setType(.Creature, .Dinosaur)
         thunderingSpineback.addStaticAbility({ object in
-            if object.id != thunderingSpineback.id && object.isType(.Dinosaur) && object.getController() === thunderingSpineback.getController() {
+            if object != thunderingSpineback && object.isType(.Dinosaur) && object.getController() === thunderingSpineback.getController() {
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
             }
@@ -1637,7 +1637,7 @@ enum XLN {
         deadeyePlunderers.setManaCost("3UB")
         deadeyePlunderers.setType(.Creature, .Human, .Pirate)
         deadeyePlunderers.addStaticAbility({ object in
-            if object.id == deadeyePlunderers.id {
+            if object == deadeyePlunderers {
                 let numArtifacts = object.getController().getArtifacts().count
                 object.power = object.getBasePower() + numArtifacts
                 object.toughness = object.getBaseToughness() + numArtifacts
@@ -1660,8 +1660,8 @@ enum XLN {
         direFleetCaptain.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
-                let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0.id != direFleetCaptain.id }).count +
-                                 direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0.id != direFleetCaptain.id }).count
+                let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0 != direFleetCaptain }).count +
+                                 direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0 != direFleetCaptain }).count
                 direFleetCaptain.pump(numPirates, numPirates)
         })
         direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")
@@ -1682,7 +1682,7 @@ enum XLN {
             trigger: .ThisETB,
             effect: { Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach({ creature in
-                    if creature.id != ragingSwordtooth.id {
+                    if creature != ragingSwordtooth {
                         ragingSwordtooth.damage(to: creature, 1)
                     }
                 })
@@ -1698,7 +1698,7 @@ enum XLN {
         regisaurAlpha.setManaCost("3RG")
         regisaurAlpha.setType(.Creature, .Dinosaur)
         regisaurAlpha.addStaticAbility({ object in
-            if object.id != regisaurAlpha.id && object.isType(.Dinosaur) && object.getController() === regisaurAlpha.getController() {
+            if object != regisaurAlpha && object.isType(.Dinosaur) && object.getController() === regisaurAlpha.getController() {
                 object.haste = true
             }
             return object
@@ -1795,7 +1795,7 @@ enum XLN {
         dragonskullSummit.setManaCost("")
         dragonskullSummit.setType(.Land)
         dragonskullSummit.addStaticAbility({ object in
-            if object.id == dragonskullSummit.id {
+            if object == dragonskullSummit {
                 let controlsSwamp = !dragonskullSummit.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
                 let controlsMountain = !dragonskullSummit.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 object.entersTapped = !(controlsSwamp || controlsMountain)
@@ -1820,7 +1820,7 @@ enum XLN {
         drownedCatacomb.setManaCost("")
         drownedCatacomb.setType(.Land)
         drownedCatacomb.addStaticAbility({ object in
-            if object.id == drownedCatacomb.id {
+            if object == drownedCatacomb {
                 let controlsIsland = !drownedCatacomb.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 let controlsSwamp = !drownedCatacomb.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
                 object.entersTapped = !(controlsIsland || controlsSwamp)
@@ -1846,7 +1846,7 @@ enum XLN {
         glacialFortress.setManaCost("")
         glacialFortress.setType(.Land)
         glacialFortress.addStaticAbility({ object in
-            if object.id == glacialFortress.id {
+            if object == glacialFortress {
                 let controlsPlains = !glacialFortress.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
                 let controlsIsland = !glacialFortress.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 object.entersTapped = !(controlsPlains || controlsIsland)
@@ -1871,7 +1871,7 @@ enum XLN {
         rootboundCrag.setManaCost("")
         rootboundCrag.setType(.Land)
         rootboundCrag.addStaticAbility({ object in
-            if object.id == rootboundCrag.id {
+            if object == rootboundCrag {
                 let controlsMountain = !rootboundCrag.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 let controlsForest = !rootboundCrag.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
                 object.entersTapped = !(controlsMountain || controlsForest)
@@ -1896,7 +1896,7 @@ enum XLN {
         sunpetalGrove.setManaCost("")
         sunpetalGrove.setType(.Land)
         sunpetalGrove.addStaticAbility({ object in
-            if object.id == sunpetalGrove.id {
+            if object == sunpetalGrove {
                 let controlsForest = !sunpetalGrove.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
                 let controlsPlains = !sunpetalGrove.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
                 object.entersTapped = !(controlsForest || controlsPlains)

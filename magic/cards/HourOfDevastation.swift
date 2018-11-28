@@ -26,7 +26,7 @@ enum HOU {
         crestedSunmare.setManaCost("3WW")
         crestedSunmare.setType(.Creature, .Horse)
         crestedSunmare.addStaticAbility({ object in
-            if object.id != crestedSunmare.id && object.isType(.Horse) && object.getController() === crestedSunmare.getController() {
+            if object != crestedSunmare && object.isType(.Horse) && object.getController() === crestedSunmare.getController() {
                 object.indestructible = true
             }
             return object
@@ -92,7 +92,7 @@ enum HOU {
         solitaryCamel.setManaCost("2W")
         solitaryCamel.setType(.Creature, .Camel)
         solitaryCamel.addStaticAbility({ object in
-            if object.id == solitaryCamel.id {
+            if object == solitaryCamel {
                 let controlDesert = !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty
                 let desertInGraveyard = !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty
                 if controlDesert || desertInGraveyard {
@@ -117,7 +117,7 @@ enum HOU {
         aerialGuide.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.id != aerialGuide.id && $0.attacking && $0.isType(.Creature) },
+                restriction: { $0 != aerialGuide && $0.attacking && $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -262,7 +262,7 @@ enum HOU {
             trigger: .ThisETB,
             effect: {
                 Game.shared.bothPlayers({ $0.getCreatures().forEach({ creature in
-                    if creature.id != chaosMaw.id {
+                    if creature != chaosMaw {
                         chaosMaw.damage(to: creature, 3)
                     }
                 })})
@@ -442,7 +442,7 @@ enum HOU {
         ramunapHydra.reach = true
         ramunapHydra.trample = true
         ramunapHydra.addStaticAbility({ object in
-            if object.id == ramunapHydra.id {
+            if object == ramunapHydra {
                 if !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty {
                     object.power = object.getBasePower() + 1
                     object.toughness = object.getBaseToughness() + 1
@@ -451,7 +451,7 @@ enum HOU {
             return object
         })
         ramunapHydra.addStaticAbility({ object in
-            if object.id == ramunapHydra.id {
+            if object == ramunapHydra {
                 if !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty {
                     object.power = object.getBasePower() + 1
                     object.toughness = object.getBaseToughness() + 1
@@ -471,7 +471,7 @@ enum HOU {
         sidewinderNaga.setManaCost("2G")
         sidewinderNaga.setType(.Creature, .Naga, .Warrior)
         sidewinderNaga.addStaticAbility({ object in
-            if object.id == sidewinderNaga.id {
+            if object == sidewinderNaga {
                 let controlDesert = !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty
                 let desertInGraveyard = !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty
                 if controlDesert || desertInGraveyard {
