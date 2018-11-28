@@ -35,8 +35,11 @@ class Game: NSObject {
     
     var selectingCardsFrom: [Object] = []
     var selectingCardsRestrictions: [(Object) -> Bool] = []
-    var selectingCardsAction: (([Object]) -> ())? = nil
+    var selectingCardsAction: (([Object], inout [Object]) -> ())? = nil
     var selectedCards: [Object] = []
+    var unSelectedCards: [Object] {
+        get { return selectingCardsFrom.difference(from: selectedCards) }
+    }
     var isSelectingCards: Bool {
         return !selectingCardsRestrictions.isEmpty && selectingCardsAction != nil
     }
@@ -48,7 +51,8 @@ class Game: NSObject {
         }
     }
     func doneSelectingCards() {
-        selectingCardsAction!(selectedCards)
+        var unselected = unSelectedCards
+        selectingCardsAction!(selectedCards, &unselected)
         
         selectingCardsFrom.removeAll()
         selectingCardsRestrictions.removeAll()

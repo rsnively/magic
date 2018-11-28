@@ -385,15 +385,26 @@ class Player: Targetable {
         getHand().forEach({ $0.revealTo(player) })
     }
     
-    func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object]) -> Void) {
+    func putOnBottomOfLibrary(_ objects: inout [Object], random: Bool) {
+        if random {
+            objects.shuffle()
+        }
+        for object in objects {
+            let index = library.firstIndex(where: { $0 == object })!
+            library.remove(at: index)
+            library.insert(object, at: 0)
+        }
+    }
+    
+    func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object], inout [Object]) -> Void) {
         from.forEach({ $0.revealTo(self) })
         Game.shared.selectingCardsFrom = from
         Game.shared.selectingCardsRestrictions = restrictions
         Game.shared.selectingCardsAction = action
     }
-    func chooseCard(from: [Object], restriction: @escaping (Object) -> Bool, action: @escaping (Object?) -> Void) {
-        let action_: ([Object]) -> Void = { objects in
-            action(objects.first)
+    func chooseCard(from: [Object], restriction: @escaping (Object) -> Bool, action: @escaping (Object?, inout [Object]) -> Void) {
+        let action_: ([Object], inout [Object]) -> Void = { objects, rest in
+            action(objects.first, &rest)
         }
         chooseCards(from: from, restrictions: [restriction], action: action_)
     }

@@ -1,6 +1,6 @@
 import Foundation
 
-class Object: Targetable, NSCopying {
+class Object: Targetable, Hashable, NSCopying {
     var id:Int
     var name:String?
     var colors:Set<Color> = []
@@ -145,6 +145,14 @@ class Object: Targetable, NSCopying {
     static func GetId() -> Int {
         currentId = currentId + 1
         return currentId
+    }
+    
+    static func == (lhs: Object, rhs: Object) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     func exists() -> Bool {

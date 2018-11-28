@@ -502,7 +502,7 @@ enum GRN {
                     let numCreaturesInGraveyard = mausoleumSecrets.getController().getGraveyard().filter({ $0.isType(.Creature) }).count
                     return object.isColor(.Black) && object.getConvertedManaCost() <= numCreaturesInGraveyard
                 },
-                action: { $0?.putIntoHand() })
+                action: { chosen, rest in chosen?.putIntoHand() })
             mausoleumSecrets.getController().shuffleLibrary()
         })
         return mausoleumSecrets

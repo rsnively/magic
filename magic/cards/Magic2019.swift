@@ -804,7 +804,7 @@ enum M19 {
                 duress.getController().chooseCard(
                     from: target.getHand(),
                     restriction: { !$0.isType(.Creature) && !$0.isType(.Land) },
-                    action: { $0?.discard()})
+                    action: { chosen, rest in chosen?.discard()})
         }))
         duress.setFlavorText("\"It hurts more if you think about it.\"\n--Hooks, Cabal torturer")
         return duress

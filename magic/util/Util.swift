@@ -11,6 +11,14 @@ func toInt(_ digit: Character) -> Int {
     fatalError("Can't convert character to integer")
 }
 
+extension Array where Element: Hashable {
+    func difference(from other: [Element]) -> [Element] {
+        let thisSet = Set(self)
+        let otherSet = Set(other)
+        return Array(thisSet.symmetricDifference(otherSet))
+    }
+}
+
 // Can get rid of with swift 4.2
 extension MutableCollection {
     /// Shuffles the contents of this collection.
