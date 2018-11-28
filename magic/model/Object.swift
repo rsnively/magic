@@ -38,6 +38,11 @@ class Object: Targetable, Hashable, NSCopying {
     var triggeredAbilities:[TriggeredAbility] = []
     var replacementEffects:[ReplacementEffect] = []
     
+    private var baseCantActivateAbilities: Bool = false
+    var cantActivateAbilities: Bool {
+        get { return applyContinuousEffects().baseCantActivateAbilities }
+        set (newCantActivateAbilities) { baseCantActivateAbilities = newCantActivateAbilities }
+    }
     private var baseCantAttack: Bool = false
     var cantAttack: Bool {
         get { return applyContinuousEffects().baseCantAttack }
@@ -488,7 +493,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func canActivateAbilities() -> Bool {
-        return !activatedAbilities.isEmpty && !Game.shared.isSelecting() && getController().hasPriority
+        return !cantActivateAbilities && !activatedAbilities.isEmpty && !Game.shared.isSelecting() && getController().hasPriority
     }
     
     func isSelectingAbility() -> Bool {
