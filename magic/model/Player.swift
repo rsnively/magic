@@ -150,6 +150,7 @@ class Player: Targetable {
     }
     
     func shuffleLibrary() {
+        library.forEach({ $0.hide() })
         library.shuffle()
     }
     
@@ -321,7 +322,27 @@ class Player: Targetable {
         addPermanent(token)
     }
     
+    private func removeObjectFromCurrentZone(_ object: Object) {
+        if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
+            Game.shared.exile.remove(at: exileIndex)
+        }
+        else if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
+            graveyard.remove(at: graveyardIndex)
+        }
+        else if let handIndex = hand.firstIndex(where: { $0 == object }) {
+            hand.remove(at: handIndex)
+        }
+        else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
+            library.remove(at: libraryIndex)
+        }
+        else if let permanentIndex = permanents.firstIndex(where: { $0 == object }) {
+            permanents.remove(at: permanentIndex)
+        }
+        // TODO: The stack
+    }
+    
     func addPermanent(_ object: Object) {
+        removeObjectFromCurrentZone(object)
         object.reveal()
         permanents.append(object)
         if object.entersTapped {
@@ -342,15 +363,7 @@ class Player: Targetable {
     }
     
     func putIntoHand(_ object: Object) {
-        if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
-            Game.shared.exile.remove(at: exileIndex)
-        }
-        else if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
-            graveyard.remove(at: graveyardIndex)
-        }
-        else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
-            library.remove(at: libraryIndex)
-        }
+        removeObjectFromCurrentZone(object)
         object.revealToOwner()
         object.getOwner().hand.append(object)
     }
@@ -379,18 +392,7 @@ class Player: Targetable {
     }
     
     func exileObject(_ object: Object) {
-        if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
-            graveyard.remove(at: graveyardIndex)
-        }
-        else if let handIndex = hand.firstIndex(where: { $0 == object }) {
-            hand.remove(at: handIndex)
-        }
-        else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
-            library.remove(at: libraryIndex)
-        }
-        else if let permanentIndex = permanents.firstIndex(where: { $0 == object }) {
-            permanents.remove(at: permanentIndex)
-        }
+        removeObjectFromCurrentZone(object)
         object.reveal()
         Game.shared.exile.append(object)
     }
@@ -401,11 +403,11 @@ class Player: Targetable {
     
     func putOnBottomOfLibrary(_ objects: inout [Object], random: Bool) {
         if random {
+            objects.forEach({ $0.hide() })
             objects.shuffle()
         }
         for object in objects {
-            let index = library.firstIndex(where: { $0 == object })!
-            library.remove(at: index)
+            removeObjectFromCurrentZone(object)
             library.insert(object, at: 0)
         }
     }
