@@ -342,7 +342,10 @@ class Player: Targetable {
     }
     
     func putIntoHand(_ object: Object) {
-        if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
+        if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
+            Game.shared.exile.remove(at: exileIndex)
+        }
+        else if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
             graveyard.remove(at: graveyardIndex)
         }
         else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
@@ -375,9 +378,20 @@ class Player: Targetable {
         object.triggerAbilities(.ThisDies)
     }
     
-    func exilePermanent(_ object: Object) {
-        let index = permanents.firstIndex(where: { $0 == object })!
-        permanents.remove(at: index)
+    func exileObject(_ object: Object) {
+        if let graveyardIndex = graveyard.firstIndex(where: { $0 == object }) {
+            graveyard.remove(at: graveyardIndex)
+        }
+        else if let handIndex = hand.firstIndex(where: { $0 == object }) {
+            hand.remove(at: handIndex)
+        }
+        else if let libraryIndex = library.firstIndex(where: { $0 == object }) {
+            library.remove(at: libraryIndex)
+        }
+        else if let permanentIndex = permanents.firstIndex(where: { $0 == object }) {
+            permanents.remove(at: permanentIndex)
+        }
+        object.reveal()
         Game.shared.exile.append(object)
     }
     

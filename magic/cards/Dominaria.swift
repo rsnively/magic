@@ -580,7 +580,32 @@ enum DOM {
         return deathbloomThallid
     }
     // 85 Demonic Vigor
-    // 86 Demonlord Belzenlok
+    static func DemonlordBelzenlok() -> Card {
+        let demonlordBelzenlok = Card(name: "Demonlord Belzenlok", rarity: .Mythic, set: set, number: 86)
+        demonlordBelzenlok.setManaCost("4BB")
+        demonlordBelzenlok.setType(.Legendary, .Creature, .Elder, .Demon)
+        demonlordBelzenlok.flying = true
+        demonlordBelzenlok.trample = true
+        demonlordBelzenlok.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                var cardsPutIntoHand = 0
+                for card in demonlordBelzenlok.getController().getLibrary() {
+                    card.exile()
+                    if !card.isType(.Land) {
+                        card.putIntoHand()
+                        cardsPutIntoHand += 1
+                        if card.getConvertedManaCost() < 4 {
+                            break
+                        }
+                    }
+                }
+                demonlordBelzenlok.damage(to: demonlordBelzenlok.getController(), cardsPutIntoHand)
+        })
+        demonlordBelzenlok.power = 6
+        demonlordBelzenlok.toughness = 6
+        return demonlordBelzenlok
+    }
     // 87 Divest
     static func DreadShade() -> Card {
         let dreadShade = Card(name: "Dread Shade", rarity: .Rare, set: set, number: 88)

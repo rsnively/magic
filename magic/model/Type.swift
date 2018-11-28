@@ -37,6 +37,7 @@ enum Subtype {
     case Cleric
     case Construct
     case Crab
+    case Demon
     case Desert
     case Devil
     case Dinosaur
@@ -119,6 +120,7 @@ enum Subtype {
     case Unicorn
     case Vampire
     case Vedalken
+    case Vehicle
     case Viashino
     case Wall
     case Warrior

@@ -589,13 +589,17 @@ class Object: Targetable, Hashable, NSCopying {
     
     func exile() {
         removeFromCombat()
-        getController().exilePermanent(self)
-        triggerAbilities(.ThisLTB)
+        getController().exileObject(self)
+        if getController().getPermanents().firstIndex(where: { $0 == self }) != nil {
+            triggerAbilities(.ThisLTB)
+        }
     }
     
     func sacrifice() {
         let _ = self.destroy(ignoreIndestructible: true)
-        getController().getPermanents().forEach({ $0.triggerAbilities(.YouSacrificeTreasure) })
+        if isType(.Treasure) {
+            getController().getPermanents().forEach({ $0.triggerAbilities(.YouSacrificeTreasure) })
+        }
         triggerAbilities(.ThisLTB)
     }
     
