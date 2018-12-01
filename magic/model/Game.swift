@@ -131,6 +131,14 @@ class Game: NSObject {
         super.init()
         player1.active = true
         player1.hasPriority = true
+        
+        let totalCardsInStandard = GRN.count + M19.count + DOM.count + RIX.count + XLN.count
+        let standardCardsImplemented = GRN.cards.count + M19.cards.count + DOM.cards.count + RIX.cards.count + XLN.cards.count
+        let percentage: Float = Float(standardCardsImplemented) / Float(totalCardsInStandard) * 100.0
+        print("STANDARD")
+        print("========")
+        print("Total: " + String(totalCardsInStandard))
+        print("Implemented: " + String(standardCardsImplemented) + "(" + String(format: "%.2f", percentage) + "%)")
     }
     
     func getActivePlayer() -> Player {
