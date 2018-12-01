@@ -773,11 +773,11 @@ enum GRN {
         streetRiot.setType(.Enchantment)
         streetRiot.addStaticAbility({ object in
             if streetRiot.getController().active && object.isType(.Creature) && object.getController() === streetRiot.getController() {
-                streetRiot.power = streetRiot.getBasePower() + 1
+                object.power = object.getBasePower() + 1
                 // TODO: These should be in different layers
-                streetRiot.trample = true
+                object.trample = true
             }
-            return streetRiot
+            return object
         })
         streetRiot.setFlavorText("\"They said obey and you'll be happy. They said you'll be safe. But we're not safe. We're not happy. And we will not obey.\"\n--Domri Rade")
         return streetRiot
