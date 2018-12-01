@@ -1670,7 +1670,7 @@ enum XLN {
         return sliceInTwain
     }
     static func SnappingSailback() -> Card {
-        let snappingSailback = Card(name: "Snapping Sailback", rarity: .Uncommon, set: set, number: 209)
+        let snappingSailback = Card(name: "Snapping Sailback", rarity: .Uncommon, set: set, number: 208)
         snappingSailback.setManaCost("4G")
         snappingSailback.setType(.Creature, .Dinosaur)
         snappingSailback.flash = true
