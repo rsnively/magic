@@ -153,6 +153,10 @@ class Player: Targetable {
         library.forEach({ $0.hide() })
         library.shuffle()
     }
+    func shuffleGraveyardIntoLibrary() {
+        graveyard.forEach({ $0.putOnTopOfLibrary() })
+        shuffleLibrary()
+    }
     
     func pregameActions() {
         shuffleLibrary()
@@ -341,11 +345,11 @@ class Player: Targetable {
         // TODO: The stack
     }
     
-    func addPermanent(_ object: Object) {
+    func addPermanent(_ object: Object, tapped: Bool = false) {
         removeObjectFromCurrentZone(object)
         object.reveal()
         permanents.append(object)
-        if object.entersTapped {
+        if object.entersTapped || tapped {
             object.setTapped(true)
         }
         object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
@@ -399,6 +403,11 @@ class Player: Targetable {
     
     func revealHandTo(_ player: Player) {
         getHand().forEach({ $0.revealTo(player) })
+    }
+    
+    func putOnTopOfLibrary(_ object: Object) {
+        removeObjectFromCurrentZone(object)
+        library.append(object)
     }
     
     func putOnBottomOfLibrary(_ objects: inout [Object], random: Bool) {

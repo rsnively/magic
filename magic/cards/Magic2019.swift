@@ -5,7 +5,7 @@ enum M19 {
     static var count = 280
     
     private static let cards = [
-        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ AjanisPridemate, /* AjanisWelcome, */ AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, /* Isolate, */ KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, /* MilitiaBugler, */ /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, /* RemorsefulCleric, */ ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, /* TotallyLost, */ UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, /* InfernalReckoning, */ /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, /* ElvishRejuvenator, */ /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ /* VivienReid, */ /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, /* EnigmaDrake, */ HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
+        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ AjanisPridemate, /* AjanisWelcome, */ AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, Isolate, KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, MilitiaBugler, /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, RemorsefulCleric, ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, TotallyLost, UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, InfernalReckoning, /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, ElvishRejuvenator, /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ /* VivienReid, */ /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, /* EnigmaDrake, */ HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
     ]
     
     static func RandomCard() -> Card {
@@ -169,7 +169,16 @@ enum M19 {
         invokeTheDivine.setFlavorText("\"Let go of all that harms you. Cast your burdens into the darkness, and build for the faithful a house of light.\"\n--<i>Song of All</i>, canto 1008")
         return invokeTheDivine
     }
-    // 17 Isolate
+    static func Isolate() -> Card {
+        let isolate = Card(name: "Isolate", rarity: .Rare, set: set, number: 17)
+        isolate.setManaCost("W")
+        isolate.setType(.Instant)
+        isolate.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isPermanent() && $0.getConvertedManaCost() == 1},
+            effect: { $0.exile() }))
+        isolate.setFlavorText("Threefold were his crimes, doubled were his pleas, singular was his fate.")
+        return isolate
+    }
     static func KnightOfTheTusk() -> Card {
         let knightOfTheTusk = Card(name: "Knight of the Tusk", rarity: .Common, set: set, number: 18)
         knightOfTheTusk.setManaCost("4WW")
@@ -331,7 +340,26 @@ enum M19 {
         mightyLeap.setFlavorText("\"I feel the presence of the God-Pharoah in the Second Sun, and I rise upon its rays.\"")
         return mightyLeap
     }
-    // 29 Militia Bugler
+    static func MilitiaBugler() -> Card {
+        let militaBugler = Card(name: "Militia Bugler", rarity: .Uncommon, set: set, number: 29)
+        militaBugler.setManaCost("2W")
+        militaBugler.setType(.Creature, .Human, .Soldier)
+        militaBugler.vigilance = true
+        militaBugler.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { militaBugler.getController().chooseCard(
+                from: Array(militaBugler.getController().getLibrary().suffix(4)),
+                // TODO: Make sure static abilities aren't affecting cards in libraries
+                restriction: { $0.isType(.Creature) && $0.getPower() <= 2 },
+                action: { chosen, rest in
+                    chosen?.putIntoHand()
+                    militaBugler.getController().putOnBottomOfLibrary(&rest, random: true)
+                })
+        })
+        militaBugler.power = 2
+        militaBugler.toughness = 3
+        return militaBugler
+    }
     // 30 Novice Knight
     static func OreskosSwiftclaw() -> Card {
         let oreskosSwiftclaw = Card(name: "Oreskos Swifclaw", rarity: .Common, set: set, number: 31)
@@ -361,7 +389,24 @@ enum M19 {
         pegasusCourser.toughness = 3
         return pegasusCourser
     }
-    // 33 Remorseful Cleric
+    static func RemorsefulCleric() -> Card {
+        let remorsefulCleric = Card(name: "Remorseful Cleric", rarity: .Rare, set: set, number: 33)
+        remorsefulCleric.setManaCost("1W")
+        remorsefulCleric.setType(.Creature, .Spirit, .Cleric)
+        remorsefulCleric.flying = true
+        remorsefulCleric.addActivatedAbility(
+            string: "Sacrifice ~: Exile all cards from target player's graveyard.",
+            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetedEffect.AnyPlayer,
+                effect: { target in
+                    target.getGraveyard().forEach({ $0.exile() })
+        }))
+        remorsefulCleric.setFlavorText("A lifetime of keeping up appearances is not enough to earn an eternity of rest.")
+        remorsefulCleric.power = 2
+        remorsefulCleric.toughness = 1
+        return remorsefulCleric
+    }
     static func ResplendentAngel() -> Card {
         let resplendentAngel = Card(name: "Resplendent Angel", rarity: .Mythic, set: set, number: 34)
         resplendentAngel.setManaCost("1WW")
@@ -695,7 +740,16 @@ enum M19 {
         tolarianScholar.toughness = 3
         return tolarianScholar
     }
-    // 81 Totally Lost
+    static func TotallyLost() -> Card {
+        let totallyLost = Card(name: "Totally Lost", rarity: .Common, set: set, number: 81)
+        totallyLost.setManaCost("4U")
+        totallyLost.setType(.Instant)
+        totallyLost.addEffect(TargetedEffect.SingleObject(
+            restriction: { !$0.isType(.Land) && $0.isPermanent() },
+            effect: { $0.putOnTopOfLibrary() }))
+        totallyLost.setFlavorText("Fblthp had always hated crowds.")
+        return totallyLost
+    }
     static func UncomfortableChill() -> Card {
         let uncomfortableChill = Card(name: "Uncomfortable Chill", rarity: .Common, set: set, number: 82)
         uncomfortableChill.setManaCost("2U")
@@ -847,7 +901,20 @@ enum M19 {
         infectiousHorror.toughness = 2
         return infectiousHorror
     }
-    // 102 Infernal Reckoning
+    static func InfernalReckoning() -> Card {
+        let infernalReckoning = Card(name: "Infernal Reckoning", rarity: .Rare, set: set, number: 102)
+        infernalReckoning.setManaCost("B")
+        infernalReckoning.setType(.Instant)
+        infernalReckoning.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isColorless() && $0.isType(.Creature) },
+            effect: { target in
+                let power = target.getPower()
+                target.exile()
+                infernalReckoning.getController().gainLife(power)
+        }))
+        infernalReckoning.setFlavorText("\"When these intruders are gone, Zendikar will be my throne, my palace, my playground.")
+        return infernalReckoning
+    }
     // 103 Infernal Scarring
     // 104 Isareth the Awakener
     static func LichsCaress() -> Card {
@@ -1375,7 +1442,24 @@ enum M19 {
         elvishClancaller.toughness = 1
         return elvishClancaller
     }
-    // 180 Elvish Rejuvenator
+    static func ElvishRejuvenator() -> Card {
+        let elvishRejuvenator = Card(name: "Elvish Rejuvenator", rarity: .Common, set: set, number: 180)
+        elvishRejuvenator.setManaCost("2G")
+        elvishRejuvenator.setType(.Creature, .Elf, .Druid)
+        elvishRejuvenator.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { elvishRejuvenator.getController().chooseCard(
+                from: Array(elvishRejuvenator.getController().getLibrary().suffix(5)),
+                restriction: { $0.isType(.Land) },
+                action: { chosen, rest in
+                    chosen?.putOntoBattlefield(tapped: true)
+                    elvishRejuvenator.getController().putOnBottomOfLibrary(&rest, random: true)
+            })
+        })
+        elvishRejuvenator.power = 1
+        elvishRejuvenator.toughness = 1
+        return elvishRejuvenator
+    }
     // 181 Ghastbark Twins
     // 182 Ghirapur Guide
     static func GiantSpider() -> Card {

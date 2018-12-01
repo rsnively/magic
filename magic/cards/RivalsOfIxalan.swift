@@ -13,7 +13,7 @@ enum RIX {
     static var count = 196
     
     static private let cards = [
-        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, /* ReaverAmbush, Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, TwilightProphet, */ VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, WorldShaper, AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, /* TravelersAmulet, ArchOfOrazca, EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, ReaverAmbush, /* Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, */ TwilightProphet, VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, */ WorldShaper, /* AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, AwakenedAmalgam, CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, TravelersAmulet, /* ArchOfOrazca, */ EvolvingWilds, /* ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
     ]
     
     static func RandomCard() -> Card {
@@ -635,12 +635,47 @@ enum RIX {
         ravenousChupacabra.toughness = 2
         return ravenousChupacabra
     }
-    // 83 Reaver Ambush
+    static func ReaverAmbush() -> Card {
+        let reaverAmbush = Card(name: "Reaver Ambush", rarity: .Uncommon, set: set, number: 83)
+        reaverAmbush.setManaCost("2G")
+        reaverAmbush.setType(.Instant)
+        reaverAmbush.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) && $0.getPower() <= 3 },
+            effect: { $0.exile() }))
+        reaverAmbush.setFlavorText("Onora knew with sudden, grim certainty he would never see the Great River again.")
+        return reaverAmbush
+    }
     // 84 Recover
     // 85 Sadistic Skymarcher
     // 86 Tetzimoc, Primal Death
     // 87 Tomb Robber
-    // 88 Twilight Prophet
+    static func TwilightProphet() -> Card {
+        let twilightProphet = Card(name: "Twilight Prophet", rarity: .Mythic, set: set, number: 88)
+        twilightProphet.setManaCost("2BB")
+        twilightProphet.setType(.Creature, .Vampire, .Cleric)
+        twilightProphet.flying = true
+        twilightProphet.addStaticAbility({ object in
+            if object == twilightProphet {
+                object.ascend()
+            }
+            return object
+        })
+        twilightProphet.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: {
+                if let topOfLibrary = twilightProphet.getController().getLibrary().last {
+                    topOfLibrary.reveal()
+                    topOfLibrary.putIntoHand()
+                    let life = topOfLibrary.getConvertedManaCost()
+                    twilightProphet.getOpponent().loseLife(life)
+                    twilightProphet.getController().gainLife(life)
+                }
+            },
+            restriction: { twilightProphet.getController().citysBlessing })
+        twilightProphet.power = 2
+        twilightProphet.toughness = 4
+        return twilightProphet
+    }
     static func VampireRevenant() -> Card {
         let vampireRevenant = Card(name: "Vampire Revenant", rarity: .Common, set: set, number: 89)
         vampireRevenant.setManaCost("3B")
@@ -1123,7 +1158,22 @@ enum RIX {
     }
     // 149 Thunderherd Migration
     // 150 Wayward Swordtooth
-    // 151 World Shaper
+    static func WorldShaper() -> Card {
+        let worldShaper = Card(name: "World Shaper", rarity: .Rare, set: set, number: 151)
+        worldShaper.setManaCost("3G")
+        worldShaper.setType(.Creature, .Merfolk, .Shaman)
+        worldShaper.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: { worldShaper.getController().mill(3) },
+            effectOptional: true)
+        worldShaper.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { worldShaper.getController().getGraveyard().filter({ $0.isType(.Land) }).forEach({ $0.putOntoBattlefield() }) })
+        worldShaper.setFlavorText("\"The Great River will not be tamed.\"")
+        worldShaper.power = 3
+        worldShaper.toughness = 3
+        return worldShaper
+    }
     // 152 Angrath, the Flame-Chained
     // 153 Atzocan Seer
     // 154 Azor, the Lawbringer
@@ -1134,7 +1184,7 @@ enum RIX {
         deadeyeBrawler.deathtouch = true
         deadeyeBrawler.addStaticAbility({ object in
             if object == deadeyeBrawler {
-                deadeyeBrawler.ascend()
+                object.ascend()
             }
             return object
         })
@@ -1301,9 +1351,44 @@ enum RIX {
         striderHarness.setFlavorText("\"Because the giant, implacable death lizard wasn't scary enough already.\"\n--Captain Brinely Rage")
         return striderHarness
     }
-    // 184 Traveler's Amulet
+    static func TravelersAmulet() -> Card {
+        let travelersAmulet = Card(name: "Traveler's Amulet", rarity: .Common, set: set, number: 184)
+        travelersAmulet.setManaCost("1")
+        travelersAmulet.setType(.Artifact)
+        travelersAmulet.addActivatedAbility(
+            string: "{1}, Sacrifice ~: Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.",
+            cost: Cost("1", tap: false, life: 0, sacrificeSelf: true),
+            effect: { travelersAmulet.getController().chooseCard(
+                from: travelersAmulet.getController().getLibrary(),
+                restriction: { $0.isBasicLand() },
+                action: { chosen, rest in
+                    chosen?.reveal()
+                    chosen?.putIntoHand()
+                    travelersAmulet.getController().shuffleLibrary()
+                })
+        })
+        travelersAmulet.setFlavorText("\"The best kind of treasure is the kind that leads to more treasure!\"\n--Captain Lannery Storm")
+        return travelersAmulet
+    }
     // 185 Arch of Orazca
-    // 186 Evolving Wilds
+    static func EvolvingWilds() -> Card {
+        let evolvingWilds = Card(name: "Evolving Wilds", rarity: .Common, set: set, number: 186)
+        evolvingWilds.setManaCost("")
+        evolvingWilds.setType(.Land)
+        evolvingWilds.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle your library.",
+            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            effect: { evolvingWilds.getController().chooseCard(
+                from: evolvingWilds.getController().getLibrary(),
+                restriction: { $0.isBasicLand() },
+                action: { chosen, rest in
+                    chosen?.putOntoBattlefield(tapped: true)
+                    evolvingWilds.getController().shuffleLibrary()
+            })
+        })
+        evolvingWilds.setFlavorText("The Sun Empire bends nature--rivers, mountainsides, dinosaurs--to its unyielding will.")
+        return evolvingWilds
+    }
     // 187 Forsaken Sanctuary
     // 188 Foul Orchard
     // 189 Highland Lake
