@@ -60,7 +60,7 @@ class CardNode: SKSpriteNode {
             attackBorder.fillColor = SKColor.red
             addChild(attackBorder)
         }
-        if card.isType(.Creature) && (card.getPower() != card.getBasePower() || card.getToughness() != card.getBaseToughness()) {
+        if card.isType(.Creature) && (card.powerOrToughnessUndefined() || (card.getPower() != card.getBasePower() || card.getToughness() != card.getBaseToughness())) {
             let powerToughnessNode = SKLabelNode(text: String(card.getPower()) + "/" + String(card.getToughness()))
             powerToughnessNode.fontColor = UIColor.blue // todo, red when less
             powerToughnessNode.fontSize = allowedSize.height * 0.1;

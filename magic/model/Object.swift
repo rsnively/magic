@@ -35,6 +35,7 @@ class Object: Targetable, Hashable, NSCopying {
     
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
+    var characteristicDefiningAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
     var replacementEffects:[ReplacementEffect] = []
     
@@ -190,7 +191,10 @@ class Object: Targetable, Hashable, NSCopying {
         copy.attachedTo = attachedTo
         copy.auraRestriction = auraRestriction
         copy.activatedAbilities = activatedAbilities
+        copy.staticAbilities = staticAbilities
+        copy.characteristicDefiningAbilities = characteristicDefiningAbilities
         copy.triggeredAbilities = triggeredAbilities
+        copy.replacementEffects = replacementEffects
         
         copy.baseCantAttack = baseCantAttack
         copy.baseCantBlock = baseCantBlock
@@ -374,8 +378,13 @@ class Object: Targetable, Hashable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
-    func addStaticAbility(_ effect: @escaping (Object) -> Object, allZones: Bool = false) {
-        staticAbilities.append(StaticAbility(effect, allZones: allZones))
+    func addStaticAbility(_ effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
+        let ability = StaticAbility(effect, allZones: allZones)
+        if characteristicDefining {
+            characteristicDefiningAbilities.append(ability)
+        } else {
+            staticAbilities.append(ability)
+        }
     }
     
     func addCounters(_ type: Counter, _ amount: Int) {
@@ -441,6 +450,11 @@ class Object: Targetable, Hashable, NSCopying {
     func applyContinuousEffects() -> Object {
         // TODO: Layers
         var object = self.copy() as! Object
+        
+        for cda in characteristicDefiningAbilities {
+            object = cda.apply(object)
+        }
+        
         for activeEffect in activeEffects {
             object = activeEffect.apply(object)
         }
@@ -532,6 +546,10 @@ class Object: Targetable, Hashable, NSCopying {
     }
     func getToughness() -> Int {
         return applyContinuousEffects().baseToughness!
+    }
+    
+    func powerOrToughnessUndefined() -> Bool {
+        return basePower == nil || baseToughness == nil
     }
     
     func hasSummoningSickness() -> Bool {
