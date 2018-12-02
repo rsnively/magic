@@ -4,6 +4,10 @@ enum LEA {
     static var set = "lea"
     static var count = 295
     
+    static var cards = [
+        /* Animate Wall, */ Armageddon, /* Balance, BenalishHero, BlackWard, BlazeOfGlory, */ Blessing, /* BlueWard, */ Castle, /* CircleOfProtectionBlue, CircleOfProtectionGreen, CircleOfProtectionRed, CircleOfProtectionWhite, ConsecrateLand, Conversion, */ Crusade, /* DeathWard, */ Disenchant, /* Farmstead, GreenWard, GuardianAngel, HealingSalve, */ HolyArmor, HolyStrength, /* IslandSanctuary, */ Karma, Lance, /* MesaPegasus, */ NorthernPaladin, PearledUnicorn, /* PersonalIncarnation, Purelace, RedWard, Resurrection, ReverseDamage, */ Righteousness, /* SamiteHealer, */ SavannahLions, SerraAngel, SwordsToPlowshares, /* VeteranBodyguard, */ WallOfSwords, /* WhiteKnight, WhiteWard, WrathOfGod, */ AirElemental, AncestrallRecall, /* AnimateArtifact, BlueElementalBlast, Braingeyser, Clone, ControlMagic, CopyArtifact, Counterspell, CreatureBond, DrainPower, */ Feedback, Flight, /* Invisibility, */ Jump, /* Lifetap, LordOfAtlantis, MagicalHack, */ MahamotiDjinn, ManaShort, MerfolkOfThePearlTrident, /* PhantasmalForces, PhantasmalTerrain, */ PhantomMonster, /* PirateShip, PowerLeak, PowerSink, */ ProdigalSorcerer, PsionicBlast, /* PsychicVenom, SeaSerpent, SirensCall, SleightOfMind, SpellBlast, Stasis, StealArtifact, Thoughtlace, TimeWalk, Timetwister, Twiddle, */ Unsummon, /* VesuvanDoppleganger, VolcanicEruption, */ WallOfAir, WallOfWater, WaterElemental,
+    ]
+    
     // 1 Animate Wall
     static func Armageddon() -> Card {
         let armageddon = Card(name: "Armageddon", rarity: .Rare, set: set, number: 2)
@@ -20,7 +24,19 @@ enum LEA {
     // 4 Benalish Hero
     // 5 Black Ward
     // 6 Blaze of Glory
-    // 7 Blessing
+    static func Blessing() -> Card {
+        let blessing = Card(name: "Blessing", rarity: .Rare, set: set, number: 7)
+        blessing.setManaCost("WW")
+        blessing.setType(.Enchantment, .Aura)
+        blessing.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { return $0 })
+        blessing.addActivatedAbility(
+            string: "{W}: Enchanted creature gets +1/+1 until end of turn.",
+            cost: Cost("W"),
+            effect: { blessing.attachedTo?.pump(1, 1) })
+        return blessing
+    }
     // 8 Blue Ward
     static func Castle() -> Card {
         let castle = Card(name: "Castle", rarity: .Uncommon, set: set, number: 9)
@@ -69,8 +85,35 @@ enum LEA {
     // 20 Green Ward
     // 21 Guardian Angel
     // 22 Healing Salve
-    // 23 Holy Armor
-    // 24 Holy Strength
+    static func HolyArmor() -> Card {
+        let holyArmor = Card(name: "Holy Armor", rarity: .Common, set: set, number: 23)
+        holyArmor.setManaCost("W")
+        holyArmor.setType(.Enchantment, .Aura)
+        holyArmor.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.toughness = object.getBaseToughness() + 2
+                return object
+        })
+        holyArmor.addActivatedAbility(
+            string: "{W}: Enchanted creature gets +0/+1 until end of turn.",
+            cost: Cost("W"),
+            effect: { holyArmor.attachedTo?.pump(0, 1) })
+        return holyArmor
+    }
+    static func HolyStrength() -> Card {
+        let holyStrength = Card(name: "Holy Strength", rarity: .Common, set: set, number: 24)
+        holyStrength.setManaCost("W")
+        holyStrength.setType(.Enchantment, .Aura)
+        holyStrength.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 2
+                return object
+        })
+        return holyStrength
+    }
     // 25 Island Sanctuary
     static func Karma() -> Card {
         let karma = Card(name: "Karma", rarity: .Uncommon, set: set, number: 26)
@@ -84,7 +127,15 @@ enum LEA {
         })
         return karma
     }
-    // 27 Lance
+    static func Lance() -> Card {
+        let lance = Card(name: "Lance", rarity: .Uncommon, set: set, number: 27)
+        lance.setManaCost("W")
+        lance.setType(.Enchantment, .Aura)
+        lance.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.firstStrike = true; return $0 })
+        return lance
+    }
     // 28 Mesa Pegasus
     static func NorthernPaladin() -> Card {
         let northernPaladin = Card(name: "Northern Paladin", rarity: .Rare, set: set, number: 29)
@@ -145,7 +196,20 @@ enum LEA {
         serraAngel.toughness = 4
         return serraAngel
     }
-    // 40 Swords to Plowshares
+    static func SwordsToPlowshares() -> Card {
+        let swordsToPlowshares = Card(name: "Swords to Plowshares", rarity: .Uncommon, set: set, number: 40)
+        swordsToPlowshares.setManaCost("W")
+        swordsToPlowshares.setType(.Instant)
+        swordsToPlowshares.addEffect(TargetedEffect.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            effect: { target in
+                let controller = target.getController()
+                let power = target.getPower()
+                target.exile()
+                controller.gainLife(power)
+        }))
+        return swordsToPlowshares
+    }
     // 41 Veteran Bodyguard
     static func WallOfSwords() -> Card {
         let wallOfSwords = Card(name: "Wall of Swords", rarity: .Uncommon, set: set, number: 42)
@@ -190,8 +254,33 @@ enum LEA {
     // 54 Counterspell
     // 55 Creature Bond
     // 56 Drain Power
-    // 57 Feedback
-    // 58 Flight
+    static func Feedback() -> Card {
+        let feedback = Card(name: "Feedback", rarity: .Uncommon, set: set, number: 57)
+        feedback.setManaCost("2U")
+        feedback.setType(.Enchantment, .Aura)
+        feedback.addEnchantAbility(
+            restriction: { $0.isType(.Enchantment) },
+            effect: { return $0 })
+        feedback.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { feedback.damage(to: feedback.attachedTo!.getController(), 1) },
+            restriction: {
+                if let attachedTo = feedback.attachedTo {
+                    return attachedTo.getController().active
+                }
+                return false
+        })
+        return feedback
+    }
+    static func Flight() -> Card {
+        let flight = Card(name: "Flight", rarity: .Common, set: set, number: 58)
+        flight.setManaCost("U")
+        flight.setType(.Enchantment, .Aura)
+        flight.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { $0.flying = true; return $0 })
+        return flight
+    }
     // 59 Invisibility
     static func Jump() -> Card {
         let jump = Card(name: "Jump", rarity: .Common, set: set, number: 60)
@@ -216,7 +305,18 @@ enum LEA {
         mahamotiDjinn.toughness = 6
         return mahamotiDjinn
     }
-    // 65 Mana Short
+    static func ManaShort() -> Card {
+        let manaShort = Card(name: "Mana Short", rarity: .Rare, set: set, number: 65)
+        manaShort.setManaCost("2U")
+        manaShort.setType(.Instant)
+        manaShort.addEffect(TargetedEffect.SinglePlayer(
+            restriction: TargetedEffect.AnyPlayer,
+            effect: { target in
+                target.getLands().forEach({ $0.tap() })
+                target.getManaPool().empty()
+        }))
+        return manaShort
+    }
     static func MerfolkOfThePearlTrident() -> Card {
         let merfolkOfThePearlTrident = Card(name: "Merfolk of the Pearl Trident", rarity: .Common, set: set, number: 66)
         merfolkOfThePearlTrident.setManaCost("U")
