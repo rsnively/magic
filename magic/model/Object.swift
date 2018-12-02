@@ -388,6 +388,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func addCounters(_ type: Counter, _ amount: Int) {
+        let amount = max(amount, 0)
         for _ in 0 ..< amount {
             addCounter(type)
         }
@@ -398,11 +399,26 @@ class Object: Targetable, Hashable, NSCopying {
             triggerAbilities(.ThisGetsLoreCounter)
         }
     }
+    func removeCounter(_ type: Counter) {
+        counters[type] = max(0, (counters[type] ?? 0) - 1)
+    }
     func getCounters(_ type: Counter) -> Int {
         return counters[type] ?? 0
     }
     func hasCounter(_ type: Counter) -> Bool {
         return counters[type] != nil
+    }
+    func hasCounters(_ counterArray: [Counter]) -> Bool {
+        var counterMap:[Counter: Int] = [:]
+        for counter in counterArray {
+            counterMap[counter] = (counterMap[counter] ?? 0) + 1
+        }
+        for (type, count) in counterMap {
+            if getCounters(type) < count {
+                return false
+            }
+        }
+        return true
     }
     
     func addEnchantAbility(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object) {

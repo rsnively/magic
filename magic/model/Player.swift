@@ -136,6 +136,7 @@ class Player: Targetable {
         return manaPool.canAfford(cost.getManaCost())
             && ( !cost.getTapCost() || (!source.isTapped && !source.hasSummoningSickness()))
             && ( cost.getLifeCost() <= 0 || getLife() >= cost.getLifeCost())
+            && ( source.hasCounters(cost.getCounterCost()))
     }
     
     func payFor(_ cost: Cost, _ source: Object) {
@@ -145,6 +146,9 @@ class Player: Targetable {
         }
         if cost.getSacrificeSelf() {
             source.sacrifice()
+        }
+        for counter in cost.getCounterCost() {
+            source.removeCounter(counter)
         }
         loseLife(cost.getLifeCost())
     }

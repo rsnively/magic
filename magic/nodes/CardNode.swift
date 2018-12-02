@@ -72,8 +72,10 @@ class CardNode: SKSpriteNode {
         
         var numCounterLabelNodes = 0
         for (counter, amount) in card.counters {
-            addChild(CardNode.getCounterLabelNode(type: counter, amount: amount, index: numCounterLabelNodes, cardSize: size))
-            numCounterLabelNodes += 1
+            if amount > 0 {
+                addChild(CardNode.getCounterLabelNode(type: counter, amount: amount, index: numCounterLabelNodes, cardSize: size))
+                numCounterLabelNodes += 1
+            }
         }
         
         if card.isSelectingAbility() {
