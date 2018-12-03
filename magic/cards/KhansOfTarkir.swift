@@ -39,7 +39,7 @@ enum KTK {
         dazzlingRamparts.defender = true
         dazzlingRamparts.addActivatedAbility(
             string: "{1}{W}, {T}: Tap target creature.",
-            cost: Cost("1W", tap: true),
+            cost: Cost.Mana("1W").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.tap() }))
@@ -81,7 +81,7 @@ enum KTK {
         })
         highSentinelsOfArashin.addActivatedAbility(
             string: "{3}{W}: Put a +1/+1 counter on target creature.",
-            cost: Cost("3W"),
+            cost: Cost.Mana("3W"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.addCounter(.PlusOnePlusOne) }))
@@ -115,7 +115,7 @@ enum KTK {
         marduHateblade.setType(.Creature, .Human, .Warrior)
         marduHateblade.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
-            cost: Cost("B"),
+            cost: Cost.Mana("B"),
             effect: { marduHateblade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
         marduHateblade.setFlavorText("\"There may be little honor in my tactics, but there is no honor in losing.\"")
         marduHateblade.power = 1
@@ -249,7 +249,7 @@ enum KTK {
         scionOfGlaciers.setType(.Creature, .Elemental)
         scionOfGlaciers.addActivatedAbility(
             string: "{U}: ~ gets +1/-1 until end of turn.",
-            cost: Cost("U"),
+            cost: Cost.Mana("U"),
             effect: { scionOfGlaciers.pump(1, -1) })
         scionOfGlaciers.setFlavorText("\"There is nothing so free as the spring river born of winter's ice.\"\n--Nitula, the Hunt Caller")
         scionOfGlaciers.power = 2
@@ -403,7 +403,7 @@ enum KTK {
         leapingMaster.setType(.Creature, .Human, .Monk)
         leapingMaster.addActivatedAbility(
             string: "{2}{W}: ~ gains flying until end of turn.",
-            cost: Cost("2W"),
+            cost: Cost.Mana("2W"),
             effect: { leapingMaster.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
         leapingMaster.setFlavorText("\"Strength batters down barriers. Discipline ignores them.\"")
         leapingMaster.power = 2
@@ -487,7 +487,7 @@ enum KTK {
         archersParapet.defender = true
         archersParapet.addActivatedAbility(
             string: "{1}{B}, {T}: Each opponent loses 1 life.",
-            cost: Cost("1B", tap: true),
+            cost: Cost.Mana("1B").Tap(),
             effect: { archersParapet.getOpponent().loseLife(1) })
         archersParapet.setFlavorText("Every shaft is graven with a name from a kin tree, calling upon the spirits of the ancestors to make it fly true.")
         archersParapet.power = 0
@@ -758,12 +758,12 @@ enum KTK {
             effect: { bloodfellCaves.getController().gainLife(1) })
         bloodfellCaves.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { bloodfellCaves.getController().addMana(color: .Black) },
             manaAbility: true)
         bloodfellCaves.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { bloodfellCaves.getController().addMana(color: .Red) },
             manaAbility: true)
         return bloodfellCaves
@@ -779,12 +779,12 @@ enum KTK {
             effect: { blossomingSands.getController().gainLife(1) })
         blossomingSands.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { blossomingSands.getController().addMana(color: .Green) },
             manaAbility: true)
         blossomingSands.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { blossomingSands.getController().addMana(color: .White) },
             manaAbility: true)
         return blossomingSands
@@ -799,12 +799,12 @@ enum KTK {
             effect: { dismalBackwater.getController().gainLife(1) })
         dismalBackwater.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dismalBackwater.getController().addMana(color: .Blue) },
             manaAbility: true)
         dismalBackwater.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dismalBackwater.getController().addMana(color: .Black) },
             manaAbility: true)
         return dismalBackwater
@@ -817,17 +817,17 @@ enum KTK {
         frontierBivouac.entersTapped = true
         frontierBivouac.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { frontierBivouac.getController().addMana(color: .Green) },
             manaAbility: true)
         frontierBivouac.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { frontierBivouac.getController().addMana(color: .Blue) },
             manaAbility: true)
         frontierBivouac.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { frontierBivouac.getController().addMana(color: .Red) },
             manaAbility: true)
         frontierBivouac.setFlavorText("\"The most powerful dreams visit those who shelter in a dragon's skull.\"\n--Chinaul, Who Whispers Twice")
@@ -843,12 +843,12 @@ enum KTK {
             effect: { jungleHollow.getController().gainLife(1) })
         jungleHollow.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { jungleHollow.getController().addMana(color: .Black) },
             manaAbility: true)
         jungleHollow.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { jungleHollow.getController().addMana(color: .Green) },
             manaAbility: true)
         return jungleHollow
@@ -860,17 +860,17 @@ enum KTK {
         mysticMonastery.entersTapped = true
         mysticMonastery.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { mysticMonastery.getController().addMana(color: .Blue) },
             manaAbility: true)
         mysticMonastery.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { mysticMonastery.getController().addMana(color: .Red) },
             manaAbility: true)
         mysticMonastery.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { mysticMonastery.getController().addMana(color: .White) },
             manaAbility: true)
         mysticMonastery.setFlavorText("When asked how many paths reach enlightenment, the monk kicked a heap of sand. \"Count,\" he smiled, \"and then find more grains.\"")
@@ -883,17 +883,17 @@ enum KTK {
         nomadOutpost.entersTapped = true
         nomadOutpost.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { nomadOutpost.getController().addMana(color: .Red) },
             manaAbility: true)
         nomadOutpost.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { nomadOutpost.getController().addMana(color: .White) },
             manaAbility: true)
         nomadOutpost.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { nomadOutpost.getController().addMana(color: .Black) },
             manaAbility: true)
         nomadOutpost.setFlavorText("\"Only the weak imprison themselves behind walls. We live free under the wind, and our freedom makes us strong.\"\n--Zurgo, khan of the Mardu")
@@ -906,17 +906,17 @@ enum KTK {
         opulentPalace.entersTapped = true
         opulentPalace.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { opulentPalace.getController().addMana(color: .Black) },
             manaAbility: true)
         opulentPalace.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { opulentPalace.getController().addMana(color: .Green) },
             manaAbility: true)
         opulentPalace.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { opulentPalace.getController().addMana(color: .Blue) },
             manaAbility: true)
         opulentPalace.setFlavorText("The dense jungle surrenders to a lush and lavish expanse. At its center uncoil the spires of Qarsi Palace.")
@@ -933,12 +933,12 @@ enum KTK {
             effect: { ruggedHighlands.getController().gainLife(1) })
         ruggedHighlands.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { ruggedHighlands.getController().addMana(color: .Red) },
             manaAbility: true)
         ruggedHighlands.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { ruggedHighlands.getController().addMana(color: .Green) },
             manaAbility: true)
         return ruggedHighlands
@@ -950,17 +950,17 @@ enum KTK {
         sandsteppeCitadel.entersTapped = true
         sandsteppeCitadel.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sandsteppeCitadel.getController().addMana(color: .White) },
             manaAbility: true)
         sandsteppeCitadel.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sandsteppeCitadel.getController().addMana(color: .Black) },
             manaAbility: true)
         sandsteppeCitadel.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sandsteppeCitadel.getController().addMana(color: .Green) },
             manaAbility: true)
         sandsteppeCitadel.setFlavorText("That which endures, survives.")
@@ -976,12 +976,12 @@ enum KTK {
             effect: { scouredBarrens.getController().gainLife(1) })
         scouredBarrens.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { scouredBarrens.getController().addMana(color: .White) },
             manaAbility: true)
         scouredBarrens.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { scouredBarrens.getController().addMana(color: .Black) },
             manaAbility: true)
         return scouredBarrens
@@ -996,12 +996,12 @@ enum KTK {
             effect: { swiftwaterCliffs.getController().gainLife(1) })
         swiftwaterCliffs.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { swiftwaterCliffs.getController().addMana(color: .Blue) },
             manaAbility: true)
         swiftwaterCliffs.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { swiftwaterCliffs.getController().addMana(color: .Red) },
             manaAbility: true)
         return swiftwaterCliffs
@@ -1016,12 +1016,12 @@ enum KTK {
             effect: { thornwoodFalls.getController().gainLife(1) })
         thornwoodFalls.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { thornwoodFalls.getController().addMana(color: .Green) },
             manaAbility: true)
         thornwoodFalls.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { thornwoodFalls.getController().addMana(color: .Blue) },
             manaAbility: true)
         return thornwoodFalls
@@ -1032,12 +1032,12 @@ enum KTK {
         tombOfTheSpiritDragon.setType(.Land)
         tombOfTheSpiritDragon.addActivatedAbility(
             string: "{T}: Add {C}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { tombOfTheSpiritDragon.getController().addMana(color: nil) },
             manaAbility: true)
         tombOfTheSpiritDragon.addActivatedAbility(
             string: "{2}, {T}: You gain 1 life for each colorless creature you control.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: {
                 let numColorlessCreatures = tombOfTheSpiritDragon.getController().getCreatures().filter({ $0.isColorless() }).count
                 tombOfTheSpiritDragon.getController().gainLife(numColorlessCreatures)
@@ -1055,12 +1055,12 @@ enum KTK {
             effect: { tranquilCove.getController().gainLife(1) })
         tranquilCove.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { tranquilCove.getController().addMana(color: .White) },
             manaAbility: true)
         tranquilCove.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { tranquilCove.getController().addMana(color: .Blue) },
             manaAbility: true)
         return tranquilCove
@@ -1075,12 +1075,12 @@ enum KTK {
             effect: { windScarredCrag.getController().gainLife(1) })
         windScarredCrag.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { windScarredCrag.getController().addMana(color: .Red) },
             manaAbility: true)
         windScarredCrag.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { windScarredCrag.getController().addMana(color: .Green) },
             manaAbility: true)
         return windScarredCrag

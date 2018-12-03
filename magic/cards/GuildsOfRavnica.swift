@@ -40,7 +40,7 @@ enum GRN {
         bountyAgent.vigilance = true
         bountyAgent.addActivatedAbility(
             string: "{T}, Sacrifice ~: Destroy target legendary permanent that's an artifact, creature, or enchantment.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Legendary) && $0.isPermanent() && ($0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Enchantment)) },
                 effect: { let _ = $0.destroy() }))
@@ -365,7 +365,7 @@ enum GRN {
         passwallAdept.setType(.Creature, .Human, .Wizard)
         passwallAdept.addActivatedAbility(
             string: "{2}{U}: Target creature can't be blocked this turn.",
-            cost: Cost("2U"),
+            cost: Cost.Mana("2U"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))}
@@ -546,7 +546,7 @@ enum GRN {
         pilferingImp.flying = true
         pilferingImp.addActivatedAbility(
             string: "{1}{B}, {T}, Sacrifice ~: Target opponent reveals their hand. You choose a nonland card from it. That player discards that card. Activate this ability only any time you could cast a sorcery.",
-            cost: Cost("1B", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("1B").Tap().Sacrifice(),
             effect: TargetedEffect.SinglePlayer(
                 restriction: { $0 !== pilferingImp.getController() },
                 effect: { target in
@@ -601,7 +601,7 @@ enum GRN {
         veiledShade.setType(.Creature, .Shade)
         veiledShade.addActivatedAbility(
             string: "{1}{B}: ~ gets +1/+1 until end of turn.",
-            cost: Cost("1B"),
+            cost: Cost.Mana("1B"),
             effect: { veiledShade.pump(1, 1) })
         veiledShade.setFlavorText("\"I sang songs of sorrow for my lost love. Imagine my horror when, one night, they were answered.\"\n--Milana, Orzgov prelate")
         veiledShade.power = 2
@@ -691,7 +691,7 @@ enum GRN {
         goblinBanneret.triggeredAbilities.append(Mentor(goblinBanneret))
         goblinBanneret.addActivatedAbility(
             string: "{1}{R}: ~ gets +2/+0 until end of turn.",
-            cost: Cost("1R"),
+            cost: Cost.Mana("1R"),
             effect: { goblinBanneret.pump(2, 0) })
         goblinBanneret.setFlavorText("The Boros banner stands tall even if its bearer doesn't.")
         goblinBanneret.power = 1
@@ -802,7 +802,7 @@ enum GRN {
         torchCourier.haste = true
         torchCourier.addActivatedAbility(
             string: "Sacrifice ~: Another target creature gains haste until end of turn.",
-            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0 != torchCourier && $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.haste = true; return $0 }))
@@ -864,7 +864,7 @@ enum GRN {
         devkarinDissident.setType(.Creature, .Elf, .Warrior)
         devkarinDissident.addActivatedAbility(
             string: "{4}{G}: ~ gets +2/+2 until end of turn.",
-            cost: Cost("4G"),
+            cost: Cost.Mana("4G"),
             effect: { devkarinDissident.pump(2, 2) })
         devkarinDissident.setFlavorText("\"This is Mileva, in the Tenth. We've got an elf in the plaza with a chip on her shoulder. Actually, it's more of a morningstar.\"")
         devkarinDissident.power = 2
@@ -928,7 +928,7 @@ enum GRN {
         grapplingSundew.reach = true
         grapplingSundew.addActivatedAbility(
             string: "{4}{G}: ~ gains indestructible until end of turn.",
-            cost: Cost("4G"),
+            cost: Cost.Mana("4G"),
             effect: { grapplingSundew.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))})
         grapplingSundew.setFlavorText("Some rooftop gardens attract bees; others capture dragons.")
         grapplingSundew.power = 0
@@ -1088,7 +1088,7 @@ enum GRN {
         borosChallenger.triggeredAbilities.append(Mentor(borosChallenger))
         borosChallenger.addActivatedAbility(
             string: "{2}{R}{W}: ~ gets +1/+1 until end of turn.",
-            cost: Cost("2RW"),
+            cost: Cost.Mana("2RW"),
             effect: { borosChallenger.pump(1, 1) })
         borosChallenger.setFlavorText("\"Send your champion. I could use a light workout.\"")
         borosChallenger.power = 2
@@ -1144,13 +1144,13 @@ enum GRN {
         conclaveGuildmage.setType(.Creature, .Elf, .Cleric)
         conclaveGuildmage.addActivatedAbility(
             string: "{G}, {T}: Creatures you control gain trample until end of turn.",
-            cost: Cost("G", tap: true),
+            cost: Cost.Mana("G").Tap(),
             effect: { conclaveGuildmage.getController().getCreatures().forEach({ creature in
                 creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
             })})
         conclaveGuildmage.addActivatedAbility(
             string: "{5}{W}, {T}: Create a 2/2 green and white Elf Knight creature token with vigilance.",
-            cost: Cost("5W", tap: true),
+            cost: Cost.Mana("5W").Tap(),
             effect: { conclaveGuildmage.getController().createToken(ElfKnight()) })
         conclaveGuildmage.power = 2
         conclaveGuildmage.toughness = 2
@@ -1204,11 +1204,11 @@ enum GRN {
             effect: { firemindsResearch.addCounter(.Charge) })
         firemindsResearch.addActivatedAbility(
             string: "{1}{U}, Remove two charge counters from ~: Draw a card",
-            cost: Cost("1U", tap: false, life: 0, sacrificeSelf: false, counters: [.Charge, .Charge]),
+            cost: Cost.Mana("1U").RemoveCounters(.Charge, 2),
             effect: { firemindsResearch.getController().drawCard() })
         firemindsResearch.addActivatedAbility(
             string: "{1}{R}, Remove five charge counters from ~: It deals 5 damage to any target.",
-            cost: Cost("1R", tap: false, life: 0, sacrificeSelf: false, counters: [.Charge, .Charge, .Charge, .Charge, .Charge]),
+            cost: Cost.Mana("1R").RemoveCounters(.Charge, 5),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { firemindsResearch.damage(to: $0, 5) }))
@@ -1270,11 +1270,11 @@ enum GRN {
         legionGuildmage.setType(.Creature, .Human, .Wizard)
         legionGuildmage.addActivatedAbility(
             string: "{5}{R}, {T}: ~ deals 3 damage to each opponent.",
-            cost: Cost("5R", tap: true),
+            cost: Cost.Mana("5R").Tap(),
             effect: { legionGuildmage.damage(to: legionGuildmage.getOpponent(), 3) })
         legionGuildmage.addActivatedAbility(
             string: "{2}{W}, {T}: Tap another target creature.",
-            cost: Cost("2W", tap: true),
+            cost: Cost.Mana("2W").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) && $0 != legionGuildmage },
                 effect: { $0.tap() }))
@@ -1466,7 +1466,7 @@ enum GRN {
         silentDart.setType(.Artifact)
         silentDart.addActivatedAbility(
             string: "{4}, {T}, Sacrifice ~: It deals 3 damage to target creature.",
-            cost: Cost("4", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("4").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { silentDart.damage(to: $0, 3) }))
@@ -1484,12 +1484,12 @@ enum GRN {
         borosGuildgate.entersTapped = true
         borosGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { borosGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         borosGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { borosGuildgate.getController().addMana(color: .White) },
             manaAbility: true)
         borosGuildgate.setFlavorText("\"The more trust breaks down, the more we must throw open the front gates.\"\n--Aurelia")
@@ -1502,12 +1502,12 @@ enum GRN {
         borosGuildgate.entersTapped = true
         borosGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { borosGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         borosGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { borosGuildgate.getController().addMana(color: .White) },
             manaAbility: true)
         borosGuildgate.setFlavorText("\"It is our duty to protect all those in need. But the other guilds have never shown themselves worthy of that protection.\"\n--Tajic")
@@ -1523,12 +1523,12 @@ enum GRN {
         dimirGuildgate.entersTapped = true
         dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dimirGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
         dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dimirGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
         dimirGuildgate.setFlavorText("\"Every guild dreads infiltration. I should know--I've been a member of all of them.\"\n--Lazav")
@@ -1541,12 +1541,12 @@ enum GRN {
         dimirGuildgate.entersTapped = true
         dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dimirGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
         dimirGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dimirGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
         dimirGuildgate.setFlavorText("\"You've found this place only because you were summoned. Pray you're worthy of the invitation.\"\n--Etrata")
@@ -1563,12 +1563,12 @@ enum GRN {
         golgariGuildgate.entersTapped = true
         golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { golgariGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
         golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { golgariGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
         golgariGuildgate.setFlavorText("\"Shut the gates. In the Underrealm we will outlast the coming doom.\"\n--Vraska")
@@ -1581,12 +1581,12 @@ enum GRN {
         golgariGuildgate.entersTapped = true
         golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { golgariGuildgate.getController().addMana(color: .Black) },
             manaAbility: true)
         golgariGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { golgariGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
         golgariGuildgate.setFlavorText("\"Jarad was a friend of the Devkarin. Now we slink through neglected tunnels, befriending those who crawl them.\"\n--Izoni")
@@ -1603,12 +1603,12 @@ enum GRN {
         izzetGuildgate.entersTapped = true
         izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { izzetGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
         izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { izzetGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         izzetGuildgate.setFlavorText("Every laboratory buzzes with new experiments, each a piece of Ral's ambitious project.")
@@ -1621,12 +1621,12 @@ enum GRN {
         izzetGuildgate.entersTapped = true
         izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { izzetGuildgate.getController().addMana(color: .Blue) },
             manaAbility: true)
         izzetGuildgate.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { izzetGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         izzetGuildgate.setFlavorText("\"Yesterday I didn't recognize my own guild. Today I see why. And for tomorrow I must be prepared.\"\n--Niv-Mizzet")
@@ -1644,12 +1644,12 @@ enum GRN {
         selesnyaGuildgate.entersTapped = true
         selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
         selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { selesnyaGuildgate.getController().addMana(color: .White) },
             manaAbility: true)
         selesnyaGuildgate.setFlavorText("\"Everyone who crosses that threshold is our most cherished friend. Everyone who crosses it again is our bitterest enemy.\"\n--Trostani")
@@ -1662,12 +1662,12 @@ enum GRN {
         selesnyaGuildgate.entersTapped = true
         selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { selesnyaGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
         selesnyaGuildgate.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { selesnyaGuildgate.getController().addMana(color: .White) },
             manaAbility: true)
         selesnyaGuildgate.setFlavorText("\"We leave our gardens open, so all may know wonder, but guarded, so all may know peace.\"\n--Emmara")
@@ -1682,7 +1682,7 @@ enum GRN {
         plains.setType(.Basic, .Land, .Plains)
         plains.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { plains.getController().addMana(color: .White) },
             manaAbility: true)
         return plains
@@ -1693,7 +1693,7 @@ enum GRN {
         island.setType(.Basic, .Land, .Island)
         island.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true)
         return island
@@ -1704,7 +1704,7 @@ enum GRN {
         swamp.setType(.Basic, .Land, .Swamp)
         swamp.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true)
         return swamp
@@ -1715,7 +1715,7 @@ enum GRN {
         mountain.setType(.Basic, .Land, .Mountain)
         mountain.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true)
         return mountain;
@@ -1726,7 +1726,7 @@ enum GRN {
         forest.setType(.Basic, .Land, .Forest)
         forest.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true)
         return forest;

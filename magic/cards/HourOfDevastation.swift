@@ -179,7 +179,7 @@ enum HOU {
         accursedHorde.setType(.Creature, .Zombie)
         accursedHorde.addActivatedAbility(
             string: "{1}{B}: Target attacking Zombie gains indestructible until end of turn.",
-            cost: Cost("1B"),
+            cost: Cost.Mana("1B"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.attacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0}) )}
@@ -366,7 +366,7 @@ enum HOU {
         devoteeOfStrength.setType(.Creature, .Naga, .Wizard)
         devoteeOfStrength.addActivatedAbility(
             string: "{4}{G}: Target creature gets +2/+2 until end of turn.",
-            cost: Cost("4G"),
+            cost: Cost.Mana("4G"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.pump(2, 2) }))
@@ -502,7 +502,7 @@ enum HOU {
         riverHoopoe.flying = true
         riverHoopoe.addActivatedAbility(
             string: "{3}{G}{U}: You gain 2 life and draw a card.",
-            cost: Cost("3GU"),
+            cost: Cost.Mana("3GU"),
             effect: {
                 riverHoopoe.getController().gainLife(2)
                 riverHoopoe.getController().drawCard()
@@ -521,14 +521,14 @@ enum HOU {
         unravelingMummy.setType(.Creature, .Zombie)
         unravelingMummy.addActivatedAbility(
             string: "{1}{W}: Target attacking Zombie gains lifelink until end of turn.",
-            cost: Cost("1W"),
+            cost: Cost.Mana("1W"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.attacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0}) )}
         ))
         unravelingMummy.addActivatedAbility(
             string: "{1}{B}: Target attacking Zombie gains deathtoucn until end of turn.",
-            cost: Cost("1B"),
+            cost: Cost.Mana("1B"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.attacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0}) )}
@@ -560,27 +560,27 @@ enum HOU {
         manalith.setType(.Artifact)
         manalith.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .White) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Blue) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Black) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Red) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Green) },
             manaAbility: true)
         manalith.setFlavorText("\"Though the afterlife, the city, and even the God-Pharoah himself were one great deception, the ideals championed by the gods remain true.\"\n--Djeru, former Tah-crop initiate")

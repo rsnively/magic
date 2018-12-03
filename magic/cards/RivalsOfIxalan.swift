@@ -736,7 +736,7 @@ enum RIX {
         fanaticalFirebrand.haste = true
         fanaticalFirebrand.addActivatedAbility(
             string: "{T}, Sacrifice ~: It deals 1 damage to any target.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { fanaticalFirebrand.damage(to: $0, 1) }))
@@ -902,7 +902,7 @@ enum RIX {
         sunCollaredRaptor.trample = true
         sunCollaredRaptor.addActivatedAbility(
             string: "{2}{R}: ~ gets +3/+0 until end of turn.",
-            cost: Cost("2R"),
+            cost: Cost.Mana("2R"),
             effect: { sunCollaredRaptor.pump(3, 0) })
         sunCollaredRaptor.setFlavorText("\"With Tilonalli's gifts, even the smallest of us can become great.\"\n--Huatli")
         sunCollaredRaptor.power = 1
@@ -1147,7 +1147,7 @@ enum RIX {
         thrashingBrontodon.setType(.Creature, .Dinosaur)
         thrashingBrontodon.addActivatedAbility(
             string: "{1}, Sacrifice ~: Destroy target artifact or enchantment.",
-            cost: Cost("1", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("1").Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
                 effect: { let _ = $0.destroy() }))
@@ -1356,7 +1356,7 @@ enum RIX {
         striderHarness.setType(.Artifact, .Equipment)
         striderHarness.addEquipAbility(
             string: "{1}: Equip.",
-            cost: Cost("1"),
+            cost: Cost.Mana("1"),
             effect: { object in
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
@@ -1373,7 +1373,7 @@ enum RIX {
         travelersAmulet.setType(.Artifact)
         travelersAmulet.addActivatedAbility(
             string: "{1}, Sacrifice ~: Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.",
-            cost: Cost("1", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("1").Sacrifice(),
             effect: { travelersAmulet.getController().chooseCard(
                 from: travelersAmulet.getController().getLibrary(),
                 restriction: { $0.isBasicLand() },
@@ -1393,7 +1393,7 @@ enum RIX {
         evolvingWilds.setType(.Land)
         evolvingWilds.addActivatedAbility(
             string: "{T}, Sacrifice ~: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle your library.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { evolvingWilds.getController().chooseCard(
                 from: evolvingWilds.getController().getLibrary(),
                 restriction: { $0.isBasicLand() },

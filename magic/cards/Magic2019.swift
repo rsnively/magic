@@ -235,7 +235,7 @@ enum M19 {
         })
         lena.addActivatedAbility(
             string: "Sacrifice ~: Creature you control with power less than ~'s power gain indestructible until end of turn.",
-            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Sacrifice(),
             // TODO: Should use last-known information when determining Lena's power
             effect: { lena.getController().getCreatures().forEach({ creature in
                 if creature.getPower() < lena.getPower() {
@@ -396,7 +396,7 @@ enum M19 {
         remorsefulCleric.flying = true
         remorsefulCleric.addActivatedAbility(
             string: "Sacrifice ~: Exile all cards from target player's graveyard.",
-            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Sacrifice(),
             effect: TargetedEffect.SinglePlayer(
                 restriction: TargetedEffect.AnyPlayer,
                 effect: { target in
@@ -418,7 +418,7 @@ enum M19 {
             restriction: { resplendentAngel.getController().lifeGainedThisTurn >= 5 })
         resplendentAngel.addActivatedAbility(
             string: "{3}{W}{W}{W}: Until end of turn, ~ gets +2/+2 and gains lifelink.",
-            cost: Cost("3WWW"),
+            cost: Cost.Mana("3WWW"),
             effect: {
                 resplendentAngel.pump(2, 2)
                 resplendentAngel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
@@ -488,7 +488,7 @@ enum M19 {
         })
         valiantKnight.addActivatedAbility(
             string: "{3}{W}{W}: Knights you control gain double strike until end of turn.",
-            cost: Cost("3WW"),
+            cost: Cost.Mana("3WW"),
             effect: { valiantKnight.getController().getPermanents().filter({ $0.isType(.Knight) }).forEach({ knight in
                 knight.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.doubleStrike = true; return $0 }))
             })})
@@ -584,7 +584,7 @@ enum M19 {
         frilledSeaSerpent.setType(.Creature, .Serpent)
         frilledSeaSerpent.addActivatedAbility(
             string: "{5}{U}{U}: ~ can't be blocked this turn.",
-            cost: Cost("5UU"),
+            cost: Cost.Mana("5UU"),
             effect: { frilledSeaSerpent.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
         })
         frilledSeaSerpent.setFlavorText("\"Reel it in. No, wait! Throw it back!\"\n--Gertrude, deep-sea angler")
@@ -618,7 +618,7 @@ enum M19 {
         mysticArchaeologist.setType(.Creature, .Human, .Wizard)
         mysticArchaeologist.addActivatedAbility(
             string: "{3}{U}{U}: Draw two cards.",
-            cost: Cost("3UU"),
+            cost: Cost.Mana("3UU"),
             effect: { mysticArchaeologist.getController().drawCards(2) })
         mysticArchaeologist.setFlavorText("The delight of discovery drives the pursuit of knowledge.")
         mysticArchaeologist.power = 2
@@ -1050,7 +1050,7 @@ enum M19 {
         vampireNeonate.setType(.Creature, .Vampire)
         vampireNeonate.addActivatedAbility(
             string: "{2}, {T}: Each opponent loses 1 life and you gain 1 life.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: {
                 vampireNeonate.getOpponent().loseLife(1)
                 vampireNeonate.getController().gainLife(1)
@@ -1098,7 +1098,7 @@ enum M19 {
         catalystElemental.setType(.Creature, .Elemental)
         catalystElemental.addActivatedAbility(
             string: "Sacrifice ~: Add {R}{R}.",
-            cost: Cost("", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Sacrifice(),
             effect: { catalystElemental.getController().addMana(color: .Red, 2) })
         catalystElemental.setFlavorText("As the hyperstormic generator crept past redline, a being emerged from the arc.")
         catalystElemental.power = 2
@@ -1181,7 +1181,7 @@ enum M19 {
         goblinMotivator.setType(.Creature, .Goblin, .Warrior)
         goblinMotivator.addActivatedAbility(
             string: "{T}: Target creature gains haste until end of turn.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Creature) },
                 effect: { target in target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -1269,7 +1269,7 @@ enum M19 {
         siegebreakerGiant.trample = true
         siegebreakerGiant.addActivatedAbility(
             string: "{3}{R}: Target creature can't block this turn.",
-            cost: Cost("3R"),
+            cost: Cost.Mana("3R"),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }))}))
@@ -1408,7 +1408,7 @@ enum M19 {
         druidOfTheCowl.setType(.Creature, .Elf, .Druid)
         druidOfTheCowl.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { druidOfTheCowl.getController().addMana(color: .Green) },
             manaAbility: true)
         druidOfTheCowl.setFlavorText("\"The wild tangle of the Cowl provides sanctuary to life that watched the first buildings rise.\"")
@@ -1431,7 +1431,7 @@ enum M19 {
         })
         elvishClancaller.addActivatedAbility(
             string: "{4}{G}{G}, {T}: Search your library for a card named Elvish Clancaller, put it onto the battlefield, then shuffle your library.",
-            cost: Cost("4GG", tap: true),
+            cost: Cost.Mana("4GG").Tap(),
             effect: { elvishClancaller.getController().chooseCard(
                 from: elvishClancaller.getController().getLibrary(),
                 restriction: { $0.name == name },
@@ -1686,32 +1686,32 @@ enum M19 {
         draconicDisciple.setType(.Creature, .Human, .Shaman)
         draconicDisciple.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { draconicDisciple.getController().addMana(color: .White) },
             manaAbility: true)
         draconicDisciple.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { draconicDisciple.getController().addMana(color: .Blue) },
             manaAbility: true)
         draconicDisciple.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { draconicDisciple.getController().addMana(color: .Black) },
             manaAbility: true)
         draconicDisciple.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { draconicDisciple.getController().addMana(color: .Red) },
             manaAbility: true)
         draconicDisciple.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { draconicDisciple.getController().addMana(color: .Green) },
             manaAbility: true)
         draconicDisciple.addActivatedAbility(
             string: "{7}, {T}, Sacrifice ~: Create a 5/5 red Dragon creature token with flying.",
-            cost: Cost("7", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("7").Tap().Sacrifice(),
             effect: { draconicDisciple.getController().createToken(Dragon()) })
         draconicDisciple.setFlavorText("\"If I am to die, I will die in the embrace of immeasurable flame.\"")
         draconicDisciple.power = 2
@@ -1809,7 +1809,7 @@ enum M19 {
         arcaneEncyclopedia.setType(.Artifact)
         arcaneEncyclopedia.addActivatedAbility(
             string: "{3}, {T}: Draw a card.",
-            cost: Cost("3", tap: true),
+            cost: Cost.Mana("3").Tap(),
             effect: { arcaneEncyclopedia.getController().drawCard() })
         arcaneEncyclopedia.setFlavorText("Knowledge itself is neither good nor evil. Just as the wrong book in the wrong hands could doom all existence, the same book in the right hands could save it.")
         return arcaneEncyclopedia
@@ -1825,7 +1825,7 @@ enum M19 {
         explosiveApparatus.setType(.Artifact)
         explosiveApparatus.addActivatedAbility(
             string: "{2}, {T}, Sacrifice ~: It deals 2 damage to any target.",
-            cost: Cost("2", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("2").Tap().Sacrifice(),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { explosiveApparatus.damage(to: $0, 2) }))
@@ -1850,7 +1850,7 @@ enum M19 {
             effect: { fountainOfRenewal.getController().gainLife(1) })
         fountainOfRenewal.addActivatedAbility(
             string: "{3}, Sacrifice ~: Draw a card.",
-            cost: Cost("3", tap: false, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("3").Sacrifice(),
             effect: { fountainOfRenewal.getController().drawCard() })
         fountainOfRenewal.setFlavorText("Entrepeneurs have attempted to sell the water, but to no avail. Whatever magic it contains disappears upon bottling.")
         return fountainOfRenewal
@@ -1862,7 +1862,7 @@ enum M19 {
         gargoyleSentinel.defender = true
         gargoyleSentinel.addActivatedAbility(
             string: "{3}: Until end of turn, ~ loses defender and gains flying.",
-            cost: Cost("3"),
+            cost: Cost.Mana("3"),
             effect: { gargoyleSentinel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.defender = false
                 object.flying = true
@@ -1896,27 +1896,27 @@ enum M19 {
         manalith.setType(.Artifact)
         manalith.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .White) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Blue) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Black) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Red) },
             manaAbility: true)
         manalith.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { manalith.getController().addMana(color: .Green) },
             manaAbility: true)
         manalith.setFlavorText("Planeswalkers seek out great monuments throughout the Multiverse, knowing that their builders were unwittingly drawn by the convergence of mana in the area.")
@@ -1928,7 +1928,7 @@ enum M19 {
         maraudersAxe.setType(.Artifact, .Equipment)
         maraudersAxe.addEquipAbility(
             string: "{2}: Equip.",
-            cost: Cost("2"),
+            cost: Cost.Mana("2"),
             effect: { object in
                 object.power = object.getBasePower() + 2
                 return object
@@ -1956,7 +1956,7 @@ enum M19 {
         millstone.setType(.Artifact)
         millstone.addActivatedAbility(
             string: "{2}, {T}: Target player puts the top two cards of their library into their graveyard.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: TargetedEffect.SinglePlayer(
                 restriction: TargetedEffect.AnyPlayer,
                 effect: { $0.mill(2) }))
@@ -1984,7 +1984,7 @@ enum M19 {
         suspiciousBookcase.defender = true
         suspiciousBookcase.addActivatedAbility(
             string: "{3}, {T}: Target creature can't be blocked this turn.",
-            cost: Cost("3", tap: true),
+            cost: Cost.Mana("3").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
@@ -2014,7 +2014,7 @@ enum M19 {
         plains.setType(.Basic, .Land, .Plains)
         plains.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { plains.getController().addMana(color: .White) },
             manaAbility: true )
         return plains
@@ -2028,7 +2028,7 @@ enum M19 {
         island.setType(.Basic, .Land, .Island)
         island.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { island.getController().addMana(color: .Blue) },
             manaAbility: true )
         return island
@@ -2042,7 +2042,7 @@ enum M19 {
         swamp.setType(.Basic, .Land, .Swamp)
         swamp.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { swamp.getController().addMana(color: .Black) },
             manaAbility: true )
         return swamp
@@ -2056,7 +2056,7 @@ enum M19 {
         mountain.setType(.Basic, .Land, .Mountain)
         mountain.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { mountain.getController().addMana(color: .Red) },
             manaAbility: true )
         return mountain;
@@ -2070,7 +2070,7 @@ enum M19 {
         forest.setType(.Basic, .Land, .Forest)
         forest.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { forest.getController().addMana(color: .Green) },
             manaAbility: true )
         return forest;
@@ -2141,7 +2141,7 @@ enum M19 {
         dragon.flying = true
         dragon.addActivatedAbility(
             string: "{R}: ~ gets +1/+0 until end of turn.",
-            cost: Cost("R"),
+            cost: Cost.Mana("R"),
             effect: { dragon.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                 object.power = object.getBasePower() + 1
                 return object

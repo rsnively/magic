@@ -24,7 +24,7 @@ enum XLN {
         })
         adantoVanguard.addActivatedAbility(
             string: "Pay 4 life: ~ gains indestructible until end of turn.",
-            cost: Cost("", tap: false, life: 4),
+            cost: Cost.Life(4),
             effect: { adantoVanguard.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in object.indestructible = true; return object }))})
         adantoVanguard.power = 1
         adantoVanguard.toughness = 1
@@ -90,7 +90,7 @@ enum XLN {
         duskborneSkymarcher.flying = true
         duskborneSkymarcher.addActivatedAbility(
             string: "{W}, {T}: Target attacking Vampire gets +1/+1 until end of turn.",
-            cost: Cost("W", tap: true),
+            cost: Cost.Mana("W").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
                 effect: { $0.pump(1, 1) }))
@@ -107,7 +107,7 @@ enum XLN {
         encampmentKeeper.firstStrike = true
         encampmentKeeper.addActivatedAbility(
             string: "{7}{W}, {T}, Sacrifice ~: Creatures you control get +2/+2 until end of turn.",
-            cost: Cost("7W", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("7W").Tap().Sacrifice(),
             // TODO: Should use last-known information for determining who gets pump
             effect: {encampmentKeeper.getController().getCreatures().forEach({ $0.pump(2, 2) })})
         encampmentKeeper.setFlavorText("Paladins of the Sanctum Seeker order are an adventurous lot, venturing into the wilds with monstrous mastiffs at their side.")
@@ -121,11 +121,11 @@ enum XLN {
         glorifierOfDusk.setType(.Creature, .Vampire, .Soldier)
         glorifierOfDusk.addActivatedAbility(
             string: "Pay 2 life: ~ gains flying until end of turn.",
-            cost: Cost("", tap: false, life: 2),
+            cost: Cost.Life(2),
             effect: { glorifierOfDusk.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
         glorifierOfDusk.addActivatedAbility(
             string: "Pay 2 life: ~ gains vigilance until end of turn.",
-            cost: Cost("", tap: false, life: 2),
+            cost: Cost.Life(2),
             effect: { glorifierOfDusk.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))})
         glorifierOfDusk.setFlavorText("\"The blood of the enemy is a sacrament. The strength it gives is proof that our cause is just.\"")
         glorifierOfDusk.power = 4
@@ -372,7 +372,7 @@ enum XLN {
         steadfastArmasaur.vigilance = true
         steadfastArmasaur.addActivatedAbility(
             string: "{1}{W}, {T}: ~ deals damage equal to its power to target creature blocking or blocked by it.",
-            cost: Cost("1W", tap: true),
+            cost: Cost.Mana("1W").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { target in return target.isType(.Creature) && steadfastArmasaur.blockers.contains(where: { $0 == target }) || steadfastArmasaur.attackers.contains(where: { $0 == target }) },
                 effect: { steadfastArmasaur.damage(to: $0, steadfastArmasaur.getPower()) }))
@@ -658,7 +658,7 @@ enum XLN {
         shoreKeeper.setType(.Creature, .Trilobite)
         shoreKeeper.addActivatedAbility(
             string: "{7}{U}, {T}, Sacrifice ~: Draw three cards.",
-            cost: Cost("7U", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("7U").Tap().Sacrifice(),
             effect: { shoreKeeper.getController().drawCards(3) })
         shoreKeeper.setFlavorText("Over their long life spans, the larger trilobites accumulate vast treasure troves in their guts.")
         shoreKeeper.power = 0
@@ -785,7 +785,7 @@ enum XLN {
         blightKeeper.flying = true
         blightKeeper.addActivatedAbility(
             string: "{7}{B}, {T}, Sacrifice ~: Target opponent loses 4 life and you gain 4 life.",
-            cost: Cost("7B", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("7B").Tap().Sacrifice(),
             effect: TargetedEffect.SinglePlayer(
                 restriction: { $0 !== blightKeeper.getController() },
                 effect: { target in
@@ -963,7 +963,7 @@ enum XLN {
         skitteringHeartstopper.setType(.Creature, .Insect)
         skitteringHeartstopper.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
-            cost: Cost("B"),
+            cost: Cost.Mana("B"),
             effect: { skitteringHeartstopper.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
         skitteringHeartstopper.setFlavorText("It flows like water over the forest floor, as deadly as the swiftest current.")
         skitteringHeartstopper.power = 1
@@ -1179,7 +1179,7 @@ enum XLN {
         fathomFleetFirebrand.setType(.Creature, .Human, .Pirate)
         fathomFleetFirebrand.addActivatedAbility(
             string: "{1}{R}: ~ gets +1/+1 until end of turn.",
-            cost: Cost("1R"),
+            cost: Cost.Mana("1R"),
             effect: { fathomFleetFirebrand.pump(1, 0) })
         fathomFleetFirebrand.setFlavorText("As she charges into battle, her arcane tattoos stir and crawl like fiery serpents.")
         fathomFleetFirebrand.power = 2
@@ -1429,7 +1429,7 @@ enum XLN {
         blossomDryad.setType(.Creature, .Dryad)
         blossomDryad.addActivatedAbility(
             string: "{T}: Untap target land.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Land) },
                 effect: { target in target.untap() }))
@@ -1491,27 +1491,27 @@ enum XLN {
         })
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { droverOfTheMighty.getController().addMana(color: .White) },
             manaAbility: true)
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { droverOfTheMighty.getController().addMana(color: .Blue) },
             manaAbility: true)
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { droverOfTheMighty.getController().addMana(color: .Black) },
             manaAbility: true)
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { droverOfTheMighty.getController().addMana(color: .Red) },
             manaAbility: true)
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { droverOfTheMighty.getController().addMana(color: .Green) },
             manaAbility: true)
         droverOfTheMighty.setFlavorText("\"I do not lead. They do not follow. We walk together.\"")
@@ -1539,7 +1539,7 @@ enum XLN {
         ixallisKeeper.setType(.Creature, .Human, .Shaman)
         ixallisKeeper.addActivatedAbility(
             string: "{7}{G}, {T}, Sacrifice ~: Target creature gets +5/+5 and gains trample until end of turn.",
-            cost: Cost("7G", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("7G").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { target in
@@ -1558,7 +1558,7 @@ enum XLN {
         jungleDelver.setType(.Creature, .Merfolk, .Warrior)
         jungleDelver.addActivatedAbility(
             string: "{3}{G}: Put a +1/+1 counter on ~.",
-            cost: Cost("3G"),
+            cost: Cost.Mana("3G"),
             effect: { jungleDelver.addCounter(.PlusOnePlusOne) })
         jungleDelver.setFlavorText("\"There is no power too great to be used in the defense of our ancestral lands.\"")
         jungleDelver.power = 1
@@ -1696,7 +1696,7 @@ enum XLN {
         })
         thunderingSpineback.addActivatedAbility(
             string: "{5}{G}: Create a 3/3 green Dinosaur creature token with trample.",
-            cost: Cost("5G"),
+            cost: Cost.Mana("5G"),
             effect: { thunderingSpineback.getController().createToken(Dinosaur()) })
         thunderingSpineback.setFlavorText("\"It appears that nature has risen up against us.\"\n--Captain Brinely Rage")
         thunderingSpineback.power = 5
@@ -1737,7 +1737,7 @@ enum XLN {
         })
         deadeyePlunderers.addActivatedAbility(
             string: "{2}{U}{B}: Create a colorless Treasure artifact token with \"{T}: Sacrifice this artifact: Add one mana of any color to your mana pool.\"",
-            cost: Cost("2UB"),
+            cost: Cost.Mana("2UB"),
             effect: { deadeyePlunderers.getController().createToken(Treasure()) })
         deadeyePlunderers.setFlavorText("\"Keep your friends close and your enemies within range.\"")
         deadeyePlunderers.power = 3
@@ -1813,7 +1813,7 @@ enum XLN {
         cobbledWings.setType(.Artifact, .Equipment)
         cobbledWings.addEquipAbility(
             string: "{1}: Equip.",
-            cost: Cost("1"),
+            cost: Cost.Mana("1"),
             effect: { $0.flying = true; return $0 })
         cobbledWings.setFlavorText("Flotsam held together by optimism.")
         return cobbledWings
@@ -1846,7 +1846,7 @@ enum XLN {
             }))
         hierophantsChalice.addActivatedAbility(
             string: "{T}: Add {C}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { hierophantsChalice.getController().addMana(color: nil)},
             manaAbility: true)
         hierophantsChalice.setFlavorText("In the Rite of Redemption, nobles take the same vows as Elenda, the first vampire, and make the same eternal sacrifice.")
@@ -1864,7 +1864,7 @@ enum XLN {
                 effect: { piratesCutlass.attachTo($0) }))
         piratesCutlass.addEquipAbility(
             string: "{2}: Equip.",
-            cost: Cost("2"),
+            cost: Cost.Mana("2"),
             effect: { object in
                 object.power = object.getBasePower() + 2
                 object.toughness = object.getBaseToughness() + 1
@@ -1895,12 +1895,12 @@ enum XLN {
         })
         dragonskullSummit.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dragonskullSummit.getController().addMana(color: .Black) },
             manaAbility: true)
         dragonskullSummit.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { dragonskullSummit.getController().addMana(color: .Red) },
             manaAbility: true)
         dragonskullSummit.setFlavorText("When the Planeswalker Angrath called dinosaurs \"dragons,\" the name stuck in certain pirate circles.")
@@ -1920,12 +1920,12 @@ enum XLN {
         })
         drownedCatacomb.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { drownedCatacomb.getController().addMana(color: .Blue) },
             manaAbility: true)
         drownedCatacomb.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { drownedCatacomb.getController().addMana(color: .Black) },
             manaAbility: true)
         drownedCatacomb.setFlavorText("None can tell how many vessles are tangled up on the sea floor--or how much treasure rmains unclaimed.")
@@ -1945,12 +1945,12 @@ enum XLN {
         })
         glacialFortress.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { glacialFortress.getController().addMana(color: .White) },
             manaAbility: true)
         glacialFortress.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { glacialFortress.getController().addMana(color: .Blue) },
             manaAbility: true)
         glacialFortress.setFlavorText("Ships blown north in their voyage across the Stormwreck Sea become trapped in the unmelting ice.")
@@ -1970,12 +1970,12 @@ enum XLN {
         })
         rootboundCrag.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { rootboundCrag.getController().addMana(color: .Red) },
             manaAbility: true)
         rootboundCrag.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { rootboundCrag.getController().addMana(color: .Green) },
             manaAbility: true)
         rootboundCrag.setFlavorText("Cliffs echo and branches quake at the roar of life.")
@@ -1995,12 +1995,12 @@ enum XLN {
         })
         sunpetalGrove.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sunpetalGrove.getController().addMana(color: .Green) },
             manaAbility: true)
         sunpetalGrove.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sunpetalGrove.getController().addMana(color: .White) },
             manaAbility: true)
         sunpetalGrove.setFlavorText("To the Sun Empire, any place where daylight brightens the jungle floor is sacred ground.")
@@ -2013,32 +2013,32 @@ enum XLN {
         unknownShores.setType(.Land)
         unknownShores.addActivatedAbility(
             string: "{T}: Add {C}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { unknownShores.getController().addMana(color: nil)},
             manaAbility: true)
         unknownShores.addActivatedAbility(
             string: "{1}, {T}: Add {W}.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { unknownShores.getController().addMana(color: .White)},
             manaAbility: true)
         unknownShores.addActivatedAbility(
             string: "{1}, {T}: Add {U}.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { unknownShores.getController().addMana(color: .Blue)},
             manaAbility: true)
         unknownShores.addActivatedAbility(
             string: "{1}, {T}: Add {B}.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { unknownShores.getController().addMana(color: .Black)},
             manaAbility: true)
         unknownShores.addActivatedAbility(
             string: "{1}, {T}: Add {R}.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { unknownShores.getController().addMana(color: .Red)},
             manaAbility: true)
         unknownShores.addActivatedAbility(
             string: "{1}, {T}: Add {G}.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { unknownShores.getController().addMana(color: .Green)},
             manaAbility: true)
         unknownShores.setFlavorText("\"Just imagine what's waiting around the bend. Adventure. Discovery. Riches for the taking. This is why I sail.\"\n--Captain Lannery Storm")
@@ -2077,27 +2077,27 @@ enum XLN {
         treasure.setType(.Artifact, .Treasure)
         treasure.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {W}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { treasure.getController().addMana(color: .White) },
             manaAbility: true)
         treasure.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {U}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { treasure.getController().addMana(color: .Blue) },
             manaAbility: true)
         treasure.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {B}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { treasure.getController().addMana(color: .Black) },
             manaAbility: true)
         treasure.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {R}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { treasure.getController().addMana(color: .Red) },
             manaAbility: true)
         treasure.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {G}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { treasure.getController().addMana(color: .Green) },
             manaAbility: true)
         return treasure

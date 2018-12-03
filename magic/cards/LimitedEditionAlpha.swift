@@ -33,7 +33,7 @@ enum LEA {
             effect: { return $0 })
         blessing.addActivatedAbility(
             string: "{W}: Enchanted creature gets +1/+1 until end of turn.",
-            cost: Cost("W"),
+            cost: Cost.Mana("W"),
             effect: { blessing.attachedTo?.pump(1, 1) })
         return blessing
     }
@@ -97,7 +97,7 @@ enum LEA {
         })
         holyArmor.addActivatedAbility(
             string: "{W}: Enchanted creature gets +0/+1 until end of turn.",
-            cost: Cost("W"),
+            cost: Cost.Mana("W"),
             effect: { holyArmor.attachedTo?.pump(0, 1) })
         return holyArmor
     }
@@ -143,7 +143,7 @@ enum LEA {
         northernPaladin.setType(.Creature, .Human, .Knight)
         northernPaladin.addActivatedAbility(
             string: "{W}{W}, {T}: Destroy target black permanent.",
-            cost: Cost("WW", tap: true),
+            cost: Cost.Mana("WW").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isPermanent() && $0.isColor(.Black) },
                 effect: { let _ = $0.destroy() }))
@@ -347,7 +347,7 @@ enum LEA {
         prodigalSorcerer.setType(.Creature, .Human, .Wizard)
         prodigalSorcerer.addActivatedAbility(
             string: "{T}: ~ deals 1 damage to any target.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { prodigalSorcerer.damage(to: $0, 1) }))
@@ -408,7 +408,7 @@ enum LEA {
         wallOfWater.defender = true
         wallOfWater.addActivatedAbility(
             string: "{U}: ~ gets +1/+0 until end of turn.",
-            cost: Cost("U"),
+            cost: Cost.Mana("U"),
             effect: { wallOfWater.pump(1, 0) })
         wallOfWater.setFlavorText("A deafening roar arose as the fury of an enormous vertical river supplanted our serenity. Eddies turned into whirling geysers, leveling everything in their path.")
         wallOfWater.power = 0
@@ -469,7 +469,7 @@ enum LEA {
         frozenShade.setType(.Creature, .Shade)
         frozenShade.addActivatedAbility(
             string: "{B}: ~ gets +1/+1 until end of turn.",
-            cost: Cost("B"),
+            cost: Cost.Mana("B"),
             effect: { frozenShade.pump(1, 1) })
         frozenShade.setFlavorText("\"There are some qualities--some incorporate things,/ That have a double life, which thus is made/ A type of twin entity which springs/ From matter and light, evinced in solid and shade.\"\n--Edgar Allen Poe, \"Silence\"")
         frozenShade.power = 2
@@ -495,7 +495,7 @@ enum LEA {
         royalAssassin.setType(.Creature, .Human, .Assassin)
         royalAssassin.addActivatedAbility(
             string: "{T}: Destroy target tapped creature.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             // TODO: Shouldn't be able to target itself, as targets are selected before costs are paid
             // https://mtg.gamepedia.com/Casting_spells
             effect: TargetedEffect.SingleObject(
@@ -546,7 +546,7 @@ enum LEA {
         dwarvenDemolitionTeam.setType(.Creature, .Dwarf)
         dwarvenDemolitionTeam.addActivatedAbility(
             string: "{T}: Destroy target Wall.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Wall) },
                 effect: { let _ = $0.destroy() }))
@@ -561,7 +561,7 @@ enum LEA {
         dwarvenWarriors.setType(.Creature, .Dwarf, .Warrior)
         dwarvenWarriors.addActivatedAbility(
             string: "{T}: Target creature with power 2 or less can't be blocked this turn.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) && $0.getPower() <= 2 },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
@@ -611,7 +611,7 @@ enum LEA {
         goblinBalloonBrigade.setType(.Creature, .Goblin, .Warrior)
         goblinBalloonBrigade.addActivatedAbility(
             string: "{R}: ~ gains flying until end of turn.",
-            cost: Cost("R"),
+            cost: Cost.Mana("R"),
             effect: { goblinBalloonBrigade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
         goblinBalloonBrigade.setFlavorText("\"From up here we can drop rocks and arrows and more rocks!\" \"Uh, yeah boss, but how do we get down?")
         goblinBalloonBrigade.power = 1
@@ -626,7 +626,7 @@ enum LEA {
         graniteGargoyle.flying = true
         graniteGargoyle.addActivatedAbility(
             string: "{R}: ~ gets +0/+1 until end of turn.",
-            cost: Cost("R"),
+            cost: Cost.Mana("R"),
             effect: { graniteGargoyle.pump(0, 1) })
         graniteGargoyle.setFlavorText("\"While most overworlders fortunately don't realize this, Gargoyles can be most delicious, providing you have the appropriate tools to carve them.\"\n--The Underworld Cookbook by Asmoranomardicadaistinaculdacar")
         graniteGargoyle.power = 2
@@ -688,7 +688,7 @@ enum LEA {
         orcishArtillery.setType(.Creature, .Orc, .Warrior)
         orcishArtillery.addActivatedAbility(
             string: "{T}: ~ deals 2 damage to any target and 3 damage to you.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { target in
@@ -743,7 +743,7 @@ enum LEA {
         shivanDragon.flying = true
         shivanDragon.addActivatedAbility(
             string: "{R}: ~ gets +1/+0 until end of turn.",
-            cost: Cost("R"),
+            cost: Cost.Mana("R"),
             effect: { shivanDragon.pump(1, 0) })
         shivanDragon.setFlavorText("While it's true most dragons are cruel, the Shivan Dragon seems to take particular glee in the misery of others, often tormenting its victims much like a cat plays with a mouse before delivering the final blow.")
         shivanDragon.power = 5
@@ -771,7 +771,7 @@ enum LEA {
         wallOfFire.defender = true
         wallOfFire.addActivatedAbility(
             string: "{R}: ~ gets +1/+0 until end of turn.",
-            cost: Cost("R"),
+            cost: Cost.Mana("R"),
             effect: { wallOfFire.pump(1, 0) })
         wallOfFire.setFlavorText("Conjured from the bowels of hell, the fiery wall forms an impassible barrier, searing the soul of any creature attempting to pass through its terrible bursts of flame.")
         wallOfFire.power = 0
@@ -809,27 +809,27 @@ enum LEA {
         birdsOfParadise.flying = true
         birdsOfParadise.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { birdsOfParadise.getController().addMana(color: .White) },
             manaAbility: true)
         birdsOfParadise.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { birdsOfParadise.getController().addMana(color: .Blue) },
             manaAbility: true)
         birdsOfParadise.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { birdsOfParadise.getController().addMana(color: .Black) },
             manaAbility: true)
         birdsOfParadise.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { birdsOfParadise.getController().addMana(color: .Red) },
             manaAbility: true)
         birdsOfParadise.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { birdsOfParadise.getController().addMana(color: .Green) },
             manaAbility: true)
         birdsOfParadise.power = 0
@@ -909,7 +909,7 @@ enum LEA {
         leyDruid.setType(.Creature, .Human, .Druid)
         leyDruid.addActivatedAbility(
             string: "{T}: Untap target land.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Land) },
                 effect: { target in target.untap() }))
@@ -928,7 +928,7 @@ enum LEA {
         llanowarElves.setType(.Creature, .Elf)
         llanowarElves.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { llanowarElves.getController().addMana(color: .Green) },
             manaAbility: true)
         llanowarElves.setFlavorText("Whenever the Llanowar Elves gather the fruits of their forest, they leave one plant of each type untouched, considering that nature's portion.")
@@ -1021,27 +1021,27 @@ enum LEA {
         blackLotus.setType(.Artifact)
         blackLotus.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {W}{W}{W}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { blackLotus.getController().addMana(color: .White, 3) },
             manaAbility: true)
         blackLotus.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {U}{U}{U}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { blackLotus.getController().addMana(color: .Blue, 3) },
             manaAbility: true)
         blackLotus.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {B}{B}{B}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { blackLotus.getController().addMana(color: .Black, 3) },
             manaAbility: true)
         blackLotus.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {R}{R}{R}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { blackLotus.getController().addMana(color: .Red, 3) },
             manaAbility: true)
         blackLotus.addActivatedAbility(
             string: "{T}, Sacrifice ~: Add {G}{G}{G}.",
-            cost: Cost("", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Tap().Sacrifice(),
             effect: { blackLotus.getController().addMana(color: .Green, 3) },
             manaAbility: true)
         return blackLotus
@@ -1053,27 +1053,27 @@ enum LEA {
         celestialPrism.setType(.Artifact)
         celestialPrism.addActivatedAbility(
             string: "{2}, {T}: Add {W}.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: { celestialPrism.getController().addMana(color: .White) },
             manaAbility: true)
         celestialPrism.addActivatedAbility(
             string: "{2}, {T}: Add {U}.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: { celestialPrism.getController().addMana(color: .Blue) },
             manaAbility: true)
         celestialPrism.addActivatedAbility(
             string: "{2}, {T}: Add {B}.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: { celestialPrism.getController().addMana(color: .Black) },
             manaAbility: true)
         celestialPrism.addActivatedAbility(
             string: "{2}, {T}: Add {R}.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: { celestialPrism.getController().addMana(color: .Red) },
             manaAbility: true)
         celestialPrism.addActivatedAbility(
             string: "{2}, {T}: Add {G}.",
-            cost: Cost("2", tap: true),
+            cost: Cost.Mana("2").Tap(),
             effect: { celestialPrism.getController().addMana(color: .Green) },
             manaAbility: true)
         return celestialPrism
@@ -1114,7 +1114,7 @@ enum LEA {
         icyManipulator.setType(.Artifact)
         icyManipulator.addActivatedAbility(
             string: "{1}, {T}: Tap target artifact, creature, or land.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
                 effect: { target in target.tap() }))
@@ -1131,7 +1131,7 @@ enum LEA {
         jayemdaeTome.setType(.Artifact)
         jayemdaeTome.addActivatedAbility(
             string: "{4}, {T}: Draw a card",
-            cost: Cost("4", tap: true),
+            cost: Cost.Mana("4").Tap(),
             effect: { jayemdaeTome.getController().drawCard() })
         return jayemdaeTome
     }
@@ -1147,7 +1147,7 @@ enum LEA {
         moxEmerald.setType(.Artifact)
         moxEmerald.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { moxEmerald.getController().addMana(color: .Green) },
             manaAbility: true)
         return moxEmerald
@@ -1158,7 +1158,7 @@ enum LEA {
         moxJet.setType(.Artifact)
         moxJet.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { moxJet.getController().addMana(color: .Black) },
             manaAbility: true)
         return moxJet
@@ -1169,7 +1169,7 @@ enum LEA {
         moxPearl.setType(.Artifact)
         moxPearl.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { moxPearl.getController().addMana(color: .White) },
             manaAbility: true)
         return moxPearl
@@ -1180,7 +1180,7 @@ enum LEA {
         moxRuby.setType(.Artifact)
         moxRuby.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { moxRuby.getController().addMana(color: .Red) },
             manaAbility: true)
         return moxRuby
@@ -1191,7 +1191,7 @@ enum LEA {
         moxSapphire.setType(.Artifact)
         moxSapphire.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { moxSapphire.getController().addMana(color: .Blue) },
             manaAbility: true)
         return moxSapphire
@@ -1203,7 +1203,7 @@ enum LEA {
         nevinyrralsDisk.entersTapped = true
         nevinyrralsDisk.addActivatedAbility(
             string: "{1}, {T}: Destroy all artifacts, creatures, and enchantments.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: { Game.shared.bothPlayers({ player in
                 player.getArtifacts().forEach({ card in player.destroyPermanent(card) })
                 player.getCreatures().forEach({ card in player.destroyPermanent(card) })
@@ -1227,7 +1227,7 @@ enum LEA {
         rodOfRuin.setType(.Artifact)
         rodOfRuin.addActivatedAbility(
             string: "{3}, {T}: ~ deals 1 damage to any target.",
-            cost: Cost("3", tap: true),
+            cost: Cost.Mana("3").Tap(),
             effect: TargetedEffect(
                 restriction: TargetedEffect.AnyTarget,
                 effect: { rodOfRuin.damage(to: $0, 1) }))
@@ -1239,7 +1239,7 @@ enum LEA {
         solRing.setType(.Artifact)
         solRing.addActivatedAbility(
             string: "{T}: Add {C}{C}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { solRing.getController().addMana(color: nil, 2) },
             manaAbility: true)
         return solRing
@@ -1265,12 +1265,12 @@ enum LEA {
         undergroundSea.setType(.Land, .Island, .Swamp)
         undergroundSea.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { undergroundSea.getController().addMana(color: .Black) },
             manaAbility: true )
         undergroundSea.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { undergroundSea.getController().addMana(color: .Blue) },
             manaAbility: true )
         return undergroundSea

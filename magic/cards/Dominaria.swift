@@ -160,7 +160,7 @@ enum DOM {
         evra.lifelink = true
         evra.addActivatedAbility(
             string: "{4}: Exchange your life total with ~'s power.",
-            cost: Cost("4"),
+            cost: Cost.Mana("4"),
             effect: {
                 let temp = evra.getController().getLife()
                 evra.getController().setLife(evra.getPower())
@@ -627,7 +627,7 @@ enum DOM {
         dreadShade.setType(.Creature, .Shade)
         dreadShade.addActivatedAbility(
             string: "{B}: ~ gets +1/+1 until end of turn.",
-            cost: Cost("B"),
+            cost: Cost.Mana("B"),
             effect: { dreadShade.pump(1, 1) })
         dreadShade.setFlavorText("\"The forest surrounding the Vess estate became the Caligo Morass, a vast bog stalked by horrors too terrible to name.\"\n--\"The Fall of the House of Vess\"")
         dreadShade.power = 3
@@ -640,7 +640,7 @@ enum DOM {
         drudgeSentinel.setType(.Creature, .Skeleton, .Warrior)
         drudgeSentinel.addActivatedAbility(
             string: "{3}: Tap ~. It gains indestructible until end of turn.",
-            cost: Cost("3"),
+            cost: Cost.Mana("3"),
             effect: {
                 drudgeSentinel.tap()
                 drudgeSentinel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
@@ -986,7 +986,7 @@ enum DOM {
         llanowarElves.setType(.Creature, .Elf)
         llanowarElves.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { llanowarElves.getController().addMana(color: .Green) },
             manaAbility: true)
         llanowarElves.setFlavorText("As patient and generous as life, as harsh and merciless as nature.")
@@ -1000,23 +1000,23 @@ enum DOM {
         llanowarEnvoy.setType(.Creature, .Elf, .Scout)
         llanowarEnvoy.addActivatedAbility(
             string: "{1}{G}: Add {W}.",
-            cost: Cost("1G"),
+            cost: Cost.Mana("1G"),
             effect: { llanowarEnvoy.getController().addMana(color: .White) })
         llanowarEnvoy.addActivatedAbility(
             string: "{1}{G}: Add {U}.",
-            cost: Cost("1G"),
+            cost: Cost.Mana("1G"),
             effect: { llanowarEnvoy.getController().addMana(color: .Blue) })
         llanowarEnvoy.addActivatedAbility(
             string: "{1}{G}: Add {B}.",
-            cost: Cost("1G"),
+            cost: Cost.Mana("1G"),
             effect: { llanowarEnvoy.getController().addMana(color: .Black) })
         llanowarEnvoy.addActivatedAbility(
             string: "{1}{G}: Add {R}.",
-            cost: Cost("1G"),
+            cost: Cost.Mana("1G"),
             effect: { llanowarEnvoy.getController().addMana(color: .Red) })
         llanowarEnvoy.addActivatedAbility(
             string: "{1}{G}: Add {G}.",
-            cost: Cost("1G"),
+            cost: Cost.Mana("1G"),
             effect: { llanowarEnvoy.getController().addMana(color: .Green) })
         llanowarEnvoy.setFlavorText("\"Cherish this world in honor of the martyrs who saved it. We too must be prepared to give our lives.\"\n--The Mending of Dominaria")
         llanowarEnvoy.power = 3
@@ -1029,7 +1029,7 @@ enum DOM {
         llanowarScout.setType(.Creature, .Elf, .Scout)
         llanowarScout.addActivatedAbility(
             string: "{T}: You may put a land card from your hand onto the battlefield.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { llanowarScout.getController().chooseCard(
                 from: llanowarScout.getController().getHand(),
                 restriction: { $0.isType(.Land) },
@@ -1241,7 +1241,7 @@ enum DOM {
         amaranthineWall.defender = true
         amaranthineWall.addActivatedAbility(
             string: "{2}: ~ gains indestructible until end of turn.",
-            cost: Cost("2"),
+            cost: Cost.Mana("2"),
             effect: { amaranthineWall.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in object.indestructible = true; return object }))})
         amaranthineWall.setFlavorText("Neither its appearance nor its temperature varies as the years pass, an eternal testament to the forces that shaped Dominaria.")
         amaranthineWall.power = 0
@@ -1261,12 +1261,12 @@ enum DOM {
         }
         blackbladeReforged.addEquipAbility(
             string: "{3}: Equip legendary creature.",
-            cost: Cost("3"),
+            cost: Cost.Mana("3"),
             effect: effect,
             restriction: { $0.isType(.Legendary) })
         blackbladeReforged.addEquipAbility(
             string: "{7}: Equip.",
-            cost: Cost("7"),
+            cost: Cost.Mana("7"),
             effect: effect)
         
         blackbladeReforged.setFlavorText("It spilled the blood of one elder dragon. In Gideon's hands it may yet taste another's.")
@@ -1278,7 +1278,7 @@ enum DOM {
         bloodtallowCandle.setType(.Artifact)
         bloodtallowCandle.addActivatedAbility(
             string: "{6}, {T}, Sacrifice ~: Target creature gets -5/-5 until end of turn.",
-            cost: Cost("6", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("6").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Creature) },
                 effect: { $0.pump(-5, -5) }))
@@ -1293,27 +1293,27 @@ enum DOM {
         gildedLotus.setType(.Artifact)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {W}{W}{W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { gildedLotus.getController().addMana(color: .White, 3) },
             manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {U}{U}{U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { gildedLotus.getController().addMana(color: .Blue, 3) },
             manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {B}{B}{B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { gildedLotus.getController().addMana(color: .Black, 3) },
             manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {R}{R}{R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { gildedLotus.getController().addMana(color: .Red, 3) },
             manaAbility: true)
         gildedLotus.addActivatedAbility(
             string: "{T}: Add {G}{G}{G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { gildedLotus.getController().addMana(color: .Green, 3) },
             manaAbility: true)
         gildedLotus.setFlavorText("\"The perfection of the lotus reminds me of my hopes for this world... and my failures. I will not rest until I've atoned for them.\"\n--Karn")
@@ -1342,7 +1342,7 @@ enum DOM {
         icyManipulator.setType(.Artifact)
         icyManipulator.addActivatedAbility(
             string: "{1}, {T}: Tap target artifact, creature, or land.",
-            cost: Cost("1", tap: true),
+            cost: Cost.Mana("1").Tap(),
             effect: TargetedEffect.SingleObject(
                 restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
                 effect: { target in target.tap() }))
@@ -1356,7 +1356,7 @@ enum DOM {
         joustingLance.setType(.Artifact, .Equipment)
         joustingLance.addEquipAbility(
             string: "{3}: Equip.",
-            cost: Cost("3"),
+            cost: Cost.Mana("3"),
             effect: { object in
                 object.power = object.getBasePower() + 2
                 // TODO: Layers
@@ -1387,7 +1387,7 @@ enum DOM {
         powerstoneShard.setType(.Artifact)
         powerstoneShard.addActivatedAbility(
             string: "{T}: Add {C} for each artifact you control named Powerstone Shard.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: {
                 let count = powerstoneShard.getController().getArtifacts().filter({ return $0.getName() == "Powerstone Shard" }).count
                 for _ in 1...count { powerstoneShard.getController().addMana(color: nil) }
@@ -1403,7 +1403,7 @@ enum DOM {
         shortSword.setType(.Artifact, .Equipment)
         shortSword.addEquipAbility(
             string: "{1}: Equip.",
-            cost: Cost("1"),
+            cost: Cost.Mana("1"),
             effect: { object in
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
@@ -1454,7 +1454,7 @@ enum DOM {
         thranTemporalGateway.setType(.Legendary, .Artifact)
         thranTemporalGateway.addActivatedAbility(
             string: "{4}, {T}: You may put a historic permanent card from your hand onto the battlefield.",
-            cost: Cost("4", tap: true),
+            cost: Cost.Mana("4").Tap(),
             effect: { thranTemporalGateway.getController().chooseCard(
                 from: thranTemporalGateway.getController().getHand(),
                 restriction: { $0.isHistoric() && $0.isPermanent() },
@@ -1486,12 +1486,12 @@ enum DOM {
         cabalStronghold.setType(.Land)
         cabalStronghold.addActivatedAbility(
             string: "{T}: Add {C}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { cabalStronghold.getController().addMana(color: nil) },
             manaAbility: true)
         cabalStronghold.addActivatedAbility(
             string: "{3}, {T}: Add {B} for each basic Swamp you control.",
-            cost: Cost("", tap: true),
+            cost: Cost.Mana("3").Tap(),
             effect: {
                 let numSwamps = cabalStronghold.getController().getPermanents().filter({ return $0.isType(.Basic) && $0.isType(.Swamp) }).count
                 cabalStronghold.getController().addMana(color: nil, numSwamps)
@@ -1514,12 +1514,12 @@ enum DOM {
         })
         clifftopRetreat.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { clifftopRetreat.getController().addMana(color: .Red) },
             manaAbility: true)
         clifftopRetreat.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { clifftopRetreat.getController().addMana(color: .White) },
             manaAbility: true)
         clifftopRetreat.setFlavorText("The sunlight falls pristine on the temple at Epityr, softened by the remembered shadows of angelic saviors' wings.")
@@ -1539,12 +1539,12 @@ enum DOM {
         })
         hinterlandHarbor.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { hinterlandHarbor.getController().addMana(color: .Green) },
             manaAbility: true)
         hinterlandHarbor.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { hinterlandHarbor.getController().addMana(color: .Blue) },
             manaAbility: true)
         hinterlandHarbor.setFlavorText("\"Our ancestors brought down a Phyrexian portal ship, then built our town on its hull. We're pretty proud of that.\"\n--Alene of Riverspan")
@@ -1564,12 +1564,12 @@ enum DOM {
         })
         isolatedChapel.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { isolatedChapel.getController().addMana(color: .White) },
             manaAbility: true)
         isolatedChapel.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { isolatedChapel.getController().addMana(color: .Black) },
             manaAbility: true)
         isolatedChapel.setFlavorText("Serra's blessing lies strongest upon Sursi, where her holy chapels are untouched even as the Cabal encroaches.")
@@ -1583,12 +1583,12 @@ enum DOM {
         memorialToGenius.entersTapped = true
         memorialToGenius.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { memorialToGenius.getController().addMana(color: .Blue) },
             manaAbility: true)
         memorialToGenius.addActivatedAbility(
             string: "{4}{U}, {T}, Sacrifice ~: Draw two cards.",
-            cost: Cost("4U", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("4U").Tap().Sacrifice(),
             effect: { memorialToGenius.getController().drawCards(2) })
         return memorialToGenius
     }
@@ -1599,12 +1599,12 @@ enum DOM {
         memorialToGlory.entersTapped = true
         memorialToGlory.addActivatedAbility(
             string: "{T}: Add {W}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { memorialToGlory.getController().addMana(color: .White) },
             manaAbility: true)
         memorialToGlory.addActivatedAbility(
             string: "{3}{W}, {T}, Sacrifice ~: Create two 1/1 white Soldier creature tokens.",
-            cost: Cost("3W", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("3W").Tap().Sacrifice(),
             effect: {
                 memorialToGlory.getController().createToken(Soldier())
                 memorialToGlory.getController().createToken(Soldier())
@@ -1618,12 +1618,12 @@ enum DOM {
         memorialToUnity.entersTapped = true
         memorialToUnity.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { memorialToUnity.getController().addMana(color: .Green) },
             manaAbility: true)
         memorialToUnity.addActivatedAbility(
             string: "{2}{G}, {T}, Sacrifice ~: Look at the top five cards of your library. You may reveal a creature card from among them and put it into your hand. Then put the rest on the bottom of your library in a random order.",
-            cost: Cost("2G", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("2G").Tap().Sacrifice(),
             effect: { memorialToUnity.getController().chooseCard(
                 from: Array(memorialToUnity.getController().getLibrary().suffix(5)),
                 restriction: { $0.isType(.Creature) },
@@ -1641,12 +1641,12 @@ enum DOM {
         memorialToWar.entersTapped = true
         memorialToWar.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { memorialToWar.getController().addMana(color: .Red) },
             manaAbility: true)
         memorialToWar.addActivatedAbility(
             string: "{4}{R}, {T}, Sacrifice ~: Destroy target land.",
-            cost: Cost("4R", tap: true, life: 0, sacrificeSelf: true),
+            cost: Cost.Mana("4R").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
                 restriction: { $0.isType(.Land) },
                 effect: { let _ = $0.destroy() }))
@@ -1666,12 +1666,12 @@ enum DOM {
         })
         sulfurFalls.addActivatedAbility(
             string: "{T}: Add {U}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sulfurFalls.getController().addMana(color: .Blue) },
             manaAbility: true)
         sulfurFalls.addActivatedAbility(
             string: "{T}: Add {R}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { sulfurFalls.getController().addMana(color: .Red) },
             manaAbility: true)
         sulfurFalls.setFlavorText("\"We have inherited the mysteries of the Thran, but few of the answers.\"\n--Jhoira")
@@ -1691,12 +1691,12 @@ enum DOM {
         })
         woodlandCemetery.addActivatedAbility(
             string: "{T}: Add {B}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { woodlandCemetery.getController().addMana(color: .Black) },
             manaAbility: true)
         woodlandCemetery.addActivatedAbility(
             string: "{T}: Add {G}.",
-            cost: Cost("", tap: true),
+            cost: Cost.Tap(),
             effect: { woodlandCemetery.getController().addMana(color: .Green) },
             manaAbility: true)
         woodlandCemetery.setFlavorText("\"They never found the body of young Josu, or that of his murderous sister.\"\n--\"The Fall of the House of Vess\"")
