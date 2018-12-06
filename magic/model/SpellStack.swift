@@ -18,6 +18,7 @@ class SpellStack: NSObject {
     
     func push(_ object: Object) {
         stackObjects.push(object)
+        Game.shared.checkStateBasedActions()
     }
     
     func resolveTop() {

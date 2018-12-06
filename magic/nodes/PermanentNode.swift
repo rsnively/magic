@@ -36,7 +36,7 @@ class PermanentNode: CardNode {
                     Game.shared.selectingAbilityObject = self.card
                 } else {
                     let ability = card.activatedAbilities.first!
-                    if card.getController().canAfford(ability.getCost(), source: card) && ability.hasValidTargets() && (!ability.isSorcerySpeed() || card.getController().canCastSorcery()) {
+                    if card.getController().canAfford(ability.getCost(), source: card) && ability.hasValidTargets() && (!ability.isSorcerySpeed() || card.getController().canCastSorcery()) && !(card.isType(.Planeswalker) && card.hasActivatedLoyaltyAbilityThisTurn) {
                         card.getController().payFor(ability.getCost(), card)
                         ability.activate()
                         return

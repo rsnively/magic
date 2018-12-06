@@ -19,6 +19,8 @@ class CardNode: SKSpriteNode {
             texture = SKTexture(imageNamed: "cardback.jpg")
         } else if let token = card as? Token {
             texture = SKTexture(imageNamed: token.getSetCode() + "t" + String(token.getCollectorsNumber()) + (full ? "full" : ""))
+        } else if let emblem = card as? Emblem {
+            texture = SKTexture(imageNamed: emblem.getSetCode() + "t" + String(emblem.getCollectorsNumber()) + (full ? "full" : ""))
         } else if let nontoken = card as? Card {
             texture = SKTexture(imageNamed: nontoken.getSetCode() + String(nontoken.getCollectorsNumber()) + (full ? "full" : ""))
         } else {

@@ -30,6 +30,21 @@ class Object: Targetable, Hashable, NSCopying {
     var activeEffects:[ContinuousEffect] = []
     var counters:[Counter: Int] = [:]
     
+    var startingLoyalty: Int?
+    private var lastTurnActivatedLoyaltyAbility: Int?
+    var hasActivatedLoyaltyAbilityThisTurn: Bool {
+        get {
+            if let turn = lastTurnActivatedLoyaltyAbility {
+                return turn == Game.shared.getCurrentTurn()
+            }
+            return false
+        }
+        set (shouldBeTrue) {
+            assert(shouldBeTrue)
+            lastTurnActivatedLoyaltyAbility = Game.shared.getCurrentTurn()
+        }
+    }
+    
     var attachedTo: Object?
     var auraRestriction: ((Object) -> Bool)?
     
@@ -170,7 +185,7 @@ class Object: Targetable, Hashable, NSCopying {
         return !getController().getPermanents().filter({ $0.id == self.id }).isEmpty
     }
     
-    init(name:String, id: Int? = nil) {
+    init(name:String?, id: Int? = nil) {
         self.id = id ?? Object.GetId()
         self.name = name
         super.init()
@@ -185,6 +200,8 @@ class Object: Targetable, Hashable, NSCopying {
         copy.subtypes = subtypes
         copy.basePower = basePower
         copy.baseToughness = baseToughness
+        copy.startingLoyalty = startingLoyalty
+        copy.lastTurnActivatedLoyaltyAbility = lastTurnActivatedLoyaltyAbility
         copy.effects = effects
         copy.activeEffects = activeEffects
         copy.counters = counters
@@ -517,11 +534,11 @@ class Object: Targetable, Hashable, NSCopying {
         }
     }
     
-    func addActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
-        activatedAbilities.append(UntargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed))
+    func addActivatedAbility(string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
+        activatedAbilities.append(UntargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed, loyaltyAbility: loyaltyAbility))
     }
-    func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
-        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed))
+    func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
+        activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed, loyaltyAbility: loyaltyAbility))
     }
     
     func canActivateAbilities() -> Bool {

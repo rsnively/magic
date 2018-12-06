@@ -8,6 +8,7 @@ protocol ActivatedAbility {
     func activate() -> Void
     func resolve() -> Void
     func isSorcerySpeed() -> Bool
+    func isLoyaltyAbility() -> Bool
 }
 
 class UntargetedActivatedAbility: Object, ActivatedAbility {
@@ -16,13 +17,15 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var cost: Cost
     private var manaAbility: Bool
     private var sorcerySpeed: Bool
+    private var loyaltyAbility: Bool
     
-    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
         self.sorcerySpeed = sorcerySpeed
+        self.loyaltyAbility = loyaltyAbility
         super.init(name: "Activated Ability of " + source.getName())
         effects.append(UntargetedEffect(effect: effect))
     }
@@ -43,12 +46,18 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     func isSorcerySpeed() -> Bool {
         return sorcerySpeed
     }
+    func isLoyaltyAbility() -> Bool {
+        return loyaltyAbility
+    }
     
     func hasValidTargets() -> Bool {
         return true
     }
     
     func activate() {
+        if loyaltyAbility {
+            source.hasActivatedLoyaltyAbilityThisTurn = true
+        }
         if manaAbility {
             resolve()
         } else {
@@ -75,13 +84,15 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     private var cost: Cost
     private var manaAbility: Bool
     private var sorcerySpeed: Bool
+    private var loyaltyAbility: Bool
     
-    init(source: Object, string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
         self.manaAbility = manaAbility
         self.sorcerySpeed = sorcerySpeed
+        self.loyaltyAbility = loyaltyAbility
         super.init(name: "Activated Ability of " + source.getName())
         effects.append(effect)
     }
@@ -99,6 +110,9 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     func isSorcerySpeed() -> Bool {
         return sorcerySpeed
     }
+    func isLoyaltyAbility() -> Bool {
+        return loyaltyAbility
+    }
     
     func hasValidTargets() -> Bool {
         if let effect = effects.first {
@@ -110,6 +124,10 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     func activate() {
+        if loyaltyAbility {
+            source.hasActivatedLoyaltyAbilityThisTurn = true
+        }
+        
         let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
         if Game.shared.hasTargets(effect!) {
             Game.shared.targetingEffects.append(effect!)

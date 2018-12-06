@@ -122,6 +122,7 @@ enum Subtype {
     case Vedalken
     case Vehicle
     case Viashino
+    case Vivien
     case Wall
     case Warrior
     case Wizard

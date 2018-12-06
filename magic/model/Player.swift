@@ -136,7 +136,7 @@ class Player: Targetable {
         return manaPool.canAfford(cost.getManaCost())
             && ( !cost.getTapCost() || (!source.isTapped && !source.hasSummoningSickness()))
             && ( cost.getLifeCost() <= 0 || getLife() >= cost.getLifeCost())
-            && ( source.hasCounters(cost.getCounterCost()))
+            && ( source.hasCounters(cost.getRemoveCountersCost()))
     }
     
     func payFor(_ cost: Cost, _ source: Object) {
@@ -147,8 +147,11 @@ class Player: Targetable {
         if cost.getSacrificeSelf() {
             source.sacrifice()
         }
-        for counter in cost.getCounterCost() {
+        for counter in cost.getRemoveCountersCost() {
             source.removeCounter(counter)
+        }
+        for counter in cost.getAddCountersCost() {
+            source.addCounter(counter)
         }
         loseLife(cost.getLifeCost())
     }
@@ -274,6 +277,7 @@ class Player: Targetable {
             }
             if card.usesStack() {
                 Game.shared.theStack.push(card)
+                Game.shared.checkStateBasedActions()
             }
             else {
                 addPermanent(card)
@@ -329,6 +333,11 @@ class Player: Targetable {
         token.setOwner(owner: self)
         addPermanent(token)
     }
+    func createEmblem(_ emblem: Object) {
+        emblem.setController(controller: self)
+        emblem.setOwner(owner: self)
+        Game.shared.commandZone.append(emblem)
+    }
     
     private func removeObjectFromCurrentZone(_ object: Object) {
         if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
@@ -358,6 +367,9 @@ class Player: Targetable {
         }
         object.turnEnteredBattlefield = Game.shared.getCurrentTurn()
         object.replaceEvent(.ThisETB)
+        if let loyalty = object.startingLoyalty {
+            object.addCounters(.Loyalty, loyalty)
+        }
         object.triggerAbilities(.ThisETB)
         if object.isType(.Land) {
             getPermanents().forEach({ $0.triggerAbilities(.Landfall) })

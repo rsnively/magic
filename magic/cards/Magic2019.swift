@@ -5,7 +5,7 @@ enum M19 {
     static var count = 280
     
     static let cards = [
-        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ AjanisPridemate, /* AjanisWelcome, */ AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, Isolate, KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, MilitiaBugler, /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, RemorsefulCleric, ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, TotallyLost, UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, InfernalReckoning, /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, ElvishRejuvenator, /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ /* VivienReid, */ /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, EnigmaDrake, HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
+        AegisOfTheHeavens, AethershieldArtificer, /* AjaniAdversaryOfTyrants, */ /* AjanisLastStand, */ AjanisPridemate, /* AjanisWelcome, */ AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, Isolate, KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, MilitiaBugler, /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, RemorsefulCleric, ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, /* BoneToAsh, */ /* Cancel, */ /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ /* EssenceScatter, */ ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, TotallyLost, UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, InfernalReckoning, /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ /* PlagueMare, */ /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ /* LavaAxe, */ /* LightningMare, */ LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, /* ViashinoPyromancer, */ VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, ElvishRejuvenator, /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, /* GoreclawTerrorOfQalSisma, */ GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ /* Recollect, */ RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, /* VineMare, */ VivienReid, /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, EnigmaDrake, HeroicReinforcements, /* NicolBolasTheRavager, */ /* PalladiaMorsTheRuiner, */ /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ /* DragonsHoard, */ ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, /* TransmogrifyingWand, */ /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
     ]
     
     static func RandomCard() -> Card {
@@ -1647,7 +1647,45 @@ enum M19 {
         return vigilantBaloth
     }
     // 207 Vine Mare
-    // 208 Vivien Reid
+    static func VivienReid() -> Card {
+        let vivienReid = Card(name: "Vivien Reid", rarity: .Mythic, set: set, number: 208)
+        vivienReid.setManaCost("3GG")
+        vivienReid.setType(.Legendary, .Planeswalker, .Vivien)
+        vivienReid.addActivatedAbility(
+            string: "{+1}: Look at the top four cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your librrary in a random order.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: {
+                vivienReid.getController().chooseCard(
+                    from: Array(vivienReid.getController().getLibrary().suffix(4)),
+                    restriction: { $0.isType(.Creature) || $0.isType(.Land) },
+                    action: { chosen, rest in
+                        chosen?.reveal()
+                        chosen?.putIntoHand()
+                        vivienReid.getController().putOnBottomOfLibrary(&rest, random: true)
+                })
+            },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        vivienReid.addActivatedAbility(
+            string: "{-3}: Destroy target artifact, enchantment, or creature with flying.",
+            cost: Cost.RemoveCounters(.Loyalty, 3),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) || ($0.isType(.Creature) && $0.flying) },
+                effect: { let _ = $0.destroy() }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        vivienReid.addActivatedAbility(
+            string: "{-8}: You get an emblem with \"Creatures you control get +2/+2 and have vigilance, trample, and indestructible.",
+            cost: Cost.RemoveCounters(.Loyalty, 8),
+            effect: { vivienReid.getController().createEmblem(VivienReidEmblem()) },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        vivienReid.startingLoyalty = 5
+        return vivienReid
+    }
     // 209 Vivien's Invocation
     static func WallOfVines() -> Card {
         let wallOfVines = Card(name: "Wall of Vines", rarity: .Common, set: set, number: 210)
@@ -2180,5 +2218,20 @@ enum M19 {
     }
     // t15 Ajani Emblem
     // t16 Tezzeret Emblem
-    // t17 Vivien Emblem
+    
+    static func VivienReidEmblem() -> Object {
+        let vivienEmblem = Emblem(set: set, number: 17)
+        vivienEmblem.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === vivienEmblem.getController() {
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 2
+                // TODO: Layers
+                object.vigilance = true
+                object.trample = true
+                object.indestructible = true
+            }
+            return object
+        })
+        return vivienEmblem
+    }
 }

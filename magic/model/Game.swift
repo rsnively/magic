@@ -4,6 +4,7 @@ class Game: NSObject {
     var player1: Player
     var player2: AIPlayer
     var exile: [Object] = []
+    var commandZone: [Object] = []
     var theStack: SpellStack
     private var currentPhase: Phase
     
@@ -231,6 +232,9 @@ class Game: NSObject {
     
     func getStaticAbilities() -> [StaticAbility] {
         var abilities: [StaticAbility] = []
+        for object in commandZone {
+            abilities += object.staticAbilities
+        }
         abilities += player1.getStaticAbilities()
         abilities += player2.getStaticAbilities()
         return abilities
@@ -396,6 +400,13 @@ class Game: NSObject {
         })
         
         // If a planeswalker has loyalty 0, it's put into its owner's graveyard.
+        bothPlayers({ player in
+            player.getPermanents().filter({ $0.isType(.Planeswalker) }).forEach({ planeswalker in
+                if planeswalker.getCounters(.Loyalty) == 0 {
+                    actionPerformed = planeswalker.destroy(ignoreIndestructible: true) || actionPerformed
+                }
+            })
+        })
         
         // If a player controls two or more legendary permanents with the same name, that player chooses one of them and puts the rest into their owners' graveyards.
         for permanent in getActivePlayer().getPermanents() {

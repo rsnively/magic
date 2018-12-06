@@ -60,7 +60,7 @@ class AbilitySelectorNode: SKNode {
     }
     
     func touchUp(atPoint pos: CGPoint) {
-        if object.getController().canAfford(ability.getCost(), source: object) && ability.hasValidTargets() {
+        if object.getController().canAfford(ability.getCost(), source: object) && ability.hasValidTargets() && (!ability.isSorcerySpeed() || object.getController().canCastSorcery())  && !(object.isType(.Planeswalker) && object.hasActivatedLoyaltyAbilityThisTurn) {
             object.getController().payFor(ability.getCost(), object)
             ability.activate()
         }

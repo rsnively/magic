@@ -6,20 +6,28 @@ class Cost {
     private var lifeCost: Int
     private var sacrificeSelf: Bool
     private var removeCountersCost: [Counter]
+    private var addCountersCost: [Counter]
     
-    private init(_ manaString: String, tap: Bool = false, life: Int = 0, sacrificeSelf: Bool = false, removeCounters: [Counter] = []) {
+    private init(_ manaString: String, tap: Bool = false, life: Int = 0, sacrificeSelf: Bool = false, removeCounters: [Counter] = [], addCounters: [Counter] = []) {
         self.manaCost = ManaCost(manaString)
         self.tapCost = tap
         self.lifeCost = life
         self.sacrificeSelf = sacrificeSelf
         self.removeCountersCost = removeCounters
+        self.addCountersCost = addCounters
     }
     
+    static func AddCounters(_ type: Counter, _ amount: Int) -> Cost {
+        return Cost("").AddCounters(type, amount)
+    }
     static func Life(_ amount: Int) -> Cost {
         return Cost("", tap: false, life: amount)
     }
     static func Mana(_ manaString: String) -> Cost {
         return Cost(manaString)
+    }
+    static func RemoveCounters(_ type: Counter, _ amount: Int) -> Cost {
+        return Cost("").RemoveCounters(type, amount)
     }
     static func Sacrifice() -> Cost {
         return Cost("", tap: false, life: 0, sacrificeSelf: true)
@@ -28,6 +36,12 @@ class Cost {
         return Cost("", tap: true)
     }
     
+    func AddCounters(_ type: Counter, _ amount: Int) -> Cost {
+        for _ in 0 ..< amount {
+            self.addCountersCost.append(type)
+        }
+        return self
+    }
     func Life(_ amount: Int) -> Cost {
         self.lifeCost = amount
         return self
@@ -63,7 +77,10 @@ class Cost {
         return sacrificeSelf
     }
     
-    func getCounterCost() -> [Counter] {
+    func getRemoveCountersCost() -> [Counter] {
         return removeCountersCost
+    }
+    func getAddCountersCost() -> [Counter] {
+        return addCountersCost
     }
 }
