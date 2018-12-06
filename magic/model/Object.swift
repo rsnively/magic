@@ -419,6 +419,12 @@ class Object: Targetable, Hashable, NSCopying {
     func removeCounter(_ type: Counter) {
         counters[type] = max(0, (counters[type] ?? 0) - 1)
     }
+    func removeCounters(_ type: Counter, _ amount: Int) {
+        let amount = max(amount, 0)
+        for _ in 0 ..< amount {
+            removeCounter(type)
+        }
+    }
     func getCounters(_ type: Counter) -> Int {
         return counters[type] ?? 0
     }
@@ -679,7 +685,12 @@ class Object: Targetable, Hashable, NSCopying {
     
     override func takeDamage(_ amount: Int) {
         let amount = max(amount, 0)
-        markedDamage += amount
+        if isType(.Creature) {
+            markedDamage += amount
+        }
+        else if isType(.Planeswalker) {
+            removeCounters(.Loyalty, amount)
+        }
         triggerAbilities(.ThisDealtDamage)
     }
     
