@@ -53,7 +53,7 @@ enum RIX {
         divineVerdict.setManaCost("3W")
         divineVerdict.setType(.Instant)
         divineVerdict.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking)},
+            restriction: { return $0.isType(.Creature) && ($0.isAttacking || $0.blocking)},
             effect: { let _ = $0.destroy() }))
         divineVerdict.setFlavorText("Cunning warriors and dim-witted beasts alike fall under the church's harsh judgment.")
         return divineVerdict
@@ -307,7 +307,7 @@ enum RIX {
         kitesailCorsair.setManaCost("1U")
         kitesailCorsair.setType(.Creature, .Human, .Pirate)
         kitesailCorsair.addStaticAbility({ object in
-            if object == kitesailCorsair && object.attacking {
+            if object == kitesailCorsair && object.isAttacking {
                 object.flying = true
             }
             return object
@@ -498,7 +498,7 @@ enum RIX {
         direFleetPoisoner.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Pirate) && $0.getController() === direFleetPoisoner.getController() },
+                restriction: { $0.isAttacking && $0.isType(.Pirate) && $0.getController() === direFleetPoisoner.getController() },
                 effect: { target in
                     target.pump(1, 1)
                     target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))
@@ -573,7 +573,7 @@ enum RIX {
         graspingScoundrel.setManaCost("B")
         graspingScoundrel.setType(.Creature, .Human, .Pirate)
         graspingScoundrel.addStaticAbility({ object in
-            if object == graspingScoundrel && object.attacking {
+            if object == graspingScoundrel && object.isAttacking {
                 object.power = object.getBasePower() + 1
             }
             return object
@@ -1201,7 +1201,7 @@ enum RIX {
         direFleetNeckbreaker.setManaCost("2BR")
         direFleetNeckbreaker.setType(.Creature, .Orc, .Pirate)
         direFleetNeckbreaker.addStaticAbility({ object in
-            if object.attacking && object.isType(.Pirate) && object.getController() === direFleetNeckbreaker.getController() {
+            if object.isAttacking && object.isType(.Pirate) && object.getController() === direFleetNeckbreaker.getController() {
                 object.power = object.getBasePower() + 2
             }
             return object

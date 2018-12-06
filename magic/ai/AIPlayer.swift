@@ -29,7 +29,7 @@ class AIPlayer: Player {
     }
     
     override func declareAttackers() {
-        getCreatures().filter({$0.canAttack()}).forEach({$0.attacking = true})
+        getCreatures().filter({$0.canAttack()}).forEach({ $0.attack(getOpponent()) })
         super.declareAttackers()
     }
     

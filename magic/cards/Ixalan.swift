@@ -17,7 +17,7 @@ enum XLN {
         adantoVanguard.setManaCost("1W")
         adantoVanguard.setType(.Creature, .Vampire, .Soldier)
         adantoVanguard.addStaticAbility({ object in
-            if object == adantoVanguard && object.attacking {
+            if object == adantoVanguard && object.isAttacking {
                 object.power = object.getBasePower() + 2
             }
             return object
@@ -65,7 +65,7 @@ enum XLN {
         brightReprisal.setManaCost("4W")
         brightReprisal.setType(.Instant)
         brightReprisal.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && $0.attacking },
+            restriction: { return $0.isType(.Creature) && $0.isAttacking },
             effect: { target in
                 let _ = target.destroy()
                 brightReprisal.getController().drawCard()
@@ -92,7 +92,7 @@ enum XLN {
             string: "{W}, {T}: Target attacking Vampire gets +1/+1 until end of turn.",
             cost: Cost.Mana("W").Tap(),
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.attacking },
+                restriction: { return $0.isType(.Creature) && $0.isType(.Vampire) && $0.isAttacking },
                 effect: { $0.pump(1, 1) }))
         duskborneSkymarcher.setFlavorText("\"The hour of Dusk is come.\"")
         duskborneSkymarcher.power = 1
@@ -360,7 +360,7 @@ enum XLN {
         slashOfTalons.setManaCost("W")
         slashOfTalons.setType(.Instant)
         slashOfTalons.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            restriction: { return $0.isType(.Creature) && ($0.isAttacking || $0.blocking) },
             effect: { target in slashOfTalons.damage(to: target, 2) }))
         slashOfTalons.setFlavorText("\"The amber sun smokes with fury, gazing on foes that gather like ants invading our home. We are ready! Blade and claw strike as one.\"\n--Huatli")
         return slashOfTalons
@@ -1145,7 +1145,7 @@ enum XLN {
         dinosaurStampede.setType(.Instant)
         dinosaurStampede.addEffect({
             Game.shared.bothPlayers({ player in
-                player.getCreatures().filter({ $0.attacking }).forEach({ creature in
+                player.getCreatures().filter({ $0.isAttacking }).forEach({ creature in
                     creature.pump(2, 0)
                 })
             })
@@ -1751,8 +1751,8 @@ enum XLN {
         direFleetCaptain.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
-                let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0 != direFleetCaptain }).count +
-                                 direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.attacking && $0 != direFleetCaptain }).count
+                let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.isAttacking && $0 != direFleetCaptain }).count +
+                                 direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.isAttacking && $0 != direFleetCaptain }).count
                 direFleetCaptain.pump(numPirates, numPirates)
         })
         direFleetCaptain.setFlavorText("Orcs are happiest under captains who steer toward battle. Orcs of the Dire Fleet are downright jovial.")

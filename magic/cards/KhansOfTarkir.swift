@@ -104,7 +104,7 @@ enum KTK {
         killShot.setManaCost("2W")
         killShot.setType(.Instant)
         killShot.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && $0.attacking },
+            restriction: { return $0.isType(.Creature) && $0.isAttacking },
             effect: { let _ = $0.destroy() }))
         killShot.setFlavorText("Mardu archers have trained in Dakla, the way of the bow. They never miss their target, no matter how small, how fast, or how far away.")
         return killShot
@@ -464,7 +464,7 @@ enum KTK {
         trumpetBlast.setManaCost("2R")
         trumpetBlast.setType(.Instant)
         trumpetBlast.addEffect {
-            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ $0.pump(2, 0) }) })
+            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.isAttacking}).forEach({ $0.pump(2, 0) }) })
         }
         trumpetBlast.setFlavorText("Do you hear that, Sarkhan? The glory of the horde! I made a legend from what you abandoned.\"\n--Zurgo, khan of the Mardu")
         return trumpetBlast

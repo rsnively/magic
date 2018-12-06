@@ -179,7 +179,7 @@ enum DOM {
         gideonsReproach.setManaCost("1W")
         gideonsReproach.setType(.Instant)
         gideonsReproach.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            restriction: { return $0.isType(.Creature) && ($0.isAttacking || $0.blocking) },
             effect: { target in gideonsReproach.damage(to: target, 4) }))
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
@@ -286,7 +286,7 @@ enum DOM {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
+                restriction: { $0.isAttacking && $0.isType(.Creature) && $0 != pegasusCourser },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -903,7 +903,7 @@ enum DOM {
         runAmok.setManaCost("1R")
         runAmok.setType(.Instant)
         runAmok.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.attacking },
+            restriction: { $0.isType(.Creature) && $0.isAttacking },
             effect: { target in
                 target.pump(3, 3)
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))

@@ -273,7 +273,7 @@ enum M19 {
             effect: {
                 let tokens: [Object] = [Cat(), Cat()]
                 for token in tokens {
-                    token.attacking = true
+                    token.attack(token.getOpponent())
                     token.setTapped(true)
                     leoninWarleader.getController().createToken(token)
                 }
@@ -378,7 +378,7 @@ enum M19 {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && $0 != pegasusCourser },
+                restriction: { $0.isAttacking && $0.isType(.Creature) && $0 != pegasusCourser },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -1311,7 +1311,7 @@ enum M19 {
         trumpetBlast.setManaCost("2R")
         trumpetBlast.setType(.Instant)
         trumpetBlast.addEffect {
-            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.attacking}).forEach({ $0.pump(2, 0) }) })
+            Game.shared.bothPlayers({ $0.getCreatures().filter({$0.isAttacking}).forEach({ $0.pump(2, 0) }) })
         }
         trumpetBlast.setFlavorText("The sound of the trumpets lights a fire in the hearts of the bold and snuffs the courage of the cowardly.")
         return trumpetBlast

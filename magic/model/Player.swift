@@ -94,7 +94,7 @@ class Player: Targetable {
         return permanents.filter { $0.isType(Type.Creature) }
     }
     func getAttackers() -> [Object] {
-        return permanents.filter { $0.attacking }
+        return permanents.filter { $0.isAttacking }
     }
     func getArtifacts() -> [Object] {
         return permanents.filter { $0.isType(Type.Artifact) }
@@ -207,7 +207,7 @@ class Player: Targetable {
     
     func declareAttackers() {
         for permanent in permanents {
-            if permanent.attacking {
+            if permanent.isAttacking {
                 if permanent.isType(.Creature) {
                     attackedWithCreatureThisTurn = true
                 }
@@ -236,7 +236,7 @@ class Player: Targetable {
     
     func dealCombatDamage(firstStrike: Bool = false) {
         for permanent in permanents {
-            if permanent.attacking {
+            if permanent.isAttacking {
                 if permanent.blocked {
                     //todo order blockers / double blocks
                     if let blocker = permanent.blockers.first {

@@ -56,7 +56,7 @@ class CardNode: SKSpriteNode {
         self.card = card
         let size = CardNode.getMaximumCardSize(for: allowedSize)
         super.init(texture:nil, color: SKColor.clear, size:size)
-        if card.attacking {
+        if card.isAttacking {
             let attackBorder = SKShapeNode(rectOf: self.size * 1.1, cornerRadius: 3.0)
             attackBorder.strokeColor = SKColor.red
             attackBorder.fillColor = SKColor.red

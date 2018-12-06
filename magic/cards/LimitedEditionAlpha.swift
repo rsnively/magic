@@ -705,7 +705,7 @@ enum LEA {
         orcishOriflamme.setManaCost("1R")
         orcishOriflamme.setType(.Enchantment)
         orcishOriflamme.addStaticAbility({ object in
-            if object.attacking && object.isType(.Creature) && object.getController() === orcishOriflamme.getController() {
+            if object.isAttacking && object.isType(.Creature) && object.getController() === orcishOriflamme.getController() {
                 object.power = object.getBasePower() + 1
             }
             return object

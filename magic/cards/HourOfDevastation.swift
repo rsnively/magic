@@ -80,7 +80,7 @@ enum HOU {
         sandblast.setManaCost("2W")
         sandblast.setType(.Instant)
         sandblast.addEffect(TargetedEffect.SingleObject(
-            restriction: { ($0.attacking || $0.blocking) && $0.isType(.Creature) },
+            restriction: { ($0.isAttacking || $0.blocking) && $0.isType(.Creature) },
             effect: { sandblast.damage(to: $0, 5) }))
         sandblast.setFlavorText("The sands of Amonkhet can be as much a boon as a bane. It depends entirely on which way the wind blows.")
         return sandblast
@@ -117,7 +117,7 @@ enum HOU {
         aerialGuide.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0 != aerialGuide && $0.attacking && $0.isType(.Creature) },
+                restriction: { $0 != aerialGuide && $0.isAttacking && $0.isType(.Creature) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -181,7 +181,7 @@ enum HOU {
             string: "{1}{B}: Target attacking Zombie gains indestructible until end of turn.",
             cost: Cost.Mana("1B"),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Zombie) },
+                restriction: { $0.isAttacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0}) )}
         ))
         accursedHorde.power = 3
@@ -523,14 +523,14 @@ enum HOU {
             string: "{1}{W}: Target attacking Zombie gains lifelink until end of turn.",
             cost: Cost.Mana("1W"),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Zombie) },
+                restriction: { $0.isAttacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0}) )}
         ))
         unravelingMummy.addActivatedAbility(
             string: "{1}{B}: Target attacking Zombie gains deathtoucn until end of turn.",
             cost: Cost.Mana("1B"),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Zombie) },
+                restriction: { $0.isAttacking && $0.isType(.Zombie) },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0}) )}
         ))
         unravelingMummy.setFlavorText("\"We are no longer in control.\"\n--Elekh, vizier of embalming")

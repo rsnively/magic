@@ -292,7 +292,7 @@ class Game: NSObject {
         else if currentPhase == .FirstStrike {
             let attackerOrBlockerWithFirstStrike = eitherPlayer({ player in
                 for creature in player.getCreatures() {
-                    if (creature.attacking || creature.blocking) && (creature.firstStrike || creature.doubleStrike) {
+                    if (creature.isAttacking || creature.blocking) && (creature.firstStrike || creature.doubleStrike) {
                         return true
                     }
                 }

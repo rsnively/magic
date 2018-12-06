@@ -146,7 +146,11 @@ class Object: Targetable, Hashable, NSCopying {
     private var revealedToOwner: Bool = false
     private var revealedToOpponent: Bool = false
     
-    var attacking: Bool = false
+    private var attacking: Targetable?
+    var isAttacking: Bool {
+        get { return attacking != nil }
+        set (shouldBeFalse) { assert(!shouldBeFalse); attacking = nil }
+    }
     var blocked: Bool = false
     var blockers: [Object] = []
     var blocking: Bool = false
@@ -709,13 +713,17 @@ class Object: Targetable, Hashable, NSCopying {
         }
     }
     
+    func attack(_ target: Targetable) {
+        attacking = target
+    }
+    
     func fight(_ opponent: Object) {
         self.damage(to: opponent, getPower())
         opponent.damage(to: self, opponent.getPower())
     }
     
     func removeFromCombat() {
-        attacking = false
+        attacking = nil
         blocking = false
         blockers.removeAll()
         attackers.removeAll()

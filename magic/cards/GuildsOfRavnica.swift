@@ -19,7 +19,7 @@ enum GRN {
             source: source,
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.attacking && $0.getPower() < source.getPower() },
+                restriction: { $0.isType(.Creature) && $0.isAttacking && $0.getPower() < source.getPower() },
                 effect: { $0.addCounter(.PlusOnePlusOne) }))
     }
 
@@ -230,7 +230,7 @@ enum GRN {
         righteousBlow.setManaCost("W")
         righteousBlow.setType(.Instant)
         righteousBlow.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && ($0.attacking || $0.blocking) },
+            restriction: { return $0.isType(.Creature) && ($0.isAttacking || $0.blocking) },
             effect: { target in righteousBlow.damage(to: target, 2) }))
         righteousBlow.setFlavorText("\"The Golgari believe they should be given what they deserve. On this we agree.\"\n--Tajic")
         return righteousBlow
@@ -243,7 +243,7 @@ enum GRN {
         rocCharger.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.attacking && $0.isType(.Creature) && !$0.flying },
+                restriction: { $0.isAttacking && $0.isType(.Creature) && !$0.flying },
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -285,7 +285,7 @@ enum GRN {
             restriction: { return $0.isType(.Creature) },
             effect: { target in
                 target.pump(2, 2)
-                takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({$0.attacking}).count)
+                takeHeart.getController().gainLife(takeHeart.getController().getCreatures().filter({ $0.isAttacking }).count)
         }))
         takeHeart.setFlavorText("In the quiet before a battle, Boros soldiers whisper prayers that steady their nerves and focus their minds.")
         return takeHeart

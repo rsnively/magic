@@ -35,7 +35,7 @@ class CreaturesCardNode: CardNode {
                 }
             }
             if let selectedBlocker = Game.shared.getSelectedBlocker() {
-                if card.attacking && selectedBlocker.canBlockAttacker(card) {
+                if card.isAttacking && selectedBlocker.canBlockAttacker(card) {
                     selectedBlocker.block(card)
                     return
                 }
@@ -53,7 +53,11 @@ class CreaturesCardNode: CardNode {
                 }
             }
         } else if card.canAttack() {
-            card.attacking = !card.attacking
+            if card.isAttacking {
+                card.isAttacking = false
+            } else {
+                card.attack(card.getOpponent())
+            }
         }
     }
 }
