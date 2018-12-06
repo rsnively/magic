@@ -1166,7 +1166,7 @@ enum GRN {
                 if object == cracklingDrake {
                     let instSorcInGraveyard = object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count
                     let instSorcInExile = Game.shared.exile.filter({ $0.getOwner() === object.getController() }).count
-                    cracklingDrake.power = instSorcInGraveyard + instSorcInExile
+                    object.power = instSorcInGraveyard + instSorcInExile
                 }
                 return object
             }
