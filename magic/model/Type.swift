@@ -71,6 +71,7 @@ enum Subtype {
     case Horror
     case Horse
     case Hound
+    case Huatli
     case Human
     case Hydra
     case Illusion

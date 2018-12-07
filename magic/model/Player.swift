@@ -69,7 +69,7 @@ class Player: Targetable {
     func gainLife(_ amount: Int) {
         life += amount
         lifeGainedThisTurn += amount
-        getPermanents().forEach({ $0.triggerAbilities(.YouGainLife) })
+        triggerAbilities(.YouGainLife)
     }
     
     func getLibrary() -> [Object] {
@@ -167,20 +167,22 @@ class Player: Targetable {
     
     func pregameActions() {
         shuffleLibrary()
-        drawCards(7)
+        drawCards(7, noTrigger: true)
     }
     
-    func drawCard() {
+    func drawCard(noTrigger: Bool = false) {
         // todo, milling
         let card = library.popLast()!
         card.revealToOwner()
         hand.append(card)
-        getPermanents().forEach({ $0.triggerAbilities(.YouDrawCard)} );
+        if !noTrigger {
+            triggerAbilities(.YouDrawCard)
+        }
     }
     
-    func drawCards(_ amt: Int) {
+    func drawCards(_ amt: Int, noTrigger: Bool = false) {
         for _ in 0..<amt {
-            drawCard()
+            drawCard(noTrigger: noTrigger)
         }
     }
     
@@ -205,6 +207,11 @@ class Player: Targetable {
         
     }
     
+    func triggerAbilities(_ trigger: Trigger) {
+        permanents.forEach({ $0.triggerAbilities(trigger) })
+        Game.shared.commandZone.filter({ $0.getController() === self }).forEach({ print("boop"); $0.triggerAbilities(trigger) })
+    }
+    
     func declareAttackers() {
         for permanent in permanents {
             if permanent.isAttacking {
@@ -213,7 +220,7 @@ class Player: Targetable {
                 }
                 permanent.triggerAbilities(.ThisAttacks)
                 if permanent.isType(.Creature) && permanent.flying {
-                    Game.shared.bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.CreatureWithFlyingAttacks) }) })
+                    Game.shared.bothPlayers({ $0.triggerAbilities(.CreatureWithFlyingAttacks) })
                 }
                 if !permanent.vigilance {
                     permanent.tap()
@@ -285,27 +292,28 @@ class Player: Targetable {
             }
             
             if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastInstantOrSorcery) })
+                triggerAbilities(.YouCastInstantOrSorcery)
+                triggerAbilities(.YouCastInstantOrSorcery)
             }
             if card.isSpell() && card.isType(.Creature) {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastCreatureSpell) })
+                triggerAbilities(.YouCastCreatureSpell)
             }
             if card.isSpell() && !card.isType(.Creature) {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastNoncreatureSpell) })
+                triggerAbilities(.YouCastNoncreatureSpell)
             }
             if card.isSpell() && card.isType(.Enchantment) {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastEnchantmentSpell) })
+                triggerAbilities(.YouCastEnchantmentSpell)
             }
             
             if card.isSpell() && card.isHistoric() {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastHistoricSpell) })
+                triggerAbilities(.YouCastHistoricSpell)
             }
             
             if card.isSpell() && card.isColor(.Blue) {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastBlueSpell) })
+                triggerAbilities(.YouCastBlueSpell)
             }
             if card.isSpell() && card.colors.count > 1 {
-                getPermanents().forEach({ $0.triggerAbilities(.YouCastMulticoloredSpell) })
+                triggerAbilities(.YouCastMulticoloredSpell)
             }
         }
         else {
@@ -336,6 +344,7 @@ class Player: Targetable {
     func createEmblem(_ emblem: Object) {
         emblem.setController(controller: self)
         emblem.setOwner(owner: self)
+        emblem.reveal()
         Game.shared.commandZone.append(emblem)
     }
     
@@ -372,7 +381,10 @@ class Player: Targetable {
         }
         object.triggerAbilities(.ThisETB)
         if object.isType(.Land) {
-            getPermanents().forEach({ $0.triggerAbilities(.Landfall) })
+            triggerAbilities(.Landfall)
+        }
+        if object.isType(.Creature) {
+            triggerAbilities(.CreatureEntersBattlefieldUnderYourControl)
         }
     }
     

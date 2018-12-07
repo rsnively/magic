@@ -282,8 +282,8 @@ class Game: NSObject {
             }
         }
         else if currentPhase == .Upkeep {
-            bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachUpkeep) }) })
-            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourUpkeep) })
+            bothPlayers({ $0.triggerAbilities(.EachUpkeep) })
+            getActivePlayer().triggerAbilities(.YourUpkeep)
         }
         else if currentPhase == .Draw {
             if turnNumber > 1 {
@@ -292,10 +292,10 @@ class Game: NSObject {
         }
         else if currentPhase == .FirstMain {
             getActivePlayer().getPermanents().forEach({ $0.replaceEvent(.YourFirstMain) })
-            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourFirstMain) })
+            getActivePlayer().triggerAbilities(.YourFirstMain)
         }
         else if currentPhase == .BeginCombat {
-            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourBeginCombat) })
+            getActivePlayer().triggerAbilities(.YourBeginCombat)
         }
         else if currentPhase == .Attack {
             declaringAttackers = true
@@ -329,8 +329,8 @@ class Game: NSObject {
             bothPlayers({ $0.removeCreaturesFromCombat() })
         }
         else if currentPhase == .End {
-            bothPlayers({ $0.getPermanents().forEach({ $0.triggerAbilities(.EachEndStep) }) })
-            getActivePlayer().getPermanents().forEach({ $0.triggerAbilities(.YourEndStep) })
+            bothPlayers({ $0.triggerAbilities(.EachEndStep) })
+            getActivePlayer().triggerAbilities(.YourEndStep)
         }
         else if currentPhase == .Cleanup {
             // todo, discard to hand size

@@ -13,7 +13,7 @@ enum RIX {
     static var count = 196
     
     static let cards = [
-        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, ReaverAmbush, /* Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, */ TwilightProphet, VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, */ WorldShaper, /* AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, HuatliRadiantChampion, JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, */ AwakenedAmalgam, /* CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, TravelersAmulet, /* ArchOfOrazca, */ EvolvingWilds, /* ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, AcquaticIncursion, CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, Hornswoggle, InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, /* Negate, NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, SlipperyScoundrel, SoulOfTheRapids, */ SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, ReaverAmbush, /* Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, */ TwilightProphet, VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, GhaltaPrimalHunger, GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, JunglebornPioneer, KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, /* SwiftWarden, */ TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, */ WorldShaper, /* AngrathTheFlameChained, AtzocanSeer, AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, */ HuatliRadiantChampion, /* JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, */ AwakenedAmalgam, /* CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, TravelersAmulet, /* ArchOfOrazca, */ EvolvingWilds, /* ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
     ]
     
     static func RandomCard() -> Card {
@@ -1213,7 +1213,42 @@ enum RIX {
     }
     // 157 Elenda, the Dusk Rose
     // 158 Hadana's Climb // Winged Temple of Orazca
-    // 159 Huatli, Radiant Champion
+    static func HuatliRadiantChampion() -> Card {
+        let huatli = Card(name: "Huatli, Radiant Champion", rarity: .Mythic, set: set, number: 159)
+        huatli.setManaCost("2GW")
+        huatli.setType(.Legendary, .Planeswalker, .Huatli)
+        huatli.addActivatedAbility(
+            string: "{+1}: Put a loyalty counter on ~ for each creature you control.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: {
+                let numCreatures = huatli.getController().getCreatures().count
+                huatli.addCounters(.Loyalty, numCreatures)
+            },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        huatli.addActivatedAbility(
+            string: "{-1}: Target creature gets +X/+X until end of turn, where X is the number of creatures you control.",
+            cost: Cost.RemoveCounters(.Loyalty, 1),
+            effect: TargetedEffect.SingleObject(
+                restriction: { $0.isType(.Creature) },
+                effect: { target in
+                    let numCreatures = huatli.getController().getCreatures().count
+                    target.pump(numCreatures, numCreatures)
+            }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        huatli.addActivatedAbility(
+            string: "{-8}: You get an emblem with \"Whenever a creature enters the battlefield under your control, you may draw a card.\"",
+            cost: Cost.RemoveCounters(.Loyalty, 8),
+            effect: { huatli.getController().createEmblem(HuatliRadiantChampionEmblem()) },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        huatli.startingLoyalty = 3
+        return huatli
+    }
     // 160 Journey to Eternity // Atzal, Cave of Eternity
     // 161 Jungle Creeper
     // 162 Kumena, Tyrant of Orazca
@@ -1427,7 +1462,14 @@ enum RIX {
         return saproling
     }
     // T4 Golem
-    // T5 Huatli Emblem
+    static func HuatliRadiantChampionEmblem() -> Emblem {
+        let huatliEmblem = Emblem(set: set, number: 5)
+        huatliEmblem.addTriggeredAbility(
+            trigger: .CreatureEntersBattlefieldUnderYourControl,
+            effect: { huatliEmblem.getController().drawCard() },
+            effectOptional: true)
+        return huatliEmblem
+    }
     // T6 City's Blessing Marker
 }
 

@@ -681,7 +681,7 @@ class Object: Targetable, Hashable, NSCopying {
     func sacrifice() {
         let _ = self.destroy(ignoreIndestructible: true)
         if isType(.Treasure) {
-            getController().getPermanents().forEach({ $0.triggerAbilities(.YouSacrificeTreasure) })
+            getController().triggerAbilities(.YouSacrificeTreasure)
         }
         triggerAbilities(.ThisLTB)
     }
