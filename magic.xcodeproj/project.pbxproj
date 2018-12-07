@@ -711,6 +711,8 @@
 		98CBD0AF216F3F790085E669 /* m19210full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD0AE216F3F790085E669 /* m19210full.png */; };
 		98CBD0B1216F40660085E669 /* m19227full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD0B0216F40660085E669 /* m19227full.png */; };
 		98CBD0B3216F40E40085E669 /* m19245full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBD0B2216F40E40085E669 /* m19245full.png */; };
+		98CCF7E821BA819C0035C6DB /* m1979full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CCF7E721BA819C0035C6DB /* m1979full.png */; };
+		98CCF7EA21BA81A60035C6DB /* m19t16full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CCF7E921BA81A60035C6DB /* m19t16full.png */; };
 		98CD093B217F8F7300DA91F7 /* AbilitySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD093A217F8F7300DA91F7 /* AbilitySelector.swift */; };
 		98CD093D217FB35100DA91F7 /* lea285full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CD093C217FB35100DA91F7 /* lea285full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
@@ -1561,6 +1563,8 @@
 		98CBD0AE216F3F790085E669 /* m19210full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19210full.png; sourceTree = "<group>"; };
 		98CBD0B0216F40660085E669 /* m19227full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19227full.png; sourceTree = "<group>"; };
 		98CBD0B2216F40E40085E669 /* m19245full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19245full.png; sourceTree = "<group>"; };
+		98CCF7E721BA819C0035C6DB /* m1979full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1979full.png; sourceTree = "<group>"; };
+		98CCF7E921BA81A60035C6DB /* m19t16full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19t16full.png; sourceTree = "<group>"; };
 		98CD093A217F8F7300DA91F7 /* AbilitySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilitySelector.swift; sourceTree = "<group>"; };
 		98CD093C217FB35100DA91F7 /* lea285full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea285full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
@@ -2343,6 +2347,7 @@
 				986EA9582196167B00C3E253 /* m1972full.png */,
 				98CBD090216F30760085E669 /* m1975full.png */,
 				989D9D64219975040024D563 /* m1976full.png */,
+				98CCF7E721BA819C0035C6DB /* m1979full.png */,
 				98E8A05420EAFBF200A951DA /* m1980full.png */,
 				986CD56C21B272890090BC22 /* m1981full.png */,
 				98CBD092216F326B0085E669 /* m1982full.png */,
@@ -2447,6 +2452,7 @@
 				9814E3522195368D00B156F9 /* m19t10full.png */,
 				98478514216537EB004D51A8 /* m19t11full.png */,
 				98CBD08C216F2EDC0085E669 /* m19t14full.png */,
+				98CCF7E921BA81A60035C6DB /* m19t16full.png */,
 				98D1F3AA21B7364200725AA4 /* m19t17full.png */,
 			);
 			path = m19;
@@ -2946,6 +2952,7 @@
 				98B9296B219C21BB0095C4F4 /* xln158full.png in Resources */,
 				98B52219218711910085F5EB /* m19242full.png in Resources */,
 				980512FF219108F4001F831B /* ktk238full.png in Resources */,
+				98CCF7E821BA819C0035C6DB /* m1979full.png in Resources */,
 				98A5B02821A01E1000840C33 /* m1971full.png in Resources */,
 				98333F5D2187E0E0008F43EE /* dom68full.png in Resources */,
 				989D9D7B219982890024D563 /* lea197full.png in Resources */,
@@ -3019,6 +3026,7 @@
 				989D9D7121997E830024D563 /* m19173full.png in Resources */,
 				98A9DFF0219EAC4C00D99213 /* hou56full.png in Resources */,
 				98A5B02221A01C4000840C33 /* m1920full.png in Resources */,
+				98CCF7EA21BA81A60035C6DB /* m19t16full.png in Resources */,
 				986CD57521B2900E0090BC22 /* lea7full.png in Resources */,
 				9814E36B21953F7400B156F9 /* xln73full.png in Resources */,
 				98B87A612175DE4F00F7B32C /* xln146full.png in Resources */,

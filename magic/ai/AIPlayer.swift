@@ -16,7 +16,7 @@ class AIPlayer: Player {
                 getLands().filter({!$0.isTapped}).forEach({ land in
                     if paid < card.getConvertedManaCost() {
                         land.tap()
-                        addMana(color: getColorForLandType(subtype: land.subtypes.first!))
+                        addMana(color: getColorForLandType(subtype: land.subtypes.first ?? .Island ))
                         paid += 1
                     }
                 })

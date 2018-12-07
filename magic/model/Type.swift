@@ -113,6 +113,7 @@ enum Subtype {
     case Spider
     case Spirit
     case Swamp
+    case Tezzeret
     case Thopter
     case Thrull
     case Treasure

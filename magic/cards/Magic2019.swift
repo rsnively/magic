@@ -730,7 +730,38 @@ enum M19 {
     }
     // 77 Surge Mare
     // 78 Switcheroo
-    // 79 Tezzeret, Artifice Master
+    static func TezzeretArtificeMaster() -> Card {
+        let tezzeret = Card(name: "Tezzeret, Artifice Master", rarity: .Mythic, set: set, number: 79)
+        tezzeret.setManaCost("3UU")
+        tezzeret.setType(.Legendary, .Planeswalker, .Tezzeret)
+        tezzeret.addActivatedAbility(
+            string: "{+1}: Create a 1/1 colorless Thopter artifact creature token with flying.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: { tezzeret.getController().createToken(Thopter()) },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        tezzeret.addActivatedAbility(
+            string: "{0}: Draw a card. If you control three or more artifacts, draw two cards instead.",
+            cost: Cost.AddCounters(.Loyalty, 0),
+            effect: {
+                let numArtifacts = tezzeret.getController().getPermanents().filter({ $0.isType(.Artifact) }).count
+                let numCards = numArtifacts >= 3 ? 2 : 1
+                tezzeret.getController().drawCards(numCards)
+            },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        tezzeret.addActivatedAbility(
+            string: "{-9}: You get an emblem with \"At the beginning of your end step, search your library for a permanent card, put it onto the battlefield, then shuffle your library.\"",
+            cost: Cost.RemoveCounters(.Loyalty, 9),
+            effect: { tezzeret.getController().createEmblem(TezzeretArtificeMasterEmblem()) },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        tezzeret.startingLoyalty = 5
+        return tezzeret
+    }
     static func TolarianScholar() -> Card {
         let tolarianScholar = Card(name: "Tolarian Scholar", rarity: .Common, set: set, number: 80)
         tolarianScholar.setManaCost("2U")
@@ -1652,7 +1683,7 @@ enum M19 {
         vivienReid.setManaCost("3GG")
         vivienReid.setType(.Legendary, .Planeswalker, .Vivien)
         vivienReid.addActivatedAbility(
-            string: "{+1}: Look at the top four cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your librrary in a random order.",
+            string: "{+1}: Look at the top four cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
             cost: Cost.AddCounters(.Loyalty, 1),
             effect: {
                 vivienReid.getController().chooseCard(
@@ -1677,7 +1708,7 @@ enum M19 {
             sorcerySpeed: true,
             loyaltyAbility: true)
         vivienReid.addActivatedAbility(
-            string: "{-8}: You get an emblem with \"Creatures you control get +2/+2 and have vigilance, trample, and indestructible.",
+            string: "{-8}: You get an emblem with \"Creatures you control get +2/+2 and have vigilance, trample, and indestructible.\"",
             cost: Cost.RemoveCounters(.Loyalty, 8),
             effect: { vivienReid.getController().createEmblem(VivienReidEmblem()) },
             manaAbility: false,
@@ -2217,8 +2248,20 @@ enum M19 {
         return thopter
     }
     // t15 Ajani Emblem
-    // t16 Tezzeret Emblem
-    
+    static func TezzeretArtificeMasterEmblem() -> Object {
+        let tezzeretEmblem = Emblem(set: set, number: 16)
+        tezzeretEmblem.addTriggeredAbility(
+            trigger: .YourEndStep,
+            effect: { tezzeretEmblem.getController().chooseCard(
+                from: tezzeretEmblem.getController().getLibrary(),
+                restriction: { $0.isPermanent() },
+                action: { chosen, rest in
+                    chosen?.putOntoBattlefield()
+                    tezzeretEmblem.getController().shuffleLibrary()
+            })
+        })
+        return tezzeretEmblem
+    }
     static func VivienReidEmblem() -> Object {
         let vivienEmblem = Emblem(set: set, number: 17)
         vivienEmblem.addStaticAbility({ object in
