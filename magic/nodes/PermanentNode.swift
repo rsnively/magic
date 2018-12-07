@@ -15,32 +15,41 @@ class PermanentNode: CardNode {
     }
     
     override func touchUp(atPoint pos : CGPoint) {
-        touchPoint = nil
-        if !moved {
-            if let abilitySelector = self.abilitySelector {
-                abilitySelector.touchUp(atPoint: convert(pos, from: parent!))
-                return
-            }
-            if Game.shared.isChoosingLegendaryToKeep && card.name == Game.shared.choosingLegendaryToKeep {
-                Game.shared.chooseLegendaryToKeep(card)
-                return
-            }
-            if Game.shared.isTargeting {
-                if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
-                    Game.shared.selectTarget(card)
+        if touching {
+            touchPoint = nil
+            if !moved {
+                if let abilitySelector = self.abilitySelector {
+                    abilitySelector.touchUp(atPoint: convert(pos, from: parent!))
                     return
                 }
-            }
-            if card.canActivateAbilities() {
-                if card.activatedAbilities.count > 1 {
-                    Game.shared.selectingAbilityObject = self.card
-                } else {
-                    let ability = card.activatedAbilities.first!
-                    if card.getController().canAfford(ability.getCost(), source: card) && ability.hasValidTargets() && (!ability.isSorcerySpeed() || card.getController().canCastSorcery()) && !(card.isType(.Planeswalker) && card.hasActivatedLoyaltyAbilityThisTurn) {
-                        card.getController().payFor(ability.getCost(), card)
-                        ability.activate()
+                if Game.shared.isChoosingLegendaryToKeep && card.name == Game.shared.choosingLegendaryToKeep {
+                    Game.shared.chooseLegendaryToKeep(card)
+                    return
+                }
+                if Game.shared.isTargeting {
+                    if Game.shared.targetingEffects.last!.meetsRestrictions(target: card) {
+                        Game.shared.selectTarget(card)
                         return
                     }
+                }
+                if card.canActivateAbilities() {
+                    if card.activatedAbilities.count > 1 {
+                        Game.shared.selectingAbilityObject = self.card
+                    } else {
+                        let ability = card.activatedAbilities.first!
+                        if card.getController().canAfford(ability.getCost(), source: card) && ability.hasValidTargets() && (!ability.isSorcerySpeed() || card.getController().canCastSorcery()) && !(card.isType(.Planeswalker) && card.hasActivatedLoyaltyAbilityThisTurn) {
+                            card.getController().payFor(ability.getCost(), card)
+                            ability.activate()
+                            return
+                        }
+                    }
+                }
+            }
+        } else {
+            if let selectedAttacker = Game.shared.getSelectedAttacker() {
+                if card.canBeAttacked() {
+                    selectedAttacker.attack(card)
+                    return
                 }
             }
         }

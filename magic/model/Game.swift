@@ -11,6 +11,7 @@ class Game: NSObject {
     private var landPlayedThisTurn: Bool
     private var declaringAttackers: Bool
     private var declaringBlockers: Bool
+    private var selectedAttacker: Object?
     private var selectedBlocker: Object?
     var targetingEffects: [TargetedEffect] = []
     var isTargeting: Bool {
@@ -127,6 +128,7 @@ class Game: NSObject {
         landPlayedThisTurn = false
         declaringAttackers = false
         declaringBlockers = false
+        selectedAttacker = nil
         selectedBlocker = nil
         turnNumber = 1
         super.init()
@@ -200,6 +202,22 @@ class Game: NSObject {
     }
     func isDeclaringBlockers() -> Bool {
         return declaringBlockers
+    }
+    
+    func selectAttacker(_ object: Object) {
+        assert(object.canAttack())
+        selectedAttacker = object
+    }
+    func deselectAttacker() {
+        if let attacker = selectedAttacker {
+            if attacker.getAttackTarget() == nil {
+                attacker.attack(attacker.getOpponent())
+            }
+        }
+        selectedAttacker = nil
+    }
+    func getSelectedAttacker() -> Object? {
+        return selectedAttacker
     }
     
     func selectBlocker(_ object: Object) {

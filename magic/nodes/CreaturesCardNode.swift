@@ -7,7 +7,13 @@ class CreaturesCardNode: CardNode {
     override func touchDown(atPoint pos: CGPoint) {
         touchPoint = convert(pos, from:parent!)
         moved = false
-        if card.canBlock() {
+        if card.canAttack() {
+            Game.shared.selectAttacker(self.card)
+        }
+        else if card.isAttacking {
+            card.isAttacking = false
+        }
+        else if card.canBlock() {
             Game.shared.selectBlocker(self.card)
         }
     }
@@ -51,12 +57,6 @@ class CreaturesCardNode: CardNode {
                         return
                     }
                 }
-            }
-        } else if card.canAttack() {
-            if card.isAttacking {
-                card.isAttacking = false
-            } else {
-                card.attack(card.getOpponent())
             }
         }
     }

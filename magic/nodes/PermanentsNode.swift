@@ -51,7 +51,7 @@ class PermanentsNode: SKNode {
     
     func touchUp(atPoint pos:CGPoint) {
         for permanentNode in permanentNodes {
-            if permanentNode.touching {
+            if permanentNode.touching || permanentNode.contains(pos) {
                 permanentNode.touchUp(atPoint:pos)
                 break
             }

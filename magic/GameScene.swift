@@ -20,6 +20,7 @@ class GameScene: SKScene {
     var opponentLifeNode:LifeNode
     var opponentLandsNode:LandsNode
     var opponentCreaturesNode:CreaturesNode
+    var opponentPermanentsNode:PermanentsNode
     
     var commandButtonsNode: CommandButtonsNode
     
@@ -66,6 +67,9 @@ class GameScene: SKScene {
     static func getAllowedPlayerPermanentsSize(gameSize: CGSize) -> CGSize {
         return CGSize(width: gameSize.width * 0.4, height: gameSize.height * 0.2)
     }
+    static func getAllowedOpponentPermanentsSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: gameSize.width * 0.4, height: gameSize.height * 0.2)
+    }
     
     static func getAllowedPlayerCreaturesSize(gameSize: CGSize) -> CGSize {
         return CGSize(width: gameSize.width, height: gameSize.height * 0.2)
@@ -101,6 +105,7 @@ class GameScene: SKScene {
         opponentLifeNode = LifeNode(player: Game.shared.player2, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentLandsNode = LandsNode(lands: [], size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
+        opponentPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedOpponentPermanentsSize(gameSize: size))
         
         commandButtonsNode = CommandButtonsNode(size: GameScene.getCommandButtonSize())
         
@@ -126,6 +131,7 @@ class GameScene: SKScene {
         opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.95)
         opponentLandsNode.position = CGPoint(x: size.width * 0.25, y: size.height * 0.85)
         opponentCreaturesNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
+        opponentPermanentsNode.position = CGPoint(x: size.width * 0.75, y: size.height * 0.85)
         
         commandButtonsNode.position.x = size.width - GameScene.getCommandButtonSize().width / 2.0
         commandButtonsNode.position.y = GameScene.getCommandButtonSize().height * 2.0
@@ -141,6 +147,7 @@ class GameScene: SKScene {
         addChild(opponentLifeNode)
         addChild(opponentLandsNode)
         addChild(opponentCreaturesNode)
+        addChild(opponentPermanentsNode)
         addChild(commandButtonsNode)
         
         stackNode.zPosition = 1
@@ -167,6 +174,7 @@ class GameScene: SKScene {
         opponentLifeNode.touchDown(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchDown(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchDown(atPoint:convert(pos, to:opponentCreaturesNode))
+        opponentPermanentsNode.touchDown(atPoint:convert(pos, to: opponentPermanentsNode))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -186,6 +194,7 @@ class GameScene: SKScene {
         opponentLifeNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchMoved(toPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchMoved(toPoint:convert(pos, to:opponentCreaturesNode))
+        opponentPermanentsNode.touchMoved(toPoint: convert(pos, to:opponentPermanentsNode))
     }
     
     func touchUp(atPoint pos : CGPoint) {
@@ -210,7 +219,9 @@ class GameScene: SKScene {
         opponentLifeNode.touchUp(atPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
+        opponentPermanentsNode.touchUp(atPoint: convert(pos, to:opponentPermanentsNode))
         
+        Game.shared.deselectAttacker()
         Game.shared.deselectBlocker()
         if wasSelectingAbility {
             Game.shared.selectingAbilityObject = nil
@@ -251,6 +262,7 @@ class GameScene: SKScene {
         opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentLandsNode.setLands(lands: Game.shared.player2.getLands(), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode.setCreatures(creatures: Game.shared.player2.getCreatures(), size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
+        opponentPermanentsNode.setPermanents(permanents: Game.shared.player2.getPermanents().filter{ return !$0.isType(.Creature) && !$0.isType(.Land) }, size: GameScene.getAllowedOpponentPermanentsSize(gameSize: size))
         commandButtonsNode.update()
         
         if cardSelectionNode != nil && !Game.shared.isSelectingCards {

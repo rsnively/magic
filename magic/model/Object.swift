@@ -151,6 +151,9 @@ class Object: Targetable, Hashable, NSCopying {
         get { return attacking != nil }
         set (shouldBeFalse) { assert(!shouldBeFalse); attacking = nil }
     }
+    func getAttackTarget() -> Targetable? {
+        return attacking
+    }
     var blocked: Bool = false
     var blockers: [Object] = []
     var blocking: Bool = false
@@ -373,6 +376,8 @@ class Object: Targetable, Hashable, NSCopying {
     func isColorless() -> Bool { return colors.isEmpty }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     func isSpell() -> Bool { return false }
+    
+    func canBeAttacked() -> Bool { return isType(.Planeswalker) }
     
     func tap() {
         if !tapped {
@@ -610,11 +615,11 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func canAttack() -> Bool {
-        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !hasSummoningSickness() && !cantAttack && !defender && !tapped
+        return Game.shared.isDeclaringAttackers() && getController().active && isType(.Creature) && !isAttacking && !hasSummoningSickness() && !cantAttack && !defender && !tapped
     }
     
     func canBlock() -> Bool {
-        return Game.shared.isDeclaringBlockers() && !getController().active && isType(.Creature) && !tapped && attackers.isEmpty
+        return Game.shared.isDeclaringBlockers() && !getController().active && isType(.Creature) && !blocking && !tapped && attackers.isEmpty
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
@@ -698,22 +703,27 @@ class Object: Targetable, Hashable, NSCopying {
         triggerAbilities(.ThisDealtDamage)
     }
     
-    func damage(to recipient: Targetable, _ amount: Int, combatDamage: Bool = false) {
-        recipient.takeDamage(amount)
-        hasDealtDamage(amount: amount)
-        if let objectRecipient = recipient as? Object {
-            if deathtouch {
-                objectRecipient.damagedByDeathtouch = true
+    func damage(to recipient: Targetable?, _ amount: Int, combatDamage: Bool = false) {
+        if let recipient = recipient {
+            recipient.takeDamage(amount)
+            hasDealtDamage(amount: amount)
+            if let objectRecipient = recipient as? Object {
+                if deathtouch {
+                    objectRecipient.damagedByDeathtouch = true
+                }
             }
-        }
-        if let _ = recipient as? Player {
-            if amount > 0 && combatDamage {
-                triggerAbilities(.ThisDealsCombatDamageToPlayer)
+            if let _ = recipient as? Player {
+                if amount > 0 && combatDamage {
+                    triggerAbilities(.ThisDealsCombatDamageToPlayer)
+                }
             }
         }
     }
     
     func attack(_ target: Targetable) {
+        if let objectTarget = target as? Object {
+            assert(objectTarget.isType(.Planeswalker))
+        }
         attacking = target
     }
     
