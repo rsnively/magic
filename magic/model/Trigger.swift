@@ -3,6 +3,7 @@ import Foundation
 enum Trigger {
     case CreatureEntersBattlefieldUnderYourControl
     case CreatureWithFlyingAttacks
+    case DragonEntersBattlefieldUnderYourControl
     case EachEndStep
     case EachUpkeep
     case Landfall

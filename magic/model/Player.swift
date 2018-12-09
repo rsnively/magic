@@ -389,6 +389,9 @@ class Player: Targetable {
         if object.isType(.Creature) {
             triggerAbilities(.CreatureEntersBattlefieldUnderYourControl)
         }
+        if object.isType(.Dragon) {
+            triggerAbilities(.DragonEntersBattlefieldUnderYourControl)
+        }
     }
     
     func bouncePermanent(_ object: Object) {
