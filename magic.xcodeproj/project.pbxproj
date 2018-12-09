@@ -261,6 +261,10 @@
 		985FEE2521BCF5F9005D980E /* xln53full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE2421BCF5F9005D980E /* xln53full.png */; };
 		985FEE2721BD075D005D980E /* m19232full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE2621BD075D005D980E /* m19232full.png */; };
 		985FEE2921BD1E5B005D980E /* grn115full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE2821BD1E5B005D980E /* grn115full.png */; };
+		985FEE2B21BD21A0005D980E /* UltimateMasters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985FEE2A21BD21A0005D980E /* UltimateMasters.swift */; };
+		985FEE2E21BD23AD005D980E /* uma1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE2D21BD23AD005D980E /* uma1full.png */; };
+		985FEE3021BD25D3005D980E /* uma9full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE2F21BD25D3005D980E /* uma9full.png */; };
+		985FEE3221BD2995005D980E /* uma15full.png in Resources */ = {isa = PBXBuildFile; fileRef = 985FEE3121BD2994005D980E /* uma15full.png */; };
 		9862984520D844A100CE8E10 /* LimitedEditionAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */; };
 		9868005C20E5401400E6E730 /* m19261full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868005B20E5401400E6E730 /* m19261full.png */; };
 		9868005E20E5408500E6E730 /* m19277full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9868005D20E5408500E6E730 /* m19277full.png */; };
@@ -1130,6 +1134,10 @@
 		985FEE2421BCF5F9005D980E /* xln53full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln53full.png; sourceTree = "<group>"; };
 		985FEE2621BD075D005D980E /* m19232full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19232full.png; sourceTree = "<group>"; };
 		985FEE2821BD1E5B005D980E /* grn115full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn115full.png; sourceTree = "<group>"; };
+		985FEE2A21BD21A0005D980E /* UltimateMasters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UltimateMasters.swift; sourceTree = "<group>"; };
+		985FEE2D21BD23AD005D980E /* uma1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uma1full.png; sourceTree = "<group>"; };
+		985FEE2F21BD25D3005D980E /* uma9full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uma9full.png; sourceTree = "<group>"; };
+		985FEE3121BD2994005D980E /* uma15full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uma15full.png; sourceTree = "<group>"; };
 		9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedEditionAlpha.swift; sourceTree = "<group>"; };
 		9868005B20E5401400E6E730 /* m19261full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19261full.png; sourceTree = "<group>"; };
 		9868005D20E5408500E6E730 /* m19277full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19277full.png; sourceTree = "<group>"; };
@@ -1766,6 +1774,7 @@
 				986D5C8720D1B853005E944E /* Magic2019.swift */,
 				98DCF16F21769C7300B33E89 /* RivalsOfIxalan.swift */,
 				98DDC6B321ACA7B400EB4639 /* TestCards.swift */,
+				985FEE2A21BD21A0005D980E /* UltimateMasters.swift */,
 			);
 			path = cards;
 			sourceTree = "<group>";
@@ -1964,6 +1973,16 @@
 				9818425720CA0B010068DC91 /* Util.swift */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		985FEE2C21BD239B005D980E /* uma */ = {
+			isa = PBXGroup;
+			children = (
+				985FEE2D21BD23AD005D980E /* uma1full.png */,
+				985FEE2F21BD25D3005D980E /* uma9full.png */,
+				985FEE3121BD2994005D980E /* uma15full.png */,
+			);
+			path = uma;
 			sourceTree = "<group>";
 		};
 		986ED55D215F06F9008B44DC /* dom */ = {
@@ -2334,6 +2353,7 @@
 				98DFD47420D9DC9700B2EEA1 /* m19 */,
 				98DCF17121769CB700B33E89 /* rix */,
 				98DDC6B521ACA7D300EB4639 /* test */,
+				985FEE2C21BD239B005D980E /* uma */,
 				98E176A6217001DE00763F96 /* xln */,
 			);
 			path = card;
@@ -2989,6 +3009,7 @@
 				98ECCF22215CCFCC0030ED51 /* lea157full.png in Resources */,
 				98A5B03821A0245F00840C33 /* rix25full.png in Resources */,
 				98333F652187E823008F43EE /* dom210full.png in Resources */,
+				985FEE3221BD2995005D980E /* uma15full.png in Resources */,
 				986CD57921B2916B0090BC22 /* lea24full.png in Resources */,
 				98A8CA3E2162095F009E92FB /* dom52full.png in Resources */,
 				98B92963219C1D300095C4F4 /* dom226full.png in Resources */,
@@ -3147,6 +3168,7 @@
 				98B522012186FB760085F5EB /* dom238full.png in Resources */,
 				98A19A4221681E4C002A4296 /* dom45full.png in Resources */,
 				989974DB2192E70600B9DB82 /* lea109full.png in Resources */,
+				985FEE3021BD25D3005D980E /* uma9full.png in Resources */,
 				9853388C218A733F004B22F3 /* ktk61full.png in Resources */,
 				98478523216537F9004D51A8 /* m19142full.png in Resources */,
 				98533884218A6DEF004B22F3 /* ktk32full.png in Resources */,
@@ -3225,6 +3247,7 @@
 				980512F6219106EA001F831B /* ktk232full.png in Resources */,
 				98CBD08D216F2EDC0085E669 /* m19t14full.png in Resources */,
 				98B92981219C29120095C4F4 /* rix126full.png in Resources */,
+				985FEE2E21BD23AD005D980E /* uma1full.png in Resources */,
 				98CBD0A3216F3AD10085E669 /* m19147full.png in Resources */,
 				9831999B219A9EA00026317F /* xln122full.png in Resources */,
 				9814E34921952FF300B156F9 /* xln95full.png in Resources */,
@@ -3668,6 +3691,7 @@
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
 				98DCF17021769C7300B33E89 /* RivalsOfIxalan.swift in Sources */,
 				98C769AF21827CB9001BCFF7 /* Targetable.swift in Sources */,
+				985FEE2B21BD21A0005D980E /* UltimateMasters.swift in Sources */,
 				98E8A05120EAF79100A951DA /* Effect.swift in Sources */,
 				982F9B32209BAD33009BBD8B /* Card.swift in Sources */,
 				982F9B2E209BAC81009BBD8B /* Game.swift in Sources */,
