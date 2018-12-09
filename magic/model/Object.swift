@@ -110,6 +110,14 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects().baseHaste }
         set (newHaste) { baseHaste = newHaste }
     }
+    private var baseHexproof: Bool = false
+    var hexproof: Bool {
+        get { return applyContinuousEffects().baseHexproof }
+        set (newHexproof) { baseHexproof = newHexproof }
+    }
+    override func isHexproof() -> Bool {
+        return hexproof
+    }
     private var baseIndestructible: Bool = false
     var indestructible: Bool {
         get { return applyContinuousEffects().baseIndestructible }
@@ -160,6 +168,7 @@ class Object: Targetable, Hashable, NSCopying {
     var attackers: [Object] = []
     var markedDamage: Int = 0
     var damagedByDeathtouch = false
+    var hasDealtDamage = false
     
     private var tapped: Bool = false
     var isTapped: Bool {
@@ -230,6 +239,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.baseFlash = baseFlash
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
+        copy.baseHexproof = baseHexproof
         copy.baseIndestructible = baseIndestructible
         copy.baseLifelink = baseLifelink
         copy.baseReach = baseReach
@@ -248,6 +258,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.attackers = attackers
         copy.markedDamage = markedDamage
         copy.damagedByDeathtouch = damagedByDeathtouch
+        copy.hasDealtDamage = hasDealtDamage
         copy.tapped = tapped
         copy.turnEnteredBattlefield = turnEnteredBattlefield
         
@@ -687,7 +698,10 @@ class Object: Targetable, Hashable, NSCopying {
         triggerAbilities(.ThisLTB)
     }
     
-    private func hasDealtDamage(amount: Int) {
+    private func dealsDamage(amount: Int) {
+        if amount > 0 {
+            hasDealtDamage = true
+        }
         if lifelink {
             getController().gainLife(amount)
         }
@@ -707,7 +721,7 @@ class Object: Targetable, Hashable, NSCopying {
     func damage(to recipient: Targetable?, _ amount: Int, combatDamage: Bool = false) {
         if let recipient = recipient {
             recipient.takeDamage(amount)
-            hasDealtDamage(amount: amount)
+            dealsDamage(amount: amount)
             if let objectRecipient = recipient as? Object {
                 if deathtouch {
                     objectRecipient.damagedByDeathtouch = true

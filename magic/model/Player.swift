@@ -305,6 +305,9 @@ class Player: Targetable {
                 triggerAbilities(.YouCastEnchantmentSpell)
             }
             
+            if card.isSpell() && card.isType(.Merfolk) {
+                triggerAbilities(.YouCastMerfolkSpell)
+            }
             if card.isSpell() && card.isHistoric() {
                 triggerAbilities(.YouCastHistoricSpell)
             }

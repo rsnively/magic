@@ -119,6 +119,7 @@ enum Subtype {
     case Treasure
     case Treefolk
     case Trilobite
+    case Turtle
     case Unicorn
     case Vampire
     case Vedalken

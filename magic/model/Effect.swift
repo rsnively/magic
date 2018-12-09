@@ -126,7 +126,7 @@ class TargetedEffect: Effect {
     
     
     func meetsRestrictions(target: Targetable) -> Bool {
-        return restrictions[targets.count](target)
+        return !target.isHexproof() && restrictions[targets.count](target)
     }
     
     func selectTarget(_ target: Targetable) {
@@ -142,7 +142,7 @@ class TargetedEffect: Effect {
         var targetsValid = true
         for i in 0..<restrictions.count {
             if i < targets.count {
-                if !restrictions[i](targets[i]) {
+                if targets[i].isHexproof() || !restrictions[i](targets[i]) {
                     targetsValid = false
                 }
             }
