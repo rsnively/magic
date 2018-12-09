@@ -315,6 +315,9 @@ class Player: Targetable {
             if card.isSpell() && card.isColor(.Blue) {
                 triggerAbilities(.YouCastBlueSpell)
             }
+            if card.isSpell() && card.isColor(.Red) {
+                triggerAbilities(.YouCastRedSpell)
+            }
             if card.isSpell() && card.colors.count > 1 {
                 triggerAbilities(.YouCastMulticoloredSpell)
             }
