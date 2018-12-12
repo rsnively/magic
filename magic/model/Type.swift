@@ -91,6 +91,7 @@ enum Subtype {
     case Nightmare
     case Ogre
     case Orc
+    case Ox
     case Pegasus
     case Pirate
     case Plains
