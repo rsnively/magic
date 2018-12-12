@@ -5,7 +5,7 @@ enum LEA {
     static var count = 295
     
     static var cards = [
-        /* Animate Wall, */ Armageddon, /* Balance, BenalishHero, BlackWard, BlazeOfGlory, */ Blessing, /* BlueWard, */ Castle, /* CircleOfProtectionBlue, CircleOfProtectionGreen, CircleOfProtectionRed, CircleOfProtectionWhite, ConsecrateLand, Conversion, */ Crusade, /* DeathWard, */ Disenchant, /* Farmstead, GreenWard, GuardianAngel, HealingSalve, */ HolyArmor, HolyStrength, /* IslandSanctuary, */ Karma, Lance, /* MesaPegasus, */ NorthernPaladin, PearledUnicorn, /* PersonalIncarnation, Purelace, RedWard, Resurrection, ReverseDamage, */ Righteousness, /* SamiteHealer, */ SavannahLions, SerraAngel, SwordsToPlowshares, /* VeteranBodyguard, */ WallOfSwords, /* WhiteKnight, WhiteWard, WrathOfGod, */ AirElemental, AncestrallRecall, /* AnimateArtifact, BlueElementalBlast, Braingeyser, Clone, ControlMagic, CopyArtifact, Counterspell, CreatureBond, DrainPower, */ Feedback, Flight, /* Invisibility, */ Jump, /* Lifetap, LordOfAtlantis, MagicalHack, */ MahamotiDjinn, ManaShort, MerfolkOfThePearlTrident, /* PhantasmalForces, PhantasmalTerrain, */ PhantomMonster, /* PirateShip, PowerLeak, PowerSink, */ ProdigalSorcerer, PsionicBlast, /* PsychicVenom, SeaSerpent, SirensCall, SleightOfMind, SpellBlast, Stasis, StealArtifact, Thoughtlace, TimeWalk, Timetwister, Twiddle, */ Unsummon, /* VesuvanDoppleganger, VolcanicEruption, */ WallOfAir, WallOfWater, WaterElemental,
+        /* Animate Wall, */ Armageddon, /* Balance, BenalishHero, BlackWard, BlazeOfGlory, */ Blessing, /* BlueWard, */ Castle, /* CircleOfProtectionBlue, CircleOfProtectionGreen, CircleOfProtectionRed, CircleOfProtectionWhite, ConsecrateLand, Conversion, */ Crusade, /* DeathWard, */ Disenchant, /* Farmstead, GreenWard, GuardianAngel, HealingSalve, */ HolyArmor, HolyStrength, /* IslandSanctuary, */ Karma, Lance, /* MesaPegasus, */ NorthernPaladin, PearledUnicorn, /* PersonalIncarnation, Purelace, RedWard, Resurrection, ReverseDamage, */ Righteousness, /* SamiteHealer, */ SavannahLions, SerraAngel, SwordsToPlowshares, /* VeteranBodyguard, */ WallOfSwords, /* WhiteKnight, WhiteWard, WrathOfGod, */ AirElemental, AncestrallRecall, /* AnimateArtifact, BlueElementalBlast, Braingeyser, Clone, ControlMagic, CopyArtifact, Counterspell, CreatureBond, DrainPower, */ Feedback, Flight, /* Invisibility, */ Jump, /* Lifetap, LordOfAtlantis, MagicalHack, */ MahamotiDjinn, ManaShort, MerfolkOfThePearlTrident, /* PhantasmalForces, PhantasmalTerrain, */ PhantomMonster, /* PirateShip, PowerLeak, PowerSink, */ ProdigalSorcerer, PsionicBlast, /* PsychicVenom, SeaSerpent, SirensCall, SleightOfMind, SpellBlast, Stasis, StealArtifact, Thoughtlace, TimeWalk, Timetwister, Twiddle, */ Unsummon, /* VesuvanDoppleganger, VolcanicEruption, */ WallOfAir, WallOfWater, WaterElemental, /* AnimateDead, */ BadMoon, /* BlackKnight, BogWraith, ContractFromBelow, */ CursedLand, DarkRitual, /* Darkpact, Deathgrip, Deathlace, DemonicAttorney, DemonicHordes, */ DemonicTutor, /* DrainLife, DrudgeSkeletons, EvilPresence, Fear, */ FrozenShade, /* Gloom, HowlFromBeyond, HypnoticSpecter, Lich, LordOfThePit, MindTwist, NetherShadow, NettlingImp, */ Nightmare, /* Paralyze, */ Pestilence, PlagueRats, /* RaiseDead, */ RoyalAssassin, /* Sacrifice, */ ScatheZombies, /* ScavengingGhoul, SengirVampire, Simulacrum, */ Sinkhole, /* Terror, */ UnholyStrength, /* WallOfBone, */ WarpArtifact, Weakness, /* WillOTheWisp, WordOfCommand, ZombieMaster, */
     ]
     
     // 1 Animate Wall
@@ -441,7 +441,24 @@ enum LEA {
     // 94 Black Knight
     // 95 Bog Wraith
     // 96 Contract from Below
-    // 97 Cursed Land
+    static func CursedLand() -> Card {
+        let cursedLand = Card(name: "Cursed Land", rarity: .Uncommon, set: set, number: 97)
+        cursedLand.setManaCost("2BB")
+        cursedLand.setType(.Enchantment, .Aura)
+        cursedLand.addEnchantAbility(
+            restriction: { $0.isType(.Land) },
+            effect: { return $0 })
+        cursedLand.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { cursedLand.damage(to: cursedLand.attachedTo!.getController(), 1) },
+            restriction: {
+                if let attachedTo = cursedLand.attachedTo {
+                    return attachedTo.getController().active
+                }
+                return false
+        })
+        return cursedLand
+    }
     static func DarkRitual() -> Card {
         let darkRitual = Card(name: "Dark Ritual", rarity: .Common, set: set, number: 98)
         darkRitual.setManaCost("B")
@@ -458,7 +475,21 @@ enum LEA {
     // 101 Deathlace
     // 102 Demonic Attorney
     // 103 Demonic Hordes
-    // 104 Demonic Tutor
+    static func DemonicTutor() -> Card {
+        let demonicTutor = Card(name: "Demonic Tutor", rarity: .Uncommon, set: set, number: 104)
+        demonicTutor.setManaCost("1B")
+        demonicTutor.setType(.Sorcery)
+        demonicTutor.addEffect({
+            demonicTutor.getController().chooseCard(
+                from: demonicTutor.getController().getLibrary(),
+                restriction: { _ in return true },
+                action: { chosen, rest in
+                    chosen?.putIntoHand()
+                    demonicTutor.getController().shuffleLibrary()
+            })
+        })
+        return demonicTutor
+    }
     // 105 Drain Life
     // 106 Drudge Skeletons
     // 107 Evil Presence
@@ -484,10 +515,66 @@ enum LEA {
     // 115 Mind Twist
     // 116 Nether Shadow
     // 117 Nettling Imp
-    // 118 Nightmare
+    static func Nightmare() -> Card {
+        let nightmare = Card(name: "Nightmare", rarity: .Rare, set: set, number: 118)
+        nightmare.setManaCost("5B")
+        nightmare.setType(.Creature, .Nightmare, .Horse)
+        nightmare.flying = true
+        nightmare.addStaticAbility(
+            { object in
+                if object == nightmare {
+                    let numSwamps = object.getController().getPermanents().filter({ $0.isType(.Swamp) }).count
+                    object.power = numSwamps
+                    object.toughness = numSwamps
+                }
+                return object
+            }
+            , characteristicDefining: true)
+        nightmare.setFlavorText("The Nightmare arises from its lair in the swamps. As the poisoned land spreads, so does the Nightmare's rage and terrifying strength.")
+        return nightmare
+    }
     // 119 Paralyze
-    // 120 Pestilence
-    // 121 Plague Rats
+    static func Pestilence() -> Card {
+        let pestilence = Card(name: "Pestilence", rarity: .Common, set: set, number: 120)
+        pestilence.setManaCost("2BB")
+        pestilence.setType(.Enchantment)
+        pestilence.addTriggeredAbility(
+            trigger: .EachEndStep,
+            effect: { pestilence.sacrifice() },
+            restriction: { !Game.shared.eitherPlayer({ !$0.getCreatures().isEmpty }) })
+        pestilence.addActivatedAbility(
+            string: "{B}: ~ deals 1 damage to each creature and each player.",
+            cost: Cost.Mana("B"),
+            effect: {
+                Game.shared.bothPlayers({ player in
+                    player.getCreatures().forEach({ creature in
+                        pestilence.damage(to: creature, 1)
+                    })
+                    pestilence.damage(to: player, 1)
+                })
+        })
+        return pestilence
+    }
+    static func PlagueRats() -> Card {
+        let name = "Plague Rats"
+        let plagueRats = Card(name: name, rarity: .Common, set: set, number: 121)
+        plagueRats.setManaCost("2B")
+        plagueRats.setType(.Creature, .Rat)
+        plagueRats.addStaticAbility(
+            { object in
+                if object == plagueRats {
+                    let myRats = object.getController().getCreatures().filter({ $0.getName() == name }).count
+                    let oppRats = object.getOpponent().getCreatures().filter({ $0.getName() == name }).count
+                    let numRats = myRats + oppRats
+                    object.power = numRats
+                    object.toughness = numRats
+                }
+                return object
+            }
+            , characteristicDefining: true)
+        plagueRats.setFlavorText("\"Should you a Rat to madness tease\nWhy ev'n a Rat may plague you...\"\n--Samuel Coleridge, \"Recantation\"")
+        return plagueRats
+    }
     // 122 Raise Dead
     static func RoyalAssassin() -> Card {
         let royalAssassin = Card(name: "Royal Assassin", rarity: .Rare, set: set, number: 123)
@@ -529,10 +616,51 @@ enum LEA {
         return sinkhole
     }
     // 130 Terror
-    // 131 Unholy Strength
+    static func UnholyStrength() -> Card {
+        let unholyStrength = Card(name: "Unholy Strength", rarity: .Common, set: set, number: 131)
+        unholyStrength.setManaCost("B")
+        unholyStrength.setType(.Enchantment, .Aura)
+        unholyStrength.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 1
+                return object
+        })
+        return unholyStrength
+    }
     // 132 Wall of Bone
-    // 133 Warp Artifact
-    // 134 Weakness
+    static func WarpArtifact() -> Card {
+        let warpArtifact = Card(name: "Warp Artifact", rarity: .Rare, set: set, number: 133)
+        warpArtifact.setManaCost("BB")
+        warpArtifact.setType(.Enchantment, .Aura)
+        warpArtifact.addEnchantAbility(
+            restriction: { $0.isType(.Artifact) },
+            effect: { return $0 })
+        warpArtifact.addTriggeredAbility(
+            trigger: .EachUpkeep,
+            effect: { warpArtifact.damage(to: warpArtifact.attachedTo!.getController(), 1) },
+            restriction: {
+                if let attachedTo = warpArtifact.attachedTo {
+                    return attachedTo.getController().active
+                }
+                return false
+        })
+        return warpArtifact
+    }
+    static func Weakness() -> Card {
+        let weakness = Card(name: "Weakness", rarity: .Common, set: set, number: 134)
+        weakness.setManaCost("B")
+        weakness.setType(.Enchantment, .Aura)
+        weakness.addEnchantAbility(
+            restriction: { $0.isType(.Creature) },
+            effect: { object in
+                object.power = object.getBasePower() - 2
+                object.toughness = object.getBaseToughness() - 1
+                return object
+        })
+        return weakness
+    }
     // 135 Will-O-The-Wisp
     // 136 Word of Command
     // 137 Zombie Master
