@@ -885,6 +885,7 @@
 		98FB88642192740700A410C8 /* lea9full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FB88632192740700A410C8 /* lea9full.png */; };
 		98FB88662192756F00A410C8 /* lea16full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FB88652192756F00A410C8 /* lea16full.png */; };
 		98FE5D1821B64B9F0007DE6C /* Emblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE5D1721B64B9F0007DE6C /* Emblem.swift */; };
+		98FE7E0D21C1DF3D004A89BC /* xln176full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FE7E0C21C1DF3C004A89BC /* xln176full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1768,6 +1769,7 @@
 		98FB88632192740700A410C8 /* lea9full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea9full.png; sourceTree = "<group>"; };
 		98FB88652192756F00A410C8 /* lea16full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea16full.png; sourceTree = "<group>"; };
 		98FE5D1721B64B9F0007DE6C /* Emblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emblem.swift; sourceTree = "<group>"; };
+		98FE7E0C21C1DF3C004A89BC /* xln176full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln176full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2654,6 +2656,7 @@
 				983199A8219AA30C0026317F /* xln172full.png */,
 				9814E3762195429D00B156F9 /* xln174full.png */,
 				98B87A642175E04000F7B32C /* xln175full.png */,
+				98FE7E0C21C1DF3C004A89BC /* xln176full.png */,
 				98B87A662175E12600F7B32C /* xln178full.png */,
 				98B9296E219C236F0095C4F4 /* xln180full.png */,
 				98B92970219C24010095C4F4 /* xln182full.png */,
@@ -3070,6 +3073,7 @@
 				986CD57321B28E390090BC22 /* rix175full.png in Resources */,
 				9814E34B2195301D00B156F9 /* xln220full.png in Resources */,
 				98C9D32B21ABD8D600C90E50 /* rix112full.png in Resources */,
+				98FE7E0D21C1DF3D004A89BC /* xln176full.png in Resources */,
 				98B87A672175E12600F7B32C /* xln178full.png in Resources */,
 				986CD57121B28D430090BC22 /* grn163full.png in Resources */,
 				98B6FFA12181061400BC6FBD /* grn156full.png in Resources */,
