@@ -6,6 +6,7 @@ protocol Effect {
     func numPossibleTargets() -> Int
     func numRequiredTargets() -> Int
     func resolve() -> Void
+    func resetTargets() -> Void
 }
 
 class UntargetedEffect: Effect {
@@ -33,6 +34,8 @@ class UntargetedEffect: Effect {
     func resolve() {
         effect()
     }
+    
+    func resetTargets() {}
 }
 
 class TargetedEffect: Effect {
@@ -174,6 +177,10 @@ class TargetedEffect: Effect {
         if targetsValid {
             effect(targets)
         }
+        resetTargets()
+    }
+    
+    func resetTargets() {
         targets.removeAll()
     }
 }

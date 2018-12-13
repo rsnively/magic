@@ -64,7 +64,7 @@ class Game: NSObject {
     
     var resolvingOptionalEffect: Effect?
     var isResolvingOptionalEffect: Bool {
-    return resolvingOptionalEffect != nil
+        return resolvingOptionalEffect != nil
     }
     
     var isChoosingCardToDiscard: Bool {

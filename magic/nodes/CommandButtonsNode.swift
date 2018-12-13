@@ -127,6 +127,7 @@ class CommandButtonsNode: SKNode {
             touchingNotOkay = false
             notOkayButton.color = SKColor.red
             if notOkayButton.contains(pos) {
+                Game.shared.resolvingOptionalEffect?.resetTargets()
                 Game.shared.resolvingOptionalEffect = nil
             }
         }
