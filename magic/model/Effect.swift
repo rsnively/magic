@@ -105,6 +105,25 @@ class TargetedEffect: Effect {
         let targetableEffect: (Targetable) -> Void = { effect($0 as! Player) }
         return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect, distinctTargets: false, targetOptional: targetOptional, effectOptional: effectOptional)
     }
+    static func MultiPlayer(restrictions: [(Player) -> Bool], effect: @escaping ([Player]) -> Void, distinctTargets: Bool = false, requiredTargets: Int? = nil, effectOptional: Bool = false) -> TargetedEffect {
+        var targetableRestrictions: [(Targetable) -> Bool] = []
+        for restriction in restrictions {
+            targetableRestrictions.append({ targetable in
+                if let targetablePlayer = targetable as? Player {
+                    return restriction(targetablePlayer)
+                }
+                return false
+            })
+        }
+        let targetableEffect: ([Targetable]) -> Void = { targets in
+            var playerTargets: [Player] = []
+            for target in targets {
+                playerTargets.append(target as! Player)
+            }
+            effect(playerTargets)
+        }
+        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect, distinctTargets: distinctTargets, requiredTargets: requiredTargets, effectOptional: effectOptional)
+    }
     
     func isOptional() -> Bool {
         return optional

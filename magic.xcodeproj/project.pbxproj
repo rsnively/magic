@@ -886,6 +886,7 @@
 		98FB88662192756F00A410C8 /* lea16full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FB88652192756F00A410C8 /* lea16full.png */; };
 		98FE5D1821B64B9F0007DE6C /* Emblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE5D1721B64B9F0007DE6C /* Emblem.swift */; };
 		98FE7E0D21C1DF3D004A89BC /* xln176full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FE7E0C21C1DF3C004A89BC /* xln176full.png */; };
+		98FE7E0F21C1E140004A89BC /* xln3full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FE7E0E21C1E140004A89BC /* xln3full.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1770,6 +1771,7 @@
 		98FB88652192756F00A410C8 /* lea16full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea16full.png; sourceTree = "<group>"; };
 		98FE5D1721B64B9F0007DE6C /* Emblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emblem.swift; sourceTree = "<group>"; };
 		98FE7E0C21C1DF3C004A89BC /* xln176full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln176full.png; sourceTree = "<group>"; };
+		98FE7E0E21C1E140004A89BC /* xln3full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln3full.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2558,6 +2560,7 @@
 			isa = PBXGroup;
 			children = (
 				98333F6C2187EF12008F43EE /* xln1full.png */,
+				98FE7E0E21C1E140004A89BC /* xln3full.png */,
 				98C6D23C219DEBC800AF1754 /* xln4full.png */,
 				98E176AA2170191900763F96 /* xln6full.png */,
 				98E176B82170191B00763F96 /* xln7full.png */,
@@ -2951,6 +2954,7 @@
 				98C2FFD721A5E7EE006565ED /* m195full.png in Resources */,
 				98ECCF2F215CCFCC0030ED51 /* lea220full.png in Resources */,
 				98C98469217A91DE00903CED /* xln195full.png in Resources */,
+				98FE7E0F21C1E140004A89BC /* xln3full.png in Resources */,
 				98FA8E602156BCF900EF5203 /* grn60full.png in Resources */,
 				98A9E00C219ED45900D99213 /* hou118full.png in Resources */,
 				9877169721903A330009758F /* ktk135full.png in Resources */,
