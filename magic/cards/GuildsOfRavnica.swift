@@ -115,7 +115,6 @@ enum GRN {
         girdForBattle.setManaCost("W")
         girdForBattle.setType(.Sorcery)
         girdForBattle.addEffect(TargetedEffect.MultiObject(
-            // TODO: Need to be distinct
             restrictions: [{ $0.isType(.Creature) },
                            { $0.isType(.Creature) }],
             effect: { targets in
@@ -123,6 +122,7 @@ enum GRN {
                     target.addCounter(.PlusOnePlusOne)
                 }
             },
+            distinctTargets: true,
             requiredTargets: 0))
         girdForBattle.setFlavorText("\"You won't need the sword drills, your shields, or my blessing. You'll fight for Sunhome with the truth in your heat.\"\n--Aurelia.")
         return girdForBattle
@@ -178,6 +178,7 @@ enum GRN {
                 restrictions: [{ $0.isType(.Creature) && $0.getController() !== intrusivePackbeast.getController() },
                                { $0.isType(.Creature) && $0.getController() !== intrusivePackbeast.getController() }],
                 effect: { $0.forEach({ $0.tap() }) },
+                distinctTargets: true,
                 requiredTargets: 0))
         intrusivePackbeast.setFlavorText("Good at carrying things. Really good at knocking them down.")
         intrusivePackbeast.power = 3

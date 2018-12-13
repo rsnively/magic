@@ -547,7 +547,8 @@ enum KTK {
                 targets[0].addCounter(.PlusOnePlusOne)
                 targets[1].addCounters(.PlusOnePlusOne, 2)
                 targets[2].addCounters(.PlusOnePlusOne, 3)
-        }))
+            },
+            distinctTargets: true))
         incrementalGrowth.setFlavorText("The bonds of family cross the boundaries of race.")
         return incrementalGrowth
     }

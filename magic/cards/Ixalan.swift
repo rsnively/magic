@@ -1182,7 +1182,6 @@ enum XLN {
         dualShot.setManaCost("R")
         dualShot.setType(.Instant)
         dualShot.addEffect(TargetedEffect.MultiObject(
-            // TODO: Need to be different targets
             restrictions: [{ $0.isType(.Creature) },
                            { $0.isType(.Creature) }],
             effect: { targets in
@@ -1190,6 +1189,7 @@ enum XLN {
                     dualShot.damage(to: target, 1)
                 }
             },
+            distinctTargets: true,
             requiredTargets: 0))
         dualShot.setFlavorText("\"Through me the rage of Tilonalli burns twice as bright.\"")
         return dualShot
