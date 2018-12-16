@@ -21,6 +21,10 @@ class SpellStack: NSObject {
         Game.shared.checkStateBasedActions()
     }
     
+    func contains(_ object: Object) -> Bool {
+        return stackObjects.contains(condition: { $0 == object })
+    }
+    
     func resolveTop() {
         if let top = stackObjects.pop() {
             top.getController().resolve(object: top)

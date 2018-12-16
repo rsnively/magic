@@ -295,7 +295,29 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func getZone() -> Zone {
-        return .Stack
+        if getController().getPermanents().contains(self) {
+            return .Battlefield
+        }
+        if getController().getHand().contains(self) {
+            return .Hand
+        }
+        if getController().getGraveyard().contains(self) {
+            return .Graveyard
+        }
+        if getController().getLibrary().contains(self) {
+            return .Library
+        }
+        if Game.shared.exile.contains(self) {
+            return .Exile
+        }
+        if Game.shared.theStack.contains(self) {
+            return .Stack
+        }
+        if Game.shared.commandZone.contains(self) {
+            return .Command
+        }
+        assert(false)
+        return .Command
     }
     
     private func setRevealedToOwner(_ revealed: Bool) {

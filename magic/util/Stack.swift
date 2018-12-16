@@ -19,6 +19,10 @@ struct Stack<T> {
         return elements
     }
     
+    func contains(condition: (T) -> Bool) -> Bool {
+        return elements.contains(where: condition)
+    }
+    
     mutating func push(_ element: T) {
         elements.append(element)
     }
