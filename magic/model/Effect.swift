@@ -86,6 +86,21 @@ class TargetingRestriction {
         )
     }
     
+    static func AnyTarget(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction(
+            restriction: { targetable in
+                if let object = targetable as? Object {
+                    return object.isType(.Creature) || object.isType(.Planeswalker)
+                }
+                if let _ = targetable as? Player {
+                    return true
+                }
+                return false
+            },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetPlayer(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SinglePlayer(
             restriction: { _ in return true },
@@ -144,16 +159,6 @@ class TargetedEffect: Effect {
     private var optional: Bool
     
     private var targets: [Targetable] = []
-    
-    static func AnyTarget(_ targetable: Targetable) -> Bool {
-        if let object = targetable as? Object {
-            return object.isType(.Creature) || object.isType(.Planeswalker)
-        }
-        if let _ = targetable as? Player {
-            return true
-        }
-        return false
-    }
     
     init(
         restrictions: [TargetingRestriction],

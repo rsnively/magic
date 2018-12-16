@@ -108,17 +108,17 @@ class Game: NSObject {
         }
         
         for _ in 0..<5 {
-//            deck1.append(GRN.Plains())
-//            deck1.append(GRN.Island())
-//            deck1.append(GRN.Swamp())
-//            deck1.append(GRN.Mountain())
-//            deck1.append(GRN.Forest())
-//
-//            deck2.append(GRN.Plains())
-//            deck2.append(GRN.Island())
-//            deck2.append(GRN.Swamp())
-//            deck2.append(GRN.Mountain())
-//            deck2.append(GRN.Forest())
+            deck1.append(GRN.Plains())
+            deck1.append(GRN.Island())
+            deck1.append(GRN.Swamp())
+            deck1.append(GRN.Mountain())
+            deck1.append(GRN.Forest())
+
+            deck2.append(GRN.Plains())
+            deck2.append(GRN.Island())
+            deck2.append(GRN.Swamp())
+            deck2.append(GRN.Mountain())
+            deck2.append(GRN.Forest())
         }
         
         player1 = Player(deck: deck1)
