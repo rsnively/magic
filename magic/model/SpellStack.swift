@@ -26,4 +26,8 @@ class SpellStack: NSObject {
             top.getController().resolve(object: top)
         }
     }
+    
+    func counter(_ object: Object) {
+        stackObjects.remove(condition: { $0 == object })
+    }
 }

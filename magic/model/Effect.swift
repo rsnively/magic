@@ -4,7 +4,6 @@ protocol Effect {
     func isOptional() -> Bool
     func requiresTarget() -> Bool
     func numPossibleTargets() -> Int
-    func numRequiredTargets() -> Int
     func resolve() -> Void
     func resetTargets() -> Void
 }
@@ -13,7 +12,10 @@ class UntargetedEffect: Effect {
     private var effect:() -> Void
     private var optional: Bool
     
-    init(effect:@escaping () -> Void, optional: Bool = false) {
+    init(
+        effect: @escaping () -> Void,
+        optional: Bool = false
+    ) {
         self.effect = effect
         self.optional = optional
     }
@@ -27,9 +29,6 @@ class UntargetedEffect: Effect {
     func numPossibleTargets() -> Int {
         return 0
     }
-    func numRequiredTargets() -> Int {
-        return 0
-    }
     
     func resolve() {
         effect()
@@ -38,15 +37,114 @@ class UntargetedEffect: Effect {
     func resetTargets() {}
 }
 
-class TargetedEffect: Effect {
+class TargetingRestriction {
+    private var restriction: (Targetable) -> Bool
+    private var zones: [Zone]
     private var optional: Bool
-    private var restrictions: [(Targetable) -> Bool]
-    private var effect: ([Targetable]) -> Void
-    private var targets: [Targetable] = []
-    private var distinctTargets: Bool
-    private var requiredTargets: Int
     
-    static func AnyPlayer(_ player: Player) -> Bool { return true }
+    init(
+        restriction: @escaping (Targetable) -> Bool,
+        zones: [Zone],
+        optional: Bool = false
+    ) {
+        self.restriction = restriction
+        self.zones = zones
+        self.optional = optional
+    }
+    
+    static func SingleObject(
+        restriction: @escaping (Object) -> Bool,
+        zones: [Zone],
+        optional: Bool = false
+    ) -> TargetingRestriction {
+        let targetableRestriction: (Targetable) -> Bool = { target in
+            if let objectTarget = target as? Object {
+                return restriction(objectTarget)
+            }
+            return false
+        }
+        return TargetingRestriction(
+            restriction: targetableRestriction,
+            zones: zones,
+            optional: optional
+        )
+    }
+    static func SinglePlayer(
+        restriction: @escaping (Player) -> Bool,
+        optional: Bool = false
+    ) -> TargetingRestriction {
+        let targetableRestriction: (Targetable) -> Bool = { target in
+            if let playerTarget = target as? Player {
+                return restriction(playerTarget)
+            }
+            return false
+        }
+        return TargetingRestriction(
+            restriction: targetableRestriction,
+            zones: [],
+            optional: optional
+        )
+    }
+    
+    static func TargetPlayer(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SinglePlayer(
+            restriction: { _ in return true },
+            optional: optional
+        )
+    }
+    
+    static func TargetArtifact(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Artifact) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    static func TargetCreature(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Creature) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    static func TargetLand(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Land) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    static func TargetArtifactOrEnchantment(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    
+    func meetsRestriction(target: Targetable) -> Bool {
+        if let playerTarget = target as? Player {
+            return restriction(playerTarget)
+        }
+        else if let objectTarget = target as? Object {
+            return zones.contains(objectTarget.getZone()) && restriction(objectTarget)
+        }
+        return false
+    }
+    
+    func isOptional() -> Bool {
+        return optional
+    }
+}
+
+class TargetedEffect: Effect {
+    private var restrictions: [TargetingRestriction]
+    private var effect: ([Targetable?]) -> Void
+    private var distinctTargets: Bool
+    private var optional: Bool
+    
+    private var targets: [Targetable] = []
+    
     static func AnyTarget(_ targetable: Targetable) -> Bool {
         if let object = targetable as? Object {
             return object.isType(.Creature) || object.isType(.Planeswalker)
@@ -57,75 +155,109 @@ class TargetedEffect: Effect {
         return false
     }
     
-    init(restrictions: [(Targetable) -> Bool], effect: @escaping ([Targetable]) -> Void, distinctTargets: Bool = false, requiredTargets: Int?, effectOptional: Bool = false) {
-        self.optional = effectOptional
+    init(
+        restrictions: [TargetingRestriction],
+        effect: @escaping ([Targetable?]) -> Void,
+        distinctTargets: Bool = false,
+        effectOptional: Bool = false
+    ) {
         self.restrictions = restrictions
         self.effect = effect
         self.distinctTargets = distinctTargets
-        self.requiredTargets = requiredTargets ?? restrictions.count
+        self.optional = effectOptional
     }
     
-    convenience init(restriction: @escaping (Targetable) -> Bool, effect: @escaping (Targetable) -> Void, distinctTargets: Bool = false, targetOptional: Bool = false, effectOptional: Bool = false) {
-        self.init(restrictions: [restriction], effect: { objects in effect(objects.first!) }, distinctTargets: distinctTargets, requiredTargets: targetOptional ? 0 : 1, effectOptional: effectOptional)
+    convenience init(
+        restriction: TargetingRestriction,
+        effect: @escaping (Targetable?) -> Void,
+        effectOptional: Bool = false
+    ) {
+        self.init(
+            restrictions: [restriction],
+            effect: { objects in effect(objects.first!) },
+            distinctTargets: false,
+            effectOptional: effectOptional
+        )
     }
     
-    static func SingleObject(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Void, targetOptional: Bool = false, effectOptional: Bool = false) -> TargetedEffect {
-        let targetableRestriction: (Targetable) -> Bool = { targetable in
-            if let targetableObject = targetable as? Object {
-                return restriction(targetableObject)
-            }
-            return false
-        }
-        let targetableEffect: (Targetable) -> Void = { effect($0 as! Object) }
-        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect, distinctTargets: false, targetOptional: targetOptional, effectOptional: effectOptional)
-    }
-    static func MultiObject(restrictions: [(Object) -> Bool], effect: @escaping ([Object]) -> Void, distinctTargets: Bool = false, requiredTargets: Int? = nil, effectOptional: Bool = false) -> TargetedEffect {
-        var targetableRestrictions: [(Targetable) -> Bool] = []
-        for restriction in restrictions {
-            targetableRestrictions.append({ targetable in
-                if let targetableObject = targetable as? Object {
-                    return restriction(targetableObject)
+    static func SingleObject(
+        restriction: TargetingRestriction,
+        effect: @escaping (Object) -> Void,
+        effectOptional: Bool = false
+    ) -> TargetedEffect {
+        let targetableEffect: (Targetable?) -> Void = {
+            if let target = $0 {
+                if let object = target as? Object {
+                    effect(object)
                 }
-                return false
-            })
+            }
         }
-        let targetableEffect: ([Targetable]) -> Void = { targets in
-            var objectTargets: [Object] = []
+        return TargetedEffect(
+            restriction: restriction,
+            effect: targetableEffect,
+            effectOptional: effectOptional
+        )
+    }
+    
+    static func MultiObject(
+        restrictions: [TargetingRestriction],
+        effect: @escaping ([Object?]) -> Void,
+        distinctTargets: Bool = false,
+        effectOptional: Bool = false
+    ) -> TargetedEffect {
+        let targetableEffect: ([Targetable?]) -> Void = { targets in
+            var objectTargets: [Object?] = []
             for target in targets {
-                objectTargets.append(target as! Object)
+                objectTargets.append(target as? Object)
             }
             effect(objectTargets)
         }
-        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect, distinctTargets: distinctTargets, requiredTargets: requiredTargets, effectOptional: effectOptional)
+        return TargetedEffect(
+            restrictions: restrictions,
+            effect: targetableEffect,
+            distinctTargets: distinctTargets,
+            effectOptional: effectOptional
+        )
     }
-    static func SinglePlayer(restriction: @escaping (Player) -> Bool, effect: @escaping (Player) -> Void, targetOptional: Bool = false, effectOptional: Bool = false) -> TargetedEffect {
-        let targetableRestriction: (Targetable) -> Bool = { targetable in
-            if let targetablePlayer = targetable as? Player {
-                return restriction(targetablePlayer)
-            }
-            return false
-        }
-        let targetableEffect: (Targetable) -> Void = { effect($0 as! Player) }
-        return TargetedEffect(restriction: targetableRestriction, effect: targetableEffect, distinctTargets: false, targetOptional: targetOptional, effectOptional: effectOptional)
-    }
-    static func MultiPlayer(restrictions: [(Player) -> Bool], effect: @escaping ([Player]) -> Void, distinctTargets: Bool = false, requiredTargets: Int? = nil, effectOptional: Bool = false) -> TargetedEffect {
-        var targetableRestrictions: [(Targetable) -> Bool] = []
-        for restriction in restrictions {
-            targetableRestrictions.append({ targetable in
-                if let targetablePlayer = targetable as? Player {
-                    return restriction(targetablePlayer)
+    
+    static func SinglePlayer(
+        restriction: TargetingRestriction,
+        effect: @escaping (Player) -> Void,
+        effectOptional: Bool = false
+    ) -> TargetedEffect {
+        let targetableEffect: (Targetable?) -> Void = {
+            if let target = $0 {
+                if let player = target as? Player {
+                    effect(player)
                 }
-                return false
-            })
+            }
         }
-        let targetableEffect: ([Targetable]) -> Void = { targets in
-            var playerTargets: [Player] = []
+        return TargetedEffect(
+            restriction: restriction,
+            effect: targetableEffect,
+            effectOptional: effectOptional
+        )
+    }
+    
+    static func MultiPlayer(
+        restrictions: [TargetingRestriction],
+        effect: @escaping ([Player?]) -> Void,
+        distinctTargets: Bool = false,
+        effectOptional: Bool = false
+    ) -> TargetedEffect {
+        let targetableEffect: ([Targetable?]) -> Void = { targets in
+            var playerTargets: [Player?] = []
             for target in targets {
-                playerTargets.append(target as! Player)
+                playerTargets.append(target as? Player)
             }
             effect(playerTargets)
         }
-        return TargetedEffect(restrictions: targetableRestrictions, effect: targetableEffect, distinctTargets: distinctTargets, requiredTargets: requiredTargets, effectOptional: effectOptional)
+        return TargetedEffect(
+            restrictions: restrictions,
+            effect: targetableEffect,
+            distinctTargets: distinctTargets,
+            effectOptional: effectOptional
+        )
     }
     
     func isOptional() -> Bool {
@@ -140,12 +272,14 @@ class TargetedEffect: Effect {
         return restrictions.count
     }
     
-    func numRequiredTargets() -> Int {
-        return requiredTargets
-    }
-    
+    // TODO: Skipping optional target in middle?
     func canFinishTargeting() -> Bool {
-        return targets.count >= requiredTargets
+        for index in targets.count ..< restrictions.count {
+            if !restrictions[index].isOptional() {
+                return false
+            }
+        }
+        return true
     }
     
     func targetAlreadySelected(_ target: Targetable) -> Bool {
@@ -153,7 +287,7 @@ class TargetedEffect: Effect {
     }
     
     func meetsRestrictions(target: Targetable) -> Bool {
-        return !target.isHexproof() && restrictions[targets.count](target) && !(distinctTargets && targetAlreadySelected(target))
+        return !target.isHexproof() && restrictions[targets.count].meetsRestriction(target: target) && !(distinctTargets && targetAlreadySelected(target))
     }
     
     func selectTarget(_ target: Targetable) {
@@ -169,7 +303,7 @@ class TargetedEffect: Effect {
         var targetsValid = true
         for i in 0..<restrictions.count {
             if i < targets.count {
-                if targets[i].isHexproof() || !restrictions[i](targets[i]) {
+                if targets[i].isHexproof() || !restrictions[i].meetsRestriction(target: targets[i]) {
                     targetsValid = false
                 }
             }

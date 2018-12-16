@@ -26,4 +26,10 @@ struct Stack<T> {
     mutating func pop() -> T? {
         return elements.popLast()
     }
+    
+    mutating func remove(condition: (T) -> Bool) {
+        if let index = elements.firstIndex(where: condition) {
+            elements.remove(at: index)
+        }
+    }
 }

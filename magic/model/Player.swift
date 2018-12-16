@@ -28,11 +28,11 @@ class Player: Targetable {
         }
         
         for _ in 0..<1 {
-            permanents.append(GRN.Plains())
-            permanents.append(GRN.Island())
-            permanents.append(GRN.Swamp())
-            permanents.append(GRN.Mountain())
-            permanents.append(GRN.Forest())
+//            permanents.append(GRN.Plains())
+//            permanents.append(GRN.Island())
+//            permanents.append(GRN.Swamp())
+//            permanents.append(GRN.Mountain())
+//            permanents.append(GRN.Forest())
         }
         graveyard.forEach({ $0.setOwner(owner: self); $0.reveal() })
         hand.forEach({ $0.setOwner(owner: self); $0.revealToOwner() })

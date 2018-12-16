@@ -108,17 +108,17 @@ class Game: NSObject {
         }
         
         for _ in 0..<5 {
-            deck1.append(GRN.Plains())
-            deck1.append(GRN.Island())
-            deck1.append(GRN.Swamp())
-            deck1.append(GRN.Mountain())
-            deck1.append(GRN.Forest())
-            
-            deck2.append(GRN.Plains())
-            deck2.append(GRN.Island())
-            deck2.append(GRN.Swamp())
-            deck2.append(GRN.Mountain())
-            deck2.append(GRN.Forest())
+//            deck1.append(GRN.Plains())
+//            deck1.append(GRN.Island())
+//            deck1.append(GRN.Swamp())
+//            deck1.append(GRN.Mountain())
+//            deck1.append(GRN.Forest())
+//
+//            deck2.append(GRN.Plains())
+//            deck2.append(GRN.Island())
+//            deck2.append(GRN.Swamp())
+//            deck2.append(GRN.Mountain())
+//            deck2.append(GRN.Forest())
         }
         
         player1 = Player(deck: deck1)
@@ -135,13 +135,14 @@ class Game: NSObject {
         player1.active = true
         player1.hasPriority = true
         
-        let totalCardsInStandard = GRN.count + M19.count + DOM.count + RIX.count + XLN.count
-        let standardCardsImplemented = GRN.cards.count + M19.cards.count + DOM.cards.count + RIX.cards.count + XLN.cards.count
-        let percentage: Float = Float(standardCardsImplemented) / Float(totalCardsInStandard) * 100.0
-        print("STANDARD")
-        print("========")
-        print("Total: " + String(totalCardsInStandard))
-        print("Implemented: " + String(standardCardsImplemented) + "(" + String(format: "%.2f", percentage) + "%)")
+        //TODO
+//        let totalCardsInStandard = GRN.count + M19.count + DOM.count + RIX.count + XLN.count
+//        let standardCardsImplemented = GRN.cards.count + M19.cards.count + DOM.cards.count + RIX.cards.count + XLN.cards.count
+//        let percentage: Float = Float(standardCardsImplemented) / Float(totalCardsInStandard) * 100.0
+//        print("STANDARD")
+//        print("========")
+//        print("Total: " + String(totalCardsInStandard))
+//        print("Implemented: " + String(standardCardsImplemented) + "(" + String(format: "%.2f", percentage) + "%)")
     }
     
     func getActivePlayer() -> Player {

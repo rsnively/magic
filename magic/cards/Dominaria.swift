@@ -33,7 +33,7 @@ enum DOM {
         adamantWill.setManaCost("1W")
         adamantWill.setType(.Instant)
         adamantWill.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(2, 2)
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -92,7 +92,9 @@ enum DOM {
         blessedLight.setManaCost("4W")
         blessedLight.setType(.Instant)
         blessedLight.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) || $0.isType(.Enchantment) },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) || $0.isType(.Enchantment) },
+                zones: [.Battlefield]),
             effect: { $0.exile() }))
         blessedLight.setFlavorText("Enchanted by mage-smiths and blessed by priests, Benalish windows let in light and cast out darkness.")
         return blessedLight
@@ -142,7 +144,9 @@ enum DOM {
         dAvenantTrapper.addTriggeredAbility(
             trigger: .YouCastHistoricSpell,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.getController() !== dAvenantTrapper.getController() },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== dAvenantTrapper.getController() },
+                    zones: [.Battlefield]),
                 effect: { $0.tap() }))
         dAvenantTrapper.setFlavorText("\"Go swiftly, clever arrows, and teach\nThe philosophy of stillness.\"\n--D'Avenant verse")
         dAvenantTrapper.power = 3
@@ -179,7 +183,9 @@ enum DOM {
         gideonsReproach.setManaCost("1W")
         gideonsReproach.setType(.Instant)
         gideonsReproach.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && ($0.isAttacking || $0.blocking) },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && ($0.isAttacking || $0.blocking ) },
+                zones: [.Battlefield]),
             effect: { target in gideonsReproach.damage(to: target, 4) }))
         gideonsReproach.setFlavorText("On Amonkhet, Gideon lost both his sural and his faith in himself. But he can still throw a punch, and he still knows a bad guy when he sees one.")
         return gideonsReproach
@@ -212,7 +218,7 @@ enum DOM {
         invokeTheDivine.setManaCost("2W")
         invokeTheDivine.setType(.Instant)
         invokeTheDivine.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            restriction: TargetingRestriction.TargetArtifactOrEnchantment(),
             effect: { target in
                 let _ = target.destroy()
                 invokeTheDivine.getController().gainLife(4)
@@ -286,7 +292,9 @@ enum DOM {
         pegasusCourser.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isAttacking && $0.isType(.Creature) && $0 != pegasusCourser },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != pegasusCourser && $0.isAttacking && $0.isType(.Creature) },
+                    zones: [.Battlefield]),
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
                     return object
@@ -336,27 +344,30 @@ enum DOM {
         triumphOfGerrard.addTriggeredAbility(
             trigger: .ThisGetsLoreCounter,
             effect: TargetedEffect.SingleObject(
-                restriction: { potentialTarget in
-                    let greatestPower = triumphOfGerrard.getController().getCreatures().map({ return $0.getPower() }).max() ?? 0
-                    return potentialTarget.isType(.Creature) && potentialTarget.getPower() == greatestPower
-            }, effect: { target in
-                let loreCounters = triumphOfGerrard.getCounters(.Lore)
-                if loreCounters == 1 || loreCounters == 2 {
-                    target.addCounter(.PlusOnePlusOne)
-                }
-                else if loreCounters == 3 {
-                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                        object.flying = true
-                        object.firstStrike = true
-                        object.lifelink = true
-                        return object
-                    }))
-                }
-                
-                if loreCounters >= 3 {
-                    triumphOfGerrard.sacrifice()
-                }
-            }))
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { potentialTarget in
+                        let greatestPower = triumphOfGerrard.getController().getCreatures().map({ return $0.getPower() }).max() ?? 0
+                        return potentialTarget.isType(.Creature) && potentialTarget.getPower() == greatestPower
+                    },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    let loreCounters = triumphOfGerrard.getCounters(.Lore)
+                    if loreCounters == 1 || loreCounters == 2 {
+                        target.addCounter(.PlusOnePlusOne)
+                    }
+                    else if loreCounters == 3 {
+                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                            object.flying = true
+                            object.firstStrike = true
+                            object.lifelink = true
+                            return object
+                        }))
+                    }
+                    
+                    if loreCounters >= 3 {
+                        triumphOfGerrard.sacrifice()
+                    }
+        }))
         return triumphOfGerrard
     }
     // 39 Urza's Ruinous Blast
@@ -368,7 +379,7 @@ enum DOM {
         arcaneFlight.setManaCost("U")
         arcaneFlight.setType(.Enchantment, .Aura)
         arcaneFlight.addEnchantAbility(
-            restriction: { $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
                 object.power = object.getBasePower() + 1
                 object.toughness = object.getBaseToughness() + 1
@@ -385,7 +396,7 @@ enum DOM {
         befuddle.setManaCost("2U")
         befuddle.setType(.Instant)
         befuddle.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(-4, 0)
                 befuddle.getController().drawCard()
@@ -414,7 +425,7 @@ enum DOM {
         diligentExcavator.addTriggeredAbility(
             trigger: .YouCastHistoricSpell,
             effect: TargetedEffect.SinglePlayer(
-                restriction: TargetedEffect.AnyPlayer,
+                restriction: TargetingRestriction.TargetPlayer(),
                 effect: { $0.mill(2) }))
         diligentExcavator.setFlavorText("Archaeologists don't just dig in the dirt. The excavate time, scraping off the years grain by grain.")
         diligentExcavator.power = 1
@@ -438,7 +449,7 @@ enum DOM {
         homaridExplorer.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SinglePlayer(
-                restriction: TargetedEffect.AnyPlayer,
+                restriction: TargetingRestriction.TargetPlayer(),
                 effect: { $0.mill(4) }))
         homaridExplorer.setFlavorText("\"Homarids spread northward from Sarpadia as the climate cooled, raiding coastal settlements for supplies.\"\n--Time of Ice")
         homaridExplorer.power = 3
@@ -459,7 +470,9 @@ enum DOM {
         rescue.setManaCost("U")
         rescue.setType(.Instant)
         rescue.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.getController() === rescue.getController() },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isPermanent() && $0.getController() === rescue.getController() },
+                zones: [.Battlefield]),
             effect: { target in target.bounce() }))
         rescue.setFlavorText("With just a few seconds to escape, Deryan saved Hurkyl's editions on restoring physical objects from ash.")
         return rescue
@@ -517,7 +530,7 @@ enum DOM {
         weightOfMemory.setManaCost("3UU")
         weightOfMemory.setType(.Sorcery)
         weightOfMemory.addEffect(TargetedEffect.SinglePlayer(
-            restriction: TargetedEffect.AnyPlayer,
+            restriction: TargetingRestriction.TargetPlayer(),
             effect: { target in
                 weightOfMemory.getController().drawCards(3)
                 target.mill(3)
@@ -532,7 +545,7 @@ enum DOM {
         blessingOfBelzenlok.setManaCost("B")
         blessingOfBelzenlok.setType(.Instant)
         blessingOfBelzenlok.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(2, 1)
                 if target.isType(.Legendary) {
@@ -569,7 +582,9 @@ enum DOM {
         castDown.setManaCost("1B")
         castDown.setType(.Instant)
         castDown.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) && !$0.isType(.Legendary) },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && !$0.isType(.Legendary) },
+                zones: [.Battlefield]),
             effect: { target in let _ = target.destroy() }))
         castDown.setFlavorText("\"Your life is finished, your name lost, and your work forgotten. It is as though Mazeura never existed.\"\n--Chainer's Torment")
         return castDown
@@ -620,7 +635,7 @@ enum DOM {
         divest.setManaCost("B")
         divest.setType(.Sorcery)
         divest.addEffect(TargetedEffect.SinglePlayer(
-            restriction: TargetedEffect.AnyPlayer,
+            restriction: TargetingRestriction.TargetPlayer(),
             effect: { target in
                 divest.getController().chooseCard(
                     from: target.getHand(),
@@ -665,7 +680,7 @@ enum DOM {
         eviscerate.setManaCost("3B")
         eviscerate.setType(.Sorcery)
         eviscerate.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in let _ = target.destroy() }))
         eviscerate.setFlavorText("\"Fear the dark if you must, but don't mistake sunlight for safety.\"\n--Josu Vess")
         return eviscerate
@@ -686,7 +701,7 @@ enum DOM {
         fungalInfection.setManaCost("B")
         fungalInfection.setType(.Instant)
         fungalInfection.addEffect(TargetedEffect.SingleObject(
-            restriction: { return $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(-1, -1)
                 fungalInfection.getController().createToken(Saproling())
@@ -778,7 +793,7 @@ enum DOM {
         ferventStrike.setManaCost("R")
         ferventStrike.setType(.Instant)
         ferventStrike.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(1, 0)
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -808,7 +823,9 @@ enum DOM {
         firefistAdept.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Creature) && $0.getController() !== firefistAdept.getController() },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { return $0.isType(.Creature) && $0.getController() !== firefistAdept.getController() },
+                    zones: [.Battlefield]),
                 effect: { target in
                     let numWizards = firefistAdept.getController().getCreatures().filter({ return $0.isType(.Wizard) }).count
                     firefistAdept.damage(to: target, numWizards)
@@ -885,7 +902,9 @@ enum DOM {
         keldonWarcaller.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Saga) && $0.getController() === keldonWarcaller.getController() },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Saga) && $0.getController() === keldonWarcaller.getController() },
+                    zones: [.Battlefield]),
                 effect: { $0.addCounter(.Lore) }))
         keldonWarcaller.setFlavorText("\"The Mountain gave the Flame to Kradak to light the furnaces of his people's hearts. The wanderers became Keldons, and he the first warlord.\"\n--\"The Flame of Keld\"")
         keldonWarcaller.power = 2
@@ -898,7 +917,7 @@ enum DOM {
         radiatingLightning.setManaCost("3R")
         radiatingLightning.setType(.Instant)
         radiatingLightning.addEffect(TargetedEffect.SinglePlayer(
-            restriction: TargetedEffect.AnyPlayer,
+            restriction: TargetingRestriction.TargetPlayer(),
             effect: { target in
                 radiatingLightning.damage(to: target, 3)
                 target.getCreatures().forEach({ radiatingLightning.damage(to: $0, 1) })
@@ -912,7 +931,9 @@ enum DOM {
         runAmok.setManaCost("1R")
         runAmok.setType(.Instant)
         runAmok.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.isAttacking },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.isAttacking },
+                zones: [.Battlefield]),
             effect: { target in
                 target.pump(3, 3)
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
@@ -950,13 +971,20 @@ enum DOM {
         ancientAnimus.setManaCost("1G")
         ancientAnimus.setType(.Instant)
         ancientAnimus.addEffect(TargetedEffect.MultiObject(
-            restrictions: [{ $0.isType(.Creature) && $0.getController() === ancientAnimus.getController()},
-                           { $0.isType(.Creature) && $0.getController() !== ancientAnimus.getController()}],
+            restrictions: [
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === ancientAnimus.getController() },
+                    zones: [.Battlefield]),
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== ancientAnimus.getController() },
+                    zones: [.Battlefield])
+            ],
             effect: { targets in
-                if targets[0].isType(.Legendary) {
-                    targets[0].addCounter(.PlusOnePlusOne)
+                if let ourCreature = targets[0] {
+                    if let theirCreature = targets[1] {
+                        ourCreature.fight(theirCreature)
+                    }
                 }
-                targets[0].fight(targets[1])
         }))
         ancientAnimus.setFlavorText("Multani's mind grasped for consciousness as rage itself rebuilt his body.")
         return ancientAnimus
@@ -966,7 +994,7 @@ enum DOM {
         arborArmament.setManaCost("G")
         arborArmament.setType(.Instant)
         arborArmament.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) },
+            restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.addCounter(.PlusOnePlusOne)
                 target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
@@ -1094,7 +1122,9 @@ enum DOM {
         pierceTheSky.setManaCost("1G")
         pierceTheSky.setType(.Instant)
         pierceTheSky.addEffect(TargetedEffect.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.flying },
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.flying },
+                zones: [.Battlefield]),
             effect: { pierceTheSky.damage(to: $0, 7) }))
         pierceTheSky.setFlavorText("Llanowar elves conceal their ballistae in the upper canopy of the forest, ready to clear the skies of any intruder.")
         return pierceTheSky
@@ -1299,7 +1329,7 @@ enum DOM {
             string: "{6}, {T}, Sacrifice ~: Target creature gets -5/-5 until end of turn.",
             cost: Cost.Mana("6").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) },
+                restriction: TargetingRestriction.TargetCreature(),
                 effect: { $0.pump(-5, -5) }))
         bloodtallowCandle.setFlavorText("\"Bring me an angel feather, and I will give you one death in return. There can be no turning back once the candle is lit.\"\n--Whisper, blood liturgist")
         return bloodtallowCandle
@@ -1363,7 +1393,9 @@ enum DOM {
             string: "{1}, {T}: Tap target artifact, creature, or land.",
             cost: Cost.Mana("1").Tap(),
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { return $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Land) },
+                    zones: [.Battlefield]),
                 effect: { target in target.tap() }))
         icyManipulator.setFlavorText("Ice may thaw, but malice never does.")
         return icyManipulator
@@ -1460,7 +1492,9 @@ enum DOM {
         sparringConstruct.addTriggeredAbility(
             trigger: .ThisDies,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.getController() === sparringConstruct.getController() },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === sparringConstruct.getController() },
+                    zones: [.Battlefield]),
                 effect: { $0.addCounter(.PlusOnePlusOne) }))
         sparringConstruct.setFlavorText("The trainers were a gift of gratitude from the wizards of Tolaria West to the knights of New Benalia for their aid during the Talas Incursion.")
         sparringConstruct.power = 1
@@ -1491,7 +1525,7 @@ enum DOM {
         voltaicServant.addTriggeredAbility(
             trigger: .YourEndStep,
             effect: TargetedEffect.SingleObject(
-                restriction: { return $0.isType(.Artifact) },
+                restriction: TargetingRestriction.TargetArtifact(),
                 effect: { $0.untap() }))
         voltaicServant.setFlavorText("A missing piece in search of a puzzle.")
         voltaicServant.power = 1
@@ -1667,7 +1701,7 @@ enum DOM {
             string: "{4}{R}, {T}, Sacrifice ~: Destroy target land.",
             cost: Cost.Mana("4R").Tap().Sacrifice(),
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Land) },
+                restriction: TargetingRestriction.TargetLand(),
                 effect: { let _ = $0.destroy() }))
         return memorialToWar
     }

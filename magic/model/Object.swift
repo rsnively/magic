@@ -46,7 +46,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     var attachedTo: Object?
-    var auraRestriction: ((Object) -> Bool)?
+    var auraRestriction: TargetingRestriction?
     
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
@@ -294,6 +294,10 @@ class Object: Targetable, Hashable, NSCopying {
         return controller!.getOpponent()
     }
     
+    func getZone() -> Zone {
+        return .Stack
+    }
+    
     private func setRevealedToOwner(_ revealed: Bool) {
         revealedToOwner = revealed
     }
@@ -465,11 +469,13 @@ class Object: Targetable, Hashable, NSCopying {
         return true
     }
     
-    func addEnchantAbility(restriction: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object) {
+    func addEnchantAbility(restriction: TargetingRestriction, effect: @escaping (Object) -> Object) {
         self.auraRestriction = restriction
+        
         addEffect(TargetedEffect.SingleObject(
             restriction: restriction,
             effect: { self.attachTo($0) }))
+        
         addStaticAbility({ object in
             if self.isAttachedTo(object) {
                 return effect(object)
@@ -487,7 +493,10 @@ class Object: Targetable, Hashable, NSCopying {
         return false
     }
     func canEnchant(_ object: Object) -> Bool {
-        return self.isType(.Aura) && self.auraRestriction != nil && auraRestriction!(object)
+        if let restriction = self.auraRestriction {
+            return self.isType(.Aura) && restriction.meetsRestriction(target: object)
+        }
+        return false
     }
     
     func addEquipAbility(string: String, cost: Cost, effect: @escaping (Object) -> Object, restriction: @escaping (Object) -> Bool = { _ in return true }) {
@@ -495,7 +504,10 @@ class Object: Targetable, Hashable, NSCopying {
             string: string,
             cost: cost,
             effect: TargetedEffect.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.getController() === self.getController() && restriction($0) },
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === self.getController() && restriction($0) },
+                    zones: [.Battlefield]
+                ),
                 effect: { self.attachTo($0) }),
             manaAbility: false,
             sorcerySpeed: true)
@@ -668,7 +680,13 @@ class Object: Targetable, Hashable, NSCopying {
         getOwner().putOnTopOfLibrary(self)
     }
     
+    func counter() {
+        assert(getZone() == .Stack)
+        
+    }
+    
     func discard() {
+        assert(getZone() == .Hand)
         getOwner().discardCard(self)
     }
     
