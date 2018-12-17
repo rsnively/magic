@@ -122,6 +122,13 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetEnchantment(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Enchantment) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetLand(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isType(.Land) },
@@ -133,6 +140,13 @@ class TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { !$0.isType(.Land) && $0.isPermanent() },
             zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    static func TargetSpell(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isSpell() },
+            zones: [.Stack],
             optional: optional
         )
     }
