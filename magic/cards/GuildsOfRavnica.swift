@@ -1084,10 +1084,8 @@ enum GRN {
                     zones: [.Battlefield])
             ],
             effect: { targets in
-                if let myCreature = targets[0] {
-                    if let theirCreature = targets[1] {
-                        myCreature.fight(theirCreature)
-                    }
+                if let myCreature = targets[0], let theirCreature = targets[1] {
+                    myCreature.fight(theirCreature)
                 }
         }))
         preyUpon.setFlavorText("\"Light up the dark to find your way, and the dark may seek you out.\"\n--Zalin the Gutter Bard")
@@ -1484,10 +1482,8 @@ enum GRN {
                         return object
                     }))
                 })
-                if let myCreature = targets[0] {
-                    if let theirCreature = targets[1] {
-                        myCreature.fight(theirCreature)
-                    }
+                if let myCreature = targets[0], let theirCreature = targets[1] {
+                    myCreature.fight(theirCreature)
                 }
         }))
         undercityUprising.setFlavorText("\"Now it's your turn to hide.\"\n--Vraska")

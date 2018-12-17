@@ -11,9 +11,9 @@ class Card: Object {
         if r == 1 {
             return GRN.RandomCard()
         }
-//        if r == 2 {
-//            return M19.RandomCard()
-//        }
+        if r == 2 {
+            return M19.RandomCard()
+        }
 //        if r == 3 {
             return DOM.RandomCard()
 //        }

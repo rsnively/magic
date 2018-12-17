@@ -129,6 +129,13 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetNonlandPermanent(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { !$0.isType(.Land) && $0.isPermanent() },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetArtifactOrEnchantment(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },

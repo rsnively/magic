@@ -980,10 +980,8 @@ enum DOM {
                     zones: [.Battlefield])
             ],
             effect: { targets in
-                if let ourCreature = targets[0] {
-                    if let theirCreature = targets[1] {
-                        ourCreature.fight(theirCreature)
-                    }
+                if let myCreature = targets[0], let theirCreature = targets[1] {
+                    myCreature.fight(theirCreature)
                 }
         }))
         ancientAnimus.setFlavorText("Multani's mind grasped for consciousness as rage itself rebuilt his body.")
