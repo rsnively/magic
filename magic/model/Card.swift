@@ -14,13 +14,13 @@ class Card: Object {
         if r == 2 {
             return M19.RandomCard()
         }
-//        if r == 3 {
+        if r == 3 {
             return DOM.RandomCard()
-//        }
-//        if r == 4 {
-//            return RIX.RandomCard()
-//        }
-//        return XLN.RandomCard()
+        }
+        if r == 4 {
+            return RIX.RandomCard()
+        }
+        return XLN.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {

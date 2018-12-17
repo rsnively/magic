@@ -143,6 +143,13 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetPermanent(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isPermanent() },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetSpell(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isSpell() },
