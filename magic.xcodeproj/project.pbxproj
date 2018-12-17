@@ -663,6 +663,7 @@
 		98BEF4C82178FA5A00144C51 /* rix140full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C72178FA5A00144C51 /* rix140full.png */; };
 		98BEF4CA2178FAB500144C51 /* rix143full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4C92178FAB500144C51 /* rix143full.png */; };
 		98BEF4CE21792B1800144C51 /* grn124full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BEF4CD21792B1800144C51 /* grn124full.png */; };
+		98C245D521C855EF008780DB /* RavnicaAllegiance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C245D421C855EF008780DB /* RavnicaAllegiance.swift */; };
 		98C269C721899A7A00911698 /* grn131full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269C621899A7900911698 /* grn131full.png */; };
 		98C269C921899BAC00911698 /* grn168full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269C821899BAC00911698 /* grn168full.png */; };
 		98C269CB21899EA100911698 /* dom16full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C269CA21899EA100911698 /* dom16full.png */; };
@@ -1550,6 +1551,7 @@
 		98BEF4C72178FA5A00144C51 /* rix140full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix140full.png; sourceTree = "<group>"; };
 		98BEF4C92178FAB500144C51 /* rix143full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix143full.png; sourceTree = "<group>"; };
 		98BEF4CD21792B1800144C51 /* grn124full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn124full.png; sourceTree = "<group>"; };
+		98C245D421C855EF008780DB /* RavnicaAllegiance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RavnicaAllegiance.swift; sourceTree = "<group>"; };
 		98C269C621899A7900911698 /* grn131full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn131full.png; sourceTree = "<group>"; };
 		98C269C821899BAC00911698 /* grn168full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn168full.png; sourceTree = "<group>"; };
 		98C269CA21899EA100911698 /* dom16full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom16full.png; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 				98C269DD2189AA6400911698 /* KhansOfTarkir.swift */,
 				9862984420D844A100CE8E10 /* LimitedEditionAlpha.swift */,
 				986D5C8720D1B853005E944E /* Magic2019.swift */,
+				98C245D421C855EF008780DB /* RavnicaAllegiance.swift */,
 				98DCF16F21769C7300B33E89 /* RivalsOfIxalan.swift */,
 				98DDC6B321ACA7B400EB4639 /* TestCards.swift */,
 				985FEE2A21BD21A0005D980E /* UltimateMasters.swift */,
@@ -3745,6 +3748,7 @@
 				9862984520D844A100CE8E10 /* LimitedEditionAlpha.swift in Sources */,
 				9818425220CA03D50068DC91 /* Kaladesh.swift in Sources */,
 				98DCF17021769C7300B33E89 /* RivalsOfIxalan.swift in Sources */,
+				98C245D521C855EF008780DB /* RavnicaAllegiance.swift in Sources */,
 				98C769AF21827CB9001BCFF7 /* Targetable.swift in Sources */,
 				985FEE2B21BD21A0005D980E /* UltimateMasters.swift in Sources */,
 				98E8A05120EAF79100A951DA /* Effect.swift in Sources */,
