@@ -150,6 +150,14 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetArtifactOrEnchantment(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
+    
     static func TargetSpell(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isSpell() },
@@ -157,10 +165,17 @@ class TargetingRestriction {
             optional: optional
         )
     }
-    static func TargetArtifactOrEnchantment(optional: Bool = false) -> TargetingRestriction {
+    static func TargetCreatureSpell(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
-            zones: [.Battlefield],
+            restriction: { $0.isType(.Creature) && $0.isSpell() },
+            zones: [.Stack],
+            optional: optional
+        )
+    }
+    static func TargetNonCreatureSpell(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { !$0.isType(.Creature) && $0.isSpell() },
+            zones: [.Stack],
             optional: optional
         )
     }
