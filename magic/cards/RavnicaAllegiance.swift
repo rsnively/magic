@@ -1,5 +1,14 @@
 import Foundation
 
+extension Object {
+    func afterlife(_ amount: Int) {
+        addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { self.getController().createToken(RNA.Spirit()) }
+        )
+    }
+}
+
 enum RNA {
     static var set = "rna"
     static var count = 259
@@ -7,6 +16,8 @@ enum RNA {
     static let cards = [
         
         GrowthSpiral,
+        
+        ImperiousOligarch,
         
         Mortify,
         
@@ -25,7 +36,6 @@ enum RNA {
     // 109 Rix Maadi Reveler
     
     static func GrowthSpiral() -> Card {
-        // TODO Card image
         let growthSpiral = Card(name: "Growth Spiral", rarity: .Rare, set: set, number: 178)
         growthSpiral.setManaCost("GU")
         growthSpiral.setType(.Instant)
@@ -38,7 +48,6 @@ enum RNA {
                     chosen?.putOntoBattlefield()
             })
         })
-        // TODO is this the flavor text on non-promo version?
         growthSpiral.setFlavorText("Cyclical and spiral patterns are the specialty of the Gyre Clade, which seeks to revitalize the cycles of nature.")
         return growthSpiral
     }
@@ -47,7 +56,16 @@ enum RNA {
     // 181
     // 182
     // 183
-    // 184
+    static func ImperiousOligarch() -> Card {
+        let imperiousOligarch = Card(name: "Imperious Oligarch", rarity: .Common, set: set, number: 184)
+        imperiousOligarch.setManaCost("WB")
+        imperiousOligarch.setType(.Creature, .Human, .Cleric)
+        imperiousOligarch.afterlife(1)
+        imperiousOligarch.setFlavorText("The rights of ghosts are strictly protected under Orzhov bylaws, and those who enforce them can count on the ghosts' assistance.")
+        imperiousOligarch.power = 2
+        imperiousOligarch.toughness = 1
+        return imperiousOligarch
+    }
     // 185
     // 186
     // 187
@@ -56,7 +74,6 @@ enum RNA {
     // 190
     // 191
     static func Mortify() -> Card {
-        // TODO Card image
         let mortify = Card(name: "Mortify", rarity: .Rare, set: set, number: 192)
         mortify.setManaCost("1WB")
         mortify.setType(.Instant)
@@ -66,7 +83,6 @@ enum RNA {
                 zones: [.Battlefield]),
             effect: { let _ = $0.destroy() }
         ))
-        // TODO is this the flavor text on non-promo version?
         mortify.setFlavorText("\"Your debt is erased.\"\n--Hilgar, Orzhov euthanist")
         return mortify
     }
@@ -76,7 +92,6 @@ enum RNA {
     // 196
     // 196 Rafter Demon
     static func RakdosFirewheeler() -> Card {
-        // TODO Card image
         let rakdosFirewheeler = Card(name: "Rakdos Firewheeler", rarity: .Uncommon, set: set, number: 197)
         rakdosFirewheeler.setManaCost("BBRR")
         rakdosFirewheeler.setType(.Creature, .Human, .Rogue)
@@ -98,7 +113,7 @@ enum RNA {
                         rakdosFirewheeler.damage(to: target, 2)
                     }
         }))
-        // TODO Is there flavor text on non-promo version?
+        rakdosFirewheeler.setFlavorText("Ever wonder why you don't see an old Rakdos cultist?")
         rakdosFirewheeler.power = 4
         rakdosFirewheeler.toughness = 3
         return rakdosFirewheeler
@@ -115,4 +130,14 @@ enum RNA {
     // 207 Simic Ascendancy
     
     // 232 Gate Colossus
+    
+    static func Spirit() -> Token {
+        let spirit = Token(name: "Spirit", set: set, number: 10)
+        spirit.colors = [.White, .Black]
+        spirit.setType(.Creature, .Spirit)
+        spirit.flying = true
+        spirit.power = 1
+        spirit.toughness = 1
+        return spirit
+    }
 }
