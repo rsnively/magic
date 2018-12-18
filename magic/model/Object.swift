@@ -703,8 +703,9 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func counter() {
+        // TODO: Right now you can counter yourself, but this will be cleaned up once targeting happens before you get added to the stack
         assert(getZone() == .Stack)
-        
+        getOwner().counter(self)
     }
     
     func discard() {

@@ -31,7 +31,7 @@ class SpellStack: NSObject {
         }
     }
     
-    func counter(_ object: Object) {
+    func remove(_ object: Object) {
         stackObjects.remove(condition: { $0 == object })
     }
 }

@@ -355,6 +355,7 @@ class Player: Targetable {
     }
     
     private func removeObjectFromCurrentZone(_ object: Object) {
+        // TODO: Use getZone?
         if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
             Game.shared.exile.remove(at: exileIndex)
         }
@@ -370,7 +371,10 @@ class Player: Targetable {
         else if let permanentIndex = permanents.firstIndex(where: { $0 == object }) {
             permanents.remove(at: permanentIndex)
         }
-        // TODO: The stack
+        else if Game.shared.theStack.contains(object) {
+            Game.shared.theStack.remove(object)
+        }
+        // TODO: Command zone? assert?
     }
     
     func addPermanent(_ object: Object, tapped: Bool = false) {
@@ -407,6 +411,11 @@ class Player: Targetable {
         removeObjectFromCurrentZone(object)
         object.revealToOwner()
         object.getOwner().hand.append(object)
+    }
+    
+    func counter(_ object: Object) {
+        removeObjectFromCurrentZone(object)
+        object.getOwner().graveyard.append(object)
     }
     
     func discard(_ amount: Int = 1) {
