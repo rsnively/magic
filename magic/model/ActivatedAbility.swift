@@ -117,7 +117,7 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     func hasValidTargets() -> Bool {
         if let effect = effects.first {
             if let targetedEffect = effect as? TargetedEffect {
-                return Game.shared.hasTargets(targetedEffect)
+                return targetedEffect.canFinishTargeting() || Game.shared.hasTargets(targetedEffect)
             }
         }
         return false
