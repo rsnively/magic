@@ -235,12 +235,20 @@ class Game: NSObject {
     }
     
     func hasTargets(_ effect: TargetedEffect) -> Bool {
+        if theStack.containsWhere({ effect.meetsRestrictions(target: $0) }) {
+            return true
+        }
         return eitherPlayer({ player in
             if effect.meetsRestrictions(target: player) {
                 return true
             }
             for permanent in player.getPermanents() {
                 if effect.meetsRestrictions(target: permanent) {
+                    return true
+                }
+            }
+            for card in player.getGraveyard() {
+                if effect.meetsRestrictions(target: card) {
                     return true
                 }
             }

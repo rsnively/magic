@@ -62,7 +62,7 @@ class GraveyardNode: SKNode {
             return
         }
         if isShowing {
-            for cardNode in cardNodes {
+            for cardNode in cardNodes.reversed() {
                 if cardNode.contains(pos) {
                     cardNode.touchDown(atPoint:pos)
                     break
@@ -84,7 +84,7 @@ class GraveyardNode: SKNode {
     
     func touchUp(atPoint pos:CGPoint) {
         if isShowing {
-            for cardNode in cardNodes {
+            for cardNode in cardNodes.reversed() {
                 if cardNode.contains(pos) || cardNode.touching {
                     cardNode.touchUp(atPoint:pos)
                 }

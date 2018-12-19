@@ -25,6 +25,10 @@ class SpellStack: NSObject {
         return stackObjects.contains(condition: { $0 == object })
     }
     
+    func containsWhere(_ condition: (Object) -> Bool) -> Bool{
+        return stackObjects.contains(condition: condition)
+    }
+    
     func resolveTop() {
         if let top = stackObjects.pop() {
             top.getController().resolve(object: top)
