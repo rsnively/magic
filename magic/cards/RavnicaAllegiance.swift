@@ -1,6 +1,19 @@
 import Foundation
 
 extension Object {
+    
+    func adapt(_ amount: Int, _ cost: Cost) {
+        addActivatedAbility(
+            string: "Adapt " + String(amount),
+            cost: cost,
+            effect: {
+                if self.getCounters(.PlusOnePlusOne) == 0 {
+                    self.addCounters(.PlusOnePlusOne, amount)
+                }
+            }
+        )
+    }
+    
     func afterlife(_ amount: Int) {
         addTriggeredAbility(
             trigger: .ThisDies,
@@ -15,6 +28,8 @@ enum RNA {
     
     static let cards = [
         
+        Aeromunculus,
+        
         GrowthSpiral,
         
         ImperiousOligarch,
@@ -22,6 +37,8 @@ enum RNA {
         Mortify,
         
         RakdosFirewheeler,
+        
+        ZeganaUtopianSpeaker,
         
     ]
     
@@ -34,6 +51,18 @@ enum RNA {
     // 107 Light Up the Stage
     // 108
     // 109 Rix Maadi Reveler
+    
+    static func Aeromunculus() -> Card {
+        let aeromunculus = Card(name: "Aeromunculus", rarity: .Common, set: set, number: 152)
+        aeromunculus.setManaCost("1GW")
+        aeromunculus.setType(.Creature, .Homunculus, .Mutant)
+        aeromunculus.flying = true
+        aeromunculus.adapt(1, Cost.Mana("2GU"))
+        aeromunculus.setFlavorText("\"The absence of binocular vision imposes certain challenges for a flying creature, which are overcome via echolocation.\"\n--Simic research notes")
+        aeromunculus.power = 2
+        aeromunculus.toughness = 3
+        return aeromunculus
+    }
     
     static func GrowthSpiral() -> Card {
         let growthSpiral = Card(name: "Growth Spiral", rarity: .Rare, set: set, number: 178)
@@ -128,6 +157,31 @@ enum RNA {
     // 205
     // 206
     // 207 Simic Ascendancy
+    // 208
+    // 209
+    // 210
+    // 211
+    // 212
+    // 213
+    static func ZeganaUtopianSpeaker() -> Card {
+        let zegana = Card(name: "Zegana, Utopian Speaker", rarity: .Rare, set: set, number: 214)
+        zegana.setManaCost("2GU")
+        zegana.setType(.Legendary, .Creature, .Merfolk, .Wizard)
+        zegana.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { zegana.getController().drawCard() },
+            restriction: { !zegana.getController().getCreatures().filter({ $0 != zegana && $0.hasCounter(.PlusOnePlusOne) }).isEmpty })
+        zegana.adapt(4, Cost.Mana("4GU"))
+        zegana.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === zegana.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.trample = true
+            }
+            return object
+        })
+        zegana.power = 4
+        zegana.toughness = 4
+        return zegana
+    }
     
     // 232 Gate Colossus
     

@@ -69,6 +69,7 @@ enum Subtype {
     case Griffin
     case Hellion
     case Homarid
+    case Homunculus
     case Horror
     case Horse
     case Hound
@@ -88,6 +89,7 @@ enum Subtype {
     case Minotaur
     case Monk
     case Mountain
+    case Mutant
     case Naga
     case Nightmare
     case Ogre
