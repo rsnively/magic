@@ -4,6 +4,7 @@ import GameplayKit
 class GameScene: SKScene {
     var playerHandNode:PlayerHandNode
     var playerLifeNode:LifeNode
+    var playerGraveyardNode: GraveyardNode
     
     var playCardHeight:CGFloat
     var playerLandsNode:LandsNode
@@ -18,6 +19,7 @@ class GameScene: SKScene {
     
     var opponentHandNode:PlayerHandNode
     var opponentLifeNode:LifeNode
+    var opponentGraveyardNode: GraveyardNode
     var opponentLandsNode:LandsNode
     var opponentCreaturesNode:CreaturesNode
     var opponentPermanentsNode:PermanentsNode
@@ -82,6 +84,10 @@ class GameScene: SKScene {
         return CGSize(width:100, height:50)
     }
     
+    static func getAllowedGraveyardSize(gameSize: CGSize) -> CGSize {
+        return CGSize(width: 50, height: 50)
+    }
+    
     static func getAllowedStackSize(gameSize: CGSize) -> CGSize {
         return CGSize(width: gameSize.width, height: gameSize.height * 0.2)
     }
@@ -95,6 +101,7 @@ class GameScene: SKScene {
 
         playerHandNode = PlayerHandNode(hand: Game.shared.player1.getHand(), rotateCards: false, size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode = LifeNode(player: Game.shared.player1, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        playerGraveyardNode = GraveyardNode(size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: CGPoint.zero, graveyard: Game.shared.player1.getGraveyard())
         playerLandsNode = LandsNode(lands: [], size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerOtherPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
@@ -103,6 +110,7 @@ class GameScene: SKScene {
         
         opponentHandNode = PlayerHandNode(hand: Game.shared.player2.getHand(), rotateCards: true,  size: GameScene.getAllowedOpponentHandSize(gameSize: size))
         opponentLifeNode = LifeNode(player: Game.shared.player2, size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        opponentGraveyardNode = GraveyardNode(size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: CGPoint.zero, graveyard: Game.shared.player2.getGraveyard())
         opponentLandsNode = LandsNode(lands: [], size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode = CreaturesNode(creatures: [], size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         opponentPermanentsNode = PermanentsNode(permanents: [], size: GameScene.getAllowedOpponentPermanentsSize(gameSize: size))
@@ -120,6 +128,7 @@ class GameScene: SKScene {
         backgroundColor = UIColor.white
         playerHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * -0.05)
         playerLifeNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.08)
+        playerGraveyardNode.position = CGPoint(x: size.width * 0.1, y: size.height * 0.08)
         playerLandsNode.position = CGPoint(x:size.width * 0.25, y: size.height * 0.24)
         playerOtherPermanentsNode.position = CGPoint(x:size.width * 0.75, y: size.height * 0.24)
         playerCreaturesNode.position = CGPoint(x:size.width * 0.5, y: size.height * 0.45)
@@ -129,6 +138,7 @@ class GameScene: SKScene {
         
         opponentHandNode.position = CGPoint(x:size.width * 0.5, y: size.height * 1.07)
         opponentLifeNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.95)
+        opponentGraveyardNode.position = CGPoint(x: size.width * 0.9, y: size.height * 0.95)
         opponentLandsNode.position = CGPoint(x: size.width * 0.25, y: size.height * 0.85)
         opponentCreaturesNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
         opponentPermanentsNode.position = CGPoint(x: size.width * 0.75, y: size.height * 0.85)
@@ -138,6 +148,7 @@ class GameScene: SKScene {
 
         addChild(playerHandNode)
         addChild(playerLifeNode)
+        addChild(playerGraveyardNode)
         addChild(playerLandsNode)
         addChild(playerOtherPermanentsNode)
         addChild(playerCreaturesNode)
@@ -145,12 +156,15 @@ class GameScene: SKScene {
         addChild(stackNode)
         addChild(opponentHandNode)
         addChild(opponentLifeNode)
+        addChild(opponentGraveyardNode)
         addChild(opponentLandsNode)
         addChild(opponentCreaturesNode)
         addChild(opponentPermanentsNode)
         addChild(commandButtonsNode)
         
         stackNode.zPosition = 1
+        opponentGraveyardNode.zPosition = 2
+        playerGraveyardNode.zPosition = 2
         
         redraw()
     }
@@ -161,6 +175,7 @@ class GameScene: SKScene {
         }
         playerHandNode.touchDown(atPoint:convert(pos, to:playerHandNode))
         playerLifeNode.touchDown(atPoint:convert(pos, to:playerLifeNode))
+        playerGraveyardNode.touchDown(atPoint:convert(pos, to:playerGraveyardNode))
         playerLandsNode.touchDown(atPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchDown(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchDown(atPoint:convert(pos, to:playerCreaturesNode))
@@ -172,6 +187,7 @@ class GameScene: SKScene {
         
         opponentHandNode.touchDown(atPoint:convert(pos, to: opponentHandNode))
         opponentLifeNode.touchDown(atPoint:convert(pos, to:opponentLifeNode))
+        opponentGraveyardNode.touchDown(atPoint:convert(pos, to:opponentGraveyardNode))
         opponentLandsNode.touchDown(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchDown(atPoint:convert(pos, to:opponentCreaturesNode))
         opponentPermanentsNode.touchDown(atPoint:convert(pos, to: opponentPermanentsNode))
@@ -183,6 +199,7 @@ class GameScene: SKScene {
         }
         playerHandNode.touchMoved(toPoint:convert(pos, to:playerHandNode))
         playerLifeNode.touchMoved(toPoint:convert(pos, to:playerLifeNode))
+        playerGraveyardNode.touchMoved(toPoint:convert(pos, to:playerGraveyardNode))
         playerLandsNode.touchMoved(toPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchMoved(toPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchMoved(toPoint:convert(pos, to:playerCreaturesNode))
@@ -192,6 +209,7 @@ class GameScene: SKScene {
         
         opponentHandNode.touchMoved(toPoint: convert(pos, to: opponentHandNode))
         opponentLifeNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
+        opponentGraveyardNode.touchMoved(toPoint:convert(pos, to:opponentLifeNode))
         opponentLandsNode.touchMoved(toPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchMoved(toPoint:convert(pos, to:opponentCreaturesNode))
         opponentPermanentsNode.touchMoved(toPoint: convert(pos, to:opponentPermanentsNode))
@@ -206,6 +224,7 @@ class GameScene: SKScene {
         
         playerHandNode.touchUp(atPoint:convert(pos, to:playerHandNode))
         playerLifeNode.touchUp(atPoint:convert(pos, to:playerLifeNode))
+        playerGraveyardNode.touchUp(atPoint:convert(pos, to:playerGraveyardNode))
         playerLandsNode.touchUp(atPoint:convert(pos, to:playerLandsNode))
         playerOtherPermanentsNode.touchUp(atPoint:convert(pos, to:playerOtherPermanentsNode))
         playerCreaturesNode.touchUp(atPoint:convert(pos, to:playerCreaturesNode))
@@ -217,6 +236,7 @@ class GameScene: SKScene {
         
         opponentHandNode.touchUp(atPoint: convert(pos, to: opponentHandNode))
         opponentLifeNode.touchUp(atPoint:convert(pos, to:opponentLifeNode))
+        opponentGraveyardNode.touchUp(atPoint:convert(pos, to:opponentGraveyardNode))
         opponentLandsNode.touchUp(atPoint:convert(pos, to:opponentLandsNode))
         opponentCreaturesNode.touchUp(atPoint:convert(pos, to:opponentCreaturesNode))
         opponentPermanentsNode.touchUp(atPoint: convert(pos, to:opponentPermanentsNode))
@@ -251,8 +271,11 @@ class GameScene: SKScene {
     }
     
     func redraw() {
+        let centerPoint = CGPoint(x: self.position.x + self.size.width / 2.0, y: self.position.y + self.size.height / 2.0)
+        
         playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode.setLife(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        playerGraveyardNode.setGraveyard(graveyard: Game.shared.player1.getGraveyard(), size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: convert(centerPoint, to: playerGraveyardNode))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands(), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
         playerOtherPermanentsNode.setPermanents(permanents: Game.shared.player1.getPermanents().filter{ return !$0.isType(.Creature) && !$0.isType(.Land) }, size: GameScene.getAllowedPlayerPermanentsSize(gameSize: size))
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
@@ -260,6 +283,7 @@ class GameScene: SKScene {
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
         opponentHandNode.setHand(cards: Game.shared.player2.getHand(), size: GameScene.getAllowedOpponentHandSize(gameSize: size))
         opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
+        opponentGraveyardNode.setGraveyard(graveyard: Game.shared.player2.getGraveyard(), size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: convert(centerPoint, to: opponentGraveyardNode))
         opponentLandsNode.setLands(lands: Game.shared.player2.getLands(), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))
         opponentCreaturesNode.setCreatures(creatures: Game.shared.player2.getCreatures(), size: GameScene.getAllowedOpponentCreaturesSize(gameSize: size))
         opponentPermanentsNode.setPermanents(permanents: Game.shared.player2.getPermanents().filter{ return !$0.isType(.Creature) && !$0.isType(.Land) }, size: GameScene.getAllowedOpponentPermanentsSize(gameSize: size))
