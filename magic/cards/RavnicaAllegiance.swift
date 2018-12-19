@@ -30,6 +30,8 @@ enum RNA {
         
         Aeromunculus,
         
+        Bedevil,
+        
         GrowthSpiral,
         
         ImperiousOligarch,
@@ -63,7 +65,42 @@ enum RNA {
         aeromunculus.toughness = 3
         return aeromunculus
     }
-    
+    // 153
+    // 154
+    // 155
+    // 156
+    static func Bedevil() -> Card {
+        let bedevil = Card(name: "Bedevil", rarity: .Rare, set: set, number: 157)
+        bedevil.setManaCost("BBR")
+        bedevil.setType(.Instant)
+        bedevil.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Artifact) || $0.isType(.Creature) || $0.isType(.Planeswalker) },
+                zones: [.Battlefield]),
+            effect: { let _ = $0.destroy() }))
+        bedevil.setFlavorText("\"It's easy to get taken in by the spectacle, to enjoy a bit of naughty amusement. But make no mistake: the Cult of Rakdos is a danger.\"\n--Tajic")
+        return bedevil
+    }
+    // 158
+    // 159
+    // 160
+    // 161
+    // 162
+    // 163
+    // 164
+    // 165
+    // 166
+    // 167
+    // 168
+    // 169
+    // 170
+    // 171
+    // 172
+    // 173
+    // 174
+    // 175
+    // 176
+    // 177
     static func GrowthSpiral() -> Card {
         let growthSpiral = Card(name: "Growth Spiral", rarity: .Rare, set: set, number: 178)
         growthSpiral.setManaCost("GU")
