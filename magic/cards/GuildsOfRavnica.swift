@@ -650,7 +650,7 @@ enum GRN {
         return veiledShade
     }
     static func ViciousRumors() -> Card {
-        let viciousRumors = Card(name: "Vicious Rumors", rarity: .Common, set: set, number: 91)
+        let viciousRumors = Card(name: "Vicious Rumors", rarity: .Common, set: set, number: 89)
         viciousRumors.setManaCost("B")
         viciousRumors.setType(.Sorcery)
         viciousRumors.addEffect({
