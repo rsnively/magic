@@ -107,7 +107,7 @@ class Game: NSObject {
             deck2.append(Card.randomCard())
         }
         
-        for _ in 0..<5 {
+        for _ in 0..<4 {
             deck1.append(GRN.Plains())
             deck1.append(GRN.Island())
             deck1.append(GRN.Swamp())

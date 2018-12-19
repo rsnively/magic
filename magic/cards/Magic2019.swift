@@ -286,6 +286,7 @@ enum M19 {
             effect: {
                 let tokens: [Object] = [Cat(), Cat()]
                 for token in tokens {
+                    token.setController(controller: leoninWarleader.getController())
                     token.attack(token.getOpponent())
                     token.setTapped(true)
                     leoninWarleader.getController().createToken(token)
