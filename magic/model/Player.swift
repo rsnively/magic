@@ -209,7 +209,7 @@ class Player: Targetable {
     
     func triggerAbilities(_ trigger: Trigger) {
         permanents.forEach({ $0.triggerAbilities(trigger) })
-        Game.shared.commandZone.filter({ $0.getController() === self }).forEach({ print("boop"); $0.triggerAbilities(trigger) })
+        Game.shared.commandZone.filter({ $0.getController() === self }).forEach({ $0.triggerAbilities(trigger) })
     }
     
     func declareAttackers() {
