@@ -518,6 +518,7 @@
 		98AE634821CA427200930EA1 /* m193full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AE634721CA427200930EA1 /* m193full.png */; };
 		98AE634A21CA427A00930EA1 /* m19t15full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AE634921CA427A00930EA1 /* m19t15full.png */; };
 		98AE634C21CA4AF600930EA1 /* rix153full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AE634B21CA4AF600930EA1 /* rix153full.png */; };
+		98AE634E21CA508800930EA1 /* xln5full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98AE634D21CA508800930EA1 /* xln5full.png */; };
 		98B0C13D21A4BD6100123F50 /* dom116full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C13C21A4BD6100123F50 /* dom116full.png */; };
 		98B0C13F21A4BD6600123F50 /* dom129full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C13E21A4BD6600123F50 /* dom129full.png */; };
 		98B0C14121A4BF3D00123F50 /* dom151full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C14021A4BF3D00123F50 /* dom151full.png */; };
@@ -1425,6 +1426,7 @@
 		98AE634721CA427200930EA1 /* m193full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m193full.png; sourceTree = "<group>"; };
 		98AE634921CA427A00930EA1 /* m19t15full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19t15full.png; sourceTree = "<group>"; };
 		98AE634B21CA4AF600930EA1 /* rix153full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix153full.png; sourceTree = "<group>"; };
+		98AE634D21CA508800930EA1 /* xln5full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln5full.png; sourceTree = "<group>"; };
 		98B0C13C21A4BD6100123F50 /* dom116full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom116full.png; sourceTree = "<group>"; };
 		98B0C13E21A4BD6600123F50 /* dom129full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom129full.png; sourceTree = "<group>"; };
 		98B0C14021A4BF3D00123F50 /* dom151full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom151full.png; sourceTree = "<group>"; };
@@ -2632,6 +2634,7 @@
 				98333F6C2187EF12008F43EE /* xln1full.png */,
 				98FE7E0E21C1E140004A89BC /* xln3full.png */,
 				98C6D23C219DEBC800AF1754 /* xln4full.png */,
+				98AE634D21CA508800930EA1 /* xln5full.png */,
 				98E176AA2170191900763F96 /* xln6full.png */,
 				98E176B82170191B00763F96 /* xln7full.png */,
 				98E176B52170191A00763F96 /* xln8full.png */,
@@ -2991,6 +2994,7 @@
 				989D9D75219980250024D563 /* m19222full.png in Resources */,
 				986CD56721B2706E0090BC22 /* grn200full.png in Resources */,
 				98B6FFB7218111E300BC6FBD /* m19217full.png in Resources */,
+				98AE634E21CA508800930EA1 /* xln5full.png in Resources */,
 				986CD57B21B291F00090BC22 /* lea27full.png in Resources */,
 				98B7E37A2177FD4A00551F3A /* rix75full.png in Resources */,
 				98533892218A7B82004B22F3 /* ktk87full.png in Resources */,
