@@ -445,7 +445,7 @@ enum DOM {
         academyJourneymage.setType(.Creature, .Human, .Wizard)
         academyJourneymage.addStaticAbility(
             { object in
-                if object == academyJourneymage && !academyJourneymage.getController().getPermanents().filter({ $0.isType(.Wizard) }).isEmpty {
+                if object == academyJourneymage && !object.getController().getPermanents().filter({ $0.isType(.Wizard) }).isEmpty {
                     object.castingCost = object.getBaseCastingCost().reducedBy(1)
                 }
                 return object

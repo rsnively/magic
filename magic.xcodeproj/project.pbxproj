@@ -342,6 +342,7 @@
 		987858CE2171770000A07DB3 /* dom121full.png in Resources */ = {isa = PBXBuildFile; fileRef = 987858CD2171770000A07DB3 /* dom121full.png */; };
 		9892DD6421CB8EEF00B48AD1 /* dom41full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9892DD6321CB8EEF00B48AD1 /* dom41full.png */; };
 		9892DD6621CB95C200B48AD1 /* grn91full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9892DD6521CB95C200B48AD1 /* grn91full.png */; };
+		9892DD6821CB9A3E00B48AD1 /* rix130full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9892DD6721CB9A3E00B48AD1 /* rix130full.png */; };
 		989579BA217144D00064993A /* grn29full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579B9217144D00064993A /* grn29full.png */; };
 		989579C221714B990064993A /* grn57full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989579C121714B990064993A /* grn57full.png */; };
 		989974CF2192E1BC00B9DB82 /* lea69full.png in Resources */ = {isa = PBXBuildFile; fileRef = 989974CE2192E1BC00B9DB82 /* lea69full.png */; };
@@ -1260,6 +1261,7 @@
 		987858CD2171770000A07DB3 /* dom121full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom121full.png; sourceTree = "<group>"; };
 		9892DD6321CB8EEF00B48AD1 /* dom41full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom41full.png; sourceTree = "<group>"; };
 		9892DD6521CB95C200B48AD1 /* grn91full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn91full.png; sourceTree = "<group>"; };
+		9892DD6721CB9A3E00B48AD1 /* rix130full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix130full.png; sourceTree = "<group>"; };
 		989579B9217144D00064993A /* grn29full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn29full.png; sourceTree = "<group>"; };
 		989579C121714B990064993A /* grn57full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn57full.png; sourceTree = "<group>"; };
 		989974CE2192E1BC00B9DB82 /* lea69full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea69full.png; sourceTree = "<group>"; };
@@ -2415,6 +2417,7 @@
 				98A9DFD4219E98C400D99213 /* rix123full.png */,
 				98B9297E219C28770095C4F4 /* rix125full.png */,
 				98B92980219C29120095C4F4 /* rix126full.png */,
+				9892DD6721CB9A3E00B48AD1 /* rix130full.png */,
 				9810CDC3219CD9EA00967142 /* rix132full.png */,
 				9810CDC6219CDB2700967142 /* rix133full.png */,
 				9810CDC5219CDB2700967142 /* rix134full.png */,
@@ -3449,6 +3452,7 @@
 				98478526216537F9004D51A8 /* m19198full.png in Resources */,
 				98E176C52170191B00763F96 /* xlnt1full.png in Resources */,
 				9831999F219A9F5D0026317F /* xln124full.png in Resources */,
+				9892DD6821CB9A3E00B48AD1 /* rix130full.png in Resources */,
 				985D38FB21642AC9001CF7FA /* m1912full.png in Resources */,
 				98478522216537F9004D51A8 /* m19140full.png in Resources */,
 				9814E34021952AE300B156F9 /* xlnt7full.png in Resources */,

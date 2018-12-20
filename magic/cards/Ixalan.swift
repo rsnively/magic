@@ -1995,8 +1995,8 @@ enum XLN {
             trigger: .ThisETB,
             effect: { regisaurAlpha.getController().createToken(Dinosaur()) })
         regisaurAlpha.setFlavorText("\"Seeing a pack of these monsters hunt together, I'm at a loss to imagine the size of their prey.\"\n--Adrain Adanto of Lujio")
-        regisaurAlpha.power = 3
-        regisaurAlpha.toughness = 3
+        regisaurAlpha.power = 4
+        regisaurAlpha.toughness = 4
         return regisaurAlpha
     }
     // 228 Shapers of Nature
