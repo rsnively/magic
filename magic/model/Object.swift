@@ -576,16 +576,43 @@ class Object: Targetable, Hashable, NSCopying {
         return object
     }
 
-    func addTriggeredAbility(trigger: Trigger, effect: @escaping () -> Void, effectOptional: Bool = false, restriction: @escaping () -> Bool = { return true }) {
-        triggeredAbilities.append(UntargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, effectOptional: effectOptional, restriction: restriction))
-    }
-    func addTriggeredAbility(trigger: Trigger, effect: TargetedEffect, restriction: @escaping () -> Bool = { return true }) {
-        triggeredAbilities.append(TargetedTriggeredAbility(source: self, trigger: trigger, effect: effect, restriction: restriction))
+    func addTriggeredAbility(
+        trigger: Trigger,
+        effect: @escaping () -> Void,
+        effectOptional: Bool = false,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+    ) {
+        triggeredAbilities.append(
+            UntargetedTriggeredAbility(
+                source: self,
+                trigger: trigger,
+                effect: effect,
+                effectOptional: effectOptional,
+                restriction: restriction,
+                triggersInGraveyard: triggersInGraveyard
+        ))
     }
     
-    func triggerAbilities(_ trigger: Trigger) {
+    func addTriggeredAbility(
+        trigger: Trigger,
+        effect: TargetedEffect,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+    ) {
+        triggeredAbilities.append(
+            TargetedTriggeredAbility(
+                source: self,
+                trigger: trigger,
+                effect: effect,
+                restriction: restriction,
+                triggersInGraveyard: triggersInGraveyard
+        ))
+    }
+    
+    func triggerAbilities(_ trigger: Trigger, inGraveyard: Bool = false) {
         for triggeredAbility in triggeredAbilities {
-            if triggeredAbility.getTrigger() == trigger {
+            if triggeredAbility.getTrigger() == trigger && (!inGraveyard || triggeredAbility.doesTriggerInGraveyard()) {
                 triggeredAbility.triggerAbility()
             }
         }

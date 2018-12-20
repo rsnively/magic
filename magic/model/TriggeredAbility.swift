@@ -4,6 +4,7 @@ protocol TriggeredAbility {
     func getTrigger() -> Trigger
     func getSource() -> Object
     func requiresTarget() -> Bool
+    func doesTriggerInGraveyard() -> Bool
     func triggerAbility() -> Void
 }
 
@@ -11,11 +12,20 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
     private var restriction: () -> Bool
+    private var triggersInGraveyard: Bool
     
-    init(source: Object, trigger: Trigger, effect:@escaping () -> Void, effectOptional: Bool = false, restriction: @escaping () -> Bool = { return true }) {
+    init(
+        source: Object,
+        trigger: Trigger,
+        effect: @escaping () -> Void,
+        effectOptional: Bool = false,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+    ) {
         self.source = source
         self.trigger = trigger
         self.restriction = restriction
+        self.triggersInGraveyard = triggersInGraveyard
         super.init(name: "Triggered Ability of " + source.getName())
         effects.append(UntargetedEffect(effect: effect, optional: effectOptional))
     }
@@ -28,6 +38,9 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     }
     func requiresTarget() -> Bool {
         return false
+    }
+    func doesTriggerInGraveyard() -> Bool {
+        return triggersInGraveyard
     }
     func triggerAbility() {
         if restriction() {
@@ -61,11 +74,19 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     private var source: Object
     private var trigger: Trigger
     private var restriction: () -> Bool
-    
-    init(source: Object, trigger: Trigger, effect: TargetedEffect, restriction: @escaping () -> Bool = { return true }) {
+    private var triggersInGraveyard: Bool
+
+    init(
+        source: Object,
+        trigger: Trigger,
+        effect: TargetedEffect,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+    ) {
         self.source = source
         self.trigger = trigger
         self.restriction = restriction
+        self.triggersInGraveyard = triggersInGraveyard
         super.init(name: "Triggered Ability of" + source.getName())
         effects.append(effect)
     }
@@ -78,6 +99,9 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     }
     func requiresTarget() -> Bool {
         return true
+    }
+    func doesTriggerInGraveyard() -> Bool {
+        return triggersInGraveyard
     }
     func triggerAbility() {
         let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?

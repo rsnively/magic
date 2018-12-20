@@ -16,6 +16,7 @@ class Player: Targetable {
     }
     var lifeGainedThisTurn = 0
     var attackedWithCreatureThisTurn = false
+    var numberInstantsOrSorceriesCastThisTurn = 0
     
     var citysBlessing = false
     
@@ -209,6 +210,7 @@ class Player: Targetable {
     
     func triggerAbilities(_ trigger: Trigger) {
         permanents.forEach({ $0.triggerAbilities(trigger) })
+        graveyard.forEach({ $0.triggerAbilities(trigger, inGraveyard: true) })
         Game.shared.commandZone.filter({ $0.getController() === self }).forEach({ $0.triggerAbilities(trigger) })
     }
     
@@ -294,6 +296,7 @@ class Player: Targetable {
             }
             
             if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
+                numberInstantsOrSorceriesCastThisTurn += 1
                 triggerAbilities(.YouCastInstantOrSorcery)
                 triggerAbilities(.YouCastInstantOrSorcery)
             }

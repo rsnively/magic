@@ -96,6 +96,7 @@ enum Subtype {
     case Orc
     case Ox
     case Pegasus
+    case Phoenix
     case Pirate
     case Plains
     case Plant
