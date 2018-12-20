@@ -38,4 +38,12 @@ class SpellStack: NSObject {
     func remove(_ object: Object) {
         stackObjects.remove(condition: { $0 == object })
     }
+    
+    func getStaticAbilities() -> [StaticAbility] {
+        var staticAbilities: [StaticAbility] = []
+        stackObjects.forEach({
+            staticAbilities += $0.staticAbilities
+        })
+        return staticAbilities
+    }
 }

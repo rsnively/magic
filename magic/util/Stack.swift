@@ -23,6 +23,10 @@ struct Stack<T> {
         return elements.contains(where: condition)
     }
     
+    func forEach(_ f: (T) -> Void) {
+        elements.forEach(f)
+    }
+    
     mutating func push(_ element: T) {
         elements.append(element)
     }

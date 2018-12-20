@@ -261,6 +261,7 @@ class Game: NSObject {
         for object in commandZone {
             abilities += object.staticAbilities
         }
+        abilities += theStack.getStaticAbilities()
         abilities += player1.getStaticAbilities()
         abilities += player2.getStaticAbilities()
         return abilities

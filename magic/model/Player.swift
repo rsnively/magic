@@ -278,16 +278,18 @@ class Player: Targetable {
         // TODO: Card's manaCost should be cost, and then we can use player.canAfford here
         if manaPool.canAfford(card) {
             hand.remove(at:cardIndex)
-            manaPool.payFor(card)
-            if (card.requiresTargets()) {
-                Game.shared.targetingEffects.append(card.effects.first(where: { return $0.requiresTarget() })! as! TargetedEffect)
-            }
             if card.usesStack() {
                 Game.shared.theStack.push(card)
                 Game.shared.checkStateBasedActions()
+
+                if (card.requiresTargets()) {
+                    Game.shared.targetingEffects.append(card.effects.first(where: { return $0.requiresTarget() })! as! TargetedEffect)
+                }
+                manaPool.payFor(card)
             }
             else {
                 addPermanent(card)
+                manaPool.payFor(card)
                 Game.shared.checkStateBasedActions()
             }
             
