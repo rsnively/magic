@@ -69,6 +69,10 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
         return source.getController()
     }
     
+    override func isSpell() -> Bool {
+        return false
+    }
+    
     override func resolve() {
         if !effects.isEmpty {
             for effect in effects {
@@ -137,6 +141,10 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     
     override func getController() -> Player {
         return source.getController()
+    }
+    
+    override func isSpell() -> Bool {
+        return false
     }
     
     override func resolve() {

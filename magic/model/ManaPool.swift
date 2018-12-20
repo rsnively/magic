@@ -46,8 +46,8 @@ class ManaPool: NSObject {
     }
     
     func canAfford(_ card: Card) -> Bool {
-        if let manaCost = card.manaCost {
-            return canAfford(manaCost)
+        if let castingCost = card.castingCost {
+            return canAfford(castingCost)
         }
         return true
     }
@@ -69,8 +69,8 @@ class ManaPool: NSObject {
     }
     
     func payFor(_ card: Card) {
-        if let manaCost = card.manaCost {
-            payFor(manaCost)
+        if let castingCost = card.castingCost {
+            payFor(castingCost)
         }
     }
     

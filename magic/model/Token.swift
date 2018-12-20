@@ -24,4 +24,8 @@ class Token : Object {
     override func isToken() -> Bool {
         return true
     }
+    
+    override func isSpell() -> Bool {
+        return false
+    }
 }

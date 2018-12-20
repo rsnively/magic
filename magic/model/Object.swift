@@ -69,6 +69,11 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects().baseCantBlock }
         set (newCantBlock) { baseCantBlock = newCantBlock }
     }
+    private var baseCastingCost: ManaCost?
+    var castingCost: ManaCost? {
+        get { return applyContinuousEffects().baseCastingCost }
+        set (newCastingCost) { baseCastingCost = newCastingCost }
+    }
     private var baseDeathtouch: Bool = false
     var deathtouch: Bool {
         get { return applyContinuousEffects().baseDeathtouch }
@@ -240,6 +245,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.baseFlying = baseFlying
         copy.baseHaste = baseHaste
         copy.baseHexproof = baseHexproof
+        copy.baseCastingCost = manaCost
         copy.baseIndestructible = baseIndestructible
         copy.baseLifelink = baseLifelink
         copy.baseReach = baseReach
@@ -378,6 +384,7 @@ class Object: Targetable, Hashable, NSCopying {
     
     func setManaCost(_ manaCostString: String, setColorAccordingly: Bool = true) {
         manaCost = ManaCost(manaCostString)
+        castingCost = ManaCost(manaCostString)
         if setColorAccordingly {
             colors = manaCost!.getColors()
         }
@@ -413,7 +420,9 @@ class Object: Targetable, Hashable, NSCopying {
     func isColor(_ color: Color) -> Bool { return colors.contains(color) }
     func isColorless() -> Bool { return colors.isEmpty }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
-    func isSpell() -> Bool { return false }
+    // Technically, a card has to be on the stack to be a spell
+    func isSpell() -> Bool { return !self.types.contains(Type.Land) }
+
     
     func canBeAttacked() -> Bool { return isType(.Planeswalker) }
     
@@ -644,6 +653,10 @@ class Object: Targetable, Hashable, NSCopying {
     
     func powerOrToughnessUndefined() -> Bool {
         return basePower == nil || baseToughness == nil
+    }
+    
+    func getBaseCastingCost() -> ManaCost {
+        return baseCastingCost!
     }
     
     func hasSummoningSickness() -> Bool {

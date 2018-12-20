@@ -23,4 +23,8 @@ class Emblem : Object {
     func getCollectorsNumber() -> Int {
         return collectorsNumber
     }
+    
+    override func isSpell() -> Bool {
+        return false
+    }
 }

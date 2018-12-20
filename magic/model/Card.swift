@@ -37,9 +37,6 @@ class Card: Object {
     func usesStack() -> Bool {
         return !self.types.contains(Type.Land)
     }
-    override func isSpell() -> Bool {
-        return !self.types.contains(Type.Land)
-    }
     
     func canPlay() -> Bool {
         if Game.shared.isSelecting() { return false }

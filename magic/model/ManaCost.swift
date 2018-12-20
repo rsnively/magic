@@ -1,6 +1,6 @@
 import Foundation
 
-class ManaCost: NSObject {
+class ManaCost: NSObject, NSCopying {
     private var coloredMana: [Mana] = []
     private var genericMana:Int = 0
     
@@ -17,6 +17,13 @@ class ManaCost: NSObject {
             }
         }
         super.init()
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ManaCost("")
+        copy.coloredMana = self.coloredMana
+        copy.genericMana = self.genericMana
+        return copy
     }
     
     func getString() -> String {
@@ -59,5 +66,11 @@ class ManaCost: NSObject {
     
     func converted() -> Int {
         return coloredMana.count + genericMana
+    }
+    
+    func reducedBy(_ genericAmount: Int) -> ManaCost {
+        let copy = self.copy() as! ManaCost
+        copy.genericMana = max(0, copy.genericMana - genericAmount)
+        return copy
     }
 }

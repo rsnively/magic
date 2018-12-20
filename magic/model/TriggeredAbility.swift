@@ -39,6 +39,10 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
         return getSource().getController()
     }
     
+    override func isSpell() -> Bool {
+        return false
+    }
+    
     override func resolve() {
         if restriction() {
             for effect in effects {
@@ -85,6 +89,10 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     
     override func getController() -> Player {
         return getSource().getController()
+    }
+    
+    override func isSpell() -> Bool {
+        return false
     }
     
     override func resolve() {

@@ -1,6 +1,6 @@
 import Foundation
 
-class Cost {
+class Cost: NSCopying {
     private var manaCost: ManaCost
     private var tapCost: Bool
     private var lifeCost: Int
@@ -15,6 +15,17 @@ class Cost {
         self.sacrificeSelf = sacrificeSelf
         self.removeCountersCost = removeCounters
         self.addCountersCost = addCounters
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Cost("")
+        copy.manaCost = self.manaCost
+        copy.tapCost = self.tapCost
+        copy.lifeCost = self.lifeCost
+        copy.sacrificeSelf = self.sacrificeSelf
+        copy.removeCountersCost = self.removeCountersCost
+        copy.addCountersCost = self.addCountersCost
+        return copy
     }
     
     static func AddCounters(_ type: Counter, _ amount: Int) -> Cost {
@@ -59,6 +70,12 @@ class Cost {
     func Tap() -> Cost {
         self.tapCost = true
         return self
+    }
+    
+    func reducedBy(_ genericAmount: Int) -> Cost {
+        let copy = self.copy() as! Cost
+        copy.manaCost = copy.manaCost.reducedBy(genericAmount)
+        return copy
     }
     
     func getManaCost() -> ManaCost {
