@@ -175,6 +175,9 @@ class Object: Targetable, Hashable, NSCopying {
     var damagedByDeathtouch = false
     var hasDealtDamage = false
     
+    // For Determining what other creatures can block this one
+    var blockabilityRequirements: [(Object) -> Bool] = []
+    
     private var tapped: Bool = false
     var isTapped: Bool {
         return tapped
@@ -708,6 +711,11 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
+        for requirement in attacker.blockabilityRequirements {
+            if !requirement(self) {
+                return false
+            }
+        }
         if attacker.unblockable { return false }
         if self.cantBlock { return false }
         if attacker.flying && !(flying || reach) { return false }
