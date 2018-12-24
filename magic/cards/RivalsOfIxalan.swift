@@ -13,7 +13,7 @@ enum RIX {
     static var count = 196
 
     static let cards = [
-        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, */ AcquaticIncursion, /* CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, */ Hornswoggle, /* InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, Negate, /* NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, */ SlipperyScoundrel, SoulOfTheRapids, SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, ReaverAmbush, /* Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, */ TwilightProphet, VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, */ GhaltaPrimalHunger, /* GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, */ JunglebornPioneer, /* KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, SwiftWarden, TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, */ WorldShaper, /* AngrathTheFlameChained, */ AtzocanSeer, /* AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, */ HuatliRadiantChampion, /* JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, */ AwakenedAmalgam, /* CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, TravelersAmulet, /* ArchOfOrazca, */ EvolvingWilds, /* ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuary, WoodlandStream */
+        BafflingEnd, /* BishopOfBinding, */ BlazingHope, /* CleansingRay, */ DivineVerdict, /* EverdawnChampion, */ ExultantSkymarcher, /* FamishedPaladin, ForerunnerOfTheLegion, */ ImperialCeratops, /* LegionConquistador, */ LuminousBonds, MajesticHeliopterus, MartyrOfDusk, MomentOfTriumph, /* PaladinOfAtonement, */ PrideOfConquerors, /* RadiantDestiny, */ RaptorCompanion, SanguineGlorifier, SkymarcherAspirant, /* SlaughterTheStrong, */ SnubhornSentry, /* SphinxsDecree, */ SquiresDevotion, SunSentinel, SunCrestedPterodon, /* TempleAltisaur, TrapjawTyrant, */ ZetalpaPrimalDawn, /* AdmiralsOrder, */ AcquaticIncursion, /* CraftyCutpurse, CrashingTide, CuriousObsession, */ DeadeyeRigHauler, /* ExpelFromOrazca, FloodOfRecollection, */ Hornswoggle, /* InducedAmnesia, */ KitesailCorsair, KumenasAwakening, MistCloakedHerald, Negate, /* NezahalThePrimalTide, ReleaseToTheWind, RiverDarter, RiverwiseAugur, */ SailorOfMeans, SeaLegs, /* SeafloorOracle, */ SecretsOfTheGoldenCity, /* SilvergillAdept, SirenReaver, */ SlipperyScoundrel, SoulOfTheRapids, SpireWinder, SwornGuardian, /* TimestreamNavigator, WarkiteMarauder, Waterknot, */ ArterialFlow, CanalMonitor, ChampionOfDusk, DarkInquiry, /* DeadMansChest, DinosaurHunter, */ DireFleetPoisoner, DuskCharger, DuskLegionZealot, FathomFleetBoarder, /* ForerunnerOfTheCoalition, */ GoldenDemise, GraspingScoundrel, GruesomeFate, Impale, /* MastermindsAcquisition, MausoleumHarpy, */ MomentOfCraving, /* OathswornVampire, PitilessPlunderer, */ RavenousChupacabra, ReaverAmbush, /* Recover, SadisticSkymarcher, TetzimocPrimalDeath, TombRobber, */ TwilightProphet, VampireRevenant, /* VonasHunger, VoraciousVampire, BloodSun, */ Bombard, BrasssBounty, BrazenFreebooter, /* BuccaneersBravado, ChargingTuskodon, DaringBuccaneer, DireFleetDaredevil, EtaliPrimalStorm, */ FanaticalFirebrand, /* ForerunnerOfTheEmpire, */ FormOfTheDinosaur, FrilledDeathspitter, /* GoblinTrailblazer, Mutiny, */ NeedletoothRaptor, OrazcaRaptor, /* PiratesPillage, */ RecklessRage, /* RekindlingPhoenix, */ SeeRed, ShakeTheFoundations, Shatter, /* SilvercladFerocidons, */ StampedingHorncrest, StormFleetSwashbuckler, SunCollaredRaptor, SwaggeringCorsair, TilonallisCrown, /* TilonallisSummoner, */ AggressiveUrge, Cacophodon, /* CherishedHatchling, */ ColossalDreadmaw, CrestedHerdcaller, /* DeeprootElite, EnterTheUnknown, ForerunnerOfTheHeralds, */ GhaltaPrimalHunger, /* GiltgroveStalker, */ HardyVeteran, HuntTheWeak, JadeBearer, JadecraftArtisan, /* JadelightRanger, */ JunglebornPioneer, /* KnightOfTheStampede, */ Naturalize, OrazcaFrillback, OvergrownArmasaur, /* PathOfDiscovery, */ Plummet, /* Polyraptor, */ StrengthOfThePack, SwiftWarden, TendershootDryad, ThrashingBrontodon, /* ThunderherdMigration, WaywardSwordtooth, */ WorldShaper, /* AngrathTheFlameChained, */ AtzocanSeer, /* AzorTheLawbringer, */ DeadeyeBrawler, DireFleetNeckbreaker, /* ElendaTheDuskRose, */ HuatliRadiantChampion, /* JungleCreeper, KumenaTyrantOfOrazca, */ LegionLieutenant, MerfolkMistbinder, /* ProteanRaider, */ RagingRegisaur, /* RelentlessRaptor, */ ResplendentGriffin, SiegehornCeratops, StormFleetSprinter, /* ZacamaPrimalCalamity, HadanasClimb, JourneyToEternity, PathToMettle, ProfaneProcession, StormTheVault, AzorsGateway, GoldenGuardian, */ AwakenedAmalgam, /* CaptainsHook, */ GleamingBarrier, /* TheImmortalSun, OrazcaRelic, SilentGravestone, */ StriderHarness, TravelersAmulet, /* ArchOfOrazca, */ EvolvingWilds, ForsakenSanctuary, FoulOrchard, HighlandLake, StoneQuarry, WoodlandStream
     ]
 
     static func RandomCard() -> Card {
@@ -1648,11 +1648,96 @@ enum RIX {
         evolvingWilds.setFlavorText("The Sun Empire bends nature--rivers, mountainsides, dinosaurs--to its unyielding will.")
         return evolvingWilds
     }
-    // 187 Forsaken Sanctuary
-    // 188 Foul Orchard
-    // 189 Highland Lake
-    // 190 Stone Quarry
-    // 191 Woodland Stream
+    static func ForsakenSanctuary() -> Card {
+        let forsakenSanctuary = Card(name: "Forsaken Sanctuary", rarity: .Uncommon, set: set, number: 187)
+        forsakenSanctuary.setManaCost("")
+        forsakenSanctuary.setType(.Land)
+        forsakenSanctuary.entersTapped = true
+        forsakenSanctuary.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { forsakenSanctuary.getController().addMana(color: .White) },
+            manaAbility: true)
+        forsakenSanctuary.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { forsakenSanctuary.getController().addMana(color: .Black) },
+            manaAbility: true)
+        forsakenSanctuary.setFlavorText("In the galleon's grand cathedral, conquistadors swore vows of faith. In its wreckage, they swore vows of revenge.")
+        return forsakenSanctuary
+    }
+    static func FoulOrchard() -> Card {
+        let foulOrchard = Card(name: "Foul Orchard", rarity: .Uncommon, set: set, number: 188)
+        foulOrchard.setManaCost("")
+        foulOrchard.setType(.Land)
+        foulOrchard.entersTapped = true
+        foulOrchard.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { foulOrchard.getController().addMana(color: .Black) },
+            manaAbility: true)
+        foulOrchard.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { foulOrchard.getController().addMana(color: .Green) },
+            manaAbility: true)
+        foulOrchard.setFlavorText("The stench of rotting meat lures flies, goblins, and young raptors.")
+        return foulOrchard
+    }
+    static func HighlandLake() -> Card {
+        let highlandLake = Card(name: "Highland Lake", rarity: .Uncommon, set: set, number: 189)
+        highlandLake.setManaCost("")
+        highlandLake.setType(.Land)
+        highlandLake.entersTapped = true
+        highlandLake.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { highlandLake.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        highlandLake.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { highlandLake.getController().addMana(color: .Red) },
+            manaAbility: true)
+        highlandLake.setFlavorText("\"A place like this makes me wonder if there's more to life than blood and treasure... Nah.\"\n--Boyl Bucksalt, Storm Fleet swab")
+        return highlandLake
+    }
+    static func StoneQuarry() -> Card {
+        let stoneQuarry = Card(name: "Stone Quarry", rarity: .Uncommon, set: set, number: 190)
+        stoneQuarry.setManaCost("")
+        stoneQuarry.setType(.Land)
+        stoneQuarry.entersTapped = true
+        stoneQuarry.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { stoneQuarry.getController().addMana(color: .Red) },
+            manaAbility: true)
+        stoneQuarry.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { stoneQuarry.getController().addMana(color: .White) },
+            manaAbility: true)
+        stoneQuarry.setFlavorText("The Sun Empire's cities are built from the bones of the earth.")
+        return stoneQuarry
+    }
+    static func WoodlandStream() -> Card {
+        let woodlandStream = Card(name: "Woodland Stream", rarity: .Uncommon, set: set, number: 191)
+        woodlandStream.setManaCost("")
+        woodlandStream.setType(.Land)
+        woodlandStream.entersTapped = true
+        woodlandStream.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { woodlandStream.getController().addMana(color: .Green) },
+            manaAbility: true)
+        woodlandStream.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { woodlandStream.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        woodlandStream.setFlavorText("Countless streams flow into the nine rivers, and then nine rivers flow into the Great River. The River Heralds guard them all.")
+        return woodlandStream
+    }
     // 192 Plains
     // 193 Island
     // 194 Swamp
