@@ -11,7 +11,7 @@ class AIPlayer: Player {
                     play(card: card as! Card)
                 }
             }
-            else if availableMana >= card.getConvertedManaCost() && (card.effects.isEmpty || !card.effects.first!.requiresTarget()) && !actionTaken {
+            else if availableMana >= card.getConvertedManaCost() && (card.spellAbility == nil || !card.spellAbility!.requiresTarget()) && !actionTaken {
                 var paid = 0
                 getLands().filter({!$0.isTapped}).forEach({ land in
                     if paid < card.getConvertedManaCost() {

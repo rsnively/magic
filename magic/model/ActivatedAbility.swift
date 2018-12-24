@@ -27,7 +27,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
         self.sorcerySpeed = sorcerySpeed
         self.loyaltyAbility = loyaltyAbility
         super.init(name: "Activated Ability of " + source.getName())
-        effects.append(UntargetedEffect(effect: effect))
+        spellAbility = UntargetedEffect(effect: effect)
     }
     
     
@@ -74,11 +74,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     override func resolve() {
-        if !effects.isEmpty {
-            for effect in effects {
-                effect.resolve()
-            }
-        }
+        spellAbility?.resolve()
     }
 }
 
@@ -98,7 +94,7 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
         self.sorcerySpeed = sorcerySpeed
         self.loyaltyAbility = loyaltyAbility
         super.init(name: "Activated Ability of " + source.getName())
-        effects.append(effect)
+        self.spellAbility = effect
     }
     
     func getSource() -> Object {
@@ -119,10 +115,9 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     func hasValidTargets() -> Bool {
-        if let effect = effects.first {
-            if let targetedEffect = effect as? TargetedEffect {
-                return targetedEffect.canFinishTargeting() || Game.shared.hasTargets(targetedEffect)
-            }
+        if let targetedEffect = self.spellAbility as? TargetedEffect {
+            return targetedEffect.canFinishTargeting() || Game.shared.hasTargets(targetedEffect)
+
         }
         return false
     }
@@ -132,9 +127,10 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
             source.hasActivatedLoyaltyAbilityThisTurn = true
         }
         
-        let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
-        if Game.shared.hasTargets(effect!) {
-            Game.shared.targetingEffects.append(effect!)
+//        let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
+        let effect = spellAbility as! TargetedEffect
+        if Game.shared.hasTargets(effect) {
+            Game.shared.targetingEffects.append(effect)
             Game.shared.theStack.push(self)
         }
     }
@@ -148,10 +144,6 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     override func resolve() {
-        if !effects.isEmpty {
-            for effect in effects {
-                effect.resolve()
-            }
-        }
+        spellAbility?.resolve()
     }
 }

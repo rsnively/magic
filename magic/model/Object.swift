@@ -26,9 +26,9 @@ class Object: Targetable, Hashable, NSCopying {
             baseToughness = newToughness
         }
     }
-    var effects:[Effect] = []
-    var activeEffects:[ContinuousEffect] = []
-    var counters:[Counter: Int] = [:]
+    var spellAbility: Effect?
+    var activeEffects: [ContinuousEffect] = []
+    var counters: [Counter: Int] = [:]
     
     var startingLoyalty: Int?
     private var lastTurnActivatedLoyaltyAbility: Int?
@@ -223,7 +223,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.baseToughness = baseToughness
         copy.startingLoyalty = startingLoyalty
         copy.lastTurnActivatedLoyaltyAbility = lastTurnActivatedLoyaltyAbility
-        copy.effects = effects
+        copy.spellAbility = spellAbility
         copy.activeEffects = activeEffects
         copy.counters = counters
         copy.attachedTo = attachedTo
@@ -441,10 +441,10 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func addEffect(_ effect: @escaping () -> Void) {
-        effects.append(UntargetedEffect(effect: effect))
+        self.spellAbility = UntargetedEffect(effect: effect)
     }
     func addEffect(_ effect: TargetedEffect) {
-        effects.append(effect)
+        self.spellAbility = effect
     }
     
     func addContinuousEffect(_ continuousEffect: ContinuousEffect) {
@@ -647,15 +647,14 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func requiresTargets() -> Bool {
-        return effects.contains(where: { $0.requiresTarget() })
+        if let spellAbility = spellAbility {
+            return spellAbility.requiresTarget()
+        }
+        return false
     }
     
     func resolve() {
-        if !effects.isEmpty {
-            for effect in effects {
-                effect.resolve()
-            }
-        }
+        spellAbility?.resolve()
     }
     
     func getBasePower() -> Int {

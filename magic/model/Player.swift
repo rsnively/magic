@@ -285,7 +285,7 @@ class Player: Targetable {
                 Game.shared.checkStateBasedActions()
 
                 if (card.requiresTargets()) {
-                    Game.shared.targetingEffects.append(card.effects.first(where: { return $0.requiresTarget() })! as! TargetedEffect)
+                    Game.shared.targetingEffects.append(card.spellAbility as! TargetedEffect)
                 }
                 manaPool.payFor(card)
             }

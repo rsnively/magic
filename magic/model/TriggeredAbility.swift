@@ -27,7 +27,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
         self.restriction = restriction
         self.triggersInGraveyard = triggersInGraveyard
         super.init(name: "Triggered Ability of " + source.getName())
-        effects.append(UntargetedEffect(effect: effect, optional: effectOptional))
+        self.spellAbility = UntargetedEffect(effect: effect, optional: effectOptional)
     }
     
     func getTrigger() -> Trigger {
@@ -58,7 +58,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     
     override func resolve() {
         if restriction() {
-            for effect in effects {
+            if let effect = spellAbility {
                 if effect.isOptional() {
                     Game.shared.resolvingOptionalEffect = effect
                 }
@@ -88,7 +88,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
         self.restriction = restriction
         self.triggersInGraveyard = triggersInGraveyard
         super.init(name: "Triggered Ability of" + source.getName())
-        effects.append(effect)
+        self.spellAbility = effect
     }
     
     func getTrigger() -> Trigger {
@@ -104,9 +104,9 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
         return triggersInGraveyard
     }
     func triggerAbility() {
-        let effect = effects.first(where: { return $0.requiresTarget() }) as! TargetedEffect?
-        if restriction() && Game.shared.hasTargets(effect!) {
-            Game.shared.targetingEffects.append(effect!)
+        let effect = spellAbility as! TargetedEffect
+        if restriction() && Game.shared.hasTargets(effect) {
+            Game.shared.targetingEffects.append(effect)
             Game.shared.theStack.push(self)
         }
     }
@@ -121,7 +121,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     
     override func resolve() {
         if restriction() {
-            for effect in effects {
+            if let effect = spellAbility {
                 if effect.isOptional() {
                     Game.shared.resolvingOptionalEffect = effect
                 }
