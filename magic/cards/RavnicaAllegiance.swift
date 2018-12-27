@@ -40,6 +40,7 @@ enum RNA {
         Mortify,
         
         RakdosFirewheeler,
+        SphinxsInsight,
         
         ZeganaUtopianSpeaker,
         
@@ -209,7 +210,19 @@ enum RNA {
     // 206
     // 207 Simic Ascendancy
     // 208
-    // 209
+    static func SphinxsInsight() -> Card {
+        let sphinxsInsight = Card(name: "Sphinx's Insight", rarity: .Common, set: set, number: 209)
+        sphinxsInsight.setManaCost("2WU")
+        sphinxsInsight.setType(.Instant)
+        sphinxsInsight.addEffect({
+            sphinxsInsight.getController().drawCards(2)
+            if sphinxsInsight.getController().active && Game.shared.getCurrentPhase() == .FirstMain || Game.shared.getCurrentPhase() == .SecondMain {
+                sphinxsInsight.getController().gainLife(2)
+            }
+        })
+        sphinxsInsight.setFlavorText("\"Do not think me blind to your true mission... or your true master, Grand Arbiter.\"")
+        return sphinxsInsight
+    }
     // 210
     // 211
     // 212
