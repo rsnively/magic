@@ -539,6 +539,8 @@
 		98B0C14D21A4C51000123F50 /* m198full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C14C21A4C51000123F50 /* m198full.png */; };
 		98B0C14F21A4C53700123F50 /* m19161full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C14E21A4C53700123F50 /* m19161full.png */; };
 		98B0C15121A4C6C800123F50 /* m1942full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0C15021A4C6C800123F50 /* m1942full.png */; };
+		98B0D02821D5973A00628E4E /* rix111full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D02721D5973A00628E4E /* rix111full.png */; };
+		98B0D02A21D5974300628E4E /* rixt1full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D02921D5974300628E4E /* rixt1full.png */; };
 		98B4B07921B078B300671825 /* dom170full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07821B078B300671825 /* dom170full.png */; };
 		98B4B07B21B07B2900671825 /* dom245full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07A21B07B2900671825 /* dom245full.png */; };
 		98B4B07D21B090DA00671825 /* m1929full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07C21B090D900671825 /* m1929full.png */; };
@@ -1470,6 +1472,8 @@
 		98B0C14C21A4C51000123F50 /* m198full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m198full.png; sourceTree = "<group>"; };
 		98B0C14E21A4C53700123F50 /* m19161full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19161full.png; sourceTree = "<group>"; };
 		98B0C15021A4C6C800123F50 /* m1942full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1942full.png; sourceTree = "<group>"; };
+		98B0D02721D5973A00628E4E /* rix111full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix111full.png; sourceTree = "<group>"; };
+		98B0D02921D5974300628E4E /* rixt1full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rixt1full.png; sourceTree = "<group>"; };
 		98B4B07821B078B300671825 /* dom170full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom170full.png; sourceTree = "<group>"; };
 		98B4B07A21B07B2900671825 /* dom245full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom245full.png; sourceTree = "<group>"; };
 		98B4B07C21B090D900671825 /* m1929full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1929full.png; sourceTree = "<group>"; };
@@ -2433,6 +2437,7 @@
 				98A9DFD2219E984300D99213 /* rix107full.png */,
 				98BEF4BA2178F26000144C51 /* rix108full.png */,
 				9810CDBF219CC86500967142 /* rix110full.png */,
+				98B0D02721D5973A00628E4E /* rix111full.png */,
 				98C9D32A21ABD8D500C90E50 /* rix112full.png */,
 				98BEF4BC2178F3C300144C51 /* rix113full.png */,
 				98BEF4BE2178F40B00144C51 /* rix114full.png */,
@@ -2480,6 +2485,7 @@
 				98D9766221D06A070095DAC6 /* rix189full.png */,
 				98D9766021D0698E0095DAC6 /* rix190full.png */,
 				98D9765E21D069380095DAC6 /* rix191full.png */,
+				98B0D02921D5974300628E4E /* rixt1full.png */,
 				9810CDE5219D185800967142 /* rixt3full.png */,
 				98154F3021BA0488003F8EF6 /* rixt5full.png */,
 			);
@@ -3046,6 +3052,7 @@
 				982232AB20EFEB3200B07803 /* m19158full.png in Resources */,
 				9853388A218A7266004B22F3 /* ktk53full.png in Resources */,
 				98DDC6B721ACAE1600EB4639 /* test1full.png in Resources */,
+				98B0D02821D5973A00628E4E /* rix111full.png in Resources */,
 				98AA80252165F5EA004BFE0B /* grn28full.png in Resources */,
 				98BEF4BF2178F40B00144C51 /* rix114full.png in Resources */,
 				98B5220B2187099C0085F5EB /* m1967full.png in Resources */,
@@ -3357,6 +3364,7 @@
 				98FB88382192362000A410C8 /* xln252full.png in Resources */,
 				98319997219A9A9A0026317F /* grn17full.png in Resources */,
 				98A0D716215B14C300D90BCD /* grn94full.png in Resources */,
+				98B0D02A21D5974300628E4E /* rixt1full.png in Resources */,
 				98533876218A699E004B22F3 /* ktkt4full.png in Resources */,
 				98A9DFF8219EAF0400D99213 /* hou87full.png in Resources */,
 				98A9A9712196CF130071D81F /* dom240full.png in Resources */,
