@@ -1,6 +1,7 @@
 import Foundation
 
 enum Trigger {
+    case APlayerCastsInstantOrSorcery
     case CreatureEntersBattlefieldUnderYourControl
     case CreatureWithFlyingAttacks
     case DragonEntersBattlefieldUnderYourControl
