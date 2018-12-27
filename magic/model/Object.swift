@@ -148,6 +148,11 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects().baseUnblockable }
         set (newUnblockable) { baseUnblockable = newUnblockable }
     }
+    private var baseUncounterable: Bool = false
+    var uncounterable: Bool {
+        get { return applyContinuousEffects().baseUncounterable }
+        set (newUncounterable) { baseUncounterable = newUncounterable }
+    }
     private var baseVigilance: Bool = false
     var vigilance: Bool {
         get { return applyContinuousEffects().baseVigilance }
@@ -253,8 +258,9 @@ class Object: Targetable, Hashable, NSCopying {
         copy.baseLifelink = baseLifelink
         copy.baseReach = baseReach
         copy.baseTrample = baseTrample
-        copy.baseVigilance = baseVigilance
         copy.baseUnblockable = baseUnblockable
+        copy.baseUncounterable = baseUncounterable
+        copy.baseVigilance = baseVigilance
         
         copy.owner = owner
         copy.controller = controller
@@ -752,7 +758,9 @@ class Object: Targetable, Hashable, NSCopying {
     func counter() {
         // TODO: Right now you can counter yourself, but this will be cleaned up once targeting happens before you get added to the stack
         assert(getZone() == .Stack)
-        getOwner().counter(self)
+        if !uncounterable {
+            getOwner().counter(self)
+        }
     }
     
     func discard() {
