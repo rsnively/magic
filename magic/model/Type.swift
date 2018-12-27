@@ -111,6 +111,7 @@ enum Subtype {
     case Serpent
     case Shade
     case Shaman
+    case Siren
     case Skeleton
     case Snake
     case Soldier
