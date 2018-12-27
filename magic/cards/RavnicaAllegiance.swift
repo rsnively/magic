@@ -28,6 +28,7 @@ enum RNA {
     
     static let cards = [
         
+        Absorb,
         Aeromunculus,
         
         Bedevil,
@@ -54,6 +55,19 @@ enum RNA {
     // 108
     // 109 Rix Maadi Reveler
     
+    static func Absorb() -> Card {
+        let absorb = Card(name: "Absorb", rarity: .Rare, set: set, number: 151)
+        absorb.setManaCost("WUU")
+        absorb.setType(.Instant)
+        absorb.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetSpell(),
+            effect: { target in
+                target.counter()
+                absorb.getController().gainLife(3)
+        }))
+        absorb.setFlavorText("\"In your misguided attempt to subvery the law, you have eloquently explained why the law must exist.\"")
+        return absorb
+    }
     static func Aeromunculus() -> Card {
         let aeromunculus = Card(name: "Aeromunculus", rarity: .Common, set: set, number: 152)
         aeromunculus.setManaCost("1GW")
