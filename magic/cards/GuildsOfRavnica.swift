@@ -1662,10 +1662,50 @@ enum GRN {
     // 228 Invert // Invent
     // 229 Response // Resurgence
     // 230 Status // Statue
-    // 231 Boros Locket
+    static func BorosLocket() -> Card {
+        let borosLocket = Card(name: "Boros Locket", rarity: .Uncommon, set: set, number: 231)
+        borosLocket.setManaCost("3")
+        borosLocket.setType(.Artifact)
+        borosLocket.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { borosLocket.getController().addMana(color: .Red) },
+            manaAbility: true)
+        borosLocket.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { borosLocket.getController().addMana(color: .White) },
+            manaAbility: true)
+        borosLocket.addActivatedAbility(
+            string: "{R/W}{R/W}{R/W}{R/W}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{R/W}{R/W}{R/W}{R/W}").Tap().Sacrifice(),
+            effect: { borosLocket.getController().drawCards(2) })
+        borosLocket.setFlavorText("\"We pass these along to our fellow soldiers to recognize deeds of valor. It won't stay with you for long.\"\n--Alovnek, Boros guildmage")
+        return borosLocket
+    }
     // 232 Chamber Sentry
     // 233 Chromatic Lantern
-    // 234 Dimir Locket
+    static func DimirLocket() -> Card {
+        let dimirLocket = Card(name: "Dimir Locket", rarity: .Uncommon, set: set, number: 234)
+        dimirLocket.setManaCost("3")
+        dimirLocket.setType(.Artifact)
+        dimirLocket.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { dimirLocket.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        dimirLocket.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { dimirLocket.getController().addMana(color: .Black) },
+            manaAbility: true)
+        dimirLocket.addActivatedAbility(
+            string: "{U/B}{U/B}{U/B}{U/B}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{U/B}{U/B}{U/B}{U/B}").Tap().Sacrifice(),
+            effect: { dimirLocket.getController().drawCards(2) })
+        dimirLocket.setFlavorText("\"Wear this, and take your place among the shadows--wise, lethal, and unseen.\"\n--Ivrelya, Dimir spymaster")
+        return dimirLocket
+    }
     static func GatekeeperGargoyle() -> Card {
         let gatekeeperGargoyle = Card(name: "Gatekeeper Gargoyle", rarity: .Uncommon, set: set, number: 235)
         gatekeeperGargoyle.setManaCost("6")
@@ -1683,8 +1723,48 @@ enum GRN {
         return gatekeeperGargoyle
     }
     // 236 Glaive of the Guildpact
-    // 237 Golgari Locket
-    // 238 Izzet Locket
+    static func GolgariLocket() -> Card {
+        let golgariLocket = Card(name: "Golgari Locket", rarity: .Uncommon, set: set, number: 237)
+        golgariLocket.setManaCost("3")
+        golgariLocket.setType(.Artifact)
+        golgariLocket.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { golgariLocket.getController().addMana(color: .Black) },
+            manaAbility: true)
+        golgariLocket.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { golgariLocket.getController().addMana(color: .Green) },
+            manaAbility: true)
+        golgariLocket.addActivatedAbility(
+            string: "{B/G}{B/G}{B/G}{B/G}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{B/G}{B/G}{B/G}{B/G}").Tap().Sacrifice(),
+            effect: { golgariLocket.getController().drawCards(2) })
+        golgariLocket.setFlavorText("\"Wear it at all times. It will guide our reanimators to your corpse.\"\n--Mazirek, kraul death priest")
+        return golgariLocket
+    }
+    static func IzzetLocket() -> Card {
+        let izzetLocket = Card(name: "Izzet Locket", rarity: .Uncommon, set: set, number: 238)
+        izzetLocket.setManaCost("3")
+        izzetLocket.setType(.Artifact)
+        izzetLocket.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { izzetLocket.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        izzetLocket.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { izzetLocket.getController().addMana(color: .Red) },
+            manaAbility: true)
+        izzetLocket.addActivatedAbility(
+            string: "{U/R}{U/R}{U/R}{U/R}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{U/R}{U/R}{U/R}{U/R}").Tap().Sacrifice(),
+            effect: { izzetLocket.getController().drawCards(2) })
+        izzetLocket.setFlavorText("\"Remember to discharge your locket every seven hours. Unless you prefer the spontaneous aether overload, of course.\"\n--Daxiver, Izzet electromancer")
+        return izzetLocket
+    }
     static func RampagingMonument() -> Card {
         let rampagingMonument = Card(name: "Rampaging Monument", rarity: .Uncommon, set: set, number: 239)
         rampagingMonument.setManaCost("4")
@@ -1701,7 +1781,27 @@ enum GRN {
         rampagingMonument.toughness = 0
         return rampagingMonument
     }
-    // 240 Selsnya Locket
+    static func SelesnyaLocket() -> Card {
+        let selesnyaLocket = Card(name: "Selesnya Locket", rarity: .Uncommon, set: set, number: 240)
+        selesnyaLocket.setManaCost("3")
+        selesnyaLocket.setType(.Artifact)
+        selesnyaLocket.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { selesnyaLocket.getController().addMana(color: .Green) },
+            manaAbility: true)
+        selesnyaLocket.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { selesnyaLocket.getController().addMana(color: .White) },
+            manaAbility: true)
+        selesnyaLocket.addActivatedAbility(
+            string: "{G/W}{G/W}{G/W}{G/W}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{G/W}{G/W}{G/W}{G/W}").Tap().Sacrifice(),
+            effect: { selesnyaLocket.getController().drawCards(2) })
+        selesnyaLocket.setFlavorText("\"Think of the locket as a seed you bear, spreading life from Vitu-Ghazi across all of Ravnica.\"\n--Heruj, Selesnya hierophant")
+        return selesnyaLocket
+    }
     static func SilentDart() -> Card {
         let silentDart = Card(name: "Silent Dart", rarity: .Uncommon, set: set, number: 241)
         silentDart.setManaCost("1")
