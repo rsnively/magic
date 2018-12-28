@@ -8,6 +8,7 @@ enum Trigger {
     case EachEndStep
     case EachUpkeep
     case Landfall
+    case NontokenCreatureYouControlDies
     case ThisAttacks
     case ThisBecomesTapped
     case ThisBlocks

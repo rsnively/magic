@@ -447,6 +447,11 @@ class Player: Targetable {
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)
+        if !object.isToken() {
+            // TODO, if multiple things die at same tame, all should trigger multiple times
+            object.triggerAbilities(.NontokenCreatureYouControlDies)
+            triggerAbilities(.NontokenCreatureYouControlDies)
+        }
     }
     
     func exileObject(_ object: Object) {
