@@ -546,6 +546,8 @@
 		98B0D03021D59D7600628E4E /* rix54full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D02F21D59D7600628E4E /* rix54full.png */; };
 		98B0D03221D59FB800628E4E /* grn42full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D03121D59FB700628E4E /* grn42full.png */; };
 		98B0D03421D5A38D00628E4E /* grn77full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D03321D5A38D00628E4E /* grn77full.png */; };
+		98B0D03621D5B64100628E4E /* HybridMana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B0D03521D5B64100628E4E /* HybridMana.swift */; };
+		98B0D03821D5C3EC00628E4E /* grn219full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B0D03721D5C3EC00628E4E /* grn219full.png */; };
 		98B4B07921B078B300671825 /* dom170full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07821B078B300671825 /* dom170full.png */; };
 		98B4B07B21B07B2900671825 /* dom245full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07A21B07B2900671825 /* dom245full.png */; };
 		98B4B07D21B090DA00671825 /* m1929full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4B07C21B090D900671825 /* m1929full.png */; };
@@ -1484,6 +1486,8 @@
 		98B0D02F21D59D7600628E4E /* rix54full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rix54full.png; sourceTree = "<group>"; };
 		98B0D03121D59FB700628E4E /* grn42full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn42full.png; sourceTree = "<group>"; };
 		98B0D03321D5A38D00628E4E /* grn77full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn77full.png; sourceTree = "<group>"; };
+		98B0D03521D5B64100628E4E /* HybridMana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridMana.swift; sourceTree = "<group>"; };
+		98B0D03721D5C3EC00628E4E /* grn219full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn219full.png; sourceTree = "<group>"; };
 		98B4B07821B078B300671825 /* dom170full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom170full.png; sourceTree = "<group>"; };
 		98B4B07A21B07B2900671825 /* dom245full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom245full.png; sourceTree = "<group>"; };
 		98B4B07C21B090D900671825 /* m1929full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1929full.png; sourceTree = "<group>"; };
@@ -2063,6 +2067,7 @@
 				98E8A05020EAF79100A951DA /* Effect.swift */,
 				98FE5D1721B64B9F0007DE6C /* Emblem.swift */,
 				982F9B2D209BAC81009BBD8B /* Game.swift */,
+				98B0D03521D5B64100628E4E /* HybridMana.swift */,
 				9818425520CA07580068DC91 /* Mana.swift */,
 				9818425320CA07050068DC91 /* ManaCost.swift */,
 				986D5C9320D1E60B005E944E /* ManaPool.swift */,
@@ -2967,6 +2972,7 @@
 				98B0C14A21A4C44A00123F50 /* grn203full.png */,
 				98B6FFA62181062A00BC6FBD /* grn210full.png */,
 				98E176A4216FE8D400763F96 /* grn214full.png */,
+				98B0D03721D5C3EC00628E4E /* grn219full.png */,
 				9831998A219A71A40026317F /* grn235full.png */,
 				98B9295C219C1A7B0095C4F4 /* grn239full.png */,
 				9814E3342195278B00B156F9 /* grn241full.png */,
@@ -3881,6 +3887,7 @@
 				98B6FF932180FE1A00BC6FBD /* grn245full.png in Resources */,
 				98B92971219C24010095C4F4 /* xln182full.png in Resources */,
 				9823DE0021598D210080C806 /* lea91full.png in Resources */,
+				98B0D03821D5C3EC00628E4E /* grn219full.png in Resources */,
 				98E8A05620EAFBF200A951DA /* m1951full.png in Resources */,
 				98B9295F219C1B1F0095C4F4 /* grn101full.png in Resources */,
 				989D9D69219977B50024D563 /* m1995full.png in Resources */,
@@ -3984,6 +3991,7 @@
 				986EAA5A20A10F0300F3CCDC /* Color.swift in Sources */,
 				98C6F08C21C9CD49004088C7 /* GraveyardCardNode.swift in Sources */,
 				986ED55C215F05F1008B44DC /* Dominaria.swift in Sources */,
+				98B0D03621D5B64100628E4E /* HybridMana.swift in Sources */,
 				985E0F8520A26384006759B3 /* Type.swift in Sources */,
 				983373D6215C4A5D003CD4D0 /* Trigger.swift in Sources */,
 				9840897E20CAF562005DA8F6 /* Rarity.swift in Sources */,

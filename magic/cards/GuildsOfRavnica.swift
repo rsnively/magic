@@ -1618,7 +1618,16 @@ enum GRN {
     // 216 Fresh-Faced Recruit
     // 217 Piston-Fist Cyclops
     // 218 Pitiless Gorgon
-    // 219 Vernadi Shieldmate
+    static func VernadiShieldmate() -> Card {
+        let vernadiShieldmate = Card(name: "Vernadi Shieldmate", rarity: .Common, set: set, number: 219)
+        vernadiShieldmate.setManaCost("1{G/W}")
+        vernadiShieldmate.setType(.Creature, .Human, .Soldier)
+        vernadiShieldmate.vigilance = true
+        vernadiShieldmate.setFlavorText("\"Selesnya's soil is sacred, and you're about to meet it with your face.\"")
+        vernadiShieldmate.power = 2
+        vernadiShieldmate.toughness = 2
+        return vernadiShieldmate
+    }
     // 220 Whisper Agent
     // 221 Assure // Assemble
     // 222 Connive // Concoct
