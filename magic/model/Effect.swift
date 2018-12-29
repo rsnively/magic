@@ -107,6 +107,21 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetPlayerOrPlaneswalker(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction(
+            restriction: { targetable in
+                if let object = targetable as? Object {
+                    return object.isType(.Planeswalker)
+                }
+                if let _ = targetable as? Player {
+                    return true
+                }
+                return false
+            },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     
     static func TargetArtifact(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
