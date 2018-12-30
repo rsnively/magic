@@ -5,7 +5,7 @@ enum M19 {
     static var count = 280
 
     static let cards = [
-        AegisOfTheHeavens, AethershieldArtificer, AjaniAdversaryOfTyrants, /* AjanisLastStand, */ AjanisPridemate, AjanisWelcome, AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, Isolate, KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, MilitiaBugler, /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, RemorsefulCleric, ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, BoneToAsh, Cancel, /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ EssenceScatter, ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, TotallyLost, UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, InfernalReckoning, /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ PlagueMare, /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ LavaAxe, LightningMare, LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, ViashinoPyromancer, VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, ElvishRejuvenator, /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, GoreclawTerrorOfQalSisma, GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ Recollect, RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, VineMare, VivienReid, /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, EnigmaDrake, HeroicReinforcements, /* NicolBolasTheRavager, */ PalladiaMorsTheRuiner, /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ DragonsHoard, ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, TransmogrifyingWand, /* CinderBarrens, */ /* DetectionTower, */ /* ForsakenSanctuary, */ /* FoulOrchard, */ /* HighlandLake, */ /* MeanderingRiver, */ /* ReliquaryTower, */ /* RuptureSpire, */ /* StoneQuarry */ /* SubmergedBoneyard, */ /* TimberGorge, */ /* TranquilExpanse, */ /* WoodlandStream, */
+        AegisOfTheHeavens, AethershieldArtificer, AjaniAdversaryOfTyrants, /* AjanisLastStand, */ AjanisPridemate, AjanisWelcome, AngelOfTheDawn, CavalryDrillmaster, /* CleansingNova, */ DaybreakChaplain, DwarvenPriest, GallantCavalry, HeraldOfFaith, /* HieromancersCage, */ InspiredCharge, InvokeTheDivine, Isolate, KnightOfTheTusk, KnightsPledge, KnightlyValor, LenaSelflessChampion, LeoninVanguard, LeoninWarleader, LoxodonLineBreaker, LuminousBonds, MakeAStand, /* MentorOfTheMeek, */ MightyLeap, MilitiaBugler, /* NoviceKnight, */ OreskosSwiftclaw, PegasusCourser, RemorsefulCleric, ResplendentAngel, Revitalize, RustwingFalcon, /* ShieldMare, */ StarCrownedStag, /* Suncleanser, */ TakeVengeance, /* TrustyPackbeast, */ ValiantKnight, AetherTunnel, /* Anticipate, */ AvenWindMage, AviationPioneer, BoneToAsh, Cancel, /* DepartedDeckhand, */ Disperse, Divination, /* DjinnOfWishes, */ /* Dwindle, */ EssenceScatter, ExclusionMage, FrilledSeaSerpent, GearsmithProdigy, /* Ghostform, */ /* HorizonScolar, */ /* MetamorphicAlteration, */ /* MirrorImage, */ /* Mistcaller, */ MysticArchaeologist, /* Omenspeaker, */ /* Omniscience, */ OneWithTheMachine, PatientRebuilding, PsychicCorrosion, /* SaiMasterThopterist, */ /* SalvagerOfSecrets, */ ScholarOfStars, Sift, /* SkilledAnimator, */ /* Sleep, */ SnappingDrake, SupremePhantom, /* SurgeMare, */ /* Switcheroo, */ /* TezzeretArtificeMaster, */ TolarianScholar, TotallyLost, UncomfortableChill, WallOfMist, WindreaderSphinx, /* AbnormalEndurance, */ /* BloodDivination, */ Bogstomper, /* BoneDragon, */ ChildOfNight, DeathBaron, /* DemonOfCatastrophes, */ DiregrafGhoul, DoomedDissenter, Duress, EpicureOfBlood, /* FellSpecter, */ /* FrayingOmnipotence, */ /* Gravedigger, */ /* GraveyardMarshal, */ HiredBlade, InfectiousHorror, InfernalReckoning, /* InfernalScarring, */ /* IsarethTheAwakener, */ LichsCaress, /* LilianaUntouchedByDeath, */ /* LilianasContract, */ /* MacabreWaltz, */ MindRot, Murder, NightmaresThirst, /* OpenTheGraves, */ /* PhylacteryLich, */ PlagueMare, /* RavenousHarpy, */ /* ReassemblingSkeleton, */ /* RiseFromTheGrave, */ SkeletonArcher, SkymarchBloodletter, SovereignsBite, StitchersSupplier, StranglingSpores, /* TwoHeadedZombie, */ VampireNeonate, VampireSovereign, WalkingCorpse, /* ActOfTreason, */ /* AlpineMoon, */ /* ApexOfPower, */ /* Banefire, */ /* BoggartBrute, */ CatalystElemental, CrashThrough, /* DarkDwellerOracle, */ /* DemandingDragon, */ /* DismissivePyromancer, */ /* Doublecast, */ DragonEgg, Electrify, FieryFinish, FireElemental, GoblinInstigator, GoblinMotivator, /* GoblinTrashmaster, */ Guttersnipe, HavocDevils, HostileMinotaur, /* InfernoHellion, */ /* LathlissDragonQueen, */ LavaAxe, LightningMare, LightningStrike, OnakkeOgre, /* SarkhanFireblood, */ /* SarkhansUnsealing, */ Shock, SiegebreakerGiant, Smelt, /* SparktongueDragon, */ /* SpitFlame, */SureStrike, /* TectonicRift, */ /* Thud, */ /* TormentingVoice, */ TrumpetBlast, ViashinoPyromancer, VolcanicDragon, VolleyVeteran, BlanchwoodArmor, /* BristlingBoar, */ CentaurCourser, ColossalDreadmaw, ColossalMajesty, DaggerbackBasilisk, /* DeclareDominance, */ /* DruidOfHorns, */ DruidOfTheCowl, /* DryadGreenseaker, */ ElvishClancaller, ElvishRejuvenator, /* GhastbarkTwins, */ /* GhirapurGuide, */ GiantSpider, /* GiftOfParadise, */ Gigantosaurus, GoreclawTerrorOfQalSisma, GreenwoodSentinel, HighlandGame, /* HungeringHydra, */ Naturalize, Oakenform, PelakkaWurm, Plummet, ProdigiousGrowth, RabidBite, /* ReclamationSage, */ Recollect, RhoxOracle, /* RootSnare, */ /* RunicArmasaur, */ /* Scapeshift, */ /* TalonsOfWildwood, */ /* ThornLieutenant, */ ThornhideWolves, TitanicGrowth, VigilantBaloth, VineMare, VivienReid, /* ViviensInvocation, */ WallOfVines, AerialEngineer, /* ArcadesTheStrategist, */ /* BrawlBashOgre, */ /* ChromiumTheMutable, */ DraconicDisciple, EnigmaDrake, HeroicReinforcements, /* NicolBolasTheRavager, */ PalladiaMorsTheRuiner, /* PoisonTipArcher, */ PsychicSymbiont, RegalBloodlord, SatyrEnchanter, /* SkyriderPatrol, */ /* VaevictisAsmadiTheDire, */ /* AmuletOfSafekeeping, */ ArcaneEncyclopedia, /* ChaosWand, */ /* CrucibleOfWorlds, */ /* DesecratedTomb, */ /* DiamondMare, */ DragonsHoard, ExplosiveApparatus, FieldCreeper, FountainOfRenewal, GargoyleSentinel, GearsmithGuardian, /* MagistratesScepter, */ Manalith, /* MaraudersAxe, */ MeteorGolem, Millstone, /* RoguesGloves, */ /* SigiledSwordOfValeron, */ Skyscanner, SuspiciousBookcase, TransmogrifyingWand, CinderBarrens, /* DetectionTower, */ ForsakenSanctuary, FoulOrchard, HighlandLake, MeanderingRiver, /* ReliquaryTower, */ /* RuptureSpire, */ StoneQuarry, SubmergedBoneyard, TimberGorge, TranquilExpanse, WoodlandStream,
     ]
 
     static func RandomCard() -> Card {
@@ -2352,19 +2352,189 @@ enum M19 {
             sorcerySpeed: true)
         return transmogrifyingWand
     }
-    // 248 Cinder Barrens
+    static func CinderBarrens() -> Card {
+        let cinderBarrens = Card(name: "Forsaken Sanctuary", rarity: .Common, set: set, number: 248)
+        cinderBarrens.setManaCost("")
+        cinderBarrens.setType(.Land)
+        cinderBarrens.entersTapped = true
+        cinderBarrens.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { cinderBarrens.getController().addMana(color: .Black) },
+            manaAbility: true)
+        cinderBarrens.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { cinderBarrens.getController().addMana(color: .Red) },
+            manaAbility: true)
+        cinderBarrens.setFlavorText("\"I do as I choose with what is mine. And it is all mine.\"\n--Nicol Bolas")
+        return cinderBarrens
+    }
     // 249 Detection Tower
-    // 250 Forsaken Sanctuary
-    // 251 Foul Orchard
-    // 252 Highland Lake
-    // 253 Meandering River
+    static func ForsakenSanctuary() -> Card {
+        let forsakenSanctuary = Card(name: "Forsaken Sanctuary", rarity: .Common, set: set, number: 250)
+        forsakenSanctuary.setManaCost("")
+        forsakenSanctuary.setType(.Land)
+        forsakenSanctuary.entersTapped = true
+        forsakenSanctuary.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { forsakenSanctuary.getController().addMana(color: .White) },
+            manaAbility: true)
+        forsakenSanctuary.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { forsakenSanctuary.getController().addMana(color: .Black) },
+            manaAbility: true)
+        forsakenSanctuary.setFlavorText("\"Prayers will curdle on the tongue, and be heard by rotting ears.\"")
+        return forsakenSanctuary
+    }
+    static func FoulOrchard() -> Card {
+        let foulOrchard = Card(name: "Foul Orchard", rarity: .Common, set: set, number: 251)
+        foulOrchard.setManaCost("")
+        foulOrchard.setType(.Land)
+        foulOrchard.entersTapped = true
+        foulOrchard.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { foulOrchard.getController().addMana(color: .Black) },
+            manaAbility: true)
+        foulOrchard.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { foulOrchard.getController().addMana(color: .Green) },
+            manaAbility: true)
+        foulOrchard.setFlavorText("The stench of rotting meat lures flies, goblins, and young raptors.")
+        return foulOrchard
+    }
+    static func HighlandLake() -> Card {
+        let highlandLake = Card(name: "Highland Lake", rarity: .Common, set: set, number: 252)
+        highlandLake.setManaCost("")
+        highlandLake.setType(.Land)
+        highlandLake.entersTapped = true
+        highlandLake.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { highlandLake.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        highlandLake.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { highlandLake.getController().addMana(color: .Red) },
+            manaAbility: true)
+        highlandLake.setFlavorText("\"A place like this makes me wonder if there's more to life than blood and treasure... Nah.\"\n--Boyl Bucksalt, Storm Fleet swab")
+        return highlandLake
+    }
+    static func MeanderingRiver() -> Card {
+        let meanderingRiver = Card(name: "Meandering River", rarity: .Common, set: set, number: 253)
+        meanderingRiver.setManaCost("")
+        meanderingRiver.setType(.Land)
+        meanderingRiver.entersTapped = true
+        meanderingRiver.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { meanderingRiver.getController().addMana(color: .White) },
+            manaAbility: true)
+        meanderingRiver.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { meanderingRiver.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        meanderingRiver.setFlavorText("The river split into many channels as it flowed to the Halimar Sea. Few travelers could follow the same one twice.")
+        return meanderingRiver
+    }
     // 254 Reliquary Tower
     // 255 Rupture Spire
-    // 256 Stone Quarry
-    // 257 Submerged Boneyard
-    // 258 Timber Gorge
-    // 259 Tranquil Expanse
-    // 260 Woodland Stream
+    static func StoneQuarry() -> Card {
+        let stoneQuarry = Card(name: "Stone Quarry", rarity: .Common, set: set, number: 256)
+        stoneQuarry.setManaCost("")
+        stoneQuarry.setType(.Land)
+        stoneQuarry.entersTapped = true
+        stoneQuarry.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { stoneQuarry.getController().addMana(color: .Red) },
+            manaAbility: true)
+        stoneQuarry.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { stoneQuarry.getController().addMana(color: .White) },
+            manaAbility: true)
+        stoneQuarry.setFlavorText("The bedrock has many gifts to give.")
+        return stoneQuarry
+    }
+    static func SubmergedBoneyard() -> Card {
+        let submergedBoneyard = Card(name: "Stone Quarry", rarity: .Common, set: set, number: 257)
+        submergedBoneyard.setManaCost("")
+        submergedBoneyard.setType(.Land)
+        submergedBoneyard.entersTapped = true
+        submergedBoneyard.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { submergedBoneyard.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        submergedBoneyard.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { submergedBoneyard.getController().addMana(color: .Black) },
+            manaAbility: true)
+        submergedBoneyard.setFlavorText("\"Long after the land has given up the last of its secrets, there will still be mysteries in the depths of the sea.\"\n--Kiora")
+        return submergedBoneyard
+    }
+    static func TimberGorge() -> Card {
+        let timberGorge = Card(name: "Timber Gorge", rarity: .Common, set: set, number: 258)
+        timberGorge.setManaCost("")
+        timberGorge.setType(.Land)
+        timberGorge.entersTapped = true
+        timberGorge.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { timberGorge.getController().addMana(color: .Red) },
+            manaAbility: true)
+        timberGorge.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { timberGorge.getController().addMana(color: .Green) },
+            manaAbility: true)
+        timberGorge.setFlavorText("Tazeem's embrace is harsh, but for those that call it home, nothing else will do.")
+        return timberGorge
+    }
+    static func TranquilExpanse() -> Card {
+        let tranquilExpanse = Card(name: "Tranquil Expanse", rarity: .Common, set: set, number: 259)
+        tranquilExpanse.setManaCost("")
+        tranquilExpanse.setType(.Land)
+        tranquilExpanse.entersTapped = true
+        tranquilExpanse.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { tranquilExpanse.getController().addMana(color: .Green) },
+            manaAbility: true)
+        tranquilExpanse.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { tranquilExpanse.getController().addMana(color: .White) },
+            manaAbility: true)
+        tranquilExpanse.setFlavorText("Beyond the chaos of Ghirapur lies a vibrant world where aether flows through nature.")
+        return tranquilExpanse
+    }
+    static func WoodlandStream() -> Card {
+        let woodlandStream = Card(name: "Woodland Stream", rarity: .Common, set: set, number: 260)
+        woodlandStream.setManaCost("")
+        woodlandStream.setType(.Land)
+        woodlandStream.entersTapped = true
+        woodlandStream.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { woodlandStream.getController().addMana(color: .Green) },
+            manaAbility: true)
+        woodlandStream.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { woodlandStream.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        woodlandStream.setFlavorText("Waterways carve their routes through the land to reflect the paths the aether streams cut through the clouds.")
+        return woodlandStream
+    }
     static func Plains() -> Card {
         let plains = Card(name: "Plains", rarity: .Common, set: set, number: 261)
         plains.setManaCost("")
