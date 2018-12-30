@@ -1288,15 +1288,12 @@ enum RIX {
         let knightOfTheStampede = Card(name: "Knight of the Stampede", rarity: .Common, set: set, number: 138)
         knightOfTheStampede.setManaCost("3G")
         knightOfTheStampede.setType(.Creature, .Human, .Knight)
-        knightOfTheStampede.addStaticAbility(
-            { object in
-                if object.isType(.Dinosaur) && object.isSpell() && object.getOwner() === knightOfTheStampede.getController() {
-                    object.castingCost = object.getBaseCastingCost().reducedBy(2)
-                }
-                return object
-            },
-            characteristicDefining: false,
-            allZones: true)
+        knightOfTheStampede.addStaticAbility({ object in
+            if object.isType(.Dinosaur) && object.isSpell() && object.getOwner() === knightOfTheStampede.getController() {
+                object.castingCost = object.getBaseCastingCost().reducedBy(2)
+            }
+            return object
+        })
         knightOfTheStampede.setFlavorText("\"My whisper becomes a thousand roars.\"")
         knightOfTheStampede.power = 2
         knightOfTheStampede.toughness = 4
