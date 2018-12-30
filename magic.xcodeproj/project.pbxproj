@@ -804,6 +804,7 @@
 		98CD093B217F8F7300DA91F7 /* AbilitySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD093A217F8F7300DA91F7 /* AbilitySelector.swift */; };
 		98CD093D217FB35100DA91F7 /* lea285full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CD093C217FB35100DA91F7 /* lea285full.png */; };
 		98CED89421D883F3008BB45E /* m19186full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CED89321D883F3008BB45E /* m19186full.png */; };
+		98CED89621D884B0008BB45E /* m19197full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CED89521D884AF008BB45E /* m19197full.png */; };
 		98D0438820EE86920009143E /* m19100full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438720EE86920009143E /* m19100full.png */; };
 		98D0438A20EE87070009143E /* m19269full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D0438920EE87070009143E /* m19269full.png */; };
 		98D0438D20EE87B60009143E /* AIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0438C20EE87B60009143E /* AIPlayer.swift */; };
@@ -1759,6 +1760,7 @@
 		98CD093A217F8F7300DA91F7 /* AbilitySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilitySelector.swift; sourceTree = "<group>"; };
 		98CD093C217FB35100DA91F7 /* lea285full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lea285full.png; sourceTree = "<group>"; };
 		98CED89321D883F3008BB45E /* m19186full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19186full.png; sourceTree = "<group>"; };
+		98CED89521D884AF008BB45E /* m19197full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19197full.png; sourceTree = "<group>"; };
 		98D0438720EE86920009143E /* m19100full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19100full.png; sourceTree = "<group>"; };
 		98D0438920EE87070009143E /* m19269full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19269full.png; sourceTree = "<group>"; };
 		98D0438C20EE87B60009143E /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
@@ -2702,6 +2704,7 @@
 				98A5B02F21A0211400840C33 /* m19194full.png */,
 				98B6FFB4218110B900BC6FBD /* m19195full.png */,
 				98C2FFDA21A5FDD8006565ED /* m19196full.png */,
+				98CED89521D884AF008BB45E /* m19197full.png */,
 				9847851E216537F9004D51A8 /* m19198full.png */,
 				98CBD0AC216F3EDE0085E669 /* m19205full.png */,
 				98E8A04D20EAF49900A951DA /* m19206full.png */,
@@ -3689,6 +3692,7 @@
 				98CBD099216F36E80085E669 /* m19122full.png in Resources */,
 				98C741FE21927BE900815850 /* lea64full.png in Resources */,
 				98E176BF2170191B00763F96 /* xln23full.png in Resources */,
+				98CED89621D884B0008BB45E /* m19197full.png in Resources */,
 				98D0438820EE86920009143E /* m19100full.png in Resources */,
 				9825D47D21A3906100356D22 /* rix183full.png in Resources */,
 				987858C8217173DE00A07DB3 /* dom19full.png in Resources */,
