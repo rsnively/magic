@@ -10,7 +10,7 @@ class CreaturesCardNode: CardNode {
         if card.canAttack() {
             Game.shared.selectAttacker(self.card)
         }
-        else if card.isAttacking {
+        else if card.isAttacking && Game.shared.isDeclaringAttackers() {
             card.isAttacking = false
         }
         else if card.canBlock() {
