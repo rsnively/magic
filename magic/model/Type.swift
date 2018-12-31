@@ -30,6 +30,7 @@ enum Subtype {
     case Bat
     case Bear
     case Beast
+    case Berserker
     case Bird
     case Boar
     case Camel

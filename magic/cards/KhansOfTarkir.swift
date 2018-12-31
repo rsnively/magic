@@ -4,6 +4,15 @@ extension Object {
     func ferocious() -> Bool {
         return getController().getPermanents().first(where: { $0.getPower() >= 4 }) != nil
     }
+    
+    func addOutlastAbility(_ manaCost: String) {
+        self.addActivatedAbility(
+            string: "Outlast.",
+            cost: Cost.Mana(manaCost).Tap(),
+            effect: { self.addCounter(.PlusOnePlusOne) },
+            manaAbility: false,
+            sorcerySpeed: true)
+    }
 }
 
 enum KTK {
@@ -17,9 +26,54 @@ enum KTK {
             effect: { source.pump(1, 1) })
     }
 
-    // 1 Abzan Battle Priest - Sorcery speed abilities
-    // 2 Abzan Falconer - Sorcery speed abilities
-    // 3 Ainok Bond-Kin - Sorcery speed abilities
+    static func AbzanBattlePriest() -> Card {
+        let abzanBattlePriest = Card(name: "Abzan Battle Priest", rarity: .Uncommon, set: set, number: 1)
+        abzanBattlePriest.setManaCost("3W")
+        abzanBattlePriest.setType(.Creature, .Human, .Cleric)
+        abzanBattlePriest.addOutlastAbility("W")
+        abzanBattlePriest.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === abzanBattlePriest.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.lifelink = true
+            }
+            return object
+        })
+        abzanBattlePriest.setFlavorText("\"Wherever I walk, the ancestors walk too.\"")
+        abzanBattlePriest.power = 3
+        abzanBattlePriest.toughness = 2
+        return abzanBattlePriest
+    }
+    static func AbzanFalconer() -> Card {
+        let abzanFalconer = Card(name: "Abzan Falconer", rarity: .Uncommon, set: set, number: 2)
+        abzanFalconer.setManaCost("2W")
+        abzanFalconer.setType(.Creature, .Human, .Soldier)
+        abzanFalconer.addOutlastAbility("W")
+        abzanFalconer.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === abzanFalconer.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.flying = true
+            }
+            return object
+        })
+        abzanFalconer.setFlavorText("The fastest way across the dunes is above.")
+        abzanFalconer.power = 2
+        abzanFalconer.toughness = 3
+        return abzanFalconer
+    }
+    static func AinokBondKin() -> Card {
+        let ainokBondKin = Card(name: "Ainok Bond-Kin", rarity: .Common, set: set, number: 3)
+        ainokBondKin.setManaCost("1W")
+        ainokBondKin.setType(.Creature, .Human, .Soldier)
+        ainokBondKin.addOutlastAbility("1W")
+        ainokBondKin.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === ainokBondKin.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.firstStrike = true
+            }
+            return object
+        })
+        ainokBondKin.setFlavorText("\"Hold the line, for family and the fallen!\"")
+        ainokBondKin.power = 2
+        ainokBondKin.toughness = 1
+        return ainokBondKin
+    }
     static func AlabasterKirin() -> Card {
         let alabasterKirin = Card(name: "Alabaster Kirin", rarity: .Common, set: set, number: 4)
         alabasterKirin.setManaCost("3W")
@@ -61,11 +115,47 @@ enum KTK {
         defiantStrike.setFlavorText("\"Stand where the whole battle can see you. Strike so they'll never forget.\"\n--Anafenza, khan of the Abzan")
         return defiantStrike
     }
-    // 8 End Hostilities - Permanents attached to creatures (auras, equipment)
-    // 9 Erase - Exile
+    static func EndHostilities() -> Card {
+        let endHostilities = Card(name: "End Hostilities", rarity: .Rare, set: set, number: 8)
+        endHostilities.setManaCost("3WW")
+        endHostilities.setType(.Sorcery)
+        endHostilities.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getPermanents().filter({ $0.attachedTo != nil }).forEach({ let _ = $0.destroy() })
+                player.getCreatures().forEach({ let _ = $0.destroy() })
+            })
+        })
+        endHostilities.setFlavorText("Her palm flared like the eye of a waking dragon. Then all was calm.")
+        return endHostilities
+    }
+    static func Erase() -> Card {
+        let erase = Card(name: "Erase", rarity: .Common, set: set, number: 9)
+        erase.setManaCost("W")
+        erase.setType(.Instant)
+        erase.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetEnchantment(),
+            effect: { $0.exile() }))
+        erase.setFlavorText("\"Truth is hard enough to see, let alone understand. We must remove all distractions to find clarity.\"\n--Zogye, wandering sage.")
+        return erase
+    }
     // 10 Feat of Resistance - Protection from a color of your choice
-    // 11 Firehoof Cavalry - Trample
-    // 12 Herald of Anafenza - Sorcery speed abilities, outlast trigger specific to this object
+    static func FirehoofCavalry() -> Card {
+        let firehoofCavalry = Card(name: "Firehoof Cavalry", rarity: .Common, set: set, number: 11)
+        firehoofCavalry.setManaCost("W")
+        firehoofCavalry.setType(.Creature, .Human, .Berserker)
+        firehoofCavalry.addActivatedAbility(
+            string: "{3}{R}: ~ gets +2/+0 and gains trample until end of turn.",
+            cost: Cost.Mana("3R"),
+            effect: {
+                firehoofCavalry.pump(2, 0)
+                firehoofCavalry.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+        })
+        firehoofCavalry.setFlavorText("\"What warrior worth the name fears to leave a trail? If my enemies seek me, let them follow the ashes in my wake.\"")
+        firehoofCavalry.power = 1
+        firehoofCavalry.toughness = 1
+        return firehoofCavalry
+    }
+    // 12 Herald of Anafenza - outlast activated trigger
     static func HighSentinelsOfArashin() -> Card {
         let highSentinelsOfArashin = Card(name: "High Sentinels of Arashin", rarity: .Rare, set: set, number: 13)
         highSentinelsOfArashin.setManaCost("3W")
@@ -124,7 +214,19 @@ enum KTK {
         marduHateblade.toughness = 1
         return marduHateblade
     }
-    // 17 Mardu Hordechief - Raid, Conditional triggered abilities, attacked with creature this turn
+    static func MarduHordechief() -> Card {
+        let marduHordechief = Card(name: "Mardu Hordechief", rarity: .Common, set: set, number: 17)
+        marduHordechief.setManaCost("2W")
+        marduHordechief.setType(.Creature, .Human, .Warrior)
+        marduHordechief.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { marduHordechief.getController().createToken(Warrior()) },
+            restriction: { marduHordechief.getController().attackedWithCreatureThisTurn })
+        marduHordechief.setFlavorText("The horde grows with each assault.")
+        marduHordechief.power = 2
+        marduHordechief.toughness = 3
+        return marduHordechief
+    }
     // 18 Master of Pearls - Morph, turned face up trigger
     static func RushOfBattle() -> Card {
         let rushOfBattle = Card(name: "Rush of Battle", rarity: .Common, set: set, number: 19)
@@ -142,7 +244,16 @@ enum KTK {
         return rushOfBattle
     }
     // 20 Sage-Eye Harrior - Morph
-    // 21 Salt Road Patrol - Sorcery speed abilities
+    static func SaltRoadPatrol() -> Card {
+        let saltRoadPatrol = Card(name: "Salt Road Patrol", rarity: .Common, set: set, number: 21)
+        saltRoadPatrol.setManaCost("3W")
+        saltRoadPatrol.setType(.Creature, .Human, .Scout)
+        saltRoadPatrol.addOutlastAbility("1W")
+        saltRoadPatrol.setFlavorText("\"Soldiers win battles, but supplies win wards.\"\n--Kadri, Abzan caravan master")
+        saltRoadPatrol.power = 2
+        saltRoadPatrol.toughness = 5
+        return saltRoadPatrol
+    }
     static func SeekerOfTheWay() -> Card {
         let seekerOfTheWay = Card(name: "Seeker of the Way", rarity: .Uncommon, set: set, number: 22)
         seekerOfTheWay.setManaCost("1W")
@@ -156,7 +267,20 @@ enum KTK {
         seekerOfTheWay.toughness = 2
         return seekerOfTheWay
     }
-    // 23 Siegecraft - Auras
+    static func Siegecraft() -> Card {
+        let siegecraft = Card(name: "Siegecraft", rarity: .Common, set: set, number: 23)
+        siegecraft.setManaCost("3W")
+        siegecraft.setType(.Enchantment, .Aura)
+        siegecraft.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { object in
+                object.power = object.getBasePower() + 2
+                object.toughness = object.getBaseToughness() + 4
+                return object
+        })
+        siegecraft.setFlavorText("\"They thought their fortress impregnable... until we marched up with ours, and blocked out the sun.\"\n--Golran, dragonscale captain")
+        return siegecraft
+    }
     static func SmiteTheMonstrous() -> Card {
         let smiteTheMonstrous = Card(name: "Smite the Monstrous", rarity: .Common, set: set, number: 24)
         smiteTheMonstrous.setManaCost("3W")
@@ -182,7 +306,22 @@ enum KTK {
         takeUpArms.setFlavorText("\"Many scales make the skin of a dragon.\"\n--Abzan wisdom")
         return takeUpArms
     }
-    // 27 Timely Hordemate - Raid, Conditionally triggering abilities, Targets in Graveyard
+    static func TimelyHordemate() -> Card {
+        let timelyHordemate = Card(name: "Timely Hordemate", rarity: .Uncommon, set: set, number: 27)
+        timelyHordemate.setManaCost("3W")
+        timelyHordemate.setType(.Creature, .Human, .Warrior)
+        timelyHordemate.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getConvertedManaCost() <= 2 && $0.getOwner() === timelyHordemate.getOwner() },
+                    zones: [.Graveyard]),
+                effect: { $0.putOntoBattlefield() }),
+            restriction: { timelyHordemate.getController().attackedWithCreatureThisTurn })
+        timelyHordemate.power = 3
+        timelyHordemate.toughness = 2
+        return timelyHordemate
+    }
     static func VenerableLammasu() -> Card {
         let venerableLammasu = Card(name: "Venerable Lammasu", rarity: .Uncommon, set: set, number: 28)
         venerableLammasu.setManaCost("6W")
@@ -195,7 +334,27 @@ enum KTK {
     }
     // 29 War Behemoth - Morph
     // 30 Watcher of the Roost - Morph, face up trigger
-    // 31 Wingmate Roc - Raid, conditionally triggering abilities
+    static func WingmateRoc() -> Card {
+        let wingmateRoc = Card(name: "Wingmate Roc", rarity: .Mythic, set: set, number: 31)
+        wingmateRoc.setManaCost("3WW")
+        wingmateRoc.setType(.Creature, .Bird)
+        wingmateRoc.flying = true
+        wingmateRoc.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { wingmateRoc.getController().createToken(Bird()) },
+            restriction: { wingmateRoc.getController().attackedWithCreatureThisTurn })
+        wingmateRoc.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: {
+                let yourAttackingCreatures = wingmateRoc.getController().getCreatures().filter({ $0.isAttacking }).count
+                let oppAttackingCreatures = wingmateRoc.getOpponent().getCreatures().filter({ $0.isAttacking }).count
+                let lifeAmt = yourAttackingCreatures + oppAttackingCreatures
+                wingmateRoc.getController().gainLife(lifeAmt)
+        })
+        wingmateRoc.power = 3
+        wingmateRoc.toughness = 4
+        return wingmateRoc
+    }
     static func BlindingSpray() -> Card {
         let blindingSpray = Card(name: "Blinding Spray", rarity: .Uncommon, set: set, number: 32)
         blindingSpray.setManaCost("4U")
