@@ -141,6 +141,7 @@ enum RNA {
         let imperiousOligarch = Card(name: "Imperious Oligarch", rarity: .Common, set: set, number: 184)
         imperiousOligarch.setManaCost("WB")
         imperiousOligarch.setType(.Creature, .Human, .Cleric)
+        imperiousOligarch.vigilance = true
         imperiousOligarch.afterlife(1)
         imperiousOligarch.setFlavorText("The rights of ghosts are strictly protected under Orzhov bylaws, and those who enforce them can count on the ghosts' assistance.")
         imperiousOligarch.power = 2
