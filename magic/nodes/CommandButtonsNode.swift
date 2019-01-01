@@ -19,6 +19,9 @@ class CommandButtonsNode: SKNode {
         if Game.shared.isTargeting {
             return "(Choose targets)"
         }
+        if Game.shared.isCastingSpell {
+            return "Pay " + Game.shared.castingSpell!.manaCost!.getString()
+        }
         if Game.shared.isSelectingCards {
             return "Done Selecting"
         }

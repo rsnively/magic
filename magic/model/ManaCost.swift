@@ -54,6 +54,24 @@ class ManaCost: NSObject, NSCopying {
         return copy
     }
     
+    func getString() -> String {
+        var ret: String = ""
+        for mana in coloredMana {
+            if let color = mana.getColor() {
+                ret += String(color.rawValue)
+            } else {
+                ret += "C"
+            }
+        }
+        for mana in hybridMana {
+            ret += mana.getString()
+        }
+        if genericMana > 0 {
+            ret += String(genericMana)
+        }
+        return ret
+    }
+    
     func getColors() -> Set<Color> {
         var colors = Set<Color>()
         for mana in coloredMana {

@@ -654,7 +654,10 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func canActivateAbilities() -> Bool {
-        return !cantActivateAbilities && !activatedAbilities.isEmpty && !Game.shared.isSelecting() && getController().hasPriority
+        return !cantActivateAbilities
+            && !activatedAbilities.isEmpty
+            && (!Game.shared.isSelecting() || (Game.shared.isCastingSpell && !activatedAbilities.filter({ $0.isManaAbility() }).isEmpty))
+            && getController().hasPriority
     }
     
     func isSelectingAbility() -> Bool {

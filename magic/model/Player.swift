@@ -123,6 +123,12 @@ class Player: Targetable {
         for _ in 0..<amount {
             manaPool.add(Mana(color))
         }
+        
+        if let castingSpell = Game.shared.castingSpell {
+            if manaPool.canAfford(castingSpell.manaCost!) {
+                finishCastingSpell(castingSpell as! Card)
+            }
+        }
     }
     
     func getManaPool() -> ManaPool {

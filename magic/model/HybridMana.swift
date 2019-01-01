@@ -9,6 +9,10 @@ class HybridMana {
         self.color2 = color2
     }
     
+    func getString() -> String {
+        return "{" + String(color1.rawValue) + "/" + String(color2.rawValue) + "}"
+    }
+    
     func getColors() -> Set<Color> {
         return [color1, color2]
     }
