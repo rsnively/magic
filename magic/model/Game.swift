@@ -13,6 +13,12 @@ class Game: NSObject {
     private var declaringBlockers: Bool
     private var selectedAttacker: Object?
     private var selectedBlocker: Object?
+    
+    var castingSpell: Object?
+    var isCastingSpell: Bool {
+        return castingSpell != nil
+    }
+    
     var targetingEffects: [TargetedEffect] = []
     var isTargeting: Bool {
         return !targetingEffects.isEmpty
@@ -32,6 +38,9 @@ class Game: NSObject {
         targetingEffect.selectTarget(target)
         if targetingEffect.allTargetsSelected() {
             _ = targetingEffects.popLast()
+            if isCastingSpell {
+                getPlayerWithPriority().finishTargeting(castingSpell as! Card)
+            }
         }
     }
     
@@ -88,7 +97,7 @@ class Game: NSObject {
     }
     
     func isSelectingBesidesAttackBlock() -> Bool {
-        return isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep  || isResolvingOptionalEffect || isSelectingCards
+        return isCastingSpell || isTargeting || isSelectingAbility || isChoosingCardToDiscard || isChoosingLegendaryToKeep  || isResolvingOptionalEffect || isSelectingCards
     }
     
     func isSelecting() -> Bool {

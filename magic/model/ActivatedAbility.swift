@@ -8,6 +8,7 @@ protocol ActivatedAbility {
     func activate() -> Void
     func resolve() -> Void
     func isSorcerySpeed() -> Bool
+    func isManaAbility() -> Bool
     func isLoyaltyAbility() -> Bool
 }
 
@@ -45,6 +46,9 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     
     func isSorcerySpeed() -> Bool {
         return sorcerySpeed
+    }
+    func isManaAbility() -> Bool {
+        return manaAbility
     }
     func isLoyaltyAbility() -> Bool {
         return loyaltyAbility
@@ -109,6 +113,9 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     
     func isSorcerySpeed() -> Bool {
         return sorcerySpeed
+    }
+    func isManaAbility() -> Bool {
+        return manaAbility
     }
     func isLoyaltyAbility() -> Bool {
         return loyaltyAbility

@@ -2,24 +2,40 @@ import Foundation
 
 class AIPlayer: Player {
     
+    private func couldAfford(_ card: Object) -> Bool {
+        let temp: ManaPool = ManaPool()
+        getLands().filter({ !$0.isTapped }).forEach({ land in
+            if land.isBasicLand() {
+                temp.add(Mana(getColorForLandType(subtype: land.subtypes.first! )))
+            }
+            // TODO: AI using non-basic lands
+        })
+        return temp.canAfford(card.manaCost!)
+    }
+    
+    private func tapLandsToPayFor(_ card: Object) {
+        for land in getLands().filter({ !$0.isTapped }) {
+            if getManaPool().canAfford(card.manaCost!) {
+                return
+            }
+            if let ability = land.activatedAbilities.first {
+                // TODO: Only activate if would help pay for cost
+                payFor(ability.getCost(), land)
+                ability.activate()
+            }
+        }
+    }
+    
     override func givePriority() {
         var actionTaken = false
         getHand().filter({($0 as! Card).canPlay()}).forEach({ card in
-            let availableMana = getLands().count
             if card.isType(.Land) {
                 if !Game.shared.landWasPlayedThisTurn() {
                     play(card: card as! Card)
                 }
             }
-            else if availableMana >= card.getConvertedManaCost() && (card.spellAbility == nil || !card.spellAbility!.requiresTarget()) && !actionTaken {
-                var paid = 0
-                getLands().filter({!$0.isTapped}).forEach({ land in
-                    if paid < card.getConvertedManaCost() {
-                        land.tap()
-                        addMana(color: getColorForLandType(subtype: land.subtypes.first ?? .Island ))
-                        paid += 1
-                    }
-                })
+            else if couldAfford(card) && (card.spellAbility == nil || !card.spellAbility!.requiresTarget()) && !actionTaken {
+                tapLandsToPayFor(card)
                 play(card: card as! Card)
                 actionTaken = true
             }

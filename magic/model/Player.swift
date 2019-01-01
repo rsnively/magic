@@ -275,65 +275,78 @@ class Player: Targetable {
         permanents.forEach({ $0.removeFromCombat() })
     }
     
-    func play(card:Card) {
-        let cardIndex = hand.firstIndex(where: { $0 == card })!
-        // TODO: Card's manaCost should be cost, and then we can use player.canAfford here
-        if manaPool.canAfford(card) {
-            hand.remove(at:cardIndex)
-            if card.usesStack() {
-                Game.shared.theStack.push(card)
-                Game.shared.checkStateBasedActions()
-
-                if (card.requiresTargets()) {
-                    Game.shared.targetingEffects.append(card.spellAbility as! TargetedEffect)
-                }
-                manaPool.payFor(card)
-            }
-            else {
-                addPermanent(card)
-                manaPool.payFor(card)
-                Game.shared.checkStateBasedActions()
-            }
-            
-            if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
-                numberInstantsOrSorceriesCastThisTurn += 1
-                triggerAbilities(.YouCastInstantOrSorcery)
-                triggerAbilities(.YouCastInstantOrSorcery)
-                Game.shared.bothPlayers({ $0.triggerAbilities(.APlayerCastsInstantOrSorcery) })
-            }
-            if card.isSpell() && card.isType(.Creature) {
-                triggerAbilities(.YouCastCreatureSpell)
-            }
-            if card.isSpell() && !card.isType(.Creature) {
-                triggerAbilities(.YouCastNoncreatureSpell)
-            }
-            if card.isSpell() && card.isType(.Enchantment) {
-                triggerAbilities(.YouCastEnchantmentSpell)
-            }
-            
-            if card.isSpell() && card.isType(.Merfolk) {
-                triggerAbilities(.YouCastMerfolkSpell)
-            }
-            if card.isSpell() && card.isHistoric() {
-                triggerAbilities(.YouCastHistoricSpell)
-            }
-            
-            if card.isSpell() && card.isColor(.Blue) {
-                triggerAbilities(.YouCastBlueSpell)
-            }
-            if card.isSpell() && card.isColor(.Red) {
-                triggerAbilities(.YouCastRedSpell)
-            }
-            if card.isSpell() && card.colors.count > 1 {
-                triggerAbilities(.YouCastMulticoloredSpell)
-            }
+    func castTriggers(card: Card) {
+        if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
+            numberInstantsOrSorceriesCastThisTurn += 1
+            triggerAbilities(.YouCastInstantOrSorcery)
+            triggerAbilities(.YouCastInstantOrSorcery)
+            Game.shared.bothPlayers({ $0.triggerAbilities(.APlayerCastsInstantOrSorcery) })
         }
-        else {
-            return
+        if card.isSpell() && card.isType(.Creature) {
+            triggerAbilities(.YouCastCreatureSpell)
+        }
+        if card.isSpell() && !card.isType(.Creature) {
+            triggerAbilities(.YouCastNoncreatureSpell)
+        }
+        if card.isSpell() && card.isType(.Enchantment) {
+            triggerAbilities(.YouCastEnchantmentSpell)
         }
         
-        if (card.isType(Type.Land)) {
-            Game.shared.setLandPlayedThisTurn()
+        if card.isSpell() && card.isType(.Merfolk) {
+            triggerAbilities(.YouCastMerfolkSpell)
+        }
+        if card.isSpell() && card.isHistoric() {
+            triggerAbilities(.YouCastHistoricSpell)
+        }
+        
+        if card.isSpell() && card.isColor(.Blue) {
+            triggerAbilities(.YouCastBlueSpell)
+        }
+        if card.isSpell() && card.isColor(.Red) {
+            triggerAbilities(.YouCastRedSpell)
+        }
+        if card.isSpell() && card.colors.count > 1 {
+            triggerAbilities(.YouCastMulticoloredSpell)
+        }
+    }
+    
+    func finishTargeting(_ card: Card) {
+        Game.shared.castingSpell = nil
+        Game.shared.checkStateBasedActions()
+        castTriggers(card: card)
+    }
+    
+    func finishCastingSpell(_ card: Card) {
+        manaPool.payFor(card)
+        if card.requiresTargets() {
+            Game.shared.targetingEffects.append(card.spellAbility as! TargetedEffect)
+        } else {
+            finishTargeting(card)
+        }
+    }
+    
+    func castSpell(_ card: Card) {
+        removeObjectFromCurrentZone(card)
+        Game.shared.theStack.push(card)
+        Game.shared.castingSpell = card
+        // TODO: player.canAfford insteadof manaPool.canAfford (for non-mana costs)
+        if manaPool.canAfford(card) {
+            finishCastingSpell(card)
+        }
+    }
+    
+    func play(card:Card) {
+        if card.usesStack() {
+            castSpell(card)
+        }
+        else {
+            assert(card.getConvertedManaCost() == 0)
+            addPermanent(card)
+            if card.isType(.Land) {
+                Game.shared.setLandPlayedThisTurn()
+            }
+            card.reveal()
+            Game.shared.checkStateBasedActions()
         }
         card.reveal()
     }
