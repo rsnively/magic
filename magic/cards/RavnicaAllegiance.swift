@@ -36,6 +36,7 @@ enum RNA {
         GrowthSpiral,
         
         ImperiousOligarch,
+        JudithTheScourgeDiva,
         
         Mortify,
         
@@ -44,6 +45,11 @@ enum RNA {
         
         ZeganaUtopianSpeaker,
         
+        AzoriusLocket,
+        
+        AzoriusGuildgate243,
+        AzoriusGuildgate244,
+        
     ]
     
     static func RandomCard() -> Card {
@@ -51,6 +57,34 @@ enum RNA {
     }
     
     // 27 Tithe Taker
+    // 28
+    // 29
+    // 30
+    // 31
+    // 32
+    // 33
+    // 34
+    // 35
+    // 36
+    // 37
+    // 38
+    // 39
+    // 40
+    // 41
+    // 42 Mass Manipulation
+    // 43
+    // 44
+    // 45
+    // 46
+    // 47
+    // 48
+    // 49
+    // 50
+    // 51
+    // 52
+    // 53
+    // 54
+    // 55 Sphinx of Foresight
     
     // 107 Light Up the Stage
     // 108
@@ -103,9 +137,9 @@ enum RNA {
     // 162
     // 163
     // 164
-    // 165
+    // 165 Deputy of Detention
     // 166
-    // 167
+    // 167 Dovin, Grand Arbiter
     // 168
     // 169 Emergency Powers
     // 170
@@ -136,7 +170,7 @@ enum RNA {
     // 180
     // 181
     // 182
-    // 183
+    // 183 Hydroid Krasis
     static func ImperiousOligarch() -> Card {
         let imperiousOligarch = Card(name: "Imperious Oligarch", rarity: .Common, set: set, number: 184)
         imperiousOligarch.setManaCost("WB")
@@ -148,8 +182,27 @@ enum RNA {
         imperiousOligarch.toughness = 1
         return imperiousOligarch
     }
-    // 185
-    // 186
+    static func JudithTheScourgeDiva() -> Card {
+        let judith = Card(name: "Judith, the Scourge Diva", rarity: .Rare, set: set, number: 185)
+        judith.setManaCost("1BR")
+        judith.setType(.Legendary, .Creature, .Human, .Shaman)
+        judith.addStaticAbility({ object in
+            if object != judith && object.isType(.Creature) && object.getController() === judith.getController() {
+                object.power = object.getBasePower() + 1
+            }
+            return object
+        })
+        judith.addTriggeredAbility(
+            trigger: .NontokenCreatureYouControlDies,
+            effect: TargetedEffect(
+                restriction: TargetingRestriction.AnyTarget(),
+                effect: { judith.damage(to: $0, 1) }))
+        judith.setFlavorText("At the end of the show, she stands alone on a stage brilliant with blood.")
+        judith.power = 2
+        judith.toughness = 2
+        return judith
+    }
+    // 186 Kaya, Orzhov Usurper
     // 187
     // 188
     // 189 Lavinia, Azorius Renegade
@@ -263,8 +316,93 @@ enum RNA {
     // 228
     // 229
     // 230
-    // 231
+    static func AzoriusLocket() -> Card {
+        let azoriusLocket = Card(name: "Azorius Locket", rarity: .Uncommon, set: set, number: 231)
+        azoriusLocket.setManaCost("3")
+        azoriusLocket.setType(.Artifact)
+        azoriusLocket.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { azoriusLocket.getController().addMana(color: .White) },
+            manaAbility: true)
+        azoriusLocket.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { azoriusLocket.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        azoriusLocket.addActivatedAbility(
+            string: "{U/W}{U/W}{U/W}{U/W}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{U/W}{U/W}{U/W}{U/W}").Tap().Sacrifice(),
+            effect: { azoriusLocket.getController().drawCards(2) })
+        azoriusLocket.setFlavorText("\"Mandatory lockets enable the tracking of all Senate personnel for improved security and efficiency.\"\n--Dovin Baan")
+        return azoriusLocket
+    }
     // 232 Gate Colossus
+    // 233
+    // 234 Gruul Locket
+    // 235
+    // 236 Orzhov Locket
+    // 237 Rakdos Locket
+    // 238
+    // 239
+    // 240 Simic Locket
+    // 241
+    // 242
+    static func AzoriusGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? AzoriusGuildgate243() : AzoriusGuildgate244()
+    }
+    static func AzoriusGuildgate243() -> Card {
+        let azoriusGuildgate = Card(name: "Azorius Guildgate", rarity: .Common, set: set, number: 243)
+        azoriusGuildgate.setManaCost("")
+        azoriusGuildgate.setType(.Land, .Gate)
+        azoriusGuildgate.entersTapped = true
+        azoriusGuildgate.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { azoriusGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        azoriusGuildgate.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { azoriusGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        azoriusGuildgate.setFlavorText("\"If the populace fears our authority, then I'd say we have an appropriately sensible populace.\"\n--Dovin Baan")
+        return azoriusGuildgate
+    }
+    static func AzoriusGuildgate244() -> Card {
+        let azoriusGuildgate = Card(name: "Azorius Guildgate", rarity: .Common, set: set, number: 244)
+        azoriusGuildgate.setManaCost("")
+        azoriusGuildgate.setType(.Land, .Gate)
+        azoriusGuildgate.entersTapped = true
+        azoriusGuildgate.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { azoriusGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        azoriusGuildgate.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { azoriusGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        azoriusGuildgate.setFlavorText("\"If you want to know what's really going on in any building, you don't walk in the front door. You stake out the back.\"\n--Lavinia")
+        return azoriusGuildgate
+    }
+    // 245 Blood Crypt
+    // 246 Breeding Pool
+    // 247
+    // 248 Godless Shrine
+    // 249 Gruul Guildgate
+    // 250 Gruul Guildgate
+    // 251 Hallowed Fountain
+    // 252 Orzhov Guildgate
+    // 253 Orzhov Guildgate
+    // 254
+    // 255 Rakdos Guildgate
+    // 256 Rakdos Guildgate
+    // 257 Simic Guildgate
+    // 258 Simic Guildgate
+    // 259 Stomping Ground
+    
     
     static func Spirit() -> Token {
         let spirit = Token(name: "Spirit", set: set, number: 10)
