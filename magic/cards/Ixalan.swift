@@ -696,7 +696,7 @@ enum XLN {
         return riversRebuke
     }
     static func RunAground() -> Card {
-        let runAground = Card(name: "Run Aground", rarity: .Common, set: set, number: 74)
+        let runAground = Card(name: "Run Aground", rarity: .Common, set: set, number: 72)
         runAground.setManaCost("3U")
         runAground.setType(.Instant)
         runAground.addEffect(TargetedEffect.SingleObject(
