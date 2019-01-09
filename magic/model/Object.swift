@@ -424,6 +424,7 @@ class Object: Targetable, Hashable, NSCopying {
     func setType(_ type: Type, _ subtype: Subtype) { clearTypes(); addType(type); addType(subtype); }
     func setType(_ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(type1); addType(type2); addType(subtype); }
     func setType(_ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(type); addType(subtype1); addType(subtype2); }
+    func setType(_ type: Type, _ subtype1: Subtype, _ subtype2: Subtype, _ subtype3: Subtype) { clearTypes(); addType(type); addType(subtype1); addType(subtype2); addType(subtype3); }
     func setType(_ type1: Type, _ type2: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(type1); addType(type2); addType(subtype1); addType(subtype2); }
     func setType(_ supertype: Supertype, _ type: Type) { clearTypes(); addType(supertype); addType(type) }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype); }
@@ -485,6 +486,9 @@ class Object: Targetable, Hashable, NSCopying {
         counters[type] = (counters[type] ?? 0) + 1
         if type == Counter.Lore {
             triggerAbilities(.ThisGetsLoreCounter)
+        }
+        else if type == Counter.PlusOnePlusOne {
+            triggerAbilities(.ThisGetsPlusOnePlusOneCounter)
         }
     }
     func removeCounter(_ type: Counter) {

@@ -456,6 +456,12 @@ class Player: Targetable {
         graveyard.append(object)
     }
     
+    func discardHand() {
+        for object in hand {
+            discardCard(object)
+        }
+    }
+    
     func chooseCardToDiscard(_ object: Object) {
         discardCard(object)
         cardsToDiscard -= 1

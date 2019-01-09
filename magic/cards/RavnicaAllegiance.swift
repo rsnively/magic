@@ -14,6 +14,10 @@ extension Object {
         )
     }
     
+    func addendum() -> Bool {
+        return self.getController().active && Game.shared.getCurrentPhase() == .FirstMain || Game.shared.getCurrentPhase() == .SecondMain
+    }
+    
     func afterlife(_ amount: Int) {
         addTriggeredAbility(
             trigger: .ThisDies,
@@ -28,10 +32,25 @@ enum RNA {
     
     static let cards = [
         
+        ArchwayAngel,
+        
+        ArrestersAdmonition,
+        BenthicBiomancer,
+        
+        AwakenTheErstwhile,
+        
+        BurnBright,
+        
+        EndRazeForerunners,
+        
         Absorb,
         Aeromunculus,
         
+        AzoriusSkyguard,
+        BasilicaBellHaunt,
         Bedevil,
+        
+        CultGuildmage,
         
         GrowthSpiral,
         
@@ -56,40 +75,243 @@ enum RNA {
         return cards[Int.random(in: 0 ..< cards.count)]()
     }
     
+    // 1 Angel of Grace
+    // 2 Angelic Exaltation
+    static func ArchwayAngel() -> Card {
+        let archwayAngel = Card(name: "Archway Angel", rarity: .Uncommon, set: set, number: 3)
+        archwayAngel.setManaCost("5W")
+        archwayAngel.setType(.Creature, .Angel)
+        archwayAngel.flying = true
+        archwayAngel.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                let numGates = archwayAngel.getController().getPermanents().filter({ $0.isType(.Gate) }).count
+                archwayAngel.getController().gainLife(2 * numGates)
+        })
+        archwayAngel.setFlavorText("A ray of hope breaks through the shroud of rain.")
+        archwayAngel.power = 3
+        archwayAngel.toughness = 4
+        return archwayAngel
+    }
+    // 4
+    // 5
+    // 6
+    // 7
+    // 8
+    // 9
+    // 10
+    // 11
+    // 12
+    // 13
+    // 14
+    // 15
+    // 16 Ministrant of Obligation TODO
+    // 17
+    // 18
+    // 19
+    // 20
+    // 21
+    // 22 Smothering Tithe
+    // 23
+    // 24
+    // 25
+    // 26
     // 27 Tithe Taker
-    // 28
+    // 28 Unbreakable Formation TODO
     // 29
     // 30
-    // 31
-    // 32
+    static func ArrestersAdmonition() -> Card {
+        let arrestersAdmonition = Card(name: "Arrester's Admonition", rarity: .Common, set: set, number: 31)
+        arrestersAdmonition.setManaCost("2U")
+        arrestersAdmonition.setType(.Instant)
+        arrestersAdmonition.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.bounce()
+                if arrestersAdmonition.addendum() {
+                    arrestersAdmonition.getController().drawCard()
+                }
+        }))
+        arrestersAdmonition.setFlavorText("Law is the voice of reason.")
+        return arrestersAdmonition
+    }
+    static func BenthicBiomancer() -> Card {
+        let benthicBiomancer = Card(name: "Benthic Biomancer", rarity: .Rare, set: set, number: 32)
+        benthicBiomancer.setManaCost("U")
+        benthicBiomancer.setType(.Creature, .Merfolk, .Wizard, .Mutant)
+        benthicBiomancer.adapt(1, Cost.Mana("1U"))
+        benthicBiomancer.addTriggeredAbility(
+            trigger: .ThisGetsPlusOnePlusOneCounter,
+            effect: {
+                benthicBiomancer.getController().drawCard()
+                benthicBiomancer.getController().discard()
+        })
+        benthicBiomancer.setFlavorText("\"I am my life's work.\"")
+        benthicBiomancer.power = 1
+        benthicBiomancer.toughness = 1
+        return benthicBiomancer
+    }
     // 33
     // 34
     // 35
     // 36
-    // 37
+    // 37 Essence Capture TODO
     // 38
     // 39
     // 40
-    // 41
+    // 41 Humongulus TODO
     // 42 Mass Manipulation
-    // 43
+    // 43 Mesmerizing Benthid
     // 44
-    // 45
+    // 45 Precognitive Perception
     // 46
     // 47
-    // 48
+    // 48 Quench
     // 49
     // 50
     // 51
-    // 52
+    // 52 Skatewing Spy TODO
     // 53
     // 54
     // 55 Sphinx of Foresight
-    
+    // 56
+    // 57
+    // 58 Verity Circle TODO
+    // 59
+    // 60
+    static func AwakenTheErstwhile() -> Card {
+        let awakenTheErstwhile = Card(name: "Awaken the Erstwhile", rarity: .Rare, set: set, number: 61)
+        awakenTheErstwhile.setManaCost("3BB")
+        awakenTheErstwhile.setType(.Sorcery)
+        awakenTheErstwhile.addEffect({
+            Game.shared.bothPlayers({ player in
+                let handSize = player.getHand().count
+                player.discardHand()
+                for _ in 0..<handSize {
+                    player.createToken(M19.Zombie()) // TODO Use RNA Zombie if it exists
+                }
+            })
+        })
+        awakenTheErstwhile.setFlavorText("In preparation for the conflict all foresaw, the Golgari called upon an army that had slept for millenia beneath the city.")
+        return awakenTheErstwhile
+    }
+    // 62 Bankrupt in Blood
+    // 63 Blade Juggler
+    // 64
+    // 65
+    // 66
+    // 67
+    // 68
+    // 69
+    // 70 Cry of the Carnarium
+    // 71
+    // 72
+    // 73 Drill Bit
+    // 74
+    // 75
+    // 76 Gutterbones
+    // 77
+    // 78
+    // 79
+    // 80 Orzhov Racketeers
+    // 81 Pestilence Spirit
+    // 82
+    // 83
+    // 84
+    // 85 Spawn of Mayhem
+    // 86
+    // 87
+    // 88
+    // 89
+    // 90
+    // 91
+    // 92 Amplifire
+    static func BurnBright() -> Card {
+        let burnBright = Card(name: "Burn Bright", rarity: .Common, set: set, number: 93)
+        burnBright.setManaCost("2R")
+        burnBright.setType(.Instant)
+        burnBright.addEffect {
+            burnBright.getController().getCreatures().forEach({ $0.pump(2, 0) })
+        }
+        burnBright.setFlavorText("\"From a great bonfire at the dawn of time, the first Gruul kindled their rage. The same flame burns in you.\"\n--Kroshkar, Gruul shaman")
+        return burnBright
+    }
+    // 94 Burning-Tree Vandal
+    // 95
+    // 96
+    // 97
+    // 98
+    // 99 Electrodominance
+    // 100
+    // 101
+    // 102
+    // 103
+    // 104
+    // 105
+    // 106 Immolation Shaman
     // 107 Light Up the Stage
     // 108
     // 109 Rix Maadi Reveler
-    
+    // 110
+    // 111
+    // 112
+    // 113
+    // 114 Skarrgan Hellkite
+    // 115
+    // 116 Smelt-Ward Ignus
+    // 117
+    // 118
+    // 119
+    // 120
+    // 121
+    // 122
+    // 123 Biogenic Upgrade
+    static func EndRazeForerunners() -> Card {
+        let endRazeForerunners = Card(name: "End-Raze Forerunners", rarity: .Rare, set: set, number: 124)
+        endRazeForerunners.setManaCost("5GGG")
+        endRazeForerunners.setType(.Creature, .Boar)
+        endRazeForerunners.vigilance = true
+        endRazeForerunners.trample = true
+        endRazeForerunners.haste = true
+        endRazeForerunners.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                endRazeForerunners.getController().getCreatures().filter({ $0 != endRazeForerunners }).forEach({ creature in
+                    creature.pump(2, 2)
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; $0.trample = true; return $0 }))
+                })
+        })
+        endRazeForerunners.setFlavorText("\"Smash this city to pieces.\"\n--Domri Rade")
+        endRazeForerunners.power = 7
+        endRazeForerunners.toughness = 7
+        return endRazeForerunners
+    }
+    // 125
+    // 126
+    // 127
+    // 128 Growth-Chamber Guardian TODO
+    // 129 Gruul Beastmaster
+    // 130 Guardian Project TODO
+    // 131
+    // 132
+    // 133
+    // 134 Rampage of the Clans TODO
+    // 135
+    // 136
+    // 137
+    // 138
+    // 139
+    // 140 Sauroform Hybrid TODO
+    // 141 Silhana Wayfinder TODO
+    // 142
+    // 143
+    // 144
+    // 145
+    // 146 Titanic Brawl TODO
+    // 147
+    // 148 Trollbred Guardian TODO
+    // 149 Wilderness Reclamation TODO
+    // 150
     static func Absorb() -> Card {
         let absorb = Card(name: "Absorb", rarity: .Rare, set: set, number: 151)
         absorb.setManaCost("WUU")
@@ -116,8 +338,38 @@ enum RNA {
     }
     // 153
     // 154
-    // 155
-    // 156
+    static func AzoriusSkyguard() -> Card {
+        let azoriusSkyguard = Card(name: "Azorius Skyguard", rarity: .Uncommon, set: set, number: 155)
+        azoriusSkyguard.setManaCost("4WU")
+        azoriusSkyguard.setType(.Creature, .Human, .Knight)
+        azoriusSkyguard.flying = true
+        azoriusSkyguard.firstStrike = true
+        azoriusSkyguard.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() !== azoriusSkyguard.getController() {
+                object.power = object.getBasePower() - 1
+            }
+            return object
+        })
+        azoriusSkyguard.setFlavorText("\"These new thopters are all well and good, but four eyes are better than none.\"");
+        azoriusSkyguard.power = 3
+        azoriusSkyguard.toughness = 3
+        return azoriusSkyguard
+    }
+    static func BasilicaBellHaunt() -> Card {
+        let basilicaBellHaunt = Card(name: "Basilica Bell-Haunt", rarity: .Uncommon, set: set, number: 156)
+        basilicaBellHaunt.setManaCost("WWBB")
+        basilicaBellHaunt.setType(.Creature, .Spirit)
+        basilicaBellHaunt.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                basilicaBellHaunt.getOpponent().discard()
+                basilicaBellHaunt.getController().gainLife(3)
+        })
+        basilicaBellHaunt.setFlavorText("You can hear their tolling only when your debt is due.")
+        basilicaBellHaunt.power = 3
+        basilicaBellHaunt.toughness = 4
+        return basilicaBellHaunt
+    }
     static func Bedevil() -> Card {
         let bedevil = Card(name: "Bedevil", rarity: .Rare, set: set, number: 157)
         bedevil.setManaCost("BBR")
@@ -130,26 +382,57 @@ enum RNA {
         bedevil.setFlavorText("\"It's easy to get taken in by the spectacle, to enjoy a bit of naughty amusement. But make no mistake: the Cult of Rakdos is a danger.\"\n--Tajic")
         return bedevil
     }
-    // 158
-    // 159
+    // 158 Biomancer's Familiar
+    // 159 Bolrac-Clan Crusher
     // 160
     // 161
     // 162
-    // 163
-    // 164
+    // 163 Combine Guildmage
+    static func CultGuildmage() -> Card {
+        let cultGuildmage = Card(name: "Cult Guildmage", rarity: .Uncommon, set: set, number: 164)
+        cultGuildmage.setManaCost("BR")
+        cultGuildmage.setType(.Creature, .Human, .Shaman)
+        cultGuildmage.addActivatedAbility(
+            string: "{3}{B}, {T}: Target player discards a card. Activate this ability only any time you could cast a sorcery.",
+            cost: Cost.Mana("3B").Tap(),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetPlayer(),
+                effect: { $0.discard() }),
+            manaAbility: false,
+            sorcerySpeed: true)
+        cultGuildmage.addActivatedAbility(
+            string: "{R}, {T}: ~ deals 1 damage to target opponent or planeswalker.",
+            cost: Cost.Mana("R").Tap(),
+            effect: TargetedEffect(
+                restriction: TargetingRestriction(
+                    restriction: { target in
+                        if let objectTarget = target as? Object {
+                            return objectTarget.isType(.Planeswalker)
+                        }
+                        if let playerTarget = target as? Player {
+                            return playerTarget !== cultGuildmage.getController()
+                        }
+                        return false
+                    },
+                    zones: [.Battlefield]),
+                effect: { cultGuildmage.damage(to: $0, 1) }))
+        cultGuildmage.power = 2
+        cultGuildmage.toughness = 2
+        return cultGuildmage
+    }
     // 165 Deputy of Detention
-    // 166
+    // 166 Domri, Chaos Bringer
     // 167 Dovin, Grand Arbiter
     // 168
     // 169 Emergency Powers
-    // 170
+    // 170 Ethereal Absolution TODO
     // 171
     // 172
     // 173 Frenzied Arynx
-    // 174
-    // 175
+    // 174 Frilled Mystic TODO
+    // 175 Galloping Lizrog
     // 176
-    // 177
+    // 177 Grasping Thrull TODO
     static func GrowthSpiral() -> Card {
         let growthSpiral = Card(name: "Growth Spiral", rarity: .Rare, set: set, number: 178)
         growthSpiral.setManaCost("GU")
@@ -167,8 +450,8 @@ enum RNA {
         return growthSpiral
     }
     // 179 Gruul Spellbreaker
-    // 180
-    // 181
+    // 180 Gyre Engineer TODO
+    // 181 Hackrobat
     // 182
     // 183 Hydroid Krasis
     static func ImperiousOligarch() -> Card {
@@ -203,7 +486,7 @@ enum RNA {
         return judith
     }
     // 186 Kaya, Orzhov Usurper
-    // 187
+    // 187 Kaya's Wrath TODO
     // 188
     // 189 Lavinia, Azorius Renegade
     // 190
@@ -221,9 +504,9 @@ enum RNA {
         mortify.setFlavorText("\"Your debt is erased.\"\n--Hilgar, Orzhov euthanist")
         return mortify
     }
-    // 193
-    // 194
-    // 195
+    // 193 Nikya of the Old Ways
+    // 194 Pitiless Pontiff
+    // 195 Prime Speaker Vannifar
     // 196
     // 196 Rafter Demon
     static func RakdosFirewheeler() -> Card {
@@ -253,24 +536,24 @@ enum RNA {
         rakdosFirewheeler.toughness = 3
         return rakdosFirewheeler
     }
-    // 198
-    // 199
-    // 200
-    // 201
+    // 198 Rakdos Roustabout TODO
+    // 199 Rakdos, the Showstopper TODO
+    // 200 Ravager Wurm
+    // 201 Rhythm of the Wild
     // 202
-    // 203
-    // 204
-    // 205
+    // 203 Savage Smash TODO
+    // 204 Senate Guildmage TODO
+    // 205 Seraph of the Scales TODO
     // 206
     // 207 Simic Ascendancy
-    // 208
+    // 208 Sphinx of New Prahv
     static func SphinxsInsight() -> Card {
         let sphinxsInsight = Card(name: "Sphinx's Insight", rarity: .Common, set: set, number: 209)
         sphinxsInsight.setManaCost("2WU")
         sphinxsInsight.setType(.Instant)
         sphinxsInsight.addEffect({
             sphinxsInsight.getController().drawCards(2)
-            if sphinxsInsight.getController().active && Game.shared.getCurrentPhase() == .FirstMain || Game.shared.getCurrentPhase() == .SecondMain {
+            if sphinxsInsight.addendum() {
                 sphinxsInsight.getController().gainLife(2)
             }
         })
@@ -278,9 +561,9 @@ enum RNA {
         return sphinxsInsight
     }
     // 210
-    // 211
-    // 212
-    // 213
+    // 211 Syndicate Guildmage TODO
+    // 212 Teysa Karlov
+    // 213 Theater of Horrors
     static func ZeganaUtopianSpeaker() -> Card {
         let zegana = Card(name: "Zegana, Utopian Speaker", rarity: .Rare, set: set, number: 214)
         zegana.setManaCost("2GU")
@@ -300,22 +583,22 @@ enum RNA {
         zegana.toughness = 4
         return zegana
     }
-    // 215
+    // 215 Zhur-Taa Goblin
     // 216
     // 217
     // 218
     // 219
     // 220
     // 221
-    // 222
+    // 222 Carnival // Carnage
     // 223
-    // 224
-    // 225
+    // 224 Consecrate // Consume
+    // 225 Depose // Deploy
     // 226 Incubation // Incongruity
     // 227
-    // 228
-    // 229
-    // 230
+    // 228 Revival // Revenge
+    // 229 Thrash // Threat
+    // 230 Warrant // Warden
     static func AzoriusLocket() -> Card {
         let azoriusLocket = Card(name: "Azorius Locket", rarity: .Uncommon, set: set, number: 231)
         azoriusLocket.setManaCost("3")

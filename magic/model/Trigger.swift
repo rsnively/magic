@@ -17,6 +17,7 @@ enum Trigger {
     case ThisDies
     case ThisETB
     case ThisGetsLoreCounter
+    case ThisGetsPlusOnePlusOneCounter
     case ThisLTB
     case YouCastBlueSpell
     case YouCastCreatureSpell
