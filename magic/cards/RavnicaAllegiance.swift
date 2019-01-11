@@ -98,21 +98,21 @@ enum RNA {
     // 6
     // 7
     // 8
-    // 9
+    // 9 Forbidding Spirit
     // 10
-    // 11
+    // 11 Hero of Precinct One TODO
     // 12
     // 13
     // 14
-    // 15
+    // 15 Lumbering Battlement
     // 16 Ministrant of Obligation TODO
     // 17
     // 18
-    // 19
+    // 19 Resolute Watchdog TODO
     // 20
-    // 21
+    // 21 Sky Tether TODO
     // 22 Smothering Tithe
-    // 23
+    // 23 Spirit of the Spires TODO
     // 24
     // 25
     // 26
@@ -156,16 +156,16 @@ enum RNA {
     // 35
     // 36
     // 37 Essence Capture TODO
-    // 38
+    // 38 Eyes Everywhere
     // 39
-    // 40
+    // 40 Gateway Sneak TODO
     // 41 Humongulus TODO
     // 42 Mass Manipulation
     // 43 Mesmerizing Benthid
-    // 44
+    // 44 Persistent Petitioners
     // 45 Precognitive Perception
     // 46
-    // 47
+    // 47 Pteramander
     // 48 Quench
     // 49
     // 50
@@ -178,7 +178,7 @@ enum RNA {
     // 57
     // 58 Verity Circle TODO
     // 59
-    // 60
+    // 60 Windstorm Drake TODO
     static func AwakenTheErstwhile() -> Card {
         let awakenTheErstwhile = Card(name: "Awaken the Erstwhile", rarity: .Rare, set: set, number: 61)
         awakenTheErstwhile.setManaCost("3BB")
@@ -207,16 +207,16 @@ enum RNA {
     // 71
     // 72
     // 73 Drill Bit
-    // 74
+    // 74 Font of Agonies
     // 75
     // 76 Gutterbones
     // 77
     // 78
-    // 79
+    // 79 Orzhov Enforcer TODO
     // 80 Orzhov Racketeers
-    // 81 Pestilence Spirit
+    // 81 Pestilent Spirit
     // 82
-    // 83
+    // 83 Priest of Forgotten Gods
     // 84
     // 85 Spawn of Mayhem
     // 86
@@ -237,34 +237,34 @@ enum RNA {
         return burnBright
     }
     // 94 Burning-Tree Vandal
-    // 95
-    // 96
+    // 95 Cavalcade of Calamity
+    // 96 Clamor Shaman
     // 97
     // 98
     // 99 Electrodominance
     // 100
     // 101
-    // 102
+    // 102 Gates Ablaze TODO
     // 103
     // 104
     // 105
     // 106 Immolation Shaman
     // 107 Light Up the Stage
-    // 108
+    // 108 Mirror March
     // 109 Rix Maadi Reveler
     // 110
     // 111
     // 112
-    // 113
+    // 113 Scorchmark
     // 114 Skarrgan Hellkite
-    // 115
+    // 115 Skewer the Critics
     // 116 Smelt-Ward Ignus
     // 117
     // 118
     // 119
     // 120
     // 121
-    // 122
+    // 122 Biogenic Ooze TODO
     // 123 Biogenic Upgrade
     static func EndRazeForerunners() -> Card {
         let endRazeForerunners = Card(name: "End-Raze Forerunners", rarity: .Rare, set: set, number: 124)
@@ -287,17 +287,17 @@ enum RNA {
         return endRazeForerunners
     }
     // 125
-    // 126
+    // 126 Gatebreaker Ram TODO
     // 127
     // 128 Growth-Chamber Guardian TODO
     // 129 Gruul Beastmaster
     // 130 Guardian Project TODO
-    // 131
+    // 131 Incubation Druid
     // 132
     // 133
     // 134 Rampage of the Clans TODO
     // 135
-    // 136
+    // 136 Regenesis TODO
     // 137
     // 138
     // 139
@@ -384,9 +384,9 @@ enum RNA {
     }
     // 158 Biomancer's Familiar
     // 159 Bolrac-Clan Crusher
-    // 160
-    // 161
-    // 162
+    // 160 Captive Audience
+    // 161 Cindervines TODO
+    // 162 Clan Guildmage
     // 163 Combine Guildmage
     static func CultGuildmage() -> Card {
         let cultGuildmage = Card(name: "Cult Guildmage", rarity: .Uncommon, set: set, number: 164)
@@ -423,11 +423,11 @@ enum RNA {
     // 165 Deputy of Detention
     // 166 Domri, Chaos Bringer
     // 167 Dovin, Grand Arbiter
-    // 168
+    // 168 Dovin's Accuity TODO
     // 169 Emergency Powers
     // 170 Ethereal Absolution TODO
     // 171
-    // 172
+    // 172 Fireblade Artist
     // 173 Frenzied Arynx
     // 174 Frilled Mystic TODO
     // 175 Galloping Lizrog
@@ -452,7 +452,7 @@ enum RNA {
     // 179 Gruul Spellbreaker
     // 180 Gyre Engineer TODO
     // 181 Hackrobat
-    // 182
+    // 182 High Alert
     // 183 Hydroid Krasis
     static func ImperiousOligarch() -> Card {
         let imperiousOligarch = Card(name: "Imperious Oligarch", rarity: .Common, set: set, number: 184)
@@ -487,10 +487,10 @@ enum RNA {
     }
     // 186 Kaya, Orzhov Usurper
     // 187 Kaya's Wrath TODO
-    // 188
+    // 188 Knight of the Last Breath
     // 189 Lavinia, Azorius Renegade
     // 190
-    // 191
+    // 191 Macabre Mockery
     static func Mortify() -> Card {
         let mortify = Card(name: "Mortify", rarity: .Rare, set: set, number: 192)
         mortify.setManaCost("1WB")
@@ -544,7 +544,7 @@ enum RNA {
     // 203 Savage Smash TODO
     // 204 Senate Guildmage TODO
     // 205 Seraph of the Scales TODO
-    // 206
+    // 206 Sharktocrab
     // 207 Simic Ascendancy
     // 208 Sphinx of New Prahv
     static func SphinxsInsight() -> Card {
@@ -560,7 +560,7 @@ enum RNA {
         sphinxsInsight.setFlavorText("\"Do not think me blind to your true mission... or your true master, Grand Arbiter.\"")
         return sphinxsInsight
     }
-    // 210
+    // 210 Sunder Shaman
     // 211 Syndicate Guildmage TODO
     // 212 Teysa Karlov
     // 213 Theater of Horrors
@@ -589,9 +589,9 @@ enum RNA {
     // 218
     // 219
     // 220
-    // 221
+    // 221 Bedeck // Bedazzle
     // 222 Carnival // Carnage
-    // 223
+    // 223 Collision // Colossus
     // 224 Consecrate // Consume
     // 225 Depose // Deploy
     // 226 Incubation // Incongruity
@@ -621,16 +621,16 @@ enum RNA {
         return azoriusLocket
     }
     // 232 Gate Colossus
-    // 233
+    // 233 Glass of the Guildpact TODO
     // 234 Gruul Locket
     // 235
     // 236 Orzhov Locket
     // 237 Rakdos Locket
-    // 238
+    // 238 Scrabbling Claws
     // 239
     // 240 Simic Locket
-    // 241
-    // 242
+    // 241 Sphinx of the Guildpact
+    // 242 Tome of the Guildpact TODO
     static func AzoriusGuildgate() -> Card {
         return (Int.random(in: 1 ... 2) == 1) ? AzoriusGuildgate243() : AzoriusGuildgate244()
     }
