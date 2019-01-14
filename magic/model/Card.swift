@@ -47,6 +47,10 @@ class Card: Object {
         return true
     }
     
+    func getRarity() -> Rarity {
+        return rarity
+    }
+    
     func getSetCode() -> String {
         return setCode
     }

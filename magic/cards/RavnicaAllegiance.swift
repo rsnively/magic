@@ -75,6 +75,23 @@ enum RNA {
         return cards[Int.random(in: 0 ..< cards.count)]()
     }
     
+    static private func Mythics() -> [() -> Card] { return cards.filter({ $0().getRarity() == .Mythic }) }
+    static private func Rares() -> [() -> Card] { return cards.filter({ $0().getRarity() == .Rare }) }
+    static private func Uncommons() -> [() -> Card] { return cards.filter({ $0().getRarity() == .Uncommon }) }
+    static private func Commons() -> [() -> Card] { return cards.filter({ $0().getRarity() == .Common && !$0().isBasicLand() }) }
+    static private func BasicLands() -> [() -> Card] { return cards.filter({ $0().isBasicLand() }) }
+    
+    static func GeneratePack() -> [Card] {
+        let cards: [Card] = []
+        
+        // TODO: Foils
+        
+        // For the mythics and rares, two copies of each rare and one of each mythic are found on the sheet
+        let sheetSize = Mythics().count + 2 * Rares().count
+        
+        return cards
+    }
+    
     // 1 Angel of Grace
     // 2 Angelic Exaltation
     static func ArchwayAngel() -> Card {
