@@ -31,9 +31,36 @@ enum RNA {
     static var count = 259
     
     static let cards = [
-        
+//        AngelOfGrace,
+//        AngelicExaltation,
         ArchwayAngel,
-        
+        ArrestersZeal,
+        BringToTrial,
+        CivicStalwart,
+        ConcordiaPegasus,
+//        ExposeToDaylight,
+//        ForbiddingSpirit,
+        HaazdaOfficer,
+        HeroOfPrecinctOne,
+//        ImpassionedOrator,
+//        JusiciarsPortal,
+//        KnightOfSorrows,
+//        LumberingBattlement,
+        MinistrantOfObligation,
+        ProwlingCaracal,
+        RallyToBattle,
+        ResoluteWatchdog,
+        SentinelsMark,
+        SkyTether,
+//        SmotheringTithe,
+        SpiritOfTheSpires,
+        SummaryJudgment,
+        SyndicateMessenger,
+        TenthDistrictVeteran,
+//        TitheTaker,
+        TwilightPanther,
+        UnbreakableFormation,
+        WatchfulGiant,
         ArrestersAdmonition,
         BenthicBiomancer,
         
@@ -110,33 +137,283 @@ enum RNA {
         archwayAngel.toughness = 4
         return archwayAngel
     }
-    // 4
-    // 5
-    // 6
-    // 7
-    // 8
+    static func ArrestersZeal() -> Card {
+        let arrestersZeal = Card(name: "Arrester's Zeal", rarity: .Common, set: set, number: 4)
+        arrestersZeal.setManaCost("W")
+        arrestersZeal.setType(.Instant)
+        arrestersZeal.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.pump(2, 2)
+                if target.addendum() {
+                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))
+                }
+            }))
+        arrestersZeal.setFlavorText("Law is the light of civilization.")
+        return arrestersZeal
+    }
+    static func BringToTrial() -> Card {
+        let bringToTrial = Card(name: "Bring to Trial", rarity: .Common, set: set, number: 5)
+        bringToTrial.setManaCost("2G")
+        bringToTrial.setType(.Sorcery)
+        bringToTrial.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getPower() >= 4 },
+                zones: [.Battlefield]),
+            effect: { $0.exile() }))
+        bringToTrial.setFlavorText("\"In you go, big guy. Watch your head.\"")
+        return bringToTrial
+    }
+    static func CivicStalwart() -> Card {
+        let civicStalwart = Card(name: "Civic Stalwart", rarity: .Common, set: set, number: 6)
+        civicStalwart.setManaCost("3W")
+        civicStalwart.setType(.Creature, .Elephant, .Soldier)
+        civicStalwart.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { civicStalwart.getController().getCreatures().forEach({ creature in
+                creature.pump(1, 1)
+            })
+        })
+        civicStalwart.setFlavorText("\"These are your streets. Defend them! This is your neighborhood. Honor it! This is your city. Save it!\"")
+        civicStalwart.power = 3
+        civicStalwart.toughness = 3
+        return civicStalwart
+    }
+    static func ConcordiaPegasus() -> Card {
+        let concordiaPegasus = Card(name: "Concordia Pegasus", rarity: .Common, set: set, number: 7)
+        concordiaPegasus.setManaCost("1W")
+        concordiaPegasus.setType(.Creature, .Pegasus)
+        concordiaPegasus.flying = true
+        concordiaPegasus.setFlavorText("\"What makes a frog lizard any worse than a bird horse? Prejudice against the Simic, that's what. It's unfair!\"\n--Thados Arquef, Guardian Project biomancer")
+        concordiaPegasus.power = 1
+        concordiaPegasus.toughness = 3
+        return concordiaPegasus
+    }
+    // 8 Expose to Daylight
     // 9 Forbidding Spirit
-    // 10
-    // 11 Hero of Precinct One TODO
-    // 12
-    // 13
-    // 14
+    static func HaazdaOfficer() -> Card {
+        let haazdaOfficer = Card(name: "Haazda Officer", rarity: .Common, set: set, number: 10)
+        haazdaOfficer.setManaCost("2W")
+        haazdaOfficer.setType(.Creature, .Human, .Soldier)
+        haazdaOfficer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === haazdaOfficer.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.pump(1, 1) }))
+        haazdaOfficer.setFlavorText("\"You two, cover the alley! You, with me! Eyes on windows, balconies, and rooftops. Who knows what a fish-octopus-crab can do!\"")
+        haazdaOfficer.power = 3
+        haazdaOfficer.toughness = 2
+        return haazdaOfficer
+    }
+    static func HeroOfPrecinctOne() -> Card {
+        let heroOfPrecinctOne = Card(name: "Hero of Precinct One", rarity: .Rare, set: set, number: 11)
+        heroOfPrecinctOne.setManaCost("1W")
+        heroOfPrecinctOne.setType(.Creature, .Human, .Warrior)
+        heroOfPrecinctOne.addTriggeredAbility(
+            trigger: .YouCastMulticoloredSpell,
+            effect: { heroOfPrecinctOne.getController().createToken(Human()) })
+        heroOfPrecinctOne.setFlavorText("When the established order falters, what remains are ordinary people and their struggle to survive.")
+        heroOfPrecinctOne.power = 2
+        heroOfPrecinctOne.toughness = 1
+        return heroOfPrecinctOne
+    }
+    // 12 Impassioned Orator
+    // 13 Justiciar's Portal
+    // 14 Knight of Sorrows
     // 15 Lumbering Battlement
-    // 16 Ministrant of Obligation TODO
-    // 17
-    // 18
-    // 19 Resolute Watchdog TODO
-    // 20
-    // 21 Sky Tether TODO
+    static func MinistrantOfObligation() -> Card {
+        let ministrantOfObligation = Card(name: "Ministrant of Obligation", rarity: .Uncommon, set: set, number: 16)
+        ministrantOfObligation.setManaCost("2W")
+        ministrantOfObligation.setType(.Creature, .Human, .Cleric)
+        ministrantOfObligation.afterlife(2)
+        ministrantOfObligation.setFlavorText("When the price of your sins comes due, the Church of Deals is there to collect.")
+        ministrantOfObligation.power = 2
+        ministrantOfObligation.toughness = 1
+        return ministrantOfObligation
+    }
+    static func ProwlingCaracal() -> Card {
+        let prowlingCaracal = Card(name: "Prowling Caracal", rarity: .Common, set: set, number: 17)
+        prowlingCaracal.setManaCost("1W")
+        prowlingCaracal.setType(.Creature, .Cat)
+        prowlingCaracal.setFlavorText("A hunter in the city requires the utmost cunning to survive. It must pounce only if the kill is certain, and leave the remains where no one will see.")
+        prowlingCaracal.power = 3
+        prowlingCaracal.toughness = 1
+        return prowlingCaracal
+    }
+    static func RallyToBattle() -> Card {
+        let rallyToBattle = Card(name: "Rally to Battle", rarity: .Common, set: set, number: 18)
+        rallyToBattle.setManaCost("3W")
+        rallyToBattle.setType(.Instant)
+        rallyToBattle.addEffect({
+            rallyToBattle.getController().getCreatures().forEach({ creature in
+                creature.pump(1, 3)
+                creature.untap()
+            })
+        })
+        rallyToBattle.setFlavorText("The guildmasters loom large in the political sphere, but in the end, the rulers of Ravnica are its people.")
+        return rallyToBattle
+    }
+    static func ResoluteWatchdog() -> Card {
+        let resoluteWatchdog = Card(name: "Resolute Watchdog", rarity: .Uncommon, set: set, number: 19)
+        resoluteWatchdog.setManaCost("W")
+        resoluteWatchdog.setType(.Creature, .Hound)
+        resoluteWatchdog.defender = true
+        resoluteWatchdog.addActivatedAbility(
+            string: "{1}, Sacrifice ~: Target creature you control gains indestructible.",
+            cost: Cost.Mana("1").Sacrifice(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === resoluteWatchdog.getController()},
+                    zones: [.Battlefield]),
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }) )}
+        ))
+        resoluteWatchdog.setFlavorText("A friend in good times, a guardian in bad times, and a savior when all else fails.")
+        resoluteWatchdog.power = 1
+        resoluteWatchdog.toughness = 3
+        return resoluteWatchdog
+        
+    }
+    static func SentinelsMark() -> Card {
+        let sentinelsMark = Card(name: "Sentinel's Mark", rarity: .Uncommon, set: set, number: 20)
+        sentinelsMark.setManaCost("1W")
+        sentinelsMark.setType(.Enchantment, .Aura)
+        sentinelsMark.flash = true
+        sentinelsMark.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { object in
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 2
+                // TODO Layers
+                object.vigilance = true;
+                return object
+        })
+        sentinelsMark.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                if let object = sentinelsMark.attachedTo {
+                    object.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                }
+            },
+            restriction: { sentinelsMark.addendum() })
+        return sentinelsMark
+    }
+    static func SkyTether() -> Card {
+        let skyTether = Card(name: "Sky Tether", rarity: .Uncommon, set: set, number: 21)
+        skyTether.setManaCost("W")
+        skyTether.setType(.Enchantment, .Aura)
+        skyTether.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { object in
+                object.defender = true
+                object.flying = false
+                return object
+        })
+        skyTether.setFlavorText("\"If you can't control your mount, I will control it for you.\"\n--Mirela, Azorius hussar")
+        return skyTether
+    }
     // 22 Smothering Tithe
-    // 23 Spirit of the Spires TODO
-    // 24
-    // 25
-    // 26
+    static func SpiritOfTheSpires() -> Card {
+        let spiritOfTheSpires = Card(name: "Spirit of the Spires", rarity: .Uncommon, set: set, number: 23)
+        spiritOfTheSpires.setManaCost("3W")
+        spiritOfTheSpires.setType(.Creature, .Spirit)
+        spiritOfTheSpires.flying = true
+        spiritOfTheSpires.addStaticAbility({ object in
+            if object != spiritOfTheSpires && object.isType(.Creature) && object.flying {
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        spiritOfTheSpires.setFlavorText("She breathes fair winds to tired griffins and lifts songbirds beyond the reach of stalking cats.")
+        spiritOfTheSpires.power = 2
+        spiritOfTheSpires.toughness = 4
+        return spiritOfTheSpires
+    }
+    static func SummaryJudgment() -> Card {
+        let summaryJudgment = Card(name: "Summary Judgment", rarity: .Common, set: set, number: 24)
+        summaryJudgment.setManaCost("1W")
+        summaryJudgment.setType(.Instant)
+        summaryJudgment.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.isTapped },
+                zones: [.Battlefield]),
+            effect: { target in
+                let damage = summaryJudgment.addendum() ? 5 : 3
+                summaryJudgment.damage(to: target, damage)
+        }))
+        summaryJudgment.setFlavorText("Any challenge to Azorius authority is met with swift and potent retribution.")
+        return summaryJudgment
+    }
+    static func SyndicateMessenger() -> Card {
+        let syndicateMessenger = Card(name: "Syndicate Messenger", rarity: .Common, set: set, number: 25)
+        syndicateMessenger.setManaCost("3W")
+        syndicateMessenger.setType(.Creature, .Bird)
+        syndicateMessenger.flying = true
+        syndicateMessenger.afterlife(1)
+        syndicateMessenger.setFlavorText("\"Many wings haunt the skies these days. Few of them bear good tidings.\"\n--Lavinia")
+        syndicateMessenger.power = 2
+        syndicateMessenger.toughness = 3
+        return syndicateMessenger
+    }
+    static func TenthDistrictVeteran() -> Card {
+        let tenthDistrictVeteran = Card(name: "Tenth District Veteran", rarity: .Common, set: set, number: 26)
+        tenthDistrictVeteran.setManaCost("2W")
+        tenthDistrictVeteran.setType(.Creature, .Human, .Soldier)
+        tenthDistrictVeteran.vigilance = true
+        tenthDistrictVeteran.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != tenthDistrictVeteran && $0.isType(.Creature) && $0.getController() === tenthDistrictVeteran.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.untap() }))
+        tenthDistrictVeteran.setFlavorText("\"I keep reminding myself we do this because others can't, because we love this city. If we don't save it, no one will.\"")
+        tenthDistrictVeteran.power = 2
+        tenthDistrictVeteran.toughness = 3
+        return tenthDistrictVeteran
+    }
     // 27 Tithe Taker
-    // 28 Unbreakable Formation TODO
-    // 29
-    // 30
+    static func TwilightPanther() -> Card {
+        let twilightPanther = Card(name: "Twilight Panther", rarity: .Common, set: set, number: 28)
+        twilightPanther.setManaCost("W")
+        twilightPanther.setType(.Creature, .Cat, .Spirit)
+        twilightPanther.addActivatedAbility(
+            string: "{B}: ~ gains deathtouch until end of turn.",
+            cost: Cost.Mana("B"),
+            effect: { twilightPanther.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
+        twilightPanther.setFlavorText("A pet that can hunt both flesh and spirit is precious in a place where smiling assassins keep company with ghostly shadows.")
+        twilightPanther.power = 1
+        twilightPanther.toughness = 2
+        return twilightPanther
+    }
+    static func UnbreakableFormation() -> Card {
+        let unbreakableFormation = Card(name: "Unbreakable Formation", rarity: .Rare, set: set, number: 29)
+        unbreakableFormation.setManaCost("2W")
+        unbreakableFormation.setType(.Instant)
+        unbreakableFormation.addEffect({
+            unbreakableFormation.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
+                if unbreakableFormation.addendum() {
+                    creature.addCounter(.PlusOnePlusOne)
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                }
+            })
+        })
+        return unbreakableFormation
+    }
+    static func WatchfulGiant() -> Card {
+        let watchfulGiant = Card(name: "Watchful Giant", rarity: .Common, set: set, number: 30)
+        watchfulGiant.setManaCost("5W")
+        watchfulGiant.setType(.Creature, .Giant, .Soldier)
+        watchfulGiant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { watchfulGiant.getController().createToken(RNA.Human()) })
+        watchfulGiant.setFlavorText("Loitering is not only illegal but unwise, since those who stay too long in one place are apt to be stepped on.")
+        watchfulGiant.power = 3
+        watchfulGiant.toughness = 6
+        return watchfulGiant
+    }
     static func ArrestersAdmonition() -> Card {
         let arrestersAdmonition = Card(name: "Arrester's Admonition", rarity: .Common, set: set, number: 31)
         arrestersAdmonition.setManaCost("2U")
@@ -205,7 +482,7 @@ enum RNA {
                 let handSize = player.getHand().count
                 player.discardHand()
                 for _ in 0..<handSize {
-                    player.createToken(M19.Zombie()) // TODO Use RNA Zombie if it exists
+                    player.createToken(RNA.Zombie())
                 }
             })
         })
@@ -703,7 +980,29 @@ enum RNA {
     // 258 Simic Guildgate
     // 259 Stomping Ground
     
-    
+    static func Human() -> Token {
+        let human = Token(name: "Human", set: set, number: 1)
+        human.colors = [.White]
+        human.setType(.Creature, .Human)
+        human.power = 1
+        human.toughness = 1
+        return human
+    }
+    // T2 Illusion
+    static func Zombie() -> Token {
+        let zombie = Token(name: "Zombie", set: set, number: 3)
+        zombie.colors = [.Black]
+        zombie.setType(.Creature, .Zombie)
+        zombie.power = 2
+        zombie.toughness = 2
+        return zombie
+    }
+    // T4 Goblin
+    // T5 Centaur
+    // T6 Frog Lizard
+    // T7 Ooze
+    // T8 Beast
+    // T9 Sphinx
     static func Spirit() -> Token {
         let spirit = Token(name: "Spirit", set: set, number: 10)
         spirit.colors = [.White, .Black]
@@ -713,4 +1012,7 @@ enum RNA {
         spirit.toughness = 1
         return spirit
     }
+    // T11 Thopter
+    // T12 Treasure
+    // T13 Domri Emblem
 }
