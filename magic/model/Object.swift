@@ -192,6 +192,7 @@ class Object: Targetable, Hashable, NSCopying {
     var isTapped: Bool {
         return tapped
     }
+    var untapsDuringNextUntapStep: Bool = true
     
     var turnEnteredBattlefield: Int?
     
@@ -281,6 +282,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.damagedByDeathtouch = damagedByDeathtouch
         copy.hasDealtDamage = hasDealtDamage
         copy.tapped = tapped
+        copy.untapsDuringNextUntapStep = untapsDuringNextUntapStep
         copy.turnEnteredBattlefield = turnEnteredBattlefield
         
         return copy

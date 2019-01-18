@@ -63,6 +63,7 @@ enum RNA {
         WatchfulGiant,
         ArrestersAdmonition,
         BenthicBiomancer,
+        Chillbringer,
         
         AwakenTheErstwhile,
         
@@ -109,12 +110,13 @@ enum RNA {
     static private func BasicLands() -> [() -> Card] { return cards.filter({ $0().isBasicLand() }) }
     
     static func GeneratePack() -> [Card] {
-        let cards: [Card] = []
+        var cards: [Card] = []
         
         // TODO: Foils
         
         // For the mythics and rares, two copies of each rare and one of each mythic are found on the sheet
         let sheetSize = Mythics().count + 2 * Rares().count
+        cards.append(Rares()[Int.random(in: 0 ..< sheetSize)]())
         
         return cards
     }
@@ -445,7 +447,26 @@ enum RNA {
         benthicBiomancer.toughness = 1
         return benthicBiomancer
     }
-    // 33
+    static func Chillbringer() -> Card {
+        let chillbringer = Card(name: "Chillbringer", rarity: .Common, set: set, number: 33)
+        chillbringer.setManaCost("4U")
+        chillbringer.setType(.Creature, .Elemental)
+        chillbringer.flying = true
+        chillbringer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== chillbringer.getController() },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    target.tap()
+                    target.untapsDuringNextUntapStep = false
+        }))
+        chillbringer.setFlavorText("If you can see your breath, it's too late to run.")
+        chillbringer.power = 3
+        chillbringer.toughness = 3
+        return chillbringer
+    }
     // 34
     // 35
     // 36

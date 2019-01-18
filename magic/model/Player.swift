@@ -202,11 +202,12 @@ class Player: Targetable {
         }
     }
     
-    func untapAllPermanents() {
+    func untapStep() {
         for permanent in permanents {
-            if permanent.isTapped {
+            if permanent.isTapped && permanent.untapsDuringNextUntapStep {
                 permanent.untap()
             }
+            permanent.untapsDuringNextUntapStep = true
         }
     }
     

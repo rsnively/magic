@@ -293,7 +293,7 @@ class Game: NSObject {
             player2.attackedWithCreatureThisTurn = true
             player1.numberInstantsOrSorceriesCastThisTurn = 0
             player2.numberInstantsOrSorceriesCastThisTurn = 0
-            getActivePlayer().untapAllPermanents()
+            getActivePlayer().untapStep()
             
             // would potential untap triggers get pushed to upkeep anyway?
             if theStack.isEmpty {
