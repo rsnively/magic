@@ -232,7 +232,7 @@ class Player: Targetable {
                     Game.shared.bothPlayers({ $0.triggerAbilities(.CreatureWithFlyingAttacks) })
                 }
                 if !permanent.vigilance {
-                    permanent.tap()
+                    permanent.tap(declaredAsAttacker: true)
                 }
             }
         }
@@ -426,6 +426,9 @@ class Player: Targetable {
         }
         if object.isType(.Dragon) {
             triggerAbilities(.DragonEntersBattlefieldUnderYourControl)
+        }
+        if object.isType(.Gate) {
+            triggerAbilities(.GateEntersBattlefieldUnderYourControl)
         }
     }
     

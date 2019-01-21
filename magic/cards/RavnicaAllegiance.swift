@@ -64,7 +64,33 @@ enum RNA {
         ArrestersAdmonition,
         BenthicBiomancer,
         Chillbringer,
-        
+        ClearTheMind,
+        CodeOfConstraint,
+        CoralCommando,
+        EssenceCapture,
+//        EyesEverywhere,
+        FaerieDuelist,
+        GatewaySneak,
+        Humongulus,
+//        MassManipulation,
+//        MesmerizingBenthid,
+//        PersistentPetitioners,
+//        PrecognitivePerception,
+        PryingEyes,
+//        Pteramander,
+//        Quench,
+//        SagesRowSavant,
+        SenateCourier,
+//        ShimmerOfPossibility,
+        SkatewingSpy,
+        SkitterEel,
+        Slimebind,
+//        SphinxOfForesight,
+//        SwirlingTorrent,
+        ThoughtCollapse,
+//        VerityCircle,
+        WallOfLostThoughts,
+        WindstormDrake,
         AwakenTheErstwhile,
         
         BurnBright,
@@ -467,33 +493,248 @@ enum RNA {
         chillbringer.toughness = 3
         return chillbringer
     }
-    // 34
-    // 35
-    // 36
-    // 37 Essence Capture TODO
+    static func ClearTheMind() -> Card {
+        let clearTheMind = Card(name: "Clear the Mind", rarity: .Common, set: set, number: 34)
+        clearTheMind.setManaCost("2U")
+        clearTheMind.setType(.Sorcery)
+        clearTheMind.addEffect(TargetedEffect.SinglePlayer(
+            restriction: TargetingRestriction.TargetPlayer(),
+            effect: { target in
+                target.shuffleGraveyardIntoLibrary()
+                clearTheMind.getController().drawCard()
+        }))
+        clearTheMind.setFlavorText("\"The best way to keep a secret is to forget it.\"\n--Lazav")
+        return clearTheMind
+    }
+    static func CodeOfConstraint() -> Card {
+        let codeOfConstraint = Card(name: "Code of Constraint", rarity: .Uncommon, set: set, number: 35)
+        codeOfConstraint.setManaCost("2U")
+        codeOfConstraint.setType(.Instant)
+        codeOfConstraint.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.pump(-4, 0)
+                codeOfConstraint.getController().drawCard()
+                if codeOfConstraint.addendum() {
+                    target.tap()
+                    target.untapsDuringNextUntapStep = false
+                }
+        }))
+        return codeOfConstraint
+    }
+    static func CoralCommando() -> Card {
+        let coralCommando = Card(name: "Coral Commando", rarity: .Common, set: set, number: 36)
+        coralCommando.setManaCost("2U")
+        coralCommando.setType(.Creature, .Merfolk, .Warrior)
+        coralCommando.setFlavorText("Few Ravnicans are aware of the vast reefs in their world's hidden ocean. Far beneath the great sinkholes, where the light is blue and dim, merfolk tend the coral labyrinths that feed the bebnthic ecosystems.")
+        coralCommando.power = 3
+        coralCommando.toughness = 2
+        return coralCommando
+    }
+    static func EssenceCapture() -> Card {
+        let essenceCapture = Card(name: "Essence Capture", rarity: .Uncommon, set: set, number: 37)
+        essenceCapture.setManaCost("UU")
+        essenceCapture.setType(.Instant)
+        essenceCapture.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreatureSpell(),
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === essenceCapture.getController() },
+                    zones: [.Battlefield],
+                    optional: true),
+            ],
+            effect: { targets in
+                if let spell = targets[0] {
+                    spell.counter()
+                }
+                if let creature = targets[1] {
+                    creature.addCounter(.PlusOnePlusOne)
+                }
+        }))
+        essenceCapture.setFlavorText("\"It's not enough to defeat our foes. We must learn from them, too.\"\n--Vannifar")
+        return essenceCapture
+    }
     // 38 Eyes Everywhere
-    // 39
-    // 40 Gateway Sneak TODO
-    // 41 Humongulus TODO
+    static func FaerieDuelist() -> Card {
+        let faereDuelist = Card(name: "Faerie Duelist", rarity: .Common, set: set, number: 39)
+        faereDuelist.setManaCost("1U")
+        faereDuelist.setType(.Creature, .Faerie, .Rogue)
+        faereDuelist.flash = true
+        faereDuelist.flying = true
+        faereDuelist.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== faereDuelist.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.pump(-2, 0) }))
+        faereDuelist.setFlavorText("Faeries are easily offended and quick to exact a quirky revenge.")
+        faereDuelist.power = 1
+        faereDuelist.toughness = 2
+        return faereDuelist
+    }
+    static func GatewaySneak() -> Card {
+        let gatewaySneak = Card(name: "Gateway Sneak", rarity: .Uncommon, set: set, number: 40)
+        gatewaySneak.setManaCost("2U")
+        gatewaySneak.setType(.Creature, .Vedalken, .Rogue)
+        gatewaySneak.addTriggeredAbility(
+            trigger: .GateEntersBattlefieldUnderYourControl,
+            effect: { gatewaySneak.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }) )} )
+        gatewaySneak.addTriggeredAbility(
+            trigger: .ThisDealsCombatDamageToPlayer,
+            effect: { gatewaySneak.getController().drawCard() })
+        gatewaySneak.setFlavorText("\"I've been through every guildgate in this city, and no one sees me come or go.\"")
+        gatewaySneak.power = 1
+        gatewaySneak.toughness = 3
+        return gatewaySneak
+    }
+    static func Humongulus() -> Card {
+        let humongulus = Card(name: "Humongulus", rarity: .Uncommon, set: set, number: 41)
+        humongulus.setManaCost("4U")
+        humongulus.setType(.Creature, .Homunculus)
+        humongulus.hexproof = true
+        humongulus.setFlavorText("Searching the city for Fblthp felt like sifting the rain for a single drop of blood.")
+        humongulus.power = 2
+        humongulus.toughness = 5
+        return humongulus
+    }
     // 42 Mass Manipulation
     // 43 Mesmerizing Benthid
     // 44 Persistent Petitioners
     // 45 Precognitive Perception
-    // 46
+    static func PryingEyes() -> Card {
+        let pryingEyes = Card(name: "Prying Eyes", rarity: .Common, set: set, number: 46)
+        pryingEyes.setManaCost("4UU")
+        pryingEyes.setType(.Instant)
+        pryingEyes.addEffect({
+            pryingEyes.getController().drawCards(4)
+            pryingEyes.getController().discard(2)
+        })
+        pryingEyes.setFlavorText("\"Citizen! Your crime has been recorded. Cease movement and await arrest, or further penalties will be immediately imposed.\"")
+        return pryingEyes
+    }
     // 47 Pteramander
     // 48 Quench
-    // 49
-    // 50
-    // 51
-    // 52 Skatewing Spy TODO
-    // 53
-    // 54
+    // 49 Sage's Row Savant
+    static func SenateCourier() -> Card {
+        let senateCourier = Card(name: "Senate Courier", rarity: .Common, set: set, number: 50)
+        senateCourier.setManaCost("2U")
+        senateCourier.setType(.Creature, .Bird)
+        senateCourier.flying = true
+        senateCourier.addActivatedAbility(
+            string: "{1}{W}: ~ gains vigilance until end of turn.",
+            cost: Cost.Mana("1W"),
+            effect: { senateCourier.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }) )})
+        senateCourier.setFlavorText("\"This Dovin Baan came from nowhere. Watch him. Read his letters. He is more than he appears.\"\n--Lazav")
+        senateCourier.power = 1
+        senateCourier.toughness = 4
+        return senateCourier
+    }
+    // 51 Shimmer of Possibility
+    static func SkatewingSpy() -> Card {
+        let skatewingSpy = Card(name: "Skatewing Spy", rarity: .Uncommon, set: set, number: 52)
+        skatewingSpy.setManaCost("3U")
+        skatewingSpy.setType(.Creature, .Vedalken, .Rogue, .Mutant)
+        skatewingSpy.adapt(2, Cost.Mana("5U"))
+        skatewingSpy.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === skatewingSpy.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.flying = true
+            }
+            return object
+        })
+        skatewingSpy.setFlavorText("\"A better Ravnica begins with a better Simic.\"\n--Vannifar")
+        skatewingSpy.power = 2
+        skatewingSpy.toughness = 3
+        return skatewingSpy
+    }
+    static func SkitterEel() -> Card {
+        let skitterEel = Card(name: "Skitter Eel", rarity: .Common, set: set, number: 53)
+        skitterEel.setManaCost("3U")
+        skitterEel.setType(.Creature, .Fish, .Crab)
+        skitterEel.adapt(2, Cost.Mana("2U"))
+        skitterEel.setFlavorText("\"Life has no mistakes, only experiments.\"\n--Yolov, Siminc bioengineer")
+        skitterEel.power = 3
+        skitterEel.toughness = 3
+        return skitterEel
+    }
+    static func Slimebind() -> Card {
+        let slimebind = Card(name: "Slimebind", rarity: .Common, set: set, number: 54)
+        slimebind.setManaCost("1U")
+        slimebind.setType(.Enchantment, .Aura)
+        slimebind.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { object in
+                object.power = object.getBasePower() - 4
+                return object
+        })
+        slimebind.setFlavorText("\"Relax. It's quite harmless. And it will dissolve completely in a month or two.\"\n--Navona, Simic field tester")
+        return slimebind
+    }
     // 55 Sphinx of Foresight
-    // 56
-    // 57
-    // 58 Verity Circle TODO
-    // 59
-    // 60 Windstorm Drake TODO
+    // 56 Swirling Torrent
+    static func ThoughtCollapse() -> Card {
+        let thoughtCollapse = Card(name: "Thought Collapse", rarity: .Common, set: set, number: 57)
+        thoughtCollapse.setManaCost("1UU")
+        thoughtCollapse.setType(.Instant)
+        thoughtCollapse.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetSpell(),
+            effect: { target in
+                target.counter()
+                target.getController().mill(3)
+        }))
+        thoughtCollapse.setFlavorText("\"I can think of no greater punishment than answering your question in full.\"\n--Lazav")
+        return thoughtCollapse
+    }
+    static func VerityCircle() -> Card {
+        let verityCircle = Card(name: "Verity Circle", rarity: .Rare, set: set, number: 58)
+        verityCircle.setManaCost("2U")
+        verityCircle.setType(.Enchantment)
+        verityCircle.addTriggeredAbility(
+            trigger: .CreatureOpponentControlsBecomesTappedBesidesAttacking,
+            effect: { verityCircle.getController().drawCard() },
+            effectOptional: true)
+        verityCircle.addActivatedAbility(
+            string: "{4}{U}: Tap target creature without flying.",
+            cost: Cost.Mana("4U"),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && !$0.flying },
+                    zones: [.Battlefield]),
+                effect: { $0.tap() }))
+        verityCircle.setFlavorText("\"Here, there is only truth.\"\n--Barvisa, Azorius emissary")
+        return verityCircle
+    }
+    static func WallOfLostThoughts() -> Card {
+        let wallOfLostThougts = Card(name: "Wall of Lost Thoughts", rarity: .Uncommon, set:set, number: 59)
+        wallOfLostThougts.setManaCost("1U")
+        wallOfLostThougts.setType(.Creature, .Wall)
+        wallOfLostThougts.defender = true
+        wallOfLostThougts.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetPlayer(),
+                effect: { $0.mill(4) }))
+        wallOfLostThougts.setFlavorText("Those who intrude upon the Dimir seldom remember that they have done so.")
+        wallOfLostThougts.power = 0
+        wallOfLostThougts.toughness = 4
+        return wallOfLostThougts
+    }
+    static func WindstormDrake() -> Card {
+        let windstormDrake = Card(name: "Windstorm Drake", rarity: .Uncommon, set: set, number: 60)
+        windstormDrake.setManaCost("4U")
+        windstormDrake.setType(.Creature, .Drake)
+        windstormDrake.flying = true
+        windstormDrake.addStaticAbility({ object in
+            if object != windstormDrake && object.isType(.Creature) && object.flying {
+                object.power = object.getBasePower() + 1
+            }
+            return object
+        })
+        windstormDrake.setFlavorText("Drakes become especially voracious as they prepare for their autumn migration, hunting the city's thoroughfares from dawn to dusk.")
+        windstormDrake.power = 3
+        windstormDrake.toughness = 3
+        return windstormDrake
+    }
     static func AwakenTheErstwhile() -> Card {
         let awakenTheErstwhile = Card(name: "Awaken the Erstwhile", rarity: .Rare, set: set, number: 61)
         awakenTheErstwhile.setManaCost("3BB")

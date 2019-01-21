@@ -444,9 +444,12 @@ class Object: Targetable, Hashable, NSCopying {
     
     func canBeAttacked() -> Bool { return isType(.Planeswalker) }
     
-    func tap() {
+    func tap(declaredAsAttacker: Bool = false) {
         if !tapped {
             triggerAbilities(.ThisBecomesTapped)
+            if !declaredAsAttacker && isType(.Creature) {
+                getOpponent().triggerAbilities(.CreatureOpponentControlsBecomesTappedBesidesAttacking)
+            }
         }
         tapped = true
     }
