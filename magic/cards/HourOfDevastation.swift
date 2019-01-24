@@ -310,7 +310,7 @@ enum HOU {
         firebrandArcher.setType(.Creature, .Human, .Archer)
         firebrandArcher.addTriggeredAbility(
             trigger: .YouCastNoncreatureSpell,
-            effect: { firebrandArcher.damage(to: firebrandArcher.getOpponent(), 2) })
+            effect: { firebrandArcher.eachOpponent({ firebrandArcher.damage(to: $0, 2) }) })
         firebrandArcher.setFlavorText("A word of vengeance, and her arrows awaken in flame.")
         firebrandArcher.power = 2
         firebrandArcher.toughness = 1

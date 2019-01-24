@@ -394,7 +394,7 @@ enum RIX {
             effect: {
                 kumenasAwakening.getController().drawCard()
                 if !kumenasAwakening.getController().citysBlessing {
-                    kumenasAwakening.getOpponent().drawCard()
+                    kumenasAwakening.eachOpponent({ $0.drawCard() })
                 }
         })
         return kumenasAwakening
@@ -553,10 +553,10 @@ enum RIX {
         arterialFlow.setManaCost("1BB")
         arterialFlow.setType(.Sorcery)
         arterialFlow.addEffect({
-            arterialFlow.getOpponent().discard(2)
+            arterialFlow.eachOpponent({ $0.discard(2) })
             let controlVampire = !arterialFlow.getController().getPermanents().filter({ $0.isType(.Vampire) }).isEmpty
             if controlVampire {
-                arterialFlow.getOpponent().loseLife(2)
+                arterialFlow.eachOpponent({ $0.loseLife(2) })
                 arterialFlow.getController().gainLife(2)
             }
         })
@@ -682,7 +682,7 @@ enum RIX {
         goldenDemise.setType(.Sorcery)
         goldenDemise.addEffect({
             goldenDemise.ascend()
-            goldenDemise.getOpponent().getCreatures().forEach({ $0.pump(-2, -2) })
+            goldenDemise.eachOpponent({ $0.getCreatures().forEach({ $0.pump(-2, -2) }) })
             if goldenDemise.getController().citysBlessing {
                 goldenDemise.getController().getCreatures().forEach({ $0.pump(-2, -2) })
             }
@@ -710,7 +710,7 @@ enum RIX {
         gruesomeFate.setType(.Sorcery)
         gruesomeFate.addEffect {
             let numCreatures = gruesomeFate.getController().getCreatures().count
-            gruesomeFate.getOpponent().loseLife(numCreatures)
+            gruesomeFate.eachOpponent({ $0.loseLife(numCreatures) })
         }
         gruesomeFate.setFlavorText("\"You were keen enough to sink your fangs into us, vampire! And now you're afraid of a few little nibbles?\"\nUdvil \"Ratty\" Ratlock")
         return gruesomeFate
@@ -806,7 +806,7 @@ enum RIX {
                     topOfLibrary.reveal()
                     topOfLibrary.putIntoHand()
                     let life = topOfLibrary.getConvertedManaCost()
-                    twilightProphet.getOpponent().loseLife(life)
+                    twilightProphet.eachOpponent({ $0.loseLife(life) })
                     twilightProphet.getController().gainLife(life)
                 }
             },

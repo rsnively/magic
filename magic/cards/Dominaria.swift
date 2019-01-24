@@ -661,7 +661,7 @@ enum DOM {
         cabalPaladin.setType(.Creature, .Human, .Knight)
         cabalPaladin.addTriggeredAbility(
             trigger: .YouCastHistoricSpell,
-            effect: { cabalPaladin.damage(to: cabalPaladin.getOpponent(), 2) })
+            effect: { cabalPaladin.eachOpponent({ cabalPaladin.damage(to: $0, 2) }) })
         cabalPaladin.setFlavorText("\"The Demonlord has ruled every age. Every ruin, myth, and nightmare proves his power.\"\n--\"Rite of Belzenlok\"")
         cabalPaladin.power = 4
         cabalPaladin.toughness = 2
@@ -936,7 +936,7 @@ enum DOM {
         ghituJourneymage.setType(.Creature, .Human, .Wizard)
         ghituJourneymage.addTriggeredAbility(
             trigger: .ThisETB,
-            effect: { ghituJourneymage.damage(to: ghituJourneymage.getOpponent(), 2)},
+            effect: { ghituJourneymage.eachOpponent({ ghituJourneymage.damage(to: $0, 2) }) },
             restriction: { !ghituJourneymage.getController().getPermanents().filter({ $0.isType(.Wizard) && $0 != ghituJourneymage }).isEmpty })
         ghituJourneymage.setFlavorText("The Ghitu of Shiv are as fierce and uncompromising as their volcanic home.")
         ghituJourneymage.power = 3
@@ -971,9 +971,12 @@ enum DOM {
         goblinChainwhirler.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
-                goblinChainwhirler.damage(to: goblinChainwhirler.getOpponent(), 1)
-                goblinChainwhirler.getOpponent().getCreatures().forEach({ goblinChainwhirler.damage(to: $0, 1) })
-                // TODO: Also planeswalkers (in same call as creatures because might be both)
+                goblinChainwhirler.eachOpponent({ opponent in
+                    goblinChainwhirler.damage(to: opponent, 1)
+                    opponent.getPermanents().filter({ $0.isType(.Creature) || $0.isType(.Planeswalker) }).forEach({ object in
+                        goblinChainwhirler.damage(to: object, 1)
+                    })
+                })
         })
         goblinChainwhirler.setFlavorText("\"The trick is, once you get moving, don't stop!\"")
         goblinChainwhirler.power = 3

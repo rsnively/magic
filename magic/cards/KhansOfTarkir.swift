@@ -347,6 +347,7 @@ enum KTK {
             trigger: .ThisAttacks,
             effect: {
                 let yourAttackingCreatures = wingmateRoc.getController().getCreatures().filter({ $0.isAttacking }).count
+                // TODO: Check all opponents
                 let oppAttackingCreatures = wingmateRoc.getOpponent().getCreatures().filter({ $0.isAttacking }).count
                 let lifeAmt = yourAttackingCreatures + oppAttackingCreatures
                 wingmateRoc.getController().gainLife(lifeAmt)
@@ -360,7 +361,7 @@ enum KTK {
         blindingSpray.setManaCost("4U")
         blindingSpray.setType(.Instant)
         blindingSpray.addEffect {
-            blindingSpray.getOpponent().getCreatures().forEach({ $0.pump(-4, 0) })
+            blindingSpray.eachOpponent({ $0.getCreatures().forEach({ $0.pump(-4, 0) }) })
             blindingSpray.getController().drawCard()
         }
         blindingSpray.setFlavorText("\"The stronger our enemies seem, the more vulnerable they are.\"\n--Sultai secret")
@@ -663,7 +664,7 @@ enum KTK {
         archersParapet.addActivatedAbility(
             string: "{1}{B}, {T}: Each opponent loses 1 life.",
             cost: Cost.Mana("1B").Tap(),
-            effect: { archersParapet.getOpponent().loseLife(1) })
+            effect: { archersParapet.eachOpponent({ $0.loseLife(1) }) })
         archersParapet.setFlavorText("Every shaft is graven with a name from a kin tree, calling upon the spirits of the ancestors to make it fly true.")
         archersParapet.power = 0
         archersParapet.toughness = 5

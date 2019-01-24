@@ -1152,7 +1152,7 @@ enum XLN {
         viciousConquistador.setType(.Creature, .Vampire, .Soldier)
         viciousConquistador.addTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { viciousConquistador.getOpponent().loseLife(1) })
+            effect: { viciousConquistador.eachOpponent({ $0.loseLife(1) }) })
         viciousConquistador.setFlavorText("\"He is ambitious. Tireless. And utterly ruthless. Ideal for the frontier.\"\n--Viceroy Elia Sotonores, report to the queen")
         viciousConquistador.power = 1
         viciousConquistador.toughness = 2
@@ -1959,6 +1959,7 @@ enum XLN {
         direFleetCaptain.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
+                // TODO: Check all players
                 let numPirates = direFleetCaptain.getController().getPermanents().filter({ return $0.isType(.Pirate) && $0.isAttacking && $0 != direFleetCaptain }).count +
                                  direFleetCaptain.getOpponent().getPermanents().filter({ return $0.isType(.Pirate) && $0.isAttacking && $0 != direFleetCaptain }).count
                 direFleetCaptain.pump(numPirates, numPirates)

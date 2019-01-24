@@ -316,6 +316,9 @@ class Object: Targetable, Hashable, NSCopying {
     func getOpponent() -> Player {
         return controller!.getOpponent()
     }
+    func eachOpponent(_ f: (Player) -> Void) {
+        controller!.eachOpponent(f)
+    }
     
     func getZone() -> Zone {
         if getController().getPermanents().contains(self) {
@@ -448,7 +451,7 @@ class Object: Targetable, Hashable, NSCopying {
         if !tapped {
             triggerAbilities(.ThisBecomesTapped)
             if !declaredAsAttacker && isType(.Creature) {
-                getOpponent().triggerAbilities(.CreatureOpponentControlsBecomesTappedBesidesAttacking)
+                eachOpponent({ $0.triggerAbilities(.CreatureOpponentControlsBecomesTappedBesidesAttacking) })
             }
         }
         tapped = true

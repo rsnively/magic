@@ -483,7 +483,7 @@ enum GRN {
         burglarRat.setType(.Creature, .Rat)
         burglarRat.addTriggeredAbility(
             trigger: .ThisETB,
-            effect: { burglarRat.getOpponent().discard() })
+            effect: { burglarRat.eachOpponent({ $0.discard() }) })
         burglarRat.setFlavorText("\"Even rats hoard their treasures. Are your precious things so different?\"\n--Izoni")
         burglarRat.power = 1
         burglarRat.toughness = 1
@@ -683,9 +683,11 @@ enum GRN {
         viciousRumors.setManaCost("B")
         viciousRumors.setType(.Sorcery)
         viciousRumors.addEffect({
-            viciousRumors.damage(to: viciousRumors.getOpponent(), 1)
-            viciousRumors.getOpponent().discard()
-            viciousRumors.getOpponent().mill(1)
+            viciousRumors.eachOpponent({ opponent in
+                viciousRumors.damage(to: opponent, 1)
+                opponent.discard()
+                opponent.mill(1)
+            })
             viciousRumors.getController().gainLife(1)
         })
         viciousRumors.setFlavorText("\"The alliances were already frayed. All we do is find the loose threads and pluck.\"\n--Lazav")
@@ -739,7 +741,7 @@ enum GRN {
         electrostaticField.defender = true
         electrostaticField.addTriggeredAbility(
             trigger: .YouCastInstantOrSorcery,
-            effect: { electrostaticField.damage(to: electrostaticField.getOpponent(), 1) })
+            effect: { electrostaticField.eachOpponent({ electrostaticField.damage(to: $0, 1) }) })
         electrostaticField.setFlavorText("\"It's both an ingress-denial mechanism and an attractive hallway light!\"\n--Daxiver, Izzet electromancer")
         electrostaticField.power = 0
         electrostaticField.toughness = 4
@@ -1443,7 +1445,7 @@ enum GRN {
         legionGuildmage.addActivatedAbility(
             string: "{5}{R}, {T}: ~ deals 3 damage to each opponent.",
             cost: Cost.Mana("5R").Tap(),
-            effect: { legionGuildmage.damage(to: legionGuildmage.getOpponent(), 3) })
+            effect: { legionGuildmage.eachOpponent({ legionGuildmage.damage(to: $0, 3) }) })
         legionGuildmage.addActivatedAbility(
             string: "{2}{W}, {T}: Tap another target creature.",
             cost: Cost.Mana("2W").Tap(),
@@ -1547,7 +1549,7 @@ enum GRN {
         swathcutterGiant.vigilance = true
         swathcutterGiant.addTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { swathcutterGiant.getOpponent().getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) })
+            effect: { swathcutterGiant.eachOpponent({ $0.getCreatures().forEach({ swathcutterGiant.damage(to: $0, 1) }) }) })
         swathcutterGiant.setFlavorText("\"Now do you understand what we meant when we said disperse?\"\n--Eksari, Boros patrol leader")
         swathcutterGiant.power = 5
         swathcutterGiant.toughness = 5

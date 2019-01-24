@@ -45,6 +45,9 @@ class Player: Targetable {
     func getOpponent() -> Player {
         return Game.shared.getOtherPlayer(self)
     }
+    func eachOpponent(_ f: (Player) -> Void) {
+        f(getOpponent())
+    }
     
     func getLife() -> Int {
         return life

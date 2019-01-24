@@ -918,7 +918,7 @@ enum RNA {
         basilicaBellHaunt.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
-                basilicaBellHaunt.getOpponent().discard()
+                basilicaBellHaunt.eachOpponent({ $0.discard() })
                 basilicaBellHaunt.getController().gainLife(3)
         })
         basilicaBellHaunt.setFlavorText("You can hear their tolling only when your debt is due.")

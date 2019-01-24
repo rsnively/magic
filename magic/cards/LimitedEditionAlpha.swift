@@ -568,6 +568,7 @@ enum LEA {
             { object in
                 if object == plagueRats {
                     let myRats = object.getController().getCreatures().filter({ $0.getName() == name }).count
+                    // TODO: Check all opponents
                     let oppRats = object.getOpponent().getCreatures().filter({ $0.getName() == name }).count
                     let numRats = myRats + oppRats
                     object.power = numRats

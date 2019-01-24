@@ -327,6 +327,7 @@ enum M19 {
                 let tokens: [Object] = [Cat(), Cat()]
                 for token in tokens {
                     token.setController(controller: leoninWarleader.getController())
+                    // TODO: Do you get to choose if attacking planeswalker / different opponent?
                     token.attack(token.getOpponent())
                     token.setTapped(true)
                     leoninWarleader.getController().createToken(token)
@@ -777,7 +778,7 @@ enum M19 {
         psychicCorrosion.setType(.Enchantment)
         psychicCorrosion.addTriggeredAbility(
             trigger: .YouDrawCard,
-            effect: { psychicCorrosion.getOpponent().mill(2) })
+            effect: { psychicCorrosion.eachOpponent({ $0.mill(2) }) })
         psychicCorrosion.setFlavorText("\"To break another's mind is to deliver a fate worse than death. It is a terrifying power.\"\n--Jace Beleren")
         return psychicCorrosion
     }
@@ -909,7 +910,7 @@ enum M19 {
         uncomfortableChill.setManaCost("2U")
         uncomfortableChill.setType(.Instant)
         uncomfortableChill.addEffect {
-            uncomfortableChill.getOpponent().getCreatures().forEach({ $0.pump(-2, 0) })
+            uncomfortableChill.eachOpponent({ $0.getCreatures().forEach({ $0.pump(-2, 0) }) })
             uncomfortableChill.getController().drawCard()
         }
         uncomfortableChill.setFlavorText("The cold slowed their movements until only their panicked eyeballs swiveled beneath the ice.")
@@ -1024,7 +1025,7 @@ enum M19 {
         epicureOfBlood.setType(.Creature, .Vampire)
         epicureOfBlood.addTriggeredAbility(
             trigger: .YouGainLife,
-            effect: { epicureOfBlood.getOpponent().loseLife(1) })
+            effect: { epicureOfBlood.eachOpponent({ $0.loseLife(1) }) })
         epicureOfBlood.setFlavorText("\"Fleshy, with just a hint of leather. A fine vintage.\"")
         epicureOfBlood.power = 3
         epicureOfBlood.toughness = 3
@@ -1050,7 +1051,7 @@ enum M19 {
         infectiousHorror.setType(.Creature, .Zombie, .Horror)
         infectiousHorror.addTriggeredAbility(
             trigger: .ThisAttacks,
-            effect: { infectiousHorror.getOpponent().loseLife(2) })
+            effect: { infectiousHorror.eachOpponent({ $0.loseLife(2) }) })
         infectiousHorror.setFlavorText("Not once in the history of Grixis has anyone died of old age.")
         infectiousHorror.power = 2
         infectiousHorror.toughness = 2
@@ -1135,7 +1136,7 @@ enum M19 {
         })
         plagueMare.addTriggeredAbility(
             trigger: .ThisETB,
-            effect: { plagueMare.getOpponent().getCreatures().forEach({ $0.pump(-1, -1) })
+            effect: { plagueMare.eachOpponent({ $0.getCreatures().forEach({ $0.pump(-1, -1) }) })
         })
         plagueMare.setFlavorText("When it passes, those who sleep dream of sickness and death.")
         plagueMare.power = 2
@@ -1225,7 +1226,7 @@ enum M19 {
             string: "{2}, {T}: Each opponent loses 1 life and you gain 1 life.",
             cost: Cost.Mana("2").Tap(),
             effect: {
-                vampireNeonate.getOpponent().loseLife(1)
+                vampireNeonate.eachOpponent({ $0.loseLife(1) })
                 vampireNeonate.getController().gainLife(1)
         })
         vampireNeonate.setFlavorText("One day, they may be paragons of deadly elegance. For the moment, they possess nothing but thirst.")
@@ -1375,7 +1376,7 @@ enum M19 {
         guttersnipe.setType(.Creature, .Goblin, .Shaman)
         guttersnipe.addTriggeredAbility(
             trigger: .YouCastInstantOrSorcery,
-            effect: { guttersnipe.damage(to: guttersnipe.getOpponent(), 2) })
+            effect: { guttersnipe.eachOpponent({ guttersnipe.damage(to: $0, 2) }) })
         guttersnipe.setFlavorText("\"I found a new toy. Wanna play?\"")
         guttersnipe.power = 2
         guttersnipe.toughness = 2
