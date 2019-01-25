@@ -12,6 +12,7 @@ enum Trigger {
     case Landfall
     case NontokenCreatureYouControlDies
     case ThisAttacks
+    case ThisBecomesBlocked
     case ThisBecomesTapped
     case ThisBlocks
     case ThisDealsCombatDamageToPlayer

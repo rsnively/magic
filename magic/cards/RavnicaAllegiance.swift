@@ -92,6 +92,35 @@ enum RNA {
         WallOfLostThoughts,
         WindstormDrake,
         AwakenTheErstwhile,
+//        BankruptInBlood,
+//        BladeJuggler,
+        Bladebrand,
+//        BloodmistInfiltrator,
+//        CarrionImp,
+        CatacombCrocodile,
+        ClearTheStage,
+        ConsignToThePit,
+//        CryOfTheCarnarium,
+//        DeadRevels,
+        DebtorsTransport,
+//        DrillBit,
+//        FontOfAgonies,
+        GrotesqueDemise,
+//        Gutterbones,
+        IllGottenInheritance,
+        NoxiousGroodion,
+        OrzhovEnforcer,
+//        OrzhovRacketeers,
+//        PestilentSpirit,
+        PlagueWight,
+//        PriestOfForgottenGods,
+//        RakdosTrumpeter,
+//        SpawnOfMayhem,
+        SpireMangler,
+        ThirstingShade,
+//        UndercityScavenger,
+//        UndercitysEmbrace,
+//        VindictiveVampire,
         
         BurnBright,
         
@@ -753,33 +782,193 @@ enum RNA {
     }
     // 62 Bankrupt in Blood
     // 63 Blade Juggler
-    // 64
-    // 65
-    // 66
-    // 67
-    // 68
-    // 69
+    static func Bladebrand() -> Card {
+        let bladebrand = Card(name: "Bladebrand", rarity: .Common, set: set, number: 64)
+        bladebrand.setManaCost("1B")
+        bladebrand.setType(.Instant)
+        bladebrand.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))
+                bladebrand.getController().drawCard()
+        }))
+        bladebrand.setFlavorText("\"The pain of searing iron and razor edges pales beside the pleasure of performance.\"\n--Judith")
+        return bladebrand
+    }
+    // 65 Bloodmist Infiltrator
+    // 66 Carrion Imp
+    static func CatacombCrocodile() -> Card {
+        let catacombCrocodile = Card(name: "Catacomb Crocodile", rarity: .Common, set: set, number: 67)
+        catacombCrocodile.setManaCost("4B")
+        catacombCrocodile.setType(.Creature, .Crocodile)
+        catacombCrocodile.setFlavorText("\"I am sewer-king!\" said Rat. \"I am quick and cunning and I know every tunnel.\"\n\"No, I am king!\" said Zombie. \"I am cold and deadly and no rot can harm me.\"\nThen Croc came and ate them both.")
+        catacombCrocodile.power = 3
+        catacombCrocodile.toughness = 7
+        return catacombCrocodile
+    }
+    static func ClearTheStage() -> Card {
+        let clearTheStage = Card(name: "Clear the Stage", rarity: .Uncommon, set: set, number: 68)
+        clearTheStage.setManaCost("4B")
+        clearTheStage.setType(.Instant)
+        clearTheStage.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreature(),
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === clearTheStage.getController() },
+                    zones: [.Graveyard],
+                    optional: true)
+            ],
+            effect: { targets in
+                if let creatureOnBattlefield = targets[0] {
+                    creatureOnBattlefield.pump(-3, -3)
+                }
+                let controlCreatureWithPower4OrGreater = !clearTheStage.getController().getCreatures().filter({ $0.getPower() >= 4 }).isEmpty
+                if let creatureInGraveyard = targets[1], controlCreatureWithPower4OrGreater {
+                    creatureInGraveyard.putIntoHand()
+                }
+        }))
+        clearTheStage.setFlavorText("\"Make way! It's time for the final act!")
+        return clearTheStage
+    }
+    static func ConsignToThePit() -> Card {
+        let consignToThePit = Card(name: "Consign to the Pit", rarity: .Common, set: set, number: 69)
+        consignToThePit.setManaCost("5B")
+        consignToThePit.setType(.Sorcery)
+        consignToThePit.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                let controller = target.getController()
+                _ = target.destroy()
+                controller.loseLife(2)
+        }))
+        consignToThePit.setFlavorText("First your whole life flashes before your eyes. Then you have considerable time to reflect on every regret as you plummet.")
+        return consignToThePit
+    }
     // 70 Cry of the Carnarium
-    // 71
-    // 72
+    // 71 Dead Revels
+    static func DebtorsTransport() -> Card {
+        let debtorsTransport = Card(name: "Debtors' Transport", rarity: .Common, set: set, number: 72)
+        debtorsTransport.setManaCost("5B")
+        debtorsTransport.setType(.Creature, .Thrull)
+        debtorsTransport.afterlife(2)
+        debtorsTransport.setFlavorText("By design, the sarcophagus muffles the debtors' moans but does not silence them.")
+        debtorsTransport.power = 5
+        debtorsTransport.toughness = 3
+        return debtorsTransport
+    }
     // 73 Drill Bit
     // 74 Font of Agonies
-    // 75
+    static func GrotesqueDemise() -> Card {
+        let grotesqueDemise = Card(name: "Grotesque Demise", rarity: .Common, set: set, number: 75)
+        grotesqueDemise.setManaCost("2B")
+        grotesqueDemise.setType(.Instant)
+        grotesqueDemise.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getPower() <= 3 },
+                zones: [.Battlefield]),
+            effect: { $0.exile() }))
+        grotesqueDemise.setFlavorText("\"A debtor's soul has little value, except as a warning to others who might consider defaulting on their loans.\"\n--Ubea, Orzhov ministrant")
+        return grotesqueDemise
+    }
     // 76 Gutterbones
-    // 77
-    // 78
-    // 79 Orzhov Enforcer TODO
+    static func IllGottenInheritance() -> Card {
+        let illGottenInheritance = Card(name: "Ill-Gotten Inheritance", rarity: .Common, set: set, number: 77)
+        illGottenInheritance.setManaCost("3B")
+        illGottenInheritance.setType(.Enchantment)
+        illGottenInheritance.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: {
+                illGottenInheritance.getController().eachOpponent({ opponent in
+                    illGottenInheritance.damage(to: opponent, 1)
+                })
+                illGottenInheritance.getController().gainLife(1)
+        })
+        illGottenInheritance.addActivatedAbility(
+            string: "{5}{B}, Sacrifice ~: It deals 4 damage to target opponent and you gain 4 life.",
+            cost: Cost.Mana("5B").Sacrifice(),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.SinglePlayer(
+                    restriction: { $0 !== illGottenInheritance.getController() }),
+                effect: { target in
+                    illGottenInheritance.damage(to: target, 4)
+                    illGottenInheritance.getController().gainLife(4)
+        }))
+        illGottenInheritance.setFlavorText("\"The suffering of others is not my concern.\"")
+        return illGottenInheritance
+    }
+    static func NoxiousGroodion() -> Card {
+        let noxiousGroodion = Card(name: "Noxious Groodion", rarity: .Common, set: set, number: 78)
+        noxiousGroodion.setManaCost("2B")
+        noxiousGroodion.setType(.Creature, .Beast)
+        noxiousGroodion.deathtouch = true
+        noxiousGroodion.setFlavorText("\"Behold the groodion! Ichor-slurper, oozing fiend. Foulest wonder underground. Grandest vermin of them all!\"\n--Zalin the Gutter Bard")
+        noxiousGroodion.power = 2
+        noxiousGroodion.toughness = 2
+        return noxiousGroodion
+    }
+    static func OrzhovEnforcer() -> Card {
+        let orzhovEnforcer = Card(name: "Orzhov Enforcer", rarity: .Uncommon, set: set, number: 79)
+        orzhovEnforcer.setManaCost("1B")
+        orzhovEnforcer.setType(.Creature, .Human, .Rogue)
+        orzhovEnforcer.deathtouch = true
+        orzhovEnforcer.afterlife(1)
+        orzhovEnforcer.setFlavorText("\"You'll pay for what you owe, with your money or your life.\"")
+        orzhovEnforcer.power = 1
+        orzhovEnforcer.toughness = 2
+        return orzhovEnforcer
+    }
     // 80 Orzhov Racketeers
     // 81 Pestilent Spirit
-    // 82
+    static func PlagueWight() -> Card {
+        let plagueWight = Card(name: "Plague Wight", rarity: .Common, set: set, number: 82)
+        plagueWight.setManaCost("1B")
+        plagueWight.setType(.Creature, .Zombie)
+        plagueWight.addTriggeredAbility(
+            trigger: .ThisBecomesBlocked,
+            effect: { plagueWight.blockers.forEach({ $0.pump(-1, -1) }) })
+        plagueWight.setFlavorText("For some goods, the best couriers are the dead.")
+        plagueWight.power = 2
+        plagueWight.toughness = 1
+        return plagueWight
+    }
     // 83 Priest of Forgotten Gods
-    // 84
+    // 84 Rakdos Trumpeter
     // 85 Spawn of Mayhem
-    // 86
-    // 87
-    // 88
-    // 89
-    // 90
+    static func SpireMangler() -> Card {
+        let spireMangler = Card(name: "Spire Mangler", rarity: .Uncommon, set: set, number: 86)
+        spireMangler.setManaCost("2B")
+        spireMangler.setType(.Creature, .Insect)
+        spireMangler.flash = true
+        spireMangler.flying = true
+        spireMangler.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.flying && $0.getController() === spireMangler.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.pump(2, 0)} ))
+        spireMangler.setFlavorText("Its mandibles can leave a rider in the clouds astride a headless griffin.")
+        spireMangler.power = 2
+        spireMangler.toughness = 1
+        return spireMangler
+    }
+    static func ThirstingShade() -> Card {
+        let thirstingShade = Card(name: "Thirsting Shade", rarity: .Common, set: set, number: 87)
+        thirstingShade.setManaCost("B")
+        thirstingShade.setType(.Creature, .Shade)
+        thirstingShade.lifelink = true
+        thirstingShade.addActivatedAbility(
+            string: "{2}{B}: ~ gets +1/+1 until end of turn.",
+            cost: Cost.Mana("2B"),
+            effect: { thirstingShade.pump(1, 1) })
+        thirstingShade.setFlavorText("\"Your life is a blinding light, your breath a gale, your pulse a deafening drum. Be still. Be still.\"\n--Dahlya Trul, \"Irbitov Lament\"")
+        thirstingShade.power = 1
+        thirstingShade.toughness = 1
+        return thirstingShade
+    }
+    // 88 Undercity Scavenger
+    // 89 Undercity's Embrace
+    // 90 Vindictive Vampire
     // 91
     // 92 Amplifire
     static func BurnBright() -> Card {

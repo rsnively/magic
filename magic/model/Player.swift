@@ -247,6 +247,13 @@ class Player: Targetable {
                 permanent.triggerAbilities(.ThisBlocks)
             }
         }
+        eachOpponent({ opponent in
+            opponent.getPermanents().forEach({ permanent in
+                if permanent.blocked {
+                    permanent.triggerAbilities(.ThisBecomesBlocked)
+                }
+            })
+        })
     }
     
     func chooseLegendaryToKeep(name: String) {
