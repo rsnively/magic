@@ -369,13 +369,13 @@ class Player: Targetable {
     }
     
     func resolve(object: Object) {
+        object.resolve()
         if object.isPermanent() {
             addPermanent(object)
         }
         else if object as? Card != nil {
             graveyard.append(object as! Card)
         }
-        object.resolve()
     }
     
     func createToken(_ token: Object) {
