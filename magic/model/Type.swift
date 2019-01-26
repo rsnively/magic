@@ -97,6 +97,7 @@ enum Subtype {
     case Naga
     case Nightmare
     case Ogre
+    case Ooze
     case Orc
     case Ox
     case Pegasus
@@ -115,6 +116,7 @@ enum Subtype {
     case Serpent
     case Shade
     case Shaman
+    case Sheep
     case Siren
     case Skeleton
     case Snake
@@ -129,6 +131,7 @@ enum Subtype {
     case Treasure
     case Treefolk
     case Trilobite
+    case Troll
     case Turtle
     case Unicorn
     case Vampire

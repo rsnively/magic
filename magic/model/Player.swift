@@ -106,6 +106,9 @@ class Player: Targetable {
     func getEnchantments() -> [Object] {
         return permanents.filter { $0.isType(Type.Enchantment) }
     }
+    func getArtifactsAndEnchantments() -> [Object] {
+        return permanents.filter { $0.isType(.Artifact) || $0.isType(.Enchantment) }
+    }
     
     func getStaticAbilities() -> [StaticAbility] {
         var abilities: [StaticAbility] = []

@@ -151,9 +151,36 @@ enum RNA {
 //        SpikewheelAcrobat,
 //        StormStrike,
 //        TinStreetDodger,
-        
+        AxebaneBeast,
+        BiogenicOoze,
+//        BiogenicUpgrade,
         EndRazeForerunners,
-        
+        EnragedCeratok,
+        GatebreakerRam,
+        GiftOfStrength,
+        GrowthChamberGuardian,
+//        GruulBeastmaster,
+//        GuardianProject,
+//        IncubationDruid,
+        MammothSpider,
+        OpenTheGates,
+        RampageOfTheClans,
+//        RampagingRendhorn,
+        Regenesis,
+//        RootSnare,
+        SagittarsVolley,
+//        SaruliCaretaker,
+        SauroformHybrid,
+        SilhanaWayfinder,
+        SteepleCreeper,
+        StonyStrength,
+        SylvanBrushstrider,
+//        TerritorialBoar,
+//        TitanicBrawl,
+        TowerDefense,
+        TrollbredGuardian,
+        WildernessReclamation,
+//        WreckingBeast,
         Absorb,
         Aeromunculus,
         
@@ -1156,8 +1183,35 @@ enum RNA {
     // 118 Spikewheel Acrobat
     // 119 Storm Strike
     // 120 Tin-Street Dodger
-    // 121
-    // 122 Biogenic Ooze TODO
+    static func AxebaneBeast() -> Card {
+        let axebaneBeast = Card(name: "Axebane Beast", rarity: .Common, set: set, number: 121)
+        axebaneBeast.setManaCost("3G")
+        axebaneBeast.setType(.Creature, .Beast)
+        axebaneBeast.setFlavorText("\"Imagine a gigantic pine cone that's extremely territorial and always in a foul mood.\"\n--Zhosmir, urban huntmaster")
+        axebaneBeast.power = 3
+        axebaneBeast.toughness = 4
+        return axebaneBeast
+    }
+    static func BiogenicOoze() -> Card {
+        let biogenicOoze = Card(name: "Biogenic Ooze", rarity: .Mythic, set: set, number: 122)
+        biogenicOoze.setManaCost("3GG")
+        biogenicOoze.setType(.Creature, .Ooze)
+        biogenicOoze.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { biogenicOoze.getController().createToken(Ooze()) })
+        biogenicOoze.addTriggeredAbility(
+            trigger: .YourEndStep,
+            effect: {
+                biogenicOoze.getController().getCreatures().filter({ $0.isType(.Ooze) }).forEach({ creature in
+                    creature.addCounter(.PlusOnePlusOne)
+                })
+        })
+        biogenicOoze.addActivatedAbility(
+            string: "{1}{G}{G}{G}: Create a 2/2 green Ooze creature token.",
+            cost: Cost.Mana("1GGG"),
+            effect: { biogenicOoze.getController().createToken(Ooze()) })
+        return biogenicOoze
+    }
     // 123 Biogenic Upgrade
     static func EndRazeForerunners() -> Card {
         let endRazeForerunners = Card(name: "End-Raze Forerunners", rarity: .Rare, set: set, number: 124)
@@ -1179,32 +1233,274 @@ enum RNA {
         endRazeForerunners.toughness = 7
         return endRazeForerunners
     }
-    // 125
-    // 126 Gatebreaker Ram TODO
-    // 127
-    // 128 Growth-Chamber Guardian TODO
+    static func EnragedCeratok() -> Card {
+        let enragedCeratok = Card(name: "Enraged Ceratok", rarity: .Uncommon, set: set, number: 125)
+        enragedCeratok.setManaCost("2GG")
+        enragedCeratok.setType(.Creature, .Rhino)
+        enragedCeratok.blockabilityRequirements.append({ object in
+            return object.getPower() > 2
+        })
+        enragedCeratok.setFlavorText("\"There's no time to calm it down! Run!\"")
+        enragedCeratok.power = 4
+        enragedCeratok.toughness = 4
+        return enragedCeratok
+    }
+    static func GatebreakerRam() -> Card {
+        let gatebreakerRam = Card(name: "Gatebreaker Ram", rarity: .Uncommon, set: set, number: 126)
+        gatebreakerRam.setManaCost("2G")
+        gatebreakerRam.setType(.Creature, .Sheep)
+        gatebreakerRam.addStaticAbility({ object in
+            if object == gatebreakerRam {
+                let numGates = gatebreakerRam.getController().getPermanents().filter({ $0.isType(.Gate) }).count
+                gatebreakerRam.power = gatebreakerRam.getBasePower() + numGates
+                gatebreakerRam.toughness = gatebreakerRam.getBaseToughness() + numGates
+                if numGates >= 2 {
+                    // TODO Layers
+                    gatebreakerRam.vigilance = true
+                    gatebreakerRam.trample = true
+                }
+            }
+            return object
+        })
+        gatebreakerRam.setFlavorText("So-called \"battering rams\" pale in comparison to the real thing.")
+        gatebreakerRam.power = 2
+        gatebreakerRam.toughness = 2
+        return gatebreakerRam
+    }
+    static func GiftOfStrength() -> Card {
+        let giftOfStrength = Card(name: "Gift of Strength", rarity: .Common, set: set, number: 127)
+        giftOfStrength.setManaCost("1G")
+        giftOfStrength.setType(.Instant)
+        giftOfStrength.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: {
+                $0.pump(3, 3)
+                $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.reach = true; return $0 }))
+        }))
+        giftOfStrength.setFlavorText("\"When the sky screams, when the ground groans, the End-Raze will soon begin.\"\n--Nikya of the Old Ways")
+        return giftOfStrength
+    }
+    static func GrowthChamberGuardian() -> Card {
+        let name = "Growth-Chamber Guardian"
+        let growthChamberGuardian = Card(name: name, rarity: .Rare, set: set, number: 128)
+        growthChamberGuardian.setManaCost("1G")
+        growthChamberGuardian.setType(.Creature, .Elf, .Crab, .Warrior)
+        growthChamberGuardian.adapt(2, Cost.Mana("2G"))
+        growthChamberGuardian.addTriggeredAbility(
+            trigger: .ThisGetsPlusOnePlusOneCounter,
+            effect: {
+                growthChamberGuardian.getController().chooseCard(
+                    from: growthChamberGuardian.getController().getLibrary(),
+                    restriction: { $0.getName() == name },
+                    action: { chosenCard, rest in
+                        chosenCard?.reveal()
+                        chosenCard?.putIntoHand()
+                        growthChamberGuardian.getController().shuffleLibrary()
+                    })
+            },
+            effectOptional: true)
+        growthChamberGuardian.power = 2
+        growthChamberGuardian.toughness = 2
+        return growthChamberGuardian
+    }
     // 129 Gruul Beastmaster
-    // 130 Guardian Project TODO
+    // 130 Guardian Project
     // 131 Incubation Druid
-    // 132
-    // 133
-    // 134 Rampage of the Clans TODO
-    // 135
-    // 136 Regenesis TODO
-    // 137
-    // 138
-    // 139
-    // 140 Sauroform Hybrid TODO
-    // 141 Silhana Wayfinder TODO
-    // 142
-    // 143
-    // 144
-    // 145
-    // 146 Titanic Brawl TODO
-    // 147
-    // 148 Trollbred Guardian TODO
-    // 149 Wilderness Reclamation TODO
-    // 150
+    static func MammothSpider() -> Card {
+        let mammothSpider = Card(name: "Mammoth Spider", rarity: .Common, set: set, number: 132)
+        mammothSpider.setManaCost("4G")
+        mammothSpider.setType(.Creature, .Spider)
+        mammothSpider.reach = true
+        mammothSpider.setFlavorText("\"The good news is that the migrating drakes are no longer a problem.\"\n--Bell Migellic, Azorius hussar")
+        mammothSpider.power = 3
+        mammothSpider.toughness = 5
+        return mammothSpider
+    }
+    static func OpenTheGates() -> Card {
+        let openTheGates = Card(name: "Open the Gates", rarity: .Common, set: set, number: 133)
+        openTheGates.setManaCost("G")
+        openTheGates.setType(.Sorcery)
+        openTheGates.addEffect({
+            openTheGates.getController().chooseCard(
+                from: openTheGates.getController().getLibrary(),
+                restriction: { $0.isBasicLand() || $0.isType(.Gate) },
+                action: { chosen, rest in
+                    chosen?.reveal()
+                    chosen?.putIntoHand()
+                    openTheGates.getController().shuffleLibrary()
+            })
+        })
+        openTheGates.setFlavorText("\"If you don't have a destination in mind, the route is all that matters.\"\n--Tamina, district guide")
+        return openTheGates
+    }
+    static func RampageOfTheClans() -> Card {
+        let rampageOfTheClans = Card(name: "Rampage of the Clans", rarity: .Rare, set: set, number: 134)
+        rampageOfTheClans.setManaCost("3G")
+        rampageOfTheClans.setType(.Instant)
+        rampageOfTheClans.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getArtifactsAndEnchantments().forEach({ object in
+                    let destroyed = object.destroy()
+                    if destroyed {
+                        player.createToken(Centaur())
+                    }
+                })
+            })
+        })
+        rampageOfTheClans.setFlavorText("\"Rage! Rage until the whole world burns!\"")
+        return rampageOfTheClans
+    }
+    // 135 Rampaging Rendhorn
+    static func Regenesis() -> Card {
+        let regenesis = Card(name: "Regenesis", rarity: .Uncommon, set: set, number: 136)
+        regenesis.setManaCost("3GG")
+        regenesis.setType(.Instant)
+        let targetingRestriction = TargetingRestriction.SingleObject(
+            restriction: { $0.isPermanent() && $0.getController() === regenesis.getController() },
+            zones: [.Graveyard],
+            optional: true)
+        regenesis.addEffect(TargetedEffect.MultiObject(
+            restrictions: [ targetingRestriction, targetingRestriction ],
+            effect: { targets in
+                for target in targets {
+                    target?.putIntoHand()
+                }
+        }))
+        regenesis.setFlavorText("\"When you get right down to it, the difference between death and life is just a membrane-enclosed environment maintained by a metabolic process.\"\n--Gulistan, Simic biomancer")
+        return regenesis
+    }
+    // 137 Root Snare
+    static func SagittarsVolley() -> Card {
+        let sagittarsVolley = Card(name: "Sagittars' Volley", rarity: .Common, set: set, number: 138)
+        sagittarsVolley.setManaCost("2G")
+        sagittarsVolley.setType(.Instant)
+        sagittarsVolley.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.flying },
+                zones: [.Battlefield]),
+            effect: { target in
+                _ = target.destroy()
+                sagittarsVolley.eachOpponent({ opponent in
+                    opponent.getCreatures().filter({ $0.flying }).forEach({ sagittarsVolley.damage(to: $0, 1) })
+                })
+        }))
+        sagittarsVolley.setFlavorText("\"My bowstring hums in tune with the song of the Worldsoul.\"\n--Alcarus, Selesnya sagittar")
+        return sagittarsVolley
+    }
+    // 139 Saruli Caretaker
+    static func SauroformHybrid() -> Card {
+        let sauroformHybrid = Card(name: "Sauroform Hybrid", rarity: .Common, set: set, number: 140)
+        sauroformHybrid.setManaCost("1G")
+        sauroformHybrid.setType(.Creature, .Human, .Lizard, .Warrior)
+        sauroformHybrid.adapt(4, Cost.Mana("4GG"))
+        sauroformHybrid.setFlavorText("\"Within each of us, the potential for great power waits to be released.\"\n--Zija, Simic mutationist")
+        sauroformHybrid.power = 2
+        sauroformHybrid.toughness = 2
+        return sauroformHybrid
+    }
+    static func SilhanaWayfinder() -> Card {
+        let silhanaWayfinder = Card(name: "Silhana Wayfinder", rarity: .Uncommon, set: set, number: 141)
+        silhanaWayfinder.setManaCost("1G")
+        silhanaWayfinder.setType(.Creature, .Elf, .Scout)
+        silhanaWayfinder.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { silhanaWayfinder.getController().chooseCard(
+                from: Array(silhanaWayfinder.getController().getLibrary().suffix(4)),
+                restriction: { $0.isType(.Creature) || $0.isType(.Land) },
+                action: { chosen, rest in
+                    chosen?.reveal()
+                    chosen?.putOnTopOfLibrary()
+                    silhanaWayfinder.getController().putOnBottomOfLibrary(&rest, random: true)
+            })
+        })
+        silhanaWayfinder.power = 2
+        silhanaWayfinder.toughness = 1
+        return silhanaWayfinder
+    }
+    static func SteepleCreeper() -> Card {
+        let steepleCreeper = Card(name: "Steeple Creeper", rarity: .Common, set: set, number: 142)
+        steepleCreeper.setManaCost("2G")
+        steepleCreeper.setType(.Creature, .Frog, .Snake)
+        steepleCreeper.addActivatedAbility(
+            string: "{3}{U}: ~ gains flying until end of turn.",
+            cost: Cost.Mana("3U"),
+            effect: { steepleCreeper.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }) )})
+        steepleCreeper.setFlavorText("\"If the Fin Claade cannot produce a reliable venomous krasis, mobile in both air and water, then the Guardian Project will absorb its resources.\"\n--Vannifar")
+        steepleCreeper.power = 4
+        steepleCreeper.toughness = 2
+        return steepleCreeper
+    }
+    static func StonyStrength() -> Card {
+        let stonyStrength = Card(name: "Stony Strength", rarity: .Common, set: set, number: 143)
+        stonyStrength.setManaCost("G")
+        stonyStrength.setType(.Instant)
+        stonyStrength.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === stonyStrength.getController() },
+                zones: [.Battlefield]),
+            effect: { target in
+                target.addCounter(.PlusOnePlusOne)
+                target.untap()
+        }))
+        stonyStrength.setFlavorText("\"What you build, we will destroy... and bury you in the rubble!\"")
+        return stonyStrength
+    }
+    static func SylvanBrushstrider() -> Card {
+        let sylvanBrushstrider = Card(name: "Sylvan Brushstrider", rarity: .Common, set: set, number: 144)
+        sylvanBrushstrider.setManaCost("2G")
+        sylvanBrushstrider.setType(.Creature, .Beast)
+        sylvanBrushstrider.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { sylvanBrushstrider.getController().gainLife(2) })
+        sylvanBrushstrider.setFlavorText("The mournful lowing of brushstriders warns of changing weather and ill winds.")
+        sylvanBrushstrider.power = 3
+        sylvanBrushstrider.toughness = 2
+        return sylvanBrushstrider
+    }
+    // 145 Territorial Boar
+    // 146 Titanic Brawl
+    static func TowerDefense() -> Card {
+        let towerDefense = Card(name: "Tower Defense", rarity: .Uncommon, set: set, number: 147)
+        towerDefense.setManaCost("1G")
+        towerDefense.setType(.Instant)
+        towerDefense.addEffect({
+            towerDefense.getController().getCreatures().forEach({ creature in
+                creature.pump(0, 5)
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.reach = true; return $0 }))
+            })
+        })
+        towerDefense.setFlavorText("\"We've been practicing for this all our lives. This is the final test.\"\n--Korun Nar, Rubblebelt hunter")
+        return towerDefense
+    }
+    static func TrollbredGuardian() -> Card {
+        let trollbredGuardian = Card(name: "Trollbred Guardian", rarity: .Uncommon, set: set, number: 148)
+        trollbredGuardian.setManaCost("4G")
+        trollbredGuardian.setType(.Creature, .Troll, .Frog, .Warrior)
+        trollbredGuardian.adapt(2, Cost.Mana("2G"))
+        trollbredGuardian.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === trollbredGuardian.getController() && object.hasCounter(.PlusOnePlusOne) {
+                object.trample = true
+            }
+            return object
+        })
+        trollbredGuardian.setFlavorText("His favorite food is kraul.")
+        trollbredGuardian.power = 5
+        trollbredGuardian.toughness = 5
+        return trollbredGuardian
+    }
+    static func WildernessReclamation() -> Card {
+        let wildernessReclamation = Card(name: "Wilderness Reclamation", rarity: .Uncommon, set: set, number: 149)
+        wildernessReclamation.setManaCost("3G")
+        wildernessReclamation.setType(.Enchantment)
+        wildernessReclamation.addTriggeredAbility(
+            trigger: .YourEndStep,
+            effect: {
+                wildernessReclamation.getController().getLands().forEach({ $0.untap() })
+        })
+        wildernessReclamation.setFlavorText("\"Walls crack. Buildings fall. Always the wilds return.\"\n--Domri Rade")
+        return wildernessReclamation
+    }
+    // 150 Wrecking Beast
     static func Absorb() -> Card {
         let absorb = Card(name: "Absorb", rarity: .Rare, set: set, number: 151)
         absorb.setManaCost("WUU")
@@ -1597,16 +1893,30 @@ enum RNA {
         return zombie
     }
     static func Goblin() -> Token {
-        let goblin = Token(name: "Goblin", set: set, number: 1)
+        let goblin = Token(name: "Goblin", set: set, number: 4)
         goblin.colors = [.Red]
         goblin.setType(.Creature, .Goblin)
         goblin.power = 1
         goblin.toughness = 1
         return goblin
     }
-    // T5 Centaur
+    static func Centaur() -> Token {
+        let centaur = Token(name: "Centaur", set: set, number: 5)
+        centaur.colors = [.Green]
+        centaur.setType(.Creature, .Centaur)
+        centaur.power = 3
+        centaur.toughness = 3
+        return centaur
+    }
     // T6 Frog Lizard
-    // T7 Ooze
+    static func Ooze() -> Token {
+        let ooze = Token(name: "Ooze", set: set, number: 7)
+        ooze.colors = [.Green]
+        ooze.setType(.Creature, .Ooze)
+        ooze.power = 2
+        ooze.toughness = 2
+        return ooze
+    }
     // T8 Beast
     // T9 Sphinx
     static func Spirit() -> Token {

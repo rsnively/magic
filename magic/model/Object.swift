@@ -484,14 +484,23 @@ class Object: Targetable, Hashable, NSCopying {
         }
     }
     
+    private func addCounter_impl(_ type: Counter) {
+        counters[type] = (counters[type] ?? 0) + 1
+    }
     func addCounters(_ type: Counter, _ amount: Int) {
         let amount = max(amount, 0)
         for _ in 0 ..< amount {
-            addCounter(type)
+            addCounter_impl(type)
+        }
+        if type == Counter.Lore {
+            triggerAbilities(.ThisGetsLoreCounter)
+        }
+        else if type == Counter.PlusOnePlusOne {
+            triggerAbilities(.ThisGetsPlusOnePlusOneCounter)
         }
     }
     func addCounter(_ type: Counter) {
-        counters[type] = (counters[type] ?? 0) + 1
+        addCounter_impl(type)
         if type == Counter.Lore {
             triggerAbilities(.ThisGetsLoreCounter)
         }
