@@ -121,8 +121,36 @@ enum RNA {
 //        UndercityScavenger,
 //        UndercitysEmbrace,
 //        VindictiveVampire,
-        
+//        ActOfTreason,
+//        Amplifire,
         BurnBright,
+//        BurningTreeVandal,
+//        CavalcadeOfCalamity,
+//        ClamorShaman,
+        DaggerCaster,
+//        Deface,
+//        Electrodominance,
+        FeralMaaka,
+        FlamesOfTheRazeBoar,
+        GatesAblaze,
+//        GhorClanWrecker,
+        GoblinGathering,
+        GravelHideGoblin,
+//        ImmolationShaman,
+//        LightUpTheStage,
+//        MirrorMarch,
+//        RixMaadiReveler,
+//        RubbleReading,
+//        RubblebeltRecluse,
+        RumblingRuin,
+//        Scorchmark,
+//        SkarrganHellkite,
+//        SkewerTheCritics,
+//        SmeltWardIgnus,
+        SpearSpewer,
+//        SpikewheelAcrobat,
+//        StormStrike,
+//        TinStreetDodger,
         
         EndRazeForerunners,
         
@@ -969,7 +997,7 @@ enum RNA {
     // 88 Undercity Scavenger
     // 89 Undercity's Embrace
     // 90 Vindictive Vampire
-    // 91
+    // 91 Act of Treason
     // 92 Amplifire
     static func BurnBright() -> Card {
         let burnBright = Card(name: "Burn Bright", rarity: .Common, set: set, number: 93)
@@ -984,30 +1012,150 @@ enum RNA {
     // 94 Burning-Tree Vandal
     // 95 Cavalcade of Calamity
     // 96 Clamor Shaman
-    // 97
-    // 98
+    static func DaggerCaster() -> Card {
+        let daggerCaster = Card(name: "Dagger Caster", rarity: .Uncommon, set: set, number: 97)
+        daggerCaster.setManaCost("3R")
+        daggerCaster.setType(.Creature, .Viashino, .Rogue)
+        daggerCaster.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                daggerCaster.eachOpponent({ opponent in
+                    daggerCaster.damage(to: opponent, 1)
+                    opponent.getCreatures().forEach({ daggerCaster.damage(to: $0, 1) })
+                })
+        })
+        daggerCaster.setFlavorText("\"Keep coming. I have knives enough for everyone.\"")
+        daggerCaster.power = 2
+        daggerCaster.toughness = 3
+        return daggerCaster
+    }
+    // 98 Deface
     // 99 Electrodominance
-    // 100
-    // 101
-    // 102 Gates Ablaze TODO
-    // 103
-    // 104
-    // 105
+    static func FeralMaaka() -> Card {
+        let feralMaaka = Card(name: "Feral Maaka", rarity: .Common, set: set, number: 100)
+        feralMaaka.setManaCost("1R")
+        feralMaaka.setType(.Creature, .Cat)
+        feralMaaka.setFlavorText("\"Lost are the lush meadows and verdant forests, where maaka prowled and lammasu soared. Lost are the wilds, where our hearts were free.\"\n--Daiva, Gruul storyteller")
+        feralMaaka.power = 2
+        feralMaaka.toughness = 2
+        return feralMaaka
+    }
+    static func FlamesOfTheRazeBoar() -> Card {
+        let flamesOfTheRazeBoar = Card(name: "Flames of the Raze-Boar", rarity: .Uncommon, set: set, number: 101)
+        flamesOfTheRazeBoar.setManaCost("5R")
+        flamesOfTheRazeBoar.setType(.Instant)
+        flamesOfTheRazeBoar.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() !== flamesOfTheRazeBoar.getController() },
+                zones: [.Battlefield]),
+            effect: { target in
+                flamesOfTheRazeBoar.damage(to: target, 4)
+                if !flamesOfTheRazeBoar.getController().getCreatures().filter({ $0.getPower() >= 4 }).isEmpty {
+                    target.getController().getCreatures().filter({ $0 != target }).forEach({ creature in
+                        flamesOfTheRazeBoar.damage(to: creature, 2)
+                    })
+                }
+        }))
+        flamesOfTheRazeBoar.setFlavorText("\"Fire will cure a multitude of ills.\"")
+        return flamesOfTheRazeBoar
+    }
+    static func GatesAblaze() -> Card {
+        let gatesAblaze = Card(name: "Gates Ablaze", rarity: .Uncommon, set: set, number: 102)
+        gatesAblaze.setManaCost("2R")
+        gatesAblaze.setType(.Sorcery)
+        gatesAblaze.addEffect({
+            let numGates = gatesAblaze.getController().getPermanents().filter({ $0.isType(.Gate) }).count
+            Game.shared.bothPlayers({ player in
+                player.getCreatures().forEach({ creature in
+                    gatesAblaze.damage(to: creature, numGates)
+                })
+            })
+        })
+        gatesAblaze.setFlavorText("When the Izzet's spirit of invention extends to the city's infrastructure, the results are sometimes explosive.")
+        return gatesAblaze
+    }
+    // 103 Ghor-Clan Wrecker
+    static func GoblinGathering() -> Card {
+        let name = "Goblin Gathering"
+        let goblinGathering = Card(name: name, rarity: .Common, set: set, number: 104)
+        goblinGathering.setManaCost("2R")
+        goblinGathering.setType(.Sorcery)
+        goblinGathering.addEffect({
+            let numGatherings = goblinGathering.getController().getGraveyard().filter({ $0.getName() == name }).count
+            let numGoblins = 2 + numGatherings
+            for _ in 0 ..< numGoblins {
+                goblinGathering.getController().createToken(Goblin())
+            }
+        })
+        goblinGathering.setFlavorText("Two's a party. Three's a felony.")
+        return goblinGathering
+    }
+    static func GravelHideGoblin() -> Card {
+        let gravelHideGoblin = Card(name: "Gravel-Hide Goblin", rarity: .Common, set: set, number: 105)
+        gravelHideGoblin.setManaCost("1R")
+        gravelHideGoblin.setType(.Creature, .Goblin, .Shaman)
+        gravelHideGoblin.addActivatedAbility(
+            string: "{3}{G}: ~ gets +2/+2 until end of turn.",
+            cost: Cost.Mana("3G"),
+            effect: { gravelHideGoblin.pump(2, 2) })
+        gravelHideGoblin.setFlavorText("\"No peace accord will save Ravnica. You don't build on rot. You burn it down and start again.\"\n--Domri Rade")
+        gravelHideGoblin.power = 2
+        gravelHideGoblin.toughness = 1
+        return gravelHideGoblin
+    }
     // 106 Immolation Shaman
     // 107 Light Up the Stage
     // 108 Mirror March
     // 109 Rix Maadi Reveler
-    // 110
-    // 111
-    // 112
+    // 110 Rubble Reading
+    // 111 RubblebeltRecluse
+    static func RumblingRuin() -> Card {
+        let rumblingRuin = Card(name: "Rumbling Ruin", rarity: .Uncommon, set: set, number: 112)
+        rumblingRuin.setManaCost("5R")
+        rumblingRuin.setType(.Creature, .Elemental)
+        rumblingRuin.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                var numCounters: Int = 0
+                rumblingRuin.getController().getCreatures().forEach({ creature in
+                    numCounters += creature.getCounters(.PlusOnePlusOne)
+                })
+                rumblingRuin.eachOpponent({ $0.getCreatures().forEach({ creature in
+                    if creature.getPower() <= numCounters {
+                        creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }))
+                    }
+                })})
+        })
+        rumblingRuin.setFlavorText("The Rubblebelt grows restless.")
+        rumblingRuin.power = 6
+        rumblingRuin.toughness = 6
+        return rumblingRuin
+    }
     // 113 Scorchmark
     // 114 Skarrgan Hellkite
     // 115 Skewer the Critics
     // 116 Smelt-Ward Ignus
-    // 117
-    // 118
-    // 119
-    // 120
+    static func SpearSpewer() -> Card {
+        let spearSpewer = Card(name: "Spear Spewer", rarity: .Common, set: set, number: 117)
+        spearSpewer.setManaCost("R")
+        spearSpewer.setType(.Creature, .Goblin, .Warrior)
+        spearSpewer.defender = true
+        spearSpewer.addActivatedAbility(
+            string: "{T}: ~ deals 1 damage to each player.",
+            cost: Cost.Tap(),
+            effect: {
+                Game.shared.bothPlayers({ player in
+                    spearSpewer.damage(to: player, 1)
+                })
+        })
+        spearSpewer.setFlavorText("\"Don't waste time aiming, you lazy gob-slug! Fire!\"\n--Krenko, mob boss")
+        spearSpewer.power = 0
+        spearSpewer.toughness = 2
+        return spearSpewer
+    }
+    // 118 Spikewheel Acrobat
+    // 119 Storm Strike
+    // 120 Tin-Street Dodger
     // 121
     // 122 Biogenic Ooze TODO
     // 123 Biogenic Upgrade
@@ -1448,7 +1596,14 @@ enum RNA {
         zombie.toughness = 2
         return zombie
     }
-    // T4 Goblin
+    static func Goblin() -> Token {
+        let goblin = Token(name: "Goblin", set: set, number: 1)
+        goblin.colors = [.Red]
+        goblin.setType(.Creature, .Goblin)
+        goblin.power = 1
+        goblin.toughness = 1
+        return goblin
+    }
     // T5 Centaur
     // T6 Frog Lizard
     // T7 Ooze
