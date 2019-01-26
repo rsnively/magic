@@ -432,7 +432,7 @@ enum RNA {
         spiritOfTheSpires.setType(.Creature, .Spirit)
         spiritOfTheSpires.flying = true
         spiritOfTheSpires.addStaticAbility({ object in
-            if object != spiritOfTheSpires && object.isType(.Creature) && object.flying {
+            if object != spiritOfTheSpires && object.isType(.Creature) && object.getBaseFlying() {
                 object.toughness = object.getBaseToughness() + 1
             }
             return object
@@ -809,7 +809,7 @@ enum RNA {
         windstormDrake.setType(.Creature, .Drake)
         windstormDrake.flying = true
         windstormDrake.addStaticAbility({ object in
-            if object != windstormDrake && object.isType(.Creature) && object.flying {
+            if object != windstormDrake && object.isType(.Creature) && object.getBaseFlying() {
                 object.power = object.getBasePower() + 1
             }
             return object
