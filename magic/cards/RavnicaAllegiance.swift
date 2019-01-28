@@ -1210,6 +1210,8 @@ enum RNA {
             string: "{1}{G}{G}{G}: Create a 2/2 green Ooze creature token.",
             cost: Cost.Mana("1GGG"),
             effect: { biogenicOoze.getController().createToken(Ooze()) })
+        biogenicOoze.power = 2
+        biogenicOoze.toughness = 2
         return biogenicOoze
     }
     // 123 Biogenic Upgrade
