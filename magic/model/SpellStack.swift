@@ -2,6 +2,23 @@ import Foundation
 
 class SpellStack: NSObject {
     private var stackObjects:Stack<Object>
+    private var pendingStackObjects: [Object] = [] // Don't push until finish checking SBAs
+    
+    private var blockingCheckingSBAs: Bool = false
+    var checkingStateBasedActions: Bool {
+        get { return blockingCheckingSBAs }
+        set (newState) {
+            if newState {
+                blockingCheckingSBAs = true
+            }
+            else {
+                blockingCheckingSBAs = false
+                // TODO somehow need to re-check restrictions and target availability for targeted effects
+                pendingStackObjects.forEach({ push($0) })
+            }
+        }
+    }
+    
     var count: Int {
         return stackObjects.count
     }
@@ -17,6 +34,10 @@ class SpellStack: NSObject {
     }
     
     func push(_ object: Object) {
+        if checkingStateBasedActions {
+            pendingStackObjects.append(object)
+            return
+        }
         stackObjects.push(object)
         object.reveal()
         Game.shared.checkStateBasedActions()
