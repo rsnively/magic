@@ -114,7 +114,7 @@ enum RIX {
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { return  $0 != majesticHeliopterus && $0.isType(.Dinosaur) && $0.getController() === MajesticHeliopterus().getController() },
+                    restriction: { return  $0 != majesticHeliopterus && $0.isType(.Dinosaur) && $0.getController() === majesticHeliopterus.getController() },
                     zones: [.Battlefield]),
                 effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
                     object.flying = true
