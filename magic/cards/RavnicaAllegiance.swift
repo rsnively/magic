@@ -21,8 +21,11 @@ extension Object {
     func afterlife(_ amount: Int) {
         addTriggeredAbility(
             trigger: .ThisDies,
-            effect: { self.getController().createToken(RNA.Spirit()) }
-        )
+            effect: {
+                for _ in 0..<amount {
+                    self.getController().createToken(RNA.Spirit())
+                }
+        })
     }
 }
 
