@@ -1922,6 +1922,7 @@ enum RNA {
             manaAbility: false,
             sorcerySpeed: false,
             loyaltyAbility: false)
+        kaya.startingLoyalty = 3
         return kaya
     }
     static func KayasWrath() -> Card {
