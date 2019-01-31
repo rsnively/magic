@@ -791,7 +791,7 @@ enum RNA {
         senateCourier.addActivatedAbility(
             string: "{1}{W}: ~ gains vigilance until end of turn.",
             cost: Cost.Mana("1W"),
-            effect: { senateCourier.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }) )})
+            effect: { senateCourier.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
         senateCourier.setFlavorText("\"This Dovin Baan came from nowhere. Watch him. Read his letters. He is more than he appears.\"\n--Lazav")
         senateCourier.power = 1
         senateCourier.toughness = 4
