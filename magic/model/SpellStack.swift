@@ -14,7 +14,15 @@ class SpellStack: NSObject {
             else {
                 blockingCheckingSBAs = false
                 // TODO somehow need to re-check restrictions and target availability for targeted effects
-                pendingStackObjects.forEach({ push($0) })
+                let werePendingStackObjects = !pendingStackObjects.isEmpty
+                pendingStackObjects.forEach({ object in
+                    object.reveal()
+                    stackObjects.push(object)
+                })
+                pendingStackObjects.removeAll()
+                if werePendingStackObjects {
+                    Game.shared.checkStateBasedActions()
+                }
             }
         }
     }
