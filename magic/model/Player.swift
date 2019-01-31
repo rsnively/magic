@@ -110,6 +110,10 @@ class Player: Targetable {
         return permanents.filter { $0.isType(.Artifact) || $0.isType(.Enchantment) }
     }
     
+    func getCardsInExile() -> [Object] {
+        return Game.shared.exile.filter({ $0.getOwner() === self })
+    }
+    
     func getStaticAbilities() -> [StaticAbility] {
         var abilities: [StaticAbility] = []
         for permanent in getPermanents() {
@@ -301,6 +305,9 @@ class Player: Targetable {
             triggerAbilities(.YouCastInstantOrSorcery)
             triggerAbilities(.YouCastInstantOrSorcery)
             Game.shared.bothPlayers({ $0.triggerAbilities(.APlayerCastsInstantOrSorcery) })
+            if card.isType(.Instant) {
+                triggerAbilities(.YouCastInstantSpell)
+            }
         }
         if card.isSpell() && card.isType(.Creature) {
             triggerAbilities(.YouCastCreatureSpell)

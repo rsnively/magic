@@ -27,6 +27,7 @@ enum Trigger {
     case YouCastEnchantmentSpell
     case YouCastHistoricSpell
     case YouCastInstantOrSorcery
+    case YouCastInstantSpell
     case YouCastMerfolkSpell
     case YouCastMulticoloredSpell
     case YouCastNoncreatureSpell

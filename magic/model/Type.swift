@@ -85,6 +85,7 @@ enum Subtype {
     case Insect
     case Island
     case Jackal
+    case Kaya
     case Kirin
     case Knight
     case Lammasu
@@ -96,6 +97,7 @@ enum Subtype {
     case Mutant
     case Naga
     case Nightmare
+    case Octopus
     case Ogre
     case Ooze
     case Orc

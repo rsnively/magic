@@ -183,25 +183,84 @@ enum RNA {
 //        WreckingBeast,
         Absorb,
         Aeromunculus,
-        
+//        AppliedBiomancy,
+        AzoriusKnightArbiter,
         AzoriusSkyguard,
         BasilicaBellHaunt,
         Bedevil,
-        
+//        BiomancersFamiliar,
+//        BolracClanCrusher,
+//        CaptiveAudience,
+//        Cindervines,
+//        ClanGuildmage,
+//        CombineGuildmage,
         CultGuildmage,
-        
+//        DeputyOfDetention,
+//        DomriChaosBringer,
+//        DovinGrandArbiter,
+        DovinsAcuity,
+//        EmergencyPowers,
+        EtherealAbsolution,
+//        FinalPayment,
+//        FirebladeArtist,
+//        FrenziedArynx,
+        FrilledMystic,
+//        GallopingLizrog,
+//        GetThePoint,
+        GraspingThrull,
         GrowthSpiral,
-        
+//        GruulSpellbreaker,
+        GyreEngineer,
+//        Hackrobat,
+//        HighAlert,
+//        HydroidKrasis,
         ImperiousOligarch,
         JudithTheScourgeDiva,
-        
+        KayaOrzhovUsurper,
+        KayasWrath,
+//        KnightOfTheLastBreath,
+//        LaviniaAzoriusRenegade,
+        LawmagesBinding,
+//        MacabreMockery,
         Mortify,
-        
+//        NikyaOfTheOldWays,
+//        PitilessPontiff,
+//        PrimeSpeakerVannifar,
+//        RafterDemon,
         RakdosFirewheeler,
+        RakdosRoustabout,
+        RakdosTheShowstopper,
+//        RavagerWurm,
+//        RhythmOfTheWild,
+        RubblebeltRunner,
+        SavageSmash,
+        SenateGuildmage,
+        SeraphOfTheScales,
+        Sharktocrab,
+//        SimicAscendancy,
+//        SphinxOfNewPrahv,
         SphinxsInsight,
-        
+//        SunderShaman,
+        SyndicateGuildmage,
+//        TeysaKarlov,
+//        TheaterOfHorrors,
         ZeganaUtopianSpeaker,
-        
+//        ZhurTaaGoblin,
+        FootlightFiend,
+        RubbleSlinger,
+        Scuttlegator,
+//        SenateGriffin,
+        VizkopaVampire,
+//        BedeckBedazzle,
+//        CarnivalCarnage,
+//        CollisionColossus,
+//        ConsecrateConsume,
+//        DeposeDeploy,
+//        IncubationIncongruity,
+//        RepudiateReplicate,
+//        RevivalRevenge,
+//        ThrashThreat,
+//        WarrantWarden,
         AzoriusLocket,
         
         AzoriusGuildgate243,
@@ -1527,8 +1586,18 @@ enum RNA {
         aeromunculus.toughness = 3
         return aeromunculus
     }
-    // 153
-    // 154
+    // 153 Applied Biomancy
+    static func AzoriusKnightArbiter() -> Card {
+        let azoriusKnightAribter = Card(name: "Azorius Knight-Arbiter", rarity: .Common, set: set, number: 154)
+        azoriusKnightAribter.setManaCost("3WU")
+        azoriusKnightAribter.setType(.Creature, .Human, .Knight)
+        azoriusKnightAribter.vigilance = true
+        azoriusKnightAribter.unblockable = true
+        azoriusKnightAribter.setFlavorText("Thanks to the magic in his Writ of Passage, alms beasts lumbered aside, anarchs bowed their heads, and even Rakdos acrobats rolled their spikewheels out of his way.")
+        azoriusKnightAribter.power = 2
+        azoriusKnightAribter.toughness = 5
+        return azoriusKnightAribter
+    }
     static func AzoriusSkyguard() -> Card {
         let azoriusSkyguard = Card(name: "Azorius Skyguard", rarity: .Uncommon, set: set, number: 155)
         azoriusSkyguard.setManaCost("4WU")
@@ -1576,7 +1645,7 @@ enum RNA {
     // 158 Biomancer's Familiar
     // 159 Bolrac-Clan Crusher
     // 160 Captive Audience
-    // 161 Cindervines TODO
+    // 161 Cindervines
     // 162 Clan Guildmage
     // 163 Combine Guildmage
     static func CultGuildmage() -> Card {
@@ -1614,16 +1683,96 @@ enum RNA {
     // 165 Deputy of Detention
     // 166 Domri, Chaos Bringer
     // 167 Dovin, Grand Arbiter
-    // 168 Dovin's Accuity TODO
+    static func DovinsAcuity() -> Card {
+        let dovinsAcuity = Card(name: "Dovin's Acuity", rarity: .Uncommon, set: set, number: 168)
+        dovinsAcuity.setManaCost("1WU")
+        dovinsAcuity.setType(.Enchantment)
+        dovinsAcuity.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                dovinsAcuity.getController().gainLife(2)
+                dovinsAcuity.getController().drawCard()
+        })
+        dovinsAcuity.addTriggeredAbility(
+            trigger: .YouCastInstantSpell,
+            effect: { dovinsAcuity.putIntoHand() },
+            restriction: { dovinsAcuity.addendum() })
+        dovinsAcuity.setFlavorText("Dovin ticked the Planeswalkers off on his fingers: himself, Domri, Kaya, Ral, Vraska... and Bolas made an even six.")
+        return dovinsAcuity
+    }
     // 169 Emergency Powers
-    // 170 Ethereal Absolution TODO
-    // 171
+    static func EtherealAbsolution() -> Card {
+        let etherealAbsolution = Card(name: "Ethereal Absolution", rarity: .Rare, set: set, number: 170)
+        etherealAbsolution.setManaCost("4WB")
+        etherealAbsolution.setType(.Enchantment)
+        etherealAbsolution.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() === etherealAbsolution.getController() {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        etherealAbsolution.addStaticAbility({ object in
+            if object.isType(.Creature) && object.getController() !== etherealAbsolution.getController() {
+                object.power = object.getBasePower() - 1
+                object.toughness = object.getBaseToughness() - 1
+            }
+            return object
+        })
+        etherealAbsolution.addActivatedAbility(
+            string: "{2}{W}{B}: Exile target card from an opponent's graveyard. If it was a creature card, you create a 1/1 white and black Spirit creature token with flying.",
+            cost: Cost.Mana("2WB"),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== etherealAbsolution.getController() },
+                    zones: [.Graveyard]),
+                effect: { target in
+                    let wasCreature = target.isType(.Creature)
+                    target.exile()
+                    if wasCreature {
+                        etherealAbsolution.getController().createToken(Spirit())
+                    }
+            }))
+        etherealAbsolution.setFlavorText("\"Time to let the dead be dead.\"\n--Kaya, to Teysa")
+        return etherealAbsolution
+    }
+    // 171 Final Payment
     // 172 Fireblade Artist
     // 173 Frenzied Arynx
-    // 174 Frilled Mystic TODO
+    static func FrilledMystic() -> Card {
+        let frilledMystic = Card(name: "Frilled Mystic", rarity: .Uncommon, set: set, number: 174)
+        frilledMystic.setManaCost("GGUU")
+        frilledMystic.setType(.Creature, .Elf, .Lizard, .Wizard)
+        frilledMystic.flash = true
+        frilledMystic.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetSpell(),
+                effect: { $0.counter() },
+                effectOptional: true))
+        frilledMystic.setFlavorText("\"Your arrival was expected... and unwelcome.\"")
+        frilledMystic.power = 3
+        frilledMystic.toughness = 2
+        return frilledMystic
+    }
     // 175 Galloping Lizrog
-    // 176
-    // 177 Grasping Thrull TODO
+    // 176 Get the Point
+    static func GraspingThrull() -> Card {
+        let graspingThrull = Card(name: "Grasping Thrull", rarity: .Common, set: set, number: 177)
+        graspingThrull.setManaCost("3WB")
+        graspingThrull.setType(.Creature, .Thrull)
+        graspingThrull.flying = true
+        graspingThrull.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                graspingThrull.eachOpponent({ graspingThrull.damage(to: $0, 2) })
+                graspingThrull.getController().gainLife(2)
+        })
+        graspingThrull.setFlavorText("\"Debt due! Debt due!\" The thrull's screeching makes children flinch and debtors quail. \"Debt due!\"")
+        graspingThrull.power = 3
+        graspingThrull.toughness = 3
+        return graspingThrull
+    }
     static func GrowthSpiral() -> Card {
         let growthSpiral = Card(name: "Growth Spiral", rarity: .Rare, set: set, number: 178)
         growthSpiral.setManaCost("GU")
@@ -1641,7 +1790,23 @@ enum RNA {
         return growthSpiral
     }
     // 179 Gruul Spellbreaker
-    // 180 Gyre Engineer TODO
+    static func GyreEngineer() -> Card {
+        let gyreEngineer = Card(name: "Gyre Engineer", rarity: .Uncommon, set: set, number: 180)
+        gyreEngineer.setManaCost("1GU")
+        gyreEngineer.setType(.Creature, .Vedalken, .Wizard)
+        gyreEngineer.addActivatedAbility(
+            string: "{T}: Add {G}{U}.",
+            cost: Cost.Tap(),
+            effect: {
+                gyreEngineer.getController().addMana(color: .Green)
+                gyreEngineer.getController().addMana(color: .Blue)
+            },
+            manaAbility: true)
+        gyreEngineer.setFlavorText("\"As I contemplate what is, I dive ever deeper into the depths of possibility. Then I set an experiment in motion and watch the truth rise to the surface.\"")
+        gyreEngineer.power = 1
+        gyreEngineer.toughness = 1
+        return gyreEngineer
+    }
     // 181 Hackrobat
     // 182 High Alert
     // 183 Hydroid Krasis
@@ -1676,11 +1841,101 @@ enum RNA {
         judith.toughness = 2
         return judith
     }
-    // 186 Kaya, Orzhov Usurper
-    // 187 Kaya's Wrath TODO
+    static func KayaOrzhovUsurper() -> Card {
+        let kaya = Card(name: "Kaya, Orzhov Usurper", rarity: .Mythic, set: set, number: 186)
+        kaya.setManaCost("1WB")
+        kaya.setType(.Legendary, .Planeswalker, .Kaya)
+        kaya.addActivatedAbility(
+            string: "{+1}: Exile up to two target cards from a single graveyard. You gain 2 life if at least one creature card was exiled this way.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: TargetedEffect.MultiObject(
+                restrictions: [
+                    TargetingRestriction.SingleObject(
+                        restriction: { _ in return true },
+                        zones: [.Graveyard],
+                        optional: true),
+                    TargetingRestriction.SingleObject(
+                        restriction: { _ in return true },
+                        zones: [.Graveyard],
+                        optional: true),
+                ],
+                effect: { targets in
+                    let atLeastOneCreature = targets.contains(where: {
+                        if let target = $0 {
+                            return target.isType(.Creature)
+                        }
+                        return false
+                    })
+                    targets.forEach({ $0?.exile() })
+                    if atLeastOneCreature {
+                        kaya.getController().gainLife(2)
+                    }
+            }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        kaya.addActivatedAbility(
+            string: "{-1}: Exile target nonland permanent with converted mana cost 1 or less.",
+            cost: Cost.RemoveCounters(.Loyalty, 1),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { !$0.isType(.Land) && $0.isPermanent() && $0.getConvertedManaCost() <= 1},
+                    zones: [.Battlefield]),
+                effect: { $0.exile() }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        kaya.addActivatedAbility(
+            string: "{-5}: ~ deals damage to target player equal to the number of cards that player owns in exile and you gain that much life.",
+            cost: Cost.RemoveCounters(.Loyalty, 5),
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetPlayer(),
+                effect: { target in
+                    let amount = target.getCardsInExile().count
+                    kaya.damage(to: target, amount)
+                    kaya.getController().gainLife(amount)
+            }),
+            manaAbility: false,
+            sorcerySpeed: false,
+            loyaltyAbility: false)
+        return kaya
+    }
+    static func KayasWrath() -> Card {
+        let kayasWrath = Card(name: "Kaya's Wrath", rarity: .Rare, set: set, number: 187)
+        kayasWrath.setManaCost("WWBBB")
+        kayasWrath.setType(.Sorcery)
+        kayasWrath.addEffect({
+            kayasWrath.eachOpponent({ opponent in
+                opponent.getCreatures().forEach({ _ = $0.destroy() })
+            })
+            var creaturesYouControlledDestroyed = 0
+            kayasWrath.getController().getCreatures().forEach({ creature in
+                if creature.destroy() {
+                    creaturesYouControlledDestroyed += 1
+                }
+            })
+            kayasWrath.getController().gainLife(creaturesYouControlledDestroyed)
+        })
+        kayasWrath.setFlavorText("Teysa convened the meeting of the Obzedat. Kaya ended it.")
+        return kayasWrath
+    }
     // 188 Knight of the Last Breath
     // 189 Lavinia, Azorius Renegade
-    // 190
+    static func LawmagesBinding() -> Card {
+        let lawmagesBinding = Card(name: "Lawmage's Binding", rarity: .Common, set: set, number: 190)
+        lawmagesBinding.setManaCost("1WU")
+        lawmagesBinding.setType(.Enchantment, .Aura)
+        lawmagesBinding.flash = true
+        lawmagesBinding.addEnchantAbility(
+            restriction: .TargetCreature(),
+            effect: { object in
+                object.cantAttack = true
+                object.cantBlock = true
+                object.cantActivateAbilities = true
+                return object
+        })
+        return lawmagesBinding
+    }
     // 191 Macabre Mockery
     static func Mortify() -> Card {
         let mortify = Card(name: "Mortify", rarity: .Rare, set: set, number: 192)
@@ -1698,7 +1953,6 @@ enum RNA {
     // 193 Nikya of the Old Ways
     // 194 Pitiless Pontiff
     // 195 Prime Speaker Vannifar
-    // 196
     // 196 Rafter Demon
     static func RakdosFirewheeler() -> Card {
         let rakdosFirewheeler = Card(name: "Rakdos Firewheeler", rarity: .Uncommon, set: set, number: 197)
@@ -1727,15 +1981,136 @@ enum RNA {
         rakdosFirewheeler.toughness = 3
         return rakdosFirewheeler
     }
-    // 198 Rakdos Roustabout TODO
-    // 199 Rakdos, the Showstopper TODO
+    static func RakdosRoustabout() -> Card {
+        let rakdosRoustabout = Card(name: "Rakdos Roustabout", rarity: .Common, set: set, number: 198)
+        rakdosRoustabout.setManaCost("1BR")
+        rakdosRoustabout.setType(.Creature, .Ogre, .Warrior)
+        rakdosRoustabout.addTriggeredAbility(
+            trigger: .ThisBecomesBlocked,
+            effect: { rakdosRoustabout.damage(to: rakdosRoustabout.getAttackTarget()!, 1) })
+        rakdosRoustabout.setFlavorText("\"That one has a bright future--perfect instincts for the rhythm of mayhem.\"\n--Judith")
+        rakdosRoustabout.power = 3
+        rakdosRoustabout.toughness = 2
+        return rakdosRoustabout
+    }
+    static func RakdosTheShowstopper() -> Card {
+        let rakdosTheShowstopper = Card(name: "Rakdos, the Showstopper", rarity: .Mythic, set: set, number: 199)
+        rakdosTheShowstopper.setManaCost("4BR")
+        rakdosTheShowstopper.setType(.Legendary, .Creature, .Demon)
+        rakdosTheShowstopper.flying = true
+        rakdosTheShowstopper.trample = true
+        rakdosTheShowstopper.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                Game.shared.bothPlayers({ player in
+                    player.getCreatures().forEach({ creature in
+                        if !(creature.isType(.Demon) || creature.isType(.Devil) || creature.isType(.Imp)) {
+                            if Coin.flip().tails {
+                                _ = creature.destroy()
+                            }
+                        }
+                    })
+                })
+        })
+        rakdosTheShowstopper.setFlavorText("\"Entertain me.\"")
+        rakdosTheShowstopper.power = 6
+        rakdosTheShowstopper.toughness = 6
+        return rakdosTheShowstopper
+    }
     // 200 Ravager Wurm
     // 201 Rhythm of the Wild
-    // 202
-    // 203 Savage Smash TODO
-    // 204 Senate Guildmage TODO
-    // 205 Seraph of the Scales TODO
-    // 206 Sharktocrab
+    static func RubblebeltRunner() -> Card {
+        let rubblebeltRunner = Card(name: "Rubblebelt Runner", rarity: .Common, set: set, number: 202)
+        rubblebeltRunner.setManaCost("1RG")
+        rubblebeltRunner.setType(.Creature, .Viashino, .Warrior)
+        rubblebeltRunner.blockabilityRequirements.append({ object in
+            return !(object.isType(.Creature) && object.isToken())
+        })
+        rubblebeltRunner.setFlavorText("The sly, stealthy warriors of the Slizt Clan survive by hiding in high ground and ambushing their enemies. Other Gruul call them skulkers and cowards, but only from a safe distance.")
+        rubblebeltRunner.power = 3
+        rubblebeltRunner.toughness = 3
+        return rubblebeltRunner
+    }
+    static func SavageSmash() -> Card {
+        let savageSmash = Card(name: "Savage Smash", rarity: .Common, set: set, number: 203)
+        savageSmash.setManaCost("1RG")
+        savageSmash.setType(.Sorcery)
+        savageSmash.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === savageSmash.getController() },
+                    zones: [.Battlefield]),
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== savageSmash.getController() },
+                    zones: [.Battlefield])
+            ],
+            effect: { targets in
+                if let myCreature = targets[0] {
+                    myCreature.pump(2, 2)
+                    if let theirCreature = targets[1] {
+                        myCreature.fight(theirCreature)
+                    }
+                }
+        }))
+        savageSmash.setFlavorText("A Gruul berserker is never unarmed.")
+        return savageSmash
+    }
+    static func SenateGuildmage() -> Card {
+        let senateGuildmage = Card(name: "Senate Guildmage", rarity: .Uncommon, set: set, number: 204)
+        senateGuildmage.setManaCost("WU")
+        senateGuildmage.setType(.Creature, .Human, .Wizard)
+        senateGuildmage.addActivatedAbility(
+            string: "{W}, {T}: You gain 2 life.",
+            cost: Cost.Mana("W").Tap(),
+            effect: { senateGuildmage.getController().gainLife(2) })
+        senateGuildmage.addActivatedAbility(
+            string: "{U}, {T}: Draw a card, then discard a card.",
+            cost: Cost.Mana("U").Tap(),
+            effect: {
+                senateGuildmage.getController().drawCard()
+                senateGuildmage.getController().discard()
+        })
+        senateGuildmage.power = 2
+        senateGuildmage.toughness = 2
+        return senateGuildmage
+    }
+    static func SeraphOfTheScales() -> Card {
+        let seraphOfTheScales = Card(name: "Seraph of the Scales", rarity: .Mythic, set: set, number: 205)
+        seraphOfTheScales.setManaCost("2WB")
+        seraphOfTheScales.setType(.Creature, .Angel)
+        seraphOfTheScales.flying = true
+        seraphOfTheScales.addActivatedAbility(
+            string: "{W}: ~ gains vigilance until end of turn.",
+            cost: Cost.Mana("W"),
+            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
+        seraphOfTheScales.addActivatedAbility(
+            string: "{B}: ~ gains deathtouch until end of turn.",
+            cost: Cost.Mana("B"),
+            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
+        seraphOfTheScales.afterlife(2)
+        seraphOfTheScales.power = 4
+        seraphOfTheScales.toughness = 3
+        return seraphOfTheScales
+    }
+    static func Sharktocrab() -> Card {
+        let sharktocrab = Card(name: "Sharktocrab", rarity: .Uncommon, set: set, number: 206)
+        sharktocrab.setManaCost("2GU")
+        sharktocrab.setType(.Creature, .Fish, .Octopus, .Crab)
+        sharktocrab.adapt(1, Cost.Mana("2GU"))
+        sharktocrab.addTriggeredAbility(
+            trigger: .ThisGetsPlusOnePlusOneCounter,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== sharktocrab.getController() },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    target.tap()
+                    target.untapsDuringNextUntapStep = false
+            }))
+        sharktocrab.power = 4
+        sharktocrab.toughness = 4
+        return sharktocrab
+    }
     // 207 Simic Ascendancy
     // 208 Sphinx of New Prahv
     static func SphinxsInsight() -> Card {
@@ -1752,7 +2127,38 @@ enum RNA {
         return sphinxsInsight
     }
     // 210 Sunder Shaman
-    // 211 Syndicate Guildmage TODO
+    static func SyndicateGuildmage() -> Card {
+        let syndicateGuildmage = Card(name: "Syndicate Guildmage", rarity: .Uncommon, set: set, number: 211)
+        syndicateGuildmage.setManaCost("WB")
+        syndicateGuildmage.setType(.Creature, .Human, .Cleric)
+        syndicateGuildmage.addActivatedAbility(
+            string: "{1}{W}, {T}: Tap target creature with power 4 or greater.",
+            cost: Cost.Mana("1W").Tap(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getPower() >= 4 },
+                    zones: [.Battlefield]),
+                effect: { $0.tap() }))
+        syndicateGuildmage.addActivatedAbility(
+            string: "{4}{B}, {T}: ~ deals 2 damage to target opponent or planeswalker.",
+            cost: Cost.Mana("4B").Tap(),
+            effect: TargetedEffect(
+                restriction: TargetingRestriction(
+                    restriction: { targetable in
+                        if let playerTarget = targetable as? Player {
+                            return playerTarget !== syndicateGuildmage.getController()
+                        }
+                        if let objectTarget = targetable as? Object {
+                            return objectTarget.isType(.Planeswalker)
+                        }
+                        return false
+                    },
+                    zones: [.Battlefield]),
+                effect: { syndicateGuildmage.damage(to: $0, 2) }))
+        syndicateGuildmage.power = 2
+        syndicateGuildmage.toughness = 2
+        return syndicateGuildmage
+    }
     // 212 Teysa Karlov
     // 213 Theater of Horrors
     static func ZeganaUtopianSpeaker() -> Card {
@@ -1775,18 +2181,64 @@ enum RNA {
         return zegana
     }
     // 215 Zhur-Taa Goblin
-    // 216
-    // 217
-    // 218
-    // 219
-    // 220
+    static func FootlightFiend() -> Card {
+        let footlightFiend = Card(name: "Footlight Fiend", rarity: .Common, set: set, number: 216)
+        footlightFiend.setManaCost("{B/R}")
+        footlightFiend.setType(.Creature, .Devil)
+        footlightFiend.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: TargetedEffect(
+                restriction: TargetingRestriction.AnyTarget(),
+                effect: { footlightFiend.damage(to: $0, 1) }))
+        footlightFiend.setFlavorText("\"This footlight's broken. Get me a stagehand!\"\n--Judith")
+        footlightFiend.power = 1
+        footlightFiend.toughness = 1
+        return footlightFiend
+    }
+    static func RubbleSlinger() -> Card {
+        let rubbleSlinger = Card(name: "Rubble Slinger", rarity: .Common, set: set, number: 217)
+        rubbleSlinger.setManaCost("2{R/G}")
+        rubbleSlinger.setType(.Creature, .Human, .Warrior)
+        rubbleSlinger.reach = true
+        rubbleSlinger.setFlavorText("\"Tear down the city, lie by lie. Then throw it back at the liars, stone by stone.\"\n--Domri Rade")
+        rubbleSlinger.power = 2
+        rubbleSlinger.toughness = 3
+        return rubbleSlinger
+    }
+    static func Scuttlegator() -> Card {
+        let scuttlegator = Card(name: "Scuttlegator", rarity: .Common, set: set, number: 218)
+        scuttlegator.setManaCost("4{G/U}{G/U}")
+        scuttlegator.setType(.Creature, .Crab, .Turtle, .Crocodile)
+        scuttlegator.defender = true
+        scuttlegator.adapt(3, Cost.Mana("6{G/U}{G/U}"))
+        scuttlegator.addStaticAbility({ object in
+            if object == scuttlegator && object.hasCounter(.PlusOnePlusOne) {
+                object.canAttackWithDefender = true
+            }
+            return object
+        })
+        scuttlegator.power = 6
+        scuttlegator.toughness = 6
+        return scuttlegator
+    }
+    // 219 Senate Griffin
+    static func VizkopaVampire() -> Card {
+        let vizkopaVampire = Card(name: "Vizkopa Vampire", rarity: .Common, set: set, number: 220)
+        vizkopaVampire.setManaCost("2{W/B}")
+        vizkopaVampire.setType(.Creature, .Vampire)
+        vizkopaVampire.lifelink = true
+        vizkopaVampire.setFlavorText("Orzhov vampires look for allies in unlikely places in case their new guildmaster turns on them. The fate of the Obzedat is proof of Kaya's power and her hatred of the living dead.")
+        vizkopaVampire.power = 3
+        vizkopaVampire.toughness = 1
+        return vizkopaVampire
+    }
     // 221 Bedeck // Bedazzle
     // 222 Carnival // Carnage
     // 223 Collision // Colossus
     // 224 Consecrate // Consume
     // 225 Depose // Deploy
     // 226 Incubation // Incongruity
-    // 227
+    // 227 Repudiate // Replicate
     // 228 Revival // Revenge
     // 229 Thrash // Threat
     // 230 Warrant // Warden
