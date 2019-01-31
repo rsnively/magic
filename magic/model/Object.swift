@@ -440,6 +440,7 @@ class Object: Targetable, Hashable, NSCopying {
     func isBasicLand() -> Bool { return isType(.Basic) && isType(.Land) }
     func isColor(_ color: Color) -> Bool { return colors.contains(color) }
     func isColorless() -> Bool { return colors.isEmpty }
+    func isMulticolored() -> Bool { return colors.count > 1 }
     func isPermanent() -> Bool { return isType(Type.Artifact) || isType(Type.Creature) || isType(Type.Enchantment) || isType(Type.Land) || isType(Type.Planeswalker) }
     // Technically, a card has to be on the stack to be a spell
     func isSpell() -> Bool { return !self.types.contains(Type.Land) }
@@ -790,6 +791,11 @@ class Object: Targetable, Hashable, NSCopying {
     func putOnTopOfLibrary() {
         removeFromCombat()
         getOwner().putOnTopOfLibrary(self)
+    }
+    
+    func putOnBottomOfLibrary() {
+        removeFromCombat()
+        getOwner().putOnBottomOfLibrary(self)
     }
     
     func counter() {

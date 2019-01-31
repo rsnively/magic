@@ -332,7 +332,7 @@ class Player: Targetable {
         if card.isSpell() && card.isColor(.Red) {
             triggerAbilities(.YouCastRedSpell)
         }
-        if card.isSpell() && card.colors.count > 1 {
+        if card.isSpell() && card.isMulticolored() {
             triggerAbilities(.YouCastMulticoloredSpell)
         }
     }
@@ -524,9 +524,12 @@ class Player: Targetable {
             objects.shuffle()
         }
         for object in objects {
-            removeObjectFromCurrentZone(object)
-            library.insert(object, at: 0)
+            putOnBottomOfLibrary(object)
         }
+    }
+    func putOnBottomOfLibrary(_ object: Object) {
+        removeObjectFromCurrentZone(object)
+        library.insert(object, at: 0)
     }
     
     func chooseCards(from: [Object], restrictions: [(Object) -> Bool], action: @escaping ([Object], inout [Object]) -> Void) {

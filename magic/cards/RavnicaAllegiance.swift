@@ -262,7 +262,17 @@ enum RNA {
 //        ThrashThreat,
 //        WarrantWarden,
         AzoriusLocket,
-        
+//        GateColossus,
+        GlassOfTheGuildpact,
+        GruulLocket,
+        Junktroller,
+        OrzhovLocket,
+        RakdosLocket,
+//        ScrabblingClaws,
+//        ScreamingShield,
+        SimicLocket,
+//        SphinxOfTheGuildpact,
+        TomeOfTheGuildpact,
         AzoriusGuildgate243,
         AzoriusGuildgate244,
         
@@ -2257,23 +2267,167 @@ enum RNA {
             effect: { azoriusLocket.getController().addMana(color: .Blue) },
             manaAbility: true)
         azoriusLocket.addActivatedAbility(
-            string: "{U/W}{U/W}{U/W}{U/W}, {T}, Sacrifice ~: Draw two cards.",
-            cost: Cost.Mana("{U/W}{U/W}{U/W}{U/W}").Tap().Sacrifice(),
+            string: "{W/U}{W/U}{W/U}{W/U}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{W/U}{W/U}{W/U}{W/U}").Tap().Sacrifice(),
             effect: { azoriusLocket.getController().drawCards(2) })
         azoriusLocket.setFlavorText("\"Mandatory lockets enable the tracking of all Senate personnel for improved security and efficiency.\"\n--Dovin Baan")
         return azoriusLocket
     }
     // 232 Gate Colossus
-    // 233 Glass of the Guildpact TODO
-    // 234 Gruul Locket
-    // 235
-    // 236 Orzhov Locket
-    // 237 Rakdos Locket
+    static func GlassOfTheGuildpact() -> Card {
+        let glassOfTheGuildpact = Card(name: "Glass of the Guildpact", rarity: .Rare, set: set, number: 233)
+        glassOfTheGuildpact.setManaCost("2")
+        glassOfTheGuildpact.setType(.Artifact)
+        glassOfTheGuildpact.addStaticAbility({ object in
+            if object.isMulticolored() && object.isType(.Creature) && object.getController() === glassOfTheGuildpact.getController() {
+                object.power = object.getBasePower() + 1
+                object.toughness = object.getBaseToughness() + 1
+            }
+            return object
+        })
+        glassOfTheGuildpact.setFlavorText("\"Counterbalanced forces sustain this city. No faction above others. A beautiful idea.\"\n--Emmara")
+        return glassOfTheGuildpact
+    }
+    static func GruulLocket() -> Card {
+        let gruulLocket = Card(name: "Gruul Locket", rarity: .Uncommon, set: set, number: 234)
+        gruulLocket.setManaCost("3")
+        gruulLocket.setType(.Artifact)
+        gruulLocket.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { gruulLocket.getController().addMana(color: .Red) },
+            manaAbility: true)
+        gruulLocket.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { gruulLocket.getController().addMana(color: .Green) },
+            manaAbility: true)
+        gruulLocket.addActivatedAbility(
+            string: "{R/G}{R/G}{R/G}{R/G}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{R/G}{R/G}{R/G}{R/G}").Tap().Sacrifice(),
+            effect: { gruulLocket.getController().drawCards(2) })
+        gruulLocket.setFlavorText("\"In life, it was a cunning survivor, fearless and quick. May its power pass to you as you wear its skull.\"\n--Gna, Gruul shaman")
+        return gruulLocket
+    }
+    static func Junktroller() -> Card {
+        let junktroller = Card(name: "Junktroller", rarity: .Uncommon, set: set, number: 235)
+        junktroller.setManaCost("4")
+        junktroller.setType(.Artifact, .Creature, .Golem)
+        junktroller.defender = true
+        junktroller.addActivatedAbility(
+            string: "{T}: Put target card from a graveyard on the bottom of its owner's library.",
+            cost: Cost.Tap(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { _ in return true },
+                    zones: [.Graveyard]),
+                effect: { $0.putOnBottomOfLibrary()} ))
+        junktroller.setFlavorText("\"Hey, wait! That's my boot!\"\n--Darijo, Ivy Street ruffian")
+        junktroller.power = 0
+        junktroller.toughness = 6
+        return junktroller
+    }
+    static func OrzhovLocket() -> Card {
+        let orzhovLocket = Card(name: "Orzhov Locket", rarity: .Uncommon, set: set, number: 236)
+        orzhovLocket.setManaCost("3")
+        orzhovLocket.setType(.Artifact)
+        orzhovLocket.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { orzhovLocket.getController().addMana(color: .White) },
+            manaAbility: true)
+        orzhovLocket.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { orzhovLocket.getController().addMana(color: .Black) },
+            manaAbility: true)
+        orzhovLocket.addActivatedAbility(
+            string: "{W/B}{W/B}{W/B}{W/B}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{W/B}{W/B}{W/B}{W/B}").Tap().Sacrifice(),
+            effect: { orzhovLocket.getController().drawCards(2) })
+        orzhovLocket.setFlavorText("\"It looks expensive, doesn't it? You have no idea...\"\n--Milana, Orzhov prelate")
+        return orzhovLocket
+    }
+    static func RakdosLocket() -> Card {
+        let rakdosLocket = Card(name: "Rakdos Locket", rarity: .Uncommon, set: set, number: 237)
+        rakdosLocket.setManaCost("3")
+        rakdosLocket.setType(.Artifact)
+        rakdosLocket.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { rakdosLocket.getController().addMana(color: .Black) },
+            manaAbility: true)
+        rakdosLocket.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { rakdosLocket.getController().addMana(color: .Red) },
+            manaAbility: true)
+        rakdosLocket.addActivatedAbility(
+            string: "{B/R}{B/R}{B/R}{B/R}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{B/R}{B/R}{B/R}{B/R}").Tap().Sacrifice(),
+            effect: { rakdosLocket.getController().drawCards(2) })
+        rakdosLocket.setFlavorText("\"This trinket will gain you admittance to some painfully exclusive gatherings.\"\n--Exava, blood witch")
+        return rakdosLocket
+    }
     // 238 Scrabbling Claws
-    // 239
-    // 240 Simic Locket
+    // 239 Screaming Shield
+    static func SimicLocket() -> Card {
+        let simicLocket = Card(name: "Simic Locket", rarity: .Uncommon, set: set, number: 240)
+        simicLocket.setManaCost("3")
+        simicLocket.setType(.Artifact)
+        simicLocket.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { simicLocket.getController().addMana(color: .Green) },
+            manaAbility: true)
+        simicLocket.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { simicLocket.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        simicLocket.addActivatedAbility(
+            string: "{G/U}{G/U}{G/U}{G/U}, {T}, Sacrifice ~: Draw two cards.",
+            cost: Cost.Mana("{G/U}{G/U}{G/U}{G/U}").Tap().Sacrifice(),
+            effect: { simicLocket.getController().drawCards(2) })
+        simicLocket.setFlavorText("\"Like our guild itself, this locket can stand for many things. You must discern what it means for yourself.\"\n--Vannifar")
+        return simicLocket
+    }
     // 241 Sphinx of the Guildpact
-    // 242 Tome of the Guildpact TODO
+    static func TomeOfTheGuildpact() -> Card {
+        let tomeOfTheGuildpact = Card(name: "Tome of the Guildpact", rarity: .Rare, set: set, number: 242)
+        tomeOfTheGuildpact.setManaCost("5")
+        tomeOfTheGuildpact.setType(.Artifact)
+        tomeOfTheGuildpact.addTriggeredAbility(
+            trigger: .YouCastMulticoloredSpell,
+            effect: { tomeOfTheGuildpact.getController().drawCard() })
+        tomeOfTheGuildpact.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { tomeOfTheGuildpact.getController().addMana(color: .White) },
+            manaAbility: true)
+        tomeOfTheGuildpact.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { tomeOfTheGuildpact.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        tomeOfTheGuildpact.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { tomeOfTheGuildpact.getController().addMana(color: .Black) },
+            manaAbility: true)
+        tomeOfTheGuildpact.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { tomeOfTheGuildpact.getController().addMana(color: .Red) },
+            manaAbility: true)
+        tomeOfTheGuildpact.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { tomeOfTheGuildpact.getController().addMana(color: .Green) },
+            manaAbility: true)
+        tomeOfTheGuildpact.setFlavorText("\"Reading it has given me a glimpse of what makes this deeply flawed city so very magnificent.\"\n--Dovin Baan")
+        return tomeOfTheGuildpact
+    }
     static func AzoriusGuildgate() -> Card {
         return (Int.random(in: 1 ... 2) == 1) ? AzoriusGuildgate243() : AzoriusGuildgate244()
     }
