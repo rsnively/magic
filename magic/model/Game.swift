@@ -498,7 +498,7 @@ class Game: NSObject {
         // If a permanent with an ability that says it can’t have more than N counters of a certain kind on it has more than N counters of that kind on it, all but N of those counters are removed from it.
         // If the number of lore counters on a saga is greater than or equal to its final chapter number, and it isn't the source of a chapter ability on the stack, that saga's controller sacrifices it
         
-        theStack.checkingStateBasedActions = true
+        theStack.checkingStateBasedActions = false
         if actionPerformed {
             checkStateBasedActions()
         }
