@@ -275,7 +275,21 @@ enum RNA {
         TomeOfTheGuildpact,
         AzoriusGuildgate243,
         AzoriusGuildgate244,
-        
+//        BloodCrypt,
+//        BreedingPool,
+//        GatewayPlaza,
+//        GodlessShrine,
+        GruulGuildgate249,
+        GruulGuildgate250,
+//        HallowedFountain,
+        OrzhovGuildgate252,
+        OrzhovGuildgate253,
+//        PlazaOfHarmony,
+        RakdosGuildgate255,
+        RakdosGuildgate256,
+        SimicGuildgate257,
+        SimicGuildgate258,
+//        StompingGround,
     ]
     
     static func RandomCard() -> Card {
@@ -2469,19 +2483,168 @@ enum RNA {
     }
     // 245 Blood Crypt
     // 246 Breeding Pool
-    // 247
+    // 247 Gateway Plaza
     // 248 Godless Shrine
-    // 249 Gruul Guildgate
-    // 250 Gruul Guildgate
+    static func GruulGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? GruulGuildgate249() : GruulGuildgate250()
+    }
+    static func GruulGuildgate249() -> Card {
+        let gruulGuildgate = Card(name: "Gruul Guildgate", rarity: .Common, set: set, number: 249)
+        gruulGuildgate.setManaCost("")
+        gruulGuildgate.setType(.Land, .Gate)
+        gruulGuildgate.entersTapped = true
+        gruulGuildgate.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { gruulGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        gruulGuildgate.addActivatedAbility(
+            string: "{T}: Add {UG.",
+            cost: Cost.Tap(),
+            effect: { gruulGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        gruulGuildgate.setFlavorText("\"Beyond this gate there are no citizens, only predators and prey.\"\n--Domri Rade")
+        return gruulGuildgate
+    }
+    static func GruulGuildgate250() -> Card {
+        let gruulGuildgate = Card(name: "Gruul Guildgate", rarity: .Common, set: set, number: 250)
+        gruulGuildgate.setManaCost("")
+        gruulGuildgate.setType(.Land, .Gate)
+        gruulGuildgate.entersTapped = true
+        gruulGuildgate.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { gruulGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        gruulGuildgate.addActivatedAbility(
+            string: "{T}: Add {UG.",
+            cost: Cost.Tap(),
+            effect: { gruulGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        gruulGuildgate.setFlavorText("\"Old turf. Powerful turf. Much good blood spilled here.\"\n--Ruric Thar")
+        return gruulGuildgate
+    }
     // 251 Hallowed Fountain
-    // 252 Orzhov Guildgate
-    // 253 Orzhov Guildgate
-    // 254
-    // 255 Rakdos Guildgate
-    // 256 Rakdos Guildgate
-    // 257 Simic Guildgate
-    // 258 Simic Guildgate
+    static func OrzhovGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? OrzhovGuildgate252() : OrzhovGuildgate253()
+    }
+    static func OrzhovGuildgate252() -> Card {
+        let orzhovGuildgate = Card(name: "Orzhov Guildgate", rarity: .Common, set: set, number: 252)
+        orzhovGuildgate.setManaCost("")
+        orzhovGuildgate.setType(.Land, .Gate)
+        orzhovGuildgate.entersTapped = true
+        orzhovGuildgate.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { orzhovGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        orzhovGuildgate.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { orzhovGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        orzhovGuildgate.setFlavorText("\"So much wealth. So much splendor. So much temptation to believe the gilded lie.\"\n--Kaya")
+        return orzhovGuildgate
+    }
+    static func OrzhovGuildgate253() -> Card {
+        let orzhovGuildgate = Card(name: "Orzhov Guildgate", rarity: .Common, set: set, number: 253)
+        orzhovGuildgate.setManaCost("")
+        orzhovGuildgate.setType(.Land, .Gate)
+        orzhovGuildgate.entersTapped = true
+        orzhovGuildgate.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { orzhovGuildgate.getController().addMana(color: .White) },
+            manaAbility: true)
+        orzhovGuildgate.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { orzhovGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        orzhovGuildgate.setFlavorText("\"If you think the cathedral is impressive, you should see what's down below.\"\n--Teysa")
+        return orzhovGuildgate
+    }
+    // 254 Plaza of Harmony
+    static func RakdosGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? RakdosGuildgate255() : RakdosGuildgate256()
+    }
+    static func RakdosGuildgate255() -> Card {
+        let rakdosGuildgate = Card(name: "Rakdos Guildgate", rarity: .Common, set: set, number: 255)
+        rakdosGuildgate.setManaCost("")
+        rakdosGuildgate.setType(.Land, .Gate)
+        rakdosGuildgate.entersTapped = true
+        rakdosGuildgate.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { rakdosGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        rakdosGuildgate.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { rakdosGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        rakdosGuildgate.setFlavorText("\"My servants take pains for your pleasure, and take pleasure in your pain.\"\n--Rakdos")
+        return rakdosGuildgate
+    }
+    static func RakdosGuildgate256() -> Card {
+        let rakdosGuildgate = Card(name: "Rakdos Guildgate", rarity: .Common, set: set, number: 256)
+        rakdosGuildgate.setManaCost("")
+        rakdosGuildgate.setType(.Land, .Gate)
+        rakdosGuildgate.entersTapped = true
+        rakdosGuildgate.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { rakdosGuildgate.getController().addMana(color: .Black) },
+            manaAbility: true)
+        rakdosGuildgate.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { rakdosGuildgate.getController().addMana(color: .Red) },
+            manaAbility: true)
+        rakdosGuildgate.setFlavorText("\"Slip in the back if you don't want to be recognized. Don't worry--we'll make sure you're never found.\"\n--Judith")
+        return rakdosGuildgate
+    }
+    static func SimicGuildgate() -> Card {
+        return (Int.random(in: 1 ... 2) == 1) ? SimicGuildgate257() : SimicGuildgate258()
+    }
+    static func SimicGuildgate257() -> Card {
+        let simicGuildgate = Card(name: "Simic Guildgate", rarity: .Common, set: set, number: 257)
+        simicGuildgate.setManaCost("")
+        simicGuildgate.setType(.Land, .Gate)
+        simicGuildgate.entersTapped = true
+        simicGuildgate.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { simicGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        simicGuildgate.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { simicGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        simicGuildgate.setFlavorText("\"Mystery is beauty. Within the unknown we plumb revelation.\"\n--Vannifar")
+        return simicGuildgate
+    }
+    static func SimicGuildgate258() -> Card {
+        let simicGuildgate = Card(name: "Simic Guildgate", rarity: .Common, set: set, number: 258)
+        simicGuildgate.setManaCost("")
+        simicGuildgate.setType(.Land, .Gate)
+        simicGuildgate.entersTapped = true
+        simicGuildgate.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { simicGuildgate.getController().addMana(color: .Green) },
+            manaAbility: true)
+        simicGuildgate.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { simicGuildgate.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        simicGuildgate.setFlavorText("\"When the Prime Speaker goes too far, I will be here in the safety of the deeps to correct her.\"\n--Vannifar")
+        return simicGuildgate
+    }
     // 259 Stomping Ground
+    // Basics
     
     static func Human() -> Token {
         let human = Token(name: "Human", set: set, number: 1)
