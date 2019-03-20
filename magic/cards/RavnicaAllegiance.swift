@@ -831,6 +831,7 @@ enum RNA {
         let slimebind = Card(name: "Slimebind", rarity: .Common, set: set, number: 54)
         slimebind.setManaCost("1U")
         slimebind.setType(.Enchantment, .Aura)
+        slimebind.flash = true
         slimebind.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
