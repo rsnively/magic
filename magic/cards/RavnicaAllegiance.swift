@@ -123,7 +123,7 @@ enum RNA {
         ThirstingShade,
 //        UndercityScavenger,
 //        UndercitysEmbrace,
-//        VindictiveVampire,
+        VindictiveVampire,
 //        ActOfTreason,
 //        Amplifire,
         BurnBright,
@@ -818,7 +818,7 @@ enum RNA {
         shimmerOfPossibility.addEffect({
             shimmerOfPossibility.getController().chooseCard(
                 from: Array(shimmerOfPossibility.getController().getLibrary().suffix(4)),
-                restriction: { true },
+                restriction: { _ in return true },
                 action: { chosenCard, rest in
                     chosenCard?.reveal()
                     chosenCard?.putIntoHand()
@@ -826,7 +826,7 @@ enum RNA {
             })
         })
         shimmerOfPossibility.setFlavorText("\"There's something peculiar about the rain today.\"\n--Janoc, Tin Street tinker")
-        return boardTheWeatherlight
+        return shimmerOfPossibility
     }
     static func SkatewingSpy() -> Card {
         let skatewingSpy = Card(name: "Skatewing Spy", rarity: .Uncommon, set: set, number: 52)
@@ -1137,7 +1137,21 @@ enum RNA {
     }
     // 88 Undercity Scavenger
     // 89 Undercity's Embrace
-    // 90 Vindictive Vampire
+    static func VindictiveVampire() -> Card {
+        let vindictiveVampire = Card(name: "Vindictive Vampire", rarity: .Uncommon, set: set, number: 90)
+        vindictiveVampire.setManaCost("3B")
+        vindictiveVampire.setType(.Creature, .Vampire)
+        vindictiveVampire.addTriggeredAbility(
+            trigger: .AnotherCreatureYouControlDies,
+            effect: {
+                vindictiveVampire.eachOpponent({ vindictiveVampire.damage(to: $0, 1) })
+                vindictiveVampire.getController().gainLife(1)
+        })
+        vindictiveVampire.setFlavorText("In theory, the Guildpact keeps guild feuds from spiraling out of control. Personal feuds, however, are not covered.")
+        vindictiveVampire.power = 2
+        vindictiveVampire.toughness = 3
+        return vindictiveVampire
+    }
     // 91 Act of Treason
     // 92 Amplifire
     static func BurnBright() -> Card {

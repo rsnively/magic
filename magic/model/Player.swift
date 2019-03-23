@@ -507,6 +507,8 @@ class Player: Targetable {
         permanents.remove(at: index)
         object.getOwner().graveyard.append(object)
         object.triggerAbilities(.ThisDies)
+        // TODO, if creature that would cause trigger dies at same time, still triggers
+        triggerAbilities(.AnotherCreatureYouControlDies, exclusion: object)
         if !object.isToken() {
             // TODO, if multiple things die at same tame, all should trigger multiple times
             object.triggerAbilities(.NontokenCreatureYouControlDies)
