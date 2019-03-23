@@ -45,7 +45,7 @@ enum RNA {
 //        ForbiddingSpirit,
         HaazdaOfficer,
         HeroOfPrecinctOne,
-//        ImpassionedOrator,
+        ImpassionedOrator,
 //        JusiciarsPortal,
 //        KnightOfSorrows,
 //        LumberingBattlement,
@@ -84,7 +84,7 @@ enum RNA {
 //        Quench,
 //        SagesRowSavant,
         SenateCourier,
-//        ShimmerOfPossibility,
+        ShimmerOfPossibility,
         SkatewingSpy,
         SkitterEel,
         Slimebind,
@@ -811,7 +811,23 @@ enum RNA {
         senateCourier.toughness = 4
         return senateCourier
     }
-    // 51 Shimmer of Possibility
+    static func ShimmerOfPossibility() -> Card {
+        let shimmerOfPossibility = Card(name: "Shimmer of Possibility", rarity: .Common, set: set, number: 51)
+        shimmerOfPossibility.setManaCost("1U")
+        shimmerOfPossibility.setType(.Sorcery)
+        shimmerOfPossibility.addEffect({
+            shimmerOfPossibility.getController().chooseCard(
+                from: Array(shimmerOfPossibility.getController().getLibrary().suffix(4)),
+                restriction: { true },
+                action: { chosenCard, rest in
+                    chosenCard?.reveal()
+                    chosenCard?.putIntoHand()
+                    shimmerOfPossibility.getController().putOnBottomOfLibrary(&rest, random: true)
+            })
+        })
+        shimmerOfPossibility.setFlavorText("\"There's something peculiar about the rain today.\"\n--Janoc, Tin Street tinker")
+        return boardTheWeatherlight
+    }
     static func SkatewingSpy() -> Card {
         let skatewingSpy = Card(name: "Skatewing Spy", rarity: .Uncommon, set: set, number: 52)
         skatewingSpy.setManaCost("3U")
