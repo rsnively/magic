@@ -234,6 +234,7 @@
 		984353A921D4ECA7003B9744 /* xln179full.png in Resources */ = {isa = PBXBuildFile; fileRef = 984353A821D4ECA7003B9744 /* xln179full.png */; };
 		984353AB21D4EDA4003B9744 /* grn107full.png in Resources */ = {isa = PBXBuildFile; fileRef = 984353AA21D4EDA4003B9744 /* grn107full.png */; };
 		984353AD21D4EEEC003B9744 /* grn192full.png in Resources */ = {isa = PBXBuildFile; fileRef = 984353AC21D4EEEC003B9744 /* grn192full.png */; };
+		9843C1F42246E71F00388F0F /* rna12full.png in Resources */ = {isa = PBXBuildFile; fileRef = 9843C1F32246E71F00388F0F /* rna12full.png */; };
 		98478515216537EC004D51A8 /* m19t8full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98478513216537EB004D51A8 /* m19t8full.png */; };
 		98478516216537EC004D51A8 /* m19t11full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98478514216537EB004D51A8 /* m19t11full.png */; };
 		9847851F216537F9004D51A8 /* m1993full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98478517216537F8004D51A8 /* m1993full.png */; };
@@ -1343,6 +1344,7 @@
 		984353A821D4ECA7003B9744 /* xln179full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xln179full.png; sourceTree = "<group>"; };
 		984353AA21D4EDA4003B9744 /* grn107full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn107full.png; sourceTree = "<group>"; };
 		984353AC21D4EEEC003B9744 /* grn192full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grn192full.png; sourceTree = "<group>"; };
+		9843C1F32246E71F00388F0F /* rna12full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rna12full.png; sourceTree = "<group>"; };
 		98478513216537EB004D51A8 /* m19t8full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19t8full.png; sourceTree = "<group>"; };
 		98478514216537EB004D51A8 /* m19t11full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m19t11full.png; sourceTree = "<group>"; };
 		98478517216537F8004D51A8 /* m1993full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m1993full.png; sourceTree = "<group>"; };
@@ -2725,6 +2727,7 @@
 				98BB83B221EC2565004F6A68 /* rna7full.png */,
 				98C19CC021F0007400C9F802 /* rna10full.png */,
 				98C19CC221F0014800C9F802 /* rna11full.png */,
+				9843C1F32246E71F00388F0F /* rna12full.png */,
 				98C19CC821F0040F00C9F802 /* rna16full.png */,
 				98C19CCA21F0061300C9F802 /* rna17full.png */,
 				98C19CCC21F0092B00C9F802 /* rna18full.png */,
@@ -4167,6 +4170,7 @@
 				989974E72192EE0E00B9DB82 /* lea161full.png in Resources */,
 				9801615021E5793C009F7789 /* rna3full.png in Resources */,
 				980C3180217161210083A297 /* grn106full.png in Resources */,
+				9843C1F42246E71F00388F0F /* rna12full.png in Resources */,
 				98B8898C21A3F44D00D8217B /* dom25full.png in Resources */,
 				98D6B7C221FBEC34008C9B70 /* rna122full.png in Resources */,
 				989CD73F2202D6B6001AD387 /* rna250full.png in Resources */,

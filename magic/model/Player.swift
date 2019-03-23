@@ -226,10 +226,20 @@ class Player: Targetable {
     }
     
     func triggerAbilities(_ trigger: Trigger) {
-        permanents.forEach({ $0.triggerAbilities(trigger) })
-        graveyard.forEach({ $0.triggerAbilities(trigger, inGraveyard: true) })
-        Game.shared.commandZone.filter({ $0.getController() === self }).forEach({ $0.triggerAbilities(trigger) })
+        triggerAbilities(trigger, exclusions: [])
     }
+    func triggerAbilities(_ trigger: Trigger, exclusion: Object) {
+        triggerAbilities(trigger, exclusions: [exclusion])
+    }
+    func triggerAbilities(_ trigger: Trigger, exclusions: [Object]) {
+        permanents.filter({ permanent in !exclusions.contains(where: { $0 == permanent }) })
+                  .forEach({ $0.triggerAbilities(trigger) })
+        graveyard.filter({ card in !exclusions.contains(where: { $0 == card }) })
+                 .forEach({ $0.triggerAbilities(trigger, inGraveyard: true) })
+        Game.shared.commandZone.filter({ object in object.getController() === self && !exclusions.contains(where: {$0 == object}) })
+                               .forEach({ $0.triggerAbilities(trigger) })
+    }
+    
     
     func declareAttackers() {
         for permanent in permanents {
@@ -443,6 +453,7 @@ class Player: Targetable {
         }
         if object.isType(.Creature) {
             triggerAbilities(.CreatureEntersBattlefieldUnderYourControl)
+            triggerAbilities(.AnotherCreatureEntersBattlefieldUnderYourControl, exclusion: object)
         }
         if object.isType(.Dragon) {
             triggerAbilities(.DragonEntersBattlefieldUnderYourControl)

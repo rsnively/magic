@@ -417,7 +417,18 @@ enum RNA {
         heroOfPrecinctOne.toughness = 1
         return heroOfPrecinctOne
     }
-    // 12 Impassioned Orator
+    static func ImpassionedOrator() -> Card {
+        let impassionedOrator = Card(name: "Impassioned Orator", rarity: .Common, set: set, number: 12)
+        impassionedOrator.setManaCost("1W")
+        impassionedOrator.setType(.Creature, .Human, .Cleric)
+        impassionedOrator.addTriggeredAbility(
+            trigger: .AnotherCreatureEntersBattlefieldUnderYourControl,
+            effect: { impassionedOrator.getController().gainLife(1) })
+        impassionedOrator.setFlavorText("In times of unrest, the crowd is eager for the comfort of strong convictions.")
+        impassionedOrator.power = 2
+        impassionedOrator.toughness = 2
+        return impassionedOrator
+    }
     // 13 Justiciar's Portal
     // 14 Knight of Sorrows
     // 15 Lumbering Battlement
