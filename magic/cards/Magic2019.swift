@@ -92,8 +92,7 @@ enum M19 {
         ajanisPridemate.setType(.Creature, .Cat, .Soldier)
         ajanisPridemate.addTriggeredAbility(
             trigger: .YouGainLife,
-            effect: { ajanisPridemate.addCounter(.PlusOnePlusOne) },
-            effectOptional: true
+            effect: { ajanisPridemate.addCounter(.PlusOnePlusOne) }
         )
         ajanisPridemate.setFlavorText("\"When one of us prospers, the pride prospers.\"\n--Jazal Goldmane")
         ajanisPridemate.power = 2
