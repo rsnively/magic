@@ -7,7 +7,7 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-        let r = Int.random(in: 1 ... 6)
+        let r = Int.random(in: 1 ... 7)
         if r == 1 {
             return XLN.RandomCard()
         }
@@ -23,7 +23,10 @@ class Card: Object {
         if r == 5 {
             return GRN.RandomCard()
         }
-        return RNA.RandomCard()
+        if r == 6 {
+            return RNA.RandomCard()
+        }
+        return WAR.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {

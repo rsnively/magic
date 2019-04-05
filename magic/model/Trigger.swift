@@ -9,10 +9,12 @@ enum Trigger {
     case CreatureWithFlyingAttacks
     case DragonEntersBattlefieldUnderYourControl
     case EachEndStep
+    case EachOpponentsUpkeep
     case EachUpkeep
     case GateEntersBattlefieldUnderYourControl
     case Landfall
     case NontokenCreatureYouControlDies
+    case OpponentDrawsCard
     case ThisAttacks
     case ThisBecomesBlocked
     case ThisBecomesTapped

@@ -350,6 +350,7 @@ class TargetedEffect: Effect {
     }
     
     func meetsRestrictions(target: Targetable) -> Bool {
+        // TODO: Hexproof shouldn't stop spells/abilities you control
         return !target.isHexproof() && restrictions[targets.count].meetsRestriction(target: target) && !(distinctTargets && targetAlreadySelected(target))
     }
     
@@ -366,6 +367,7 @@ class TargetedEffect: Effect {
         var targetsValid = true
         for i in 0..<restrictions.count {
             if i < targets.count {
+                // TODO: Hexproof shouldn't stop spells/abilities you control
                 if targets[i].isHexproof() || !restrictions[i].meetsRestriction(target: targets[i]) {
                     targetsValid = false
                 }

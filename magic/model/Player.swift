@@ -194,6 +194,7 @@ class Player: Targetable {
         hand.append(card)
         if !noTrigger {
             triggerAbilities(.YouDrawCard)
+            eachOpponent({ $0.triggerAbilities(.OpponentDrawsCard) })
         }
     }
     

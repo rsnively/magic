@@ -41,6 +41,7 @@ enum Subtype {
     case Crab
     case Crocodile
     case Cyclops
+    case Davriel
     case Demon
     case Desert
     case Devil
@@ -72,6 +73,7 @@ enum Subtype {
     case Gorgon
     case Griffin
     case Hellion
+    case Hippo
     case Homarid
     case Homunculus
     case Horror
