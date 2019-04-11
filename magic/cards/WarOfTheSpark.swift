@@ -77,6 +77,8 @@ enum WAR {
         
 //        BurningProphet,
         
+        ChainwhipCyclops,
+        
 //        DreadhordeArcanist,
         
 //        GrimInitiate,
@@ -428,7 +430,22 @@ enum WAR {
     // 115
     // 116
     // 117 Burning Prophet
-    // 118
+    static func ChainwhipCyclops() -> Card {
+        let chainwhipCyclops = Card(name: "Chainwhip Cyclops", rarity: .Common, set: set, number: 118)
+        chainwhipCyclops.setManaCost("4R")
+        chainwhipCyclops.setType(.Creature, .Cyclops, .Warrior)
+        chainwhipCyclops.addActivatedAbility(
+            string: "{3}{R}: Target creature can't block this turn.",
+            cost: Cost.Mana("3R"),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }) )}
+        ))
+        chainwhipCyclops.setFlavorText("\"You say this Tenth District, not Rubblebelt. But where smash happen, that Rubblebelt. Rubblebelt state of mind.\"\n--Urgdar, cyclops philosopher")
+        chainwhipCyclops.power = 4
+        chainwhipCyclops.toughness = 4
+        return chainwhipCyclops
+    }
     // 119
     // 120
     // 121
