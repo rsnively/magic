@@ -8,9 +8,17 @@ enum WAR {
         
         AjanisPridemate,
         
+        BulwarkGiant,
+        
+        DefiantStrike,
+        
 //        GideonsTriumph,
         
+//        GratefulApparition,
+        
         IgniteTheBeacon,
+        
+        LoxodonSergeant,
         
         RavnicaAtWar,
 //        RisingPopulace,
@@ -96,6 +104,7 @@ enum WAR {
         
 //        MowuLoyalCompanion,
         
+        NissasTriumph,
         ParadiseDruid,
         
 //        VivienChampionOfTheWilds,
@@ -163,10 +172,39 @@ enum WAR {
         ajanisPridemate.toughness = 2
         return ajanisPridemate
     }
+    // 5
+    // 6
+    static func BulwarkGiant() -> Card {
+        let bulwarkGiant = Card(name: "Bulwark Giant", rarity: .Common, set: set, number: 7)
+        bulwarkGiant.setManaCost("5W")
+        bulwarkGiant.setType(.Creature, .Giant, .Soldier)
+        bulwarkGiant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { bulwarkGiant.getController().gainLife(5) })
+        bulwarkGiant.setFlavorText("\"Where did she come from? More importantly, are there more like her?\"\n--Gideon Jura")
+        bulwarkGiant.power = 3
+        bulwarkGiant.toughness = 6
+        return bulwarkGiant
+    }
+    // 8
+    static func DefiantStrike() -> Card {
+        let defiantStrike = Card(name: "Defiant Strike", rarity: .Common, set: set, number: 9)
+        defiantStrike.setManaCost("W")
+        defiantStrike.setType(.Instant)
+        defiantStrike.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: {
+                $0.pump(1, 0)
+                defiantStrike.getController().drawCard()
+        }))
+        defiantStrike.setFlavorText("\"My family was saved thanks to a single Boros soldier. It's why I joined the legion. I will be the protector now.\"")
+        return defiantStrike
+    }
+    
     
     // 15 Gideon's Triumph
     // 16
-    // 17
+    // 17 Grateful Apparition
     static func IgniteTheBeacon() -> Card {
         let igniteTheBeacon = Card(name: "Ignite the Beacon", rarity: .Rare, set: set, number: 18)
         igniteTheBeacon.setManaCost("4W")
@@ -186,6 +224,25 @@ enum WAR {
         })
         igniteTheBeacon.setFlavorText("\"If you can't save yourself, you fight to give someone else a chance.\"\n--Ajani Goldmane")
         return igniteTheBeacon
+    }
+    // 19
+    // 20
+    static func LoxodonSergeant() -> Card {
+        let loxodonSergeant = Card(name: "Loxodon Sergeant", rarity: .Common, set: set, number: 21)
+        loxodonSergeant.setManaCost("3W")
+        loxodonSergeant.setType(.Creature, .Elephant, .Soldier)
+        loxodonSergeant.vigilance = true
+        loxodonSergeant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                loxodonSergeant.getController().getCreatures().filter({ $0 != loxodonSergeant }).forEach({ creature in
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                })
+        })
+        loxodonSergeant.setFlavorText("His voice is both war horn and rallying cry, a trumpeting call that stirs even the faintest hearts.")
+        loxodonSergeant.power = 3
+        loxodonSergeant.toughness = 3
+        return loxodonSergeant
     }
     
     static func RavnicaAtWar() -> Card {
@@ -478,8 +535,33 @@ enum WAR {
     // 166
     // 167 Mowu, Loyal Companion
     // 168
+    // 169
+    static func NissasTriumph() -> Card {
+        let nissasTriumph = Card(name: "Nissa's Triumph", rarity: .Uncommon, set: set, number: 170)
+        nissasTriumph.setManaCost("GG")
+        nissasTriumph.setType(.Sorcery)
+        nissasTriumph.addEffect({
+            let isBasicForest: (Object) -> Bool = { $0.isType(.Basic) && $0.isType(.Forest) }
+            let normalRestrictions = [isBasicForest, isBasicForest]
+            let isLand: (Object) -> Bool = { $0.isType(.Land) }
+            let nissaRestrictions = [isLand, isLand, isLand]
+            let hasNissa = !nissasTriumph.getController().getPermanents().filter({ $0.isType(.Nissa) }).isEmpty
+            nissasTriumph.getController().chooseCards(
+                from: nissasTriumph.getController().getLibrary(),
+                restrictions: hasNissa ? nissaRestrictions : normalRestrictions,
+                action: { chosen, rest in
+                    chosen.forEach({
+                        $0.reveal()
+                        $0.putIntoHand()
+                    })
+                    nissasTriumph.getController().shuffleLibrary()
+            })
+        })
+        nissasTriumph.setFlavorText("Her triumph came not from destroying the unnatural, but from fostering life.")
+        return nissasTriumph
+    }
     static func ParadiseDruid() -> Card {
-        let paradiseDruid = Card(name: "Paradise Druid", rarity: .Uncommon, set: set, number: 169)
+        let paradiseDruid = Card(name: "Paradise Druid", rarity: .Uncommon, set: set, number: 171)
         paradiseDruid.setManaCost("1G")
         paradiseDruid.setType(.Creature, .Elf, .Druid)
         paradiseDruid.addStaticAbility({ object in

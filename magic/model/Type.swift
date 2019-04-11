@@ -99,6 +99,7 @@ enum Subtype {
     case Mutant
     case Naga
     case Nightmare
+    case Nissa
     case Octopus
     case Ogre
     case Ooze
