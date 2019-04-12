@@ -109,6 +109,7 @@ enum WAR {
         NissasTriumph,
         ParadiseDruid,
         
+        ThunderingCeratok,
 //        VivienChampionOfTheWilds,
 //        ViviensArkbow,
         ViviensGrizzly,
@@ -618,6 +619,23 @@ enum WAR {
         return paradiseDruid
     }
     
+    static func ThunderingCeratok() -> Card {
+        let thunderingCeratok = Card(name: "Thundering Ceratok", rarity: .Common, set: set, number: 179)
+        thunderingCeratok.setManaCost("4G")
+        thunderingCeratok.setType(.Creature, .Rhino)
+        thunderingCeratok.trample = true
+        thunderingCeratok.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                thunderingCeratok.getController().getCreatures().filter({ $0 != thunderingCeratok }).forEach({ creature in
+                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                })
+        })
+        thunderingCeratok.setFlavorText("\"I thought this was a civilized plane. How are there so many feral beasts?\"\n--Dovin Baan")
+        thunderingCeratok.power = 4
+        thunderingCeratok.toughness = 5
+        return thunderingCeratok
+    }
     // 180 Vivien, Champion of the Wilds
     // 181 Vivien's Arkbow
     static func ViviensGrizzly() -> Card {
