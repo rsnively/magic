@@ -100,6 +100,7 @@ enum WAR {
         
 //        ArlinnVoiceOfThePack,
         ArlinnsWolf,
+        AwakeningOfVituGhazi,
         
         GiantGrowth,
         
@@ -551,6 +552,27 @@ enum WAR {
         arlinnsWolf.power = 3
         arlinnsWolf.toughness = 2
         return arlinnsWolf
+    }
+    static func AwakeningOfVituGhazi() -> Card {
+        let awakeningOfVituGhazi = Card(name: "Awakening of Vitu-Ghazi", rarity: .Rare, set: set, number: 152)
+        awakeningOfVituGhazi.setManaCost("3GG")
+        awakeningOfVituGhazi.setType(.Instant)
+        awakeningOfVituGhazi.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Land) && $0.getController() === awakeningOfVituGhazi.getController() },
+                zones: [.Battlefield]),
+            effect: { target in
+                target.addCounters(.PlusOnePlusOne, 9)
+                target.addType(.Legendary)
+                target.power = 0
+                target.toughness = 0
+                target.addType(.Elemental)
+                target.addType(.Creature)
+                target.haste = true
+                target.name = "Vitu-Ghazi"
+        }))
+        awakeningOfVituGhazi.setFlavorText("The Eternal armies advanced on Vitu-Ghazi. At Nissa's command, Vitu-Ghazi advanced on them.")
+        return awakeningOfVituGhazi
     }
     
     static func GiantGrowth() -> Card {
