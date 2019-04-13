@@ -8,6 +8,7 @@ enum WAR {
         
         AjanisPridemate,
         
+        BondOfDiscipline,
         BulwarkGiant,
         
         DefiantStrike,
@@ -176,7 +177,21 @@ enum WAR {
         return ajanisPridemate
     }
     // 5
-    // 6
+    static func BondOfDiscipline() -> Card {
+        let bondOfDiscipline = Card(name: "Bond of Discipline", rarity: .Uncommon, set: set, number: 6)
+        bondOfDiscipline.setManaCost("4W")
+        bondOfDiscipline.setType(.Sorcery)
+        bondOfDiscipline.addEffect({
+            bondOfDiscipline.eachOpponent({ opponent in
+                opponent.getCreatures().forEach({ $0.tap() })
+            })
+            bondOfDiscipline.getController().getCreatures().forEach({ creature in
+                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+            })
+        })
+        bondOfDiscipline.setFlavorText("\"We agree that order benefits everyone, but not until you enforce it.\"")
+        return bondOfDiscipline
+    }
     static func BulwarkGiant() -> Card {
         let bulwarkGiant = Card(name: "Bulwark Giant", rarity: .Common, set: set, number: 7)
         bulwarkGiant.setManaCost("5W")
