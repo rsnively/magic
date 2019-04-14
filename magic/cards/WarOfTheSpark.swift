@@ -130,6 +130,8 @@ enum WAR {
 //        InvadeTheCity,
         LeylineProwler,
         
+        SolarBlaze,
+        
 //        SorinVengefulBloodlord,
         
 //        StorrevDevkarinLich,
@@ -810,6 +812,21 @@ enum WAR {
         leylineProwler.power = 2
         leylineProwler.toughness = 3
         return leylineProwler
+    }
+    
+    static func SolarBlaze() -> Card {
+        let solarBlaze = Card(name: "Solar Blaze", rarity: .Rare, set: set, number: 216)
+        solarBlaze.setManaCost("2RW")
+        solarBlaze.setType(.Sorcery)
+        solarBlaze.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getCreatures().forEach({ creature in
+                    creature.damage(to: creature, creature.getPower())
+                })
+            })
+        })
+        solarBlaze.setManaCost("\"The primary weapon is nothing more than light. It shows them what they are, and they burn of their own accord.\"\n--Aurelia")
+        return solarBlaze
     }
     
     static func Goblin() -> Token {
