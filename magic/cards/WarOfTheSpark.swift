@@ -867,7 +867,7 @@ enum WAR {
                 })
             })
         })
-        solarBlaze.setManaCost("\"The primary weapon is nothing more than light. It shows them what they are, and they burn of their own accord.\"\n--Aurelia")
+        solarBlaze.setFlavorText("\"The primary weapon is nothing more than light. It shows them what they are, and they burn of their own accord.\"\n--Aurelia")
         return solarBlaze
     }
     
