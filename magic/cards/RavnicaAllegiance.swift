@@ -344,7 +344,7 @@ enum RNA {
             effect: { target in
                 target.pump(2, 2)
                 if target.addendum() {
-                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))
+                    target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))
                 }
             }))
         arrestersZeal.setFlavorText("Law is the light of civilization.")
@@ -476,7 +476,7 @@ enum RNA {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Creature) && $0.getController() === resoluteWatchdog.getController()},
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }) )}
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0 }) )}
         ))
         resoluteWatchdog.setFlavorText("A friend in good times, a guardian in bad times, and a savior when all else fails.")
         resoluteWatchdog.power = 1
@@ -492,8 +492,7 @@ enum RNA {
         sentinelsMark.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 2
+                object.pump(1, 2)
                 // TODO Layers
                 object.vigilance = true;
                 return object
@@ -502,7 +501,7 @@ enum RNA {
             trigger: .ThisETB,
             effect: {
                 if let object = sentinelsMark.attachedTo {
-                    object.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                    object.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
                 }
             },
             restriction: { sentinelsMark.addendum() })
@@ -528,12 +527,11 @@ enum RNA {
         spiritOfTheSpires.setManaCost("3W")
         spiritOfTheSpires.setType(.Creature, .Spirit)
         spiritOfTheSpires.flying = true
-        spiritOfTheSpires.addStaticAbility({ object in
-            if object != spiritOfTheSpires && object.isType(.Creature) && object.getBaseFlying() && object.getController() === spiritOfTheSpires.getController() {
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        spiritOfTheSpires.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: spiritOfTheSpires,
+                additionalRequirement: { $0.getBaseFlying() }),
+            effect: { $0.pump(0, 1); return $0 })
         spiritOfTheSpires.setFlavorText("She breathes fair winds to tired griffins and lifts songbirds beyond the reach of stalking cats.")
         spiritOfTheSpires.power = 2
         spiritOfTheSpires.toughness = 4
@@ -590,7 +588,7 @@ enum RNA {
         twilightPanther.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
             cost: Cost.Mana("B"),
-            effect: { twilightPanther.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
+            effect: { twilightPanther.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
         twilightPanther.setFlavorText("A pet that can hunt both flesh and spirit is precious in a place where smiling assassins keep company with ghostly shadows.")
         twilightPanther.power = 1
         twilightPanther.toughness = 2
@@ -602,10 +600,10 @@ enum RNA {
         unbreakableFormation.setType(.Instant)
         unbreakableFormation.addEffect({
             unbreakableFormation.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0 }))
                 if unbreakableFormation.addendum() {
                     creature.addCounter(.PlusOnePlusOne)
-                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }))
                 }
             })
         })
@@ -760,7 +758,7 @@ enum RNA {
         gatewaySneak.setType(.Creature, .Vedalken, .Rogue)
         gatewaySneak.addTriggeredAbility(
             trigger: .GateEntersBattlefieldUnderYourControl,
-            effect: { gatewaySneak.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }) )} )
+            effect: { gatewaySneak.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }) )} )
         gatewaySneak.addTriggeredAbility(
             trigger: .ThisDealsCombatDamageToPlayer,
             effect: { gatewaySneak.getController().drawCard() })
@@ -805,7 +803,7 @@ enum RNA {
         senateCourier.addActivatedAbility(
             string: "{1}{W}: ~ gains vigilance until end of turn.",
             cost: Cost.Mana("1W"),
-            effect: { senateCourier.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
+            effect: { senateCourier.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
         senateCourier.setFlavorText("\"This Dovin Baan came from nowhere. Watch him. Read his letters. He is more than he appears.\"\n--Lazav")
         senateCourier.power = 1
         senateCourier.toughness = 4
@@ -833,12 +831,11 @@ enum RNA {
         skatewingSpy.setManaCost("3U")
         skatewingSpy.setType(.Creature, .Vedalken, .Rogue, .Mutant)
         skatewingSpy.adapt(2, Cost.Mana("5U"))
-        skatewingSpy.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === skatewingSpy.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.flying = true
-            }
-            return object
-        })
+        skatewingSpy.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: skatewingSpy,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.flying = true; return $0 })
         skatewingSpy.setFlavorText("\"A better Ravnica begins with a better Simic.\"\n--Vannifar")
         skatewingSpy.power = 2
         skatewingSpy.toughness = 3
@@ -861,10 +858,7 @@ enum RNA {
         slimebind.flash = true
         slimebind.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() - 4
-                return object
-        })
+            effect: { $0.pump(-4, 0); return $0 })
         slimebind.setFlavorText("\"Relax. It's quite harmless. And it will dissolve completely in a month or two.\"\n--Navona, Simic field tester")
         return slimebind
     }
@@ -922,12 +916,11 @@ enum RNA {
         windstormDrake.setManaCost("4U")
         windstormDrake.setType(.Creature, .Drake)
         windstormDrake.flying = true
-        windstormDrake.addStaticAbility({ object in
-            if object != windstormDrake && object.isType(.Creature) && object.getBaseFlying() && object.getController() === windstormDrake.getController() {
-                object.power = object.getBasePower() + 1
-            }
-            return object
-        })
+        windstormDrake.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: windstormDrake,
+                additionalRequirement: { $0.getBaseFlying() }),
+            effect: { $0.pump(1, 0); return $0 })
         windstormDrake.setFlavorText("Drakes become especially voracious as they prepare for their autumn migration, hunting the city's thoroughfares from dawn to dusk.")
         windstormDrake.power = 3
         windstormDrake.toughness = 3
@@ -958,7 +951,7 @@ enum RNA {
         bladebrand.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }))
                 bladebrand.getController().drawCard()
         }))
         bladebrand.setFlavorText("\"The pain of searing iron and razor edges pales beside the pleasure of performance.\"\n--Judith")
@@ -1277,7 +1270,7 @@ enum RNA {
                 })
                 rumblingRuin.eachOpponent({ $0.getCreatures().forEach({ creature in
                     if creature.getPower() <= numCounters {
-                        creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }))
+                        creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.cantBlock = true; return $0 }))
                     }
                 })})
         })
@@ -1355,7 +1348,7 @@ enum RNA {
             effect: {
                 endRazeForerunners.getController().getCreatures().filter({ $0 != endRazeForerunners }).forEach({ creature in
                     creature.pump(2, 2)
-                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; $0.trample = true; return $0 }))
+                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; $0.trample = true; return $0 }))
                 })
         })
         endRazeForerunners.setFlavorText("\"Smash this city to pieces.\"\n--Domri Rade")
@@ -1379,18 +1372,17 @@ enum RNA {
         let gatebreakerRam = Card(name: "Gatebreaker Ram", rarity: .Uncommon, set: set, number: 126)
         gatebreakerRam.setManaCost("2G")
         gatebreakerRam.setType(.Creature, .Sheep)
-        gatebreakerRam.addStaticAbility({ object in
-            if object == gatebreakerRam {
-                let numGates = gatebreakerRam.getController().getPermanents().filter({ $0.isType(.Gate) }).count
-                gatebreakerRam.power = gatebreakerRam.getBasePower() + numGates
-                gatebreakerRam.toughness = gatebreakerRam.getBaseToughness() + numGates
+        gatebreakerRam.addStaticAbility(
+            requirement: AbilityRequirement.This(gatebreakerRam),
+            effect: { object in
+                let numGates = object.getController().getPermanents().filter({ $0.isType(.Gate) }).count
+                object.pump(numGates, numGates)
                 if numGates >= 2 {
                     // TODO Layers
-                    gatebreakerRam.vigilance = true
-                    gatebreakerRam.trample = true
+                    object.vigilance = true
+                    object.trample = true
                 }
-            }
-            return object
+                return object
         })
         gatebreakerRam.setFlavorText("So-called \"battering rams\" pale in comparison to the real thing.")
         gatebreakerRam.power = 2
@@ -1405,7 +1397,7 @@ enum RNA {
             restriction: TargetingRestriction.TargetCreature(),
             effect: {
                 $0.pump(3, 3)
-                $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.reach = true; return $0 }))
+                $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.reach = true; return $0 }))
         }))
         giftOfStrength.setFlavorText("\"When the sky screams, when the ground groans, the End-Raze will soon begin.\"\n--Nikya of the Old Ways")
         return giftOfStrength
@@ -1554,7 +1546,7 @@ enum RNA {
         steepleCreeper.addActivatedAbility(
             string: "{3}{U}: ~ gains flying until end of turn.",
             cost: Cost.Mana("3U"),
-            effect: { steepleCreeper.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }) )})
+            effect: { steepleCreeper.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }) )})
         steepleCreeper.setFlavorText("\"If the Fin Claade cannot produce a reliable venomous krasis, mobile in both air and water, then the Guardian Project will absorb its resources.\"\n--Vannifar")
         steepleCreeper.power = 4
         steepleCreeper.toughness = 2
@@ -1596,7 +1588,7 @@ enum RNA {
         towerDefense.addEffect({
             towerDefense.getController().getCreatures().forEach({ creature in
                 creature.pump(0, 5)
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.reach = true; return $0 }))
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.reach = true; return $0 }))
             })
         })
         towerDefense.setFlavorText("\"We've been practicing for this all our lives. This is the final test.\"\n--Korun Nar, Rubblebelt hunter")
@@ -1607,12 +1599,11 @@ enum RNA {
         trollbredGuardian.setManaCost("4G")
         trollbredGuardian.setType(.Creature, .Troll, .Frog, .Warrior)
         trollbredGuardian.adapt(2, Cost.Mana("2G"))
-        trollbredGuardian.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === trollbredGuardian.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.trample = true
-            }
-            return object
-        })
+        trollbredGuardian.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: trollbredGuardian,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.trample = true; return $0 })
         trollbredGuardian.setFlavorText("His favorite food is kraul.")
         trollbredGuardian.power = 5
         trollbredGuardian.toughness = 5
@@ -1673,12 +1664,9 @@ enum RNA {
         azoriusSkyguard.setType(.Creature, .Human, .Knight)
         azoriusSkyguard.flying = true
         azoriusSkyguard.firstStrike = true
-        azoriusSkyguard.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() !== azoriusSkyguard.getController() {
-                object.power = object.getBasePower() - 1
-            }
-            return object
-        })
+        azoriusSkyguard.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYourOpponentsControl(source: azoriusSkyguard),
+            effect: { $0.pump(-1, 0); return $0 })
         azoriusSkyguard.setFlavorText("\"These new thopters are all well and good, but four eyes are better than none.\"");
         azoriusSkyguard.power = 3
         azoriusSkyguard.toughness = 3
@@ -1774,20 +1762,12 @@ enum RNA {
         let etherealAbsolution = Card(name: "Ethereal Absolution", rarity: .Rare, set: set, number: 170)
         etherealAbsolution.setManaCost("4WB")
         etherealAbsolution.setType(.Enchantment)
-        etherealAbsolution.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === etherealAbsolution.getController() {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
-        etherealAbsolution.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() !== etherealAbsolution.getController() {
-                object.power = object.getBasePower() - 1
-                object.toughness = object.getBaseToughness() - 1
-            }
-            return object
-        })
+        etherealAbsolution.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(source: etherealAbsolution),
+            effect: { $0.pump(1, 1); return $0 })
+        etherealAbsolution.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYourOpponentsControl(source: etherealAbsolution),
+            effect: { $0.pump(-1, -1); return $0 })
         etherealAbsolution.addActivatedAbility(
             string: "{2}{W}{B}: Exile target card from an opponent's graveyard. If it was a creature card, you create a 1/1 white and black Spirit creature token with flying.",
             cost: Cost.Mana("2WB"),
@@ -1894,12 +1874,9 @@ enum RNA {
         let judith = Card(name: "Judith, the Scourge Diva", rarity: .Rare, set: set, number: 185)
         judith.setManaCost("1BR")
         judith.setType(.Legendary, .Creature, .Human, .Shaman)
-        judith.addStaticAbility({ object in
-            if object != judith && object.isType(.Creature) && object.getController() === judith.getController() {
-                object.power = object.getBasePower() + 1
-            }
-            return object
-        })
+        judith.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(source: judith),
+            effect: { $0.pump(1, 0); return $0 })
         judith.addTriggeredAbility(
             trigger: .NontokenCreatureYouControlDies,
             effect: TargetedEffect(
@@ -2152,11 +2129,11 @@ enum RNA {
         seraphOfTheScales.addActivatedAbility(
             string: "{W}: ~ gains vigilance until end of turn.",
             cost: Cost.Mana("W"),
-            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
+            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }) )})
         seraphOfTheScales.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
             cost: Cost.Mana("B"),
-            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
+            effect: { seraphOfTheScales.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }) )})
         seraphOfTheScales.afterlife(2)
         seraphOfTheScales.power = 4
         seraphOfTheScales.toughness = 3
@@ -2240,12 +2217,11 @@ enum RNA {
             effect: { zegana.getController().drawCard() },
             restriction: { !zegana.getController().getCreatures().filter({ $0 != zegana && $0.hasCounter(.PlusOnePlusOne) }).isEmpty })
         zegana.adapt(4, Cost.Mana("4GU"))
-        zegana.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === zegana.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.trample = true
-            }
-            return object
-        })
+        zegana.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: zegana,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.trample = true; return $0 })
         zegana.power = 4
         zegana.toughness = 4
         return zegana
@@ -2281,12 +2257,14 @@ enum RNA {
         scuttlegator.setType(.Creature, .Crab, .Turtle, .Crocodile)
         scuttlegator.defender = true
         scuttlegator.adapt(3, Cost.Mana("6{G/U}{G/U}"))
-        scuttlegator.addStaticAbility({ object in
-            if object == scuttlegator && object.hasCounter(.PlusOnePlusOne) {
-                object.canAttackWithDefender = true
-            }
-            return object
-        })
+        scuttlegator.addStaticAbility(
+            requirement: AbilityRequirement.This(scuttlegator),
+            effect: { object in
+                if object.hasCounter(.PlusOnePlusOne) {
+                    object.canAttackWithDefender = true
+                }
+                return object
+            })
         scuttlegator.power = 6
         scuttlegator.toughness = 6
         return scuttlegator
@@ -2338,13 +2316,11 @@ enum RNA {
         let glassOfTheGuildpact = Card(name: "Glass of the Guildpact", rarity: .Rare, set: set, number: 233)
         glassOfTheGuildpact.setManaCost("2")
         glassOfTheGuildpact.setType(.Artifact)
-        glassOfTheGuildpact.addStaticAbility({ object in
-            if object.isMulticolored() && object.isType(.Creature) && object.getController() === glassOfTheGuildpact.getController() {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        glassOfTheGuildpact.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: glassOfTheGuildpact,
+                additionalRequirement: { $0.isMulticolored() }),
+            effect: { $0.pump(1, 1); return $0 })
         glassOfTheGuildpact.setFlavorText("\"Counterbalanced forces sustain this city. No faction above others. A beautiful idea.\"\n--Emmara")
         return glassOfTheGuildpact
     }

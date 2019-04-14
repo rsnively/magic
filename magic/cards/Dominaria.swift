@@ -36,7 +36,7 @@ enum DOM {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(2, 2)
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     object.indestructible = true
                     return object
                 }))
@@ -59,13 +59,13 @@ enum DOM {
         let benalishHonorGuard = Card(name: "Benalish Honor Guard", rarity: .Common, set: set, number: 5)
         benalishHonorGuard.setManaCost("1W")
         benalishHonorGuard.setType(.Creature, .Human, .Knight)
-        benalishHonorGuard.addStaticAbility({ object in
-            if object == benalishHonorGuard {
+        benalishHonorGuard.addStaticAbility(
+            requirement: AbilityRequirement.This(benalishHonorGuard),
+            effect: { object in
                 let numLegends = object.getController().getCreatures().filter({ $0.isType(.Legendary) }).count
-                object.power = object.getBasePower() + numLegends
-            }
-            return object
-        })
+                object.pump(numLegends, 0)
+                return object
+            })
         benalishHonorGuard.setFlavorText("\"The true measure of all heroes is not what they achieve, but who they inspire.\"\n--Triumph of Gerrard")
         benalishHonorGuard.power = 2
         benalishHonorGuard.toughness = 2
@@ -75,13 +75,9 @@ enum DOM {
         let benalishMarshal = Card(name: "Benalish Marshal", rarity: .Rare, set: set, number: 6)
         benalishMarshal.setManaCost("WWW")
         benalishMarshal.setType(.Creature, .Human, .Knight)
-        benalishMarshal.addStaticAbility({ object in
-            if object != benalishMarshal && object.isType(.Creature) && object.getController() === benalishMarshal.getController() {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        benalishMarshal.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(source: benalishMarshal),
+            effect: { $0.pump(1, 1); return $0 })
         benalishMarshal.setFlavorText("\"Some aspire to climb the mountain of Honor. The Benalish are born upon its peak, and from there ascend among the stars.\"\n--History of Benalia")
         benalishMarshal.power = 3
         benalishMarshal.toughness = 3
@@ -160,12 +156,12 @@ enum DOM {
         danitha.firstStrike = true
         danitha.vigilance = true
         danitha.lifelink = true
-        danitha.addStaticAbility({ object in
-            if (object.isType(.Aura) || object.isType(.Equipment)) && object.isSpell() && object.getOwner() === danitha.getController() {
+        danitha.addStaticAbility(
+            requirement: AbilityRequirement.AuraAndEquipmentSpellsYouCast(source: danitha),
+            effect: { object in
                 object.castingCost = object.getBaseCastingCost().reducedBy(1)
-            }
-            return object
-        })
+                return object
+            })
         danitha.setFlavorText("\"I will protect the less fortunate. I will love bravely. I will face despair and fight on. As a Capashen, I can do no less.")
         danitha.power = 2
         danitha.toughness = 2
@@ -276,12 +272,11 @@ enum DOM {
         kwende.setManaCost("3W")
         kwende.setType(.Legendary, .Creature, .Human, .Knight)
         kwende.doubleStrike = true
-        kwende.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === kwende.getController() && object.firstStrike {
-                object.doubleStrike = true
-            }
-            return object
-        })
+        kwende.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: kwende,
+                additionalRequirement: { $0.getBaseFirstStrike() }),
+            effect: { $0.doubleStrike = true; return $0 })
         kwende.setFlavorText("Descendant of a vanished land, student of a forgotten general, and master of blades no smith could forge anew. He honors them all by living a life worthy of song.")
         kwende.power = 2
         kwende.toughness = 2
@@ -294,14 +289,13 @@ enum DOM {
         lyra.flying = true
         lyra.firstStrike = true
         lyra.lifelink = true
-        lyra.addStaticAbility({ object in
-            if object != lyra && object.isType(.Angel) && object.getController() === lyra.getController() {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
+        lyra.addStaticAbility(
+            requirement: AbilityRequirement.OtherSubtypeYouControl(source: lyra, subtype: .Angel),
+            effect: { object in
+                object.pump(1, 1)
                 // TODO: Layers
                 object.lifelink = true
-            }
-            return object
+                return object
         })
         lyra.setFlavorText("\"You are not alone. You never were.\"")
         lyra.power = 5
@@ -330,10 +324,7 @@ enum DOM {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0 != pegasusCourser && $0.isAttacking && $0.isType(.Creature) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
-                    object.flying = true
-                    return object
-                }))
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))
         }))
         pegasusCourser.setFlavorText("A pegasus chooses its rider, bearing the worthy into the clouds and tossing all others to the ground.")
         pegasusCourser.power = 1
@@ -423,7 +414,7 @@ enum DOM {
                         target.addCounter(.PlusOnePlusOne)
                     }
                     else if loreCounters == 3 {
-                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                        target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                             object.flying = true
                             object.firstStrike = true
                             object.lifelink = true
@@ -444,8 +435,9 @@ enum DOM {
         academyJourneymage.setManaCost("4U")
         academyJourneymage.setType(.Creature, .Human, .Wizard)
         academyJourneymage.addStaticAbility(
-            { object in
-                if object == academyJourneymage && !object.getController().getPermanents().filter({ $0.isType(.Wizard) }).isEmpty {
+            requirement: AbilityRequirement.This(academyJourneymage),
+            effect: { object in
+                if !object.getController().getPermanents().filter({ $0.isType(.Wizard) }).isEmpty {
                     object.castingCost = object.getBaseCastingCost().reducedBy(1)
                 }
                 return object
@@ -472,8 +464,7 @@ enum DOM {
         arcaneFlight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
+                object.pump(1, 1)
                 // TODO: Layers
                 object.flying = true
                 return object
@@ -577,13 +568,13 @@ enum DOM {
         tempestDjinn.setManaCost("UUU")
         tempestDjinn.setType(.Creature, .Djinn)
         tempestDjinn.flying = true
-        tempestDjinn.addStaticAbility({ object in
-            if object == tempestDjinn {
+        tempestDjinn.addStaticAbility(
+            requirement: AbilityRequirement.This(tempestDjinn),
+            effect: { object in
                 let numIslands = object.getController().getPermanents().filter({ $0.isType(.Basic) && $0.isType(.Island) }).count
-                object.power = object.getBasePower() + numIslands
-            }
-            return object
-        })
+                object.pump(numIslands, 0)
+                return object
+            })
         tempestDjinn.setFlavorText("The first to arrive on Dominaria from their distant home, the marids are the oldest tribe of djinn and the most respected by storm and sea.")
         tempestDjinn.power = 0
         tempestDjinn.toughness = 4
@@ -593,12 +584,11 @@ enum DOM {
         let tetsuko = Card(name: "Tetsuke Umezawa, Fugitive", rarity: .Uncommon, set: set, number: 69)
         tetsuko.setManaCost("1U")
         tetsuko.setType(.Legendary, .Creature, .Human, .Rogue)
-        tetsuko.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === tetsuko.getController() && object.getPower() <= 1 {
-                object.unblockable = true
-            }
-            return object
-        })
+        tetsuko.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: tetsuko,
+                additionalRequirement: { $0.getPower() <= 1 || $0.getToughness() <= 1 }),
+            effect: { $0.unblockable = true; return $0 })
         tetsuko.setFlavorText("\"My ancestor Toshiro used to say, 'Life is a series of choices between bad and worse.' I'm a master of making great bad choices.\"")
         tetsuko.power = 1
         tetsuko.toughness = 3
@@ -640,7 +630,7 @@ enum DOM {
             effect: { target in
                 target.pump(2, 1)
                 if target.isType(.Legendary) {
-                    target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                    target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
                 }
         }))
         blessingOfBelzenlok.setFlavorText("\"My heart is not mine, it is Belzenlok's. All hearts are his, and all blood.\"\n--\"Rite of Belzenlok\"")
@@ -758,7 +748,7 @@ enum DOM {
             cost: Cost.Mana("3"),
             effect: {
                 drudgeSentinel.tap()
-                drudgeSentinel.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))
+                drudgeSentinel.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0 }))
         })
         drudgeSentinel.setFlavorText("The Cabal assured the Seven Houses that hostages receive all the food and rest they require.")
         drudgeSentinel.power = 2
@@ -810,12 +800,12 @@ enum DOM {
         let ratColony = Card(name: "Rat Colony", rarity: .Common, set: set, number: 101)
         ratColony.setManaCost("1B")
         ratColony.setType(.Creature, .Rat)
-        ratColony.addStaticAbility({ object in
-            if object == ratColony {
+        ratColony.addStaticAbility(
+            requirement: AbilityRequirement.This(ratColony),
+            effect: { object in
                 let numOtherRats = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Rat) }).count
-                object.power = object.getBasePower() + numOtherRats
-            }
-            return object
+                object.pump(numOtherRats, 0)
+                return object
         })
         // TODO: deckbuilding restriction ability
         ratColony.setFlavorText("Wreckage from the Phyrexian Invasion provided the rats with a seemingly unlimited number of breeding grounds.")
@@ -865,14 +855,13 @@ enum DOM {
         championOfTheFlame.setManaCost("1R")
         championOfTheFlame.setType(.Creature, .Human, .Warrior)
         championOfTheFlame.trample = true
-        championOfTheFlame.addStaticAbility({ object in
-            if object == championOfTheFlame {
+        championOfTheFlame.addStaticAbility(
+            requirement: AbilityRequirement.This(championOfTheFlame),
+            effect: { object in
                 let numAttachments = object.getController().getPermanents().filter({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isAttachedTo(object) }).count
                 let bonus = numAttachments * 2
-                object.power = object.getBasePower() + bonus
-                object.toughness = object.getBaseToughness() + bonus
-            }
-            return object
+                object.pump(bonus, bonus)
+                return object
         })
         championOfTheFlame.setFlavorText("Grand Warlord Radha's challengers are always defeated, but she rewards the most passionate with the Flame of Keld. After that, they burn for her.")
         championOfTheFlame.power = 1
@@ -887,7 +876,7 @@ enum DOM {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(1, 0)
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     object.firstStrike = true
                     object.haste = true
                     return object
@@ -947,15 +936,15 @@ enum DOM {
         let ghituLavarunner = Card(name: "Ghitu Lavarunner", rarity: .Common, set: set, number: 127)
         ghituLavarunner.setManaCost("R")
         ghituLavarunner.setType(.Creature, .Human, .Wizard)
-        ghituLavarunner.addStaticAbility({ object in
-            if object == ghituLavarunner {
+        ghituLavarunner.addStaticAbility(
+            requirement: AbilityRequirement.This(ghituLavarunner),
+            effect: { object in
                 if object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count >= 2 {
-                    object.power = object.getBasePower() + 1
+                    object.pump(1, 0)
                     // TODO: Should these be separate effects?
                     object.haste = true
                 }
-            }
-            return object
+                return object
         })
         ghituLavarunner.setFlavorText("Tolarians teach the theory of pyromancy. The Ghitu prefer applied research.")
         ghituLavarunner.power = 1
@@ -1030,7 +1019,7 @@ enum DOM {
                 zones: [.Battlefield]),
             effect: { target in
                 target.pump(3, 3)
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
         }))
         runAmok.setFlavorText("Keld faced an apocalypse to fulfill a dire prophecy. Now Keldons have nothing left to believe in except themselves.")
         return runAmok
@@ -1051,7 +1040,7 @@ enum DOM {
         warlordsFury.setType(.Sorcery)
         warlordsFury.addEffect({
             warlordsFury.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.firstStrike = true; return $0 }))
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.firstStrike = true; return $0 }))
             })
             warlordsFury.getController().drawCard()
         })
@@ -1089,7 +1078,7 @@ enum DOM {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.addCounter(.PlusOnePlusOne)
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     object.reach = true
                     return object
                 }))
@@ -1248,13 +1237,11 @@ enum DOM {
         let sporecrownThallid = Card(name: "Sporecrown Thallid", rarity: .Uncommon, set: set, number: 181)
         sporecrownThallid.setManaCost("1G")
         sporecrownThallid.setType(.Creature, .Fungus)
-        sporecrownThallid.addStaticAbility({ object in
-            if object != sporecrownThallid && object.isType(.Creature) && object.getController() === sporecrownThallid.getController() && (object.isType(.Fungus) || (object.isType(.Saproling))) {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        sporecrownThallid.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: sporecrownThallid,
+                additionalRequirement: { $0.isType(.Fungus) || $0.isType(.Saproling) }),
+            effect: { $0.pump(1, 1); return $0 })
         sporecrownThallid.setFlavorText("\"The identifying ornamental growths of alpha thallids may be hereditary, or catalyzed by some chemical signal.\"\n--Sarpadian Empires, vol. III")
         sporecrownThallid.power = 2
         sporecrownThallid.toughness = 2
@@ -1321,13 +1308,11 @@ enum DOM {
         arvad.setType(.Legendary, .Creature, .Vampire, .Knight)
         arvad.deathtouch = true
         arvad.lifelink = true
-        arvad.addStaticAbility({ object in
-            if object  != arvad  && object.isType(.Legendary) && object.isType(.Creature) {
-                object.power = object.getBasePower() + 2
-                object.toughness = object.getBaseToughness() + 2
-            }
-            return object
-        })
+        arvad.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: arvad,
+                additionalRequirement: { $0.isType(.Legendary) }),
+            effect: { $0.pump(2, 2); return $0 })
         arvad.setFlavorText("\"I won't abandon the <i>Weatherlight</i>. My destiny is to serve at Jhoira's side. This 'illness' means I must trust my faith more and myself less.\"")
         arvad.power = 3
         arvad.toughness = 3
@@ -1394,7 +1379,7 @@ enum DOM {
         amaranthineWall.addActivatedAbility(
             string: "{2}: ~ gains indestructible until end of turn.",
             cost: Cost.Mana("2"),
-            effect: { amaranthineWall.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in object.indestructible = true; return object }))})
+            effect: { amaranthineWall.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in object.indestructible = true; return object }))})
         amaranthineWall.setFlavorText("Neither its appearance nor its temperature varies as the years pass, an eternal testament to the forces that shaped Dominaria.")
         amaranthineWall.power = 0
         amaranthineWall.toughness = 6
@@ -1407,8 +1392,7 @@ enum DOM {
         
         func effect(_ object: Object) -> Object {
             let numLands = blackbladeReforged.getController().getLands().count
-            object.power = object.getBasePower() + numLands
-            object.toughness = object.getBaseToughness() + numLands
+            object.pump(numLands, numLands)
             return object
         }
         blackbladeReforged.addEquipAbility(
@@ -1512,7 +1496,7 @@ enum DOM {
             string: "{3}: Equip.",
             cost: Cost.Mana("3"),
             effect: { object in
-                object.power = object.getBasePower() + 2
+                object.pump(2, 0)
                 // TODO: Layers
                 if object.getController().active {
                     object.firstStrike = true
@@ -1559,8 +1543,7 @@ enum DOM {
             string: "{1}: Equip.",
             cost: Cost.Mana("1"),
             effect: { object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
+                object.pump(1, 1)
                 return object
         })
         shortSword.setFlavorText("\"Sometimes the only difference between a martyr and a hero is a sword.\"\n--Captain Sisay, Memoirs")
@@ -1660,13 +1643,13 @@ enum DOM {
         let clifftopRetreat = Card(name: "Clifftop Retreat", rarity: .Rare, set: set, number: 239)
         clifftopRetreat.setManaCost("")
         clifftopRetreat.setType(.Land)
-        clifftopRetreat.addStaticAbility({ object in
-            if object == clifftopRetreat {
-                let controlsMountain = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
-                let controlsPlains = !clifftopRetreat.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+        clifftopRetreat.addStaticAbility(
+            requirement: AbilityRequirement.This(clifftopRetreat),
+            effect: { object in
+                let controlsMountain = !object.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+                let controlsPlains = !object.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
                 object.entersTapped = !(controlsMountain || controlsPlains)
-            }
-            return object
+                return object
         })
         clifftopRetreat.addActivatedAbility(
             string: "{T}: Add {R}.",
@@ -1685,13 +1668,13 @@ enum DOM {
         let hinterlandHarbor = Card(name: "Hinterland Harbor", rarity: .Rare, set: set, number: 240)
         hinterlandHarbor.setManaCost("")
         hinterlandHarbor.setType(.Land)
-        hinterlandHarbor.addStaticAbility({ object in
-            if object == hinterlandHarbor {
-                let controlsForest = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
-                let controlsIsland = !hinterlandHarbor.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+        hinterlandHarbor.addStaticAbility(
+            requirement: AbilityRequirement.This(hinterlandHarbor),
+            effect: { object in
+                let controlsForest = !object.getController().getLands().filter({ $0.isType(.Forest) }).isEmpty
+                let controlsIsland = !object.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
                 object.entersTapped = !(controlsForest || controlsIsland)
-            }
-            return object
+                return object
         })
         hinterlandHarbor.addActivatedAbility(
             string: "{T}: Add {G}.",
@@ -1710,13 +1693,13 @@ enum DOM {
         let isolatedChapel = Card(name: "Isolated Chapel", rarity: .Rare, set: set, number: 241)
         isolatedChapel.setManaCost("")
         isolatedChapel.setType(.Land)
-        isolatedChapel.addStaticAbility({ object in
-            if object == isolatedChapel {
-                let controlsPlains = !isolatedChapel.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
-                let controlsSwamp = !isolatedChapel.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
+        isolatedChapel.addStaticAbility(
+            requirement: AbilityRequirement.This(isolatedChapel),
+            effect: { object in
+                let controlsPlains = !object.getController().getLands().filter({ $0.isType(.Plains) }).isEmpty
+                let controlsSwamp = !object.getController().getLands().filter({ $0.isType(.Swamp) }).isEmpty
                 object.entersTapped = !(controlsPlains || controlsSwamp)
-            }
-            return object
+                return object
         })
         isolatedChapel.addActivatedAbility(
             string: "{T}: Add {W}.",
@@ -1812,13 +1795,13 @@ enum DOM {
         let sulfurFalls = Card(name: "Sulfur Falls", rarity: .Rare, set: set, number: 247)
         sulfurFalls.setManaCost("")
         sulfurFalls.setType(.Land)
-        sulfurFalls.addStaticAbility({ object in
-            if object == sulfurFalls {
-                let controlsIsland = !sulfurFalls.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
-                let controlsMountain = !sulfurFalls.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+        sulfurFalls.addStaticAbility(
+            requirement: AbilityRequirement.This(sulfurFalls),
+            effect: { object in
+                let controlsIsland = !object.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                let controlsMountain = !object.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 object.entersTapped = !(controlsIsland || controlsMountain)
-            }
-            return object
+                return object
         })
         sulfurFalls.addActivatedAbility(
             string: "{T}: Add {U}.",
@@ -1837,13 +1820,13 @@ enum DOM {
         let woodlandCemetery = Card(name: "Woodland Cemetery", rarity: .Rare, set: set, number: 248)
         woodlandCemetery.setManaCost("")
         woodlandCemetery.setType(.Land)
-        woodlandCemetery.addStaticAbility({ object in
-            if object == woodlandCemetery {
-                let controlsIsland = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
-                let controlsMountain = !woodlandCemetery.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
+        woodlandCemetery.addStaticAbility(
+            requirement: AbilityRequirement.This(woodlandCemetery),
+            effect: { object in
+                let controlsIsland = !object.getController().getLands().filter({ $0.isType(.Island) }).isEmpty
+                let controlsMountain = !object.getController().getLands().filter({ $0.isType(.Mountain) }).isEmpty
                 object.entersTapped = !(controlsIsland || controlsMountain)
-            }
-            return object
+                return object
         })
         woodlandCemetery.addActivatedAbility(
             string: "{T}: Add {B}.",

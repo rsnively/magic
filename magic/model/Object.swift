@@ -104,6 +104,7 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects().baseFirstStrike }
         set (newFirstStrike) { baseFirstStrike = newFirstStrike }
     }
+    func getBaseFirstStrike() -> Bool { return baseFirstStrike }
     private var baseFlash: Bool = false
     var flash: Bool {
         get { return applyContinuousEffects().baseFlash }
@@ -476,8 +477,8 @@ class Object: Targetable, Hashable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
-    func addStaticAbility(requirement: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
-        let ability = StaticAbility(requirement : requirement, effect: effect, allZones: allZones)
+    func addStaticAbility(requirement: AbilityRequirement, effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
+        let ability = StaticAbility(requirement: requirement, effect: effect, allZones: allZones)
         if characteristicDefining {
             characteristicDefiningAbilities.append(ability)
         } else {
@@ -538,6 +539,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func addEnchantAbility(restriction: TargetingRestriction, effect: @escaping (Object) -> Object) {
+        // Todo: Can consolidate this with static ability requirement
         self.auraRestriction = restriction
         
         addEffect(TargetedEffect.SingleObject(
@@ -545,7 +547,7 @@ class Object: Targetable, Hashable, NSCopying {
             effect: { self.attachTo($0) }))
         
         addStaticAbility(
-            requirement: { self.isAttachedTo($0) },
+            requirement: AbilityRequirement.EnchantedObject(aura: self),
             effect: { return effect($0) })
     }
     func attachTo(_ object: Object) {
@@ -577,7 +579,7 @@ class Object: Targetable, Hashable, NSCopying {
             manaAbility: false,
             sorcerySpeed: true)
         addStaticAbility(
-            requirement: { self.isAttachedTo($0) },
+            requirement: AbilityRequirement.EquippedObject(equipment: self),
             effect: { return effect($0) })
     }
     

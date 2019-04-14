@@ -60,8 +60,7 @@ enum GRN {
         candlelightVigil.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.power = object.getBasePower() + 3
-                object.toughness = object.getBaseToughness() + 2
+                object.pump(3, 2)
                 // TODO: These should apply in different layers
                 object.vigilance = true
                 return object
@@ -267,7 +266,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isAttacking && $0.isType(.Creature) && !$0.flying },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     object.flying = true
                     return object
                 }))
@@ -366,11 +365,13 @@ enum GRN {
         let leapfrog = Card(name: "Leapfrog", rarity: .Common, set: set, number: 42)
         leapfrog.setManaCost("2U")
         leapfrog.setType(.Creature, .Frog)
-        leapfrog.addStaticAbility({ object in
-            if object == leapfrog && object.getController().numberInstantsOrSorceriesCastThisTurn > 0 {
-                object.flying = true
-            }
-            return object
+        leapfrog.addStaticAbility(
+            requirement: AbilityRequirement.This(leapfrog),
+            effect: { object in
+                if object.getController().numberInstantsOrSorceriesCastThisTurn > 0 {
+                    object.flying = true
+                }
+                return object
         })
         leapfrog.setFlavorText("\"Most compete for insects at street level. Some dwell near Izzet laboratories and ride the thermal updrafts.\"\n--Yolov, Simic bioengineer")
         leapfrog.power = 3
@@ -416,7 +417,7 @@ enum GRN {
             cost: Cost.Mana("2U"),
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.TargetCreature(),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))}
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }))}
         ))
         passwallAdept.setFlavorText("\"My doors are called trespassing, my signatures, forgeries. They don't respect my talents, and I don't respect their labels.\"")
         passwallAdept.power = 1
@@ -506,11 +507,7 @@ enum GRN {
         deadWeight.setType(.Enchantment, .Aura)
         deadWeight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() - 2
-                object.toughness = object.getBaseToughness() - 2
-                return object
-        })
+            effect: { $0.pump(-2, -2); return $0 })
         deadWeight.setFlavorText("All things considered, his first day on patrol could have gone better.")
         return deadWeight
     }
@@ -825,8 +822,7 @@ enum GRN {
         maniacalRage.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.power = object.getBasePower() + 2
-                object.toughness = object.getBaseToughness() + 2
+                object.pump(2, 2)
                 // TODO: These should be applied in different layers
                 object.cantBlock = true
                 return object
@@ -877,7 +873,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Creature) && $0.getController() !== smeltWardMinotaur.getController() },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.cantBlock = true; return $0 }))}))
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.cantBlock = true; return $0 }))}))
         smeltWardMinotaur.setFlavorText("\"Don't arrest him--enlist him!\"\n--Commander Yaszen")
         smeltWardMinotaur.power = 2
         smeltWardMinotaur.toughness = 3
@@ -887,9 +883,11 @@ enum GRN {
         let streetRiot = Card(name: "Street Riot", rarity: .Uncommon, set: set, number: 117)
         streetRiot.setManaCost("4R")
         streetRiot.setType(.Enchantment)
-        streetRiot.addStaticAbility({ object in
-            if streetRiot.getController().active && object.isType(.Creature) && object.getController() === streetRiot.getController() {
-                object.power = object.getBasePower() + 1
+        streetRiot.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(source: streetRiot),
+            effect: { object in
+            if streetRiot.getController().active {
+                object.pump(1, 0)
                 // TODO: These should be in different layers
                 object.trample = true
             }
@@ -906,7 +904,7 @@ enum GRN {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(3, 0)
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.firstStrike = true; return $0 }))
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.firstStrike = true; return $0 }))
         }))
         sureStrike.setFlavorText("\"I packed three more electroconduits into each test wand. You'll experiene a brief tingling sensation.\"")
         return sureStrike
@@ -923,7 +921,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0 != torchCourier && $0.isType(.Creature) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.haste = true; return $0 }))
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.haste = true; return $0 }))
         }))
         torchCourier.setFlavorText("\"Light a torch and deliver this letter\" were his instructions, which he unfortunately reversed.")
         torchCourier.power = 1
@@ -1048,7 +1046,7 @@ enum GRN {
         grapplingSundew.addActivatedAbility(
             string: "{4}{G}: ~ gains indestructible until end of turn.",
             cost: Cost.Mana("4G"),
-            effect: { grapplingSundew.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.indestructible = true; return $0 }))})
+            effect: { grapplingSundew.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0 }))})
         grapplingSundew.setFlavorText("Some rooftop gardens attract bees; others capture dragons.")
         grapplingSundew.power = 0
         grapplingSundew.toughness = 4
@@ -1122,10 +1120,9 @@ enum GRN {
         mightOfTheMasses.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
-                target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     let x = mightOfTheMasses.getController().getCreatures().count
-                    object.power = object.getBasePower() + x
-                    object.toughness = object.getBaseToughness() + x
+                    object.pump(x, x)
                     return object
                 }))
         }))
@@ -1200,10 +1197,10 @@ enum GRN {
                 effect: { target in
                     target.pump(2, 0)
                     if target.isColor(.Red) {
-                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                        target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
                     }
                     if target.isColor(.White) {
-                        target.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                        target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }))
                     }
         }))
         aurelia.power = 2
@@ -1277,7 +1274,7 @@ enum GRN {
             string: "{G}, {T}: Creatures you control gain trample until end of turn.",
             cost: Cost.Mana("G").Tap(),
             effect: { conclaveGuildmage.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
             })})
         conclaveGuildmage.addActivatedAbility(
             string: "{5}{W}, {T}: Create a 2/2 green and white Elf Knight creature token with vigilance.",
@@ -1293,15 +1290,14 @@ enum GRN {
         cracklingDrake.setType(.Creature, .Drake)
         cracklingDrake.flying = true
         cracklingDrake.addStaticAbility(
-            { object in
-                if object == cracklingDrake {
-                    let instSorcInGraveyard = object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count
-                    let instSorcInExile = Game.shared.exile.filter({ $0.getOwner() === object.getController() }).count
-                    object.power = instSorcInGraveyard + instSorcInExile
-                }
+            requirement: AbilityRequirement.This(cracklingDrake),
+            effect: { object in
+                let instSorcInGraveyard = object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count
+                let instSorcInExile = Game.shared.exile.filter({ $0.getOwner() === object.getController() }).count
+                object.power = instSorcInGraveyard + instSorcInExile
                 return object
-            }
-            , characteristicDefining: true)
+            },
+            characteristicDefining: true)
         cracklingDrake.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { cracklingDrake.getController().drawCard() })
@@ -1349,14 +1345,14 @@ enum GRN {
         let garrisonSergeant = Card(name: "Garrison Sergeant", rarity: .Common, set: set, number: 172)
         garrisonSergeant.setManaCost("3RW")
         garrisonSergeant.setType(.Creature, .Viashino, .Soldier)
-        garrisonSergeant.addStaticAbility({ object in
-            if object == garrisonSergeant {
+        garrisonSergeant.addStaticAbility(
+            requirement: AbilityRequirement.This(garrisonSergeant),
+            effect: { object in
                 let controlsGate = !object.getController().getPermanents().filter({ $0.isType(.Gate) }).isEmpty
                 if controlsGate {
                     object.doubleStrike = true
                 }
-            }
-            return object
+                return object
         })
         garrisonSergeant.setFlavorText("In the Legion, no flagpole is merely decorative, and every ceremonial sword bears an edge.")
         garrisonSergeant.power = 3
@@ -1368,11 +1364,11 @@ enum GRN {
         let goblinElectromancer = Card(name: "Goblin Electromancer", rarity: .Common, set: set, number: 174)
         goblinElectromancer.setManaCost("UR")
         goblinElectromancer.setType(.Creature, .Goblin, .Wizard)
-        goblinElectromancer.addStaticAbility( { object in
-            if (object.isType(.Instant) || object.isType(.Sorcery)) && object.isSpell() && object.getOwner() === goblinElectromancer.getController() {
+        goblinElectromancer.addStaticAbility(
+            requirement: AbilityRequirement.InstantAndSorcerySpellsYouCast(source: goblinElectromancer),
+            effect: { object in
                 object.castingCost = object.getBaseCastingCost().reducedBy(1)
-            }
-            return object
+                return object
         })
         goblinElectromancer.setFlavorText("\"Result 752: Rapid mass redistribution.\n\"Result 753: Calamitous reverse synthesis.\n\"Result 754: Acute disarrayment.\"\n--Izzet research notes")
         goblinElectromancer.power = 2
@@ -1414,7 +1410,7 @@ enum GRN {
         joinShields.addEffect({
             joinShields.getController().getCreatures().forEach({ creature in
                 creature.untap()
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     object.hexproof = true
                     object.indestructible = true
                     return object
@@ -1588,7 +1584,7 @@ enum GRN {
             ],
             effect: { targets in
                 undercityUprising.getController().getCreatures().forEach({ creature in
-                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                         object.deathtouch = true
                         return object
                     }))
@@ -1621,11 +1617,13 @@ enum GRN {
         let freshFacedRecruit = Card(name: "Fresh-Faced Recruit", rarity: .Common, set: set, number: 216)
         freshFacedRecruit.setManaCost("1{R/W}")
         freshFacedRecruit.setType(.Creature, .Human, .Soldier)
-        freshFacedRecruit.addStaticAbility({ object in
-            if object == freshFacedRecruit && object.getController().active {
-                object.firstStrike = true
-            }
-            return object
+        freshFacedRecruit.addStaticAbility(
+            requirement: AbilityRequirement.This(freshFacedRecruit),
+            effect: { object in
+                if object.getController().active {
+                    object.firstStrike = true
+                }
+                return object
         })
         freshFacedRecruit.setFlavorText("\"Hold on to your ideals! They'll be tested more than your armor or the edge of your blade.\"\n--Tajic")
         freshFacedRecruit.power = 2
@@ -1637,12 +1635,9 @@ enum GRN {
         pistonFistCyclops.setManaCost("1{U/R}{U/R}")
         pistonFistCyclops.setType(.Creature, .Cyclops)
         pistonFistCyclops.defender = true
-        pistonFistCyclops.addStaticAbility({ object in
-            if object == pistonFistCyclops && object.getController().numberInstantsOrSorceriesCastThisTurn > 0 {
-                object.canAttackWithDefender = true
-            }
-            return object
-        })
+        pistonFistCyclops.addStaticAbility(
+            requirement: AbilityRequirement.This(pistonFistCyclops),
+            effect: { $0.canAttackWithDefender = $0.getController().numberInstantsOrSorceriesCastThisTurn > 0; return $0 })
         pistonFistCyclops.setFlavorText("Its hyperpneumatics can punch through a wall and the spy on the other side.")
         pistonFistCyclops.power = 4
         pistonFistCyclops.toughness = 3

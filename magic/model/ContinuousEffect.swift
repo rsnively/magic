@@ -36,16 +36,3 @@ class ContinuousEffect {
         return effect(object)
     }
 }
-
-class StaticAbility : ContinuousEffect {
-    private var requirement: (Object) -> Bool
-    
-    init(requirement: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object, allZones: Bool = false) {
-        self.requirement = requirement
-        super.init(effect: effect, duration: .Static, allZones: allZones)
-    }
-    
-    override func apply(_ object: Object) -> Object {
-        return requirement(object) ? effect(object) : object
-    }
-}

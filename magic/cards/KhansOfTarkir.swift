@@ -31,12 +31,11 @@ enum KTK {
         abzanBattlePriest.setManaCost("3W")
         abzanBattlePriest.setType(.Creature, .Human, .Cleric)
         abzanBattlePriest.addOutlastAbility("W")
-        abzanBattlePriest.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === abzanBattlePriest.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.lifelink = true
-            }
-            return object
-        })
+        abzanBattlePriest.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: abzanBattlePriest,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.lifelink = true; return $0 })
         abzanBattlePriest.setFlavorText("\"Wherever I walk, the ancestors walk too.\"")
         abzanBattlePriest.power = 3
         abzanBattlePriest.toughness = 2
@@ -47,12 +46,11 @@ enum KTK {
         abzanFalconer.setManaCost("2W")
         abzanFalconer.setType(.Creature, .Human, .Soldier)
         abzanFalconer.addOutlastAbility("W")
-        abzanFalconer.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === abzanFalconer.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.flying = true
-            }
-            return object
-        })
+        abzanFalconer.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: abzanFalconer,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.flying = true; return $0 })
         abzanFalconer.setFlavorText("The fastest way across the dunes is above.")
         abzanFalconer.power = 2
         abzanFalconer.toughness = 3
@@ -63,12 +61,11 @@ enum KTK {
         ainokBondKin.setManaCost("1W")
         ainokBondKin.setType(.Creature, .Human, .Soldier)
         ainokBondKin.addOutlastAbility("1W")
-        ainokBondKin.addStaticAbility({ object in
-            if object.isType(.Creature) && object.getController() === ainokBondKin.getController() && object.hasCounter(.PlusOnePlusOne) {
-                object.firstStrike = true
-            }
-            return object
-        })
+        ainokBondKin.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: ainokBondKin,
+                additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
+            effect: { $0.firstStrike = true; return $0 })
         ainokBondKin.setFlavorText("\"Hold the line, for family and the fallen!\"")
         ainokBondKin.power = 2
         ainokBondKin.toughness = 1
@@ -148,7 +145,7 @@ enum KTK {
             cost: Cost.Mana("3R"),
             effect: {
                 firehoofCavalry.pump(2, 0)
-                firehoofCavalry.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.trample = true; return $0 }))
+                firehoofCavalry.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
         })
         firehoofCavalry.setFlavorText("\"What warrior worth the name fears to leave a trail? If my enemies seek me, let them follow the ashes in my wake.\"")
         firehoofCavalry.power = 1
@@ -161,13 +158,12 @@ enum KTK {
         highSentinelsOfArashin.setManaCost("3W")
         highSentinelsOfArashin.setType(.Creature, .Bird, .Soldier)
         highSentinelsOfArashin.flying = true
-        highSentinelsOfArashin.addStaticAbility({ object in
-            if object == highSentinelsOfArashin {
+        highSentinelsOfArashin.addStaticAbility(
+            requirement: AbilityRequirement.This(highSentinelsOfArashin),
+            effect: { object in
                 let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0 != highSentinelsOfArashin && $0.getCounters(.PlusOnePlusOne) > 0}).count
-                object.power = object.getBasePower() + numOtherCreaturesWithCounters
-                object.toughness = object.getBaseToughness() + numOtherCreaturesWithCounters
-            }
-            return object
+                object.pump(numOtherCreaturesWithCounters, numOtherCreaturesWithCounters)
+                return object
         })
         highSentinelsOfArashin.addActivatedAbility(
             string: "{3}{W}: Put a +1/+1 counter on target creature.",
@@ -208,7 +204,7 @@ enum KTK {
         marduHateblade.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
             cost: Cost.Mana("B"),
-            effect: { marduHateblade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
+            effect: { marduHateblade.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
         marduHateblade.setFlavorText("\"There may be little honor in my tactics, but there is no honor in losing.\"")
         marduHateblade.power = 1
         marduHateblade.toughness = 1
@@ -236,7 +232,7 @@ enum KTK {
             rushOfBattle.getController().getCreatures().forEach({ creature in
                 creature.pump(2, 1)
                 if creature.isType(.Warrior) {
-                    creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
                 }
             })
         }
@@ -261,7 +257,7 @@ enum KTK {
         seekerOfTheWay.triggeredAbilities.append(Prowess(seekerOfTheWay))
         seekerOfTheWay.addTriggeredAbility(
             trigger: .YouCastNoncreatureSpell,
-            effect: { seekerOfTheWay.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))})
+            effect: { seekerOfTheWay.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))})
         seekerOfTheWay.setFlavorText("\"I don't know where my destiny lies, but I know it isn't here.\"")
         seekerOfTheWay.power = 2
         seekerOfTheWay.toughness = 2
@@ -273,11 +269,7 @@ enum KTK {
         siegecraft.setType(.Enchantment, .Aura)
         siegecraft.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() + 2
-                object.toughness = object.getBaseToughness() + 4
-                return object
-        })
+            effect: { $0.pump(2, 4); return $0 })
         siegecraft.setFlavorText("\"They thought their fortress impregnable... until we marched up with ours, and blocked out the sun.\"\n--Golran, dragonscale captain")
         return siegecraft
     }
@@ -568,7 +560,7 @@ enum KTK {
         leapingMaster.addActivatedAbility(
             string: "{2}{W}: ~ gains flying until end of turn.",
             cost: Cost.Mana("2W"),
-            effect: { leapingMaster.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
+            effect: { leapingMaster.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))})
         leapingMaster.setFlavorText("\"Strength batters down barriers. Discipline ignores them.\"")
         leapingMaster.power = 2
         leapingMaster.toughness = 1
@@ -818,12 +810,11 @@ enum KTK {
         let chiefOfTheEdge = Card(name: "Chief of the Edge", rarity: .Uncommon, set: set, number: 169)
         chiefOfTheEdge.setManaCost("WB")
         chiefOfTheEdge.setType(.Creature, .Human, .Warrior)
-        chiefOfTheEdge.addStaticAbility({ object in
-            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheEdge.getController() && object != chiefOfTheEdge {
-                object.power = object.getBasePower() + 1
-            }
-            return object
-        })
+        chiefOfTheEdge.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: chiefOfTheEdge,
+                additionalRequirement: { $0.isType(.Warrior) }),
+            effect: { $0.pump(1, 0); return $0 })
         chiefOfTheEdge.setFlavorText("\"We are the swift, the strong, the blade's sharp shriek! Fear nothing, and strike!\"")
         chiefOfTheEdge.power = 3
         chiefOfTheEdge.toughness = 2
@@ -833,12 +824,11 @@ enum KTK {
         let chiefOfTheScale = Card(name: "Chief of the Scale", rarity: .Uncommon, set: set, number: 170)
         chiefOfTheScale.setManaCost("WB")
         chiefOfTheScale.setType(.Creature, .Human, .Warrior)
-        chiefOfTheScale.addStaticAbility({ object in
-            if object.isType(.Warrior) && object.isType(.Creature) && object.getController() === chiefOfTheScale.getController() && object != chiefOfTheScale {
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        chiefOfTheScale.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(
+                source: chiefOfTheScale,
+                additionalRequirement: { $0.isType(.Warrior) }),
+            effect: { $0.pump(1, 0); return $0 })
         chiefOfTheScale.setFlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
         chiefOfTheScale.power = 2
         chiefOfTheScale.toughness = 3
@@ -900,7 +890,7 @@ enum KTK {
         sageOfTheInwardEye.addTriggeredAbility(
             trigger: .YouCastNoncreatureSpell,
             effect: { sageOfTheInwardEye.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
             })
         })
         sageOfTheInwardEye.setFlavorText("\"No one petal claims beauty for the lotus.\"")

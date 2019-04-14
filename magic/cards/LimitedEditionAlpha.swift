@@ -44,12 +44,11 @@ enum LEA {
         castle.setType(.Enchantment)
         // As of 6th edition, the second part of the ability was removed
         // http://gatherer.wizards.com/Pages/Card/Discussion.aspx?multiverseid=240
-        castle.addStaticAbility({ object in
-            if !object.isTapped && object.isType(.Creature) && object.getController() === castle.getController() {
-                object.toughness = object.getBaseToughness() + 2
-            }
-            return object
-        })
+        castle.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: castle,
+                additionalRequirement: { !$0.isTapped }),
+            effect: { $0.pump(0, 2); return $0 })
         return castle
     }
     // 10 Circle of Protection: Blue
@@ -62,13 +61,9 @@ enum LEA {
         let crusade = Card(name: "Crusade", rarity: .Rare, set: set, number: 16)
         crusade.setManaCost("WW")
         crusade.setType(.Enchantment)
-        crusade.addStaticAbility({ object in
-            if object.isColor(.White) && object.isType(.Creature) {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        crusade.addStaticAbility(
+            requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.White) }),
+            effect: { $0.pump(1, 1); return $0 })
         return crusade
     }
     // 17 Death Ward
@@ -91,10 +86,7 @@ enum LEA {
         holyArmor.setType(.Enchantment, .Aura)
         holyArmor.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.toughness = object.getBaseToughness() + 2
-                return object
-        })
+            effect: { $0.pump(0, 2); return $0 })
         holyArmor.addActivatedAbility(
             string: "{W}: Enchanted creature gets +0/+1 until end of turn.",
             cost: Cost.Mana("W"),
@@ -107,11 +99,7 @@ enum LEA {
         holyStrength.setType(.Enchantment, .Aura)
         holyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 2
-                return object
-        })
+            effect: { $0.pump(1, 2); return $0 })
         return holyStrength
     }
     // 25 Island Sanctuary
@@ -292,7 +280,7 @@ enum LEA {
         jump.setType(.Instant)
         jump.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))
+            effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))
         }))
         return jump
     }
@@ -433,13 +421,9 @@ enum LEA {
         let badMoon = Card(name: "Bad Moon", rarity: .Rare, set: set, number: 93)
         badMoon.setManaCost("1B")
         badMoon.setType(.Enchantment)
-        badMoon.addStaticAbility({ object in
-            if object.isColor(.Black) && object.isType(.Creature) {
-                object.power = object.getBasePower() + 1
-                object.toughness = object.getBaseToughness() + 1
-            }
-            return object
-        })
+        badMoon.addStaticAbility(
+            requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.Black) }),
+            effect: { $0.pump(1, 1); return $0 })
         return badMoon
     }
     // 94 Black Knight
@@ -525,12 +509,11 @@ enum LEA {
         nightmare.setType(.Creature, .Nightmare, .Horse)
         nightmare.flying = true
         nightmare.addStaticAbility(
-            { object in
-                if object == nightmare {
-                    let numSwamps = object.getController().getPermanents().filter({ $0.isType(.Swamp) }).count
-                    object.power = numSwamps
-                    object.toughness = numSwamps
-                }
+            requirement: AbilityRequirement.This(nightmare),
+            effect: { object in
+                let numSwamps = object.getController().getPermanents().filter({ $0.isType(.Swamp) }).count
+                object.power = numSwamps
+                object.toughness = numSwamps
                 return object
             }
             , characteristicDefining: true)
@@ -565,18 +548,17 @@ enum LEA {
         plagueRats.setManaCost("2B")
         plagueRats.setType(.Creature, .Rat)
         plagueRats.addStaticAbility(
-            { object in
-                if object == plagueRats {
-                    let myRats = object.getController().getCreatures().filter({ $0.getName() == name }).count
-                    // TODO: Check all opponents
-                    let oppRats = object.getOpponent().getCreatures().filter({ $0.getName() == name }).count
-                    let numRats = myRats + oppRats
-                    object.power = numRats
-                    object.toughness = numRats
-                }
+            requirement: AbilityRequirement.This(plagueRats),
+            effect: { object in
+                let myRats = object.getController().getCreatures().filter({ $0.getName() == name }).count
+                // TODO: Check all opponents
+                let oppRats = object.getOpponent().getCreatures().filter({ $0.getName() == name }).count
+                let numRats = myRats + oppRats
+                object.power = numRats
+                object.toughness = numRats
                 return object
-            }
-            , characteristicDefining: true)
+            },
+            characteristicDefining: true)
         plagueRats.setFlavorText("\"Should you a Rat to madness tease\nWhy ev'n a Rat may plague you...\"\n--Samuel Coleridge, \"Recantation\"")
         return plagueRats
     }
@@ -629,11 +611,7 @@ enum LEA {
         unholyStrength.setType(.Enchantment, .Aura)
         unholyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() + 2
-                object.toughness = object.getBaseToughness() + 1
-                return object
-        })
+            effect: { $0.pump(2, 1); return $0 })
         return unholyStrength
     }
     // 132 Wall of Bone
@@ -661,11 +639,7 @@ enum LEA {
         weakness.setType(.Enchantment, .Aura)
         weakness.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.power = object.getBasePower() - 2
-                object.toughness = object.getBaseToughness() - 1
-                return object
-        })
+            effect: { $0.pump(-2, -1); return $0 })
         return weakness
     }
     // 135 Will-O-The-Wisp
@@ -703,7 +677,7 @@ enum LEA {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Creature) && $0.getPower() <= 2 },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.unblockable = true; return $0 }))
+                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }))
         }))
         dwarvenWarriors.power = 1
         dwarvenWarriors.toughness = 1
@@ -751,7 +725,7 @@ enum LEA {
         goblinBalloonBrigade.addActivatedAbility(
             string: "{R}: ~ gains flying until end of turn.",
             cost: Cost.Mana("R"),
-            effect: { goblinBalloonBrigade.addContinuousEffect(ContinuousEffectUntilEndOfTurn({ $0.flying = true; return $0 }))})
+            effect: { goblinBalloonBrigade.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))})
         goblinBalloonBrigade.setFlavorText("\"From up here we can drop rocks and arrows and more rocks!\" \"Uh, yeah boss, but how do we get down?")
         goblinBalloonBrigade.power = 1
         goblinBalloonBrigade.toughness = 1
@@ -843,12 +817,11 @@ enum LEA {
         let orcishOriflamme = Card(name: "Orcish Oriflamme", rarity: .Uncommon, set: set, number: 166)
         orcishOriflamme.setManaCost("1R")
         orcishOriflamme.setType(.Enchantment)
-        orcishOriflamme.addStaticAbility({ object in
-            if object.isAttacking && object.isType(.Creature) && object.getController() === orcishOriflamme.getController() {
-                object.power = object.getBasePower() + 1
-            }
-            return object
-        })
+        orcishOriflamme.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(
+                source: orcishOriflamme,
+                additionalRequirement: { $0.isAttacking }),
+            effect: { $0.pump(1, 0); return $0 })
         return orcishOriflamme
     }
     // 167 Power Surge
