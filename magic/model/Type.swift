@@ -36,6 +36,7 @@ enum Subtype {
     case Camel
     case Cat
     case Centaur
+    case Chandra
     case Cleric
     case Construct
     case Crab
@@ -86,6 +87,7 @@ enum Subtype {
     case Imp
     case Insect
     case Island
+    case Jace
     case Jackal
     case Kaya
     case Kirin

@@ -19,11 +19,14 @@ enum WAR {
         
         IgniteTheBeacon,
         
+        LawRuneEnforcer,
         LoxodonSergeant,
         
         RavnicaAtWar,
 //        RisingPopulace,
 //        SingleCombat,
+        
+        ToppleTheStatue,
         
 //        TeyoTheShieldmage,
         TeyosLightshield,
@@ -41,6 +44,7 @@ enum WAR {
 //        FluxChanneler,
         
 //        JaceWielderOfMysteries,
+        JacesTriumph,
         
 //        KiorasDambreaker,
 //        LazotepPlating,
@@ -79,6 +83,8 @@ enum WAR {
 //        BurningProphet,
         
         ChainwhipCyclops,
+        
+        ChandrasTriumph,
         
 //        DreadhordeArcanist,
         
@@ -124,6 +130,7 @@ enum WAR {
 //        CruelCelebrant,
         Deathsprout,
         
+        DomrisAmbush,
         DovinsVeto,
 //        DreadhordeButcher,
         
@@ -131,6 +138,8 @@ enum WAR {
         
 //        InvadeTheCity,
         LeylineProwler,
+        
+        PledgeOfUnity,
         
         SolarBlaze,
         
@@ -249,7 +258,23 @@ enum WAR {
         return igniteTheBeacon
     }
     // 19
-    // 20
+    static func LawRuneEnforcer() -> Card {
+        let lawRuneEnforcer = Card(name: "Law-Rune Enforcer", rarity: .Common, set: set, number: 20)
+        lawRuneEnforcer.setManaCost("W")
+        lawRuneEnforcer.setType(.Creature, .Human, .Soldier)
+        lawRuneEnforcer.addActivatedAbility(
+            string: "{1}, {T}: Tap target creature with converted mana cost 2 or greater.",
+            cost: Cost.Mana("1").Tap(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getConvertedManaCost() >= 2 },
+                    zones: [.Battlefield]),
+                effect: { $0.tap() }))
+        lawRuneEnforcer.setFlavorText("\"See that no one enters or leaves New Prahv today. And notify me at once of any Planeswalker activity.\"\n--Dovin Baan")
+        lawRuneEnforcer.power = 1
+        lawRuneEnforcer.toughness = 2
+        return lawRuneEnforcer
+    }
     static func LoxodonSergeant() -> Card {
         let loxodonSergeant = Card(name: "Loxodon Sergeant", rarity: .Common, set: set, number: 21)
         loxodonSergeant.setManaCost("3W")
@@ -300,7 +325,24 @@ enum WAR {
         teyosLightshield.toughness = 3
         return teyosLightshield
     }
-    
+    // 34
+    static func ToppleTheStatue() -> Card {
+        let toppleTheStatue = Card(name: "Topple the Statue", rarity: .Common, set: set, number: 35)
+        toppleTheStatue.setManaCost("2W")
+        toppleTheStatue.setType(.Instant)
+        toppleTheStatue.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetPermanent(),
+            effect: { target in
+                target.tap()
+                if target.isType(.Artifact) {
+                    _ = target.destroy()
+                }
+                toppleTheStatue.getController().drawCard()
+        }))
+        toppleTheStatue.setFlavorText("Bolas cared little when his statue fell, thinking it a useful distraction, underestimating the surge of resolve it gave his opponents.")
+        return toppleTheStatue
+    }
+    // 36
     // 37 The Wanderer
     // 38 Wanderer's Strike
     
@@ -329,7 +371,18 @@ enum WAR {
     // 52 Flux Channeler
     // 53
     // 54 Jace, Wielder of Mysteries
-    // 55
+    static func JacesTriumph() -> Card {
+        let jacesTriumph = Card(name: "Jace's Triumph", rarity: .Uncommon, set: set, number: 55)
+        jacesTriumph.setManaCost("2U")
+        jacesTriumph.setType(.Sorcery)
+        jacesTriumph.addEffect({
+            let controlsJace = !jacesTriumph.getController().getPermanents().filter({ $0.isType(.Jace) && $0.isType(.Planeswalker) }).isEmpty
+            let amount = controlsJace ? 3 : 2
+            jacesTriumph.getController().drawCards(amount)
+        })
+        jacesTriumph.setFlavorText("His triumph was not outsmarting Bolas's plan, but in understanding why ultimate power is self-defeating.")
+        return jacesTriumph
+    }
     // 56
     // 57
     // 58 Kiora's Dambreaker
@@ -469,7 +522,22 @@ enum WAR {
     }
     // 119
     // 120
-    // 121
+    static func ChandrasTriumph() -> Card {
+        let chandrasTriumph = Card(name: "Chandra's Triumph", rarity: .Uncommon, set: set, number: 121)
+        chandrasTriumph.setManaCost("1R")
+        chandrasTriumph.setType(.Instant)
+        chandrasTriumph.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { ($0.isType(.Creature) || $0.isType(.Planeswalker)) && $0.getController() !== chandrasTriumph.getController() },
+                zones: [.Battlefield]),
+            effect: { target in
+                let controlsChandra = !chandrasTriumph.getController().getPermanents().filter({ $0.isType(.Chandra) && $0.isType(.Planeswalker) }).isEmpty
+                let amount = controlsChandra ? 5 : 3
+                chandrasTriumph.damage(to: target, amount)
+        }))
+        chandrasTriumph.setFlavorText("Her triumph came not from achieving her ideal self, but from rejecting the idea of perfection.")
+        return chandrasTriumph
+    }
     // 122
     // 123
     // 124
@@ -798,7 +866,27 @@ enum WAR {
     }
     // 190
     // 191
-    // 192
+    static func DomrisAmbush() -> Card {
+        let domrisAmbush = Card(name: "Domri's Ambush", rarity: .Uncommon, set: set, number: 192)
+        domrisAmbush.setManaCost("RG")
+        domrisAmbush.setType(.Sorcery)
+        domrisAmbush.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === domrisAmbush.getController() },
+                    zones: [.Battlefield]),
+                TargetingRestriction.SingleObject(
+                    restriction: { ($0.isType(.Creature) || $0.isType(.Planeswalker)) && $0.getController() !== domrisAmbush.getController() },
+                    zones: [.Battlefield])
+            ],
+            effect: { targets in
+                if let myCreature = targets[0], let theirCreatureOrPlaneswalker = targets[1] {
+                    myCreature.damage(to: theirCreatureOrPlaneswalker, myCreature.getPower())
+                }
+            }))
+        domrisAmbush.setFlavorText("\"When civilization teeters on the brink, I'll be there to kick it the rest of the way.\"")
+        return domrisAmbush
+    }
     static func DovinsVeto() -> Card {
         let dovinsVeto = Card(name: "Dovin's Veto", rarity: .Rare, set: set, number: 193)
         dovinsVeto.setManaCost("WU")
@@ -855,7 +943,30 @@ enum WAR {
         leylineProwler.toughness = 3
         return leylineProwler
     }
-    
+    // 203
+    // 204
+    // 205
+    // 206
+    // 207
+    // 208
+    // 209
+    static func PledgeOfUnity() -> Card {
+        let pledgeOfUnity = Card(name: "Pledge of Unity", rarity: .Uncommon, set: set, number: 210)
+        pledgeOfUnity.setManaCost("1GW")
+        pledgeOfUnity.setType(.Instant)
+        pledgeOfUnity.addEffect({
+            pledgeOfUnity.getController().getCreatures().forEach({ $0.addCounter(.PlusOnePlusOne ) })
+            let numCreatures = pledgeOfUnity.getController().getCreatures().count
+            pledgeOfUnity.getController().gainLife(numCreatures)
+        })
+        pledgeOfUnity.setFlavorText("\"No one hero will save this day. Today we must all be heroes.\"\n--Gideon Jura")
+        return pledgeOfUnity
+    }
+    // 211
+    // 212
+    // 213
+    // 214
+    // 215
     static func SolarBlaze() -> Card {
         let solarBlaze = Card(name: "Solar Blaze", rarity: .Rare, set: set, number: 216)
         solarBlaze.setManaCost("2RW")
