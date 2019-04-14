@@ -102,6 +102,8 @@ enum WAR {
         ArlinnsWolf,
         AwakeningOfVituGhazi,
         
+        CentaurNurturer,
+        
         GiantGrowth,
         
 //        JiangYangguWildcrafter,
