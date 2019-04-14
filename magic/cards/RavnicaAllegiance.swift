@@ -492,10 +492,10 @@ enum RNA {
         sentinelsMark.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(1, 2)
+                let object2 = object.pumped(1, 2)
                 // TODO Layers
-                object.vigilance = true;
-                return object
+                object2.vigilance = true;
+                return object2
         })
         sentinelsMark.addTriggeredAbility(
             trigger: .ThisETB,
@@ -531,7 +531,7 @@ enum RNA {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: spiritOfTheSpires,
                 additionalRequirement: { $0.getBaseFlying() }),
-            effect: { $0.pump(0, 1); return $0 })
+            effect: { return $0.pumped(0, 1) })
         spiritOfTheSpires.setFlavorText("She breathes fair winds to tired griffins and lifts songbirds beyond the reach of stalking cats.")
         spiritOfTheSpires.power = 2
         spiritOfTheSpires.toughness = 4
@@ -858,7 +858,7 @@ enum RNA {
         slimebind.flash = true
         slimebind.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(-4, 0); return $0 })
+            effect: { return $0.pumped(-4, 0) })
         slimebind.setFlavorText("\"Relax. It's quite harmless. And it will dissolve completely in a month or two.\"\n--Navona, Simic field tester")
         return slimebind
     }
@@ -920,7 +920,7 @@ enum RNA {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: windstormDrake,
                 additionalRequirement: { $0.getBaseFlying() }),
-            effect: { $0.pump(1, 0); return $0 })
+            effect: { return $0.pumped(1, 0) })
         windstormDrake.setFlavorText("Drakes become especially voracious as they prepare for their autumn migration, hunting the city's thoroughfares from dawn to dusk.")
         windstormDrake.power = 3
         windstormDrake.toughness = 3
@@ -1376,13 +1376,13 @@ enum RNA {
             requirement: AbilityRequirement.This(gatebreakerRam),
             effect: { object in
                 let numGates = object.getController().getPermanents().filter({ $0.isType(.Gate) }).count
-                object.pump(numGates, numGates)
+                let object2 = object.pumped(numGates, numGates)
                 if numGates >= 2 {
                     // TODO Layers
-                    object.vigilance = true
-                    object.trample = true
+                    object2.vigilance = true
+                    object2.trample = true
                 }
-                return object
+                return object2
         })
         gatebreakerRam.setFlavorText("So-called \"battering rams\" pale in comparison to the real thing.")
         gatebreakerRam.power = 2
@@ -1666,7 +1666,7 @@ enum RNA {
         azoriusSkyguard.firstStrike = true
         azoriusSkyguard.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYourOpponentsControl(source: azoriusSkyguard),
-            effect: { $0.pump(-1, 0); return $0 })
+            effect: { return $0.pumped(-1, 0) })
         azoriusSkyguard.setFlavorText("\"These new thopters are all well and good, but four eyes are better than none.\"");
         azoriusSkyguard.power = 3
         azoriusSkyguard.toughness = 3
@@ -1764,10 +1764,10 @@ enum RNA {
         etherealAbsolution.setType(.Enchantment)
         etherealAbsolution.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYouControl(source: etherealAbsolution),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         etherealAbsolution.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYourOpponentsControl(source: etherealAbsolution),
-            effect: { $0.pump(-1, -1); return $0 })
+            effect: { return $0.pumped(-1, -1) })
         etherealAbsolution.addActivatedAbility(
             string: "{2}{W}{B}: Exile target card from an opponent's graveyard. If it was a creature card, you create a 1/1 white and black Spirit creature token with flying.",
             cost: Cost.Mana("2WB"),
@@ -1876,7 +1876,7 @@ enum RNA {
         judith.setType(.Legendary, .Creature, .Human, .Shaman)
         judith.addStaticAbility(
             requirement: AbilityRequirement.OtherCreaturesYouControl(source: judith),
-            effect: { $0.pump(1, 0); return $0 })
+            effect: { return $0.pumped(1, 0) })
         judith.addTriggeredAbility(
             trigger: .NontokenCreatureYouControlDies,
             effect: TargetedEffect(
@@ -2320,7 +2320,7 @@ enum RNA {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: glassOfTheGuildpact,
                 additionalRequirement: { $0.isMulticolored() }),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         glassOfTheGuildpact.setFlavorText("\"Counterbalanced forces sustain this city. No faction above others. A beautiful idea.\"\n--Emmara")
         return glassOfTheGuildpact
     }

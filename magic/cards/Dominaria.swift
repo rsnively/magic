@@ -63,8 +63,7 @@ enum DOM {
             requirement: AbilityRequirement.This(benalishHonorGuard),
             effect: { object in
                 let numLegends = object.getController().getCreatures().filter({ $0.isType(.Legendary) }).count
-                object.pump(numLegends, 0)
-                return object
+                return object.pumped(numLegends, 0)
             })
         benalishHonorGuard.setFlavorText("\"The true measure of all heroes is not what they achieve, but who they inspire.\"\n--Triumph of Gerrard")
         benalishHonorGuard.power = 2
@@ -77,7 +76,7 @@ enum DOM {
         benalishMarshal.setType(.Creature, .Human, .Knight)
         benalishMarshal.addStaticAbility(
             requirement: AbilityRequirement.OtherCreaturesYouControl(source: benalishMarshal),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         benalishMarshal.setFlavorText("\"Some aspire to climb the mountain of Honor. The Benalish are born upon its peak, and from there ascend among the stars.\"\n--History of Benalia")
         benalishMarshal.power = 3
         benalishMarshal.toughness = 3
@@ -292,10 +291,10 @@ enum DOM {
         lyra.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: lyra, subtype: .Angel),
             effect: { object in
-                object.pump(1, 1)
+                let object2 = object.pumped(1, 1)
                 // TODO: Layers
-                object.lifelink = true
-                return object
+                object2.lifelink = true
+                return object2
         })
         lyra.setFlavorText("\"You are not alone. You never were.\"")
         lyra.power = 5
@@ -464,10 +463,10 @@ enum DOM {
         arcaneFlight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(1, 1)
+                let object2 = object.pumped(1, 1)
                 // TODO: Layers
-                object.flying = true
-                return object
+                object2.flying = true
+                return object2
         })
         arcaneFlight.setFlavorText("The Tolarian Academies are known for their magical research, powerful sorcerers, and accidental destruction of ecosystems.")
         return arcaneFlight
@@ -572,8 +571,7 @@ enum DOM {
             requirement: AbilityRequirement.This(tempestDjinn),
             effect: { object in
                 let numIslands = object.getController().getPermanents().filter({ $0.isType(.Basic) && $0.isType(.Island) }).count
-                object.pump(numIslands, 0)
-                return object
+                return object.pumped(numIslands, 0)
             })
         tempestDjinn.setFlavorText("The first to arrive on Dominaria from their distant home, the marids are the oldest tribe of djinn and the most respected by storm and sea.")
         tempestDjinn.power = 0
@@ -804,8 +802,7 @@ enum DOM {
             requirement: AbilityRequirement.This(ratColony),
             effect: { object in
                 let numOtherRats = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Rat) }).count
-                object.pump(numOtherRats, 0)
-                return object
+                return object.pumped(numOtherRats, 0)
         })
         // TODO: deckbuilding restriction ability
         ratColony.setFlavorText("Wreckage from the Phyrexian Invasion provided the rats with a seemingly unlimited number of breeding grounds.")
@@ -860,8 +857,7 @@ enum DOM {
             effect: { object in
                 let numAttachments = object.getController().getPermanents().filter({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isAttachedTo(object) }).count
                 let bonus = numAttachments * 2
-                object.pump(bonus, bonus)
-                return object
+                return object.pumped(bonus, bonus)
         })
         championOfTheFlame.setFlavorText("Grand Warlord Radha's challengers are always defeated, but she rewards the most passionate with the Flame of Keld. After that, they burn for her.")
         championOfTheFlame.power = 1
@@ -940,7 +936,7 @@ enum DOM {
             requirement: AbilityRequirement.This(ghituLavarunner),
             effect: { object in
                 if object.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count >= 2 {
-                    object.pump(1, 0)
+                    object.power = object.getBasePower() + 1
                     // TODO: Should these be separate effects?
                     object.haste = true
                 }
@@ -1241,7 +1237,7 @@ enum DOM {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: sporecrownThallid,
                 additionalRequirement: { $0.isType(.Fungus) || $0.isType(.Saproling) }),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         sporecrownThallid.setFlavorText("\"The identifying ornamental growths of alpha thallids may be hereditary, or catalyzed by some chemical signal.\"\n--Sarpadian Empires, vol. III")
         sporecrownThallid.power = 2
         sporecrownThallid.toughness = 2
@@ -1312,7 +1308,7 @@ enum DOM {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: arvad,
                 additionalRequirement: { $0.isType(.Legendary) }),
-            effect: { $0.pump(2, 2); return $0 })
+            effect: { return $0.pumped(2, 2) })
         arvad.setFlavorText("\"I won't abandon the <i>Weatherlight</i>. My destiny is to serve at Jhoira's side. This 'illness' means I must trust my faith more and myself less.\"")
         arvad.power = 3
         arvad.toughness = 3
@@ -1392,8 +1388,7 @@ enum DOM {
         
         func effect(_ object: Object) -> Object {
             let numLands = blackbladeReforged.getController().getLands().count
-            object.pump(numLands, numLands)
-            return object
+            return object.pumped(numLands, numLands)
         }
         blackbladeReforged.addEquipAbility(
             string: "{3}: Equip legendary creature.",
@@ -1496,7 +1491,7 @@ enum DOM {
             string: "{3}: Equip.",
             cost: Cost.Mana("3"),
             effect: { object in
-                object.pump(2, 0)
+                object.power = object.getBasePower() + 2
                 // TODO: Layers
                 if object.getController().active {
                     object.firstStrike = true
@@ -1542,10 +1537,7 @@ enum DOM {
         shortSword.addEquipAbility(
             string: "{1}: Equip.",
             cost: Cost.Mana("1"),
-            effect: { object in
-                object.pump(1, 1)
-                return object
-        })
+            effect: { return $0.pumped(1, 1) })
         shortSword.setFlavorText("\"Sometimes the only difference between a martyr and a hero is a sword.\"\n--Captain Sisay, Memoirs")
         return shortSword
     }

@@ -48,7 +48,7 @@ enum LEA {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: castle,
                 additionalRequirement: { !$0.isTapped }),
-            effect: { $0.pump(0, 2); return $0 })
+            effect: { return $0.pumped(0, 2) })
         return castle
     }
     // 10 Circle of Protection: Blue
@@ -63,7 +63,7 @@ enum LEA {
         crusade.setType(.Enchantment)
         crusade.addStaticAbility(
             requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.White) }),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         return crusade
     }
     // 17 Death Ward
@@ -86,7 +86,7 @@ enum LEA {
         holyArmor.setType(.Enchantment, .Aura)
         holyArmor.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(0, 2); return $0 })
+            effect: { return $0.pumped(0, 2) })
         holyArmor.addActivatedAbility(
             string: "{W}: Enchanted creature gets +0/+1 until end of turn.",
             cost: Cost.Mana("W"),
@@ -99,7 +99,7 @@ enum LEA {
         holyStrength.setType(.Enchantment, .Aura)
         holyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(1, 2); return $0 })
+            effect: { return $0.pumped(1, 2) })
         return holyStrength
     }
     // 25 Island Sanctuary
@@ -423,7 +423,7 @@ enum LEA {
         badMoon.setType(.Enchantment)
         badMoon.addStaticAbility(
             requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.Black) }),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         return badMoon
     }
     // 94 Black Knight
@@ -611,7 +611,7 @@ enum LEA {
         unholyStrength.setType(.Enchantment, .Aura)
         unholyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(2, 1); return $0 })
+            effect: { return $0.pumped(2, 1) })
         return unholyStrength
     }
     // 132 Wall of Bone
@@ -639,7 +639,7 @@ enum LEA {
         weakness.setType(.Enchantment, .Aura)
         weakness.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(-2, -1); return $0 })
+            effect: { return $0.pumped(-2, -1) })
         return weakness
     }
     // 135 Will-O-The-Wisp
@@ -821,7 +821,7 @@ enum LEA {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: orcishOriflamme,
                 additionalRequirement: { $0.isAttacking }),
-            effect: { $0.pump(1, 0); return $0 })
+            effect: { return $0.pumped(1, 0) })
         return orcishOriflamme
     }
     // 167 Power Surge

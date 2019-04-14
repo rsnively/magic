@@ -18,12 +18,7 @@ enum XLN {
         adantoVanguard.setType(.Creature, .Vampire, .Soldier)
         adantoVanguard.addStaticAbility(
             requirement: AbilityRequirement.This(adantoVanguard),
-            effect: { object in
-                if object.isAttacking {
-                    object.pump(2, 0)
-                }
-                return object
-        })
+            effect: { return $0.isAttacking ? $0.pumped(2, 0) : $0 })
         adantoVanguard.addActivatedAbility(
             string: "Pay 4 life: ~ gains indestructible until end of turn.",
             cost: Cost.Life(4),
@@ -206,9 +201,9 @@ enum XLN {
                     zones: [.Battlefield]),
                 effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
                     // TODO: These should be different, because they are applied in different layers
-                    object.pump(1, 1)
-                    object.flying = true
-                    return object
+                    let object2 = object.pumped(1, 1)
+                    object2.flying = true
+                    return object2
                 }))
         }))
         imperialAerosaur.setFlavorText("Its assistance is unnervingly similar to its hunting technique.")
@@ -567,7 +562,7 @@ enum XLN {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: favorableWinds,
                 additionalRequirement: { $0.getBaseFlying() }),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         favorableWinds.setFlavorText("\"Like ribbons of wind and wisdom the coatls fly, twisting mystery into truth, shaping the clouds to suit their inscrutible will.\"\n--Huatli")
         return favorableWinds
     }
@@ -635,10 +630,10 @@ enum XLN {
         oneWithTheWind.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO Layers
-                object.flying = true
-                return object
+                object2.flying = true
+                return object2
         })
         oneWithTheWind.setFlavorText("\"River and sea, jungle and sky. Water flows freely between the two halves of the world. We are creatures of the water.\"\n--Shaper Tuvasa")
         return oneWithTheWind
@@ -1018,10 +1013,10 @@ enum XLN {
         markOfTheVampire.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO Layers
-                object.lifelink = true
-                return object
+                object2.lifelink = true
+                return object2
         })
         markOfTheVampire.setFlavorText("\"Through your sacrifice of self, you become holy. Through your strength, all will be saved.\"\n--From the Rite of Redemption")
         return markOfTheVampire
@@ -1488,10 +1483,10 @@ enum XLN {
         swashbuckling.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO Layers
-                object.haste = true
-                return object
+                object2.haste = true
+                return object2
         })
         swashbuckling.setFlavorText("The pirates of the Brazen Coalition are the descendants of those displaced by the Legion of Dusk, and they are eager for vengeance.")
         return swashbuckling
@@ -1504,7 +1499,7 @@ enum XLN {
             requirement: AbilityRequirement.This(thrashOfRaptors),
             effect: { object in
                 if !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) && $0 != thrashOfRaptors }).isEmpty {
-                    object.pump(2, 0)
+                    object.power = object.getBasePower() + 2
                     // TODO: These should be in separate layers
                     object.trample = true
                 }
@@ -1653,12 +1648,7 @@ enum XLN {
         droverOfTheMighty.setType(.Creature, .Human, .Druid)
         droverOfTheMighty.addStaticAbility(
             requirement: AbilityRequirement.This(droverOfTheMighty),
-            effect: { object in
-                if !object.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty {
-                    object.pump(2, 2)
-                }
-                return object
-        })
+            effect: { return $0.getController().getPermanents().filter({ $0.isType(.Dinosaur) }).isEmpty ? $0 : $0.pumped(2, 2) })
         droverOfTheMighty.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost.Tap(),
@@ -1760,10 +1750,7 @@ enum XLN {
             effect: { object in
                 let controlsOtherMerfolk = !object.getController().getPermanents().filter({ $0.isType(.Merfolk) && $0 != object }).isEmpty
                 let controlsIsland = !object.getController().getPermanents().filter({ $0.isType(.Island) }).isEmpty
-                if controlsOtherMerfolk || controlsIsland {
-                    object.pump(1, 1)
-                }
-                return object
+                return (controlsOtherMerfolk || controlsIsland) ? object.pumped(1, 1) : object
         })
         kumenasSpeaker.setFlavorText("\"The same power that drives the river ever onward flows through the roots and branches--to me.\"")
         kumenasSpeaker.power = 1
@@ -1892,7 +1879,7 @@ enum XLN {
         thunderingSpineback.setType(.Creature, .Dinosaur)
         thunderingSpineback.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: thunderingSpineback, subtype: .Dinosaur),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         thunderingSpineback.addActivatedAbility(
             string: "{5}{G}: Create a 3/3 green Dinosaur creature token with trample.",
             cost: Cost.Mana("5G"),
@@ -1930,8 +1917,7 @@ enum XLN {
             requirement: AbilityRequirement.This(deadeyePlunderers),
             effect: { object in
                 let numArtifacts = object.getController().getArtifacts().count
-                object.pump(numArtifacts, numArtifacts)
-                return object
+                return object.pumped(numArtifacts, numArtifacts)
         })
         deadeyePlunderers.addActivatedAbility(
             string: "{2}{U}{B}: Create a colorless Treasure artifact token with \"{T}: Sacrifice this artifact: Add one mana of any color to your mana pool.\"",
@@ -2064,7 +2050,7 @@ enum XLN {
         piratesCutlass.addEquipAbility(
             string: "{2}: Equip.",
             cost: Cost.Mana("2"),
-            effect: { $0.pump(2, 1); return $0 })
+            effect: { return $0.pumped(2, 1) })
         return piratesCutlass
     }
     // 243 Primal Amulet // Primal Wellspring

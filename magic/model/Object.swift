@@ -700,11 +700,13 @@ class Object: Targetable, Hashable, NSCopying {
         return applyContinuousEffects().basePower!
     }
     func pump(_ power: Int, _ toughness: Int) {
-        addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-            object.power = object.getBasePower() + power
-            object.toughness = object.getBaseToughness() + toughness
-            return object
-        }))
+        addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.pumped(power, toughness) }))
+    }
+    func pumped(_ power: Int, _ toughness: Int) -> Object {
+        let object = self.copy() as! Object
+        object.power = object.getBasePower() + power
+        object.toughness = object.getBaseToughness() + toughness
+        return object
     }
     func getBaseToughness() -> Int {
         return baseToughness!

@@ -116,9 +116,8 @@ enum M19 {
         angelOfTheDawn.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { angelOfTheDawn.getController().getCreatures().forEach({
+                $0.pump(1, 1)
                 $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    // TODO these should be separate effects because they are applied in different layers
-                    object.pump(1, 1)
                     object.vigilance = true
                     return object
                 }))
@@ -246,7 +245,7 @@ enum M19 {
         knightsPledge.setType(.Enchantment, .Aura)
         knightsPledge.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(2, 2); return $0 })
+            effect: { return $0.pumped(2, 2) })
         knightsPledge.setFlavorText("\"As long as my faith persists, so shall I.\"")
         return knightsPledge
     }
@@ -257,10 +256,10 @@ enum M19 {
         knightlyValor.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO: Layers
-                object.vigilance = true
-                return object
+                object2.vigilance = true
+                return object2
         })
         knightlyValor.addTriggeredAbility(
             trigger: .ThisETB,
@@ -377,12 +376,9 @@ enum M19 {
         mightyLeap.setType(.Instant)
         mightyLeap.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                // TODO these should be separate effects because they're applied in different layers
-                object.pump(2, 2)
-                object.flying = true
-                return object
-            }))
+            effect: {
+                $0.pump(2, 2)
+                $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))
         }))
         mightyLeap.setFlavorText("\"I feel the presence of the God-Pharoah in the Second Sun, and I rise upon its rays.\"")
         return mightyLeap
@@ -536,8 +532,7 @@ enum M19 {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: valiantKnight,
                 additionalRequirement: { $0.isType(.Knight) }),
-            effect: { $0.pump(1, 1); return $0
-        })
+            effect: { return $0.pumped(1, 1); })
         valiantKnight.addActivatedAbility(
             string: "{3}{W}{W}: Knights you control gain double strike until end of turn.",
             cost: Cost.Mana("3WW"),
@@ -556,7 +551,7 @@ enum M19 {
         aetherTunnel.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(1, 0)
+                object.power = object.getBasePower() + 1
                 // TODO: Layers
                 object.unblockable = true
                 return object
@@ -685,7 +680,7 @@ enum M19 {
             requirement: AbilityRequirement.This(gearsmithProdigy),
             effect: { object in
                 if object == gearsmithProdigy && !object.getController().getArtifacts().isEmpty {
-                    object.pump(1, 0)
+                    object.power = object.getBasePower() + 1
                 }
                 return object
         })
@@ -835,7 +830,7 @@ enum M19 {
         supremePhantom.flying = true
         supremePhantom.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: supremePhantom, subtype: .Spirit),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         supremePhantom.setFlavorText("A king's knowledge does not vanish when the heart stops beating.")
         supremePhantom.power = 1
         supremePhantom.toughness = 3
@@ -959,10 +954,10 @@ enum M19 {
             requirement: AbilityRequirement.SubtypeYouControl(source: deathBaron, subtype: .Skeleton)
                         .Or(AbilityRequirement.OtherSubtypeYouControl(source: deathBaron, subtype: .Zombie)),
             effect: { object in
-                object.pump(1, 1)
+                let object2 = object.pumped(1, 1)
                 // TODO: These should apply in different layers
-                object.deathtouch = true
-                return object
+                object2.deathtouch = true
+                return object2
         })
         deathBaron.setFlavorText("For the necromancer barons, killing and recruitment are one in the same.")
         deathBaron.power = 2
@@ -1557,8 +1552,7 @@ enum M19 {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
                 let numForests = blanchwoodArmor.getController().getPermanents().filter({ $0.isType(.Forest) }).count
-                object.pump(numForests, numForests)
-                return object
+                return object.pumped(numForests, numForests)
         })
         return blanchwoodArmor
     }
@@ -1627,7 +1621,7 @@ enum M19 {
         elvishClancaller.setType(.Creature, .Elf, .Druid)
         elvishClancaller.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: elvishClancaller, subtype: .Elf),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         elvishClancaller.addActivatedAbility(
             string: "{4}{G}{G}, {T}: Search your library for a card named Elvish Clancaller, put it onto the battlefield, then shuffle your library.",
             cost: Cost.Mana("4GG").Tap(),
@@ -1742,7 +1736,7 @@ enum M19 {
         oakenform.setType(.Enchantment, .Aura)
         oakenform.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(3, 3); return $0 })
+            effect: { return $0.pumped(3, 3) })
         oakenform.setFlavorText("\"When the beast cloaks itself in the might oak, what good is a bow? When the oak wraps itself around the snarling beast, what good is a hatchet?\"\n--Dionus, elvish archdruid")
         return oakenform
     }
@@ -1781,10 +1775,10 @@ enum M19 {
         prodigiousGrowth.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(7, 7)
+                let object2 = object.pumped(7, 7)
                 // TODO: Layers
-                object.trample = true
-                return object
+                object2.trample = true
+                return object2
         })
         prodigiousGrowth.setFlavorText("\"Look how cute it is now!\"\n--Vivien Reid")
         return prodigiousGrowth
@@ -1956,7 +1950,7 @@ enum M19 {
             requirement: AbilityRequirement.This(aerialEngineer),
             effect: { object in
                 if !object.getController().getArtifacts().isEmpty {
-                    object.pump(2, 0)
+                    object.power = object.getBasePower() + 2
                     // TODO: These should be in separate layers
                     object.flying = true
                 }
@@ -2015,7 +2009,7 @@ enum M19 {
         enigmaDrake.flying = true
         enigmaDrake.addStaticAbility(
             requirement: AbilityRequirement.This(enigmaDrake),
-            effect: { $0.pump($0.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count, 0); return $0 },
+            effect: { return $0.pumped($0.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count, 0) },
             characteristicDefining: true)
         enigmaDrake.setFlavorText("Many initiates believe it possesses secrets beyond imagining. Many have become meals trying to learn them.")
         enigmaDrake.toughness = 4
@@ -2225,7 +2219,7 @@ enum M19 {
             requirement: AbilityRequirement.This(gearsmithGuardian),
             effect: { object in
                 if !object.getController().getCreatures().filter({ $0.isColor(.Blue) }).isEmpty {
-                    object.pump(2, 0)
+                    object.power = object.getBasePower() + 2
                 }
                 return object
         })
@@ -2274,7 +2268,7 @@ enum M19 {
         maraudersAxe.addEquipAbility(
             string: "{2}: Equip.",
             cost: Cost.Mana("2"),
-            effect: { $0.pump(2, 0); return $0 })
+            effect: { return $0.pumped(2, 0) })
         maraudersAxe.setFlavorText("A sharp axe solves most problems.")
         return maraudersAxe
     }
@@ -2683,7 +2677,7 @@ enum M19 {
         dragon.addActivatedAbility(
             string: "{R}: ~ gets +1/+0 until end of turn.",
             cost: Cost.Mana("R"),
-            effect: { dragon.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.pump(1, 0); return $0 })) })
+            effect: { dragon.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ return $0.pumped(1, 0) })) })
         dragon.power = 2
         dragon.toughness = 2
         return dragon
@@ -2745,12 +2739,12 @@ enum M19 {
         vivienEmblem.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYouControl(source: vivienEmblem),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO: Layers
-                object.vigilance = true
-                object.trample = true
-                object.indestructible = true
-                return object
+                object2.vigilance = true
+                object2.trample = true
+                object2.indestructible = true
+                return object2
         })
         return vivienEmblem
     }

@@ -216,10 +216,7 @@ enum RIX {
             requirement: AbilityRequirement.This(snubhornSentry),
             effect: { object in
                 object.ascend()
-                if object.getController().citysBlessing {
-                    object.pump(3, 0)
-                }
-                return object
+                return object.getController().citysBlessing ? object.pumped(3, 0) : object
         })
         snubhornSentry.setFlavorText("They're fun to train--if you like stubborn, aggressive, and fiercly territorial.")
         snubhornSentry.power = 0
@@ -234,10 +231,10 @@ enum RIX {
         squiresDevotion.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(1, 1)
+                let object2 = object.pumped(1, 1)
                 // TODO: Layers
-                object.lifelink = true
-                return object
+                object2.lifelink = true
+                return object2
         })
         squiresDevotion.addTriggeredAbility(
             trigger: .ThisETB,
@@ -443,15 +440,7 @@ enum RIX {
         seaLegs.setType(.Enchantment, .Aura)
         seaLegs.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                if object.isType(.Pirate) {
-                    object.pump(0, 2)
-                }
-                else {
-                    object.pump(-2, 0)
-                }
-                return object
-        })
+            effect: { return $0.isType(.Pirate) ? $0.pumped(0, 2) : $0.pumped(-2, 0) })
         seaLegs.setFlavorText("\"When the waves pick up, either you find your feet or you lose your lunch.\"")
         return seaLegs
     }
@@ -528,11 +517,7 @@ enum RIX {
             requirement: AbilityRequirement.This(spireWinder),
             effect: { object in
                 object.ascend()
-                if object.getController().citysBlessing {
-                    object.pump(1, 1)
-                }
-                return object
-        })
+                return object.getController().citysBlessing ? object.pumped(1, 1) : object })
         spireWinder.power = 2
         spireWinder.toughness = 3
         return spireWinder
@@ -637,11 +622,7 @@ enum RIX {
             requirement: AbilityRequirement.This(duskCharger),
             effect: { object in
                 object.ascend()
-                if object.getController().citysBlessing {
-                    object.pump(2, 2)
-                }
-                return object
-        })
+                return object.getController().citysBlessing ? object.pumped(2, 2) : object })
         duskCharger.setFlavorText("Stories say demon blood runs in its veins, making it fearless and bloodthirsty.")
         duskCharger.power = 3
         duskCharger.toughness = 3
@@ -695,12 +676,7 @@ enum RIX {
         graspingScoundrel.setType(.Creature, .Human, .Pirate)
         graspingScoundrel.addStaticAbility(
             requirement: AbilityRequirement.This(graspingScoundrel),
-            effect: { object in
-                if object.isAttacking {
-                    object.pump(1, 0)
-                }
-                return object
-        })
+            effect: { return $0.isAttacking ? $0.pumped(1, 0) : $0 })
         graspingScoundrel.setFlavorText("\"I can hear the plunder calling. It asks for me by name.\"")
         graspingScoundrel.power = 1
         graspingScoundrel.toughness = 2
@@ -991,10 +967,10 @@ enum RIX {
         seeRed.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 1)
+                let object2 = object.pumped(2, 1)
                 // TODO Layers
-                object.firstStrike = true
-                return object
+                object2.firstStrike = true
+                return object2
         })
         seeRed.addTriggeredAbility(
             trigger: .YourEndStep,
@@ -1099,10 +1075,10 @@ enum RIX {
         tilonallisCrown.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(3, 0)
+                let object2 = object.pumped(3, 0)
                 // TODO: Layers
-                object.trample = true
-                return object
+                object2.trample = true
+                return object2
         })
         tilonallisCrown.addTriggeredAbility(
             trigger: .ThisETB,
@@ -1207,12 +1183,7 @@ enum RIX {
         hardyVeteran.setType(.Creature, .Human, .Warrior)
         hardyVeteran.addStaticAbility(
             requirement: AbilityRequirement.This(hardyVeteran),
-            effect: { object in
-                if  object.getController().active {
-                    object.pump(0, 2)
-                }
-                return object
-        })
+            effect: { return $0.getController().active ? $0.pumped(0, 2) : $0 })
         hardyVeteran.setFlavorText("For the Sun Empire, the Immortal Sun is a symbol of national identity. When they reclaim it, the Empire will flourish once more.")
         hardyVeteran.power = 2
         hardyVeteran.toughness = 2
@@ -1387,12 +1358,7 @@ enum RIX {
             effect: { tendershootDryad.getController().createToken(Saproling()) })
         tendershootDryad.addStaticAbility(
             requirement: AbilityRequirement.SubtypeYouControl(source: tendershootDryad, subtype: .Saproling),
-            effect: { object in
-                if tendershootDryad.getController().citysBlessing {
-                    object.pump(2, 2)
-                }
-                return object
-            })
+            effect: { return tendershootDryad.getController().citysBlessing ? $0.pumped(2, 2) : $0 })
         tendershootDryad.power = 2
         tendershootDryad.toughness = 2
         return tendershootDryad
@@ -1499,7 +1465,7 @@ enum RIX {
                 source: direFleetNeckbreaker,
                 subtype: .Pirate,
                 additionalRequirement: { $0.isAttacking }),
-            effect: { $0.pump(2, 0); return $0 })
+            effect: { return $0.pumped(2, 0) })
         direFleetNeckbreaker.setFlavorText("The buccaneers scaled the sides of the buildings as easily as the boarded enemy ships.")
         direFleetNeckbreaker.power = 3
         direFleetNeckbreaker.toughness = 2
@@ -1552,7 +1518,7 @@ enum RIX {
         legionLieutenant.setType(.Creature, .Vampire, .Knight)
         legionLieutenant.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: legionLieutenant, subtype: .Vampire),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         legionLieutenant.setFlavorText("\"We long ago abandoned the things that make humans weak: friendship, marriage, family. All that remains is the strength of our devotion.\"")
         legionLieutenant.power = 2
         legionLieutenant.toughness = 2
@@ -1564,7 +1530,7 @@ enum RIX {
         merfolkMistbinder.setType(.Creature, .Merfolk, .Shaman)
         merfolkMistbinder.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: merfolkMistbinder, subtype: .Merfolk),
-            effect: { $0.pump(1, 1); return $0 })
+            effect: { return $0.pumped(1, 1) })
         merfolkMistbinder.setFlavorText("\"The mist clothes us when we are bare, hides us when we are alone, and unites us when we are together.\"\n--Nirit of Pashona's band.")
         merfolkMistbinder.power = 2
         merfolkMistbinder.toughness = 2
@@ -1675,10 +1641,10 @@ enum RIX {
             string: "{1}: Equip.",
             cost: Cost.Mana("1"),
             effect: { object in
-                object.pump(1, 1)
+                let object2 = object.pumped(1, 1)
                 // TODO Layers
-                object.haste = true
-                return object
+                object2.haste = true
+                return object2
         })
         striderHarness.setFlavorText("\"Because the giant, implacable death lizard wasn't scary enough already.\"\n--Captain Brinely Rage")
         return striderHarness

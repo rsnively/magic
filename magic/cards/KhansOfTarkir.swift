@@ -162,8 +162,7 @@ enum KTK {
             requirement: AbilityRequirement.This(highSentinelsOfArashin),
             effect: { object in
                 let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0 != highSentinelsOfArashin && $0.getCounters(.PlusOnePlusOne) > 0}).count
-                object.pump(numOtherCreaturesWithCounters, numOtherCreaturesWithCounters)
-                return object
+                return object.pumped(numOtherCreaturesWithCounters, numOtherCreaturesWithCounters)
         })
         highSentinelsOfArashin.addActivatedAbility(
             string: "{3}{W}: Put a +1/+1 counter on target creature.",
@@ -269,7 +268,7 @@ enum KTK {
         siegecraft.setType(.Enchantment, .Aura)
         siegecraft.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(2, 4); return $0 })
+            effect: { return $0.pumped(2, 4) })
         siegecraft.setFlavorText("\"They thought their fortress impregnable... until we marched up with ours, and blocked out the sun.\"\n--Golran, dragonscale captain")
         return siegecraft
     }
@@ -814,7 +813,7 @@ enum KTK {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: chiefOfTheEdge,
                 additionalRequirement: { $0.isType(.Warrior) }),
-            effect: { $0.pump(1, 0); return $0 })
+            effect: { return $0.pumped(1, 0) })
         chiefOfTheEdge.setFlavorText("\"We are the swift, the strong, the blade's sharp shriek! Fear nothing, and strike!\"")
         chiefOfTheEdge.power = 3
         chiefOfTheEdge.toughness = 2
@@ -828,7 +827,7 @@ enum KTK {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: chiefOfTheScale,
                 additionalRequirement: { $0.isType(.Warrior) }),
-            effect: { $0.pump(1, 0); return $0 })
+            effect: { return $0.pumped(0, 1) })
         chiefOfTheScale.setFlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
         chiefOfTheScale.power = 2
         chiefOfTheScale.toughness = 3

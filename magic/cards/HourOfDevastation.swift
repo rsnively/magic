@@ -462,7 +462,8 @@ enum HOU {
             requirement: AbilityRequirement.This(ramunapHydra),
             effect: { object in
                 if !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty {
-                    object.pump(1, 1)
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
                 }
                 return object
         })
@@ -470,7 +471,8 @@ enum HOU {
             requirement: AbilityRequirement.This(ramunapHydra),
             effect: { object in
                 if !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty {
-                    object.pump(1, 1)
+                    object.power = object.getBasePower() + 1
+                    object.toughness = object.getBaseToughness() + 1
                 }
                 return object
             })
@@ -491,7 +493,7 @@ enum HOU {
                 let controlDesert = !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty
                 let desertInGraveyard = !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty
                 if controlDesert || desertInGraveyard {
-                    object.pump(1, 0)
+                    object.power = object.getBasePower() + 1
                     // TODO: These should be in different layers?
                     object.trample = true
                 }

@@ -60,10 +60,10 @@ enum GRN {
         candlelightVigil.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(3, 2)
+                let object2 = object.pumped(3, 2)
                 // TODO: These should apply in different layers
-                object.vigilance = true
-                return object
+                object2.vigilance = true
+                return object2
         })
         candlelightVigil.setFlavorText("Selesnya guildmages do not sleep so the rest of the Conclave can.")
         return candlelightVigil
@@ -507,7 +507,7 @@ enum GRN {
         deadWeight.setType(.Enchantment, .Aura)
         deadWeight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.pump(-2, -2); return $0 })
+            effect: { return $0.pumped(-2, -2) })
         deadWeight.setFlavorText("All things considered, his first day on patrol could have gone better.")
         return deadWeight
     }
@@ -822,10 +822,10 @@ enum GRN {
         maniacalRage.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { object in
-                object.pump(2, 2)
+                let object2 = object.pumped(2, 2)
                 // TODO: These should be applied in different layers
-                object.cantBlock = true
-                return object
+                object2.cantBlock = true
+                return object2
         })
         maniacalRage.setFlavorText("\"They tell us the wilds are ours, then they brick them over. They can lie to our faces but not to our fists.\"\n--Ghut Rak, Gruul guildmage")
         return maniacalRage
@@ -887,7 +887,7 @@ enum GRN {
             requirement: AbilityRequirement.CreaturesYouControl(source: streetRiot),
             effect: { object in
             if streetRiot.getController().active {
-                object.pump(1, 0)
+                object.power = object.getBasePower() + 1
                 // TODO: These should be in different layers
                 object.trample = true
             }
@@ -1120,11 +1120,8 @@ enum GRN {
         mightOfTheMasses.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
-                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    let x = mightOfTheMasses.getController().getCreatures().count
-                    object.pump(x, x)
-                    return object
-                }))
+                let x = mightOfTheMasses.getController().getCreatures().count
+                target.pump(x, x)
         }))
         mightOfTheMasses.setFlavorText("\"There is nothing stronger than many hearts united for a single cause.\"\n--Emmara")
         return mightOfTheMasses
