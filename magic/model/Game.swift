@@ -290,7 +290,7 @@ class Game: NSObject {
             player1.lifeGainedThisTurn = 0
             player2.lifeGainedThisTurn = 0
             player1.attackedWithCreatureThisTurn = false
-            player2.attackedWithCreatureThisTurn = true
+            player2.attackedWithCreatureThisTurn = false
             player1.numberInstantsOrSorceriesCastThisTurn = 0
             player2.numberInstantsOrSorceriesCastThisTurn = 0
             getActivePlayer().untapStep()
