@@ -476,8 +476,8 @@ class Object: Targetable, Hashable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
-    func addStaticAbility(_ effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
-        let ability = StaticAbility(effect, allZones: allZones)
+    func addStaticAbility(requirement: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
+        let ability = StaticAbility(requirement : requirement, effect: effect, allZones: allZones)
         if characteristicDefining {
             characteristicDefiningAbilities.append(ability)
         } else {
@@ -544,12 +544,9 @@ class Object: Targetable, Hashable, NSCopying {
             restriction: restriction,
             effect: { self.attachTo($0) }))
         
-        addStaticAbility({ object in
-            if self.isAttachedTo(object) {
-                return effect(object)
-            }
-            return object
-        })
+        addStaticAbility(
+            requirement: { self.isAttachedTo($0) },
+            effect: { return effect($0) })
     }
     func attachTo(_ object: Object) {
         self.attachedTo = object
@@ -579,12 +576,9 @@ class Object: Targetable, Hashable, NSCopying {
                 effect: { self.attachTo($0) }),
             manaAbility: false,
             sorcerySpeed: true)
-        addStaticAbility({ object in
-            if self.isAttachedTo(object) {
-                return effect(object)
-            }
-            return object
-        })
+        addStaticAbility(
+            requirement: { self.isAttachedTo($0) },
+            effect: { return effect($0) })
     }
     
     func applyContinuousEffects() -> Object {
@@ -704,7 +698,7 @@ class Object: Targetable, Hashable, NSCopying {
         return applyContinuousEffects().basePower!
     }
     func pump(_ power: Int, _ toughness: Int) {
-        addContinuousEffect(ContinuousEffectUntilEndOfTurn({ object in
+        addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
             object.power = object.getBasePower() + power
             object.toughness = object.getBaseToughness() + toughness
             return object

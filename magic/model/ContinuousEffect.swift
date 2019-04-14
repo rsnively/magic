@@ -1,22 +1,31 @@
 import Foundation
 
-protocol ContinuousEffect {
-    func isUntilEndOfTurn() -> Bool
-    func appliesInAllZones() -> Bool
-    func apply(_ object: Object) -> Object
+enum EffectDuration {
+    case Static
+    case UntilEndOfTurn
 }
 
-class ContinuousEffectUntilEndOfTurn: ContinuousEffect {
-    private var effect: (Object) -> Object
-    private var allZones: Bool
+class ContinuousEffect {
+    internal var effect: (Object) -> Object
+    internal var duration: EffectDuration
+    internal var allZones: Bool
 
-    init(_ effect: @escaping (Object) -> Object, allZones: Bool = false) {
+    init(effect: @escaping (Object) -> Object, duration: EffectDuration,  allZones: Bool = false) {
         self.effect = effect
+        self.duration = duration
         self.allZones = allZones
     }
     
-    func isUntilEndOfTurn() -> Bool {
-        return true
+    static func UntilEndOfTurn(_ effect: @escaping (Object) -> Object, allZones: Bool = false) -> ContinuousEffect {
+        return ContinuousEffect(
+            effect: effect,
+            duration: .UntilEndOfTurn,
+            allZones: allZones
+        )
+    }
+    
+    func getDuration() -> EffectDuration {
+        return duration
     }
     
     func appliesInAllZones() -> Bool {
@@ -28,24 +37,15 @@ class ContinuousEffectUntilEndOfTurn: ContinuousEffect {
     }
 }
 
-class StaticAbility: ContinuousEffect {
-    private var effect: (Object) -> Object
-    private var allZones: Bool
+class StaticAbility : ContinuousEffect {
+    private var requirement: (Object) -> Bool
     
-    init(_ effect: @escaping (Object) -> Object, allZones: Bool = false) {
-        self.effect = effect
-        self.allZones = allZones
+    init(requirement: @escaping (Object) -> Bool, effect: @escaping (Object) -> Object, allZones: Bool = false) {
+        self.requirement = requirement
+        super.init(effect: effect, duration: .Static, allZones: allZones)
     }
     
-    func isUntilEndOfTurn() -> Bool {
-        return false
-    }
-    
-    func appliesInAllZones() -> Bool {
-        return allZones
-    }
-    
-    func apply(_ object: Object) -> Object {
-        return effect(object)
+    override func apply(_ object: Object) -> Object {
+        return requirement(object) ? effect(object) : object
     }
 }
