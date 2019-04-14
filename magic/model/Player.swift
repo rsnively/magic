@@ -187,6 +187,12 @@ class Player: Targetable {
         drawCards(7, noTrigger: true)
     }
     
+    func newTurn() {
+        attackedWithCreatureThisTurn = false
+        lifeGainedThisTurn = 0
+        numberInstantsOrSorceriesCastThisTurn = 0
+    }
+    
     func drawCard(noTrigger: Bool = false) {
         // todo, milling
         let card = library.popLast()!
