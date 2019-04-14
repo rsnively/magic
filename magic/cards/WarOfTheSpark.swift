@@ -576,6 +576,46 @@ enum WAR {
         awakeningOfVituGhazi.setFlavorText("The Eternal armies advanced on Vitu-Ghazi. At Nissa's command, Vitu-Ghazi advanced on them.")
         return awakeningOfVituGhazi
     }
+    // 153
+    // 154
+    // 155
+    static func CentaurNurturer() -> Card {
+        let centaurNurturer = Card(name: "Centaur Nurturer", rarity: .Common, set: set, number: 156)
+        centaurNurturer.setManaCost("3G")
+        centaurNurturer.setType(.Creature, .Centaur, .Druid)
+        centaurNurturer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { centaurNurturer.getController().gainLife(3) })
+        centaurNurturer.addActivatedAbility(
+            string: "{T}: Add {W}.",
+            cost: Cost.Tap(),
+            effect: { centaurNurturer.getController().addMana(color: .White) },
+            manaAbility: true)
+        centaurNurturer.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { centaurNurturer.getController().addMana(color: .Blue) },
+            manaAbility: true)
+        centaurNurturer.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { centaurNurturer.getController().addMana(color: .Black) },
+            manaAbility: true)
+        centaurNurturer.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { centaurNurturer.getController().addMana(color: .Red) },
+            manaAbility: true)
+        centaurNurturer.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { centaurNurturer.getController().addMana(color: .Green) },
+            manaAbility: true)
+        centaurNurturer.setFlavorText("\"I call upon the vigor of the grasses, the hopes of the flowers, and the dreams of the trees.\"")
+        centaurNurturer.power = 2
+        centaurNurturer.toughness = 4
+        return centaurNurturer
+    }
     
     static func GiantGrowth() -> Card {
         let giantGrowth = Card(name: "Giant Growth", rarity: .Common, set: set, number: 162)
