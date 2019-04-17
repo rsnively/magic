@@ -18,10 +18,9 @@ enum EffectLayer: Int {
     case PowerToughnessChangesFromCounters
     case PowerToughnessSwitching
     
-    // Are these handled by the layer system?
-    // https://pucatrade.com/articles/2015/judgecorner3 says to do this order, but can they effecy other layers?
     case CostIncrease
     case CostReduction
+    case CostSetting
     
     case NoEffect
 }
