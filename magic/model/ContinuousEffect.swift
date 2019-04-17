@@ -5,7 +5,7 @@ enum EffectDuration {
     case UntilEndOfTurn
 }
 
-enum EffectLayer {
+enum EffectLayer: Int {
     case Copy
     case ControlChanging
     case TextChanging
@@ -53,6 +53,16 @@ class ContinuousEffect {
     }
     static func RemoveKeywordUntilEndOfTurn(_ keyword: KeywordAbility) -> ContinuousEffect {
         return UntilEndOfTurn(effect: { return $0.withoutKeyword(keyword) }, layer: .AbilityAddingOrRemoving)
+    }
+    static func PlusOnePlusOneCounters(amount: Int) -> ContinuousEffect {
+        return ContinuousEffect(
+            effect: { return $0.hasPowerAndToughness() ? $0.pumped(amount, amount) : $0 },
+            layer: .PowerToughnessChangesFromCounters,
+            duration: .Static)
+    }
+    
+    func getLayer() -> EffectLayer {
+        return layer
     }
     
     func getDuration() -> EffectDuration {

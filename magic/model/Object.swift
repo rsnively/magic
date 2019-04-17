@@ -595,23 +595,17 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func applyContinuousEffects() -> Object {
-        // TODO: Layers
         var object = self.copy() as! Object
         
-        for activeEffect in activeEffects {
-            object = activeEffect.apply(object)
+        // TODO: Non-Power/Toughness CDAs
+        // TODO: Timestamps
+        // TODO: Dependencies
+        var allEffects: [ContinuousEffect] = self.activeEffects + Game.shared.getStaticAbilities()
+        if object.hasCounter(.PlusOnePlusOne) {
+            allEffects.append(ContinuousEffect.PlusOnePlusOneCounters(amount: getCounters(.PlusOnePlusOne)))
         }
-        
-        // TODO: Should this be part of activeEffects? maybe custom getter
-        for staticAbility in Game.shared.getStaticAbilities() {
-            object = staticAbility.apply(object)
-        }
-        
-        if object.basePower != nil && object.baseToughness != nil {
-            let plusOnePlusOneCounters = getCounters(.PlusOnePlusOne)
-            object.power = object.getBasePower() + plusOnePlusOneCounters
-            object.toughness = object.getBaseToughness() + plusOnePlusOneCounters
-        }
+        allEffects.sort(by: { a, b in a.getLayer().hashValue < b.getLayer().hashValue })
+        allEffects.forEach({ object = $0.apply(object) })
             
         return object
     }
@@ -700,6 +694,9 @@ class Object: Targetable, Hashable, NSCopying {
         spellAbility?.resolve()
     }
     
+    func hasPowerAndToughness() -> Bool {
+        return basePower != nil && baseToughness != nil
+    }
     func getBasePower() -> Int {
         return basePower!
     }
