@@ -316,7 +316,6 @@ enum RIX {
                 return object
             },
             layer: .AbilityAddingOrRemoving,
-            characteristicDefining: false,
             allZones: true)
         crashingTide.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
@@ -465,7 +464,6 @@ enum RIX {
                 return object
             },
             layer: .CostReduction,
-            characteristicDefining: false,
             allZones: true)
         sirenReaver.flying = true
         sirenReaver.setFlavorText("\"Prepare to be boarded.\"")
@@ -1150,7 +1148,6 @@ enum RIX {
                 return object
             },
             layer: .CostReduction,
-            characteristicDefining: false,
             allZones: true)
         ghalta.trample = true
         ghalta.setFlavorText("The earth walks, strongest of all.")
@@ -1611,8 +1608,7 @@ enum RIX {
                 object.toughness = amount
                 return object
             },
-            layer: .PowerToughnessCDA,
-            characteristicDefining: true)
+            layer: .PowerToughnessCDA)
         awakenedAmalgam.setFlavorText("\"The fools have done it.\"\n--Tishana")
         return awakenedAmalgam
     }

@@ -1988,8 +1988,7 @@ enum M19 {
         enigmaDrake.addStaticAbility(
             requirement: AbilityRequirement.This(enigmaDrake),
             effect: { return $0.pumped($0.getController().getGraveyard().filter({ $0.isType(.Instant) || $0.isType(.Sorcery) }).count, 0) },
-            layer: .PowerToughnessCDA,
-            characteristicDefining: true)
+            layer: .PowerToughnessCDA)
         enigmaDrake.setFlavorText("Many initiates believe it possesses secrets beyond imagining. Many have become meals trying to learn them.")
         enigmaDrake.toughness = 4
         return enigmaDrake

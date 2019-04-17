@@ -437,7 +437,6 @@ enum DOM {
                 return object
             },
             layer: .CostReduction,
-            characteristicDefining: false,
             allZones: true)
         academyJourneymage.addTriggeredAbility(
             trigger: .ThisETB,

@@ -525,8 +525,7 @@ enum LEA {
                 object.toughness = numSwamps
                 return object
             },
-            layer: .PowerToughnessCDA,
-            characteristicDefining: true)
+            layer: .PowerToughnessCDA)
         nightmare.setFlavorText("The Nightmare arises from its lair in the swamps. As the poisoned land spreads, so does the Nightmare's rage and terrifying strength.")
         return nightmare
     }
@@ -568,8 +567,7 @@ enum LEA {
                 object.toughness = numRats
                 return object
             },
-            layer: .PowerToughnessCDA,
-            characteristicDefining: true)
+            layer: .PowerToughnessCDA)
         plagueRats.setFlavorText("\"Should you a Rat to madness tease\nWhy ev'n a Rat may plague you...\"\n--Samuel Coleridge, \"Recantation\"")
         return plagueRats
     }
