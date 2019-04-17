@@ -50,6 +50,7 @@ class Object: Targetable, Hashable, NSCopying {
     
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
+    // TODO: Just a separate layer before each layer?
     var characteristicDefiningAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
     var replacementEffects:[ReplacementEffect] = []
@@ -477,8 +478,8 @@ class Object: Targetable, Hashable, NSCopying {
         activeEffects.append(continuousEffect)
     }
     
-    func addStaticAbility(requirement: AbilityRequirement, effect: @escaping (Object) -> Object, characteristicDefining: Bool = false, allZones: Bool = false) {
-        let ability = StaticAbility(requirement: requirement, effect: effect, allZones: allZones)
+    func addStaticAbility(requirement: AbilityRequirement, effect: @escaping (Object) -> Object, layer: EffectLayer, characteristicDefining: Bool = false, allZones: Bool = false) {
+        let ability = StaticAbility(requirement: requirement, effect: effect, layer: layer, allZones: allZones)
         if characteristicDefining {
             characteristicDefiningAbilities.append(ability)
         } else {
@@ -486,6 +487,12 @@ class Object: Targetable, Hashable, NSCopying {
         }
     }
     
+    func addStaticAbility(requirement: AbilityRequirement, effects: [((Object) -> Object, EffectLayer)]) {
+        for (effect, layer) in effects {
+            let ability = StaticAbility(requirement: requirement, effect: effect, layer: layer)
+            staticAbilities.append(ability)
+        }
+    }
     private func addCounter_impl(_ type: Counter) {
         counters[type] = (counters[type] ?? 0) + 1
     }
@@ -538,7 +545,11 @@ class Object: Targetable, Hashable, NSCopying {
         return true
     }
     
-    func addEnchantAbility(restriction: TargetingRestriction, effect: @escaping (Object) -> Object) {
+    func addEnchantAbility(restriction: TargetingRestriction, effect: @escaping (Object) -> Object, layer: EffectLayer) {
+        self.addEnchantAbility(restriction: restriction, effects: [(effect, layer)])
+    }
+    
+    func addEnchantAbility(restriction: TargetingRestriction, effects: [((Object) -> Object, EffectLayer)]) {
         // Todo: Can consolidate this with static ability requirement
         self.auraRestriction = restriction
         
@@ -546,9 +557,12 @@ class Object: Targetable, Hashable, NSCopying {
             restriction: restriction,
             effect: { self.attachTo($0) }))
         
-        addStaticAbility(
-            requirement: AbilityRequirement.EnchantedObject(aura: self),
-            effect: { return effect($0) })
+        for (effect, layer) in effects {
+            addStaticAbility(
+                requirement: AbilityRequirement.EnchantedObject(aura: self),
+                effect: { return effect($0) },
+                layer: layer)
+        }
     }
     func attachTo(_ object: Object) {
         self.attachedTo = object
@@ -566,7 +580,11 @@ class Object: Targetable, Hashable, NSCopying {
         return false
     }
     
-    func addEquipAbility(string: String, cost: Cost, effect: @escaping (Object) -> Object, restriction: @escaping (Object) -> Bool = { _ in return true }) {
+    func addEquipAbility(string: String, cost: Cost, effect: @escaping (Object) -> Object, layer: EffectLayer, restriction: @escaping (Object) -> Bool = { _ in return true }) {
+        self.addEquipAbility(string: string, cost: cost, effects: [(effect, layer)], restriction: restriction)
+    }
+    
+    func addEquipAbility(string: String, cost: Cost, effects: [((Object) -> Object, EffectLayer)], restriction: @escaping (Object) -> Bool = { _ in return true }) {
         addActivatedAbility(
             string: string,
             cost: cost,
@@ -580,7 +598,7 @@ class Object: Targetable, Hashable, NSCopying {
             sorcerySpeed: true)
         addStaticAbility(
             requirement: AbilityRequirement.EquippedObject(equipment: self),
-            effect: { return effect($0) })
+            effects: effects)
     }
     
     func applyContinuousEffects() -> Object {
@@ -700,13 +718,21 @@ class Object: Targetable, Hashable, NSCopying {
         return applyContinuousEffects().basePower!
     }
     func pump(_ power: Int, _ toughness: Int) {
-        addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.pumped(power, toughness) }))
+        addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { $0.pumped(power, toughness) },
+            layer: .PowerToughnessChanging))
     }
     func pumped(_ power: Int, _ toughness: Int) -> Object {
         let object = self.copy() as! Object
         object.power = object.getBasePower() + power
         object.toughness = object.getBaseToughness() + toughness
         return object
+    }
+    func giveKeywordUntilEndOfTurn(_ keyword: KeywordAbility) {
+        self.addContinuousEffect(ContinuousEffect.GiveKeywordUntilEndOfTurn(keyword))
+    }
+    func removeKeywordUntilEndOfTurn(_ keyword: KeywordAbility) {
+        self.addContinuousEffect(ContinuousEffect.RemoveKeywordUntilEndOfTurn(keyword))
     }
     func getBaseToughness() -> Int {
         return baseToughness!

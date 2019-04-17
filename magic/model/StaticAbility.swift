@@ -64,9 +64,9 @@ class AbilityRequirement {
 class StaticAbility : ContinuousEffect {
     private var requirement: AbilityRequirement
     
-    init(requirement: AbilityRequirement, effect: @escaping (Object) -> Object, allZones: Bool = false) {
+    init(requirement: AbilityRequirement, effect: @escaping (Object) -> Object, layer: EffectLayer, allZones: Bool = false) {
         self.requirement = requirement
-        super.init(effect: effect, duration: .Static, allZones: allZones)
+        super.init(effect: effect, layer: layer, duration: .Static, allZones: allZones)
     }
     
     override func apply(_ object: Object) -> Object {

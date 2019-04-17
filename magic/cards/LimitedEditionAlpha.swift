@@ -30,7 +30,8 @@ enum LEA {
         blessing.setType(.Enchantment, .Aura)
         blessing.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0 })
+            effect: { return $0 },
+            layer: .NoEffect)
         blessing.addActivatedAbility(
             string: "{W}: Enchanted creature gets +1/+1 until end of turn.",
             cost: Cost.Mana("W"),
@@ -48,7 +49,8 @@ enum LEA {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: castle,
                 additionalRequirement: { !$0.isTapped }),
-            effect: { return $0.pumped(0, 2) })
+            effect: { return $0.pumped(0, 2) },
+            layer: .PowerToughnessChanging)
         return castle
     }
     // 10 Circle of Protection: Blue
@@ -63,7 +65,8 @@ enum LEA {
         crusade.setType(.Enchantment)
         crusade.addStaticAbility(
             requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.White) }),
-            effect: { return $0.pumped(1, 1) })
+            effect: { return $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
         return crusade
     }
     // 17 Death Ward
@@ -86,7 +89,8 @@ enum LEA {
         holyArmor.setType(.Enchantment, .Aura)
         holyArmor.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(0, 2) })
+            effect: { return $0.pumped(0, 2) },
+            layer: .PowerToughnessChanging)
         holyArmor.addActivatedAbility(
             string: "{W}: Enchanted creature gets +0/+1 until end of turn.",
             cost: Cost.Mana("W"),
@@ -99,7 +103,8 @@ enum LEA {
         holyStrength.setType(.Enchantment, .Aura)
         holyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(1, 2) })
+            effect: { return $0.pumped(1, 2) },
+            layer: .PowerToughnessChanging)
         return holyStrength
     }
     // 25 Island Sanctuary
@@ -121,7 +126,8 @@ enum LEA {
         lance.setType(.Enchantment, .Aura)
         lance.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.firstStrike = true; return $0 })
+            effect: { return $0.withKeyword(.FirstStrike) },
+            layer: .AbilityAddingOrRemoving)
         return lance
     }
     // 28 Mesa Pegasus
@@ -252,7 +258,8 @@ enum LEA {
         feedback.setType(.Enchantment, .Aura)
         feedback.addEnchantAbility(
             restriction: TargetingRestriction.TargetEnchantment(),
-            effect: { return $0 })
+            effect: { return $0 },
+            layer: .NoEffect)
         feedback.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: { feedback.damage(to: feedback.attachedTo!.getController(), 1) },
@@ -270,7 +277,8 @@ enum LEA {
         flight.setType(.Enchantment, .Aura)
         flight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.flying = true; return $0 })
+            effect: { return $0.withKeyword(.Flying) },
+            layer: .AbilityAddingOrRemoving)
         return flight
     }
     // 59 Invisibility
@@ -280,8 +288,7 @@ enum LEA {
         jump.setType(.Instant)
         jump.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))
-        }))
+            effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
         return jump
     }
     // 61 Lifetap
@@ -423,7 +430,8 @@ enum LEA {
         badMoon.setType(.Enchantment)
         badMoon.addStaticAbility(
             requirement: AbilityRequirement.Creatures(additionalRequirement: { $0.isColor(.Black) }),
-            effect: { return $0.pumped(1, 1) })
+            effect: { return $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
         return badMoon
     }
     // 94 Black Knight
@@ -435,7 +443,8 @@ enum LEA {
         cursedLand.setType(.Enchantment, .Aura)
         cursedLand.addEnchantAbility(
             restriction: TargetingRestriction.TargetLand(),
-            effect: { return $0 })
+            effect: { return $0 },
+            layer: .NoEffect)
         cursedLand.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: { cursedLand.damage(to: cursedLand.attachedTo!.getController(), 1) },
@@ -515,8 +524,9 @@ enum LEA {
                 object.power = numSwamps
                 object.toughness = numSwamps
                 return object
-            }
-            , characteristicDefining: true)
+            },
+            layer: .PowerToughnessCDA,
+            characteristicDefining: true)
         nightmare.setFlavorText("The Nightmare arises from its lair in the swamps. As the poisoned land spreads, so does the Nightmare's rage and terrifying strength.")
         return nightmare
     }
@@ -558,6 +568,7 @@ enum LEA {
                 object.toughness = numRats
                 return object
             },
+            layer: .PowerToughnessCDA,
             characteristicDefining: true)
         plagueRats.setFlavorText("\"Should you a Rat to madness tease\nWhy ev'n a Rat may plague you...\"\n--Samuel Coleridge, \"Recantation\"")
         return plagueRats
@@ -611,7 +622,8 @@ enum LEA {
         unholyStrength.setType(.Enchantment, .Aura)
         unholyStrength.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(2, 1) })
+            effect: { return $0.pumped(2, 1) },
+            layer: .PowerToughnessChanging)
         return unholyStrength
     }
     // 132 Wall of Bone
@@ -621,7 +633,8 @@ enum LEA {
         warpArtifact.setType(.Enchantment, .Aura)
         warpArtifact.addEnchantAbility(
             restriction: TargetingRestriction.TargetArtifact(),
-            effect: { return $0 })
+            effect: { return $0 },
+            layer: .NoEffect)
         warpArtifact.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: { warpArtifact.damage(to: warpArtifact.attachedTo!.getController(), 1) },
@@ -639,7 +652,8 @@ enum LEA {
         weakness.setType(.Enchantment, .Aura)
         weakness.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(-2, -1) })
+            effect: { return $0.pumped(-2, -1) },
+            layer: .PowerToughnessChanging)
         return weakness
     }
     // 135 Will-O-The-Wisp
@@ -677,8 +691,7 @@ enum LEA {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Creature) && $0.getPower() <= 2 },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }))
-        }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Unblockable) }))
         dwarvenWarriors.power = 1
         dwarvenWarriors.toughness = 1
         return dwarvenWarriors
@@ -725,7 +738,7 @@ enum LEA {
         goblinBalloonBrigade.addActivatedAbility(
             string: "{R}: ~ gains flying until end of turn.",
             cost: Cost.Mana("R"),
-            effect: { goblinBalloonBrigade.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))})
+            effect: { goblinBalloonBrigade.giveKeywordUntilEndOfTurn(.Flying) })
         goblinBalloonBrigade.setFlavorText("\"From up here we can drop rocks and arrows and more rocks!\" \"Uh, yeah boss, but how do we get down?")
         goblinBalloonBrigade.power = 1
         goblinBalloonBrigade.toughness = 1
@@ -821,7 +834,8 @@ enum LEA {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: orcishOriflamme,
                 additionalRequirement: { $0.isAttacking }),
-            effect: { return $0.pumped(1, 0) })
+            effect: { return $0.pumped(1, 0) },
+            layer: .PowerToughnessChanging)
         return orcishOriflamme
     }
     // 167 Power Surge

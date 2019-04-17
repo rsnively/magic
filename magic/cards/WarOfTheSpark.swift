@@ -200,7 +200,7 @@ enum WAR {
                 opponent.getCreatures().forEach({ $0.tap() })
             })
             bondOfDiscipline.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                creature.giveKeywordUntilEndOfTurn(.Lifelink)
             })
         })
         bondOfDiscipline.setFlavorText("\"We agree that order benefits everyone, but not until you enforce it.\"")
@@ -284,7 +284,7 @@ enum WAR {
             trigger: .ThisETB,
             effect: {
                 loxodonSergeant.getController().getCreatures().filter({ $0 != loxodonSergeant }).forEach({ creature in
-                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                    creature.giveKeywordUntilEndOfTurn(.Vigilance)
                 })
         })
         loxodonSergeant.setFlavorText("His voice is both war horn and rallying cry, a trumpeting call that stirs even the faintest hearts.")
@@ -513,8 +513,7 @@ enum WAR {
             cost: Cost.Mana("3R"),
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.TargetCreature(),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.cantBlock = true; return $0 }) )}
-        ))
+                effect: { $0.giveKeywordUntilEndOfTurn(.CantBlock) }))
         chainwhipCyclops.setFlavorText("\"You say this Tenth District, not Rubblebelt. But where smash happen, that Rubblebelt. Rubblebelt state of mind.\"\n--Urgdar, cyclops philosopher")
         chainwhipCyclops.power = 4
         chainwhipCyclops.toughness = 4
@@ -733,12 +732,8 @@ enum WAR {
         paradiseDruid.setType(.Creature, .Elf, .Druid)
         paradiseDruid.addStaticAbility(
             requirement: AbilityRequirement.This(paradiseDruid),
-            effect: { object in
-                if !object.isTapped {
-                    object.hexproof = true
-                }
-                return object
-        })
+            effect: { return $0.isTapped ? $0 : $0.withKeyword(.Hexproof) },
+            layer: .AbilityAddingOrRemoving)
         paradiseDruid.addActivatedAbility(
             string: "{T}: Add {W}.",
             cost: Cost.Tap(),
@@ -779,7 +774,7 @@ enum WAR {
             trigger: .ThisETB,
             effect: {
                 thunderingCeratok.getController().getCreatures().filter({ $0 != thunderingCeratok }).forEach({ creature in
-                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
+                    creature.giveKeywordUntilEndOfTurn(.Trample)
                 })
         })
         thunderingCeratok.setFlavorText("\"I thought this was a civilized plane. How are there so many feral beasts?\"\n--Dovin Baan")
@@ -819,7 +814,8 @@ enum WAR {
         ajani.setType(.Legendary, .Planeswalker, .Ajani)
         ajani.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYouControl(source: ajani),
-            effect: { $0.vigilance = true; return $0 })
+            effect: { return $0.withKeyword(.Vigilance) },
+            layer: .AbilityAddingOrRemoving)
         ajani.addActivatedAbility(
             string: "{+1}: You gain 3 life.",
             cost: Cost.AddCounters(.Loyalty, 1),

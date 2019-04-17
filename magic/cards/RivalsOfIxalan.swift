@@ -97,11 +97,10 @@ enum RIX {
         luminousBonds.setType(.Enchantment, .Aura)
         luminousBonds.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.cantAttack = true
-                object.cantBlock = true
-                return object
-        })
+            effects: [
+                ({ return $0.withKeyword(.CantAttack) }, .AbilityAddingOrRemoving),
+                ({ return $0.withKeyword(.CantBlock) }, .AbilityAddingOrRemoving)
+            ])
         luminousBonds.setFlavorText("\"Your part in this fight is done, vampire. Get used to your thirst.\"")
         return luminousBonds
     }
@@ -116,11 +115,7 @@ enum RIX {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { return  $0 != majesticHeliopterus && $0.isType(.Dinosaur) && $0.getController() === majesticHeliopterus.getController() },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    object.flying = true
-                    return object
-                }))
-        }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
         majesticHeliopterus.setFlavorText("\"Its rise is like the sun's, a beautiful beginning. Its descent is like the sun's, a frightening ending.\"\n--Huatli")
         majesticHeliopterus.power = 2
         majesticHeliopterus.toughness = 2
@@ -201,7 +196,8 @@ enum RIX {
                     object.flying = true
                 }
                 return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         skymarcherAspirant.setFlavorText("\"I was born to glory.\"")
         skymarcherAspirant.power = 2
         skymarcherAspirant.toughness = 1
@@ -217,7 +213,8 @@ enum RIX {
             effect: { object in
                 object.ascend()
                 return object.getController().citysBlessing ? object.pumped(3, 0) : object
-        })
+            },
+            layer: .PowerToughnessChanging)
         snubhornSentry.setFlavorText("They're fun to train--if you like stubborn, aggressive, and fiercly territorial.")
         snubhornSentry.power = 0
         snubhornSentry.toughness = 3
@@ -230,12 +227,10 @@ enum RIX {
         squiresDevotion.setType(.Enchantment, .Aura)
         squiresDevotion.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                let object2 = object.pumped(1, 1)
-                // TODO: Layers
-                object2.lifelink = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(1, 1) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.Lifelink) }, .AbilityAddingOrRemoving),
+            ])
         squiresDevotion.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { squiresDevotion.getController().createToken(XLN.Vampire()) })
@@ -263,7 +258,8 @@ enum RIX {
                 object.vigilance = true
             }
             return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         sunCrestedPterodon.setFlavorText("\"Pterodons tolerate no intrusion into their skies. Even the clouds must ask permission.\"\n--Mahuiz, Sun Empire archer")
         sunCrestedPterodon.power = 2
         sunCrestedPterodon.toughness = 5
@@ -303,8 +299,7 @@ enum RIX {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Merfolk) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }))
-            }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Unblockable) }))
         return acquaticIncursion
     }
     // 33 Crafty Cutpurse
@@ -320,6 +315,7 @@ enum RIX {
                 }
                 return object
             },
+            layer: .AbilityAddingOrRemoving,
             characteristicDefining: false,
             allZones: true)
         crashingTide.addEffect(TargetedEffect.SingleObject(
@@ -369,12 +365,8 @@ enum RIX {
         kitesailCorsair.setType(.Creature, .Human, .Pirate)
         kitesailCorsair.addStaticAbility(
             requirement: AbilityRequirement.This(kitesailCorsair),
-            effect: { object in
-                if object.isAttacking {
-                    object.flying = true
-                }
-                return object
-            })
+            effect: { return $0.isAttacking ? $0.withKeyword(.Flying) : $0 },
+            layer: .AbilityAddingOrRemoving)
         kitesailCorsair.setFlavorText("\"Why perch in the crow's nest when I can fly like the crows?\"")
         kitesailCorsair.power = 2
         kitesailCorsair.toughness = 1
@@ -386,7 +378,8 @@ enum RIX {
         kumenasAwakening.setType(.Enchantment)
         kumenasAwakening.addStaticAbility(
             requirement: AbilityRequirement.This(kumenasAwakening),
-            effect: { $0.ascend(); return $0 })
+            effect: { $0.ascend(); return $0 },
+            layer: .NoEffect)
         kumenasAwakening.addTriggeredAbility(
             trigger: .YourUpkeep,
             effect: {
@@ -440,7 +433,8 @@ enum RIX {
         seaLegs.setType(.Enchantment, .Aura)
         seaLegs.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.isType(.Pirate) ? $0.pumped(0, 2) : $0.pumped(-2, 0) })
+            effect: { return $0.isType(.Pirate) ? $0.pumped(0, 2) : $0.pumped(-2, 0) },
+            layer: .PowerToughnessChanging)
         seaLegs.setFlavorText("\"When the waves pick up, either you find your feet or you lose your lunch.\"")
         return seaLegs
     }
@@ -470,6 +464,7 @@ enum RIX {
                 }
                 return object
             },
+            layer: .CostReduction,
             characteristicDefining: false,
             allZones: true)
         sirenReaver.flying = true
@@ -484,14 +479,10 @@ enum RIX {
         slipperyScoundrel.setType(.Creature, .Human, .Pirate)
         slipperyScoundrel.addStaticAbility(
             requirement: AbilityRequirement.This(slipperyScoundrel),
-            effect: { object in
-                object.ascend()
-                if object.getController().citysBlessing {
-                    object.hexproof = true
-                    object.unblockable = true
-                }
-                return object
-        })
+            effects: [
+                ({ $0.ascend(); return $0.getController().citysBlessing ? $0.withKeyword(.Hexproof) : $0 }, .AbilityAddingOrRemoving),
+                ({ $0.ascend(); return $0.getController().citysBlessing ? $0.withKeyword(.Unblockable) : $0 }, .AbilityAddingOrRemoving),
+            ])
         slipperyScoundrel.setFlavorText("\"I'd rather be caught red-handed than leave empty-handed!\"")
         slipperyScoundrel.power = 2
         slipperyScoundrel.toughness = 2
@@ -517,7 +508,8 @@ enum RIX {
             requirement: AbilityRequirement.This(spireWinder),
             effect: { object in
                 object.ascend()
-                return object.getController().citysBlessing ? object.pumped(1, 1) : object })
+                return object.getController().citysBlessing ? object.pumped(1, 1) : object },
+            layer: .PowerToughnessChanging)
         spireWinder.power = 2
         spireWinder.toughness = 3
         return spireWinder
@@ -608,8 +600,7 @@ enum RIX {
                     zones: [.Battlefield]),
                 effect: { target in
                     target.pump(1, 1)
-                    target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }))
-        }))
+                    target.giveKeywordUntilEndOfTurn(.Deathtouch) }))
         direFleetPoisoner.power = 2
         direFleetPoisoner.toughness = 2
         return direFleetPoisoner
@@ -622,7 +613,8 @@ enum RIX {
             requirement: AbilityRequirement.This(duskCharger),
             effect: { object in
                 object.ascend()
-                return object.getController().citysBlessing ? object.pumped(2, 2) : object })
+                return object.getController().citysBlessing ? object.pumped(2, 2) : object },
+            layer: .PowerToughnessChanging)
         duskCharger.setFlavorText("Stories say demon blood runs in its veins, making it fearless and bloodthirsty.")
         duskCharger.power = 3
         duskCharger.toughness = 3
@@ -676,7 +668,8 @@ enum RIX {
         graspingScoundrel.setType(.Creature, .Human, .Pirate)
         graspingScoundrel.addStaticAbility(
             requirement: AbilityRequirement.This(graspingScoundrel),
-            effect: { return $0.isAttacking ? $0.pumped(1, 0) : $0 })
+            effect: { return $0.isAttacking ? $0.pumped(1, 0) : $0 },
+            layer: .PowerToughnessChanging)
         graspingScoundrel.setFlavorText("\"I can hear the plunder calling. It asks for me by name.\"")
         graspingScoundrel.power = 1
         graspingScoundrel.toughness = 2
@@ -773,7 +766,8 @@ enum RIX {
         twilightProphet.flying = true
         twilightProphet.addStaticAbility(
             requirement: AbilityRequirement.This(twilightProphet),
-            effect: { $0.ascend(); return $0 })
+            effect: { $0.ascend(); return $0 },
+            layer: .NoEffect)
         twilightProphet.addTriggeredAbility(
             trigger: .YourUpkeep,
             effect: {
@@ -966,12 +960,10 @@ enum RIX {
         seeRed.setType(.Enchantment, .Aura)
         seeRed.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                let object2 = object.pumped(2, 1)
-                // TODO Layers
-                object2.firstStrike = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(2, 1) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.FirstStrike) }, .AbilityAddingOrRemoving),
+            ])
         seeRed.addTriggeredAbility(
             trigger: .YourEndStep,
             effect: { seeRed.sacrifice() },
@@ -1014,7 +1006,8 @@ enum RIX {
                     object.haste = true
                 }
                 return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         stampedingHorncrest.setFlavorText("When the golden city opened, the dinosaurs inside were eager to greet the new visitors.")
         stampedingHorncrest.power = 4
         stampedingHorncrest.toughness = 4
@@ -1032,7 +1025,8 @@ enum RIX {
                     object.doubleStrike = true
                 }
                 return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         stormFleetSwashbuckler.setFlavorText("\"A bolt to the eye, a blade to the neck. That's the way to clear the deck!")
         stormFleetSwashbuckler.power = 2
         stormFleetSwashbuckler.toughness = 2
@@ -1074,12 +1068,10 @@ enum RIX {
         tilonallisCrown.setType(.Enchantment, .Aura)
         tilonallisCrown.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                let object2 = object.pumped(3, 0)
-                // TODO: Layers
-                object2.trample = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(3, 0) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.Trample) }, .AbilityAddingOrRemoving),
+            ])
         tilonallisCrown.addTriggeredAbility(
             trigger: .ThisETB,
             effect: {
@@ -1157,6 +1149,7 @@ enum RIX {
                 object.castingCost = object.getBaseCastingCost().reducedBy(max(0, totalPower))
                 return object
             },
+            layer: .CostReduction,
             characteristicDefining: false,
             allZones: true)
         ghalta.trample = true
@@ -1183,7 +1176,8 @@ enum RIX {
         hardyVeteran.setType(.Creature, .Human, .Warrior)
         hardyVeteran.addStaticAbility(
             requirement: AbilityRequirement.This(hardyVeteran),
-            effect: { return $0.getController().active ? $0.pumped(0, 2) : $0 })
+            effect: { return $0.getController().active ? $0.pumped(0, 2) : $0 },
+            layer: .PowerToughnessChanging)
         hardyVeteran.setFlavorText("For the Sun Empire, the Immortal Sun is a symbol of national identity. When they reclaim it, the Empire will flourish once more.")
         hardyVeteran.power = 2
         hardyVeteran.toughness = 2
@@ -1267,7 +1261,8 @@ enum RIX {
             effect: { object in
                 object.castingCost = object.getBaseCastingCost().reducedBy(2)
                 return object
-        })
+            },
+            layer: .CostReduction)
         knightOfTheStampede.setFlavorText("\"My whisper becomes a thousand roars.\"")
         knightOfTheStampede.power = 2
         knightOfTheStampede.toughness = 4
@@ -1339,8 +1334,7 @@ enum RIX {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Merfolk) && $0.getController() === swiftWarden.getController() },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.hexproof = true; return $0 }))
-            }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Hexproof) }))
         swiftWarden.setFlavorText("A warning shout would take too long.")
         swiftWarden.power = 3
         swiftWarden.toughness = 3
@@ -1352,13 +1346,15 @@ enum RIX {
         tendershootDryad.setType(.Creature, .Dryad)
         tendershootDryad.addStaticAbility(
             requirement: AbilityRequirement.This(tendershootDryad),
-            effect: { $0.ascend(); return $0 })
+            effect: { $0.ascend(); return $0 },
+            layer: .NoEffect)
         tendershootDryad.addTriggeredAbility(
             trigger: .EachUpkeep,
             effect: { tendershootDryad.getController().createToken(Saproling()) })
         tendershootDryad.addStaticAbility(
             requirement: AbilityRequirement.SubtypeYouControl(source: tendershootDryad, subtype: .Saproling),
-            effect: { return tendershootDryad.getController().citysBlessing ? $0.pumped(2, 2) : $0 })
+            effect: { return tendershootDryad.getController().citysBlessing ? $0.pumped(2, 2) : $0 },
+            layer: .PowerToughnessChanging)
         tendershootDryad.power = 2
         tendershootDryad.toughness = 2
         return tendershootDryad
@@ -1447,7 +1443,8 @@ enum RIX {
         deadeyeBrawler.deathtouch = true
         deadeyeBrawler.addStaticAbility(
             requirement: AbilityRequirement.This(deadeyeBrawler),
-            effect: { $0.ascend(); return $0 })
+            effect: { $0.ascend(); return $0 },
+            layer: .NoEffect)
         deadeyeBrawler.addTriggeredAbility(
             trigger: .ThisDealsCombatDamageToPlayer,
             effect: { deadeyeBrawler.getController().drawCard() },
@@ -1465,7 +1462,8 @@ enum RIX {
                 source: direFleetNeckbreaker,
                 subtype: .Pirate,
                 additionalRequirement: { $0.isAttacking }),
-            effect: { return $0.pumped(2, 0) })
+            effect: { return $0.pumped(2, 0) },
+            layer: .PowerToughnessChanging)
         direFleetNeckbreaker.setFlavorText("The buccaneers scaled the sides of the buildings as easily as the boarded enemy ships.")
         direFleetNeckbreaker.power = 3
         direFleetNeckbreaker.toughness = 2
@@ -1518,7 +1516,8 @@ enum RIX {
         legionLieutenant.setType(.Creature, .Vampire, .Knight)
         legionLieutenant.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: legionLieutenant, subtype: .Vampire),
-            effect: { return $0.pumped(1, 1) })
+            effect: { return $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
         legionLieutenant.setFlavorText("\"We long ago abandoned the things that make humans weak: friendship, marriage, family. All that remains is the strength of our devotion.\"")
         legionLieutenant.power = 2
         legionLieutenant.toughness = 2
@@ -1530,7 +1529,8 @@ enum RIX {
         merfolkMistbinder.setType(.Creature, .Merfolk, .Shaman)
         merfolkMistbinder.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: merfolkMistbinder, subtype: .Merfolk),
-            effect: { return $0.pumped(1, 1) })
+            effect: { return $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
         merfolkMistbinder.setFlavorText("\"The mist clothes us when we are bare, hides us when we are alone, and unites us when we are together.\"\n--Nirit of Pashona's band.")
         merfolkMistbinder.power = 2
         merfolkMistbinder.toughness = 2
@@ -1561,7 +1561,8 @@ enum RIX {
         resplendentGriffin.flying = true
         resplendentGriffin.addStaticAbility(
             requirement: AbilityRequirement.This(resplendentGriffin),
-            effect: { $0.ascend(); return $0 })
+            effect: { $0.ascend(); return $0 },
+            layer: .NoEffect)
         resplendentGriffin.addTriggeredAbility(
             trigger: .ThisAttacks,
             effect: {
@@ -1610,6 +1611,7 @@ enum RIX {
                 object.toughness = amount
                 return object
             },
+            layer: .PowerToughnessCDA,
             characteristicDefining: true)
         awakenedAmalgam.setFlavorText("\"The fools have done it.\"\n--Tishana")
         return awakenedAmalgam
@@ -1640,12 +1642,10 @@ enum RIX {
         striderHarness.addEquipAbility(
             string: "{1}: Equip.",
             cost: Cost.Mana("1"),
-            effect: { object in
-                let object2 = object.pumped(1, 1)
-                // TODO Layers
-                object2.haste = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(1, 1) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.Haste) }, .AbilityAddingOrRemoving),
+            ])
         striderHarness.setFlavorText("\"Because the giant, implacable death lizard wasn't scary enough already.\"\n--Captain Brinely Rage")
         return striderHarness
     }
@@ -1796,8 +1796,7 @@ enum RIX {
                 effect: { target in
                     elemental.sacrifice()
                     target.putOntoBattlefield()
-                    target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.haste = true; return $0 }))
-        }))
+                    target.giveKeywordUntilEndOfTurn(.Haste) }))
         elemental.power = 0
         elemental.toughness = 1
         return elemental

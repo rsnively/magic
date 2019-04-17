@@ -59,12 +59,10 @@ enum GRN {
         candlelightVigil.setType(.Enchantment, .Aura)
         candlelightVigil.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                let object2 = object.pumped(3, 2)
-                // TODO: These should apply in different layers
-                object2.vigilance = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(3, 2) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.Vigilance) }, .AbilityAddingOrRemoving),
+            ])
         candlelightVigil.setFlavorText("Selesnya guildmages do not sleep so the rest of the Conclave can.")
         return candlelightVigil
     }
@@ -105,11 +103,10 @@ enum GRN {
         demotion.setType(.Enchantment, .Aura)
         demotion.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.cantBlock = true
-                object.cantActivateAbilities = true
-                return object
-        })
+            effects: [
+                ({ return $0.withKeyword(.CantBlock) }, .AbilityAddingOrRemoving),
+                ({ return $0.withKeyword(.CantActivateAbilities) }, .AbilityAddingOrRemoving),
+            ])
         demotion.setFlavorText("There's no greater honor than joining your chosen guild, and no greater shame than failing it.")
         return demotion
     }
@@ -223,11 +220,10 @@ enum GRN {
         luminousBonds.setType(.Enchantment, .Aura)
         luminousBonds.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                object.cantAttack = true
-                object.cantBlock = true
-                return object
-        })
+            effects: [
+                ({ return $0.withKeyword(.CantAttack) }, .AbilityAddingOrRemoving),
+                ({ return $0.withKeyword(.CantBlock) }, .AbilityAddingOrRemoving)
+            ])
         luminousBonds.setFlavorText("\"Article 5.8.2 Ensure proper restraint of any and all arms, legs, claws, jaws, tails, tentacles, and tendrils as appropriate.\"\n--Azorius Arrester Procedure, Appendix B")
         return luminousBonds
     }
@@ -266,11 +262,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isAttacking && $0.isType(.Creature) && !$0.flying },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    object.flying = true
-                    return object
-                }))
-            }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
         rocCharger.setFlavorText("Rocs' innate fearlessness makes them ideal mounts for emergency response.")
         rocCharger.power = 1
         rocCharger.toughness = 3
@@ -367,12 +359,8 @@ enum GRN {
         leapfrog.setType(.Creature, .Frog)
         leapfrog.addStaticAbility(
             requirement: AbilityRequirement.This(leapfrog),
-            effect: { object in
-                if object.getController().numberInstantsOrSorceriesCastThisTurn > 0 {
-                    object.flying = true
-                }
-                return object
-        })
+            effect: { return $0.getController().numberInstantsOrSorceriesCastThisTurn > 0 ? $0.withKeyword(.Flying) : $0 },
+            layer: .AbilityAddingOrRemoving)
         leapfrog.setFlavorText("\"Most compete for insects at street level. Some dwell near Izzet laboratories and ride the thermal updrafts.\"\n--Yolov, Simic bioengineer")
         leapfrog.power = 3
         leapfrog.toughness = 1
@@ -417,8 +405,7 @@ enum GRN {
             cost: Cost.Mana("2U"),
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.TargetCreature(),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.unblockable = true; return $0 }))}
-        ))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Unblockable) }))
         passwallAdept.setFlavorText("\"My doors are called trespassing, my signatures, forgeries. They don't respect my talents, and I don't respect their labels.\"")
         passwallAdept.power = 1
         passwallAdept.toughness = 3
@@ -507,7 +494,8 @@ enum GRN {
         deadWeight.setType(.Enchantment, .Aura)
         deadWeight.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(-2, -2) })
+            effect: { return $0.pumped(-2, -2) },
+            layer: .PowerToughnessChanging)
         deadWeight.setFlavorText("All things considered, his first day on patrol could have gone better.")
         return deadWeight
     }
@@ -821,12 +809,10 @@ enum GRN {
         maniacalRage.setType(.Enchantment, .Aura)
         maniacalRage.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { object in
-                let object2 = object.pumped(2, 2)
-                // TODO: These should be applied in different layers
-                object2.cantBlock = true
-                return object2
-        })
+            effects: [
+                ({ return $0.pumped(2, 2) }, .PowerToughnessChanging),
+                ({ return $0.withKeyword(.CantBlock) }, .AbilityAddingOrRemoving)
+            ])
         maniacalRage.setFlavorText("\"They tell us the wilds are ours, then they brick them over. They can lie to our faces but not to our fists.\"\n--Ghut Rak, Gruul guildmage")
         return maniacalRage
     }
@@ -873,7 +859,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isType(.Creature) && $0.getController() !== smeltWardMinotaur.getController() },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.cantBlock = true; return $0 }))}))
+                effect: { $0.giveKeywordUntilEndOfTurn(.CantBlock) }))
         smeltWardMinotaur.setFlavorText("\"Don't arrest him--enlist him!\"\n--Commander Yaszen")
         smeltWardMinotaur.power = 2
         smeltWardMinotaur.toughness = 3
@@ -883,16 +869,13 @@ enum GRN {
         let streetRiot = Card(name: "Street Riot", rarity: .Uncommon, set: set, number: 117)
         streetRiot.setManaCost("4R")
         streetRiot.setType(.Enchantment)
+        let condition: (Object) -> Bool = { $0.getController().active }
         streetRiot.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYouControl(source: streetRiot),
-            effect: { object in
-            if streetRiot.getController().active {
-                object.power = object.getBasePower() + 1
-                // TODO: These should be in different layers
-                object.trample = true
-            }
-            return object
-        })
+            effects: [
+                ({ return condition($0) ? $0.pumped(1, 0) : $0 }, .PowerToughnessChanging),
+                ({ return condition($0) ? $0.withKeyword(.Trample) : $0 }, .AbilityAddingOrRemoving),
+            ])
         streetRiot.setFlavorText("\"They said obey and you'll be happy. They said you'll be safe. But we're not safe. We're not happy. And we will not obey.\"\n--Domri Rade")
         return streetRiot
     }
@@ -904,7 +887,7 @@ enum GRN {
             restriction: TargetingRestriction.TargetCreature(),
             effect: { target in
                 target.pump(3, 0)
-                target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.firstStrike = true; return $0 }))
+                target.giveKeywordUntilEndOfTurn(.FirstStrike)
         }))
         sureStrike.setFlavorText("\"I packed three more electroconduits into each test wand. You'll experiene a brief tingling sensation.\"")
         return sureStrike
@@ -921,8 +904,7 @@ enum GRN {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0 != torchCourier && $0.isType(.Creature) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.haste = true; return $0 }))
-        }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Haste) }))
         torchCourier.setFlavorText("\"Light a torch and deliver this letter\" were his instructions, which he unfortunately reversed.")
         torchCourier.power = 1
         torchCourier.toughness = 1
@@ -1046,7 +1028,7 @@ enum GRN {
         grapplingSundew.addActivatedAbility(
             string: "{4}{G}: ~ gains indestructible until end of turn.",
             cost: Cost.Mana("4G"),
-            effect: { grapplingSundew.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0 }))})
+            effect: { grapplingSundew.giveKeywordUntilEndOfTurn(.Indestructible) })
         grapplingSundew.setFlavorText("Some rooftop gardens attract bees; others capture dragons.")
         grapplingSundew.power = 0
         grapplingSundew.toughness = 4
@@ -1194,10 +1176,10 @@ enum GRN {
                 effect: { target in
                     target.pump(2, 0)
                     if target.isColor(.Red) {
-                        target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
+                        target.giveKeywordUntilEndOfTurn(.Trample)
                     }
                     if target.isColor(.White) {
-                        target.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.vigilance = true; return $0 }))
+                        target.giveKeywordUntilEndOfTurn(.Vigilance)
                     }
         }))
         aurelia.power = 2
@@ -1271,8 +1253,9 @@ enum GRN {
             string: "{G}, {T}: Creatures you control gain trample until end of turn.",
             cost: Cost.Mana("G").Tap(),
             effect: { conclaveGuildmage.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
-            })})
+                creature.giveKeywordUntilEndOfTurn(.Trample)
+            })
+        })
         conclaveGuildmage.addActivatedAbility(
             string: "{5}{W}, {T}: Create a 2/2 green and white Elf Knight creature token with vigilance.",
             cost: Cost.Mana("5W").Tap(),
@@ -1294,6 +1277,7 @@ enum GRN {
                 object.power = instSorcInGraveyard + instSorcInExile
                 return object
             },
+            layer: .PowerToughnessCDA,
             characteristicDefining: true)
         cracklingDrake.addTriggeredAbility(
             trigger: .ThisETB,
@@ -1350,7 +1334,8 @@ enum GRN {
                     object.doubleStrike = true
                 }
                 return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         garrisonSergeant.setFlavorText("In the Legion, no flagpole is merely decorative, and every ceremonial sword bears an edge.")
         garrisonSergeant.power = 3
         garrisonSergeant.toughness = 3
@@ -1366,7 +1351,8 @@ enum GRN {
             effect: { object in
                 object.castingCost = object.getBaseCastingCost().reducedBy(1)
                 return object
-        })
+            },
+            layer: .CostReduction)
         goblinElectromancer.setFlavorText("\"Result 752: Rapid mass redistribution.\n\"Result 753: Calamitous reverse synthesis.\n\"Result 754: Acute disarrayment.\"\n--Izzet research notes")
         goblinElectromancer.power = 2
         goblinElectromancer.toughness = 2
@@ -1407,11 +1393,8 @@ enum GRN {
         joinShields.addEffect({
             joinShields.getController().getCreatures().forEach({ creature in
                 creature.untap()
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    object.hexproof = true
-                    object.indestructible = true
-                    return object
-                }))
+                creature.giveKeywordUntilEndOfTurn(.Hexproof)
+                creature.giveKeywordUntilEndOfTurn(.Indestructible)
             })
         })
         joinShields.setFlavorText("\"We are the shield that never breaks, the bough that never burns, the song that can never be silenced.\"")
@@ -1581,10 +1564,7 @@ enum GRN {
             ],
             effect: { targets in
                 undercityUprising.getController().getCreatures().forEach({ creature in
-                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                        object.deathtouch = true
-                        return object
-                    }))
+                    creature.giveKeywordUntilEndOfTurn(.Deathtouch)
                 })
                 if let myCreature = targets[0], let theirCreature = targets[1] {
                     myCreature.fight(theirCreature)
@@ -1616,12 +1596,8 @@ enum GRN {
         freshFacedRecruit.setType(.Creature, .Human, .Soldier)
         freshFacedRecruit.addStaticAbility(
             requirement: AbilityRequirement.This(freshFacedRecruit),
-            effect: { object in
-                if object.getController().active {
-                    object.firstStrike = true
-                }
-                return object
-        })
+            effect: { return $0.getController().active ? $0.withKeyword(.FirstStrike) : $0 },
+            layer: .AbilityAddingOrRemoving)
         freshFacedRecruit.setFlavorText("\"Hold on to your ideals! They'll be tested more than your armor or the edge of your blade.\"\n--Tajic")
         freshFacedRecruit.power = 2
         freshFacedRecruit.toughness = 1
@@ -1634,7 +1610,8 @@ enum GRN {
         pistonFistCyclops.defender = true
         pistonFistCyclops.addStaticAbility(
             requirement: AbilityRequirement.This(pistonFistCyclops),
-            effect: { $0.canAttackWithDefender = $0.getController().numberInstantsOrSorceriesCastThisTurn > 0; return $0 })
+            effect: { $0.canAttackWithDefender = $0.getController().numberInstantsOrSorceriesCastThisTurn > 0; return $0 },
+            layer: .AbilityAddingOrRemoving)
         pistonFistCyclops.setFlavorText("Its hyperpneumatics can punch through a wall and the spy on the other side.")
         pistonFistCyclops.power = 4
         pistonFistCyclops.toughness = 3

@@ -27,7 +27,8 @@ enum HOU {
         crestedSunmare.setType(.Creature, .Horse)
         crestedSunmare.addStaticAbility(
             requirement: AbilityRequirement.OtherSubtypeYouControl(source: crestedSunmare, subtype: .Horse),
-            effect: { $0.indestructible = true; return $0 })
+            effect: { return $0.withKeyword(.Indestructible) },
+            layer: .AbilityAddingOrRemoving)
         crestedSunmare.addTriggeredAbility(
             trigger: .EachEndStep,
             effect: { crestedSunmare.getController().createToken(Horse()) },
@@ -101,7 +102,8 @@ enum HOU {
                     object.lifelink = true
                 }
                 return object
-        })
+            },
+            layer: .AbilityAddingOrRemoving)
         solitaryCamel.setFlavorText("Deserts are inhospitable, not uninhabitable.")
         return solitaryCamel
     }
@@ -121,11 +123,7 @@ enum HOU {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0 != aerialGuide && $0.isAttacking && $0.isType(.Creature) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ object in
-                    object.flying = true
-                    return object
-                }))
-            }))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
         aerialGuide.setFlavorText("\"Kefnet taught us to turn obstacles into advantages.\"\n--Neponem, vizier of Kefnet")
         aerialGuide.power = 2
         aerialGuide.toughness = 2
@@ -187,8 +185,7 @@ enum HOU {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isAttacking && $0.isType(.Zombie) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.indestructible = true; return $0}) )}
-        ))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Indestructible) }))
         accursedHorde.power = 3
         accursedHorde.toughness = 3
         return accursedHorde
@@ -283,7 +280,7 @@ enum HOU {
         crashThrough.setType(.Sorcery)
         crashThrough.addEffect({
             crashThrough.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
+                creature.giveKeywordUntilEndOfTurn(.Trample)
             })
             crashThrough.getController().drawCard()
         })
@@ -414,7 +411,7 @@ enum HOU {
             restriction: TargetingRestriction.TargetCreature(),
             effect: {
                 $0.pump(3, 3)
-                $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.reach = true; return $0 }))
+                $0.giveKeywordUntilEndOfTurn(.Reach)
         }))
         giftOfStrength.setFlavorText("\"What greater testament can there be to Rhonas's lessons?\"")
         return giftOfStrength
@@ -441,7 +438,7 @@ enum HOU {
         overcome.addEffect {
             overcome.getController().getCreatures().forEach({ creature in
                 creature.pump(2, 2)
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
+                creature.giveKeywordUntilEndOfTurn(.Trample)
             })
         }
         overcome.setFlavorText("\"Forward! Until the horizon is ours!\"\n--Khemses, charioteer")
@@ -466,7 +463,8 @@ enum HOU {
                     object.toughness = object.getBaseToughness() + 1
                 }
                 return object
-        })
+            },
+            layer: .PowerToughnessChanging)
         ramunapHydra.addStaticAbility(
             requirement: AbilityRequirement.This(ramunapHydra),
             effect: { object in
@@ -475,7 +473,8 @@ enum HOU {
                     object.toughness = object.getBaseToughness() + 1
                 }
                 return object
-            })
+            },
+            layer: .PowerToughnessChanging)
         ramunapHydra.power = 3
         ramunapHydra.toughness = 3
         return ramunapHydra
@@ -487,18 +486,18 @@ enum HOU {
         let sidewinderNaga = Card(name: "Sidewinder Naga", rarity: .Common, set: set, number: 134)
         sidewinderNaga.setManaCost("2G")
         sidewinderNaga.setType(.Creature, .Naga, .Warrior)
+        
+        let condition: (Object) -> Bool = { object in
+            let controlDesert = !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty
+            let desertInGraveyard = !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty
+            return controlDesert || desertInGraveyard
+        }
         sidewinderNaga.addStaticAbility(
             requirement: AbilityRequirement.This(sidewinderNaga),
-            effect: { object in
-                let controlDesert = !object.getController().getPermanents().filter({ $0.isType(.Desert) }).isEmpty
-                let desertInGraveyard = !object.getController().getGraveyard().filter({ $0.isType(.Desert) }).isEmpty
-                if controlDesert || desertInGraveyard {
-                    object.power = object.getBasePower() + 1
-                    // TODO: These should be in different layers?
-                    object.trample = true
-                }
-                return object
-        })
+            effects: [
+                ({ return condition($0) ? $0.pumped(1, 0) : $0 }, .PowerToughnessChanging),
+                ({ return condition($0) ? $0.withKeyword(.Trample) : $0}, .AbilityAddingOrRemoving)
+            ])
         sidewinderNaga.setFlavorText("\"Those who embrace the harsh land rather than fight it find they have a powerful ally.\"\n--Nissa Revane")
         sidewinderNaga.power = 3
         sidewinderNaga.toughness = 2
@@ -543,8 +542,7 @@ enum HOU {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isAttacking && $0.isType(.Zombie) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0}) )}
-        ))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Lifelink) }))
         unravelingMummy.addActivatedAbility(
             string: "{1}{B}: Target attacking Zombie gains deathtoucn until end of turn.",
             cost: Cost.Mana("1B"),
@@ -552,8 +550,7 @@ enum HOU {
                 restriction: TargetingRestriction.SingleObject(
                     restriction: { $0.isAttacking && $0.isType(.Zombie) },
                     zones: [.Battlefield]),
-                effect: { $0.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0}) )}
-        ))
+                effect: { $0.giveKeywordUntilEndOfTurn(.Deathtouch) }))
         unravelingMummy.setFlavorText("\"We are no longer in control.\"\n--Elekh, vizier of embalming")
         unravelingMummy.power = 2
         unravelingMummy.toughness = 3

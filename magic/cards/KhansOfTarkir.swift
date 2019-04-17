@@ -35,7 +35,8 @@ enum KTK {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: abzanBattlePriest,
                 additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
-            effect: { $0.lifelink = true; return $0 })
+            effect: { return $0.withKeyword(.Lifelink) },
+            layer: .AbilityAddingOrRemoving)
         abzanBattlePriest.setFlavorText("\"Wherever I walk, the ancestors walk too.\"")
         abzanBattlePriest.power = 3
         abzanBattlePriest.toughness = 2
@@ -50,7 +51,8 @@ enum KTK {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: abzanFalconer,
                 additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
-            effect: { $0.flying = true; return $0 })
+            effect: { return $0.withKeyword(.Flying) },
+            layer: .AbilityAddingOrRemoving)
         abzanFalconer.setFlavorText("The fastest way across the dunes is above.")
         abzanFalconer.power = 2
         abzanFalconer.toughness = 3
@@ -65,7 +67,8 @@ enum KTK {
             requirement: AbilityRequirement.CreaturesYouControl(
                 source: ainokBondKin,
                 additionalRequirement: { $0.hasCounter(.PlusOnePlusOne) }),
-            effect: { $0.firstStrike = true; return $0 })
+            effect: { return $0.withKeyword(.FirstStrike) },
+            layer: .AbilityAddingOrRemoving)
         ainokBondKin.setFlavorText("\"Hold the line, for family and the fallen!\"")
         ainokBondKin.power = 2
         ainokBondKin.toughness = 1
@@ -145,7 +148,7 @@ enum KTK {
             cost: Cost.Mana("3R"),
             effect: {
                 firehoofCavalry.pump(2, 0)
-                firehoofCavalry.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.trample = true; return $0 }))
+                firehoofCavalry.giveKeywordUntilEndOfTurn(.Trample)
         })
         firehoofCavalry.setFlavorText("\"What warrior worth the name fears to leave a trail? If my enemies seek me, let them follow the ashes in my wake.\"")
         firehoofCavalry.power = 1
@@ -163,7 +166,8 @@ enum KTK {
             effect: { object in
                 let numOtherCreaturesWithCounters = highSentinelsOfArashin.getController().getCreatures().filter({ $0 != highSentinelsOfArashin && $0.getCounters(.PlusOnePlusOne) > 0}).count
                 return object.pumped(numOtherCreaturesWithCounters, numOtherCreaturesWithCounters)
-        })
+            },
+            layer: .PowerToughnessChanging)
         highSentinelsOfArashin.addActivatedAbility(
             string: "{3}{W}: Put a +1/+1 counter on target creature.",
             cost: Cost.Mana("3W"),
@@ -203,7 +207,7 @@ enum KTK {
         marduHateblade.addActivatedAbility(
             string: "{B}: ~ gains deathtouch until end of turn.",
             cost: Cost.Mana("B"),
-            effect: { marduHateblade.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.deathtouch = true; return $0 }))})
+            effect: { marduHateblade.giveKeywordUntilEndOfTurn(.Deathtouch) })
         marduHateblade.setFlavorText("\"There may be little honor in my tactics, but there is no honor in losing.\"")
         marduHateblade.power = 1
         marduHateblade.toughness = 1
@@ -231,7 +235,7 @@ enum KTK {
             rushOfBattle.getController().getCreatures().forEach({ creature in
                 creature.pump(2, 1)
                 if creature.isType(.Warrior) {
-                    creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                    creature.giveKeywordUntilEndOfTurn(.Lifelink)
                 }
             })
         }
@@ -256,7 +260,7 @@ enum KTK {
         seekerOfTheWay.triggeredAbilities.append(Prowess(seekerOfTheWay))
         seekerOfTheWay.addTriggeredAbility(
             trigger: .YouCastNoncreatureSpell,
-            effect: { seekerOfTheWay.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))})
+            effect: { seekerOfTheWay.giveKeywordUntilEndOfTurn(.Lifelink) })
         seekerOfTheWay.setFlavorText("\"I don't know where my destiny lies, but I know it isn't here.\"")
         seekerOfTheWay.power = 2
         seekerOfTheWay.toughness = 2
@@ -268,7 +272,8 @@ enum KTK {
         siegecraft.setType(.Enchantment, .Aura)
         siegecraft.addEnchantAbility(
             restriction: TargetingRestriction.TargetCreature(),
-            effect: { return $0.pumped(2, 4) })
+            effect: { return $0.pumped(2, 4) },
+            layer: .PowerToughnessChanging)
         siegecraft.setFlavorText("\"They thought their fortress impregnable... until we marched up with ours, and blocked out the sun.\"\n--Golran, dragonscale captain")
         return siegecraft
     }
@@ -559,7 +564,7 @@ enum KTK {
         leapingMaster.addActivatedAbility(
             string: "{2}{W}: ~ gains flying until end of turn.",
             cost: Cost.Mana("2W"),
-            effect: { leapingMaster.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.flying = true; return $0 }))})
+            effect: { leapingMaster.giveKeywordUntilEndOfTurn(.Flying) })
         leapingMaster.setFlavorText("\"Strength batters down barriers. Discipline ignores them.\"")
         leapingMaster.power = 2
         leapingMaster.toughness = 1
@@ -813,7 +818,8 @@ enum KTK {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: chiefOfTheEdge,
                 additionalRequirement: { $0.isType(.Warrior) }),
-            effect: { return $0.pumped(1, 0) })
+            effect: { return $0.pumped(1, 0) },
+            layer: .PowerToughnessChanging)
         chiefOfTheEdge.setFlavorText("\"We are the swift, the strong, the blade's sharp shriek! Fear nothing, and strike!\"")
         chiefOfTheEdge.power = 3
         chiefOfTheEdge.toughness = 2
@@ -827,7 +833,8 @@ enum KTK {
             requirement: AbilityRequirement.OtherCreaturesYouControl(
                 source: chiefOfTheScale,
                 additionalRequirement: { $0.isType(.Warrior) }),
-            effect: { return $0.pumped(0, 1) })
+            effect: { return $0.pumped(0, 1) },
+            layer: .PowerToughnessChanging)
         chiefOfTheScale.setFlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
         chiefOfTheScale.power = 2
         chiefOfTheScale.toughness = 3
@@ -889,7 +896,7 @@ enum KTK {
         sageOfTheInwardEye.addTriggeredAbility(
             trigger: .YouCastNoncreatureSpell,
             effect: { sageOfTheInwardEye.getController().getCreatures().forEach({ creature in
-                creature.addContinuousEffect(ContinuousEffect.UntilEndOfTurn({ $0.lifelink = true; return $0 }))
+                creature.giveKeywordUntilEndOfTurn(.Lifelink)
             })
         })
         sageOfTheInwardEye.setFlavorText("\"No one petal claims beauty for the lotus.\"")
