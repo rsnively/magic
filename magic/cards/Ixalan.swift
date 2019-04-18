@@ -1433,7 +1433,7 @@ enum XLN {
     // 161 Star of Extinction
     // 162 Storm Fleet Arsonist
     static func StormFleetPyromancer() -> Card {
-        let stormFleetPyromancer = Card(name: "Storm Fleet Pyromancer", rarity: .Common, set: set, number: 161)
+        let stormFleetPyromancer = Card(name: "Storm Fleet Pyromancer", rarity: .Common, set: set, number: 163)
         stormFleetPyromancer.setManaCost("4R")
         stormFleetPyromancer.setType(.Creature, .Human, .Pirate)
         stormFleetPyromancer.addTriggeredAbility(
