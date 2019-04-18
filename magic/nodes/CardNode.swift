@@ -61,6 +61,11 @@ class CardNode: SKSpriteNode {
             attackBorder.strokeColor = SKColor.red
             attackBorder.fillColor = SKColor.red
             addChild(attackBorder)
+        } else if card.blocking {
+            let blockingBorder = SKShapeNode(rectOf: self.size * 1.1, cornerRadius: 3.0)
+            blockingBorder.strokeColor = SKColor.yellow
+            blockingBorder.fillColor = SKColor.yellow
+            addChild(blockingBorder)
         }
         if card.isType(.Creature) && (card.powerOrToughnessUndefined() || (card.getPower() != card.getBasePower() || card.getToughness() != card.getBaseToughness())) {
             let powerToughnessNode = SKLabelNode(text: String(card.getPower()) + "/" + String(card.getToughness()))

@@ -14,6 +14,9 @@ class CreaturesCardNode: CardNode {
             card.isAttacking = false
         }
         else if card.canBlock() {
+            if self.card.blocking {
+                self.card.unblock()
+            }
             Game.shared.selectBlocker(self.card)
         }
     }

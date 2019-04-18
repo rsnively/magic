@@ -761,7 +761,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func canBlock() -> Bool {
-        return Game.shared.isDeclaringBlockers() && !getController().active && isType(.Creature) && !blocking && !tapped && attackers.isEmpty
+        return Game.shared.isDeclaringBlockers() && !getController().active && isType(.Creature) && !tapped
     }
     
     func canBlockAttacker(_ attacker: Object) -> Bool {
@@ -780,7 +780,17 @@ class Object: Targetable, Hashable, NSCopying {
         assert(canBlockAttacker(attacker))
         attacker.blockers.append(self)
         attacker.blocked = true
+        self.blocking = true
         self.attackers.append(attacker)
+    }
+    func unblock() {
+        assert(blocking)
+        self.attackers.forEach({ attacker in
+            attacker.blockers.removeAll(where: { $0 == self })
+            attacker.blocked = !attacker.blockers.isEmpty
+        })
+        self.blocking = false
+        self.attackers.removeAll()
     }
     
     func bounce() {
