@@ -2521,7 +2521,7 @@ enum RNA {
             effect: { gruulGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         gruulGuildgate.addActivatedAbility(
-            string: "{T}: Add {UG.",
+            string: "{T}: Add {G}.",
             cost: Cost.Tap(),
             effect: { gruulGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
@@ -2539,7 +2539,7 @@ enum RNA {
             effect: { gruulGuildgate.getController().addMana(color: .Red) },
             manaAbility: true)
         gruulGuildgate.addActivatedAbility(
-            string: "{T}: Add {UG.",
+            string: "{T}: Add {G}.",
             cost: Cost.Tap(),
             effect: { gruulGuildgate.getController().addMana(color: .Green) },
             manaAbility: true)
