@@ -2,6 +2,8 @@ import Foundation
 
 class Player: Targetable {
     private var life = 20
+    private var sideboard: [Object]
+    static let sideboardLimit = 15
     private var library: [Object]
     private var hand: [Object] = []
     private var permanents: [Object] = []
@@ -20,8 +22,10 @@ class Player: Targetable {
     
     var citysBlessing = false
     
-    init(deck: [Card]) {
+    init(deck: [Card], sideboard: [Card]) {
+        assert(sideboard.count <= Player.sideboardLimit)
         self.library = deck
+        self.sideboard = sideboard
         super.init()
         library.forEach({ $0.setOwner(owner: self) })
         for card in library {

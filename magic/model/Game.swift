@@ -111,6 +111,8 @@ class Game: NSObject {
     override private init() {
         var deck1: [Card] = []
         var deck2: [Card] = []
+        var sideboard1: [Card] = []
+        var sideboard2: [Card] = []
         for _ in 0..<35 {
             deck1.append(Card.randomCard())
             deck2.append(Card.randomCard())
@@ -130,8 +132,13 @@ class Game: NSObject {
             deck2.append(GRN.Forest())
         }
         
-        player1 = Player(deck: deck1)
-        player2 = AIPlayer(deck: deck2)
+        for _ in 0..<Player.sideboardLimit {
+            sideboard1.append(Card.randomCard())
+            sideboard2.append(Card.randomCard())
+        }
+        
+        player1 = Player(deck: deck1, sideboard: sideboard1)
+        player2 = AIPlayer(deck: deck2, sideboard: sideboard2)
         theStack = SpellStack()
         currentPhase = Phase.Untap
         landPlayedThisTurn = false
