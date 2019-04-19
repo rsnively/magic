@@ -5,162 +5,256 @@ enum WAR {
     static var count = 264
     
     static let cards = [
-        
+//        KarnTheGreatCreator,
+//        UginTheIneffable,
+//        UginsConjurant,
         AjanisPridemate,
-        
+//        BattlefieldPromotion,
         BondOfDiscipline,
         BulwarkGiant,
-        
+//        CharmedStray,
         DefiantStrike,
-        
+//        DivineArrow,
+//        EnforcerGriffin,
+//        FinaleOfGlory,
+//        GideonBlackblade,
+//        GideonsSacrifice,
 //        GideonsTriumph,
-        
+//        GodEternalOketra,
 //        GratefulApparition,
-        
         IgniteTheBeacon,
-        
+//        IroncladKrovod,
         LawRuneEnforcer,
         LoxodonSergeant,
-        
+//        MakeshiftBattalion,
+//        MartyrForTheCause,
+//        ParhelionII,
+//        PouncingLynx,
+//        PrisonRealm,
+//        RallyOfWings,
         RavnicaAtWar,
 //        RisingPopulace,
 //        SingleCombat,
-        
-        ToppleTheStatue,
-        
+//        SunbladeAngel,
 //        TeyoTheShieldmage,
         TeyosLightshield,
-        
+//        TomikDistinguishedAdvokist,
+        ToppleTheStatue,
+//        TrustedPegasus,
 //        TheWanderer,
 //        WanderersStrike,
-        
+//        WarScreecher,
+//        AshioksSkulker,
 //        AugurOfBolas,
-        
+//        AvenEternal,
+//        BondOfInsight,
+//        CallousDismissal,
+//        CommenceTheEndgame,
+//        ContentiousPlan,
 //        CrushDissent,
         ErraticVisionary,
-        
+//        EternalSkylord,
 //        FblthpTheLost,
-        
+//        FinaleOfRevelation,
 //        FluxChanneler,
-        
+//        GodEternalKefnet,
 //        JaceWielderOfMysteries,
         JacesTriumph,
-        
+//        KasminaEnigmaticMentor,
+//        KasminasTransmutation,
 //        KiorasDambreaker,
 //        LazotepPlating,
         NagaEternal,
-        
+//        NarsetParterOfVeils,
+//        NarsetsReversal,
 //        NoEscape,
 //        RelentlessAdvance,
-        
+//        RescuerSphinx,
+//        SilentSubmersible,
+//        SkyTheaterStrix,
+//        SparkDouble,
+//        SpellkeeperWeird,
+//        StealthMission,
+//        TamiyosEpiphany,
 //        TeferisTimeTwist,
-        
+//        ThunderDrake,
         TotallyLost,
-        
+//        WallOfRunes,
+//        AidTheFallen,
+//        Banehound,
+//        BleedingEdge,
 //        BolassCitadel,
-        
+//        BondOfRevival,
+//        CharityExtractor,
+//        CommandTheDreadhorde,
         DavrielRogueShadowmage,
         DavrielsSubterfuge,
-        
+//        DeliverUntoEvil,
 //        DreadhordeInvasion,
-        
+//        Dreadmalkin,
+//        DuskmantleOperative,
+//        TheElderspell,
 //        EternalTaskmaster,
-        
+//        FinaleOfEternity,
+//        GodEternalBontu,
 //        HeraldOfTheDreadhorde,
 //        KayasGhostform,
         LazotepBehemoth,
 //        LazotepReaver,
 //        LilianaDreadhordeGeneral,
-        
+//        LilianasTriumph,
+//        MassacreGirl,
 //        ObNixilisTheHateTwisted,
 //        ObNixilissCruelty,
-        
+//        PriceOfBetrayal,
+//        Shriekdiver,
         SorinsThirst,
-        
+//        SparkHarvest,
+//        SparkReaper,
+//        TithebearerGiant,
+//        TollOfTheInvasion,
+//        UnlikelyAid,
+//        VampireOpportunist,
+//        VizierOfTheScorpion,
 //        VraskasFinisher,
 //        AhnCropInvader,
-        
+//        Blindblast,
+//        BoltBend,
+//        BondOfPassion,
 //        BurningProphet,
-        
         ChainwhipCyclops,
-        
+//        ChandraFireArtisan,
+//        ChandrasPyrohelix,
         ChandrasTriumph,
-        
+//        CyclopsElectromancer,
+//        Demolish,
+//        DevouringHellion,
 //        DreadhordeArcanist,
-        
+//        DreadhordeTwins,
+//        FinaleOfPromise,
+//        GoblinAssailant,
+//        GoblinAssaultTeam,
 //        GrimInitiate,
-        
+//        Heartfire,
 //        HonorTheGodPharaoh,
-        
+//        IlhargTheRazeBoar,
 //        InvadingManticore,
-        
+//        JayaVeneratedFiremage,
+//        JayasGreeting,
         KrenkoTinStreetKingpin,
-        
+//        MizziumTank,
         NahirisStoneblades,
 //        NehebDreadhordeChampion,
-        
+//        RagingKronch,
 //        SamutsSprint,
-        
+//        SarkhanTheMasterless,
+//        SarkhansCatharsis,
+//        SpellgorgerWeird,
 //        TibaltRakishInstigator,
         TibaltsRager,
-        
+//        TurretOgre,
+//        ArborealGrazer,
 //        ArlinnVoiceOfThePack,
         ArlinnsWolf,
         AwakeningOfVituGhazi,
-        
+//        BandTogether,
+//        BloomHulk,
+//        BondOfFlourishing,
         CentaurNurturer,
-        
+//        ChallengerTroll,
+//        CourageInCrisis,
+//        EvolutionSage,
+//        FinaleOfDevastation,
+//        ForcedLanding,
         GiantGrowth,
-        
+//        GodEternalRhonas,
 //        JiangYangguWildcrafter,
-        
+//        KraulStinger,
+//        KronchWrangler,
 //        MowuLoyalCompanion,
-        
+//        NewHorizons,
+//        NissaWhoShakesTheWorld,
         NissasTriumph,
         ParadiseDruid,
-        
+//        PlanewideCelebration,
+//        PollenbrightDruid,
+//        PrimordialWurm,
+//        ReturnToNature,
+//        Snarespinner,
+//        SteadyAim,
+//        StormTheCitadel,
         ThunderingCeratok,
 //        VivienChampionOfTheWilds,
 //        ViviensArkbow,
         ViviensGrizzly,
-        
+//        WardscaleCrocodile,
         AjaniTheGreathearted,
 //        AngrathsRampage,
-        
+//        BioessenceHydra,
+//        CasualtiesOfWar,
 //        CruelCelebrant,
         Deathsprout,
-        
+//        Despark,
+//        DomriAnarchOfBolas,
         DomrisAmbush,
         DovinsVeto,
 //        DreadhordeButcher,
-        
+//        EliteGuardmage,
+//        EnterTheGodEternals,
+//        FeatherTheRedeemed,
 //        GleamingOverseer,
-        
+//        HeartwarmingRedemption,
+//        HuatlisRaptor,
 //        InvadeTheCity,
         LeylineProwler,
-        
+//        LivingTwister,
+//        MayhemDevil,
+//        MerfolkSkydiver,
+//        Neoform,
+//        NicolBolasDragonGod,
+//        NivMizzetReborn,
+//        OathOfKaya,
         PledgeOfUnity,
-        
+//        RalStormConduit,
+//        RalsOutburst,
+//        RoaleskApexHybrid,
+//        RoleReversal,
+//        RubblebeltRioters,
         SolarBlaze,
-        
 //        SorinVengefulBloodlord,
-        
+//        SoulDiviner,
 //        StorrevDevkarinLich,
-        
+//        TamiyoCollectorOfTales,
 //        TeferiTimeRaveler,
-        
+//        TenthDistrictLegionnaire,
 //        TimeWipe,
-        
+//        TolsimirFriendToWolves,
+//        TyrantsScorn,
 //        WidespreadBrutality,
 //        AngrathCaptainOfChaos,
-        
+//        AshiokDreamRender,
+//        DovinHandOfControl,
+//        HuatliTheSunsHeart,
 //        KayaBaneOfTheDead,
 //        KioraBehemothBeckoner
 //        NahiriStormOfStone,
-        
+//        SaheeliSublimeArtificer,
 //        SamutTyrantSmasher,
 //        VraskaSwarmsEminence,
-        
+//        FiremindVessel,
+//        GodPharoahsStatue,
+//        GuildGlobe,
+//        IronBully,
+//        ManaGeode,
+//        Prismite,
+//        SaheelisSilverwing,
+//        BlastZone,
+//        EmergencyZone,
+//        GatewayPlaza,
+//        InterplanarBeacon,
+//        KarnsBastion,
+//        MobilizedDistrict,
+//        Basics,
 //        TezzeretMasterOfTheBridge,
     ]
     
