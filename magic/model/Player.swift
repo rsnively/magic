@@ -28,9 +28,7 @@ class Player: Targetable {
         self.sideboard = sideboard
         super.init()
         library.forEach({ $0.setOwner(owner: self) })
-        for card in library {
-            card.setOwner(owner: self)
-        }
+        sideboard.forEach({ $0.setOwner(owner: self) })
         
         for _ in 0..<1 {
             permanents.append(GRN.Plains())
@@ -116,6 +114,10 @@ class Player: Targetable {
     
     func getCardsInExile() -> [Object] {
         return Game.shared.exile.filter({ $0.getOwner() === self })
+    }
+    
+    func getSideboard() -> [Object] {
+        return sideboard
     }
     
     func getStaticAbilities() -> [StaticAbility] {

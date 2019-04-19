@@ -18,6 +18,9 @@ class AbilityRequirement {
         return AbilityRequirement({ $0 == source })
     }
     
+    static func ArtifactsYourOpponentsControl(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
+        return AbilityRequirement({ $0.isType(.Artifact) && $0.getController() !== source.getController() && additionalRequirement($0) })
+    }
     static func AuraAndEquipmentSpellsYouCast(source: Object) -> AbilityRequirement {
         return AbilityRequirement({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isSpell() && $0.getOwner() === source.getController() })
     }

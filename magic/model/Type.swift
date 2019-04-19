@@ -89,6 +89,7 @@ enum Subtype {
     case Island
     case Jace
     case Jackal
+    case Karn
     case Kaya
     case Kirin
     case Knight

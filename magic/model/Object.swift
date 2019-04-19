@@ -332,6 +332,9 @@ class Object: Targetable, Hashable, NSCopying {
         if getController().getLibrary().contains(self) {
             return .Library
         }
+        if getController().getSideboard().contains(self) {
+            return .Sideboard
+        }
         if Game.shared.exile.contains(self) {
             return .Exile
         }

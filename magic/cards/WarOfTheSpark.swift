@@ -268,7 +268,33 @@ enum WAR {
     static private func Commons() -> [() -> Card] { return cards.filter({ $0().getRarity() == .Common && !$0().isBasicLand() }) }
     static private func BasicLands() -> [() -> Card] { return cards.filter({ $0().isBasicLand() }) }
     
-    // 1
+    static func KarnTheGreatCreator() -> Card {
+        let karn = Card(name: "Karn, the Great Creator", rarity: .Rare, set: set, number: 1)
+        karn.setManaCost("4")
+        karn.setType(.Legendary, .Planeswalker, .Karn)
+        karn.addStaticAbility(
+            requirement: AbilityRequirement.ArtifactsYourOpponentsControl(source: karn),
+            effect: { return $0.withKeyword(.CantActivateAbilities) },
+            layer: .AbilityAddingOrRemoving)
+        
+        karn.addActivatedAbility(
+            string: "{-2}: You may choose an artifact card you own from outside the game or in exile, reveal that card, and put it into your hand.",
+            cost: Cost.RemoveCounters(.Loyalty, 2),
+            effect: {
+                karn.getController().chooseCard(
+                    from: karn.getController().getSideboard() + karn.getController().getCardsInExile(),
+                    restriction: { $0.isType(.Artifact) },
+                    action: { chosen, rest in
+                        chosen?.reveal()
+                        chosen?.putIntoHand()
+                })
+            },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        karn.startingLoyalty = 5
+        return karn
+    }
     // 2
     // 3
     static func AjanisPridemate() -> Card {

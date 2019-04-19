@@ -7,5 +7,6 @@ enum Zone {
     case Graveyard
     case Hand
     case Library
+    case Sideboard
     case Stack
 }
