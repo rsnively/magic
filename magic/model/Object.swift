@@ -55,74 +55,74 @@ class Object: Targetable, Hashable, NSCopying {
     
     private var baseCanAttackWithDefender: Bool = false
     var canAttackWithDefender: Bool {
-        get { return applyContinuousEffects().baseCanAttackWithDefender }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCanAttackWithDefender }
         set (newCanAttackWithDefender) { baseCanAttackWithDefender = newCanAttackWithDefender }
     }
     private var baseCantActivateAbilities: Bool = false
     var cantActivateAbilities: Bool {
-        get { return applyContinuousEffects().baseCantActivateAbilities }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCantActivateAbilities }
         set (newCantActivateAbilities) { baseCantActivateAbilities = newCantActivateAbilities }
     }
     private var baseCantAttack: Bool = false
     var cantAttack: Bool {
-        get { return applyContinuousEffects().baseCantAttack }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCantAttack }
         set (newCantAttack) { baseCantAttack = newCantAttack }
     }
     private var baseCantBlock: Bool = false
     var cantBlock: Bool {
-        get { return applyContinuousEffects().baseCantBlock }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCantBlock }
         set (newCantBlock) { baseCantBlock = newCantBlock }
     }
     private var baseCastingCost: ManaCost?
     var castingCost: ManaCost? {
-        get { return applyContinuousEffects().baseCastingCost }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCastingCost }
         set (newCastingCost) { baseCastingCost = newCastingCost }
     }
     private var baseDeathtouch: Bool = false
     var deathtouch: Bool {
-        get { return applyContinuousEffects().baseDeathtouch }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseDeathtouch }
         set (newDeathtouch) { baseDeathtouch = newDeathtouch }
     }
     private var baseDefender: Bool = false
     var defender: Bool {
-        get { return applyContinuousEffects().baseDefender }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseDefender }
         set (newDefender) { baseDefender = newDefender }
     }
     private var baseDoubleStrike: Bool = false
     var doubleStrike: Bool {
-        get { return applyContinuousEffects().baseDoubleStrike }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseDoubleStrike }
         set (newDoubleStrike) { baseDoubleStrike = newDoubleStrike }
     }
     private var baseEntersTapped: Bool = false
     var entersTapped: Bool {
-        get { return applyContinuousEffects().baseEntersTapped }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseEntersTapped }
         set (newEntersTapped) { baseEntersTapped = newEntersTapped }
     }
     private var baseFirstStrike: Bool = false
     var firstStrike: Bool {
-        get { return applyContinuousEffects().baseFirstStrike }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseFirstStrike }
         set (newFirstStrike) { baseFirstStrike = newFirstStrike }
     }
     func getBaseFirstStrike() -> Bool { return baseFirstStrike }
     private var baseFlash: Bool = false
     var flash: Bool {
-        get { return applyContinuousEffects().baseFlash }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseFlash }
         set (newFlash) { baseFlash = newFlash }
     }
     private var baseFlying: Bool = false
     var flying: Bool {
-        get { return applyContinuousEffects().baseFlying }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseFlying }
         set (newFlying) { baseFlying = newFlying }
     }
     func getBaseFlying() -> Bool { return baseFlying }
     private var baseHaste: Bool = false
     var haste: Bool {
-        get { return applyContinuousEffects().baseHaste }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseHaste }
         set (newHaste) { baseHaste = newHaste }
     }
     private var baseHexproof: Bool = false
     var hexproof: Bool {
-        get { return applyContinuousEffects().baseHexproof }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseHexproof }
         set (newHexproof) { baseHexproof = newHexproof }
     }
     override func isHexproof() -> Bool {
@@ -130,37 +130,37 @@ class Object: Targetable, Hashable, NSCopying {
     }
     private var baseIndestructible: Bool = false
     var indestructible: Bool {
-        get { return applyContinuousEffects().baseIndestructible }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseIndestructible }
         set (newIndestructible) { baseIndestructible = newIndestructible }
     }
     private var baseLifelink: Bool = false
     var lifelink: Bool {
-        get { return applyContinuousEffects().baseLifelink }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseLifelink }
         set (newLifelink) { baseLifelink = newLifelink }
     }
     private var baseReach: Bool = false
     var reach: Bool {
-        get { return applyContinuousEffects().baseReach }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseReach }
         set (newReach) { baseReach = newReach }
     }
     private var baseTrample: Bool = false
     var trample: Bool {
-        get { return applyContinuousEffects().baseTrample }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseTrample }
         set (newTrample) { baseTrample = newTrample }
     }
     private var baseUnblockable: Bool = false
     var unblockable: Bool {
-        get { return applyContinuousEffects().baseUnblockable }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseUnblockable }
         set (newUnblockable) { baseUnblockable = newUnblockable }
     }
     private var baseUncounterable: Bool = false
     var uncounterable: Bool {
-        get { return applyContinuousEffects().baseUncounterable }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseUncounterable }
         set (newUncounterable) { baseUncounterable = newUncounterable }
     }
     private var baseVigilance: Bool = false
     var vigilance: Bool {
-        get { return applyContinuousEffects().baseVigilance }
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseVigilance }
         set (newVigilance) { baseVigilance = newVigilance }
     }
     
@@ -436,9 +436,9 @@ class Object: Targetable, Hashable, NSCopying {
     func setType(_ supertype: Supertype, _ type: Type) { clearTypes(); addType(supertype); addType(type) }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype); }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype1); addType(subtype2); }
-    func isType(_ type: Type) -> Bool { return types.contains(type) }
-    func isType(_ supertype: Supertype) -> Bool { return supertypes.contains(supertype) }
-    func isType(_ subtype: Subtype) -> Bool { return subtypes.contains(subtype) }
+    func isType(_ type: Type) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).types.contains(type) }
+    func isType(_ supertype: Supertype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).supertypes.contains(supertype) }
+    func isType(_ subtype: Subtype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).subtypes.contains(subtype) }
     func isBasicLand() -> Bool { return isType(.Basic) && isType(.Land) }
     func isColor(_ color: Color) -> Bool { return colors.contains(color) }
     func isColorless() -> Bool { return colors.isEmpty }
@@ -597,7 +597,7 @@ class Object: Targetable, Hashable, NSCopying {
             effects: effects)
     }
     
-    func applyContinuousEffects() -> Object {
+    func applyContinuousEffects(upToLayer: EffectLayer = EffectLayer.NoEffect) -> Object {
         var object = self.copy() as! Object
         
         // TODO: Non-Power/Toughness CDAs
@@ -607,6 +607,8 @@ class Object: Targetable, Hashable, NSCopying {
         if object.hasCounter(.PlusOnePlusOne) {
             allEffects.append(ContinuousEffect.PlusOnePlusOneCounters(amount: getCounters(.PlusOnePlusOne)))
         }
+        
+        allEffects = allEffects.filter({ $0.getLayer().hashValue <= upToLayer.hashValue })
         allEffects.sort(by: { a, b in a.getLayer().hashValue < b.getLayer().hashValue })
         allEffects.forEach({ object = $0.apply(object) })
             
@@ -695,6 +697,38 @@ class Object: Targetable, Hashable, NSCopying {
     
     func resolve() {
         spellAbility?.resolve()
+    }
+    
+    func withType(_ supertype: Supertype) -> Object {
+        let object = self.copy() as! Object
+        object.addType(supertype)
+        return object
+    }
+    func withType(_ type: Type) -> Object {
+        let object = self.copy() as! Object
+        object.addType(type)
+        return object
+    }
+    func withType(_ subtype: Subtype) -> Object {
+        let object = self.copy() as! Object
+        object.addType(subtype)
+        return object
+    }
+    
+    func addTypeUntilEndOfTurn(_ supertype: Supertype) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withType(supertype) },
+            layer: .TypeChanging))
+    }
+    func addTypeUntilEndOfTurn(_ type: Type) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withType(type) },
+            layer: .TypeChanging))
+    }
+    func addTypeUntilEndOfTurn(_ subtype: Subtype) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withType(subtype) },
+            layer: .TypeChanging))
     }
     
     func hasPowerAndToughness() -> Bool {
