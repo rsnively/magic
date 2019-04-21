@@ -608,8 +608,8 @@ class Object: Targetable, Hashable, NSCopying {
             allEffects.append(ContinuousEffect.PlusOnePlusOneCounters(amount: getCounters(.PlusOnePlusOne)))
         }
         
-        allEffects = allEffects.filter({ $0.getLayer().hashValue <= upToLayer.hashValue })
-        allEffects.sort(by: { a, b in a.getLayer().hashValue < b.getLayer().hashValue })
+        allEffects = allEffects.filter({ $0.getLayer().rawValue <= upToLayer.rawValue })
+        allEffects.sort(by: { a, b in a.getLayer().rawValue < b.getLayer().rawValue })
         allEffects.forEach({ object = $0.apply(object) })
             
         return object
