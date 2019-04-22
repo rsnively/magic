@@ -292,6 +292,7 @@ class Game: NSObject {
         if currentPhase == .Untap {
             turnNumber = turnNumber + 1
             swap(&player1.active, &player2.active)
+            getActivePlayer().getPermanents().forEach({ $0.removeUntilYourNextTurnEffects() })
             landPlayedThisTurn = false
             player1.newTurn()
             player2.newTurn()

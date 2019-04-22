@@ -3,6 +3,7 @@ import Foundation
 enum EffectDuration {
     case Static
     case UntilEndOfTurn
+    case UntilYourNextTurn
 }
 
 enum EffectLayer: Int {
@@ -43,6 +44,14 @@ class ContinuousEffect {
             effect: effect,
             layer: layer,
             duration: .UntilEndOfTurn,
+            allZones: allZones
+        )
+    }
+    static func UntilYourNextTurn(effect: @escaping (Object) -> Object, layer: EffectLayer, allZones: Bool = false) -> ContinuousEffect {
+        return ContinuousEffect(
+            effect: effect,
+            layer: layer,
+            duration: .UntilYourNextTurn,
             allZones: allZones
         )
     }

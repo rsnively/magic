@@ -971,6 +971,9 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func removeUntilEndOfTurnEffects() {
-        activeEffects.removeAll()
+        activeEffects.removeAll(where: { $0.getDuration() == .UntilEndOfTurn })
+    }
+    func removeUntilYourNextTurnEffects() {
+        activeEffects.removeAll(where: { $0.getDuration() == .UntilYourNextTurn })
     }
 }
