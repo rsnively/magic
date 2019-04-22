@@ -731,6 +731,21 @@ class Object: Targetable, Hashable, NSCopying {
             layer: .TypeChanging))
     }
     
+    func setBasePowerAndToughness(_ power: Int, _ toughness: Int) {
+        self.basePower = power
+        self.baseToughness = toughness
+    }
+    func withBasePowerAndToughness(_ power: Int, _ toughness: Int) -> Object {
+        let object = self.copy() as! Object
+        object.setBasePowerAndToughness(power, toughness)
+        return object
+    }
+    func setBasePowerAndToughnessUntilEndOfTurn(_ power: Int, _ toughness: Int) {
+        addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withBasePowerAndToughness(power, toughness) },
+            layer: .PowerToughnessSetting))
+    }
+    
     func hasPowerAndToughness() -> Bool {
         return basePower != nil && baseToughness != nil
     }
