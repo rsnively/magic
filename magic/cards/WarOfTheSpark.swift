@@ -276,7 +276,25 @@ enum WAR {
             requirement: AbilityRequirement.ArtifactsYourOpponentsControl(source: karn),
             effect: { return $0.withKeyword(.CantActivateAbilities) },
             layer: .AbilityAddingOrRemoving)
-        
+        karn.addActivatedAbility(
+            string: "{+1}: Until your next turn, up to one target noncreature artifact becomes an artifact creature with power and toughness each equal to its converted mana cost.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { !$0.isType(.Creature) && $0.isType(.Artifact) },
+                    zones: [.Battlefield],
+                    optional: true),
+                effect: { target in
+                    target.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+                        effect: { return $0.withType(.Artifact).withType(.Creature) },
+                        layer: .TypeChanging))
+                    target.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+                        effect: { return $0.withBasePowerAndToughness(target.getConvertedManaCost(), target.getConvertedManaCost()) },
+                        layer: .PowerToughnessSetting))
+            }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
         karn.addActivatedAbility(
             string: "{-2}: You may choose an artifact card you own from outside the game or in exile, reveal that card, and put it into your hand.",
             cost: Cost.RemoveCounters(.Loyalty, 2),
