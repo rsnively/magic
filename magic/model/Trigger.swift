@@ -4,6 +4,7 @@ enum Trigger {
     case APlayerCastsInstantOrSorcery
     case AnotherCreatureEntersBattlefieldUnderYourControl
     case AnotherCreatureYouControlDies
+    case AnotherCreatureOrPlaneswalkerYouControlDies
     case CreatureEntersBattlefieldUnderYourControl
     case CreatureOpponentControlsBecomesTappedBesidesAttacking
     case CreatureWithFlyingAttacks

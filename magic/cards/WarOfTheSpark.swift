@@ -23,24 +23,24 @@ enum WAR {
         GodEternalOketra,
 //        GratefulApparition,
         IgniteTheBeacon,
-//        IroncladKrovod,
+        IroncladKrovod,
         LawRuneEnforcer,
         LoxodonSergeant,
 //        MakeshiftBattalion,
 //        MartyrForTheCause,
 //        ParhelionII,
-//        PouncingLynx,
+        PouncingLynx,
 //        PrisonRealm,
-//        RallyOfWings,
+        RallyOfWings,
         RavnicaAtWar,
-//        RisingPopulace,
+        RisingPopulace,
 //        SingleCombat,
-//        SunbladeAngel,
+        SunbladeAngel,
 //        TeyoTheShieldmage,
         TeyosLightshield,
 //        TomikDistinguishedAdvokist,
         ToppleTheStatue,
-//        TrustedPegasus,
+        TrustedPegasus,
 //        TheWanderer,
 //        WanderersStrike,
 //        WarScreecher,
@@ -516,7 +516,15 @@ enum WAR {
         igniteTheBeacon.setFlavorText("\"If you can't save yourself, you fight to give someone else a chance.\"\n--Ajani Goldmane")
         return igniteTheBeacon
     }
-    // 19
+    static func IroncladKrovod() -> Card {
+        let ironcladKrovod = Card(name: "Ironclad Krovod", rarity: .Common, set: set, number: 19)
+        ironcladKrovod.setManaCost("3W")
+        ironcladKrovod.setType(.Creature, .Beast)
+        ironcladKrovod.setFlavorText("\"We need to block the exits from the plaza! What's big, heavy, and available?\"\n--GGideon Jura")
+        ironcladKrovod.power = 2
+        ironcladKrovod.toughness = 5
+        return ironcladKrovod
+    }
     static func LawRuneEnforcer() -> Card {
         let lawRuneEnforcer = Card(name: "Law-Rune Enforcer", rarity: .Common, set: set, number: 20)
         lawRuneEnforcer.setManaCost("W")
@@ -551,7 +559,34 @@ enum WAR {
         loxodonSergeant.toughness = 3
         return loxodonSergeant
     }
-    
+    // 22 Makeshift Battalion
+    // 23 Martyr for the Cause
+    // 24 Parhelion II
+    static func PouncingLynx() -> Card {
+        let pouncingLynx = Card(name: "Pouncing Lynx", rarity: .Common, set: set, number: 25)
+        pouncingLynx.setManaCost("1W")
+        pouncingLynx.setType(.Creature, .Cat)
+        pouncingLynx.addStaticAbility(
+            requirement: AbilityRequirement.This(pouncingLynx),
+            effect: { return $0.getController().active ? $0.withKeyword(.FirstStrike) : $0 },
+            layer: .AbilityAddingOrRemoving)
+        pouncingLynx.setFlavorText("\"I don't understand. He's normally so well behaved!\"")
+        pouncingLynx.power = 2
+        pouncingLynx.toughness = 1
+        return pouncingLynx
+    }
+    // 26 Prison Realm
+    static func RallyOfWings() -> Card {
+        let rallyOfWings = Card(name: "Rally of Wings", rarity: .Uncommon, set: set, number: 27)
+        rallyOfWings.setManaCost("1W")
+        rallyOfWings.setType(.Instant)
+        rallyOfWings.addEffect({
+            rallyOfWings.getController().getCreatures().forEach({ $0.untap() })
+            rallyOfWings.getController().getCreatures().forEach({ if $0.flying { $0.pump(2, 2) } })
+        })
+        rallyOfWings.setFlavorText("Even the clouds became a field of battle. Known as the Sky Theater, it saw the Eternals clash with squadrons of angels.")
+        return rallyOfWings
+    }
     static func RavnicaAtWar() -> Card {
         let ravnicaAtWar = Card(name: "Ravnica at War", rarity: .Rare, set: set, number: 28)
         ravnicaAtWar.setManaCost("3W")
@@ -564,9 +599,32 @@ enum WAR {
         ravnicaAtWar.setFlavorText("The heart of Ravnica disappeared before anyone could strike a blow in its defense.")
         return ravnicaAtWar
     }
-    // 29 Rising Populace
+    static func RisingPopulace() -> Card {
+        let risingPopulace = Card(name: "Rising Populace", rarity: .Common, set: set, number: 29)
+        risingPopulace.setManaCost("2W")
+        risingPopulace.setType(.Creature, .Human)
+        risingPopulace.addTriggeredAbility(
+            trigger: .AnotherCreatureOrPlaneswalkerYouControlDies,
+            effect: { risingPopulace.addCounter(.PlusOnePlusOne) })
+        risingPopulace.setFlavorText("Grief is a crucible where resolve is tempered.")
+        risingPopulace.power = 2
+        risingPopulace.toughness = 2
+        return risingPopulace
+    }
     // 30 Single Combat
-    // 31
+    static func SunbladeAngel() -> Card {
+        let sunbladeAngel = Card(name: "Sunblade Angel", rarity: .Uncommon, set: set, number: 21)
+        sunbladeAngel.setManaCost("5W")
+        sunbladeAngel.setType(.Creature, .Angel)
+        sunbladeAngel.flying = true
+        sunbladeAngel.firstStrike = true
+        sunbladeAngel.vigilance = true
+        sunbladeAngel.lifelink = true
+        sunbladeAngel.setFlavorText("At Feather's command, squadrons of battle angels swarmed out of the <i>Parhelion II</i>, unsheathing blades made of molten dawn.")
+        sunbladeAngel.power = 3
+        sunbladeAngel.toughness = 3
+        return sunbladeAngel
+    }
     // 32 Teyo, the Shieldmage
     static func TeyosLightshield() -> Card {
         let teyosLightshield = Card(name: "Teyo's Lightshield", rarity: .Common, set: set, number: 33)
@@ -584,7 +642,7 @@ enum WAR {
         teyosLightshield.toughness = 3
         return teyosLightshield
     }
-    // 34
+    // 34 Tomik, Distinguished Advokist
     static func ToppleTheStatue() -> Card {
         let toppleTheStatue = Card(name: "Topple the Statue", rarity: .Common, set: set, number: 35)
         toppleTheStatue.setManaCost("2W")
@@ -601,9 +659,40 @@ enum WAR {
         toppleTheStatue.setFlavorText("Bolas cared little when his statue fell, thinking it a useful distraction, underestimating the surge of resolve it gave his opponents.")
         return toppleTheStatue
     }
-    // 36
+    static func TrustedPegasus() -> Card {
+        let trustedPegasus = Card(name: "Trusted Pegasus", rarity: .Common, set: set, number: 36)
+        trustedPegasus.setManaCost("2W")
+        trustedPegasus.setType(.Creature, .Pegasus)
+        trustedPegasus.flying = true
+        trustedPegasus.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isAttacking && $0.isType(.Creature) && !$0.flying },
+                    zones: [.Battlefield]),
+                effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
+        trustedPegasus.setFlavorText("\"Would you give your life to save this world?\" Gideon murmured. The pegasus snorted and spread wide its mighty wings.")
+        trustedPegasus.power = 2
+        trustedPegasus.toughness = 2
+        return trustedPegasus
+    }
     // 37 The Wanderer
     // 38 Wanderer's Strike
+    static func WarShrieker() -> Card {
+        let warShrieker = Card(name: "War Shrieker", rarity: .Common, set: set, number: 39)
+        warShrieker.setManaCost("1W")
+        warShrieker.setType(.Creature, .Bird)
+        warShrieker.flying = true
+        warShrieker.addActivatedAbility(
+            string: "{5}{W}, {T}: Other creatures you control get +1/+1 until end of turn.",
+            cost: Cost.Mana("5W").Tap(),
+            effect: { warShrieker.getController().getCreatures().filter({ $0 != warShrieker }).forEach({ $0.pump(1, 1) })
+        })
+        warShrieker.setFlavorText("Soaring over Vitu-Ghazi, New Prahv, and Orzhova, the Conclave's trained falcons provided critical intelligence.")
+        warShrieker.power = 1
+        warShrieker.toughness = 3
+        return warShrieker
+    }
     
     // 41 Augur of Bolas
     
