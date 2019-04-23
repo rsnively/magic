@@ -865,9 +865,9 @@ class Object: Targetable, Hashable, NSCopying {
         getController().addPermanent(self, tapped: tapped);
     }
     
-    func putOnTopOfLibrary() {
+    func putOnTopOfLibrary(fromTop: Int = 1) {
         removeFromCombat()
-        getOwner().putOnTopOfLibrary(self)
+        getOwner().putOnTopOfLibrary(self, fromTop: fromTop)
     }
     
     func putOnBottomOfLibrary() {

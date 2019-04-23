@@ -9,18 +9,18 @@ enum WAR {
         UginTheIneffable,
 //        UginsConjurant,
         AjanisPridemate,
-//        BattlefieldPromotion,
+        BattlefieldPromotion,
         BondOfDiscipline,
         BulwarkGiant,
-//        CharmedStray,
+        CharmedStray,
         DefiantStrike,
-//        DivineArrow,
-//        EnforcerGriffin,
+        DivineArrow,
+        EnforcerGriffin,
 //        FinaleOfGlory,
 //        GideonBlackblade,
 //        GideonsSacrifice,
 //        GideonsTriumph,
-//        GodEternalOketra,
+        GodEternalOketra,
 //        GratefulApparition,
         IgniteTheBeacon,
 //        IroncladKrovod,
@@ -376,7 +376,20 @@ enum WAR {
         ajanisPridemate.toughness = 2
         return ajanisPridemate
     }
-    // 5
+    static func BattlefieldPromotion() -> Card {
+        let battlefieldPromotion = Card(name: "Battlefield Promotion", rarity: .Common, set: set, number: 5)
+        battlefieldPromotion.setManaCost("1W")
+        battlefieldPromotion.setType(.Instant)
+        battlefieldPromotion.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.addCounter(.PlusOnePlusOne)
+                target.giveKeywordUntilEndOfTurn(.FirstStrike)
+                battlefieldPromotion.getController().gainLife(2)
+        }))
+        battlefieldPromotion.setFlavorText("\"Welcome to the Legion. You saved a district--now let's go save the world.\"")
+        return battlefieldPromotion
+    }
     static func BondOfDiscipline() -> Card {
         let bondOfDiscipline = Card(name: "Bond of Discipline", rarity: .Uncommon, set: set, number: 6)
         bondOfDiscipline.setManaCost("4W")
@@ -404,7 +417,24 @@ enum WAR {
         bulwarkGiant.toughness = 6
         return bulwarkGiant
     }
-    // 8
+    static func CharmedStray() -> Card {
+        let name = "Charmed Stray"
+        let charmedStray = Card(name: name, rarity: .Common, set: set, number: 8)
+        charmedStray.setManaCost("W")
+        charmedStray.setType(.Creature, .Cat)
+        charmedStray.lifelink = true
+        charmedStray.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                charmedStray.getController().getCreatures()
+                            .filter({ $0 != charmedStray && $0.getName() == name })
+                            .forEach({ $0.addCounter(.PlusOnePlusOne) })
+        })
+        charmedStray.setFlavorText("\"There's something peculiar about the cats today.\"\n--Janoc, Tin Street tinker")
+        charmedStray.power = 1
+        charmedStray.toughness = 1
+        return charmedStray
+    }
     static func DefiantStrike() -> Card {
         let defiantStrike = Card(name: "Defiant Strike", rarity: .Common, set: set, number: 9)
         defiantStrike.setManaCost("W")
@@ -418,10 +448,53 @@ enum WAR {
         defiantStrike.setFlavorText("\"My family was saved thanks to a single Boros soldier. It's why I joined the legion. I will be the protector now.\"")
         return defiantStrike
     }
-    
-    
+    static func DivineArrow() -> Card {
+        let divineArrow = Card(name: "Divine Arrow", rarity: .Common, set: set, number: 10)
+        divineArrow.setManaCost("1W")
+        divineArrow.setType(.Instant)
+        divineArrow.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && ($0.isAttacking || $0.blocking ) },
+                zones: [.Battlefield]),
+            effect: { target in divineArrow.damage(to: target, 4) }))
+        divineArrow.setFlavorText("Ravnica's defenders watched in horror as Oketra's shot pierced the body of the pegasus. Gideon tumbled through the air, Blackblade in hand.")
+        return divineArrow
+    }
+    static func EnforcerGriffin() -> Card {
+        let enforcerGriffin = Card(name: "Enforcer Griffin", rarity: .Common, set: set, number: 11)
+        enforcerGriffin.setManaCost("4W")
+        enforcerGriffin.setType(.Creature, .Griffin)
+        enforcerGriffin.flying = true
+        enforcerGriffin.setFlavorText("\"A company of infantry is trapped behind the lines. We need to strike hard and fast to free them, or the casualties will be horrific. Send the griffins.\"\n--Tajic")
+        enforcerGriffin.power = 3
+        enforcerGriffin.toughness = 4
+        return enforcerGriffin
+    }
+    // 12 Finale of Glory
+    // 13 Gideon Blackblade
+    // 14 Gideon's Sacrifice
     // 15 Gideon's Triumph
-    // 16
+    static func GodEternalOketra() -> Card {
+        let godEternalOketra = Card(name: "God-Eternal Oketra", rarity: .Rare, set: set, number: 16)
+        godEternalOketra.setManaCost("3WW")
+        godEternalOketra.setType(.Legendary, .Creature, .Zombie, .God)
+        godEternalOketra.doubleStrike = true
+        godEternalOketra.addTriggeredAbility(
+            trigger: .YouCastCreatureSpell,
+            effect: { godEternalOketra.getController().createToken(ZombieWarrior()) })
+        let deathOrExileEffect: () -> Void = { godEternalOketra.putOnTopOfLibrary(fromTop: 3)}
+        godEternalOketra.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: deathOrExileEffect,
+            effectOptional: true)
+        godEternalOketra.addTriggeredAbility(
+            trigger: .ThisExiledFromBattlefield,
+            effect: deathOrExileEffect,
+            effectOptional: true)
+        godEternalOketra.power = 3
+        godEternalOketra.toughness = 6
+        return godEternalOketra
+    }
     // 17 Grateful Apparition
     static func IgniteTheBeacon() -> Card {
         let igniteTheBeacon = Card(name: "Ignite the Beacon", rarity: .Rare, set: set, number: 18)
@@ -1170,9 +1243,19 @@ enum WAR {
         spirit.toughness = 2
         return spirit
     }
+    
+    static func ZombieWarrior() -> Token {
+        let zombieWarrior = Token(name: "Zombie Warrior", set: set, number: 11)
+        zombieWarrior.colors = [.Black]
+        zombieWarrior.setType(.Creature, .Zombie, .Warrior)
+        zombieWarrior.vigilance = true
+        zombieWarrior.power = 4
+        zombieWarrior.toughness = 4
+        return zombieWarrior
+    }
+    
     static func Goblin() -> Token {
-        let goblin = Token(name: "Goblin", set: set, number: 0 /* TODO */)
-        // TODO: Image
+        let goblin = Token(name: "Goblin", set: set, number: 14)
         goblin.colors = [.Red]
         goblin.setType(.Creature, .Goblin)
         goblin.power = 1

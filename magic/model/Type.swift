@@ -70,6 +70,7 @@ enum Subtype {
     case Gate
     case Giant
     case Goblin
+    case God
     case Golem
     case Gorgon
     case Griffin

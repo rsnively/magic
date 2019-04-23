@@ -530,20 +530,25 @@ class Player: Targetable {
     }
     
     func exileObject(_ object: Object, faceDown: Bool = false) {
+        let oldZone = object.getZone()
         removeObjectFromCurrentZone(object)
         if !faceDown {
             object.reveal()
         }
         Game.shared.exile.append(object)
+        if oldZone == .Battlefield {
+            object.triggerAbilities(.ThisExiledFromBattlefield)
+        }
     }
     
     func revealHandTo(_ player: Player) {
         getHand().forEach({ $0.revealTo(player) })
     }
     
-    func putOnTopOfLibrary(_ object: Object) {
+    func putOnTopOfLibrary(_ object: Object, fromTop: Int = 1) {
         removeObjectFromCurrentZone(object)
-        library.append(object)
+        let index = max(0, getLibrary().count - (fromTop - 1))
+        library.insert(object, at: index)
     }
     
     func putOnBottomOfLibrary(_ objects: inout [Object], random: Bool) {

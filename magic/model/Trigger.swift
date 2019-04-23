@@ -23,6 +23,7 @@ enum Trigger {
     case ThisDealtDamage
     case ThisDies
     case ThisETB
+    case ThisExiledFromBattlefield
     case ThisGetsLoreCounter
     case ThisGetsPlusOnePlusOneCounter
     case ThisLTB
