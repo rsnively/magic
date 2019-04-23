@@ -624,7 +624,7 @@ enum GRN {
             Game.shared.bothPlayers({ player in
                 player.getCreatures().forEach { creature in
                     if creature.getConvertedManaCost() <= 3 {
-                        player.destroyPermanent(creature)
+                        _ = creature.destroy()
                     }
                 }
             })
