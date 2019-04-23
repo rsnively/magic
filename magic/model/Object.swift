@@ -48,6 +48,9 @@ class Object: Targetable, Hashable, NSCopying {
     var attachedTo: Object?
     var auraRestriction: TargetingRestriction?
     
+    var exiledObjects: [Object] = []
+    var exiledBy: Object?
+    
     var activatedAbilities:[ActivatedAbility] = []
     var staticAbilities:[StaticAbility] = []
     var triggeredAbilities:[TriggeredAbility] = []
@@ -242,6 +245,8 @@ class Object: Targetable, Hashable, NSCopying {
         copy.counters = counters
         copy.attachedTo = attachedTo
         copy.auraRestriction = auraRestriction
+        copy.exiledObjects = exiledObjects
+        copy.exiledBy = exiledBy
         copy.activatedAbilities = activatedAbilities
         copy.staticAbilities = staticAbilities
         copy.triggeredAbilities = triggeredAbilities
@@ -893,7 +898,7 @@ class Object: Targetable, Hashable, NSCopying {
         return false
     }
     
-    func exile() {
+    func exile(faceDown: Bool = false) {
         removeFromCombat()
         getOwner().exileObject(self)
         if getController().getPermanents().firstIndex(where: { $0 == self }) != nil {
@@ -975,5 +980,16 @@ class Object: Targetable, Hashable, NSCopying {
     }
     func removeUntilYourNextTurnEffects() {
         activeEffects.removeAll(where: { $0.getDuration() == .UntilYourNextTurn })
+    }
+    
+    func associateExiledObject(_ object: Object) {
+        object.exiledBy = self
+        self.exiledObjects.append(object)
+    }
+    func disassociateWithExiler() {
+        if let exiler = self.exiledBy {
+            exiler.exiledObjects.removeAll(where: { $0 == self })
+            self.exiledBy = nil
+        }
     }
 }

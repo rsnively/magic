@@ -5,8 +5,8 @@ enum WAR {
     static var count = 264
     
     static let cards = [
-//        KarnTheGreatCreator,
-//        UginTheIneffable,
+        KarnTheGreatCreator,
+        UginTheIneffable,
 //        UginsConjurant,
         AjanisPridemate,
 //        BattlefieldPromotion,
@@ -313,7 +313,55 @@ enum WAR {
         karn.startingLoyalty = 5
         return karn
     }
-    // 2
+    static func UginTheIneffable() -> Card {
+        let ugin = Card(name: "Ugin, the Ineffable", rarity: .Rare, set: set, number: 2)
+        ugin.setManaCost("6")
+        ugin.setType(.Legendary, .Planeswalker, .Ugin)
+        ugin.addStaticAbility(
+            requirement: .SpellsYouCast(source: ugin, additionalRequirement: { $0.isColorless() }),
+            effect: { object in
+                object.castingCost = object.getBaseCastingCost().reducedBy(2)
+                return object
+            },
+            layer: .CostReduction)
+        ugin.addActivatedAbility(
+            string: "{+1}: Exile the top card of your library face down and look at it. Create a 2/2 colorless Spirit creature token. When that token leaves the battlefield, put the exiled card into your hand.",
+            cost: Cost.AddCounters(.Loyalty, 1),
+            effect: {
+                let spirit = Spirit()
+                var library = ugin.getController().getLibrary()
+                if let card = library.popLast() {
+                    card.exile(faceDown: true)
+                    card.revealToOwner()
+                    spirit.associateExiledObject(card)
+                    // TODO: Technically, the source of this triggered ability is ugin, right? Even if it's not on the battlefield.
+                    spirit.addTriggeredAbility(
+                        trigger: .ThisLTB,
+                        effect: {
+                            if let exiledCard = spirit.exiledObjects.first {
+                                exiledCard.putIntoHand()
+                            }
+                    })
+                }
+                ugin.getController().createToken(spirit)
+            },
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        ugin.addActivatedAbility(
+            string: "{-3}: Destroy target permanent that's one or more colors.",
+            cost: Cost.RemoveCounters(.Loyalty, 3),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isPermanent() && !$0.isColorless() },
+                    zones: [.Battlefield]),
+                effect: { _ = $0.destroy() }),
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+        ugin.startingLoyalty = 4
+        return ugin
+    }
     // 3
     static func AjanisPridemate() -> Card {
         let ajanisPridemate = Card(name: "Ajani's Pridemate", rarity: .Uncommon, set: set, number: 4)
@@ -1115,6 +1163,13 @@ enum WAR {
         return solarBlaze
     }
     
+    static func Spirit() -> Token {
+        let spirit = Token(name: "Spirit", set: set, number: 1)
+        spirit.setType(.Creature, .Spirit)
+        spirit.power = 2
+        spirit.toughness = 2
+        return spirit
+    }
     static func Goblin() -> Token {
         let goblin = Token(name: "Goblin", set: set, number: 0 /* TODO */)
         // TODO: Image

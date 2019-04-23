@@ -141,6 +141,7 @@ enum Subtype {
     case Trilobite
     case Troll
     case Turtle
+    case Ugin
     case Unicorn
     case Vampire
     case Vedalken

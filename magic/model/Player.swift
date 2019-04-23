@@ -424,6 +424,7 @@ class Player: Targetable {
     
     private func removeObjectFromCurrentZone(_ object: Object) {
         // TODO: new object when changing zones
+        object.disassociateWithExiler()
         object.removeDamage()
         // TODO: Use getZone?
         if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
@@ -528,9 +529,11 @@ class Player: Targetable {
         }
     }
     
-    func exileObject(_ object: Object) {
+    func exileObject(_ object: Object, faceDown: Bool = false) {
         removeObjectFromCurrentZone(object)
-        object.reveal()
+        if !faceDown {
+            object.reveal()
+        }
         Game.shared.exile.append(object)
     }
     
