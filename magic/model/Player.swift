@@ -18,6 +18,7 @@ class Player: Targetable {
     }
     var lifeGainedThisTurn = 0
     var attackedWithCreatureThisTurn = false
+    var numberSpellsCastThisTurn = 0
     var numberInstantsOrSorceriesCastThisTurn = 0
     
     var citysBlessing = false
@@ -196,6 +197,7 @@ class Player: Targetable {
     func newTurn() {
         attackedWithCreatureThisTurn = false
         lifeGainedThisTurn = 0
+        numberSpellsCastThisTurn = 0
         numberInstantsOrSorceriesCastThisTurn = 0
     }
     
@@ -323,6 +325,12 @@ class Player: Targetable {
     }
     
     func castTriggers(card: Card) {
+        if card.isSpell() {
+            numberSpellsCastThisTurn += 1
+            if numberSpellsCastThisTurn == 2 {
+                triggerAbilities(.YouCastYourSecondSpellEachTurn)
+            }
+        }
         if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
             numberInstantsOrSorceriesCastThisTurn += 1
             triggerAbilities(.YouCastInstantOrSorcery)

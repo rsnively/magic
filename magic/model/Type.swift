@@ -151,6 +151,7 @@ enum Subtype {
     case Vivien
     case Wall
     case Warrior
+    case Weird
     case Wizard
     case Wolf
     case Wurm

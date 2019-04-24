@@ -44,7 +44,7 @@ enum WAR {
 //        TheWanderer,
 //        WanderersStrike,
 //        WarScreecher,
-//        AshioksSkulker,
+        AshioksSkulker,
 //        AugurOfBolas,
 //        AvenEternal,
 //        BondOfInsight,
@@ -71,13 +71,13 @@ enum WAR {
 //        RelentlessAdvance,
 //        RescuerSphinx,
 //        SilentSubmersible,
-//        SkyTheaterStrix,
+        SkyTheaterStrix,
 //        SparkDouble,
-//        SpellkeeperWeird,
-//        StealthMission,
+        SpellkeeperWeird,
+        StealthMission,
 //        TamiyosEpiphany,
 //        TeferisTimeTwist,
-//        ThunderDrake,
+        ThunderDrake,
         TotallyLost,
 //        WallOfRunes,
 //        AidTheFallen,
@@ -693,9 +693,25 @@ enum WAR {
         warShrieker.toughness = 3
         return warShrieker
     }
-    
+    static func AshioksSkulker() -> Card {
+        let ashioksSkulker = Card(name: "Ashiok's Skulker", rarity: .Common, set: set, number: 40)
+        ashioksSkulker.setManaCost("4U")
+        ashioksSkulker.setType(.Creature, .Nightmare)
+        ashioksSkulker.addActivatedAbility(
+            string: "{3}{U}: ~ can't be blocked this turn.",
+            cost: Cost.Mana("3U"),
+            effect: { ashioksSkulker.giveKeywordUntilEndOfTurn(.Unblockable) })
+        ashioksSkulker.setFlavorText("\"Fear writhes and whispers in the shadows of your mind. It is the enemy you always knew would come.\"\n--Ashiok")
+        ashioksSkulker.power = 3
+        ashioksSkulker.toughness = 5
+        return ashioksSkulker
+    }
     // 41 Augur of Bolas
-    
+    // 42 Aven Eternal
+    // 43 Bond of Insight
+    // 44 Callous Dismissal
+    // 45 Commence the Endgame
+    // 46 Contentious Plan
     // 47 Crush Dissent
     static func ErraticVisionary() -> Card {
         let erraticVisionary = Card(name: "Erratic Visionary", rarity: .Common, set: set, number: 48)
@@ -713,11 +729,11 @@ enum WAR {
         erraticVisionary.toughness = 3
         return erraticVisionary
     }
-    // 49
+    // 49 Eternal Skylord
     // 50 Fblthp, the Lost
-    // 51
+    // 51 Finale of Revelation
     // 52 Flux Channeler
-    // 53
+    // 53 God-Eternal Kefnet
     // 54 Jace, Wielder of Mysteries
     static func JacesTriumph() -> Card {
         let jacesTriumph = Card(name: "Jace's Triumph", rarity: .Uncommon, set: set, number: 55)
@@ -731,8 +747,8 @@ enum WAR {
         jacesTriumph.setFlavorText("His triumph was not outsmarting Bolas's plan, but in understanding why ultimate power is self-defeating.")
         return jacesTriumph
     }
-    // 56
-    // 57
+    // 56 Kasmina, Enigmatic Mentor
+    // 57 Kasmina's Transmutation
     // 58 Kiora's Dambreaker
     // 59 Lazotep Plating
     static func NagaEternal() -> Card {
@@ -744,13 +760,73 @@ enum WAR {
         nagaEternal.toughness = 2
         return nagaEternal
     }
-    // 61
-    // 62
+    // 61 Narset, Parter of Veils
+    // 62 Narset's Reversal
     // 63 No Escape
     // 64 Relentless Advance
-    
+    // 65 Rescuer Sphinx
+    // 66 Silent Submersible
+    static func SkyTheaterStrix() -> Card {
+        let skyTheaterStrix = Card(name: "Sky Theater Strix", rarity: .Common, set: set, number: 67)
+        skyTheaterStrix.setManaCost("1U")
+        skyTheaterStrix.setType(.Creature, .Bird)
+        skyTheaterStrix.flying = true
+        skyTheaterStrix.addTriggeredAbility(
+            trigger: .YouCastNoncreatureSpell,
+            effect: { skyTheaterStrix.pump(1, 0) })
+        skyTheaterStrix.setFlavorText("Courier owls joined the fray, attacking the Dreadhorde with a viciousness usually reserved for mail thieves.")
+        skyTheaterStrix.power = 1
+        skyTheaterStrix.toughness = 2
+        return skyTheaterStrix
+    }
+    // 68 Spark Double
+    static func SpellkeeperWeird() -> Card {
+        let spellkeeperWeird = Card(name: "Spellkeeper Weird", rarity: .Common, set: set, number: 69)
+        spellkeeperWeird.setManaCost("2U")
+        spellkeeperWeird.setType(.Creature, .Weird)
+        spellkeeperWeird.addActivatedAbility(
+            string: "{2}, {T}, Sacrifice ~: Return target instant or sorcery card from your graveyard to your hand.",
+            cost: Cost.Mana("2").Tap().Sacrifice(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Instant) || $0.isType(.Sorcery)},
+                    zones: [.Graveyard]),
+                effect: { $0.putIntoHand() }))
+        spellkeeperWeird.setFlavorText("They worked well as a team, but they knew it couldn't last forever.")
+        spellkeeperWeird.power = 1
+        spellkeeperWeird.toughness = 4
+        return spellkeeperWeird
+    }
+    static func StealthMission() -> Card {
+        let stealthMission = Card(name: "Stealth Mission", rarity: .Common, set: set, number: 70)
+        stealthMission.setManaCost("2U")
+        stealthMission.setType(.Sorcery)
+        stealthMission.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getController() === stealthMission.getController() },
+                zones: [.Battlefield]),
+            effect: { target in
+                target.addCounters(.PlusOnePlusOne, 2)
+                target.giveKeywordUntilEndOfTurn(.Unblockable)
+        }))
+        stealthMission.setFlavorText("\"What they don't know will definitely hurt them.\"\n--Lazav")
+        return stealthMission
+    }
+    // 71 Tamiyo's Epiphany
     // 72 Teferi's Time Twist
-    // 73
+    static func ThunderDrake() -> Card {
+        let thunderDrake = Card(name: "Thunder Drake", rarity: .Common, set: set, number: 73)
+        thunderDrake.setManaCost("3U")
+        thunderDrake.setType(.Creature, .Elemental, .Drake)
+        thunderDrake.flying = true
+        thunderDrake.addTriggeredAbility(
+            trigger: .YouCastYourSecondSpellEachTurn,
+            effect: { thunderDrake.addCounter(.PlusOnePlusOne) })
+        thunderDrake.setFlavorText("The arrival of the Planar Bridge caused eddies in the aether, creating some entirely new species while transforming others.")
+        thunderDrake.power = 2
+        thunderDrake.toughness = 3
+        return thunderDrake
+    }
     static func TotallyLost() -> Card {
         let totallyLost = Card(name: "Totally Lost", rarity: .Common, set: set, number: 74)
         totallyLost.setManaCost("4U")
