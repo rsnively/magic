@@ -161,6 +161,11 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseUncounterable }
         set (newUncounterable) { baseUncounterable = newUncounterable }
     }
+    private var baseUntapsDuringUntapStep: Bool = true
+    var untapsDuringUntapStep: Bool {
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseUntapsDuringUntapStep }
+        set (newUntapsDuringUntapStep) { baseUntapsDuringUntapStep = newUntapsDuringUntapStep }
+    }
     private var baseVigilance: Bool = false
     var vigilance: Bool {
         get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseVigilance }
@@ -271,6 +276,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.baseTrample = baseTrample
         copy.baseUnblockable = baseUnblockable
         copy.baseUncounterable = baseUncounterable
+        copy.baseUntapsDuringUntapStep = baseUntapsDuringUntapStep
         copy.baseVigilance = baseVigilance
         
         copy.owner = owner
@@ -441,6 +447,7 @@ class Object: Targetable, Hashable, NSCopying {
     func setType(_ supertype: Supertype, _ type: Type) { clearTypes(); addType(supertype); addType(type) }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype); }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype1); addType(subtype2); }
+    func setType(_ supertype: Supertype, _ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type1); addType(type2); addType(subtype); }
     func isType(_ type: Type) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).types.contains(type) }
     func isType(_ supertype: Supertype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).subtypes.contains(subtype) }
@@ -736,6 +743,22 @@ class Object: Targetable, Hashable, NSCopying {
             layer: .TypeChanging))
     }
     
+    func addTypeUntilYourNextTurn(_ supertype: Supertype) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withType(supertype) },
+            layer: .TypeChanging))
+    }
+    func addTypeUntilYourNextTurn(_ type: Type) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withType(type) },
+            layer: .TypeChanging))
+    }
+    func addTypeUntilYourNextTurn(_ subtype: Subtype) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withType(subtype) },
+            layer: .TypeChanging))
+    }
+    
     func setBasePowerAndToughness(_ power: Int, _ toughness: Int) {
         self.basePower = power
         self.baseToughness = toughness
@@ -747,6 +770,11 @@ class Object: Targetable, Hashable, NSCopying {
     }
     func setBasePowerAndToughnessUntilEndOfTurn(_ power: Int, _ toughness: Int) {
         addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withBasePowerAndToughness(power, toughness) },
+            layer: .PowerToughnessSetting))
+    }
+    func setBasePowerAndToughnessUntilYourNextTurn(_ power: Int, _ toughness: Int) {
+        addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
             effect: { return $0.withBasePowerAndToughness(power, toughness) },
             layer: .PowerToughnessSetting))
     }
@@ -773,6 +801,9 @@ class Object: Targetable, Hashable, NSCopying {
     }
     func giveKeywordUntilEndOfTurn(_ keyword: KeywordAbility) {
         self.addContinuousEffect(ContinuousEffect.GiveKeywordUntilEndOfTurn(keyword))
+    }
+    func giveKeywordUntilYourNextTurn(_ keyword: KeywordAbility) {
+        self.addContinuousEffect(ContinuousEffect.GiveKeywordUntilYourNextTurn(keyword))
     }
     func removeKeywordUntilEndOfTurn(_ keyword: KeywordAbility) {
         self.addContinuousEffect(ContinuousEffect.RemoveKeywordUntilEndOfTurn(keyword))

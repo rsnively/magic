@@ -59,6 +59,9 @@ class ContinuousEffect {
     static func GiveKeywordUntilEndOfTurn(_ keyword: KeywordAbility) -> ContinuousEffect {
         return UntilEndOfTurn(effect: { return $0.withKeyword(keyword) }, layer: .AbilityAddingOrRemoving)
     }
+    static func GiveKeywordUntilYourNextTurn(_ keyword: KeywordAbility) -> ContinuousEffect {
+        return UntilYourNextTurn(effect: { return $0.withKeyword(keyword) }, layer: .AbilityAddingOrRemoving)
+    }
     static func RemoveKeywordUntilEndOfTurn(_ keyword: KeywordAbility) -> ContinuousEffect {
         return UntilEndOfTurn(effect: { return $0.withoutKeyword(keyword) }, layer: .AbilityAddingOrRemoving)
     }

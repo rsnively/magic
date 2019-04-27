@@ -229,7 +229,7 @@ class Player: Targetable {
     
     func untapStep() {
         for permanent in permanents {
-            if permanent.isTapped && permanent.untapsDuringNextUntapStep {
+            if permanent.isTapped && permanent.untapsDuringNextUntapStep && permanent.untapsDuringUntapStep {
                 permanent.untap()
             }
             permanent.untapsDuringNextUntapStep = true
@@ -434,6 +434,7 @@ class Player: Targetable {
         // TODO: new object when changing zones
         object.disassociateWithExiler()
         object.removeDamage()
+        object.untap()
         // TODO: Use getZone?
         if let exileIndex = Game.shared.exile.firstIndex(where: { $0 == object }) {
             Game.shared.exile.remove(at: exileIndex)
