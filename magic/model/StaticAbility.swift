@@ -54,6 +54,9 @@ class AbilityRequirement {
     static func SpellsYouCast(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
         return AbilityRequirement({ $0.isSpell() && $0.getOwner() === source.getOwner() && additionalRequirement($0) })
     }
+    static func SpellsYourOpponentsCast(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
+        return AbilityRequirement({ $0.isSpell() && $0.getOwner() !== source.getOwner() && additionalRequirement($0) })
+    }
     static func SubtypeYouControl(source: Object, subtype: Subtype, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
         return AbilityRequirement({ $0.isType(subtype) && $0.getController() === source.getController() && additionalRequirement($0) })
 

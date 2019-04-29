@@ -113,4 +113,9 @@ class ManaCost: NSObject, NSCopying {
         copy.genericMana = max(0, copy.genericMana - genericAmount)
         return copy
     }
+    func increasedBy(_ genericAmount: Int) -> ManaCost {
+        let copy = self.copy() as! ManaCost
+        copy.genericMana += genericAmount
+        return copy
+    }
 }

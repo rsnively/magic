@@ -77,6 +77,11 @@ class Cost: NSCopying {
         copy.manaCost = copy.manaCost.reducedBy(genericAmount)
         return copy
     }
+    func increasedBy(_ genericAmount: Int) -> Cost {
+        let copy = self.copy() as! Cost
+        copy.manaCost = copy.manaCost.reducedBy(genericAmount)
+        return copy
+    }
     
     func getManaCost() -> ManaCost {
         return manaCost
