@@ -874,7 +874,7 @@ enum KTK {
         masterTheWay.setType(.Sorcery)
         masterTheWay.addEffect(TargetedEffect(
             restriction: TargetingRestriction.AnyTarget(),
-            effect: { target in
+            effect: { (target: Targetable?) in
                 masterTheWay.getController().drawCard()
                 let cardsInHand = masterTheWay.getController().getHand().count
                 masterTheWay.damage(to: target, cardsInHand)

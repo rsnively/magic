@@ -28,7 +28,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
         self.sorcerySpeed = sorcerySpeed
         self.loyaltyAbility = loyaltyAbility
         super.init(name: "Activated Ability of " + source.getName())
-        spellAbility = UntargetedEffect(effect: effect)
+        spellAbility = UntargetedEffect(effect: { _ in effect() })
     }
     
     
@@ -78,7 +78,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     override func resolve() {
-        spellAbility?.resolve()
+        spellAbility?.resolve([:])
     }
 }
 
@@ -151,6 +151,6 @@ class TargetedActivatedAbility: Object, ActivatedAbility {
     }
     
     override func resolve() {
-        spellAbility?.resolve()
+        spellAbility?.resolve([:])
     }
 }

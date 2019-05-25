@@ -1,11 +1,13 @@
 import Foundation
 
+typealias AssociatedObjects = [String: [Object]]
+
 protocol TriggeredAbility {
     func getTrigger() -> Trigger
     func getSource() -> Object
     func requiresTarget() -> Bool
     func doesTriggerInGraveyard() -> Bool
-    func triggerAbility() -> Void
+    func triggerAbility(associatedObjects: AssociatedObjects) -> Void
 }
 
 class UntargetedTriggeredAbility: Object, TriggeredAbility {
@@ -13,11 +15,12 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     private var trigger: Trigger
     private var restriction: () -> Bool
     private var triggersInGraveyard: Bool
+    private var associatedObjects: AssociatedObjects?
     
     init(
         source: Object,
         trigger: Trigger,
-        effect: @escaping () -> Void,
+        effect: @escaping (AssociatedObjects) -> Void,
         effectOptional: Bool = false,
         restriction: @escaping () -> Bool = { return true },
         triggersInGraveyard: Bool = false
@@ -28,6 +31,24 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
         self.triggersInGraveyard = triggersInGraveyard
         super.init(name: "Triggered Ability of " + source.getName())
         self.spellAbility = UntargetedEffect(effect: effect, optional: effectOptional)
+    }
+    
+    convenience init(
+        source: Object,
+        trigger: Trigger,
+        effect: @escaping () -> Void,
+        effectOptional: Bool = false,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+        ) {
+        self.init(
+            source: source,
+            trigger: trigger,
+            effect: { _ in effect() },
+            effectOptional: effectOptional,
+            restriction: restriction,
+            triggersInGraveyard: triggersInGraveyard
+        )
     }
     
     func getTrigger() -> Trigger {
@@ -42,8 +63,9 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
     func doesTriggerInGraveyard() -> Bool {
         return triggersInGraveyard
     }
-    func triggerAbility() {
+    func triggerAbility(associatedObjects: AssociatedObjects) {
         if restriction() {
+            self.associatedObjects = associatedObjects
             Game.shared.theStack.push(self)
         }
     }
@@ -63,7 +85,7 @@ class UntargetedTriggeredAbility: Object, TriggeredAbility {
                     Game.shared.resolvingOptionalEffect = effect
                 }
                 else {
-                    effect.resolve()
+                    effect.resolve(associatedObjects!)
                 }
             }
         }
@@ -75,6 +97,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     private var trigger: Trigger
     private var restriction: () -> Bool
     private var triggersInGraveyard: Bool
+    private var associatedObjects: AssociatedObjects?
 
     init(
         source: Object,
@@ -103,9 +126,10 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
     func doesTriggerInGraveyard() -> Bool {
         return triggersInGraveyard
     }
-    func triggerAbility() {
+    func triggerAbility(associatedObjects: AssociatedObjects) {
         let effect = spellAbility as! TargetedEffect
         if restriction() && Game.shared.hasTargets(effect) {
+            self.associatedObjects = associatedObjects
             Game.shared.targetingEffects.append(effect)
             Game.shared.theStack.push(self)
         }
@@ -126,7 +150,7 @@ class TargetedTriggeredAbility: Object, TriggeredAbility {
                     Game.shared.resolvingOptionalEffect = effect
                 }
                 else {
-                    effect.resolve()
+                    effect.resolve(associatedObjects!)
                 }
             }
         }

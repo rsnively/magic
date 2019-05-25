@@ -480,7 +480,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func addEffect(_ effect: @escaping () -> Void) {
-        self.spellAbility = UntargetedEffect(effect: effect)
+        self.spellAbility = UntargetedEffect(effect: { _ in effect() })
     }
     func addEffect(_ effect: TargetedEffect) {
         self.spellAbility = effect
@@ -629,7 +629,7 @@ class Object: Targetable, Hashable, NSCopying {
 
     func addTriggeredAbility(
         trigger: Trigger,
-        effect: @escaping () -> Void,
+        effect: @escaping (AssociatedObjects) -> Void,
         effectOptional: Bool = false,
         restriction: @escaping () -> Bool = { return true },
         triggersInGraveyard: Bool = false
@@ -643,6 +643,21 @@ class Object: Targetable, Hashable, NSCopying {
                 restriction: restriction,
                 triggersInGraveyard: triggersInGraveyard
         ))
+    }
+    
+    func addTriggeredAbility(
+        trigger: Trigger,
+        effect: @escaping () -> Void,
+        effectOptional: Bool = false,
+        restriction: @escaping () -> Bool = { return true },
+        triggersInGraveyard: Bool = false
+        ) {
+        addTriggeredAbility(
+            trigger: trigger,
+            effect: { associatedObjects in effect() },
+            effectOptional: effectOptional,
+            restriction: restriction,
+            triggersInGraveyard: triggersInGraveyard)
     }
     
     func addTriggeredAbility(
@@ -661,10 +676,10 @@ class Object: Targetable, Hashable, NSCopying {
         ))
     }
     
-    func triggerAbilities(_ trigger: Trigger, inGraveyard: Bool = false) {
+    func triggerAbilities(_ trigger: Trigger, associatedObjects: AssociatedObjects = [:], inGraveyard: Bool = false) {
         for triggeredAbility in triggeredAbilities {
             if triggeredAbility.getTrigger() == trigger && (!inGraveyard || triggeredAbility.doesTriggerInGraveyard()) {
-                triggeredAbility.triggerAbility()
+                triggeredAbility.triggerAbility(associatedObjects: associatedObjects)
             }
         }
     }
@@ -708,7 +723,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     
     func resolve() {
-        spellAbility?.resolve()
+        spellAbility?.resolve([:])
     }
     
     func withType(_ supertype: Supertype) -> Object {

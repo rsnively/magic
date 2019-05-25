@@ -919,7 +919,7 @@ enum XLN {
         darkNourishment.setType(.Instant)
         darkNourishment.addEffect(TargetedEffect(
             restriction: TargetingRestriction.AnyTarget(),
-            effect: { target in
+            effect: { (target: Targetable?) in
                 darkNourishment.damage(to: target, 3)
                 darkNourishment.getController().gainLife(3)
         }))
@@ -1218,7 +1218,7 @@ enum XLN {
                     ),
                     TargetingRestriction.TargetCreature(optional: true)
                 ],
-                effect: { targets in
+                effect: { (targets: [Targetable?]) in
                     for target in targets {
                         burningSunsAvatar.damage(to: target, 3)
                     }

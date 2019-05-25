@@ -115,7 +115,7 @@ class CommandButtonsNode: SKNode {
             okayButton.color = SKColor.green
             if okayButton.contains(pos) {
                 if Game.shared.isResolvingOptionalEffect {
-                    Game.shared.resolvingOptionalEffect!.resolve()
+                    Game.shared.resolvingOptionalEffect!.resolve([:])
                     Game.shared.resolvingOptionalEffect = nil
                 }
                 else if Game.shared.isSelectingCards {

@@ -361,7 +361,7 @@ enum LEA {
         psionicBlast.setType(.Instant)
         psionicBlast.addEffect(TargetedEffect(
             restriction: TargetingRestriction.AnyTarget(),
-            effect: { target in
+            effect: { (target: Targetable?) in
                 psionicBlast.damage(to: target, 4)
                 psionicBlast.damage(to: psionicBlast.getController(), 2)
         }))
@@ -815,7 +815,7 @@ enum LEA {
             cost: Cost.Tap(),
             effect: TargetedEffect(
                 restriction: TargetingRestriction.AnyTarget(),
-                effect: { target in
+                effect: { (target: Targetable?) in
                     orcishArtillery.damage(to: target, 2)
                     orcishArtillery.damage(to: orcishArtillery.getController(), 3)
         }))
@@ -1216,7 +1216,18 @@ enum LEA {
     }
     // 239 Crystal Rod
     // 240 Cyclopean Tomb
-    // 241 Dingus Egg
+    static func DingusEgg() -> Card {
+        let dingusEgg = Card(name: "Dingus Egg", rarity: .Rare, set: set, number: 241)
+        dingusEgg.setManaCost("4")
+        dingusEgg.setType(.Artifact)
+        dingusEgg.addTriggeredAbility(
+            trigger: .LandPutIntoAGraveyardFromPlay,
+            effect: { associatedObjects in
+                let land = associatedObjects[LandPutIntoGraveyardFromPlay_Land]!.first!
+                dingusEgg.damage(to: land.getController(), 2)
+        })
+        return dingusEgg
+    }
     // 242 Disrupting Scepter
     // 243 Forcefield
     // 244 Gauntlet of Might

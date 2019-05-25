@@ -2015,7 +2015,7 @@ enum RNA {
                         optional: true
                     )
                 ],
-                effect: { targets in
+                effect: { (targets: [Targetable?]) in
                     for target in targets {
                         rakdosFirewheeler.damage(to: target, 2)
                     }

@@ -1,5 +1,7 @@
 import Foundation
 
+let LandPutIntoGraveyardFromPlay_Land = "Land";
+
 enum Trigger {
     case APlayerCastsInstantOrSorcery
     case AnotherCreatureEntersBattlefieldUnderYourControl
@@ -14,6 +16,7 @@ enum Trigger {
     case EachUpkeep
     case GateEntersBattlefieldUnderYourControl
     case Landfall
+    case LandPutIntoAGraveyardFromPlay
     case NontokenCreatureYouControlDies
     case OpponentDrawsCard
     case ThisAttacks
