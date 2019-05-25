@@ -37,10 +37,6 @@ class Player: Targetable {
             permanents.append(GRN.Swamp())
             permanents.append(GRN.Mountain())
             permanents.append(GRN.Forest())
-            permanents.append(LEA.DingusEgg())
-            hand.append(XLN.Demolish())
-            hand.append(XLN.Demolish())
-
         }
         graveyard.forEach({ $0.setOwner(owner: self); $0.reveal() })
         hand.forEach({ $0.setOwner(owner: self); $0.revealToOwner() })
@@ -261,19 +257,20 @@ class Player: Targetable {
     
     
     func declareAttackers() {
-        for permanent in permanents {
-            if permanent.isAttacking {
-                if permanent.isType(.Creature) {
-                    attackedWithCreatureThisTurn = true
-                }
-                permanent.triggerAbilities(.ThisAttacks)
-                if permanent.isType(.Creature) && permanent.flying {
-                    Game.shared.bothPlayers({ $0.triggerAbilities(.CreatureWithFlyingAttacks) })
-                }
-                if !permanent.vigilance {
-                    permanent.tap(declaredAsAttacker: true)
-                }
+        for permanent in getAttackers() {
+            if permanent.isType(.Creature) {
+                attackedWithCreatureThisTurn = true
             }
+            permanent.triggerAbilities(.ThisAttacks)
+            if permanent.isType(.Creature) && permanent.flying {
+                Game.shared.bothPlayers({ $0.triggerAbilities(.CreatureWithFlyingAttacks) })
+            }
+            if !permanent.vigilance {
+                permanent.tap(declaredAsAttacker: true)
+            }
+        }
+        if getAttackers().count == 1 {
+            triggerAbilities(.CreatureYouControlAttacksAlone, associatedObjects: [CreatureYouControlAttacksAlone_Creature: getAttackers()])
         }
     }
     

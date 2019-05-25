@@ -1,5 +1,6 @@
 import Foundation
 
+let CreatureYouControlAttacksAlone_Creature = "Creature";
 let LandPutIntoGraveyardFromPlay_Land = "Land";
 
 enum Trigger {
@@ -10,6 +11,7 @@ enum Trigger {
     case CreatureEntersBattlefieldUnderYourControl
     case CreatureOpponentControlsBecomesTappedBesidesAttacking
     case CreatureWithFlyingAttacks
+    case CreatureYouControlAttacksAlone
     case DragonEntersBattlefieldUnderYourControl
     case EachEndStep
     case EachOpponentsUpkeep

@@ -35,7 +35,7 @@ enum RNA {
     
     static let cards = [
 //        AngelOfGrace,
-//        AngelicExaltation,
+        AngelicExaltation,
         ArchwayAngel,
         ArrestersZeal,
         BringToTrial,
@@ -318,7 +318,20 @@ enum RNA {
     }
     
     // 1 Angel of Grace
-    // 2 Angelic Exaltation
+    static func AngelicExaltation() -> Card {
+        let angelicExaltation = Card(name: "Angelic Exaltation", rarity: .Uncommon, set: set, number: 2)
+        angelicExaltation.setManaCost("3W")
+        angelicExaltation.setType(.Enchantment)
+        angelicExaltation.addTriggeredAbility(
+            trigger: .CreatureYouControlAttacksAlone,
+            effect: { associatedObjects in
+                let creature = associatedObjects[CreatureYouControlAttacksAlone_Creature]!.first!
+                let amount = angelicExaltation.getController().getCreatures().count
+                creature.pump(amount, amount)
+        })
+        angelicExaltation.setFlavorText("\"If we cannot have peace, we will have justice.\"\n--Aurelia")
+        return angelicExaltation
+    }
     static func ArchwayAngel() -> Card {
         let archwayAngel = Card(name: "Archway Angel", rarity: .Uncommon, set: set, number: 3)
         archwayAngel.setManaCost("5W")
