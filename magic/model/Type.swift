@@ -90,6 +90,7 @@ enum Subtype {
     case Island
     case Jace
     case Jackal
+    case Jellyfish
     case Karn
     case Kaya
     case Kirin
@@ -128,6 +129,7 @@ enum Subtype {
     case Sheep
     case Siren
     case Skeleton
+    case Sliver
     case Snake
     case Soldier
     case Sphinx

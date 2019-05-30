@@ -137,6 +137,13 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetCreatureOrPlaneswalker(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Creature) || $0.isType(.Planeswalker) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetEnchantment(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isType(.Enchantment) },

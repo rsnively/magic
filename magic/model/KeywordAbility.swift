@@ -1,6 +1,7 @@
 import Foundation
 
 enum KeywordAbility {
+    case CanAttackWithDefender
     case CantActivateAbilities
     case CantAttack
     case CantBlock
@@ -25,6 +26,7 @@ extension Object {
     // TODO: keywords should be in list of KeywordAbilities instead of a bunch of boolean attributes
     func setKeyword(_ keyword: KeywordAbility, _ value: Bool) {
         switch keyword {
+        case .CanAttackWithDefender: self.canAttackWithDefender = value
             case .CantActivateAbilities: self.cantActivateAbilities = value
             case .CantAttack: self.cantAttack = value
             case .CantBlock: self.cantBlock = value

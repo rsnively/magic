@@ -6,4 +6,5 @@ enum Counter: String {
     case Lore = "Lore"
     case Loyalty = "Loyalty"
     case PlusOnePlusOne = "+1/+1"
+    case Verse = "Verse"
 }

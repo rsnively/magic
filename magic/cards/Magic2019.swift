@@ -1801,7 +1801,7 @@ enum M19 {
         return reclamationSage
     }
     static func Recollect() -> Card {
-        let recollect = Card(name: "Recollect", rarity: .Common, set: set, number: 197)
+        let recollect = Card(name: "Recollect", rarity: .Uncommon, set: set, number: 197)
         recollect.setManaCost("2G")
         recollect.setType(.Sorcery)
         recollect.addEffect(TargetedEffect.SingleObject(
