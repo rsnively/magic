@@ -43,7 +43,7 @@ enum WAR {
         TrustedPegasus,
 //        TheWanderer,
 //        WanderersStrike,
-//        WarScreecher,
+        WarScreecher,
         AshioksSkulker,
 //        AugurOfBolas,
 //        AvenEternal,
@@ -678,20 +678,20 @@ enum WAR {
     }
     // 37 The Wanderer
     // 38 Wanderer's Strike
-    static func WarShrieker() -> Card {
-        let warShrieker = Card(name: "War Shrieker", rarity: .Common, set: set, number: 39)
-        warShrieker.setManaCost("1W")
-        warShrieker.setType(.Creature, .Bird)
-        warShrieker.flying = true
-        warShrieker.addActivatedAbility(
+    static func WarScreecher() -> Card {
+        let warShrieker = Card(name: "War Screecher", rarity: .Common, set: set, number: 39)
+        warScreecher.setManaCost("1W")
+        warScreecher.setType(.Creature, .Bird)
+        warScreecher.flying = true
+        warScreecher.addActivatedAbility(
             string: "{5}{W}, {T}: Other creatures you control get +1/+1 until end of turn.",
             cost: Cost.Mana("5W").Tap(),
-            effect: { warShrieker.getController().getCreatures().filter({ $0 != warShrieker }).forEach({ $0.pump(1, 1) })
+            effect: { warScreecher.getController().getCreatures().filter({ $0 != warShrieker }).forEach({ $0.pump(1, 1) })
         })
-        warShrieker.setFlavorText("Soaring over Vitu-Ghazi, New Prahv, and Orzhova, the Conclave's trained falcons provided critical intelligence.")
-        warShrieker.power = 1
-        warShrieker.toughness = 3
-        return warShrieker
+        warScreecher.setFlavorText("Soaring over Vitu-Ghazi, New Prahv, and Orzhova, the Conclave's trained falcons provided critical intelligence.")
+        warScreecher.power = 1
+        warScreecher.toughness = 3
+        return warScreecher
     }
     static func AshioksSkulker() -> Card {
         let ashioksSkulker = Card(name: "Ashiok's Skulker", rarity: .Common, set: set, number: 40)
