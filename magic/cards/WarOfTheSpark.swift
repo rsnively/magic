@@ -26,7 +26,7 @@ enum WAR {
         IroncladKrovod,
         LawRuneEnforcer,
         LoxodonSergeant,
-//        MakeshiftBattalion,
+//        MakeshiftBattalion, // Could do, just trigger
 //        MartyrForTheCause,
 //        ParhelionII,
         PouncingLynx,
@@ -54,7 +54,7 @@ enum WAR {
 //        CrushDissent,
         ErraticVisionary,
 //        EternalSkylord,
-//        FblthpTheLost,
+//        FblthpTheLost, // Could do, a lil weird
 //        FinaleOfRevelation,
 //        FluxChanneler,
 //        GodEternalKefnet,
@@ -86,7 +86,7 @@ enum WAR {
 //        BolassCitadel,
         BondOfRevival,
         CharityExtractor,
-//        CommandTheDreadhorde,
+//        CommandTheDreadhorde, // ehh?
         DavrielRogueShadowmage,
         DavrielsShadowfuge,
 //        DeliverUntoEvil,
@@ -679,14 +679,14 @@ enum WAR {
     // 37 The Wanderer
     // 38 Wanderer's Strike
     static func WarScreecher() -> Card {
-        let warShrieker = Card(name: "War Screecher", rarity: .Common, set: set, number: 39)
+        let warScreecher = Card(name: "War Screecher", rarity: .Common, set: set, number: 39)
         warScreecher.setManaCost("1W")
         warScreecher.setType(.Creature, .Bird)
         warScreecher.flying = true
         warScreecher.addActivatedAbility(
             string: "{5}{W}, {T}: Other creatures you control get +1/+1 until end of turn.",
             cost: Cost.Mana("5W").Tap(),
-            effect: { warScreecher.getController().getCreatures().filter({ $0 != warShrieker }).forEach({ $0.pump(1, 1) })
+            effect: { warScreecher.getController().getCreatures().filter({ $0 != warScreecher }).forEach({ $0.pump(1, 1) })
         })
         warScreecher.setFlavorText("Soaring over Vitu-Ghazi, New Prahv, and Orzhova, the Conclave's trained falcons provided critical intelligence.")
         warScreecher.power = 1

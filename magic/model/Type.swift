@@ -104,6 +104,7 @@ enum Subtype {
     case Mutant
     case Naga
     case Nightmare
+    case Ninja
     case Nissa
     case Octopus
     case Ogre
@@ -135,6 +136,7 @@ enum Subtype {
     case Sphinx
     case Spider
     case Spirit
+    case Squid
     case Swamp
     case Tezzeret
     case Thopter
