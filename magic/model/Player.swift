@@ -1,7 +1,8 @@
 import Foundation
 
 class Player: Targetable {
-    private var life = 20
+    static let startingLifeTotal = 20
+    private var life = Player.startingLifeTotal
     private var sideboard: [Object]
     static let sideboardLimit = 15
     private var library: [Object]
@@ -37,6 +38,7 @@ class Player: Targetable {
             permanents.append(GRN.Swamp())
             permanents.append(GRN.Mountain())
             permanents.append(GRN.Forest())
+            hand.append(M20.IronrootWarlord())
         }
         graveyard.forEach({ $0.setOwner(owner: self); $0.reveal() })
         hand.forEach({ $0.setOwner(owner: self); $0.revealToOwner() })
@@ -563,6 +565,9 @@ class Player: Targetable {
     
     func revealHandTo(_ player: Player) {
         getHand().forEach({ $0.revealTo(player) })
+    }
+    func revealHand() {
+        Game.shared.bothPlayers({ revealHandTo($0) })
     }
     
     func putOnTopOfLibrary(_ object: Object, fromTop: Int = 1) {

@@ -21,6 +21,7 @@ enum Subtype {
     case Ajani
     case Angel
     case Antelope
+    case Ape
     case Archer
     case Artificer
     case Assassin

@@ -7,26 +7,29 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-        let r = Int.random(in: 1 ... 7)
-        if r == 1 {
-            return XLN.RandomCard()
-        }
-        if r == 2 {
-            return RIX.RandomCard()
-        }
-        if r == 3 {
-            return DOM.RandomCard()
-        }
-        if r == 4 {
-            return M19.RandomCard()
-        }
-        if r == 5 {
-            return GRN.RandomCard()
-        }
-        if r == 6 {
-            return RNA.RandomCard()
-        }
-        return WAR.RandomCard()
+//        let r = Int.random(in: 1 ... 8)
+//        if r == 1 {
+//            return XLN.RandomCard()
+//        }
+//        if r == 2 {
+//            return RIX.RandomCard()
+//        }
+//        if r == 3 {
+//            return DOM.RandomCard()
+//        }
+//        if r == 4 {
+//            return M19.RandomCard()
+//        }
+//        if r == 5 {
+//            return GRN.RandomCard()
+//        }
+//        if r == 6 {
+//            return RNA.RandomCard()
+//        }
+//        if r == 7 {
+//            return WAR.RandomCard()
+//        }
+        return M20.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {
@@ -46,6 +49,9 @@ class Card: Object {
         if !getController().hasPriority { return false }
         if !(isType(.Instant) || flash) && !(getController().canCastSorcery()) { return false }
         if (isType(.Land) && Game.shared.landWasPlayedThisTurn()) { return false }
+        if let effect = spellAbility {
+            if effect.requiresTarget() && !Game.shared.hasTargets(effect as! TargetedEffect) { return false }
+        }
         
         return true
     }

@@ -1277,7 +1277,8 @@ enum GRN {
                 object.power = instSorcInGraveyard + instSorcInExile
                 return object
             },
-            layer: .PowerToughnessCDA)
+            layer: .PowerToughnessCDA,
+            allZones: true)
         cracklingDrake.addTriggeredAbility(
             trigger: .ThisETB,
             effect: { cracklingDrake.getController().drawCard() })
