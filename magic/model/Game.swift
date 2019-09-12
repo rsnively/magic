@@ -114,8 +114,8 @@ class Game: NSObject {
         var sideboard1: [Card] = []
         var sideboard2: [Card] = []
         for _ in 0..<35 {
-            deck1.append(Card.randomCard())
-            deck2.append(Card.randomCard())
+            deck1.append(Card.randomStandardCard())
+            deck2.append(Card.randomStandardCard())
         }
         
         for _ in 0..<4 {
@@ -133,8 +133,8 @@ class Game: NSObject {
         }
         
         for _ in 0..<Player.sideboardLimit {
-            sideboard1.append(Card.randomCard())
-            sideboard2.append(Card.randomCard())
+            sideboard1.append(Card.randomStandardCard())
+            sideboard2.append(Card.randomStandardCard())
         }
         
         player1 = Player(deck: deck1, sideboard: sideboard1)
@@ -151,8 +151,8 @@ class Game: NSObject {
         player1.active = true
         player1.hasPriority = true
         
-        let totalCardsInStandard = M20.count + WAR.count + RNA.count + GRN.count + M19.count + DOM.count + RIX.count + XLN.count
-        let standardCardsImplemented = M20.cards.count + WAR.cards.count + RNA.cards.count + GRN.cards.count + M19.cards.count + DOM.cards.count + RIX.cards.count + XLN.cards.count
+        let totalCardsInStandard = ELD.count + M20.count + WAR.count + RNA.count + GRN.count
+        let standardCardsImplemented = ELD.count + M20.cards.count + WAR.cards.count + RNA.cards.count + GRN.cards.count
         let percentage: Float = Float(standardCardsImplemented) / Float(totalCardsInStandard) * 100.0
         print("STANDARD")
         print("========")

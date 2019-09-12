@@ -196,6 +196,8 @@
 		982A839122F65B83006CD25B /* m2025full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982A839022F65B83006CD25B /* m2025full.png */; };
 		982A839322F65EA0006CD25B /* m2027full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982A839222F65EA0006CD25B /* m2027full.png */; };
 		982A839522F65FA3006CD25B /* m2029full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982A839422F65FA3006CD25B /* m2029full.png */; };
+		982D073A232AEA4300541790 /* ThroneOfEldraine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982D0739232AEA4300541790 /* ThroneOfEldraine.swift */; };
+		982D073D232AEBE800541790 /* eld02full.png in Resources */ = {isa = PBXBuildFile; fileRef = 982D073C232AEBE800541790 /* eld02full.png */; };
 		982F9B15209BAAFF009BBD8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B14209BAAFF009BBD8B /* AppDelegate.swift */; };
 		982F9B1B209BAAFF009BBD8B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B1A209BAAFF009BBD8B /* GameScene.swift */; };
 		982F9B1D209BAAFF009BBD8B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F9B1C209BAAFF009BBD8B /* GameViewController.swift */; };
@@ -1500,6 +1502,8 @@
 		982A839022F65B83006CD25B /* m2025full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m2025full.png; sourceTree = "<group>"; };
 		982A839222F65EA0006CD25B /* m2027full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m2027full.png; sourceTree = "<group>"; };
 		982A839422F65FA3006CD25B /* m2029full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m2029full.png; sourceTree = "<group>"; };
+		982D0739232AEA4300541790 /* ThroneOfEldraine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThroneOfEldraine.swift; sourceTree = "<group>"; };
+		982D073C232AEBE800541790 /* eld02full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld02full.png; sourceTree = "<group>"; };
 		982F9B11209BAAFF009BBD8B /* magic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		982F9B14209BAAFF009BBD8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		982F9B1A209BAAFF009BBD8B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -2645,6 +2649,7 @@
 				98DDC6B321ACA7B400EB4639 /* TestCards.swift */,
 				985FEE2A21BD21A0005D980E /* UltimateMasters.swift */,
 				98ABF02B2252AAFF0087957C /* WarOfTheSpark.swift */,
+				982D0739232AEA4300541790 /* ThroneOfEldraine.swift */,
 			);
 			path = cards;
 			sourceTree = "<group>";
@@ -2752,6 +2757,14 @@
 				98CD093C217FB35100DA91F7 /* lea285full.png */,
 			);
 			path = lea;
+			sourceTree = "<group>";
+		};
+		982D073B232AEBC800541790 /* eld */ = {
+			isa = PBXGroup;
+			children = (
+				982D073C232AEBE800541790 /* eld02full.png */,
+			);
+			path = eld;
 			sourceTree = "<group>";
 		};
 		982F9B08209BAAFF009BBD8B = {
@@ -3622,6 +3635,7 @@
 			children = (
 				98DDC6B121AC9FF100EB4639 /* cardback.jpg */,
 				986ED55D215F06F9008B44DC /* dom */,
+				982D073B232AEBC800541790 /* eld */,
 				98FA8E582156B85700EF5203 /* grn */,
 				98A9DFDA219EA52B00D99213 /* hou */,
 				98C269DC2189AA4C00911698 /* ktk */,
@@ -4300,6 +4314,7 @@
 				98A8CA3D2162095F009E92FB /* dom81full.png in Resources */,
 				98BEF4B52178F01000144C51 /* rix82full.png in Resources */,
 				9810CDC7219CDB2800967142 /* rix134full.png in Resources */,
+				982D073D232AEBE800541790 /* eld02full.png in Resources */,
 				9810CDC2219CD93B00967142 /* rix116full.png in Resources */,
 				98EC6E93226FC1A500D520CD /* war25full.png in Resources */,
 				989D9D9A21998B0A0024D563 /* lea262full.png in Resources */,
@@ -5484,6 +5499,7 @@
 				988F6E40229D9B2900CBD8BD /* ModernHorizons.swift in Sources */,
 				986D5C9020D1CDB6005E944E /* ManaPoolNode.swift in Sources */,
 				98FE5D1821B64B9F0007DE6C /* Emblem.swift in Sources */,
+				982D073A232AEA4300541790 /* ThroneOfEldraine.swift in Sources */,
 				986D5C8820D1B853005E944E /* Magic2019.swift in Sources */,
 				9818425420CA07050068DC91 /* ManaCost.swift in Sources */,
 				9831998D219A72260026317F /* ReplacementEffect.swift in Sources */,

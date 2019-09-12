@@ -7,29 +7,49 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func randomCard() -> Card {
-//        let r = Int.random(in: 1 ... 8)
-//        if r == 1 {
-//            return XLN.RandomCard()
-//        }
-//        if r == 2 {
-//            return RIX.RandomCard()
-//        }
-//        if r == 3 {
-//            return DOM.RandomCard()
-//        }
-//        if r == 4 {
-//            return M19.RandomCard()
-//        }
-//        if r == 5 {
-//            return GRN.RandomCard()
-//        }
-//        if r == 6 {
-//            return RNA.RandomCard()
-//        }
-//        if r == 7 {
-//            return WAR.RandomCard()
-//        }
-        return M20.RandomCard()
+        let r = Int.random(in: 1 ... 9)
+        if r == 1 {
+            return XLN.RandomCard()
+        }
+        if r == 2 {
+            return RIX.RandomCard()
+        }
+        if r == 3 {
+            return DOM.RandomCard()
+        }
+        if r == 4 {
+            return M19.RandomCard()
+        }
+        if r == 5 {
+            return GRN.RandomCard()
+        }
+        if r == 6 {
+            return RNA.RandomCard()
+        }
+        if r == 7 {
+            return WAR.RandomCard()
+        }
+        if r == 8 {
+            return M20.RandomCard()
+        }
+        return ELD.RandomCard()
+    }
+    
+    static func randomStandardCard() -> Card {
+        let r = Int.random(in: 1 ... 5)
+        if r == 1 {
+            return GRN.RandomCard()
+        }
+        if r == 2 {
+            return RNA.RandomCard()
+        }
+        if r == 3 {
+            return WAR.RandomCard()
+        }
+        if r == 4 {
+            return M20.RandomCard()
+        }
+        return ELD.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {
