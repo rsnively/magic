@@ -32,6 +32,7 @@ enum Trigger {
     case ThisExiledFromBattlefield
     case ThisGetsLoreCounter
     case ThisGetsPlusOnePlusOneCounter
+    case ThisGetsTwelfthHourCounter
     case ThisLTB
     case YouCastBlueSpell
     case YouCastCreatureSpell
@@ -39,12 +40,15 @@ enum Trigger {
     case YouCastHistoricSpell
     case YouCastInstantOrSorcery
     case YouCastInstantSpell
+    case YouCastKnightSpell
+    case YouCastLegendarySpell
     case YouCastMerfolkSpell
     case YouCastMulticoloredSpell
     case YouCastNoncreatureSpell
     case YouCastRedSpell
     case YouCastYourSecondSpellEachTurn
     case YouDrawCard
+    case YouDrawSecondCard
     case YouGainLife
     case YouSacrificeTreasure
     case YourBeginCombat

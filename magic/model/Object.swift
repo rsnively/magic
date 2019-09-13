@@ -329,6 +329,9 @@ class Object: Targetable, Hashable, NSCopying {
     func eachOpponent(_ f: (Player) -> Void) {
         controller!.eachOpponent(f)
     }
+    func anyOpponent(_ f: (Player) -> Bool) -> Bool {
+        return controller!.anyOpponent(f)
+    }
     
     func getZone() -> Zone {
         if getController().getPermanents().contains(self) {
@@ -509,11 +512,14 @@ class Object: Targetable, Hashable, NSCopying {
         for _ in 0 ..< amount {
             addCounter_impl(type)
         }
-        if type == Counter.Lore {
+        if type == Counter.Lore && amount > 0 {
             triggerAbilities(.ThisGetsLoreCounter)
         }
-        else if type == Counter.PlusOnePlusOne {
+        else if type == Counter.PlusOnePlusOne && amount > 0 {
             triggerAbilities(.ThisGetsPlusOnePlusOneCounter)
+        }
+        else if type == Counter.Hour && amount > 0 && getCounters(.Hour) == 12 {
+            triggerAbilities(.ThisGetsTwelfthHourCounter)
         }
     }
     func addCounter(_ type: Counter) {
@@ -523,6 +529,9 @@ class Object: Targetable, Hashable, NSCopying {
         }
         else if type == Counter.PlusOnePlusOne {
             triggerAbilities(.ThisGetsPlusOnePlusOneCounter)
+        }
+        else if type == Counter.Hour && getCounters(.Hour) == 12 {
+            triggerAbilities(.ThisGetsTwelfthHourCounter)
         }
     }
     func removeCounter(_ type: Counter) {

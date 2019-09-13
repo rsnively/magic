@@ -23,6 +23,7 @@ enum Subtype {
     case Antelope
     case Ape
     case Archer
+    case Archon
     case Artificer
     case Assassin
     case Aura
@@ -64,6 +65,7 @@ enum Subtype {
     case Equipment
     case Faerie
     case Fish
+    case Food
     case Forest
     case Frog
     case Fungus
@@ -107,6 +109,7 @@ enum Subtype {
     case Nightmare
     case Ninja
     case Nissa
+    case Noble
     case Octopus
     case Ogre
     case Ooze

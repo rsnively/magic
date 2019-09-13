@@ -19,6 +19,7 @@ class Player: Targetable {
     }
     var lifeGainedThisTurn = 0
     var attackedWithCreatureThisTurn = false
+    var numberCardsDrawnThisTurn = 0
     var numberSpellsCastThisTurn = 0
     var numberInstantsOrSorceriesCastThisTurn = 0
     
@@ -52,6 +53,9 @@ class Player: Targetable {
     }
     func eachOpponent(_ f: (Player) -> Void) {
         f(getOpponent())
+    }
+    func anyOpponent(_ f: (Player) -> Bool) -> Bool {
+        return f(getOpponent())
     }
     
     func getLife() -> Int {
@@ -197,6 +201,11 @@ class Player: Targetable {
         graveyard.forEach({ $0.putOnTopOfLibrary() })
         shuffleLibrary()
     }
+    func shuffleGraveyardAndHandIntoLibrary() {
+        graveyard.forEach({ $0.putOnTopOfLibrary() })
+        hand.forEach({ $0.putOnTopOfLibrary() })
+        shuffleLibrary()
+    }
     
     func pregameActions() {
         shuffleLibrary()
@@ -206,6 +215,7 @@ class Player: Targetable {
     func newTurn() {
         attackedWithCreatureThisTurn = false
         lifeGainedThisTurn = 0
+        numberCardsDrawnThisTurn = 0
         numberSpellsCastThisTurn = 0
         numberInstantsOrSorceriesCastThisTurn = 0
     }
@@ -217,6 +227,10 @@ class Player: Targetable {
         hand.append(card)
         if !noTrigger {
             triggerAbilities(.YouDrawCard)
+            numberCardsDrawnThisTurn += 1
+            if (numberCardsDrawnThisTurn == 2) {
+                triggerAbilities(.YouDrawSecondCard)
+            }
             eachOpponent({ $0.triggerAbilities(.OpponentDrawsCard) })
         }
     }
@@ -341,6 +355,9 @@ class Player: Targetable {
                 triggerAbilities(.YouCastYourSecondSpellEachTurn)
             }
         }
+        if card.isSpell() && card.isType(.Legendary) {
+            triggerAbilities(.YouCastLegendarySpell)
+        }
         if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
             numberInstantsOrSorceriesCastThisTurn += 1
             triggerAbilities(.YouCastInstantOrSorcery)
@@ -359,6 +376,9 @@ class Player: Targetable {
             triggerAbilities(.YouCastEnchantmentSpell)
         }
         
+        if card.isSpell() && card.isType(.Knight) {
+            triggerAbilities(.YouCastKnightSpell)
+        }
         if card.isSpell() && card.isType(.Merfolk) {
             triggerAbilities(.YouCastMerfolkSpell)
         }
