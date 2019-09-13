@@ -78,4 +78,8 @@ class StaticAbility : ContinuousEffect {
     override func apply(_ object: Object) -> Object {
         return requirement.meetsRequirement(object) ? effect(object) : object
     }
+    
+    func isCharacteristicDefining() -> Bool {
+        return layer == .PowerToughnessCDA
+    }
 }

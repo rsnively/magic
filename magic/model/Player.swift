@@ -135,6 +135,13 @@ class Player: Targetable {
                 }
             }
         }
+        for card in getGraveyard() {
+            for ability in card.staticAbilities {
+                if ability.isCharacteristicDefining {
+                    abilities += [ability]
+                }
+            }
+        }
         return abilities
     }
     
