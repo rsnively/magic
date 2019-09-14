@@ -39,7 +39,6 @@ class Player: Targetable {
             permanents.append(GRN.Swamp())
             permanents.append(GRN.Mountain())
             permanents.append(GRN.Forest())
-            hand.append(M20.IronrootWarlord())
         }
         graveyard.forEach({ $0.setOwner(owner: self); $0.reveal() })
         hand.forEach({ $0.setOwner(owner: self); $0.revealToOwner() })
