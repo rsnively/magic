@@ -716,7 +716,7 @@ class Object: Targetable, Hashable, NSCopying {
     func addLoyaltyAbility(string: String, loyalty: Int, effect: @escaping () -> Void) {
         addActivatedAbility(
             string: string,
-            cost: (loyalty < 0) ? Cost.RemoveCounters(.Loyalty, loyalty) : Cost.AddCounters(.Loyalty, loyalty),
+            cost: (loyalty < 0) ? Cost.RemoveCounters(.Loyalty, -loyalty) : Cost.AddCounters(.Loyalty, loyalty),
             effect: effect,
             manaAbility: false,
             sorcerySpeed: true,
