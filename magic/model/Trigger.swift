@@ -17,6 +17,7 @@ enum Trigger {
     case EachOpponentsUpkeep
     case EachUpkeep
     case GateEntersBattlefieldUnderYourControl
+    case KnightEntersBattlefieldUnderYourControl
     case Landfall
     case LandPutIntoAGraveyardFromPlay
     case NontokenCreatureYouControlDies

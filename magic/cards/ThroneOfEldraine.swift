@@ -57,6 +57,108 @@ enum ELD {
 //        WitchingWell,
 //        AyaraFirstOfLochthwain,
         BakeIntoAPie,
+        
+//        BelleOfTheBrawl,
+        
+//        BogNaughty,
+//        CauldronFamiliar,
+        
+//        ClackbridgeTroll,
+        EpicDownfall,
+        EyeCollector,
+        
+//        FoulmireKnight,
+        
+//        LostLegion,
+        
+//        MurderousRider,
+//        OathswornKnight,
+//        OrderOfMidnight,
+//        PiperOfTheSwarm,
+//        RankleMasterOfPranks,
+        
+        ReaveSoul,
+        
+//        SmittenSwordmaster,
+//        SpectersShriek,
+//        SyrKonradTheGrim,
+        
+        WickedGuardian,
+//        WishclawTalisman,
+//        WitchsVengeance,
+        
+        BlowYourHouseDown,
+        
+        BrimstoneTrebuchet,
+        BurningYardTrainer,
+//        ClaimTheFirstborn,
+        CrystalSlipper,
+        Embercleave,
+//        EmberethPaladin,
+//        EmberethShieldbreaker,
+//        FerventChampion,
+        
+        Joust,
+        
+//        MerchantOfTheVale,
+//        OgreErrant,
+//        OpportunisticDragon,
+        RagingRedcap,
+//        RedcapMelee,
+        
+//        RobberOfTheRich,
+//        ScorchingDragonfire,
+//        SearingBarrage,
+//        SevenDwarves,
+//        SkullknockerOgre,
+//        SlayingFire,
+        
+//        SyrCarahTheBold,
+        
+        WeaselbackRedcap,
+//        BeanstalkGiant,
+//        CuriousPair,
+//        EdgewallInnkeeper,
+//        FeastingTrollKing,
+        FellThePheasant,
+        FierceWitchstalker,
+//        FlaxenIntruder,
+        
+//        GarenbrigPaladin,
+        
+//        GildedGoose,
+        
+//        InsatiableAppetite,
+//        KeeperOfFables,
+        
+//        LovestruckBeast,
+//        ManaleafRider,
+        OakhameAdversary,
+//        OnceAndFuture,
+//        OnceUponATime,
+//        Outmuscle,
+//        QuestingBeast,
+        
+//        ReturnToNature,
+//        RosethornAcolyte,
+        
+//        TrailOfCrumbs,
+        
+//        WickedWolf,
+//        WildbornPreserver,
+        WildwoodTracker,
+        WolfsQuarry,
+        
+//        DoomForetold,
+        
+        GarrukCursedHuntsman,
+        
+        InspiringVeteran,
+//        LochmereSerpent,
+        MaraleafPixie,
+//        OkoThiefOfCrowns,
+        OutlawsMerriment,
+        
     ]
     
     static func RandomCard() -> Card {
@@ -382,6 +484,488 @@ enum ELD {
         bakeIntoAPie.setFlavorText("\"My secret ingredient? Well, I can't tell you that. But here's a hint. It's not love.\"")
         return bakeIntoAPie
     }
+    // 77
+    // 78 Belle of the Brawl
+    // 79
+    // 80 Bog Naughty
+    // 81 Cauldron Familiar
+    // 82
+    // 83
+    // 84 Clackbridge Troll
+    static func EpicDownfall() -> Card {
+        let epicDownfall = Card(name: "Epic Downfall", rarity: .Uncommon, set: set, number: 85)
+        epicDownfall.setManaCost("1B")
+        epicDownfall.setType(.Sorcery)
+        epicDownfall.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getConvertedManaCost() >= 3 },
+                zones: [.Battlefield]),
+            effect: { $0.exile() }))
+        epicDownfall.setFlavorText("The dragon had a lot of things going through his mind that day. He didn't expect a sword to be one of them.")
+        return epicDownfall
+    }
+    static func EyeCollector() -> Card {
+        let eyeCollector = Card(name: "Eye Collector", rarity: .Common, set: set, number: 86)
+        eyeCollector.setManaCost("B")
+        eyeCollector.setType(.Creature, .Faerie)
+        eyeCollector.flying = true
+        eyeCollector.addTriggeredAbility(
+            trigger: .ThisDealsCombatDamageToPlayer,
+            effect: {
+                Game.shared.bothPlayers({ $0.mill(1) })
+        })
+        eyeCollector.setFlavorText("\"Lord Rankle will see you now--all he asks is a small token of tribute.\"")
+        eyeCollector.power = 1
+        eyeCollector.toughness = 1
+        return eyeCollector
+    }
+    // 87
+    // 88
+    // 89
+    // 90 Foulmire Knight
+    // 91
+    // 92
+    // 93
+    // 94 Lost Legion
+    // 95
+    // 96
+    // 97 Murderous Rider
+    // 98 Oathsworn Knight
+    // 99 Order of Midnight
+    // 100 Piper of the Swarm
+    // 101 Rankle, Master of Pranks
+    // 102
+    static func ReaveSoul() -> Card {
+        let reaveSoul = Card(name: "Reave Soul", rarity: .Common, set: set, number: 103)
+        reaveSoul.setManaCost("1B")
+        reaveSoul.setType(.Sorcery)
+        reaveSoul.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { $0.isType(.Creature) && $0.getPower() <= 3 },
+                zones: [.Battlefield]),
+            effect: { _ = $0.destroy() }))
+        reaveSoul.setFlavorText("\"Into amethyst, I pour\nEnvy's shadow, sorrow's gleam.\nLure the one whose scorn I bore\nThat I may hear one final scream.\"\n--Barrow witch incantation")
+        return reaveSoul
+    }
+    // 104
+    // 105 Smitten Swordmaster
+    // 106 Specter's Shriek
+    // 107 Syr Konrad, the Grim
+    // 108
+    static func WickedGuardian() -> Card {
+        let wickedGuardian = Card(name: "Wicked Guardian", rarity: .Common, set: set, number: 109)
+        wickedGuardian.setManaCost("3B")
+        wickedGuardian.setType(.Creature, .Human, .Noble)
+        wickedGuardian.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != wickedGuardian && $0.isType(.Creature) && $0.getController() === wickedGuardian.getController() },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    wickedGuardian.damage(to: target, 2)
+                    wickedGuardian.getController().drawCard()
+                },
+                effectOptional: true))
+        wickedGuardian.setFlavorText("\"Some are born to greatness. You were born to scrub greatness's floors.\"")
+        wickedGuardian.power = 4
+        wickedGuardian.toughness = 2
+        return wickedGuardian
+    }
+    // 110 Wishclaw Talisman
+    // 111 Witch's Vengeance
+    // 112
+    // 113
+    static func BlowYourHouseDown() -> Card {
+        let blowYourHouseDown = Card(name: "Blow Your House Down", rarity: .Common, set: set, number: 114)
+        blowYourHouseDown.setManaCost("2R")
+        blowYourHouseDown.setType(.Sorcery)
+        blowYourHouseDown.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true),
+            ],
+            effect: { objects in
+                for case .some(let object) in objects {
+                    object.giveKeywordUntilEndOfTurn(.CantBlock)
+                    if object.isType(.Wall) {
+                        _ = object.destroy()
+                    }
+                }
+            },
+            distinctTargets: true))
+        blowYourHouseDown.setFlavorText("\"You think these walls will protect you? My, you have a dim view of the power of the wilds.\"\n--Marawn, barrow witch")
+        return blowYourHouseDown
+    }
+    // 115
+    static func BrimstoneTrebuchet() -> Card {
+        let brimstoneTrebuchet = Card(name: "Brimstone Trebuchet", rarity: .Common, set: set, number: 116)
+        brimstoneTrebuchet.setManaCost("2R")
+        brimstoneTrebuchet.setType(.Artifact, .Creature, .Wall)
+        brimstoneTrebuchet.defender = true
+        brimstoneTrebuchet.reach = true
+        brimstoneTrebuchet.addActivatedAbility(
+            string: "{T}: ~ deals 1 damage to each opponent.",
+            cost: Cost.Tap(),
+            effect: { brimstoneTrebuchet.eachOpponent({ brimstoneTrebuchet.damage(to: $0, 1) }) })
+        brimstoneTrebuchet.addTriggeredAbility(
+            trigger: .KnightEntersBattlefieldUnderYourControl,
+            effect: { brimstoneTrebuchet.untap() })
+        brimstoneTrebuchet.power = 1
+        brimstoneTrebuchet.toughness = 3
+        return brimstoneTrebuchet
+    }
+    static func BurningYardTrainer() -> Card {
+        let burningYardTrainer = Card(name: "Burning-Yard Trainer", rarity: .Uncommon, set: set, number: 117)
+        burningYardTrainer.setManaCost("4R")
+        burningYardTrainer.setType(.Creature, .Human, .Knight)
+        burningYardTrainer.trample = true
+        burningYardTrainer.haste = true
+        burningYardTrainer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != burningYardTrainer && $0.isType(.Knight) && $0.getController() === burningYardTrainer.getController() },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    target.pump(2, 2)
+                    target.giveKeywordUntilEndOfTurn(.Trample)
+                    target.giveKeywordUntilEndOfTurn(.Haste)
+                }))
+        burningYardTrainer.setFlavorText("\"For every scar I've received, I've given ten back.\"")
+        burningYardTrainer.power = 3
+        burningYardTrainer.toughness = 3
+        return burningYardTrainer
+    }
+    // 118 Claim the Firstborn
+    static func CrystalSlipper() -> Card {
+        let crystalSlipper = Card(name: "Crystal Slipper", rarity: .Common, set: set, number: 119)
+        crystalSlipper.setManaCost("1R")
+        crystalSlipper.setType(.Artifact, .Equipment)
+        crystalSlipper.addEquipAbility(
+            string: "{1}: Equip.",
+            cost: Cost.Mana("1"),
+            effects: [
+                ({ $0.pumped(1, 0) }, .PowerToughnessChanging),
+                ({ $0.withKeyword(.Haste) }, .AbilityAddingOrRemoving)
+            ])
+        crystalSlipper.setFlavorText("\"After the death of her mother, Cassia found that things that appear fragile can be very strong indeed.\"\n--Beyond the Great Henge")
+        return crystalSlipper
+    }
+    static func Embercleave() -> Card {
+        let embercleave = Card(name: "Embercleave", rarity: .Mythic, set: set, number: 120)
+        embercleave.setManaCost("4RR")
+        embercleave.setType(.Legendary, .Artifact, .Equipment)
+        embercleave.flash = true
+        embercleave.addStaticAbility(
+            requirement: AbilityRequirement.This(embercleave),
+            effect: { object in
+                // TODO: Make sure casting w/ another on the battlefield works
+                let numAttackingCreatures = object.getController().getCreatures().filter({ $0.isAttacking }).count
+                object.castingCost = object.getBaseCastingCost().reducedBy(numAttackingCreatures)
+                return object
+            },
+            layer: .CostReduction,
+            allZones: true)
+        embercleave.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === embercleave.getController() },
+                    zones: [.Battlefield]),
+                effect: { embercleave.attachTo($0) }))
+        embercleave.addEquipAbility(
+            string: "{3}: Equip",
+            cost: Cost.Mana("3"),
+            effects: [
+                ({ $0.pumped(1, 1) }, .PowerToughnessChanging),
+                ({ $0.withKeyword(.DoubleStrike) }, .AbilityAddingOrRemoving),
+                ({ $0.withKeyword(.Trample) }, .AbilityAddingOrRemoving)
+            ])
+        return embercleave
+    }
+    // 121 Embereth Paladin
+    // 122 Embereth Shieldbreaker
+    // 123
+    // 124 Fervent Champion
+    // 125
+    // 126
+    // 127
+    // 128
+    static func Joust() -> Card {
+        let joust = Card(name: "Joust", rarity: .Uncommon, set: set, number: 129)
+        joust.setManaCost("1R")
+        joust.setType(.Sorcery)
+        joust.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === joust.getController() },
+                    zones: [.Battlefield]
+                ),
+                TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== joust.getController() },
+                    zones: [.Battlefield]
+                )
+            ],
+            effect: { targets in
+                if let myCreature = targets[0] {
+                    if myCreature.isType(.Knight) {
+                        myCreature.pump(2, 1)
+                    }
+                    if let theirCreature = targets[1] {
+                        myCreature.fight(theirCreature)
+                    }
+                }
+        }))
+        joust.setFlavorText("\"Life is a tournament that rewards the bold.\"\n--Syr Layne, knight of Embereth")
+        return joust
+    }
+    // 130
+    // 131 Merchant of the Vale
+    // 132 Ogre Errant
+    // 133 Opportunistic Dragon
+    static func RagingRedcap() -> Card {
+        let ragingRedcap = Card(name: "Raging Redcap", rarity: .Common, set: set, number: 134)
+        ragingRedcap.setManaCost("2R")
+        ragingRedcap.setType(.Creature, .Goblin, .Knight)
+        ragingRedcap.doubleStrike = true
+        ragingRedcap.setFlavorText("Many tales of redcap terror begin with two simple things: bloodlust and stolen steel.")
+        ragingRedcap.power = 1
+        ragingRedcap.toughness = 2
+        return ragingRedcap
+    }
+    // 135 Redcap Melee
+    // 136
+    // 137
+    // 138 Robber of the Rich
+    // 139 Scorching Dragonfire
+    // 140 Searing Barrage
+    // 141 Seven Dwarves
+    // 142 Skullknocker Ogre
+    // 143 Slaying Fire
+    // 144
+    // 145 Syr Carah, the Bold
+    // 146
+    // 147
+    static func WeaselbackRedcap() -> Card {
+        let weaselbackRedcap = Card(name: "Weaselback Redcap", rarity: .Common, set: set, number: 148)
+        weaselbackRedcap.setManaCost("R")
+        weaselbackRedcap.setType(.Creature, .Goblin, .Knight)
+        weaselbackRedcap.addActivatedAbility(
+            string: "{1}{R}: ~ gets +2/+0 until end of turn.",
+            cost: Cost.Mana("1R"),
+            effect: { weaselbackRedcap.pump(2, 0) })
+        weaselbackRedcap.setFlavorText("\"I would rather cast myself into the abyss than let my blood stain the cap of these monsters.\"\n--Syr Alin, the Lion's Claw")
+        weaselbackRedcap.power = 1
+        weaselbackRedcap.toughness = 1
+        return weaselbackRedcap
+    }
+    // 149 Beanstalk Giant
+    // 150 Curious Pair
+    // 151 Edgewall Innkeeper
+    // 152 Feasting Troll King
+    static func FellThePheasant() -> Card {
+        let fellThePheasant = Card(name: "Phell the Pheasant", rarity: .Common, set: set, number: 153)
+        fellThePheasant.setManaCost("2G")
+        fellThePheasant.setType(.Instant)
+        fellThePheasant.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.flying },
+                zones: [.Battlefield]),
+            effect: { target in
+                fellThePheasant.damage(to: target, 5)
+                fellThePheasant.getController().createToken(Food())
+        }))
+        fellThePheasant.setFlavorText("\"A keen eye and a steady hand are essential for defeating most foes, including hunger.\"\n--Syr Grenphire, knight of Garenbrig")
+        return fellThePheasant
+    }
+    static func FierceWitchstalker() -> Card {
+        let fierceWitchstalker = Card(name: "Fierce Witchstalker", rarity: .Common, set: set, number: 154)
+        fierceWitchstalker.setManaCost("2GG")
+        fierceWitchstalker.setType(.Creature, .Wolf)
+        fierceWitchstalker.trample = true
+        fierceWitchstalker.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { fierceWitchstalker.getController().createToken(Food()) })
+        fierceWitchstalker.setFlavorText("While the realm has laws, in the wilds there are other ways of balancing power.")
+        fierceWitchstalker.power = 4
+        fierceWitchstalker.toughness = 4
+        return fierceWitchstalker
+    }
+    // 155 Flaxen Intruder
+    // 156
+    // 157 Garenbrig Paladin
+    // 158
+    // 159
+    // 160 Gilded Goose
+    // 161
+    // 162 Insatiable Appetite
+    // 163 Keeper of Fables
+    // 164
+    // 165 Lovestruck Beast
+    // 166 Manaleaf Rider
+    static func OakhameAdversary() -> Card {
+        let oakhameAdversary = Card(name: "Oakhame Adversary", rarity: .Uncommon, set: set, number: 167)
+        oakhameAdversary.setManaCost("3G")
+        oakhameAdversary.setType(.Creature, .Elf, .Warrior)
+        oakhameAdversary.addStaticAbility(
+            requirement: AbilityRequirement.This(oakhameAdversary),
+            effect: { object in
+                if oakhameAdversary.anyOpponent({ !$0.getPermanents().filter({ $0.isColor(.Green) }).isEmpty }) {
+                    object.castingCost = object.getBaseCastingCost().reducedBy(2)
+                }
+                return object
+            },
+            layer: .CostReduction,
+            allZones: true)
+        oakhameAdversary.deathtouch = true
+        oakhameAdversary.addTriggeredAbility(
+            trigger: .ThisDealsCombatDamageToPlayer,
+            effect: { oakhameAdversary.getController().drawCard() })
+        oakhameAdversary.setFlavorText("The elves remember every secret path from the days when they ruled the realm.")
+        oakhameAdversary.power = 2
+        oakhameAdversary.toughness = 3
+        return oakhameAdversary
+    }
+    // 168 Once and Future
+    // 169 Once Upon a Time
+    // 170 Outmuscle
+    // 171 Questing Beast
+    // 172
+    // 173 Return to Nature
+    // 174 Rosethorn Acolyte
+    // 175
+    // 176
+    // 177
+    // 178
+    // 179 Trail of Crumbs
+    // 180
+    // 181 Wicked Wolf
+    // 182 Wildborn Preserver
+    static func WildwoodTracker() -> Card {
+        let wildwoodTracker = Card(name: "Wildwood Tracker", rarity: .Common, set: set, number: 183)
+        wildwoodTracker.setManaCost("G")
+        wildwoodTracker.setType(.Creature, .Elf, .Warrior)
+        wildwoodTracker.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: { wildwoodTracker.pump(1, 1) },
+            effectOptional: false,
+            restriction: { !wildwoodTracker.getController().getCreatures().filter({ $0 != wildwoodTracker && !$0.isType(.Human) }).isEmpty })
+        wildwoodTracker.addTriggeredAbility(
+            trigger: .ThisBlocks,
+            effect: { wildwoodTracker.pump(1, 1) },
+            effectOptional: false,
+            restriction: { !wildwoodTracker.getController().getCreatures().filter({ $0 != wildwoodTracker && !$0.isType(.Human) }).isEmpty })
+        wildwoodTracker.setFlavorText("\"This one was wearing shoes made of glass. She'll be no ordinary prey.\"")
+        wildwoodTracker.power = 1
+        wildwoodTracker.toughness = 1
+        return wildwoodTracker
+    }
+    static func WolfsQuarry() -> Card {
+        let wolfsQuarry = Card(name: "Wolf's Quarry", rarity: .Common, set: set, number: 184)
+        wolfsQuarry.setManaCost("4GG")
+        wolfsQuarry.setType(.Sorcery)
+        wolfsQuarry.addEffect({
+            wolfsQuarry.getController().createToken(Boar())
+            wolfsQuarry.getController().createToken(Boar())
+            wolfsQuarry.getController().createToken(Boar())
+        })
+        wolfsQuarry.setFlavorText("\"The monster was gaining on them. Twice it had found them. There was only one place left to hide.\"\n--Tales of the Fae")
+        return wolfsQuarry
+    }
+    // 185
+    // 186
+    // 187 Doom Foretold
+    // 188
+    // 189
+    // 190
+    static func GarrukCursedHuntsman() -> Card {
+        let garruk = Card(name: "Garruk, Cursed Huntsman", rarity: .Mythic, set: set, number: 191)
+        garruk.setManaCost("4BG")
+        garruk.setType(.Legendary, .Planeswalker, .Garruk)
+        garruk.addLoyaltyAbility(
+            string: "{+0}: Create two 2/2 black and green Wolf creature tokens with \"When this creature dies, put a loyalty counter on each Garruk you control.\"",
+            loyalty: 0,
+            effect: {
+                garruk.getController().createToken(Wolf())
+                garruk.getController().createToken(Wolf())
+            })
+        garruk.addLoyaltyAbility(
+            string: "{-3}: Destroy target creature. Draw a card.",
+            loyalty: -3,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { target in
+                    _ = target.destroy()
+                    garruk.getController().drawCard()
+                }))
+        garruk.addLoyaltyAbility(
+            string: "{-6}: You get an emblem with \"Creatures you control get +3/+3 and have trample.\"",
+            loyalty: -6,
+            effect: { garruk.getController().createEmblem(GarrukEmblem()) })
+        garruk.startingLoyalty = 5
+        return garruk
+    }
+    // 192
+    // 193
+    static func InspiringVeteran() -> Card {
+        let inspiringVeteran = Card(name: "Inspiring Veteran", rarity: .Uncommon, set: set, number: 194)
+        inspiringVeteran.setManaCost("RW")
+        inspiringVeteran.setType(.Creature, .Human, .Knight)
+        inspiringVeteran.addStaticAbility(
+            requirement: AbilityRequirement.OtherSubtypeYouControl(source: inspiringVeteran, subtype: .Knight),
+            effect: { $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
+        inspiringVeteran.setFlavorText("\"I fight for my daughter, who may not set foot on a battlefield for many years. Remember who you fight for.\"")
+        inspiringVeteran.power = 2
+        inspiringVeteran.toughness = 2
+        return inspiringVeteran
+    }
+    // 195 Lochmere Serpent
+    static func MaraleafPixie() -> Card {
+        let maraleafPixie = Card(name: "Maraleaf Pixie", rarity: .Uncommon, set: set, number: 196)
+        maraleafPixie.setManaCost("GU")
+        maraleafPixie.setType(.Creature, .Faerie)
+        maraleafPixie.flying = true
+        maraleafPixie.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: {
+                maraleafPixie.getController().addMana(color: .Green)
+            },
+            manaAbility: true)
+        maraleafPixie.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: {
+                maraleafPixie.getController().addMana(color: .Blue)
+            },
+            manaAbility: true)
+        maraleafPixie.setFlavorText("Neither hostile nor friendly, pixies flit through the forest seeking the treasures of the wilds.")
+        maraleafPixie.power = 2
+        maraleafPixie.toughness = 2
+        return maraleafPixie
+    }
+    // 197 Oko, Thief of Crowns
+    static func OutlawsMerriment() -> Card {
+        let outlawsMerriment = Card(name: "Outlaws' Merriment", rarity: .Mythic, set: set, number: 198)
+        outlawsMerriment.setManaCost("1RWW")
+        outlawsMerriment.setType(.Enchantment)
+        outlawsMerriment.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: {
+                let r = Int.random(in: 1 ... 3)
+                if r == 1 {
+                    outlawsMerriment.getController().createToken(HumanWarrior())
+                } else if r == 2 {
+                    outlawsMerriment.getController().createToken(HumanCleric())
+                } else {
+                    outlawsMerriment.getController().createToken(HumanRogue())
+                }
+            })
+        return outlawsMerriment
+    }
     
     static func Human() -> Token {
         let human = Token(name: "Human", set: set, number: -1 /*todo*/)
@@ -400,6 +984,62 @@ enum ELD {
         knight.toughness = 2
         return knight;
     }
+    static func Boar() -> Token {
+        let boar = Token(name: "Boar", set: set, number: -1 /*todo*/)
+        boar.colors = [.Green]
+        boar.setType(.Creature, .Boar)
+        boar.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { boar.getController().createToken(Food()) })
+        boar.power = 1
+        boar.toughness = 1
+        return boar
+    }
+    static func HumanCleric() -> Token {
+        let humanCleric = Token(name: "Human Cleric", set: set, number: 11)
+        humanCleric.colors = [.Red, .White]
+        humanCleric.setType(.Creature, .Human, .Cleric)
+        humanCleric.lifelink = true
+        humanCleric.haste = true
+        humanCleric.power = 2
+        humanCleric.toughness = 1
+        return humanCleric
+    }
+    static func HumanRogue() -> Token {
+        let humanRogue = Token(name: "Human Rogue", set: set, number: 12)
+        humanRogue.colors = [.Red, .White]
+        humanRogue.setType(.Creature, .Human, .Rogue)
+        humanRogue.haste = true
+        humanRogue.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect(
+                restriction: TargetingRestriction.AnyTarget(),
+                effect: { humanRogue.damage(to: $0, 1) }))
+        humanRogue.power = 1
+        humanRogue.toughness = 2
+        return humanRogue
+    }
+    static func HumanWarrior() -> Token {
+        let humanWarrior = Token(name: "Human Warrior", set: set, number: 13)
+        humanWarrior.colors = [.Red, .White]
+        humanWarrior.setType(.Creature, .Human, .Warrior)
+        humanWarrior.trample = true
+        humanWarrior.haste = true
+        humanWarrior.power = 3
+        humanWarrior.toughness = 1
+        return humanWarrior
+    }
+    static func Wolf() -> Token {
+        let wolf = Token(name: "Wolf", set: set, number: -1 /*todo*/)
+        wolf.colors = [.Black, .Green]
+        wolf.setType(.Creature, .Wolf)
+        wolf.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { wolf.getController().getPermanents().filter({ $0.isType(.Garruk) }).forEach({ $0.addCounter(.Loyalty) }) })
+        wolf.power = 2
+        wolf.toughness = 2
+        return wolf
+    }
     
     static func Food() -> Token {
         let r = Int.random(in: 15 ... 18)
@@ -413,5 +1053,16 @@ enum ELD {
             cost: Cost.Mana("2").Tap().Sacrifice(),
             effect: { food.getController().gainLife(3) })
         return food
+    }
+    
+    static func GarrukEmblem() -> Object {
+        let garrukEmblem = Emblem(set: set, number: -1 /*todo*/)
+        garrukEmblem.addStaticAbility(
+            requirement: AbilityRequirement.CreaturesYouControl(source: garrukEmblem),
+            effects: [
+                ({ $0.pumped(3, 3) }, .PowerToughnessChanging),
+                ({ $0.withKeyword(.Trample) }, .AbilityAddingOrRemoving),
+            ])
+        return garrukEmblem
     }
 }

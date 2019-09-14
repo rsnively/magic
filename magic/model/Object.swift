@@ -712,6 +712,25 @@ class Object: Targetable, Hashable, NSCopying {
     func addActivatedAbility(string: String, cost: Cost, effect: TargetedEffect, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
         activatedAbilities.append(TargetedActivatedAbility(source: self, string: string, cost: cost, effect: effect, manaAbility: manaAbility, sorcerySpeed: sorcerySpeed, loyaltyAbility: loyaltyAbility))
     }
+    // TODO: use this instead of activated ability for planeswalkers in DOM, GRN, HOU, XLN, KLD, KTK, M19, M20, MH1, RNA, RIX, UMA, WAR
+    func addLoyaltyAbility(string: String, loyalty: Int, effect: @escaping () -> Void) {
+        addActivatedAbility(
+            string: string,
+            cost: (loyalty < 0) ? Cost.RemoveCounters(.Loyalty, loyalty) : Cost.AddCounters(.Loyalty, loyalty),
+            effect: effect,
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+    }
+    func addLoyaltyAbility(string: String, loyalty: Int, effect: TargetedEffect) {
+        addActivatedAbility(
+            string: string,
+            cost: (loyalty < 0) ? Cost.RemoveCounters(.Loyalty, loyalty) : Cost.AddCounters(.Loyalty, loyalty),
+            effect: effect,
+            manaAbility: false,
+            sorcerySpeed: true,
+            loyaltyAbility: true)
+    }
     
     func canActivateAbilities() -> Bool {
         return !cantActivateAbilities

@@ -70,6 +70,7 @@ enum Subtype {
     case Frog
     case Fungus
     case Gargoyle
+    case Garruk
     case Gate
     case Giant
     case Goblin

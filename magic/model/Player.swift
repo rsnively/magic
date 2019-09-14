@@ -513,6 +513,9 @@ class Player: Targetable {
         if object.isType(.Gate) {
             triggerAbilities(.GateEntersBattlefieldUnderYourControl)
         }
+        if object.isType(.Knight) {
+            triggerAbilities(.KnightEntersBattlefieldUnderYourControl)
+        }
     }
     
     func bouncePermanent(_ object: Object) {
