@@ -115,6 +115,7 @@ enum Subtype {
     case Ogre
     case Ooze
     case Orc
+    case Owl
     case Ox
     case Pegasus
     case Phoenix

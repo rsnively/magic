@@ -394,6 +394,10 @@ class Player: Targetable {
         if card.isSpell() && card.isMulticolored() {
             triggerAbilities(.YouCastMulticoloredSpell)
         }
+        
+        if card.getConvertedManaCost() >= 5 {
+            triggerAbilities(.YouCastSpellCMCFiveOrGreater)
+        }
     }
     
     func finishTargeting(_ card: Card) {

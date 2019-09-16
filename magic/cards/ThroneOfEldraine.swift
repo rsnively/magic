@@ -158,7 +158,40 @@ enum ELD {
         MaraleafPixie,
 //        OkoThiefOfCrowns,
         OutlawsMerriment,
+//        TheRoyalScions,
+//        SavvyHunter,
+        Shinechaser,
+        SteelclawLance,
         
+//        Wandermare,
+        WintermoorCommander,
+        ArcanistsOwl,
+//        CovetousUrge,
+        
+//        EliteHeadhunter,
+        FirebornKnight,
+        
+//        OakhameRanger,
+        
+        ThunderousSnapper,
+        
+//        EnchantedCarriage,
+//        Gingerbrute,
+        GoldenEgg,
+        
+//        HeraldicBanner,
+//        InquisitivePuppet,
+        JoustingDummy,
+        
+//        RovingKeep,
+        
+//        SorcerousSpyglass,
+//        SpinningWheel,
+        
+//        WitchsOven,
+        
+//        TournamentGrounds,
+//        WitchsCottage,
     ]
     
     static func RandomCard() -> Card {
@@ -966,6 +999,205 @@ enum ELD {
             })
         return outlawsMerriment
     }
+    // 199 The Royal Scions
+    // 200 Savvy Hunter
+    static func Shinechaser() -> Card {
+        let shinechaser = Card(name: "Shinechaser", rarity: .Uncommon, set: set, number: 201)
+        shinechaser.setManaCost("1WU")
+        shinechaser.setType(.Creature, .Faerie)
+        shinechaser.flying = true
+        shinechaser.vigilance = true
+        shinechaser.addStaticAbility(
+            requirement: AbilityRequirement.This(shinechaser),
+            effect: { object in
+                if !object.getController().getArtifacts().isEmpty {
+                    return object.pumped(1, 1)
+                }
+                return object
+            },
+            layer: .PowerToughnessChanging)
+        shinechaser.addStaticAbility(
+            requirement: AbilityRequirement.This(shinechaser),
+            effect: { object in
+                if !object.getController().getEnchantments().isEmpty {
+                    return object.pumped(1, 1)
+                }
+                return object
+            },
+            layer: .PowerToughnessChanging)
+        shinechaser.power = 1
+        shinechaser.toughness = 1
+        return shinechaser
+    }
+    static func SteelclawLance() -> Card {
+        let steelclawLance = Card(name: "Steelclaw Lance", rarity: .Uncommon, set: set, number: 202)
+        steelclawLance.setManaCost("BR")
+        steelclawLance.setType(.Artifact, .Equipment)
+        
+        func effect(_ object: Object) -> Object { return object.pumped(2, 2) }
+        steelclawLance.addEquipAbility(
+            string: "{1}: Equip Knight.",
+            cost: Cost.Mana("1"),
+            effect: effect,
+            layer: .PowerToughnessChanging,
+            restriction: { $0.isType(.Knight) })
+        steelclawLance.addEquipAbility(
+            string: "{3}: Equip.",
+            cost: Cost.Mana("3"),
+            effect: effect,
+            layer: .PowerToughnessChanging)
+        
+        steelclawLance.setFlavorText("\"A traditional lance is fine for the Burning Yard, but in the wilds you need a nastier bite.\"\n--Kenver, Embereth weaponsmith")
+        return steelclawLance
+    }
+    // 203
+    // 204 Wandermare
+    static func WintermoorCommander() -> Card {
+        let wintermoorCommander = Card(name: "Wintermoor Commander", rarity: .Uncommon, set: set, number: 205)
+        wintermoorCommander.setManaCost("WB")
+        wintermoorCommander.setType(.Creature, .Human, .Knight)
+        wintermoorCommander.deathtouch = true
+        wintermoorCommander.addStaticAbility(
+            requirement: AbilityRequirement.This(wintermoorCommander),
+            effect: { object in
+                object.toughness = object.getController().getPermanents().filter({ $0.isType(.Knight) }).count
+                return object
+            },
+            layer: .PowerToughnessCDA,
+            allZones: true)
+        wintermoorCommander.addTriggeredAbility(
+            trigger: .ThisAttacks,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != wintermoorCommander && $0.isType(.Knight) && $0.getController() === wintermoorCommander.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.giveKeywordUntilEndOfTurn(.Indestructible) }))
+        wintermoorCommander.power = 2
+        return wintermoorCommander
+    }
+    static func ArcanistsOwl() -> Card {
+        let arcanistsOwl = Card(name: "Arcanist's Owl", rarity: .Uncommon, set: set, number: 206)
+        arcanistsOwl.setManaCost("{W/U}{W/U}{W/U}{W/U}")
+        arcanistsOwl.setType(.Artifact, .Creature, .Owl)
+        arcanistsOwl.flying = true
+        arcanistsOwl.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { arcanistsOwl.getController().chooseCard(
+                from: Array(arcanistsOwl.getController().getLibrary().suffix(4)),
+                restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+                action: { chosen, rest in
+                    chosen?.reveal()
+                    chosen?.putIntoHand()
+                    arcanistsOwl.getController().putOnBottomOfLibrary(&rest, random: true)
+            })
+        })
+        arcanistsOwl.power = 3
+        arcanistsOwl.toughness = 3
+        return arcanistsOwl
+    }
+    // 207 Covetous Urge
+    // 208
+    // 209 Elite Headhunter
+    static func FirebornKnight() -> Card {
+        let firebornKnight = Card(name: "Fireborn Knight", rarity: .Uncommon, set: set, number: 210)
+        firebornKnight.setManaCost("{R/W}{R/W}{R/W}{R/W}")
+        firebornKnight.setType(.Creature, .Human, .Knight)
+        firebornKnight.doubleStrike = true
+        firebornKnight.addActivatedAbility(
+            string: "{R/W}{R/W}{R/W}{R/W}: ~ gets +1/+1 until end of turn.",
+            cost: Cost.Mana("{R/W}{R/W}{R/W}{R/W}"),
+            effect: { firebornKnight.pump(1, 1) })
+        firebornKnight.setFlavorText("He endured the white-hot blaze of the Circle and the sweltering heat of the Ironcrag, and he emerged victorious.")
+        firebornKnight.power = 2
+        firebornKnight.toughness = 3
+        return firebornKnight
+    }
+    // 211
+    // 212 Oakhame Ranger
+    // 213
+    // 214
+    static func ThunderousSnapper() -> Card {
+        let thunderousSnapper = Card(name: "Thunderous Snapper", rarity: .Uncommon, set: set, number: 215)
+        thunderousSnapper.setManaCost("{G/U}{G/U}{G/U}{G/U}")
+        thunderousSnapper.setType(.Creature, .Turtle, .Hydra)
+        thunderousSnapper.addTriggeredAbility(
+            trigger: .YouCastSpellCMCFiveOrGreater,
+            effect: { thunderousSnapper.getController().drawCard() })
+        thunderousSnapper.setFlavorText("While humans hear only a deafening roar, the fae hear music of breathtaking beauty.")
+        thunderousSnapper.power = 4
+        thunderousSnapper.toughness = 4
+        return thunderousSnapper
+    }
+    // 216
+    // 217
+    // 218 Enchanted Carriage
+    // 219 Gingerbrute
+    static func GoldenEgg() -> Card {
+        let goldenEgg = Card(name: "Golden Egg", rarity: .Common, set: set, number: 220)
+        goldenEgg.setManaCost("2")
+        goldenEgg.setType(.Artifact, .Food)
+        goldenEgg.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { goldenEgg.getController().drawCard() })
+        goldenEgg.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Add {W}.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().addMana(color: .White) })
+        goldenEgg.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Add {U}.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().addMana(color: .Blue) })
+        goldenEgg.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Add {B}.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().addMana(color: .Black) })
+        goldenEgg.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Add {R}.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().addMana(color: .Red) })
+        goldenEgg.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Add {G}.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().addMana(color: .Green) })
+        goldenEgg.addActivatedAbility(
+            string: "{2}, {T}, Sacrifice ~: You gain 3 life.",
+            cost: Cost.Mana("2").Tap().Sacrifice(),
+            effect: { goldenEgg.getController().gainLife(3) })
+        return goldenEgg
+    }
+    // 221
+    // 222 Heraldic Banner
+    // 223 Inquisitive Puppet
+    static func JoustingDummy() -> Card {
+        let joustingDummy = Card(name: "Jousting Dummy", rarity: .Common, set: set, number: 224)
+        joustingDummy.setManaCost("2")
+        joustingDummy.setType(.Artifact, .Creature, .Scarecrow, .Knight)
+        joustingDummy.addActivatedAbility(
+            string: "{3}: ~ gets +1/+0 until end of turn.",
+            cost: Cost.Mana("3"),
+            effect: { joustingDummy.pump(1, 0) })
+        joustingDummy.setFlavorText("\"Don't let it fool you. Most of us got our first scars from Syr Nobody.\"\n--Syr Layne, knight of Embereth")
+        joustingDummy.power = 2
+        joustingDummy.toughness = 1
+        return joustingDummy
+    }
+    // 225
+    // 226
+    // 227
+    // 228 Roving Keep
+    // 229
+    // 230
+    // 231
+    // 232
+    // 233 Sorcerous Spyglass
+    // 234 Spinning Wheel
+    // 235
+    // 236
+    // 237 Witch's Oven
+    
+    // 248 Tournament Grounds
+    // 249 Witch's Cottage
+    
     
     static func Human() -> Token {
         let human = Token(name: "Human", set: set, number: -1 /*todo*/)
