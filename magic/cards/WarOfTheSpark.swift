@@ -1591,7 +1591,7 @@ enum WAR {
         return deathsprout
     }
     static func Despark() -> Card {
-        let despark = Card(name: "Despark", rarity: .Uncommon, set: set, number: 191)
+        let despark = Card(name: "Despark", rarity: .Uncommon, set: set, number: 190)
         despark.setManaCost("WB")
         despark.setType(.Instant)
         despark.addEffect(TargetedEffect.SingleObject(
