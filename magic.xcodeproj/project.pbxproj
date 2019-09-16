@@ -163,6 +163,7 @@
 		98192EE0232F378600B47D1C /* eld215full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98192EDF232F378600B47D1C /* eld215full.png */; };
 		98192EE2232F38BD00B47D1C /* eld220full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98192EE1232F38BD00B47D1C /* eld220full.png */; };
 		98192EE4232F394A00B47D1C /* eld224full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98192EE3232F394A00B47D1C /* eld224full.png */; };
+		98192EE6232F445F00B47D1C /* eld228full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98192EE5232F445E00B47D1C /* eld228full.png */; };
 		981CDDEB216D7B490007F434 /* PermanentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CDDEA216D7B490007F434 /* PermanentNode.swift */; };
 		981CDDED216D856D0007F434 /* dom187full.png in Resources */ = {isa = PBXBuildFile; fileRef = 981CDDEC216D856D0007F434 /* dom187full.png */; };
 		98203E8122600A9D000D72D7 /* war170full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98203E8022600A9D000D72D7 /* war170full.png */; };
@@ -1519,6 +1520,7 @@
 		98192EDF232F378600B47D1C /* eld215full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld215full.png; sourceTree = "<group>"; };
 		98192EE1232F38BD00B47D1C /* eld220full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld220full.png; sourceTree = "<group>"; };
 		98192EE3232F394A00B47D1C /* eld224full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld224full.png; sourceTree = "<group>"; };
+		98192EE5232F445E00B47D1C /* eld228full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld228full.png; sourceTree = "<group>"; };
 		981CDDEA216D7B490007F434 /* PermanentNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentNode.swift; sourceTree = "<group>"; };
 		981CDDEC216D856D0007F434 /* dom187full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dom187full.png; sourceTree = "<group>"; };
 		98203E8022600A9D000D72D7 /* war170full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = war170full.png; sourceTree = "<group>"; };
@@ -2906,6 +2908,7 @@
 				98192EDF232F378600B47D1C /* eld215full.png */,
 				98192EE1232F38BD00B47D1C /* eld220full.png */,
 				98192EE3232F394A00B47D1C /* eld224full.png */,
+				98192EE5232F445E00B47D1C /* eld228full.png */,
 				98F1DCD8232C71F3000F427B /* eldt11full.png */,
 				98F1DCD6232C71F3000F427B /* eldt12full.png */,
 				98F1DCD7232C71F3000F427B /* eldt13full.png */,
@@ -4915,6 +4918,7 @@
 				989CD72C2202D0A4001AD387 /* rna240full.png in Resources */,
 				98192ED6232F332800B47D1C /* eld201full.png in Resources */,
 				98CBD091216F30760085E669 /* m1975full.png in Resources */,
+				98192EE6232F445F00B47D1C /* eld228full.png in Resources */,
 				9807AAC221AE659500C17253 /* dom7full.png in Resources */,
 				9801616021E587A2009F7789 /* rna124full.png in Resources */,
 				98E8EEEC219BAB370005D6AB /* grn162full.png in Resources */,

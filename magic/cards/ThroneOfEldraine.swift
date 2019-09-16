@@ -183,7 +183,7 @@ enum ELD {
 //        InquisitivePuppet,
         JoustingDummy,
         
-//        RovingKeep,
+        RovingKeep,
         
 //        SorcerousSpyglass,
 //        SpinningWheel,
@@ -1184,7 +1184,24 @@ enum ELD {
     // 225
     // 226
     // 227
-    // 228 Roving Keep
+    static func RovingKeep() -> Card {
+        let rovingKeep = Card(name: "Roving Keep", rarity: .Common, set: set, number: 228)
+        rovingKeep.setManaCost("7")
+        rovingKeep.setType(.Artifact, .Creature, .Wall)
+        rovingKeep.defender = true
+        rovingKeep.addActivatedAbility(
+            string: "{7}: ~ gets +2/+0 and gains trample until end of turn. It can attack this turn as though it didn't have defender.",
+            cost: Cost.Mana("7"),
+            effect: {
+                rovingKeep.pump(2, 0)
+                rovingKeep.giveKeywordUntilEndOfTurn(.Trample)
+                rovingKeep.giveKeywordUntilEndOfTurn(.CanAttackWithDefender)
+        })
+        rovingKeep.setFlavorText("\"It wandered slowly across the landscape, calling out in its lonely voice, but no other castles answered its cries.\"\n--Beyond the Great Henge")
+        rovingKeep.power = 5
+        rovingKeep.toughness = 7
+        return rovingKeep
+    }
     // 229
     // 230
     // 231

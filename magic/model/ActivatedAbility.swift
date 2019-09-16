@@ -20,7 +20,7 @@ class UntargetedActivatedAbility: Object, ActivatedAbility {
     private var sorcerySpeed: Bool
     private var loyaltyAbility: Bool
     
-    init(source: Object, string: String, cost: Cost, effect:@escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
+    init(source: Object, string: String, cost: Cost, effect: @escaping () -> Void, manaAbility: Bool = false, sorcerySpeed: Bool = false, loyaltyAbility: Bool = false) {
         self.source = source
         self.string = string
         self.cost = cost
