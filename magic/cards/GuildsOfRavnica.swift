@@ -1439,7 +1439,7 @@ enum GRN {
     // 190 Molderhulk
     static func NightveilPredator() -> Card {
         let nightveilPredator = Card(name: "Nightveil Predator", rarity: .Uncommon, set: set, number: 191)
-        nightveilPredator.setManaCost("UUBBB")
+        nightveilPredator.setManaCost("UUBB")
         nightveilPredator.setType(.Creature, .Vampire)
         nightveilPredator.flying = true
         nightveilPredator.deathtouch = true
