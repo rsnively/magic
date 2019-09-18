@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-enum Color: Character {
+enum Color: Character, CaseIterable {
     case White = "W"
     case Blue = "U"
     case Black = "B"

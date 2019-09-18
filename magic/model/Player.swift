@@ -287,6 +287,9 @@ class Player: Targetable {
             if permanent.isType(.Creature) && permanent.flying {
                 Game.shared.bothPlayers({ $0.triggerAbilities(.CreatureWithFlyingAttacks) })
             }
+            if permanent.isColor(.White) && permanent.isType(.Creature) {
+                triggerAbilities(.WhiteCreatureYouControlAttacks)
+            }
             if !permanent.vigilance {
                 permanent.tap(declaredAsAttacker: true)
             }
