@@ -34,8 +34,18 @@ enum M20 {
         LoxodonLifechanter,
 //        LoyalPegasus,
         MasterSplicer,
-        
+        MomentOfHeroism,
+        MoorlandInquisitor,
         Pacifism,
+        PlanarCleansing,
+        RaiseTheAlarm,
+//        RuleOfLaw,
+//        SepharaSkysBlade,
+        Soulmender,
+//        SquadCaptain,
+//        StarfieldMystic,
+        SteadfastSentry,
+        YokedOx,
         
         Negate,
         
@@ -383,8 +393,32 @@ enum M20 {
         masterSplicer.toughness = 1
         return masterSplicer
     }
-    // 30
-    // 31
+    static func MomentOfHeroism() -> Card {
+        let momentOfHeroism = Card(name: "Moment of Heroism", rarity: .Common, set: set, number: 30)
+        momentOfHeroism.setManaCost("1W")
+        momentOfHeroism.setType(.Instant)
+        momentOfHeroism.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.pump(2, 2)
+                target.giveKeywordUntilEndOfTurn(.Lifelink)
+        }))
+        momentOfHeroism.setFlavorText("\"My faith is stronger than fang, claw, or mindless hunger.\"")
+        return momentOfHeroism
+    }
+    static func MoorlandInquisitor() -> Card {
+        let moorlandInquisitor = Card(name: "Moorland Inquisitor", rarity: .Common, set: set, number: 31)
+        moorlandInquisitor.setManaCost("1W")
+        moorlandInquisitor.setType(.Creature, .Human, .Soldier)
+        moorlandInquisitor.addActivatedAbility(
+            string: "{2}{W}: ~ gains first strike until end of turn.",
+            cost: Cost.Mana("2W"),
+            effect: { moorlandInquisitor.giveKeywordUntilEndOfTurn(.FirstStrike) })
+        moorlandInquisitor.setFlavorText("Inquisitors are taught scripture, philosophy, and the fine art of sharpening an axe.")
+        moorlandInquisitor.power = 2
+        moorlandInquisitor.toughness = 2
+        return moorlandInquisitor
+    }
     static func Pacifism() -> Card {
         let pacifism = Card(name: "Pacifism", rarity: .Common, set: set, number: 32)
         pacifism.setManaCost("1W")
@@ -398,15 +432,71 @@ enum M20 {
         pacifism.setFlavorText("\"Can't a fella get a moment's peace around here?\"")
         return pacifism
     }
-    // 33
-    // 34
+    static func PlanarCleansing() -> Card {
+        let planarCleansing = Card(name: "Planar Cleansing", rarity: .Rare, set: set, number: 33)
+        planarCleansing.setManaCost("3WWW")
+        planarCleansing.setType(.Sorcery)
+        planarCleansing.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getPermanents().filter({ !$0.isType(.Land) }).forEach({ _ = $0.destroy() })
+            })
+        })
+        return planarCleansing
+    }
+    static func RaiseTheAlarm() -> Card {
+        let raiseTheAlarm = Card(name: "Raise the Alarm", rarity: .Common, set: set, number: 34)
+        raiseTheAlarm.setManaCost("1W")
+        raiseTheAlarm.setType(.Instant)
+        raiseTheAlarm.addEffect({
+            raiseTheAlarm.getController().createToken(Soldier())
+            raiseTheAlarm.getController().createToken(Soldier())
+        })
+        raiseTheAlarm.setFlavorText("Like blinking or breathing, responding to an alarm is an involuntary effect.")
+        return raiseTheAlarm
+    }
     // 35 Rule of Law
-    // 36
-    // 37
-    // 38
+    // 36 Sephara, Sky's Blade
+    static func Soulmender() -> Card {
+        let soulmender = Card(name: "Soulmender", rarity: .Common, set: set, number: 37)
+        soulmender.setManaCost("W")
+        soulmender.setType(.Creature, .Human, .Cleric)
+        soulmender.addActivatedAbility(
+            string: "{T}: You gain 1 life.",
+            cost: Cost.Tap(),
+            effect: { soulmender.getController().gainLife(1) })
+        soulmender.setFlavorText("\"Healing is more art than magic. Well, there is still quite a bbit of magic.\"")
+        soulmender.power = 1
+        soulmender.toughness = 1
+        return soulmender
+    }
+    // 38 Squad Captain
     // 39 Starfield Mystic
-    // 40
-    // 41
+    static func SteadfastSentry() -> Card {
+        let steadfastSentry = Card(name: "Steadfast Sentry", rarity: .Common, set: set, number: 40)
+        steadfastSentry.setManaCost("2W")
+        steadfastSentry.setType(.Creature, .Human, .Soldier)
+        steadfastSentry.vigilance = true
+        steadfastSentry.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === steadfastSentry.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.addCounter(.PlusOnePlusOne) }))
+        steadfastSentry.setFlavorText("\"Get up, slugabeds! We've got company, and they're not dressed for a party!")
+        steadfastSentry.power = 3
+        steadfastSentry.toughness = 2
+        return steadfastSentry
+    }
+    static func YokedOx() -> Card {
+        let yokedOx = Card(name: "Yoked Ox", rarity: .Common, set: set, number: 41)
+        yokedOx.setManaCost("W")
+        yokedOx.setType(.Creature, .Ox)
+        yokedOx.setFlavorText("The courage of those who work the land is born of long days of labor in the hot summer sun and the cold winter wind. It is the courage of the earth itself.")
+        yokedOx.power = 0
+        yokedOx.toughness = 0
+        return yokedOx
+    }
     // 42 Aether Gust
     // 43
     // 44
