@@ -19,6 +19,7 @@ enum KeywordAbility {
     case Reach
     case Trample
     case Unblockable
+    case UntapsDuringUntapStep
     case Vigilance
 }
 
@@ -44,6 +45,7 @@ extension Object {
             case .Reach: self.reach = value
             case .Trample: self.trample = value
             case .Unblockable: self.unblockable = value
+            case .UntapsDuringUntapStep: self.untapsDuringUntapStep = value
             case .Vigilance: self.vigilance = value
         }
     }

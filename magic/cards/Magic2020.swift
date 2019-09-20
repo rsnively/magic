@@ -46,12 +46,47 @@ enum M20 {
 //        StarfieldMystic,
         SteadfastSentry,
         YokedOx,
-        
+//        AetherGust,
+//        AgentOfTreachery,
+        AirElemental,
+//        Anticipate,
+//        AtemsisAllSeeing,
+        Befuddle,
+        BoneToAsh,
+//        BorealElemental,
+        BrinebornCutthroat,
+        CaptivatingGyre,
+//        CavalierOfGales,
+//        CeruleanDrake,
+        CloudkinSeer,
+//        Convolute,
+//        DrawnFromDreams,
+//        DungeonGeists,
+        FaerieMiscreant,
+//        FloodOfTears,
+        FortressCrab,
+        FrilledSeaSerpent,
+        FrostLynx,
+//        HardCover,
+//        LeylineOfAnticipation,
+//        MasterfulReplication,
+        MetropolisSprite,
+        MoatPiranhas,
+//        MuYanlingSkyDancer,
         Negate,
-        
+//        Octoprophet,
+//        PortalOfSanctuary,
+//        RenownedWeaponsmith,
+//        SagesRowDenizen,
+        ScholarOfTheAges,
+        SleepParalysis,
         SpectralSailor,
-        
+//        TalesEnd,
         Unsummon,
+        WardenOfEvosIsle,
+        WingedWords,
+        YaroksWavecrasher,
+        ZephyrCharge,
         
         Disfigure,
         
@@ -498,34 +533,182 @@ enum M20 {
         return yokedOx
     }
     // 42 Aether Gust
-    // 43
-    // 44
-    // 45
+    // 43 Agent of Treachery
+    static func AirElemental() -> Card {
+        let airElemental = Card(name: "Air Elemental", rarity: .Uncommon, set: set, number: 44)
+        airElemental.setManaCost("3UU")
+        airElemental.setType(.Creature, .Elemental)
+        airElemental.flying = true
+        airElemental.setFlavorText("As the ship approached, the jade totem rose high overhead. Power rippled. Eyes of stone glowed and crackled. Out hissed a breath of the world, and a windstorm came alive.")
+        airElemental.power = 4
+        airElemental.toughness = 4
+        return airElemental
+    }
+    // 45 Anticipate
     // 46 Atemsis, All-Seeing
-    // 47
-    // 48
-    // 49
-    // 50
-    // 51 Captivating Gyre
-    // 52
-    // 53
-    // 54
+    static func Befuddle() -> Card {
+        let befuddle = Card(name: "Befuddle", rarity: .Common, set: set, number: 47)
+        befuddle.setManaCost("2U")
+        befuddle.setType(.Instant)
+        befuddle.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.pump(-4, 0)
+                befuddle.getController().drawCard()
+        }))
+        befuddle.setFlavorText("The trick to talking sense into Keldons is getting them to hold still.")
+        return befuddle
+    }
+    static func BoneToAsh() -> Card {
+        let boneToAsh = Card(name: "Bone to Ash", rarity: .Uncommon, set: set, number: 48)
+        boneToAsh.setManaCost("2UU")
+        boneToAsh.setType(.Instant)
+        boneToAsh.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreatureSpell(),
+            effect: { target in
+                target.counter()
+                boneToAsh.getController().drawCard()
+        }))
+        boneToAsh.setFlavorText("\"I can think of worse ways to go. On second thought, maybe not.\"\n--Ludevic, necro-alchemist")
+        return boneToAsh
+    }
+    // 49 Boreal Elemental
+    static func BrinebornCutthroat() -> Card {
+        let brinebornCutthroat = Card(name: "Brineborn Cutthroat", rarity: .Uncommon, set: set, number: 50)
+        brinebornCutthroat.setManaCost("1U")
+        brinebornCutthroat.setType(.Creature, .Merfolk, .Pirate)
+        brinebornCutthroat.flash = true
+        brinebornCutthroat.addTriggeredAbility(
+            trigger: .YouCastSpellDuringOpponentsTurn,
+            effect: { brinebornCutthroat.addCounter(.PlusOnePlusOne) })
+        brinebornCutthroat.setFlavorText("\"I always attack from where their spyglasses can't see.\"")
+        brinebornCutthroat.power = 2
+        brinebornCutthroat.toughness = 1
+        return brinebornCutthroat
+    }
+    static func CaptivatingGyre() -> Card {
+        let captivatingGyre = Card(name: "Captivating Gyre", rarity: .Uncommon, set: set, number: 51)
+        captivatingGyre.setManaCost("4UU")
+        captivatingGyre.setType(.Sorcery)
+        captivatingGyre.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true)
+            ],
+            effect: { targets in
+                for case .some(let target) in targets {
+                    target.bounce()
+                }
+            },
+            distinctTargets: true))
+        captivatingGyre.setFlavorText("\"That's enough of that.\"\n--Atemsis, All-Seeing")
+        return captivatingGyre
+    }
+    // 52 Cavalier of Gales
+    // 53 Cerulean Drake
+    static func CloudkinSeer() -> Card {
+        let cloudkinSeer = Card(name: "Cloudkin Seer", rarity: .Common, set: set, number: 54)
+        cloudkinSeer.setManaCost("2U")
+        cloudkinSeer.setType(.Creature, .Elemental, .Wizard)
+        cloudkinSeer.flying = true
+        cloudkinSeer.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { cloudkinSeer.getController().drawCard() })
+        cloudkinSeer.setFlavorText("\"I can see which way the wind is blowing.\"")
+        cloudkinSeer.power = 2
+        cloudkinSeer.toughness = 1
+        return cloudkinSeer
+    }
     // 55 Convolute
-    // 56
+    // 56 Drawn from Dreams
     // 57 Dungeon Geists
-    // 58
+    static func FaerieMiscreant() -> Card {
+        let name = "Faerie Miscreant"
+        let faerieMiscreant = Card(name: name, rarity: .Common, set: set, number: 58)
+        faerieMiscreant.setManaCost("U")
+        faerieMiscreant.setType(.Creature, .Faerie, .Rogue)
+        faerieMiscreant.flying = true
+        faerieMiscreant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { faerieMiscreant.getController().drawCard() },
+            restriction: { !faerieMiscreant.getController().getCreatures().filter({ $0 != faerieMiscreant && $0.getName() == name}).isEmpty })
+        faerieMiscreant.setFlavorText("One faerie distracts the judge while a second steals the law.")
+        faerieMiscreant.power = 1
+        faerieMiscreant.toughness = 1
+        return faerieMiscreant
+    }
     // 59 Flood of Tears
-    // 60
-    // 61
-    // 62
-    // 63
+    static func FortressCrab() -> Card {
+        let fortressCrab = Card(name: "Fortress Crab", rarity: .Common, set: set, number: 60)
+        fortressCrab.setManaCost("3U")
+        fortressCrab.setType(.Creature, .Crab)
+        fortressCrab.setFlavorText("Unbreakable and unappetizing, the crab grows uninterrupted, sometimes to the size of a cottage and beyond.")
+        fortressCrab.power = 1
+        fortressCrab.toughness = 6
+        return fortressCrab
+    }
+    static func FrilledSeaSerpent() -> Card {
+        let frilledSeaSerpent = Card(name: "Frilled Sea Serpent", rarity: .Common, set: set, number: 61)
+        frilledSeaSerpent.setManaCost("4UU")
+        frilledSeaSerpent.setType(.Creature, .Serpent)
+        frilledSeaSerpent.addActivatedAbility(
+            string: "{5}{U}{U}: ~ can't be blocked this turn.",
+            cost: Cost.Mana("5UU"),
+            effect: { frilledSeaSerpent.giveKeywordUntilEndOfTurn(.Unblockable) })
+        frilledSeaSerpent.setFlavorText("\"Reel it in. No, wait! Throw it back!\"\n--Gertrude, deep-sea angler")
+        frilledSeaSerpent.power = 4
+        frilledSeaSerpent.toughness = 6
+        return frilledSeaSerpent
+    }
+    static func FrostLynx() -> Card {
+        let frostLynx = Card(name: "Frost Lynx", rarity: .Common, set: set, number: 62)
+        frostLynx.setManaCost("2U")
+        frostLynx.setType(.Creature, .Elephant, .Cat)
+        frostLynx.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== frostLynx.getController() },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    target.tap()
+                    target.untapsDuringNextUntapStep = false
+            }))
+        frostLynx.setFlavorText("It readily attacks much larger prey, knowing retaliation is impossible.")
+        frostLynx.power = 2
+        frostLynx.toughness = 2
+        return frostLynx
+    }
+    // 63 Hard Cover
     // 64 Leyline of Anticipation
-    // 65
-    // 66
-    // 67
-    // 68
+    // 65 Masterful Replication
+    static func MetropolisSprite() -> Card {
+        let metropolisSprite = Card(name: "Metropolis Sprite", rarity: .Common, set: set, number: 66)
+        metropolisSprite.setManaCost("1U")
+        metropolisSprite.setType(.Creature, .Faerie, .Rogue)
+        metropolisSprite.flying = true
+        metropolisSprite.addActivatedAbility(
+            string: "{U}: ~ gets +1/-1 until end of turn.",
+            cost: Cost.Mana("U"),
+            effect: { metropolisSprite.pump(1, -1) })
+        metropolisSprite.setFlavorText("\"Well, if that goblin didn't want his tongue pierced, he shouldn't have stuck it out at me.\"")
+        metropolisSprite.power = 1
+        metropolisSprite.toughness = 2
+        return metropolisSprite
+    }
+    static func MoatPiranhas() -> Card {
+        let moatPiranhas = Card(name: "Moat Piranhas", rarity: .Common, set: set, number: 67)
+        moatPiranhas.setManaCost("1U")
+        moatPiranhas.setType(.Creature, .Fish)
+        moatPiranhas.defender = true
+        moatPiranhas.setFlavorText("\"Come on, it's not even that deep!\"\n--Gorin the Brazen")
+        moatPiranhas.power = 3
+        moatPiranhas.toughness = 3
+        return moatPiranhas
+    }
+    // 68 Mu Yanling, Sky Dancer
     static func Negate() -> Card {
-        // TODO Image
         let negate = Card(name: "Negate", rarity: .Common, set: set, number: 69)
         negate.setManaCost("1U")
         negate.setType(.Instant)
@@ -537,11 +720,51 @@ enum M20 {
         return negate
     }
     // 70 Octoprophet
-    // 71
-    // 72
-    // 73
-    // 74
-    // 75
+    // 71 Portal of Sanctuary
+    // 72 Renowned Weaponsmith
+    // 73 Sage's Row Denizen
+    static func ScholarOfTheAges() -> Card {
+        let scholarOfTheAges = Card(name: "Scholar of the Ages", rarity: .Uncommon, set: set, number: 74)
+        scholarOfTheAges.setManaCost("5UU")
+        scholarOfTheAges.setType(.Creature, .Human, .Wizard)
+        scholarOfTheAges.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.MultiObject(
+                restrictions: [
+                    TargetingRestriction.SingleObject(
+                        restriction: { $0.isType(.Instant) || $0.isType(.Sorcery) && $0.getController() === scholarOfTheAges.getController() },
+                        zones: [.Graveyard],
+                        optional: true),
+                    TargetingRestriction.SingleObject(
+                        restriction: { $0.isType(.Instant) || $0.isType(.Sorcery) && $0.getController() === scholarOfTheAges.getController() },
+                        zones: [.Graveyard],
+                        optional: true)
+                ],
+                effect: { targets in
+                    for case .some(let target) in targets {
+                        target.putIntoHand()
+                    }
+                },
+                distinctTargets: true))
+        scholarOfTheAges.setFlavorText("\"I study the past to find hope for the future.\"")
+        scholarOfTheAges.power = 3
+        scholarOfTheAges.toughness = 3
+        return scholarOfTheAges
+    }
+    static func SleepParalysis() -> Card {
+        let sleepParalysis = Card(name: "Sleep Paralysis", rarity: .Common, set: set, number: 75)
+        sleepParalysis.setManaCost("3U")
+        sleepParalysis.setType(.Enchantment, .Aura)
+        sleepParalysis.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { sleepParalysis.attachedTo?.tap() })
+        sleepParalysis.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0.withoutKeyword(.UntapsDuringUntapStep)},
+            layer: .AbilityAddingOrRemoving)
+        sleepParalysis.setFlavorText("Sleep doesn't always mean rest.")
+        return sleepParalysis
+    }
     static func SpectralSailor() -> Card {
         let spectralSailor = Card(name: "Spectral Sailor", rarity: .Uncommon, set: set, number: 76)
         spectralSailor.setManaCost("U")
@@ -557,7 +780,7 @@ enum M20 {
         spectralSailor.toughness = 1
         return spectralSailor
     }
-    // 77
+    // 77 Tale's End
     static func Unsummon() -> Card {
         let unsummon = Card(name: "Unsummon", rarity: .Common, set: set, number: 78)
         unsummon.setManaCost("U")
@@ -568,10 +791,73 @@ enum M20 {
         unsummon.setFlavorText("\"Don't you have somewhere else to be?\"\n--Sharuum the Hegemon")
         return unsummon
     }
-    // 79
-    // 80
-    // 81
-    // 82
+    static func WardenOfEvosIsle() -> Card {
+        let wardenOfEvosIsle = Card(name: "Warden of Evos Isle", rarity: .Uncommon, set: set, number: 79)
+        wardenOfEvosIsle.setManaCost("2U")
+        wardenOfEvosIsle.setType(.Creature, .Bird, .Wizard)
+        wardenOfEvosIsle.addStaticAbility(
+            requirement: AbilityRequirement.SpellsYouCast(
+                source: wardenOfEvosIsle,
+                additionalRequirement: { $0.isType(.Creature) && $0.flying }),
+            effect: { object in
+                object.castingCost = object.getBaseCastingCost().reducedBy(1)
+                return object
+            },
+            layer: .CostReduction)
+        wardenOfEvosIsle.setFlavorText("On Evos Isle, the swift and formidable aven enforce the will of the ruling sphinxes.")
+        wardenOfEvosIsle.power = 2
+        wardenOfEvosIsle.toughness = 2
+        return wardenOfEvosIsle
+    }
+    static func WingedWords() -> Card {
+        let wingedWords = Card(name: "Winged Words", rarity: .Common, set: set, number: 80)
+        wingedWords.setManaCost("2U")
+        wingedWords.setType(.Sorcery)
+        wingedWords.addStaticAbility(
+            requirement: AbilityRequirement.This(wingedWords),
+            effect: { object in
+                if !object.getController().getCreatures().filter({ $0.flying }).isEmpty {
+                    object.castingCost = object.getBaseCastingCost().reducedBy(1)
+                }
+                return object
+            },
+            layer: .CostReduction,
+            allZones: true)
+        wingedWords.addEffect {
+            wingedWords.getController().drawCards(2)
+        }
+        wingedWords.setFlavorText("Magic written across the sky falls like rain on thirsty ground, bringing forth wisdom in its season.")
+        return wingedWords
+    }
+    static func YaroksWavecrasher() -> Card {
+        let yaroksWavecrasher = Card(name: "Yarok's Wavecrasher", rarity: .Uncommon, set: set, number: 81)
+        yaroksWavecrasher.setManaCost("3U")
+        yaroksWavecrasher.setType(.Creature, .Elemental)
+        yaroksWavecrasher.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0 != yaroksWavecrasher && $0.isType(.Creature) && $0.getController() === yaroksWavecrasher.getController()},
+                    zones: [.Battlefield]),
+                effect: { $0.bounce() }))
+        yaroksWavecrasher.setFlavorText("\"Yarok's waters rush and rage\nWhere armies bled into the sand.\"\n--Lament for Bala Ged, stanza 2")
+        yaroksWavecrasher.power = 4
+        yaroksWavecrasher.toughness = 4
+        return yaroksWavecrasher
+    }
+    static func ZephyrCharge() -> Card {
+        let zephyrCharge = Card(name: "Zephyr Charge", rarity: .Common, set: set, number: 82)
+        zephyrCharge.setManaCost("1U")
+        zephyrCharge.setType(.Enchantment)
+        zephyrCharge.addActivatedAbility(
+            string: "{1}{U}: Target creature gains flying until end of turn.",
+            cost: Cost.Mana("1U"),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { $0.giveKeywordUntilEndOfTurn(.Flying) }))
+        zephyrCharge.setFlavorText("\"The knights charged forward on wings of wind, and the necromancer's horde roared in helpless rage.\"\n--Krinnea, Siege of the Bone Spire")
+        return zephyrCharge
+    }
     // 83
     // 84
     // 85

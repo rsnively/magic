@@ -465,7 +465,7 @@ enum XLN {
         airElemental.flying = true
         airElemental.setFlavorText("As the ship approached, the jade totem rose high overhead. Power rippled. Eyes of stone glowed and crackled. Out hissed a breath of the world, and a windstorm came alive.")
         airElemental.power = 4
-        airElemental.toughness = 3
+        airElemental.toughness = 4
         return airElemental
     }
     // 46 Arcane Adaptation

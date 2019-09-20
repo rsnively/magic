@@ -49,6 +49,7 @@ enum Trigger {
     case YouCastNoncreatureSpell
     case YouCastRedSpell
     case YouCastSpellCMCFiveOrGreater
+    case YouCastSpellDuringOpponentsTurn
     case YouCastYourSecondSpellEachTurn
     case YouDrawCard
     case YouDrawSecondCard

@@ -230,7 +230,7 @@ enum LEA {
         airElemental.flying = true
         airElemental.setFlavorText("These spirits of air are winsome and wild and cannot be truly contained. Only marginally intelligent, they often substitute whimsy for strategy, delighting in mischief and mayhem.")
         airElemental.power = 4
-        airElemental.toughness = 3
+        airElemental.toughness = 4
         return airElemental
     }
     static func AncestrallRecall() -> Card {

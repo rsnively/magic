@@ -357,6 +357,9 @@ class Player: Targetable {
                 triggerAbilities(.YouCastYourSecondSpellEachTurn)
             }
         }
+        if card.isSpell() && !card.getController().active {
+            triggerAbilities(.YouCastSpellDuringOpponentsTurn)
+        }
         if card.isSpell() && card.isType(.Legendary) {
             triggerAbilities(.YouCastLegendarySpell)
         }
