@@ -1603,26 +1603,74 @@ enum ELD {
     // 248 Tournament Grounds
     // 249 Witch's Cottage
     
-    
+    static func Goat() -> Token {
+        let goat = Token(name: "Goat", set: set, number: 1)
+        goat.colors = [.White]
+        goat.setType(.Creature, .Goat)
+        goat.power = 0
+        goat.toughness = 1
+        return goat
+    }
     static func Human() -> Token {
-        let human = Token(name: "Human", set: set, number: -1 /*todo*/)
-        human.colors = [Color.White]
+        let human = Token(name: "Human", set: set, number: 2)
+        human.colors = [.White]
         human.setType(.Creature, .Human)
         human.power = 1
         human.toughness = 1
         return human
     }
     static func Knight() -> Token {
-        let knight = Token(name: "Knight", set: set, number: -1 /*todo*/)
-        knight.colors = [Color.White]
+        let knight = Token(name: "Knight", set: set, number: 3)
+        knight.colors = [.White]
         knight.setType(.Creature, .Knight)
         knight.vigilance = true
         knight.power = 2
         knight.toughness = 2
         return knight;
     }
+    static func Mouse() -> Token {
+        let mouse = Token(name: "Mouse", set: set, number: 4)
+        mouse.colors = [.White]
+        mouse.setType(.Creature, .Mouse)
+        mouse.power = 1
+        mouse.toughness = 1
+        return mouse
+    }
+    static func Faerie() -> Token {
+        let faerie = Token(name: "Faerie", set: set, number: 5)
+        faerie.colors = [.Blue]
+        faerie.setType(.Creature, .Faerie)
+        faerie.flying = true
+        faerie.power = 1
+        faerie.toughness = 1
+        return faerie
+    }
+    static func Rat() -> Token {
+        let rat = Token(name: "Rat", set: set, number: 6)
+        rat.colors = [.Black]
+        rat.setType(.Creature, .Rat)
+        rat.power = 1
+        rat.toughness = 1
+        return rat
+    }
+    static func Dwarf() -> Token {
+        let dwarf = Token(name: "Dwarf", set: set, number: 7)
+        dwarf.colors = [.Red]
+        dwarf.setType(.Creature, .Dwarf)
+        dwarf.power = 1
+        dwarf.toughness = 1
+        return dwarf
+    }
+    static func Bear() -> Token {
+        let bear = Token(name: "Bear", set: set, number: 8)
+        bear.colors = [.Green]
+        bear.setType(.Creature, .Bear)
+        bear.power = 2
+        bear.toughness = 2
+        return bear
+    }
     static func Boar() -> Token {
-        let boar = Token(name: "Boar", set: set, number: -1 /*todo*/)
+        let boar = Token(name: "Boar", set: set, number: 9)
         boar.colors = [.Green]
         boar.setType(.Creature, .Boar)
         boar.addTriggeredAbility(
@@ -1631,6 +1679,14 @@ enum ELD {
         boar.power = 1
         boar.toughness = 1
         return boar
+    }
+    static func Giant() -> Token {
+        let giant = Token(name: "Giant", set: set, number: 10)
+        giant.colors = [.Green]
+        giant.setType(.Creature, .Giant)
+        giant.power = 7
+        giant.toughness = 7
+        return giant
     }
     static func HumanCleric() -> Token {
         let humanCleric = Token(name: "Human Cleric", set: set, number: 11)
@@ -1667,7 +1723,7 @@ enum ELD {
         return humanWarrior
     }
     static func Wolf() -> Token {
-        let wolf = Token(name: "Wolf", set: set, number: -1 /*todo*/)
+        let wolf = Token(name: "Wolf", set: set, number: 14)
         wolf.colors = [.Black, .Green]
         wolf.setType(.Creature, .Wolf)
         wolf.addTriggeredAbility(
@@ -1693,7 +1749,7 @@ enum ELD {
     }
     
     static func GarrukEmblem() -> Object {
-        let garrukEmblem = Emblem(set: set, number: -1 /*todo*/)
+        let garrukEmblem = Emblem(set: set, number: 19)
         garrukEmblem.addStaticAbility(
             requirement: AbilityRequirement.CreaturesYouControl(source: garrukEmblem),
             effects: [

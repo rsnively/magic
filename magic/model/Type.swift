@@ -73,6 +73,7 @@ enum Subtype {
     case Garruk
     case Gate
     case Giant
+    case Goat
     case Goblin
     case God
     case Golem
@@ -104,6 +105,7 @@ enum Subtype {
     case Merfolk
     case Minotaur
     case Monk
+    case Mouse
     case Mountain
     case Mutant
     case Naga
