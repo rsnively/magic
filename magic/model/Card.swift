@@ -6,6 +6,11 @@ class Card: Object {
     private var setCode: String
     private var collectorsNumber: Int
     
+    static func All() -> [Card] {
+        let allCardFuncs = XLN.cards + RIX.cards + DOM.cards + M19.cards + GRN.cards + RNA.cards + WAR.cards + M20.cards + ELD.cards
+        return allCardFuncs.map({ $0() })
+    }
+    
     static func randomCard() -> Card {
         let r = Int.random(in: 1 ... 9)
         if r == 1 {

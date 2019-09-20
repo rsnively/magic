@@ -1400,7 +1400,7 @@ enum DOM {
                 land.giveKeywordUntilYourNextTurn(.Haste)
             })
         })
-        sylvanAwakening.setManaCost("\"Yavimaya is aware, but not always awake. You will know the difference when you see it.\"\n--Karn")
+        sylvanAwakening.setFlavorText("\"Yavimaya is aware, but not always awake. You will know the difference when you see it.\"\n--Karn")
         return sylvanAwakening
     }
     // 184 Territorial Allosaurus
