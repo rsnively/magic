@@ -38,4 +38,17 @@ enum TEST {
         }))
         return animate
     }
+    
+    static func EternalScourge() -> Card {
+        let eternalScourge = Card(name: "Eternal Scourge", rarity: .Rare, set: set, number: 1)
+        eternalScourge.setManaCost("3")
+        eternalScourge.setType(.Creature, .Eldrazi, .Horror)
+        eternalScourge.canCastFromExile = true
+        eternalScourge.addTriggeredAbility(
+            trigger: .ThisBecomesTargetOfSpellOrAbility,
+            effect: { eternalScourge.exile() })
+        eternalScourge.power = 3
+        eternalScourge.toughness = 3
+        return eternalScourge
+    }
 }

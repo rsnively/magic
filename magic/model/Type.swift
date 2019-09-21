@@ -58,6 +58,7 @@ enum Subtype {
     case Efreet
     case Egg
     case Elder
+    case Eldrazi
     case Elemental
     case Elephant
     case Elf

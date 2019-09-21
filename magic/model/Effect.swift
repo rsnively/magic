@@ -466,6 +466,14 @@ class TargetedEffect: Effect {
         return targets.count == restrictions.count
     }
     
+    func triggerEffects() {
+        self.targets.forEach({ target in
+            if let object = target as? Object {
+                object.triggerAbilities(.ThisBecomesTargetOfSpellOrAbility)
+            }
+        })
+    }
+    
     func resolve(_ associatedObjects: AssociatedObjects) {
         // TODO: Still need to be able to partially invalidate effects with multiple targets (ie: Destroy two target creatures - if one target is no longer valid, the other creature still needs to get destroyed)
         var targetsValid = true

@@ -61,6 +61,11 @@ class Object: Targetable, Hashable, NSCopying {
         get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCanAttackWithDefender }
         set (newCanAttackWithDefender) { baseCanAttackWithDefender = newCanAttackWithDefender }
     }
+    private var baseCanCastFromExile: Bool = false
+    var canCastFromExile: Bool {
+        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCanCastFromExile }
+        set (newCanCastFromExile) { baseCanCastFromExile = newCanCastFromExile}
+    }
     private var baseCantActivateAbilities: Bool = false
     var cantActivateAbilities: Bool {
         get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCantActivateAbilities }
@@ -258,6 +263,7 @@ class Object: Targetable, Hashable, NSCopying {
         copy.replacementEffects = replacementEffects
         
         copy.baseCanAttackWithDefender = baseCanAttackWithDefender
+        copy.baseCanCastFromExile = baseCanCastFromExile
         copy.baseCantAttack = baseCantAttack
         copy.baseCantBlock = baseCantBlock
         copy.baseDeathtouch = baseDeathtouch

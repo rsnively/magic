@@ -273,7 +273,7 @@ class GameScene: SKScene {
     func redraw() {
         let centerPoint = CGPoint(x: self.position.x + self.size.width / 2.0, y: self.position.y + self.size.height / 2.0)
         
-        playerHandNode.setHand(cards: Game.shared.player1.getHand(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
+        playerHandNode.setHand(cards: Game.shared.player1.getHand() + Game.shared.player1.getOtherCastableCards(), size: GameScene.getAllowedPlayerHandSize(gameSize: size))
         playerLifeNode.setLife(life: Game.shared.player1.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         playerGraveyardNode.setGraveyard(graveyard: Game.shared.player1.getGraveyard(), size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: convert(centerPoint, to: playerGraveyardNode))
         playerLandsNode.setLands(lands: Game.shared.player1.getLands().filter({ !$0.isType(.Creature) }), size: GameScene.getAllowedPlayerLandsSize(gameSize: size))
@@ -281,7 +281,7 @@ class GameScene: SKScene {
         playerCreaturesNode.setCreatures(creatures: Game.shared.player1.getCreatures(), size: GameScene.getAllowedPlayerCreaturesSize(gameSize: size))
         manaPoolNode.setManaPool(manaPool: Game.shared.player1.getManaPool(), size:GameScene.getAllowedManaPoolSize(gameSize: size))
         stackNode.setStack(stack: Game.shared.theStack, size:GameScene.getAllowedStackSize(gameSize: size))
-        opponentHandNode.setHand(cards: Game.shared.player2.getHand(), size: GameScene.getAllowedOpponentHandSize(gameSize: size))
+        opponentHandNode.setHand(cards: Game.shared.player2.getHand() + Game.shared.player2.getOtherCastableCards(), size: GameScene.getAllowedOpponentHandSize(gameSize: size))
         opponentLifeNode.setLife(life: Game.shared.player2.getLife(), size: GameScene.getAllowedLifeNodeSize(gameSize: size))
         opponentGraveyardNode.setGraveyard(graveyard: Game.shared.player2.getGraveyard(), size: GameScene.getAllowedGraveyardSize(gameSize: size), cardsCenter: convert(centerPoint, to: opponentGraveyardNode))
         opponentLandsNode.setLands(lands: Game.shared.player2.getLands().filter({ !$0.isType(.Creature) }), size: GameScene.getAllowedOpponentLandsSize(gameSize: size))

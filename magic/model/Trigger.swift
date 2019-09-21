@@ -25,6 +25,7 @@ enum Trigger {
     case ThisAttacks
     case ThisBecomesBlocked
     case ThisBecomesTapped
+    case ThisBecomesTargetOfSpellOrAbility
     case ThisBlocks
     case ThisDealsCombatDamageToPlayer
     case ThisDealtDamage

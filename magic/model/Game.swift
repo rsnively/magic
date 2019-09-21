@@ -37,6 +37,7 @@ class Game: NSObject {
         let targetingEffect = targetingEffects.last!
         targetingEffect.selectTarget(target)
         if targetingEffect.allTargetsSelected() {
+            targetingEffect.triggerEffects()
             _ = targetingEffects.popLast()
             if isCastingSpell {
                 getPlayerWithPriority().finishTargeting(castingSpell as! Card)

@@ -91,6 +91,11 @@ class Player: Targetable {
     func getHand() -> [Object] {
         return hand
     }
+    func getOtherCastableCards() -> [Object] {
+        return Game.shared.exile.filter({ object in
+            object.getController() === self && object.canCastFromExile
+        })
+    }
     
     func getGraveyard() -> [Object] {
         return graveyard
