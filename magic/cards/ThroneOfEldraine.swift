@@ -326,7 +326,7 @@ enum ELD {
             layer: .CostReduction,
             allZones: true)
         theCircleOfLoyalty.addStaticAbility(
-            requirement: AbilityRequirement.SubtypeYouControl(source: theCircleOfLoyalty, subtype: .Knight),
+            requirement: AbilityRequirement.CreaturesYouControl(source: theCircleOfLoyalty),
             effect: { $0.pumped(1, 1) },
             layer: .PowerToughnessChanging)
         theCircleOfLoyalty.addTriggeredAbility(
@@ -656,9 +656,7 @@ enum ELD {
         mantleOfTides.addTriggeredAbility(
             trigger: .YouDrawSecondCard,
             effect: TargetedEffect.SingleObject(
-                restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() === mantleOfTides.getController() },
-                    zones: [.Battlefield]),
+                restriction: TargetingRestriction.TargetCreatureYouControl(source: mantleOfTides),
                 effect: { mantleOfTides.attachTo($0) }))
         return mantleOfTides
     }
@@ -712,9 +710,7 @@ enum ELD {
         moonlitScavengers.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() !== moonlitScavengers.getController() },
-                    zones: [.Battlefield]),
+                restriction: TargetingRestriction.TargetCreatureAnOpponentControl(source: moonlitScavengers),
                 effect: { $0.bounce() }),
             restriction: { !moonlitScavengers.getController().getArtifactsAndEnchantments().isEmpty })
         moonlitScavengers.setFlavorText("They comb the shallows of Lochmere for relics of a bygone era. And if they happen upon a lone traveler, all the better.")
@@ -924,9 +920,7 @@ enum ELD {
         wickedGuardian.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0 != wickedGuardian && $0.isType(.Creature) && $0.getController() === wickedGuardian.getController() },
-                    zones: [.Battlefield]),
+                restriction: TargetingRestriction.AnotherTargetCreatureYouControl(source: wickedGuardian),
                 effect: { target in
                     wickedGuardian.damage(to: target, 2)
                     wickedGuardian.getController().drawCard()
@@ -944,9 +938,7 @@ enum ELD {
         bargeIn.setManaCost("R")
         bargeIn.setType(.Instant)
         bargeIn.addEffect(TargetedEffect.SingleObject(
-            restriction: TargetingRestriction.SingleObject(
-                restriction: { $0.isAttacking && $0.isType(.Creature) },
-                zones: [.Battlefield]),
+            restriction: TargetingRestriction.TargetAttackingCreature(),
             effect: { target in
                 target.pump(2, 2)
                 Game.shared.bothPlayers({ player in
@@ -1054,9 +1046,7 @@ enum ELD {
         embercleave.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() === embercleave.getController() },
-                    zones: [.Battlefield]),
+                restriction: TargetingRestriction.TargetCreatureYouControl(source: embercleave),
                 effect: { embercleave.attachTo($0) }))
         embercleave.addEquipAbility(
             string: "{3}: Equip",
@@ -1096,14 +1086,8 @@ enum ELD {
         joust.setType(.Sorcery)
         joust.addEffect(TargetedEffect.MultiObject(
             restrictions: [
-                TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() === joust.getController() },
-                    zones: [.Battlefield]
-                ),
-                TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() !== joust.getController() },
-                    zones: [.Battlefield]
-                )
+                TargetingRestriction.TargetCreatureYouControl(source: joust),
+                TargetingRestriction.TargetCreatureAnOpponentControl(source: joust)
             ],
             effect: { targets in
                 if let myCreature = targets[0] {
@@ -1968,9 +1952,7 @@ enum ELD {
         idyllicGrange.addTriggeredAbility(
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
-                restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() === idyllicGrange.getController() },
-                    zones: [.Battlefield]),
+                restriction: TargetingRestriction.TargetCreatureYouControl(source: idyllicGrange),
                 effect: { $0.addCounter(.PlusOnePlusOne) }),
             restriction: { !idyllicGrange.isTapped })
         idyllicGrange.setFlavorText("Every hero's journey starts somewhere.")

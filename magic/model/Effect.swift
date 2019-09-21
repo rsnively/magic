@@ -137,6 +137,31 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func AnotherTargetCreature(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0 != source && $0.isType(.Creature) },
+            zones: [.Battlefield])
+    }
+    static func TargetCreatureYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Creature) && $0.getController() === source.getController() },
+            zones: [.Battlefield])
+    }
+    static func AnotherTargetCreatureYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0 != source && $0.isType(.Creature) && $0.getController() === source.getController() },
+            zones: [.Battlefield])
+    }
+    static func TargetCreatureAnOpponentControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Creature) && $0.getController() !== source.getController() },
+            zones: [.Battlefield])
+    }
+    static func TargetAttackingCreature(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isAttacking && $0.isType(.Creature) },
+            zones: [.Battlefield])
+    }
     static func TargetCreatureOrPlaneswalker(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isType(.Creature) || $0.isType(.Planeswalker) },
