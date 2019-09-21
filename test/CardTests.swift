@@ -18,4 +18,10 @@ class CardTests: XCTestCase {
             XCTAssert(UIImage(named: imageFileName) != nil, "Image for card " + card.getName() + " (" + card.getSetCode() + " " + String(card.getCollectorsNumber()) + ") not found")
         }
     }
+    
+    func testCardTypes() {
+        Card.All().forEach() { card in
+            XCTAssert(!card.types.isEmpty)
+        }
+    }
 }
