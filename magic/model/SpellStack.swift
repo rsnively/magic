@@ -74,7 +74,7 @@ class SpellStack: NSObject {
         stackObjects.forEach({ object in
             object.staticAbilities.forEach({ ability in
                 // TODO Check stack specifically
-                if ability.appliesInAllZones() {
+                if ability.appliesInAllZones() || ability.isCharacteristicDefining() {
                     staticAbilities.append(ability)
                 }
             })

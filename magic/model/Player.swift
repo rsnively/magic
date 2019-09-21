@@ -145,6 +145,13 @@ class Player: Targetable {
                 }
             }
         }
+        for card in getLibrary() {
+            for ability in card.staticAbilities {
+                if ability.isCharacteristicDefining() {
+                    abilities += [ability]
+                }
+            }
+        }
         return abilities
     }
     
