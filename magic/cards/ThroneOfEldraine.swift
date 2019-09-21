@@ -16,18 +16,19 @@ enum ELD {
         TheCircleOfLoyalty,
 //        DeafeningSilence,
 //        FaerieGodmother,
-        
+        Flutterfox,
         FortifyingProvisions,
 //        Giant Killer,
 //        GlassCasket,
-        
+//        HappilyEverAfter,
         HarmoniousArchon,
-        
+//        Hushbringer,
         KnightOfTheKeep,
         LindenTheSteadfastQueen,
 //        LonesomeUnicorn,
 //        MysteriousPathlighter,
-        
+        Outflank,
+        PrizedGriffin,
 //        RallyForTheThrone,
 //        RealmCloakedGiant,
         Righteousness,
@@ -40,12 +41,12 @@ enum ELD {
         TrueLovesKiss,
         VenerableKnight,
         WorthyKnight,
-        
+        YouthfulKnight,
 //        AnimatingFaerie,
 //        BrazenBorrower,
-        
+        CharmedSleep,
         CorridorMonitor,
-        
+        DidntSayPlease,
 //        EmryLurkerOfTheLoch,
 //        FaeOfWishes,
         FaerieVandal,
@@ -55,30 +56,32 @@ enum ELD {
 //        HypnoticSprite,
         IntoTheStory,
 //        TheMagicMirror,
-//        MantleOfTides,
-        
+        MantleOfTides,
+//        MerfolkSecretkeeper,
         MidnightClock,
 //        Mirrormade,
         MistfordRiverTurtle,
-        
+        MoonlitScavengers,
 //        MysticalDispute,
 //        Opt,
 //        OverwhelmedApprentice,
-        
+//        QueenOfIce,
 //        RunAwayTogether,
-        
-//        SteelgazeGriffin,
+//        SageOfTheFalls,
+        SoTiny,
+        SteelgazeGriffin,
 //        StolenByTheFae,
 //        SyrElenoraTheDiscerning,
         TomeRaider,
 //        TurnIntoAPumpkin,
+//        UnexplainedVision,
 //        VantressGargoyle,
-        
+//        VantressPaladin,
 //        WishfulMerfolk,
 //        WitchingWell,
 //        AyaraFirstOfLocthwain,
         BakeIntoAPie,
-        
+        BarrowWitches,
 //        BelleOfTheBrawl,
         BlacklanceParagon,
 //        BogNaughty,
@@ -88,19 +91,22 @@ enum ELD {
 //        ClackbridgeTroll,
         EpicDownfall,
         EyeCollector,
-        
+        FestiveFuneral,
+//        ForebodingFruit,
 //        ForeverYoung,
 //        FoulmireKnight,
 //        GiantsSkewer,
-        
+        LashOfThorns,
+//        LocthwainPaladin,
 //        LostLegion,
-        
+//        MalevolentNoble,
+//        MemoryTheft,
 //        MurderousRider,
 //        OathswornKnight,
 //        OrderOfMidnight,
 //        PiperOfTheSwarm,
 //        RankleMasterOfPranks,
-        
+//        ReaperOfNight
         ReaveSoul,
 //        RevengeOfRavens,
 //        SmittenSwordmaster,
@@ -124,7 +130,7 @@ enum ELD {
         FerocityOfTheWilds,
 //        FerventChampion,
 //        FiresOfInvention,
-        
+//        Fling,
 //        IrencragFeat,
 //        IrencragPyromancer,
         Joust,
@@ -135,7 +141,7 @@ enum ELD {
         RagingRedcap,
 //        RedcapMelee,
 //        RedcapRaiders,
-        
+//        RimrockKnight,
 //        RobberOfTheRich,
 //        ScorchingDragonfire,
 //        SearingBarrage,
@@ -161,7 +167,7 @@ enum ELD {
 //        TheGreatHenge,
 //        InsatiableAppetite,
 //        KeeperOfFables,
-        
+//        KenrithsTransformation,
 //        LovestruckBeast,
 //        ManaleafRider,
         OakhameAdversary,
@@ -169,9 +175,11 @@ enum ELD {
 //        OnceUponATime,
 //        Outmuscle,
 //        QuestingBeast,
-        
+//        ReturnOfTheWildspeaker,
 //        ReturnToNature,
 //        RosethornAcolyte,
+        RosethornHalberd,
+        SporecapSpider,
         SyrFarenTheHengehammer,
         TallAsABeanstalk,
 //        TrailOfCrumbs,
@@ -198,21 +206,21 @@ enum ELD {
 //        SavvyHunter,
         Shinechaser,
         SteelclawLance,
-        
+//        StormfistCrusader,
 //        Wandermare,
         WintermoorCommander,
         ArcanistsOwl,
 //        CovetousUrge,
-        
+//        DeathlessKnight,
 //        EliteHeadhunter,
         FirebornKnight,
 //        LochDragon,
 //        OakhameRanger,
         RampartSmasher,
-        
+        ResoluteRider,
         ThunderousSnapper,
 //        ClockworkServant,
-        
+        CrashingDrawbridge,
 //        EnchantedCarriage,
 //        Gingerbrute,
         GoldenEgg,
@@ -220,31 +228,31 @@ enum ELD {
 //        HeraldicBanner,
 //        InquisitivePuppet,
         JoustingDummy,
-        
+        LocthwainGargoyle,
 //        LuckyClover,
-        
+//        ProphetOfThePeak,
         RovingKeep,
-        
+        ScaldingCauldron,
         ShamblingSuit,
-        
+        SignpostScarecrow,
 //        SorcerersBroom,
 //        SorcerousSpyglass,
-//        SpinningWheel,
+        SpinningWheel,
 //        StonecoilSerpent,
-        
+        WeaponRack,
 //        WitchsOven,
         CastleArdenvale,
         CastleEmbereth,
 //        CastleGarenbrig,
         CastleLocthwain,
 //        CastleVantress,
-        
+        DwarvenMine,
 //        FabledPassage,
-        
+        GingerbreadCabin,
         IdyllicGrange,
-        
+        MysticSanctuary,
 //        TournamentGrounds,
-//        WitchsCottage,
+        WitchsCottage,
     ]
     
     static func RandomCard() -> Card {
@@ -332,7 +340,19 @@ enum ELD {
     }
     // 10 Deafening Silence
     // 11 Faerie Godmother
-    // 12
+    static func Flutterfox() -> Card {
+        let flutterfox = Card(name: "Flutterfox", rarity: .Common, set: set, number: 12)
+        flutterfox.setManaCost("1W")
+        flutterfox.setType(.Creature, .Fox)
+        flutterfox.addStaticAbility(
+            requirement: AbilityRequirement.This(flutterfox),
+            effect: { $0.getController().getArtifactsAndEnchantments().isEmpty ? $0.withKeyword(.Flying) : $0 },
+            layer: .AbilityAddingOrRemoving)
+        flutterfox.setFlavorText("\"The white fox grinned. 'How about a bet, dragon? If I win, the skies are mine.' After he stopped laughing, the dragon agreed.\"\n--Tales of the Fae")
+        flutterfox.power = 2
+        flutterfox.toughness = 2
+        return flutterfox
+    }
     static func FortifyingProvisions() -> Card {
         let fortifyingProvisions = Card(name: "Fortifying Provisions", rarity: .Common, set: set, number: 13)
         fortifyingProvisions.setManaCost("2W")
@@ -349,7 +369,7 @@ enum ELD {
     }
     // 14 Giant Killer
     // 15 Glass Casket
-    // 16
+    // 16 Happily Ever After
     static func HarmoniousArchon() -> Card {
         let harmoniousArchon = Card(name: "Harmonious Archon", rarity: .Mythic, set: set, number: 17)
         harmoniousArchon.setManaCost("4WW")
@@ -370,7 +390,7 @@ enum ELD {
         harmoniousArchon.toughness = 5
         return harmoniousArchon
     }
-    // 18
+    // 18 Hushbringer
     static func KnightOfTheKeep() -> Card {
         let knightOfTheKeep = Card(name: "Knight of the Keep", rarity: .Common, set: set, number: 19)
         knightOfTheKeep.setManaCost("2W")
@@ -395,6 +415,31 @@ enum ELD {
     }
     // 21 Lonesome Unicorn
     // 22 Mysterious Pathlighter
+    static func Outflank() -> Card {
+        let outflank = Card(name: "Outflank", rarity: .Common, set: set, number: 23)
+        outflank.setManaCost("W")
+        outflank.setType(.Instant)
+        outflank.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { ($0.isAttacking || $0.blocking) && $0.isType(.Creature) },
+                zones: [.Battlefield]),
+            effect: { target in
+                let amt = outflank.getController().getCreatures().count
+                outflank.damage(to: target, amt)
+            }))
+        outflank.setFlavorText("\"With the drum of hooves and a flash of blades, the monster's terrifying roar changed to a cry of fear.\"\n--Legend of the Gilded Knights")
+        return outflank
+    }
+    static func PrizedGriffin() -> Card {
+        let prizedGriffin = Card(name: "Prized Griffin", rarity: .Common, set: set, number: 24)
+        prizedGriffin.setManaCost("4W")
+        prizedGriffin.setType(.Creature, .Griffin)
+        prizedGriffin.flying = true
+        prizedGriffin.setFlavorText("\"I wrote these tales with a quill made from a griffin's feather. And the winning of that feather is quite a tale itself.\"\n--Chulane, Teller of Tales")
+        prizedGriffin.power = 3
+        prizedGriffin.toughness = 4
+        return prizedGriffin
+    }
     // 25 Rally for the Throne
     // 26 Realm-Cloaked Giant
     static func Righteousness() -> Card {
@@ -504,10 +549,31 @@ enum ELD {
         worthyKnight.toughness = 2
         return worthyKnight
     }
-    // 37
+    static func YouthfulKnight() -> Card {
+        let youthfulKnight = Card(name: "Youthful Knight", rarity: .Common, set: set, number: 37)
+        youthfulKnight.setManaCost("1W")
+        youthfulKnight.setType(.Creature, .Human, .Knight)
+        youthfulKnight.firstStrike = true
+        youthfulKnight.setFlavorText("\"In the wilds, your true training will begin.\"\n--Syr Alin, the Lion's Claw")
+        youthfulKnight.power = 2
+        youthfulKnight.toughness = 1
+        return youthfulKnight
+    }
     // 38 Animating Faerie
     // 39 Brazen Borrower
-    // 40
+    static func CharmedSleep() -> Card {
+        let charmedSleep = Card(name: "Charmed Sleep", rarity: .Common, set: set, number: 40)
+        charmedSleep.setManaCost("1UU")
+        charmedSleep.setType(.Enchantment, .Aura)
+        charmedSleep.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { charmedSleep.attachedTo?.tap() })
+        charmedSleep.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0.withoutKeyword(.UntapsDuringUntapStep)},
+            layer: .AbilityAddingOrRemoving)
+        return charmedSleep
+    }
     static func CorridorMonitor() -> Card {
         let corridorMonitor = Card(name: "Corridor Monitor", rarity: .Common, set: set, number: 41)
         corridorMonitor.setManaCost("1U")
@@ -524,7 +590,19 @@ enum ELD {
         corridorMonitor.toughness = 4
         return corridorMonitor
     }
-    // 42
+    static func DidntSayPlease() -> Card {
+        let didntSayPlease = Card(name: "Didn't Say Please", rarity: .Common, set: set, number: 42)
+        didntSayPlease.setManaCost("1UU")
+        didntSayPlease.setType(.Instant)
+        didntSayPlease.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetSpell(),
+            effect: { target in
+                target.counter()
+                target.getController().mill(3)
+        }))
+        didntSayPlease.setFlavorText("\"If you're in our home, we expect you to mind your manners.\"")
+        return didntSayPlease
+    }
     // 43 Emry, Lurker of the Loch
     // 44 Fae of Wishes
     static func FaerieVandal() -> Card {
@@ -566,8 +644,25 @@ enum ELD {
         return intoTheStory
     }
     // 51 The Magic Mirror
-    // 52 Mantle of Tides
-    // 53
+    static func MantleOfTides() -> Card {
+        let mantleOfTides = Card(name: "Mantle of Tides", rarity: .Common, set: set, number: 52)
+        mantleOfTides.setManaCost("U")
+        mantleOfTides.setType(.Artifact, .Equipment)
+        mantleOfTides.addEquipAbility(
+            string: "{3}: Equip.",
+            cost: Cost.Mana("3"),
+            effect: { $0.pumped(1, 2) },
+            layer: .PowerToughnessChanging)
+        mantleOfTides.addTriggeredAbility(
+            trigger: .YouDrawSecondCard,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === mantleOfTides.getController() },
+                    zones: [.Battlefield]),
+                effect: { mantleOfTides.attachTo($0) }))
+        return mantleOfTides
+    }
+    // 53 Merfolk Secretkeeper
     static func MidnightClock() -> Card {
         let midnightClock = Card(name: "Midnight Clock", rarity: .Rare, set: set, number: 54)
         midnightClock.setManaCost("2U")
@@ -610,15 +705,57 @@ enum ELD {
         mistfordRiverTurtle.toughness = 5
         return mistfordRiverTurtle
     }
-    // 57
+    static func MoonlitScavengers() -> Card {
+        let moonlitScavengers = Card(name: "Moonlit Scavengers", rarity: .Common, set: set, number: 57)
+        moonlitScavengers.setManaCost("5U")
+        moonlitScavengers.setType(.Creature, .Merfolk, .Rogue)
+        moonlitScavengers.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() !== moonlitScavengers.getController() },
+                    zones: [.Battlefield]),
+                effect: { $0.bounce() }),
+            restriction: { !moonlitScavengers.getController().getArtifactsAndEnchantments().isEmpty })
+        moonlitScavengers.setFlavorText("They comb the shallows of Lochmere for relics of a bygone era. And if they happen upon a lone traveler, all the better.")
+        moonlitScavengers.power = 4
+        moonlitScavengers.toughness = 5
+        return moonlitScavengers
+    }
     // 58 Mystical Dispute
     // 59 Opt
     // 60 Overwhelmed Apprentice
-    // 61
+    // 61 Queen of Ice
     // 62 Run Away Together
-    // 63
-    // 64
-    // 65 Steelgaze Griffin
+    // 63 Sage of the Falls
+    static func SoTiny() -> Card {
+        let soTiny = Card(name: "So Tiny", rarity: .Common, set: set, number: 64)
+        soTiny.setManaCost("U")
+        soTiny.setType(.Enchantment, .Aura)
+        soTiny.flash = true
+        soTiny.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { object in
+                let amount = object.getController().getGraveyard().count < 7 ? -2 : -6
+                return object.pumped(amount, 0)
+            },
+            layer: .PowerToughnessChanging)
+        soTiny.setFlavorText("His sword sounded like a silver chime on the glass jar, and the sprite laughed with delight.")
+        return soTiny
+    }
+    static func SteelgazeGriffin() -> Card {
+        let steelgazeGriffin = Card(name: "Steelgaze Griffin", rarity: .Common, set: set, number: 65)
+        steelgazeGriffin.setManaCost("4U")
+        steelgazeGriffin.setType(.Creature, .Griffin)
+        steelgazeGriffin.flying = true
+        steelgazeGriffin.addTriggeredAbility(
+            trigger: .YouDrawSecondCard,
+            effect: { steelgazeGriffin.pump(2, 0) })
+        steelgazeGriffin.setFlavorText("\"If we didn't guard our secrets, they wouldn't remain secrets for long.\"\n--Gadwick, the Wizened")
+        steelgazeGriffin.power = 2
+        steelgazeGriffin.toughness = 4
+        return steelgazeGriffin
+    }
     // 66 Stolen by the Fae
     // 67 Syr Elenora, the Discerning
     static func TomeRaider() -> Card {
@@ -635,9 +772,9 @@ enum ELD {
         return tomeRaider
     }
     // 69 Turn Into a Pumpkin
-    // 70
+    // 70 Unexplained Vision
     // 71 Vantress Gargoyle
-    // 72
+    // 72 Vantress Paladin
     // 73 Wishful Merfolk
     // 74 Witching Well
     // 75 Ayara, First of Locthwain
@@ -654,7 +791,22 @@ enum ELD {
         bakeIntoAPie.setFlavorText("\"My secret ingredient? Well, I can't tell you that. But here's a hint. It's not love.\"")
         return bakeIntoAPie
     }
-    // 77
+    static func BarrowWitches() -> Card {
+        let barrowWitches = Card(name: "Barrow Witches", rarity: .Common, set: set, number: 77)
+        barrowWitches.setManaCost("4B")
+        barrowWitches.setType(.Creature, .Human, .Warlock)
+        barrowWitches.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Knight) && $0.getController() === barrowWitches.getController() },
+                    zones: [.Graveyard]),
+                effect: { $0.putIntoHand() }))
+        barrowWitches.setFlavorText("\"Taste the sweetness, breath for breath. Keep the balance, death for death.\"\n--Barrow witch incantation")
+        barrowWitches.power = 3
+        barrowWitches.toughness = 4
+        return barrowWitches
+    }
     // 78 Belle of the Brawl
     static func BlacklanceParagon() -> Card {
         let blacklanceParagon = Card(name: "Blacklance Paragon", rarity: .Rare, set: set, number: 79)
@@ -708,22 +860,46 @@ enum ELD {
         eyeCollector.toughness = 1
         return eyeCollector
     }
-    // 87
-    // 88
+    static func FestiveFuneral() -> Card {
+        let festiveFuneral = Card(name: "Festive Funeral", rarity: .Common, set: set, number: 87)
+        festiveFuneral.setManaCost("4B")
+        festiveFuneral.setType(.Instant)
+        festiveFuneral.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                let amount = -1 * festiveFuneral.getController().getGraveyard().count
+                target.pump(amount, amount)
+            }))
+        festiveFuneral.setFlavorText("\"Even as we mourn the last, we look to the next with joy. Hopefully, my new suitor will bring the Cauldron home.\"\n--Ayala, First of Locthwain")
+        return festiveFuneral
+    }
+    // 88 Foreboding Fruit
     // 89 Forever Young
     // 90 Foulmire Knight
     // 91 Giant's Skewer
-    // 92
-    // 93
+    static func LashOfThorns() -> Card {
+        let lashOfThorns = Card(name: "Lash of Thorns", rarity: .Common, set: set, number: 92)
+        lashOfThorns.setManaCost("B")
+        lashOfThorns.setType(.Instant)
+        lashOfThorns.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { target in
+                target.pump(2, 1)
+                target.giveKeywordUntilEndOfTurn(.Deathtouch)
+            }))
+        lashOfThorns.setFlavorText("\"Another angry mob? When will they learn to leave me be?\"\n--Terryn, Edgewall outcast")
+        return lashOfThorns
+    }
+    // 93 Locthwain Paladin
     // 94 Lost Legion
-    // 95
-    // 96
+    // 95 Malevolent Noble
+    // 96 Memory Theft
     // 97 Murderous Rider
     // 98 Oathsworn Knight
     // 99 Order of Midnight
     // 100 Piper of the Swarm
     // 101 Rankle, Master of Pranks
-    // 102
+    // 102 Reaper of Night
     static func ReaveSoul() -> Card {
         let reaveSoul = Card(name: "Reave Soul", rarity: .Common, set: set, number: 103)
         reaveSoul.setManaCost("1B")
@@ -911,7 +1087,7 @@ enum ELD {
     }
     // 124 Fervent Champion
     // 125 Fires of Invention
-    // 126
+    // 126 Fling
     // 127 Irencrag Feat
     // 128 Irencrag Pyromancer
     static func Joust() -> Card {
@@ -958,7 +1134,7 @@ enum ELD {
     }
     // 135 Redcap Melee
     // 136 Redcap Raiders
-    // 137
+    // 137 Rimrock Knight
     // 138 Robber of the Rich
     // 139 Scorching Dragonfire
     // 140 Searing Barrage
@@ -967,7 +1143,7 @@ enum ELD {
     // 143 Slaying Fire
     // 144 Sundering Stroke
     // 145 Syr Carah, the Bold
-    // 146
+    // 146 Thrill of Possibility
     // 147 Torbran, Thane of Red Fell
     static func WeaselbackRedcap() -> Card {
         let weaselbackRedcap = Card(name: "Weaselback Redcap", rarity: .Common, set: set, number: 148)
@@ -1023,7 +1199,7 @@ enum ELD {
     // 161 The Great Henge
     // 162 Insatiable Appetite
     // 163 Keeper of Fables
-    // 164
+    // 164 Kenrith's Transformation
     // 165 Lovestruck Beast
     // 166 Manaleaf Rider
     static func OakhameAdversary() -> Card {
@@ -1053,11 +1229,37 @@ enum ELD {
     // 169 Once Upon a Time
     // 170 Outmuscle
     // 171 Questing Beast
-    // 172
+    // 172 Return of the Wildspeaker
     // 173 Return to Nature
     // 174 Rosethorn Acolyte
-    // 175
-    // 176
+    static func RosethornHalberd() -> Card {
+        let rosethornHalberd = Card(name: "Rosethorn Halberd", rarity: .Common, set: set, number: 175)
+        rosethornHalberd.setManaCost("G")
+        rosethornHalberd.setType(.Artifact, .Equipment)
+        rosethornHalberd.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { !$0.isType(.Human) && $0.isType(.Creature) && $0.getController() === rosethornHalberd.getController() },
+                    zones: [.Battlefield]),
+                effect: { rosethornHalberd.attachTo($0) }))
+        rosethornHalberd.addEquipAbility(
+            string: "{5}: Equip",
+            cost: Cost.Mana("5"),
+            effect: { $0.pumped(2, 1) },
+            layer: .PowerToughnessChanging)
+        return rosethornHalberd
+    }
+    static func SporecapSpider() -> Card {
+        let sporecapSpider = Card(name: "Sporecap Spider", rarity: .Common, set: set, number: 176)
+        sporecapSpider.setManaCost("2G")
+        sporecapSpider.setType(.Creature, .Spider)
+        sporecapSpider.reach = true
+        sporecapSpider.setFlavorText("After years of taunts and aerial assaults from Rankle's minions, the witches of Maraleaf Forest acquired new familiars.")
+        sporecapSpider.power = 1
+        sporecapSpider.toughness = 5
+        return sporecapSpider
+    }
     static func SyrFarenTheHengehammer() -> Card {
         let syrFaren = Card(name: "Syr Faren, the Hengehammer", rarity: .Uncommon, set: set, number: 177)
         syrFaren.setManaCost("GG")
@@ -1296,7 +1498,7 @@ enum ELD {
         steelclawLance.setFlavorText("\"A traditional lance is fine for the Burning Yard, but in the wilds you need a nastier bite.\"\n--Kenver, Embereth weaponsmith")
         return steelclawLance
     }
-    // 203
+    // 203 Stormfist Crusader
     // 204 Wandermare
     static func WintermoorCommander() -> Card {
         let wintermoorCommander = Card(name: "Wintermoor Commander", rarity: .Uncommon, set: set, number: 205)
@@ -1342,7 +1544,7 @@ enum ELD {
         return arcanistsOwl
     }
     // 207 Covetous Urge
-    // 208
+    // 208 Deathless Knight
     // 209 Elite Headhunter
     static func FirebornKnight() -> Card {
         let firebornKnight = Card(name: "Fireborn Knight", rarity: .Uncommon, set: set, number: 210)
@@ -1372,7 +1574,23 @@ enum ELD {
         rampartSmasher.toughness = 5
         return rampartSmasher
     }
-    // 214
+    static func ResoluteRider() -> Card {
+        let resoluteRider = Card(name: "Resolute Rider", rarity: .Uncommon, set: set, number: 214)
+        resoluteRider.setManaCost("{W/B}{W/B}{W/B}{W/B}")
+        resoluteRider.setType(.Creature, .Human, .Knight)
+        resoluteRider.addActivatedAbility(
+            string: "{W/B}{W/B}: ~ gains lifelink until end of turn.",
+            cost: Cost.Mana("{W/B}{W/B}"),
+            effect: { resoluteRider.giveKeywordUntilEndOfTurn(.Lifelink) })
+        resoluteRider.addActivatedAbility(
+            string: "{W/B}{W/B}{W/B}{W/B}: ~ gains indestructible until end of turn.",
+            cost: Cost.Mana("{W/B}{W/B}{W/B}{W/B}"),
+            effect: { resoluteRider.giveKeywordUntilEndOfTurn(.Indestructible) })
+        resoluteRider.setFlavorText("\"Respect the wilds? Certainly. Fear them? No.\"")
+        resoluteRider.power = 4
+        resoluteRider.toughness = 2
+        return resoluteRider
+    }
     static func ThunderousSnapper() -> Card {
         let thunderousSnapper = Card(name: "Thunderous Snapper", rarity: .Uncommon, set: set, number: 215)
         thunderousSnapper.setManaCost("{G/U}{G/U}{G/U}{G/U}")
@@ -1386,7 +1604,20 @@ enum ELD {
         return thunderousSnapper
     }
     // 216 Clockwork Servant
-    // 217
+    static func CrashingDrawbridge() -> Card {
+        let crashingDrawbridge = Card(name: "Crashing Drawbridge", rarity: .Common, set: set, number: 217)
+        crashingDrawbridge.setManaCost("2")
+        crashingDrawbridge.setType(.Artifact, .Creature, .Wall)
+        crashingDrawbridge.defender = true
+        crashingDrawbridge.addActivatedAbility(
+            string: "{T}: Creatures you control gain haste until end of turn.",
+            cost: Cost.Tap(),
+            effect: { crashingDrawbridge.getController().getCreatures().forEach({ $0.giveKeywordUntilEndOfTurn(.Haste) }) })
+        crashingDrawbridge.setFlavorText("\"The Northern Beacon flared, and even before the drawbridge finished its descent, the knights charged out.\"\n--Legend of the Gilded Knights")
+        crashingDrawbridge.power = 0
+        crashingDrawbridge.toughness = 4
+        return crashingDrawbridge
+    }
     // 218 Enchanted Carriage
     // 219 Gingerbrute
     static func GoldenEgg() -> Card {
@@ -1438,9 +1669,24 @@ enum ELD {
         joustingDummy.toughness = 1
         return joustingDummy
     }
-    // 225
+    static func LocthwainGargoyle() -> Card {
+        let locthwainGargoyle = Card(name: "Locthwain Gargoyle", rarity: .Common, set: set, number: 225)
+        locthwainGargoyle.setManaCost("1")
+        locthwainGargoyle.setType(.Artifact, .Creature, .Gargoyle)
+        locthwainGargoyle.addActivatedAbility(
+            string: "{4}: ~ gets +2/+0 and gains flying until end of turn.",
+            cost: Cost.Mana("4"),
+            effect: {
+                locthwainGargoyle.pump(2, 0)
+                locthwainGargoyle.giveKeywordUntilEndOfTurn(.Flying)
+            })
+        locthwainGargoyle.setFlavorText("\"As the traitor hurried across the courtyard, its eyes snapped open. It was time to pay the queen a visit.\"\n--Beyond the Great Henge")
+        locthwainGargoyle.power = 0
+        locthwainGargoyle.toughness = 3
+        return locthwainGargoyle
+    }
     // 226 Lucky Clover
-    // 227
+    // 227 Prophet of the Peak
     static func RovingKeep() -> Card {
         let rovingKeep = Card(name: "Roving Keep", rarity: .Common, set: set, number: 228)
         rovingKeep.setManaCost("7")
@@ -1459,7 +1705,19 @@ enum ELD {
         rovingKeep.toughness = 7
         return rovingKeep
     }
-    // 229
+    static func ScaldingCauldron() -> Card {
+        let scaldingCauldron = Card(name: "Scalding Cauldron", rarity: .Common, set: set, number: 229)
+        scaldingCauldron.setManaCost("1")
+        scaldingCauldron.setType(.Artifact)
+        scaldingCauldron.addActivatedAbility(
+            string: "{3}, {T}, Sacrifice ~: It deals 3 damagge to target creature.",
+            cost: Cost.Mana("3").Tap().Sacrifice(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { scaldingCauldron.damage(to: $0, 3) }))
+        scaldingCauldron.setFlavorText("\"It's a witch's trick, this cauldron full of pain. I wouldn't dump it on any but the wicked.\"")
+        return scaldingCauldron
+    }
     static func ShamblingSuit() -> Card {
         let shamblingSuit = Card(name: "Shambling Suit", rarity: .Uncommon, set: set, number: 230)
         shamblingSuit.setManaCost("3")
@@ -1477,12 +1735,67 @@ enum ELD {
         shamblingSuit.toughness = 3
         return shamblingSuit
     }
-    // 231
+    static func SignpostScarecrow() -> Card {
+        let signpostScarecrow = Card(name: "Signpost Scarecrow", rarity: .Common, set: set, number: 231)
+        signpostScarecrow.setManaCost("4")
+        signpostScarecrow.setType(.Artifact, .Creature, .Scarecrow)
+        signpostScarecrow.vigilance = true
+        Color.allCases.forEach({ color in
+            signpostScarecrow.addActivatedAbility(
+                string: "{2}: Add {" + String(color.rawValue) + "}.",
+                cost: Cost.Mana("2"),
+                effect: { signpostScarecrow.getController().addMana(color: color) })
+        })
+        signpostScarecrow.setFlavorText("\"Accursed scarecrow! Sendink folk in every direction is the same as sending them nowhere at all.\"\n--Corliss the Wanderer")
+        signpostScarecrow.power = 2
+        signpostScarecrow.toughness = 4
+        return signpostScarecrow
+    }
     // 232 Sorcerer's Broom
     // 233 Sorcerous Spyglass
-    // 234 Spinning Wheel
+    static func SpinningWheel() -> Card {
+        let spinningWheel = Card(name: "Spinning Wheel", rarity: .Uncommon, set: set, number: 234)
+        spinningWheel.setManaCost("3")
+        spinningWheel.setType(.Artifact)
+        Color.allCases.forEach({ color in
+            spinningWheel.addActivatedAbility(
+                string: "{T}: Add {" + String(color.rawValue) + "}.",
+                cost: Cost.Tap(),
+                effect: { spinningWheel.getController().addMana(color: color) })
+        })
+        spinningWheel.addActivatedAbility(
+            string: "{5}, {T}: Tap target creature.",
+            cost: Cost.Mana("5").Tap(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { $0.tap() }))
+        spinningWheel.setFlavorText("\"Though long forgotten, the wheel continued to turn, spinning fate from a dusty attic.\"\n--Beyond the Great Henge")
+        return spinningWheel
+    }
     // 235 Stonecoil Serpent
-    // 236
+    static func WeaponRack() -> Card {
+        let weaponRack = Card(name: "Weapon Rack", rarity: .Common, set: set, number: 236)
+        weaponRack.setManaCost("4")
+        weaponRack.setType(.Artifact)
+        weaponRack.addReplacementEffect(
+            event: .ThisETB,
+            effect: { weaponRack.addCounters(.PlusOnePlusOne, 3) })
+        weaponRack.addActivatedAbility(
+            string: "{T}: Move a +1/+1 counter from ~ onto target creature. Activate this ability only any time you could cast a sorcery.",
+            cost: Cost.Tap(),
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { target in
+                    if weaponRack.hasCounter(.PlusOnePlusOne) {
+                        weaponRack.removeCounter(.PlusOnePlusOne)
+                        target.addCounter(.PlusOnePlusOne)
+                    }
+                }),
+            manaAbility: false,
+            sorcerySpeed: true)
+        weaponRack.setFlavorText("No weapon stays on the rack for long in the Burning Yard.")
+        return weaponRack
+    }
     // 237 Witch's Oven
     static func CastleArdenvale() -> Card {
         let castleArdenvale = Card(name: "Castle Ardenvale", rarity: .Rare, set: set, number: 238)
@@ -1566,9 +1879,57 @@ enum ELD {
         return castleLocthwain
     }
     // 242 Castle Vantress
-    // 243
+    static func DwarvenMine() -> Card {
+        let dwarvenMine = Card(name: "Dwarven Mine", rarity: .Common, set: set, number: 243)
+        dwarvenMine.setManaCost("")
+        dwarvenMine.setType(.Land, .Mountain)
+        dwarvenMine.addActivatedAbility(
+            string: "{T}: Add {R}.",
+            cost: Cost.Tap(),
+            effect: { dwarvenMine.getController().addMana(color: .Red) },
+            manaAbility: true )
+        dwarvenMine.addStaticAbility(
+            requirement: AbilityRequirement.This(dwarvenMine),
+            effect: { object in
+                let numOtherMountains = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Mountain) }).count
+                if numOtherMountains < 3 {
+                    object.entersTapped = true
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        dwarvenMine.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { dwarvenMine.getController().createToken(Dwarf()) },
+            restriction: { !dwarvenMine.isTapped })
+        return dwarvenMine
+    }
     // 244 Fabled Passage
-    // 245
+    static func GingerbreadCabin() -> Card {
+        let gingerbreadCabin = Card(name: "Gingerbread Cabin", rarity: .Common, set: set, number: 245)
+        gingerbreadCabin.setManaCost("")
+        gingerbreadCabin.setType(.Land, .Forest)
+        gingerbreadCabin.addActivatedAbility(
+            string: "{T}: Add {G}.",
+            cost: Cost.Tap(),
+            effect: { gingerbreadCabin.getController().addMana(color: .Green) },
+            manaAbility: true )
+        gingerbreadCabin.addStaticAbility(
+            requirement: AbilityRequirement.This(gingerbreadCabin),
+            effect: { object in
+                let numOtherForests = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Forest) }).count
+                if numOtherForests < 3 {
+                    object.entersTapped = true
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        gingerbreadCabin.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { gingerbreadCabin.getController().createToken(Food()) },
+            restriction: { !gingerbreadCabin.isTapped })
+        return gingerbreadCabin
+    }
     static func IdyllicGrange() -> Card {
         let idyllicGrange = Card(name: "Idyllic Grange", rarity: .Common, set: set, number: 246)
         idyllicGrange.setManaCost("")
@@ -1581,7 +1942,7 @@ enum ELD {
         idyllicGrange.addStaticAbility(
             requirement: AbilityRequirement.This(idyllicGrange),
             effect: { object in
-                let numOtherPlains = idyllicGrange.getController().getPermanents().filter({ $0 != idyllicGrange && $0.isType(.Plains) }).count
+                let numOtherPlains = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Plains) }).count
                 if numOtherPlains < 3 {
                     object.entersTapped = true
                 }
@@ -1599,9 +1960,67 @@ enum ELD {
         idyllicGrange.setFlavorText("Every hero's journey starts somewhere.")
         return idyllicGrange
     }
-    // 247
+    static func MysticSanctuary() -> Card {
+        let mysticSanctuary = Card(name: "Mystic Sanctuary", rarity: .Common, set: set, number: 247)
+        mysticSanctuary.setManaCost("")
+        mysticSanctuary.setType(.Land, .Island)
+        mysticSanctuary.addActivatedAbility(
+            string: "{T}: Add {U}.",
+            cost: Cost.Tap(),
+            effect: { mysticSanctuary.getController().addMana(color: .Blue) },
+            manaAbility: true )
+        mysticSanctuary.addStaticAbility(
+            requirement: AbilityRequirement.This(mysticSanctuary),
+            effect: { object in
+                let numOtherIslands = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Island) }).count
+                if numOtherIslands < 3 {
+                    object.entersTapped = true
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        mysticSanctuary.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { ($0.isType(.Instant) || $0.isType(.Sorcery)) && $0.getController() === mysticSanctuary.getController() },
+                    zones: [.Graveyard]),
+                effect: { $0.putOnTopOfLibrary() },
+                effectOptional: true),
+            restriction: { !mysticSanctuary.isTapped })
+        return mysticSanctuary
+    }
     // 248 Tournament Grounds
-    // 249 Witch's Cottage
+    static func WitchsCottage() -> Card {
+        let witchsCottage = Card(name: "Witch's Cottage", rarity: .Common, set: set, number: 249)
+        witchsCottage.setManaCost("")
+        witchsCottage.setType(.Land, .Swamp)
+        witchsCottage.addActivatedAbility(
+            string: "{T}: Add {B}.",
+            cost: Cost.Tap(),
+            effect: { witchsCottage.getController().addMana(color: .Black) },
+            manaAbility: true )
+        witchsCottage.addStaticAbility(
+            requirement: AbilityRequirement.This(witchsCottage),
+            effect: { object in
+                let numOtherSwamps = object.getController().getPermanents().filter({ $0 != object && $0.isType(.Swamp) }).count
+                if numOtherSwamps < 3 {
+                    object.entersTapped = true
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        witchsCottage.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isType(.Creature) && $0.getController() === witchsCottage.getController() },
+                    zones: [.Graveyard]),
+                effect: { $0.putOnTopOfLibrary() },
+                effectOptional: true),
+            restriction: { !witchsCottage.isTapped })
+        return witchsCottage
+    }
     
     static func Goat() -> Token {
         let goat = Token(name: "Goat", set: set, number: 1)

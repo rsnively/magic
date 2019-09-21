@@ -67,6 +67,7 @@ enum Subtype {
     case Fish
     case Food
     case Forest
+    case Fox
     case Frog
     case Fungus
     case Gargoyle
@@ -162,6 +163,7 @@ enum Subtype {
     case Viashino
     case Vivien
     case Wall
+    case Warlock
     case Warrior
     case Weird
     case Wizard
