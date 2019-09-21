@@ -342,6 +342,7 @@
 		98391F7423359F0000BFE7C9 /* eld247full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98391F7223359EFF00BFE7C9 /* eld247full.png */; };
 		98391F7723359FF400BFE7C9 /* eld24full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98391F7523359FF300BFE7C9 /* eld24full.png */; };
 		98391F7823359FF400BFE7C9 /* eld23full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98391F7623359FF300BFE7C9 /* eld23full.png */; };
+		98391F7A2335B0DC00BFE7C9 /* eld193full.png in Resources */ = {isa = PBXBuildFile; fileRef = 98391F792335B0DC00BFE7C9 /* eld193full.png */; };
 		983E005E225BE1C80033F05E /* war7full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983E005D225BE1C80033F05E /* war7full.png */; };
 		983E0060225BE20E0033F05E /* war9full.png in Resources */ = {isa = PBXBuildFile; fileRef = 983E005F225BE20E0033F05E /* war9full.png */; };
 		9840897E20CAF562005DA8F6 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9840897D20CAF562005DA8F6 /* Rarity.swift */; };
@@ -1798,6 +1799,7 @@
 		98391F7223359EFF00BFE7C9 /* eld247full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld247full.png; sourceTree = "<group>"; };
 		98391F7523359FF300BFE7C9 /* eld24full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld24full.png; sourceTree = "<group>"; };
 		98391F7623359FF300BFE7C9 /* eld23full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld23full.png; sourceTree = "<group>"; };
+		98391F792335B0DC00BFE7C9 /* eld193full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eld193full.png; sourceTree = "<group>"; };
 		983E005D225BE1C80033F05E /* war7full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = war7full.png; sourceTree = "<group>"; };
 		983E005F225BE20E0033F05E /* war9full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = war9full.png; sourceTree = "<group>"; };
 		9840897D20CAF562005DA8F6 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
@@ -3118,6 +3120,7 @@
 				98F1DCCE232C6CEC000F427B /* eld184full.png */,
 				98026C182332CFB8009E595B /* eld190full.png */,
 				98F1DCD0232C6FAF000F427B /* eld191full.png */,
+				98391F792335B0DC00BFE7C9 /* eld193full.png */,
 				98F1DCD1232C6FAF000F427B /* eld194full.png */,
 				98F1DCD4232C70B9000F427B /* eld196full.png */,
 				98F1DCDC232C72DB000F427B /* eld198full.png */,
@@ -5169,6 +5172,7 @@
 				9810CDB8219CC59400967142 /* rix68full.png in Resources */,
 				98ABF02F2252AF4A0087957C /* war4full.png in Resources */,
 				98F6943D21AF3E45008854BF /* rix186full.png in Resources */,
+				98391F7A2335B0DC00BFE7C9 /* eld193full.png in Resources */,
 				9801615221E57AEE009F7789 /* rna31full.png in Resources */,
 				9833AC6A22A33B570085AA18 /* mh1t12full.png in Resources */,
 				9810CDE4219D185300967142 /* rix147full.png in Resources */,

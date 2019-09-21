@@ -196,7 +196,7 @@ enum ELD {
         FaeburrowElder,
         GarrukCursedHuntsman,
 //        GrumgullyTheGenerous,
-//        ImprobableAlliance,
+        ImprobableAlliance,
         InspiringVeteran,
 //        LochmereSerpent,
         MaraleafPixie,
@@ -1389,7 +1389,23 @@ enum ELD {
         return garruk
     }
     // 192 Grumgully, the Generous
-    // 193 Improbable Alliance
+    static func ImprobableAlliance() -> Card {
+        let improbableAlliance = Card(name: "Improbable Alliance", rarity: .Uncommon, set: set, number: 193)
+        improbableAlliance.setManaCost("UR")
+        improbableAlliance.setType(.Enchantment)
+        improbableAlliance.addTriggeredAbility(
+            trigger: .YouDrawSecondCard,
+            effect: { improbableAlliance.getController().createToken(Faerie()) })
+        improbableAlliance.addActivatedAbility(
+            string: "{4}{U}{R}: Draw a card, then discard a card.",
+            cost: Cost.Mana("4UR"),
+            effect: {
+                improbableAlliance.getController().drawCard()
+                improbableAlliance.getController().discard()
+        })
+        improbableAlliance.setFlavorText("\"I agreed to light his way as long as he always had my back.\"\n--Squill, Mistford pixie")
+        return improbableAlliance
+    }
     static func InspiringVeteran() -> Card {
         let inspiringVeteran = Card(name: "Inspiring Veteran", rarity: .Uncommon, set: set, number: 194)
         inspiringVeteran.setManaCost("RW")
