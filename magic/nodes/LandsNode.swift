@@ -13,7 +13,7 @@ class LandsNode: SKNode {
         }
         _ = cardNodes.partition(by: { return !$0.card.isTapped })
         for i in 0 ..< cardNodes.count {
-            cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 0.25
+            cardNodes[i].position.x = ((CGFloat(i) - CGFloat(cardNodes.count)) / 2.0 + 0.5) * cardNodes[i].size.width * 0.4
             addChild(cardNodes[i])
             cardNodes[i].zPosition = CGFloat(i) / CGFloat(cardNodes.count)
             if cardNodes[i].card.isTapped {
