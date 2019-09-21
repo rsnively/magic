@@ -125,67 +125,67 @@ class TargetingRestriction {
     
     static func TargetArtifact(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Artifact) },
+            restriction: { $0.isArtifact() },
             zones: [.Battlefield],
             optional: optional
         )
     }
     static func TargetCreature(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Creature) },
+            restriction: { $0.isCreature() },
             zones: [.Battlefield],
             optional: optional
         )
     }
     static func AnotherTargetCreature(source: Object, optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0 != source && $0.isType(.Creature) },
+            restriction: { $0 != source && $0.isCreature() },
             zones: [.Battlefield])
     }
     static func TargetCreatureYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.getController() === source.getController() },
+            restriction: { $0.isCreature() && $0.getController() === source.getController() },
             zones: [.Battlefield])
     }
     static func AnotherTargetCreatureYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0 != source && $0.isType(.Creature) && $0.getController() === source.getController() },
+            restriction: { $0 != source && $0.isCreature() && $0.getController() === source.getController() },
             zones: [.Battlefield])
     }
     static func TargetCreatureAnOpponentControl(source: Object, optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.getController() !== source.getController() },
+            restriction: { $0.isCreature() && $0.getController() !== source.getController() },
             zones: [.Battlefield])
     }
     static func TargetAttackingCreature(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isAttacking && $0.isType(.Creature) },
+            restriction: { $0.isAttacking && $0.isCreature() },
             zones: [.Battlefield])
     }
     static func TargetCreatureOrPlaneswalker(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Creature) || $0.isType(.Planeswalker) },
+            restriction: { $0.isCreatureOrPlaneswalker() },
             zones: [.Battlefield],
             optional: optional
         )
     }
     static func TargetEnchantment(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Enchantment) },
+            restriction: { $0.isEnchantment() },
             zones: [.Battlefield],
             optional: optional
         )
     }
     static func TargetLand(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Land) },
+            restriction: { $0.isLand() },
             zones: [.Battlefield],
             optional: optional
         )
     }
     static func TargetNonlandPermanent(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { !$0.isType(.Land) && $0.isPermanent() },
+            restriction: { !$0.isLand() && $0.isPermanent() },
             zones: [.Battlefield],
             optional: optional
         )
@@ -199,7 +199,7 @@ class TargetingRestriction {
     }
     static func TargetArtifactOrEnchantment(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+            restriction: { $0.isArtifactOrEnchantment() },
             zones: [.Battlefield],
             optional: optional
         )
@@ -214,14 +214,14 @@ class TargetingRestriction {
     }
     static func TargetCreatureSpell(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { $0.isType(.Creature) && $0.isSpell() },
+            restriction: { $0.isCreature() && $0.isSpell() },
             zones: [.Stack],
             optional: optional
         )
     }
     static func TargetNonCreatureSpell(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
-            restriction: { !$0.isType(.Creature) && $0.isSpell() },
+            restriction: { !$0.isCreature() && $0.isSpell() },
             zones: [.Stack],
             optional: optional
         )

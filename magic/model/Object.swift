@@ -451,10 +451,25 @@ class Object: Targetable, Hashable, NSCopying {
     func setType(_ supertype: Supertype, _ type: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype); }
     func setType(_ supertype: Supertype, _ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype1); addType(subtype2); }
     func setType(_ supertype: Supertype, _ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type1); addType(type2); addType(subtype); }
+    
     func isType(_ type: Type) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).types.contains(type) }
     func isType(_ supertype: Supertype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).subtypes.contains(subtype) }
-    func isBasicLand() -> Bool { return isType(.Basic) && isType(.Land) }
+    
+    func isLegendary() -> Bool { return isType(.Legendary) }
+    func isBasicLand() -> Bool { return isType(.Basic) && isLand() }
+    
+    func isArtifact() -> Bool { return isType(.Artifact) }
+    func isArtifactOrEnchantment() -> Bool { return isArtifact() || isEnchantment() }
+    func isCreature() -> Bool { return isType(.Creature) }
+    func isCreatureOrPlaneswalker() -> Bool { return isCreature() || isPlaneswalker() }
+    func isEnchantment() -> Bool { return isType(.Enchantment) }
+    func isInstant() -> Bool { return isType(.Instant) }
+    func isInstantOrSorcery() -> Bool { return isInstant() || isSorcery() }
+    func isLand() -> Bool { return isType(.Land) }
+    func isPlaneswalker() -> Bool { return isType(.Planeswalker) }
+    func isSorcery() -> Bool { return isType(.Sorcery) }
+    
     func isColor(_ color: Color) -> Bool { return colors.contains(color) }
     func isColorless() -> Bool { return colors.isEmpty }
     func isMulticolored() -> Bool { return colors.count > 1 }

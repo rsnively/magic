@@ -19,22 +19,22 @@ class AbilityRequirement {
     }
     
     static func ArtifactsYourOpponentsControl(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0.isType(.Artifact) && $0.getController() !== source.getController() && additionalRequirement($0) })
+        return AbilityRequirement({ $0.isArtifact() && $0.getController() !== source.getController() && additionalRequirement($0) })
     }
     static func AuraAndEquipmentSpellsYouCast(source: Object) -> AbilityRequirement {
         return AbilityRequirement({ ($0.isType(.Aura) || $0.isType(.Equipment)) && $0.isSpell() && $0.getOwner() === source.getController() })
     }
     static func CreatureSpellsYouCast(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0.isType(.Creature) && $0.isSpell() && $0.getOwner() === source.getOwner() && additionalRequirement($0) })
+        return AbilityRequirement({ $0.isCreature() && $0.isSpell() && $0.getOwner() === source.getOwner() && additionalRequirement($0) })
     }
     static func Creatures(additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0.isType(.Creature) && additionalRequirement($0) })
+        return AbilityRequirement({ $0.isCreature() && additionalRequirement($0) })
     }
     static func CreaturesYouControl(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0.isType(.Creature) && $0.getController() === source.getController() && additionalRequirement($0) })
+        return AbilityRequirement({ $0.isCreature() && $0.getController() === source.getController() && additionalRequirement($0) })
     }
     static func CreaturesYourOpponentsControl(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0.isType(.Creature) && $0.getController() !== source.getController() && additionalRequirement($0) })
+        return AbilityRequirement({ $0.isCreature() && $0.getController() !== source.getController() && additionalRequirement($0) })
     }
     static func EnchantedObject(aura: Object) -> AbilityRequirement {
         return AbilityRequirement({ aura.isAttachedTo($0) })
@@ -43,10 +43,10 @@ class AbilityRequirement {
         return AbilityRequirement({ equipment.isAttachedTo($0) })
     }
     static func InstantAndSorcerySpellsYouCast(source: Object) -> AbilityRequirement {
-        return AbilityRequirement({ ($0.isType(.Instant) || $0.isType(.Sorcery)) && $0.isSpell() && $0.getOwner() === source.getController() })
+        return AbilityRequirement({ $0.isInstantOrSorcery() && $0.isSpell() && $0.getOwner() === source.getController() })
     }
     static func OtherCreaturesYouControl(source: Object, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
-        return AbilityRequirement({ $0 != source && $0.isType(.Creature) && $0.getController() === source.getController() && additionalRequirement($0) })
+        return AbilityRequirement({ $0 != source && $0.isCreature() && $0.getController() === source.getController() && additionalRequirement($0) })
     }
     static func OtherSubtypeYouControl(source: Object, subtype: Subtype, additionalRequirement: @escaping (Object) -> Bool = {_ in return true }) -> AbilityRequirement {
         return AbilityRequirement({ $0 != source && $0.isType(subtype) && $0.getController() === source.getController() && additionalRequirement($0) })

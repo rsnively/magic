@@ -268,7 +268,7 @@ enum ELD {
             effect: {
                 acclaimedContender.getController().chooseCard(
                     from: Array(acclaimedContender.getController().getLibrary().suffix(5)),
-                    restriction: { $0.isType(.Knight) || $0.isType(.Aura) || $0.isType(.Equipment ) || ($0.isType(.Legendary) && $0.isType(.Artifact)) },
+                    restriction: { $0.isType(.Knight) || $0.isType(.Aura) || $0.isType(.Equipment ) || ($0.isLegendary() && $0.isArtifact()) },
                     action: { chosenCard, rest in
                         chosenCard?.reveal()
                         chosenCard?.putIntoHand()
@@ -421,7 +421,7 @@ enum ELD {
         outflank.setType(.Instant)
         outflank.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.SingleObject(
-                restriction: { ($0.isAttacking || $0.blocking) && $0.isType(.Creature) },
+                restriction: { ($0.isAttacking || $0.blocking) && $0.isCreature() },
                 zones: [.Battlefield]),
             effect: { target in
                 let amt = outflank.getController().getCreatures().count
@@ -448,7 +448,7 @@ enum ELD {
         righteousness.setType(.Instant)
         righteousness.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.blocking },
+                restriction: { $0.isCreature() && $0.blocking },
                 zones: [.Battlefield]),
             effect: { $0.pump(7, 7) }))
         righteousness.setFlavorText("Syr Damon looked at the dragon and saw the faces of every innocent it had devoured. Suddenly, his sword blazed like the sun.")
@@ -498,7 +498,7 @@ enum ELD {
         trappedInTheTower.addEnchantAbility(
             restriction: TargetingRestriction.SingleObject(
                 // TODO: make sure you can't enchant flying creatures, make sure giving flying causes to fall off
-                restriction: { $0.isType(.Creature) && !$0.flying },
+                restriction: { $0.isCreature() && !$0.flying },
                 zones: [.Battlefield]),
             effects: [
                 ({ return $0.withKeyword(.CantAttack) }, .AbilityAddingOrRemoving),
@@ -582,7 +582,7 @@ enum ELD {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { ($0.isType(.Artifact) || $0.isType(.Creature)) && $0.getController() === corridorMonitor.getController()},
+                    restriction: { ($0.isArtifact() || $0.isCreature()) && $0.getController() === corridorMonitor.getController()},
                     zones: [.Battlefield]),
                 effect: { $0.untap() }))
         corridorMonitor.setFlavorText("Castle Vantress has no locks on its doors, but interlopers rarely make it past the foyer.")
@@ -695,7 +695,7 @@ enum ELD {
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0 != mistfordRiverTurtle && $0.isAttacking && !$0.isType(.Human) && $0.isType(.Creature) },
+                    restriction: { $0 != mistfordRiverTurtle && $0.isAttacking && !$0.isType(.Human) && $0.isCreature() },
                     zones: [.Battlefield]),
                 effect: { $0.giveKeywordUntilEndOfTurn(.Unblockable) }))
         mistfordRiverTurtle.setFlavorText("The fae raised the turtle from a tiny hatchling. They taught it whom to ferry--and whom to drown.")
@@ -835,7 +835,7 @@ enum ELD {
         epicDownfall.setType(.Sorcery)
         epicDownfall.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.getConvertedManaCost() >= 3 },
+                restriction: { $0.isCreature() && $0.getConvertedManaCost() >= 3 },
                 zones: [.Battlefield]),
             effect: { $0.exile() }))
         epicDownfall.setFlavorText("The dragon had a lot of things going through his mind that day. He didn't expect a sword to be one of them.")
@@ -902,7 +902,7 @@ enum ELD {
         reaveSoul.setType(.Sorcery)
         reaveSoul.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.SingleObject(
-                restriction: { $0.isType(.Creature) && $0.getPower() <= 3 },
+                restriction: { $0.isCreature() && $0.getPower() <= 3 },
                 zones: [.Battlefield]),
             effect: { _ = $0.destroy() }))
         reaveSoul.setFlavorText("\"Into amethyst, I pour\nEnvy's shadow, sorrow's gleam.\nLure the one whose scorn I bore\nThat I may hear one final scream.\"\n--Barrow witch incantation")
@@ -1152,7 +1152,7 @@ enum ELD {
         fellThePheasant.setType(.Instant)
         fellThePheasant.addEffect(TargetedEffect.SingleObject(
             restriction: TargetingRestriction.SingleObject(
-                restriction: { return $0.isType(.Creature) && $0.flying },
+                restriction: { return $0.isCreature() && $0.flying },
                 zones: [.Battlefield]),
             effect: { target in
                 fellThePheasant.damage(to: target, 5)
@@ -1224,7 +1224,7 @@ enum ELD {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { !$0.isType(.Human) && $0.isType(.Creature) && $0.getController() === rosethornHalberd.getController() },
+                    restriction: { !$0.isType(.Human) && $0.isCreature() && $0.getController() === rosethornHalberd.getController() },
                     zones: [.Battlefield]),
                 effect: { rosethornHalberd.attachTo($0) }))
         rosethornHalberd.addEquipAbility(
@@ -1252,7 +1252,7 @@ enum ELD {
             trigger: .ThisAttacks,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0 != syrFaren && $0.isAttacking && $0.isType(.Creature) },
+                    restriction: { $0 != syrFaren && $0.isAttacking && $0.isCreature() },
                     zones: [.Battlefield]),
                 effect: { $0.pump(syrFaren.getPower(), syrFaren.getPower()) }))
         syrFaren.setFlavorText("\"Words are pointless. It's what you do with your hammer that counts.\"")
@@ -1532,7 +1532,7 @@ enum ELD {
             trigger: .ThisETB,
             effect: { arcanistsOwl.getController().chooseCard(
                 from: Array(arcanistsOwl.getController().getLibrary().suffix(4)),
-                restriction: { $0.isType(.Artifact) || $0.isType(.Enchantment) },
+                restriction: { $0.isArtifactOrEnchantment() },
                 action: { chosen, rest in
                     chosen?.reveal()
                     chosen?.putIntoHand()
@@ -1725,7 +1725,7 @@ enum ELD {
         shamblingSuit.addStaticAbility(
             requirement: AbilityRequirement.This(shamblingSuit),
             effect: { object in
-                let numArtifactsAndOrEnchantments = shamblingSuit.getController().getPermanents().filter({ $0.isType(.Artifact) || $0.isType(.Enchantment) }).count
+                let numArtifactsAndOrEnchantments = shamblingSuit.getController().getPermanents().filter({ $0.isArtifactOrEnchantment() }).count
                 object.power = numArtifactsAndOrEnchantments
                 return object
             },
@@ -1981,7 +1981,7 @@ enum ELD {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { ($0.isType(.Instant) || $0.isType(.Sorcery)) && $0.getController() === mysticSanctuary.getController() },
+                    restriction: { $0.isInstantOrSorcery() && $0.getController() === mysticSanctuary.getController() },
                     zones: [.Graveyard]),
                 effect: { $0.putOnTopOfLibrary() },
                 effectOptional: true),
@@ -2012,7 +2012,7 @@ enum ELD {
             trigger: .ThisETB,
             effect: TargetedEffect.SingleObject(
                 restriction: TargetingRestriction.SingleObject(
-                    restriction: { $0.isType(.Creature) && $0.getController() === witchsCottage.getController() },
+                    restriction: { $0.isCreature() && $0.getController() === witchsCottage.getController() },
                     zones: [.Graveyard]),
                 effect: { $0.putOnTopOfLibrary() },
                 effectOptional: true),
