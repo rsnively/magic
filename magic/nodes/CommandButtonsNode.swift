@@ -20,7 +20,7 @@ class CommandButtonsNode: SKNode {
             return "(Choose targets)"
         }
         if Game.shared.isCastingSpell {
-            return "Pay " + Game.shared.castingSpell!.manaCost!.getString()
+            return "Pay " + Game.shared.castingSpell!.castingCost!.getString()
         }
         if Game.shared.isSelectingCards {
             return "Done Selecting"

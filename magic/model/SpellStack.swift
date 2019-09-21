@@ -71,9 +71,13 @@ class SpellStack: NSObject {
     
     func getStaticAbilities() -> [StaticAbility] {
         var staticAbilities: [StaticAbility] = []
-        stackObjects.forEach({
-            // TODO: Check for being functional while on stack
-            staticAbilities += $0.staticAbilities
+        stackObjects.forEach({ object in
+            object.staticAbilities.forEach({ ability in
+                // TODO Check stack specifically
+                if ability.appliesInAllZones() {
+                    staticAbilities.append(ability)
+                }
+            })
         })
         return staticAbilities
     }

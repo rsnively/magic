@@ -78,7 +78,7 @@ class Object: Targetable, Hashable, NSCopying {
     }
     private var baseCastingCost: ManaCost?
     var castingCost: ManaCost? {
-        get { return applyContinuousEffects(upToLayer: .AbilityAddingOrRemoving).baseCastingCost }
+        get { return applyContinuousEffects(upToLayer: .CostSetting).baseCastingCost }
         set (newCastingCost) { baseCastingCost = newCastingCost }
     }
     private var baseDeathtouch: Bool = false

@@ -154,7 +154,7 @@ class Player: Targetable {
         }
         
         if let castingSpell = Game.shared.castingSpell {
-            if manaPool.canAfford(castingSpell.manaCost!) {
+            if manaPool.canAfford(castingSpell.castingCost!) {
                 finishCastingSpell(castingSpell as! Card)
             }
         }
