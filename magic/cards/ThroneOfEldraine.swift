@@ -1583,8 +1583,8 @@ enum ELD {
             cost: Cost.Mana("{W/B}{W/B}"),
             effect: { resoluteRider.giveKeywordUntilEndOfTurn(.Lifelink) })
         resoluteRider.addActivatedAbility(
-            string: "{W/B}{W/B}{W/B}{W/B}: ~ gains indestructible until end of turn.",
-            cost: Cost.Mana("{W/B}{W/B}{W/B}{W/B}"),
+            string: "{W/B}{W/B}{W/B}: ~ gains indestructible until end of turn.",
+            cost: Cost.Mana("{W/B}{W/B}{W/B}"),
             effect: { resoluteRider.giveKeywordUntilEndOfTurn(.Indestructible) })
         resoluteRider.setFlavorText("\"Respect the wilds? Certainly. Fear them? No.\"")
         resoluteRider.power = 4
