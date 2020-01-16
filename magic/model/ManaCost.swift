@@ -107,6 +107,9 @@ class ManaCost: NSObject, NSCopying {
     func converted() -> Int {
         return coloredMana.count + genericMana + hybridMana.count
     }
+    func pips(color: Color) -> Int {
+        return getColorAmount(color) + getHybridAmount(color)
+    }
     
     func reducedBy(_ genericAmount: Int) -> ManaCost {
         let copy = self.copy() as! ManaCost

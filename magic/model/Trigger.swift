@@ -16,6 +16,7 @@ enum Trigger {
     case EachEndStep
     case EachOpponentsUpkeep
     case EachUpkeep
+    case EnchantmentEntersBattlefieldUnderYourControl
     case GateEntersBattlefieldUnderYourControl
     case KnightEntersBattlefieldUnderYourControl
     case Landfall

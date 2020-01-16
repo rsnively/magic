@@ -42,6 +42,9 @@ class AbilityRequirement {
     static func EquippedObject(equipment: Object) -> AbilityRequirement {
         return AbilityRequirement({ equipment.isAttachedTo($0) })
     }
+    static func AuraSpellsYouCast(source: Object) -> AbilityRequirement {
+        return AbilityRequirement({ $0.isType(.Aura) && $0.isSpell() && $0.getOwner() === source.getController() })
+    }
     static func InstantAndSorcerySpellsYouCast(source: Object) -> AbilityRequirement {
         return AbilityRequirement({ $0.isInstantOrSorcery() && $0.isSpell() && $0.getOwner() === source.getController() })
     }

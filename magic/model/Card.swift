@@ -12,7 +12,7 @@ class Card: Object {
     }
     
     static func randomCard() -> Card {
-        let r = Int.random(in: 1 ... 9)
+        let r = Int.random(in: 1 ... 10)
         if r == 1 {
             return XLN.RandomCard()
         }
@@ -37,24 +37,31 @@ class Card: Object {
         if r == 8 {
             return M20.RandomCard()
         }
-        return ELD.RandomCard()
+        if r == 9 {
+            return ELD.RandomCard()
+        }
+        return THB.RandomCard()
     }
     
     static func randomStandardCard() -> Card {
-        let r = Int.random(in: 1 ... 5)
-        if r == 1 {
-            return GRN.RandomCard()
-        }
-        if r == 2 {
-            return RNA.RandomCard()
-        }
-        if r == 3 {
-            return WAR.RandomCard()
-        }
-        if r == 4 {
-            return M20.RandomCard()
-        }
-        return ELD.RandomCard()
+        return THB.RandomCard()
+//        let r = Int.random(in: 1 ... 6)
+//        if r == 1 {
+//            return GRN.RandomCard()
+//        }
+//        if r == 2 {
+//            return RNA.RandomCard()
+//        }
+//        if r == 3 {
+//            return WAR.RandomCard()
+//        }
+//        if r == 4 {
+//            return M20.RandomCard()
+//        }
+//        if r == 5 {
+//            return ELD.RandomCard()
+//        }
+//        return THB.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {

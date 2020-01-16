@@ -18,6 +18,7 @@ enum Type {
 }
 
 enum Subtype {
+    case Advisor
     case Ajani
     case Angel
     case Antelope
@@ -39,12 +40,14 @@ enum Subtype {
     case Cat
     case Centaur
     case Chandra
+    case Chimera
     case Cleric
     case Construct
     case Crab
     case Crocodile
     case Cyclops
     case Davriel
+    case Demigod
     case Demon
     case Desert
     case Devil
@@ -78,6 +81,7 @@ enum Subtype {
     case Goat
     case Goblin
     case God
+    case Gold
     case Golem
     case Gorgon
     case Griffin
@@ -102,6 +106,7 @@ enum Subtype {
     case Kaya
     case Kirin
     case Knight
+    case Kraken
     case Lammasu
     case Lizard
     case Merfolk
@@ -148,6 +153,7 @@ enum Subtype {
     case Spirit
     case Squid
     case Swamp
+    case Tentacle
     case Tezzeret
     case Thopter
     case Thrull

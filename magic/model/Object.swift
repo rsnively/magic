@@ -458,6 +458,10 @@ class Object: Targetable, Hashable, NSCopying {
     func setType(_ supertype: Supertype, _ type: Type, _ subtype1: Subtype, _ subtype2: Subtype) { clearTypes(); addType(supertype); addType(type); addType(subtype1); addType(subtype2); }
     func setType(_ supertype: Supertype, _ type1: Type, _ type2: Type, _ subtype: Subtype) { clearTypes(); addType(supertype); addType(type1); addType(type2); addType(subtype); }
     
+    func removeType(_ type: Type) { types.remove(type) }
+    func removeType(_ supertype: Supertype) { supertypes.remove(supertype) }
+    func removeType(_ subtype: Subtype) { subtypes.remove(subtype) }
+    
     func isType(_ type: Type) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).types.contains(type) }
     func isType(_ supertype: Supertype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).supertypes.contains(supertype) }
     func isType(_ subtype: Subtype) -> Bool { return applyContinuousEffects(upToLayer: .TypeChanging).subtypes.contains(subtype) }
@@ -616,6 +620,9 @@ class Object: Targetable, Hashable, NSCopying {
             return self.isType(.Aura) && restriction.meetsRestriction(target: object)
         }
         return false
+    }
+    func isEnchanted() -> Bool {
+        return Game.shared.eitherPlayer({ $0.getPermanents().contains(where: { $0.isType(.Aura) && $0.isAttachedTo(self) }) })
     }
     
     func addEquipAbility(string: String, cost: Cost, effect: @escaping (Object) -> Object, layer: EffectLayer, restriction: @escaping (Object) -> Bool = { _ in return true }) {
@@ -791,6 +798,22 @@ class Object: Targetable, Hashable, NSCopying {
         return object
     }
     
+    func withoutType(_ supertype: Supertype) -> Object {
+        let object = self.copy() as! Object
+        object.removeType(supertype)
+        return object
+    }
+    func withoutType(_ type: Type) -> Object {
+        let object = self.copy() as! Object
+        object.removeType(type)
+        return object
+    }
+    func withoutType(_ subtype: Subtype) -> Object {
+        let object = self.copy() as! Object
+        object.removeType(subtype)
+        return object
+    }
+    
     func addTypeUntilEndOfTurn(_ supertype: Supertype) {
         self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
             effect: { return $0.withType(supertype) },
@@ -820,6 +843,38 @@ class Object: Targetable, Hashable, NSCopying {
     func addTypeUntilYourNextTurn(_ subtype: Subtype) {
         self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
             effect: { return $0.withType(subtype) },
+            layer: .TypeChanging))
+    }
+    
+    func removeTypeUntilEndOfTurn(_ supertype: Supertype) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withoutType(supertype) },
+            layer: .TypeChanging))
+    }
+    func removeTypeUntilEndOfTurn(_ type: Type) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withoutType(type) },
+            layer: .TypeChanging))
+    }
+    func removeTypeUntilEndOfTurn(_ subtype: Subtype) {
+        self.addContinuousEffect(ContinuousEffect.UntilEndOfTurn(
+            effect: { return $0.withoutType(subtype) },
+            layer: .TypeChanging))
+    }
+    
+    func removeTypeUntilYourNextTurn(_ supertype: Supertype) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withoutType(supertype) },
+            layer: .TypeChanging))
+    }
+    func removeTypeUntilYourNextTurn(_ type: Type) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withoutType(type) },
+            layer: .TypeChanging))
+    }
+    func removeTypeUntilYourNextTurn(_ subtype: Subtype) {
+        self.addContinuousEffect(ContinuousEffect.UntilYourNextTurn(
+            effect: { return $0.withoutType(subtype) },
             layer: .TypeChanging))
     }
     

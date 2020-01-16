@@ -261,6 +261,15 @@ class Player: Targetable {
         }
     }
     
+    func exileTopOfLibrary(_ amt: Int = 1) {
+        for _ in 0..<amt {
+            if let card = library.popLast() {
+                card.reveal()
+                exileObject(card)
+            }
+        }
+    }
+    
     func untapStep() {
         for permanent in permanents {
             if permanent.isTapped && permanent.untapsDuringNextUntapStep && permanent.untapsDuringUntapStep {
@@ -530,6 +539,9 @@ class Player: Targetable {
         }
         if object.isType(.Dragon) {
             triggerAbilities(.DragonEntersBattlefieldUnderYourControl)
+        }
+        if object.isType(.Enchantment) {
+            triggerAbilities(.EnchantmentEntersBattlefieldUnderYourControl)
         }
         if object.isType(.Gate) {
             triggerAbilities(.GateEntersBattlefieldUnderYourControl)
