@@ -120,6 +120,7 @@ enum Subtype {
     case Ninja
     case Nissa
     case Noble
+    case Nymph
     case Octopus
     case Ogre
     case Ooze
@@ -132,6 +133,7 @@ enum Subtype {
     case Plains
     case Plant
     case Rat
+    case Reflection
     case Rhino
     case Rogue
     case Saga

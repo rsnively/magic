@@ -61,6 +61,47 @@ enum THB {
         TaranikaAkroanVeteran,
         TranscendentEnvoy,
         TriumphantSurge,
+        AliriosEnraptured,
+//        AshioksErasure,
+        BrineGiant,
+//        CallapheBelovedOfTheSea,
+//        ChainToMemory,
+//        DenyTheDevine,
+        EidolonOfPhilosophy,
+        EliteInstructor,
+//        GlimpseOfFreedom,
+//        Ichthyomorphosis,
+//        KioraBestsTheSeaGod,
+//        MedomaisProphecy,
+//        MemoryDrain,
+//        NadirKraken,
+        NaiadOfHiddenCoves,
+        NyxbornSeaguard,
+//        OmenOfTheSea,
+        OneWithTheStars,
+//        ProteanThaumaturge,
+        RiptideTurtle,
+        SageOfMysteries,
+        SeaGodsScorn,
+        ShimmerwingChimera,
+        ShoalKraken,
+//        SleepOfTheDead,
+        StarlitMantle,
+        SternDismissal,
+//        StingingLionfish,
+//        SweetOblivion,
+//        ThassaDeepDwelling,
+//        ThassasIntervention,
+//        ThassasOracle,
+//        ThirstForMeaning,
+        ThrenodySinger,
+        ThryxTheSuddenStorm,
+//        ToweringWaveMystic,
+        TritonWaverider,
+        VexingGull,
+        WavebreakHippocamp,
+//        WhirlwindDenial,
+//        WitnessOfTomorrow,
     ]
 
     static func RandomCard() -> Card {
@@ -171,7 +212,8 @@ enum THB {
         daybreakChimera.addStaticAbility(
             requirement: AbilityRequirement.This(daybreakChimera),
             effect: { object in
-                object.castingCost = object.getBaseCastingCost().reducedBy(1)
+                let amount = object.getController().devotion(.White)
+                object.castingCost = object.getBaseCastingCost().reducedBy(amount)
                 return object
             },
             layer: .CostReduction,
@@ -498,6 +540,318 @@ enum THB {
         triumphantSurge.setFlavorText("Not even death can quench a hero's inner fire.")
         return triumphantSurge
     }
+    static func AliriosEnraptured() -> Card {
+        let alirios = Card(name: "Alirios, Enraptured", rarity: .Uncommon, set: set, number: 42)
+        alirios.setManaCost("2U")
+        alirios.setType(.Legendary, .Creature, .Human)
+        alirios.entersTapped = true
+        alirios.addStaticAbility(
+            requirement: AbilityRequirement.This(alirios),
+            effect: { object in
+                if object.getController().getPermanents().filter({ $0.isType(.Reflection) }).count > 0 {
+                    object.untapsDuringUntapStep = false
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        alirios.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { alirios.getController().createToken(Reflection()) })
+        alirios.setFlavorText("\"Why would I ever want to look away?\"")
+        alirios.power = 2
+        alirios.toughness = 3
+        return alirios
+    }
+    // 43 Ashiok's Erasure
+    static func BrineGiant() -> Card {
+        let brineGiant = Card(name: "Brine Giant", rarity: .Common, set: set, number: 44)
+        brineGiant.setManaCost("6U")
+        brineGiant.setType(.Creature, .Giant)
+        brineGiant.addStaticAbility(
+            requirement: AbilityRequirement.This(brineGiant),
+            effect: { object in
+                let amount = object.getController().getEnchantments().count
+                object.castingCost = object.getBaseCastingCost().reducedBy(amount)
+                return object
+            },
+            layer: .CostReduction,
+            allZones: true)
+        brineGiant.setFlavorText("The oracles of Meletis foresaw neither its rise from the depths nor the destruction it would leave in its wake.")
+        brineGiant.power = 5
+        brineGiant.toughness = 6
+        return brineGiant
+    }
+    // 45 Callaphe, Beloved of the Sea
+    // 46 Chain to Memory
+    // 47 Deny the Divine
+    static func EidolonOfPhilosophy() -> Card {
+        let eidolonOfPhilosophy = Card(name: "Eidolon of Philosophy", rarity: .Common, set: set, number: 48)
+        eidolonOfPhilosophy.setManaCost("U")
+        eidolonOfPhilosophy.setType(.Enchantment, .Creature, .Spirit)
+        eidolonOfPhilosophy.addActivatedAbility(
+            string: "{6}{U}, Sacrifice ~: Draw three cards.",
+            cost: Cost.Mana("6U").Sacrifice(),
+            effect: { eidolonOfPhilosophy.getController().drawCards(3) })
+        eidolonOfPhilosophy.setFlavorText("\"And what did Erekatsos teach us is the nature of the soul?\"")
+        eidolonOfPhilosophy.power = 1
+        eidolonOfPhilosophy.toughness = 2
+        return eidolonOfPhilosophy
+    }
+    static func EliteInstructor() -> Card {
+        let eliteInstructor = Card(name: "Elite Instructor", rarity: .Common, set: set, number: 49)
+        eliteInstructor.setManaCost("2U")
+        eliteInstructor.setType(.Creature, .Human, .Wizard)
+        eliteInstructor.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                eliteInstructor.getController().drawCard()
+                eliteInstructor.getController().discard()
+        })
+        eliteInstructor.setFlavorText("The greatest minds in Meletis study under the masters at the Dekatia, a renowned school of magic and philosophy.")
+        eliteInstructor.power = 2
+        eliteInstructor.toughness = 2
+        return eliteInstructor
+    }
+    // 50 Glimpse of Freedom
+    // 51 Ichthyomorphosis
+    // 52 Kiora Bests the Sea God
+    // 53 Medomai's Prohpecy
+    // 54 Memory Drain
+    // 55 Nadir Kraken
+    static func NaiadOfHiddenCoves() -> Card {
+        let naiadOfHiddenCoves = Card(name: "Naiad of Hidden Coves", rarity: .Uncommon, set: set, number: 56)
+        naiadOfHiddenCoves.setManaCost("2U")
+        naiadOfHiddenCoves.setType(.Enchantment, .Creature, .Nymph)
+        naiadOfHiddenCoves.addStaticAbility(
+            requirement: AbilityRequirement.SpellsYouCast(source: naiadOfHiddenCoves),
+            effect: { object in
+                if !object.getController().active {
+                    object.castingCost = object.getBaseCastingCost().reducedBy(1)
+                }
+                return object
+            },
+            layer: .CostReduction)
+        naiadOfHiddenCoves.setFlavorText("\"Wave-borne, he watches over the secrets of the shore.\"\n--Psemilla, Meletian poet.")
+        naiadOfHiddenCoves.power = 2
+        naiadOfHiddenCoves.toughness = 3
+        return naiadOfHiddenCoves
+    }
+    static func NyxbornSeaguard() -> Card {
+        let nyxbornSeaguard = Card(name: "Nyxborn Seaguard", rarity: .Common, set: set, number: 57)
+        nyxbornSeaguard.setManaCost("2UU")
+        nyxbornSeaguard.setType(.Enchantment, .Creature, .Merfolk, .Soldier)
+        nyxbornSeaguard.setFlavorText("\"Storm-tossed and broken, Callaphe cried out to deep-dwelling Thassa.\nTritons came swiftly to save her, bringing her north to Lindus.\"\n--The Callapheia")
+        nyxbornSeaguard.power = 2
+        nyxbornSeaguard.toughness = 5
+        return nyxbornSeaguard
+    }
+    // 58 Omen of the Sea
+    static func OneWithTheStars() -> Card {
+        let oneWithTheStars = Card(name: "One with the Stars", rarity: .Uncommon, set: set, number: 59)
+        oneWithTheStars.setManaCost("3U")
+        oneWithTheStars.setType(.Enchantment, .Aura)
+        oneWithTheStars.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureOrEnchantment(),
+            effect: { object in
+                // TODO this should be smart about removing subtypes that aren't enchantment ones
+                let isAura = object.isType(.Aura)
+                let isSaga = object.isType(.Saga)
+                object.setType(.Enchantment)
+                if isAura {
+                    object.addType(.Aura)
+                }
+                if isSaga {
+                    object.addType(.Saga)
+                }
+                return object
+            },
+            layer: .TypeChanging)
+        oneWithTheStars.setFlavorText("\"Take your place amongst the stars.\"\n--Kruphix, god of horizons")
+        return oneWithTheStars
+    }
+    // 60 Protean Thaumaturge
+    static func RiptideTurtle() -> Card {
+        let riptideTurtle = Card(name: "Riptide Turtle", rarity: .Common, set: set, number: 61)
+        riptideTurtle.setManaCost("1U")
+        riptideTurtle.setType(.Creature, .Turtle)
+        riptideTurtle.flash = true
+        riptideTurtle.defender = true
+        riptideTurtle.setFlavorText("\"As the storm waves crushed my sailors, I cried out to Thassa. The next time I saw them, hard shells encased them, and they swam away to safety.\"\n--Siona, captain of the Pyleas")
+        riptideTurtle.power = 0
+        riptideTurtle.toughness = 5
+        return riptideTurtle
+    }
+    static func SageOfMysteries() -> Card {
+        let sageOfMysteries = Card(name: "Sage of Mysteries", rarity: .Uncommon, set: set, number: 62)
+        sageOfMysteries.setManaCost("U")
+        sageOfMysteries.setType(.Creature, .Human, .Wizard)
+        sageOfMysteries.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetPlayer(),
+                effect: { $0.mill(2) }))
+        sageOfMysteries.setFlavorText("\"I see destruction, suffering, and one tormented glimmer of hope.\"")
+        sageOfMysteries.power = 0
+        sageOfMysteries.toughness = 2
+        return sageOfMysteries
+    }
+    static func SeaGodsScorn() -> Card {
+        let seaGodsScorn = Card(name: "Sea God's Scorn", rarity: .Uncommon, set: set, number: 63)
+        seaGodsScorn.setManaCost("4UU")
+        seaGodsScorn.setType(.Sorcery)
+        seaGodsScorn.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreatureOrEnchantment(optional: true),
+                TargetingRestriction.TargetCreatureOrEnchantment(optional: true),
+                TargetingRestriction.TargetCreatureOrEnchantment(optional: true)
+            ],
+            effect: { targets in
+                targets.forEach({ $0?.bounce() })
+            },
+            distinctTargets: true))
+        seaGodsScorn.setFlavorText("Instead of performing their daily devotions, Heliod's acolytes spent the morning picking strands of kelp off the altar.")
+        return seaGodsScorn
+    }
+    static func ShimmerwingChimera() -> Card {
+        let shimmerwingChimera = Card(name: "Shimmerwing Chimera", rarity: .Uncommon, set: set, number: 64)
+        shimmerwingChimera.setManaCost("3U")
+        shimmerwingChimera.setType(.Enchantment, .Creature, .Chimera)
+        shimmerwingChimera.flying = true
+        shimmerwingChimera.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.AnotherTargetEnchantmentYouControl(source: shimmerwingChimera, optional: true),
+                effect: { $0.bounce() }))
+        shimmerwingChimera.setFlavorText("It swims upon the winds and soars through the waves.")
+        shimmerwingChimera.power = 3
+        shimmerwingChimera.toughness = 2
+        return shimmerwingChimera
+    }
+    static func ShoalKraken() -> Card {
+        let shoalKraken = Card(name: "Shoal Kraken", rarity: .Uncommon, set: set, number: 65)
+        shoalKraken.setManaCost("4U")
+        shoalKraken.setType(.Creature, .Kraken)
+        shoalKraken.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: {
+                shoalKraken.getController().drawCard()
+                shoalKraken.getController().discard()
+            },
+            effectOptional: true)
+        shoalKraken.setFlavorText("It eats the things that eat the things that are drawn to the light.")
+        shoalKraken.power = 3
+        shoalKraken.toughness = 5
+        return shoalKraken
+    }
+    // 66 Sleep of the Dead
+    static func StarlitMantle() -> Card {
+        let starlitMantle = Card(name: "Starlit Mantle", rarity: .Common, set: set, number: 67)
+        starlitMantle.setManaCost("1U")
+        starlitMantle.setType(.Enchantment, .Aura)
+        starlitMantle.flash = true
+        starlitMantle.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { starlitMantle.attachedTo?.giveKeywordUntilEndOfTurn(.Hexproof) })
+        starlitMantle.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureYouControl(source: starlitMantle),
+            effect: { $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
+        return starlitMantle
+    }
+    static func SternDismissal() -> Card {
+        let sternDismissal = Card(name: "Stern Dismissal", rarity: .Common, set: set, number: 68)
+        sternDismissal.setManaCost("U")
+        sternDismissal.setType(.Instant)
+        sternDismissal.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { ($0.isCreature() || $0.isEnchanted()) && $0.getController() !== sternDismissal.getController() },
+                zones: [.Battlefield]),
+            effect: { $0.bounce() }))
+        sternDismissal.setFlavorText("Cities offer tribute to Ephara and carve her image into their walls, imploring her to protect them from the dangers of the wild.")
+        return sternDismissal
+    }
+    // 69 Stinging Lionfish
+    // 70 Sweet Oblivion
+    // 71 Thassa, Deep-Dwelling
+    // 72 Thassa's Intervention
+    // 73 Thassa's Oracle
+    // 74 Thirst for Meaning
+    static func ThrenodySinger() -> Card {
+        let threnodySinger = Card(name: "Threnody Singer", rarity: .Uncommon, set: set, number: 75)
+        threnodySinger.setManaCost("1U")
+        threnodySinger.setType(.Creature, .Siren)
+        threnodySinger.flash = true
+        threnodySinger.flying = true
+        threnodySinger.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureAnOpponentControl(source: threnodySinger),
+                effect: { target in
+                    let amount = -1 * threnodySinger.getController().devotion(.Blue)
+                    target.pump(amount, 0)
+                }))
+        threnodySinger.power = 1
+        threnodySinger.toughness = 3
+        return threnodySinger
+    }
+    static func ThryxTheSuddenStorm() -> Card {
+        let thryx = Card(name: "Thryx, the Sudden Storm", rarity: .Rare, set: set, number: 76)
+        thryx.setManaCost("3UU")
+        thryx.setType(.Legendary, .Creature, .Elemental, .Giant)
+        thryx.flash = true
+        thryx.flying = true
+        thryx.addStaticAbility(
+            requirement: AbilityRequirement.SpellsYouCast(
+                source: thryx,
+                additionalRequirement: { $0.getConvertedManaCost() >= 5 }),
+            effects: [
+                ({ $0.castingCost = $0.getBaseCastingCost().reducedBy(1); return $0 }, .CostReduction),
+                ({ $0.withKeyword(.Uncounterable) }, .AbilityAddingOrRemoving)
+            ])
+        thryx.setFlavorText("Even in their mountain fortresses, the Akroans have learned not to anger Thassa.")
+        thryx.power = 4
+        thryx.toughness = 5
+        return thryx
+    }
+    // 77 Towering-Wave Mystic
+    static func TritonWaverider() -> Card {
+        let tritonWaverider = Card(name: "Triton Waverider", rarity: .Common, set: set, number: 78)
+        tritonWaverider.setManaCost("3U")
+        tritonWaverider.setType(.Creature, .Merfolk, .Wizard)
+        tritonWaverider.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: { tritonWaverider.giveKeywordUntilEndOfTurn(.Flying) })
+        tritonWaverider.setFlavorText("\"You can no more stop me than you can halt the tide.\"")
+        tritonWaverider.power = 3
+        tritonWaverider.toughness = 3
+        return tritonWaverider
+    }
+    static func VexingGull() -> Card {
+        let vexingGull = Card(name: "Vexing Gull", rarity: .Common, set: set, number: 79)
+        vexingGull.setManaCost("2U")
+        vexingGull.setType(.Creature, .Bird)
+        vexingGull.flash = true
+        vexingGull.flying = true
+        vexingGull.setFlavorText("\"May the skies be clear of gales and gulls.\"\n--Meletian prayer")
+        vexingGull.power = 2
+        vexingGull.toughness = 2
+        return vexingGull
+    }
+    static func WavebreakHippocamp() -> Card {
+        let wavebreakHippocamp = Card(name: "Wavebreak Hippocamp", rarity: .Rare, set: set, number: 80)
+        wavebreakHippocamp.setManaCost("2U")
+        wavebreakHippocamp.setType(.Enchantment, .Creature, .Horse, .Fish)
+        wavebreakHippocamp.addTriggeredAbility(
+            trigger: .YouCastFirstSpellEachOpponentsTurn,
+            effect: { wavebreakHippocamp.getController().drawCard() })
+        wavebreakHippocamp.setFlavorText("Tritons search for omens in its wake.")
+        wavebreakHippocamp.power = 2
+        wavebreakHippocamp.toughness = 2
+        return wavebreakHippocamp
+    }
+    // 81 Whirlwind Denial
+    // 82 Witness of Tomorrows
+    
     
     static func Goat() -> Token {
         let goat = Token(name: "Goat", set: set, number: 1)
@@ -536,7 +890,7 @@ enum THB {
     static func Reflection() -> Token {
         let reflection = Token(name: "Reflection", set: set, number: 5)
         reflection.colors = [.Blue]
-        reflection.setType(.Creature, .Kraken)
+        reflection.setType(.Creature, .Reflection)
         reflection.power = 3
         reflection.toughness = 2
         return reflection

@@ -374,6 +374,9 @@ class Player: Targetable {
     func castTriggers(card: Card) {
         if card.isSpell() {
             numberSpellsCastThisTurn += 1
+            if numberSpellsCastThisTurn == 1 && !card.getController().active {
+                triggerAbilities(.YouCastFirstSpellEachOpponentsTurn)
+            }
             if numberSpellsCastThisTurn == 2 {
                 triggerAbilities(.YouCastYourSecondSpellEachTurn)
             }

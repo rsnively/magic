@@ -169,12 +169,39 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetCreatureOrEnchantment(optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isType(.Creature) || $0.isType(.Enchantment) },
+            zones: [.Battlefield],
+            optional: optional
+        )
+    }
     static func TargetEnchantment(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
             restriction: { $0.isEnchantment() },
             zones: [.Battlefield],
             optional: optional
         )
+    }
+    static func AnotherTargetEnchantment(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0 != source && $0.isEnchantment() },
+            zones: [.Battlefield])
+    }
+    static func TargetEnchantmentYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isEnchantment() && $0.getController() === source.getController() },
+            zones: [.Battlefield])
+    }
+    static func AnotherTargetEnchantmentYouControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0 != source && $0.isEnchantment() && $0.getController() === source.getController() },
+            zones: [.Battlefield])
+    }
+    static func TargetEnchantmentAnOpponentControl(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SingleObject(
+            restriction: { $0.isEnchantment() && $0.getController() !== source.getController() },
+            zones: [.Battlefield])
     }
     static func TargetLand(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction.SingleObject(
