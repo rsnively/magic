@@ -373,6 +373,7 @@ class Player: Targetable {
     
     func castTriggers(card: Card) {
         if card.isSpell() {
+            triggerAbilities(.YouCastSpell)
             numberSpellsCastThisTurn += 1
             if numberSpellsCastThisTurn == 1 && !card.getController().active {
                 triggerAbilities(.YouCastFirstSpellEachOpponentsTurn)
@@ -627,6 +628,9 @@ class Player: Targetable {
         if oldZone == .Battlefield {
             object.triggerAbilities(.ThisExiledFromBattlefield)
         }
+    }
+    func exileGraveyard() {
+        graveyard.forEach({ exileObject($0) })
     }
     
     func revealHandTo(_ player: Player) {

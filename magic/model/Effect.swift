@@ -107,6 +107,12 @@ class TargetingRestriction {
             optional: optional
         )
     }
+    static func TargetOpponent(source: Object, optional: Bool = false) -> TargetingRestriction {
+        return TargetingRestriction.SinglePlayer(
+            restriction: { $0 !== source.getController() },
+            optional: optional
+        )
+    }
     static func TargetPlayerOrPlaneswalker(optional: Bool = false) -> TargetingRestriction {
         return TargetingRestriction(
             restriction: { targetable in

@@ -85,6 +85,7 @@ enum Subtype {
     case Golem
     case Gorgon
     case Griffin
+    case Harpy
     case Hellion
     case Hippo
     case Homarid

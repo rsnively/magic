@@ -102,6 +102,47 @@ enum THB {
         WavebreakHippocamp,
 //        WhirlwindDenial,
 //        WitnessOfTomorrow,
+//        AgonizingRemorse,
+//        AphemiaTheCacophony,
+        AspectOfLamprey,
+        BlightBreathCatoblepas,
+//        ClingToDust,
+        DiscordantPiper,
+        DragToTheUnderworld,
+//        EatToExtinction,
+        ElspethsNightmare,
+        EnemyOfEnlightenment,
+//        ErebosBlackHearted,
+//        ErebossIntervention,
+        FinalDeath,
+//        FruitOfTizerus,
+        FuneralRites,
+//        GravebreakerLamia,
+//        GrayMerchantOfAsphodel,
+        GrimPhysician,
+//        HatefulEidolon,
+//        InevitableEnd,
+//        LampadOfDeathsVigil,
+//        MinionsReturn,
+        MireTriton,
+        MiresGrasp,
+//        MogissFavor,
+//        NightmareShepherd,
+        NyxbornMarauder,
+//        OmenOfTheDead,
+//        PharikasLibation,
+//        PharikasSpawn,
+        RageScarredBerserker,
+        ScavengingHarpy,
+//        SoulreaperOfMogis,
+        TempleThief,
+        TreacherousBlessing,
+//        TymaretCallsTheDead,
+//        TymaretChosenFromDeath,
+//        UnderworldCharger,
+//        UnderworldDreams,
+        VenomousHierophant,
+//        WoeStrider,
     ]
 
     static func RandomCard() -> Card {
@@ -654,8 +695,8 @@ enum THB {
             restriction: TargetingRestriction.TargetCreatureOrEnchantment(),
             effect: { object in
                 // TODO this should be smart about removing subtypes that aren't enchantment ones
-                let isAura = object.isType(.Aura)
-                let isSaga = object.isType(.Saga)
+                let isAura = object.subtypes.contains(.Aura)
+                let isSaga = object.subtypes.contains(.Saga)
                 object.setType(.Enchantment)
                 if isAura {
                     object.addType(.Aura)
@@ -699,6 +740,7 @@ enum THB {
         let seaGodsScorn = Card(name: "Sea God's Scorn", rarity: .Uncommon, set: set, number: 63)
         seaGodsScorn.setManaCost("4UU")
         seaGodsScorn.setType(.Sorcery)
+        // TODO: Bug when bouncing only one thing, asked for cost even after paying
         seaGodsScorn.addEffect(TargetedEffect.MultiObject(
             restrictions: [
                 TargetingRestriction.TargetCreatureOrEnchantment(optional: true),
@@ -800,6 +842,7 @@ enum THB {
         thryx.setType(.Legendary, .Creature, .Elemental, .Giant)
         thryx.flash = true
         thryx.flying = true
+        // TODO Bug with abilities on stack?
         thryx.addStaticAbility(
             requirement: AbilityRequirement.SpellsYouCast(
                 source: thryx,
@@ -851,7 +894,296 @@ enum THB {
     }
     // 81 Whirlwind Denial
     // 82 Witness of Tomorrows
-    
+    // 83 Agonizing Remorse
+    // 84 Aphemia, the Cacophony
+    static func AspectOfLamprey() -> Card {
+        let aspectOfLamprey = Card(name: "Aspect of Lamprey", rarity: .Common, set: set, number: 85)
+        aspectOfLamprey.setManaCost("3B")
+        aspectOfLamprey.setType(.Enchantment, .Aura)
+        aspectOfLamprey.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetOpponent(source: aspectOfLamprey),
+                effect: { $0.discard(2) }))
+        aspectOfLamprey.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureYouControl(source: aspectOfLamprey),
+            effect: { $0.withKeyword(.Lifelink) },
+            layer: .AbilityAddingOrRemoving)
+        aspectOfLamprey.setFlavorText("\"Some aspire to be mighty like the lion or the hydra. I am the parasite that feeds on them all.\"")
+        return aspectOfLamprey
+    }
+    static func BlightBreathCatoblepas() -> Card {
+        let blightBreathCatoblepas = Card(name: "Blight-Breath Catoblepas", rarity: .Common, set: set, number: 86)
+        blightBreathCatoblepas.setManaCost("4BB")
+        blightBreathCatoblepas.setType(.Creature, .Beast)
+        blightBreathCatoblepas.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureAnOpponentControl(source: blightBreathCatoblepas),
+                effect: { target in
+                    let amount = -1 * blightBreathCatoblepas.getController().devotion(.Black)
+                    target.pump(amount, amount)
+            }))
+        blightBreathCatoblepas.setFlavorText("Wherever it walks, famine follows behind.")
+        blightBreathCatoblepas.power = 3
+        blightBreathCatoblepas.toughness = 2
+        return blightBreathCatoblepas
+    }
+    // 87 Cling to Dust
+    static func DiscordantPiper() -> Card {
+        let discordantPiper = Card(name: "Discordant Piper", rarity: .Common, set: set, number: 88)
+        discordantPiper.setManaCost("1B")
+        discordantPiper.setType(.Creature, .Zombie, .Satyr)
+        discordantPiper.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: { discordantPiper.getController().createToken(Goat()) })
+        discordantPiper.setFlavorText("The death of the party.")
+        discordantPiper.power = 2
+        discordantPiper.toughness = 1
+        return discordantPiper
+    }
+    static func DragToTheUnderworld() -> Card {
+        let dragToTheUnderworld = Card(name: "Drag to the Underworld", rarity: .Uncommon, set: set, number: 89)
+        dragToTheUnderworld.setManaCost("2BB")
+        dragToTheUnderworld.setType(.Instant)
+        dragToTheUnderworld.addStaticAbility(
+            requirement: AbilityRequirement.This(dragToTheUnderworld),
+            effect: { object in
+                let amount = object.getController().devotion(.Black)
+                object.castingCost = object.getBaseCastingCost().reducedBy(amount)
+                return object
+            },
+            layer: .CostReduction,
+            allZones: true)
+        dragToTheUnderworld.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { _ = $0.destroy() }))
+        dragToTheUnderworld.setFlavorText("The more you struggle against death, the tighter its grip becomes.")
+        return dragToTheUnderworld
+    }
+    // 90 Eat to Extinction
+    static func ElspethsNightmare() -> Card {
+        let elspethsNightmare = Card(name: "Elspeth's Nightmare", rarity: .Uncommon, set: set, number: 91)
+        elspethsNightmare.setManaCost("2B")
+        elspethsNightmare.setType(.Enchantment, .Saga)
+        Saga(elspethsNightmare)
+        elspethsNightmare.addTriggeredAbility(
+            trigger: .ThisGetsLoreCounter,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isCreature() && $0.getController() !== elspethsNightmare.getController() && $0.getPower() <= 2 },
+                    zones: [.Battlefield]),
+                effect: { _ = $0.destroy() }),
+            restriction: { elspethsNightmare.getCounters(.Lore) == 1 })
+        elspethsNightmare.addTriggeredAbility(
+            trigger: .ThisGetsLoreCounter,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetOpponent(source: elspethsNightmare),
+                effect: { target in
+                    elspethsNightmare.getController().chooseCard(
+                        from: target.getHand(),
+                        restriction: { !$0.isType(.Creature) && !$0.isType(.Land) },
+                        action: { chosen, rest in chosen?.discard()})
+                }),
+            restriction: { elspethsNightmare.getCounters(.Lore) == 2 })
+        elspethsNightmare.addTriggeredAbility(
+            trigger: .ThisGetsLoreCounter,
+            effect: TargetedEffect.SinglePlayer(
+                restriction: TargetingRestriction.TargetOpponent(source: elspethsNightmare),
+                effect: {
+                    $0.exileGraveyard()
+                    elspethsNightmare.sacrifice()
+            }),
+            restriction: { elspethsNightmare.getCounters(.Lore) == 3 })
+        return elspethsNightmare
+    }
+    static func EnemyOfEnlightenment() -> Card {
+        let enemyOfEnlightenment = Card(name: "Enemy of Enlightenment", rarity: .Uncommon, set: set, number: 92)
+        enemyOfEnlightenment.setManaCost("5B")
+        enemyOfEnlightenment.setType(.Enchantment, .Creature, .Demon)
+        enemyOfEnlightenment.flying = true
+        enemyOfEnlightenment.addStaticAbility(
+            requirement: AbilityRequirement.This(enemyOfEnlightenment),
+            effect: { object in
+                let amount = -1 * object.getOpponent().getHand().count
+                return object.pumped(amount, amount)
+            },
+            layer: .PowerToughnessChanging)
+        enemyOfEnlightenment.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: { Game.shared.bothPlayers({ $0.discard() }) })
+        enemyOfEnlightenment.setFlavorText("\"Evil flourishes where ignorance thrives.\"\n--Perisophia the philosopher")
+        enemyOfEnlightenment.power = 5
+        enemyOfEnlightenment.toughness = 5
+        return enemyOfEnlightenment
+    }
+    // 93 Erebos, Bleak-Hearted
+    // 94 Erebos's Intervention
+    static func FinalDeath() -> Card {
+        let finalDeath = Card(name: "Final Death", rarity: .Common, set: set, number: 95)
+        finalDeath.setManaCost("4B")
+        finalDeath.setType(.Instant)
+        finalDeath.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0.exile() }))
+        finalDeath.setFlavorText("The Underworld erodes memory, identity, and eventually the physical form, leaving only crumbling statues called misera -- hollow monuments to mortal futility.")
+        return finalDeath
+    }
+    // 96 Fruit of Tizerus
+    static func FuneralRites() -> Card {
+        let funeralRites = Card(name: "Funeral Rites", rarity: .Common, set: set, number: 97)
+        funeralRites.setManaCost("2B")
+        funeralRites.setType(.Sorcery)
+        funeralRites.addEffect({
+            funeralRites.getController().drawCards(2)
+            funeralRites.getController().loseLife(2)
+            funeralRites.getController().mill(2)
+        })
+        funeralRites.setFlavorText("Funerary masks help the newly dead resist the erosion of memory and identity in the Underworld.")
+        return funeralRites
+    }
+    // 98 Gravebreaker Lamia
+    // 99 Gray Merchant of Asphodel
+    static func GrimPhysician() -> Card {
+        let grimPhysician = Card(name: "Grim Physician", rarity: .Common, set: set, number: 100)
+        grimPhysician.setManaCost("B")
+        grimPhysician.setType(.Creature, .Zombie)
+        grimPhysician.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureAnOpponentControl(source: grimPhysician),
+                effect: { $0.pump(-1, -1) }))
+        grimPhysician.setFlavorText("The Returned maintain no memory of their identities, but sometimes they mindlessly attempt familiar tasks.")
+        grimPhysician.power = 1
+        grimPhysician.toughness = 1
+        return grimPhysician
+    }
+    // 101 Hateful Eidolon
+    // 102 Inevitable End
+    // 103 Lampad of Death's Vigil
+    // 104 Minion's Return
+    static func MireTriton() -> Card {
+        let mireTriton = Card(name: "Mire Triton", rarity: .Uncommon, set: set, number: 105)
+        mireTriton.setManaCost("1B")
+        mireTriton.setType(.Creature, .Zombie, .Merfolk)
+        mireTriton.deathtouch = true
+        mireTriton.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: {
+                mireTriton.getController().mill(2)
+                mireTriton.getController().gainLife(2)
+        })
+        mireTriton.setFlavorText("Caught between life and death, between land and sea, between thought and oblivion.")
+        mireTriton.power = 2
+        mireTriton.toughness = 1
+        return mireTriton
+    }
+    static func MiresGrasp() -> Card {
+        let miresGrasp = Card(name: "Mire's Grasp", rarity: .Common, set: set, number: 106)
+        miresGrasp.setManaCost("1B")
+        miresGrasp.setType(.Enchantment, .Aura)
+        miresGrasp.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { return $0.pumped(-3, -3) },
+            layer: .PowerToughnessChanging)
+        miresGrasp.setFlavorText("Those caught attempting to escape the Underworld spend the rest of their existence trapped in the Mire of Punishment.")
+        return miresGrasp
+    }
+    // 107 Mogis's Favor
+    // 108 Nightmare Shepherd
+    static func NyxbornMarauder() -> Card {
+        let nyxbornMarauder = Card(name: "Nyxborn Marauder", rarity: .Common, set: set, number: 109)
+        nyxbornMarauder.setManaCost("2BB")
+        nyxbornMarauder.setType(.Enchantment, .Creature, .Minotaur)
+        nyxbornMarauder.setFlavorText("\"Callaphe guided them into the darkness of Hetos, the bleak mire;\nBlood-horned minotaurs circled them, axes aglimmer in shadows.\"\n--The Callapheia")
+        nyxbornMarauder.power = 4
+        nyxbornMarauder.toughness = 3
+        return nyxbornMarauder
+    }
+    // 110 Omen of the Dead
+    // 111 Pharika's Libation
+    // 112 Pharika's Spawn
+    static func RageScarredBerserker() -> Card {
+        let rageScarredBerserker = Card(name: "Rage-Scarred Berserker", rarity: .Common, set: set, number: 113)
+        rageScarredBerserker.setManaCost("4B")
+        rageScarredBerserker.setType(.Creature, .Minotaur, .Berserker)
+        rageScarredBerserker.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureYouControl(source: rageScarredBerserker),
+                effect: { target in
+                    target.pump(1, 0)
+                    target.giveKeywordUntilEndOfTurn(.Indestructible)
+            }))
+        rageScarredBerserker.setFlavorText("The fury of the slaughter god Mogis burns within him.")
+        rageScarredBerserker.power = 5
+        rageScarredBerserker.toughness = 4
+        return rageScarredBerserker
+    }
+    static func ScavengingHarpy() -> Card {
+        let scavengingHarpy = Card(name: "Scavenging Harpy", rarity: .Common, set: set, number: 114)
+        scavengingHarpy.setManaCost("1B")
+        scavengingHarpy.setType(.Creature, .Harpy)
+        scavengingHarpy.flying = true
+        scavengingHarpy.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.getController() === scavengingHarpy.getOpponent() },
+                    zones: [.Graveyard]),
+                effect: { $0.exile() }))
+        scavengingHarpy.setFlavorText("Desecrating the dead is a convenient way for harpies to expand their foul collections.")
+        scavengingHarpy.power = 2
+        scavengingHarpy.toughness = 1
+        return scavengingHarpy
+    }
+    // 115 Soulreaper of Mogis
+    static func TempleThief() -> Card {
+        let templeThief = Card(name: "Temple Thief", rarity: .Common, set: set, number: 116)
+        templeThief.setManaCost("1B")
+        templeThief.setType(.Creature, .Human, .Rogue)
+        templeThief.blockabilityRequirements.append({ object in
+            return !(object.isEnchanted() || object.isEnchantment())
+        })
+        templeThief.setFlavorText("\"I don't know if the gods watch over their temples, but I figure it's best to be stealthy just in case.\"")
+        templeThief.power = 2
+        templeThief.toughness = 2
+        return templeThief
+    }
+    static func TreacherousBlessing() -> Card {
+        let treacherousBlessing = Card(name: "Treacherous Blessing", rarity: .Rare, set: set, number: 117)
+        treacherousBlessing.setManaCost("2B")
+        treacherousBlessing.setType(.Enchantment)
+        treacherousBlessing.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { treacherousBlessing.getController().drawCards(3) })
+        treacherousBlessing.addTriggeredAbility(
+            trigger: .YouCastSpell,
+            effect: { treacherousBlessing.getController().loseLife(1) })
+        treacherousBlessing.addTriggeredAbility(
+            trigger: .ThisBecomesTargetOfSpellOrAbility,
+            effect: { treacherousBlessing.sacrifice() })
+        treacherousBlessing.setFlavorText("Phenax is generous with gifts and unforgiving of debts.")
+        return treacherousBlessing
+    }
+    // 118 Tymaret Calls the Dead
+    // 119 Tymaret, Chosen from Death
+    // 120 Underworld Charger
+    // 121 Underworld Dreams
+    static func VenomousHierophant() -> Card {
+        let venomousHierophant = Card(name: "Venomous Hierophant", rarity: .Common, set: set, number: 122)
+        venomousHierophant.setManaCost("3B")
+        venomousHierophant.setType(.Creature, .Gorgon, .Cleric)
+        venomousHierophant.deathtouch = true
+        venomousHierophant.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { venomousHierophant.getController().mill(3) })
+        venomousHierophant.setFlavorText("\"Many have sought snake-twined Pharika's panacea. Do you wish to share their fate?\"")
+        venomousHierophant.power = 3
+        venomousHierophant.toughness = 3
+        return venomousHierophant
+    }
+    // 123 Woe Strider
     
     static func Goat() -> Token {
         let goat = Token(name: "Goat", set: set, number: 1)
