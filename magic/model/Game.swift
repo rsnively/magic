@@ -152,8 +152,8 @@ class Game: NSObject {
         player1.active = true
         player1.hasPriority = true
         
-        let totalCardsInStandard = THB.count + ELD.count + M20.count + WAR.count + RNA.count + GRN.count
-        let standardCardsImplemented = THB.cards.count + ELD.cards.count + M20.cards.count + WAR.cards.count + RNA.cards.count + GRN.cards.count
+        let totalCardsInStandard = IKO.count + THB.count + ELD.count + M20.count + WAR.count + RNA.count + GRN.count
+        let standardCardsImplemented = IKO.cards.count + THB.cards.count + ELD.cards.count + M20.cards.count + WAR.cards.count + RNA.cards.count + GRN.cards.count
         let percentage: Float = Float(standardCardsImplemented) / Float(totalCardsInStandard) * 100.0
         print("STANDARD")
         print("========")

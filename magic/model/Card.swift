@@ -7,12 +7,12 @@ class Card: Object {
     private var collectorsNumber: Int
     
     static func All() -> [Card] {
-        let allCardFuncs = XLN.cards + RIX.cards + DOM.cards + M19.cards + GRN.cards + RNA.cards + WAR.cards + M20.cards + ELD.cards
+        let allCardFuncs = XLN.cards + RIX.cards + DOM.cards + M19.cards + GRN.cards + RNA.cards + WAR.cards + M20.cards + ELD.cards + THB.cards + IKO.cards
         return allCardFuncs.map({ $0() })
     }
     
     static func randomCard() -> Card {
-        let r = Int.random(in: 1 ... 10)
+        let r = Int.random(in: 1 ... 11)
         if r == 1 {
             return XLN.RandomCard()
         }
@@ -40,12 +40,14 @@ class Card: Object {
         if r == 9 {
             return ELD.RandomCard()
         }
-        return THB.RandomCard()
+        if r == 10 {
+            return THB.RandomCard()
+        }
+        return IKO.RandomCard()
     }
     
     static func randomStandardCard() -> Card {
-        return THB.RandomCard()
-//        let r = Int.random(in: 1 ... 6)
+//        let r = Int.random(in: 1 ... 7)
 //        if r == 1 {
 //            return GRN.RandomCard()
 //        }
@@ -61,7 +63,10 @@ class Card: Object {
 //        if r == 5 {
 //            return ELD.RandomCard()
 //        }
-//        return THB.RandomCard()
+//        if r == 6 {
+//            return THB.RandomCard()
+//        }
+        return IKO.RandomCard()
     }
     
     init(name: String, rarity: Rarity, set: String, number: Int) {

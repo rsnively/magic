@@ -1268,9 +1268,9 @@ enum KTK {
             effect: { windScarredCrag.getController().addMana(color: .Red) },
             manaAbility: true)
         windScarredCrag.addActivatedAbility(
-            string: "{T}: Add {G}.",
+            string: "{T}: Add {W}.",
             cost: Cost.Tap(),
-            effect: { windScarredCrag.getController().addMana(color: .Green) },
+            effect: { windScarredCrag.getController().addMana(color: .White) },
             manaAbility: true)
         return windScarredCrag
     }

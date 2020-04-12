@@ -122,6 +122,15 @@ class Player: Targetable {
     func getArtifactsAndEnchantments() -> [Object] {
         return permanents.filter { $0.isType(.Artifact) || $0.isType(.Enchantment) }
     }
+    func controlsA(_ type: Type) -> Bool {
+        return !permanents.filter({ $0.isType(type) }).isEmpty
+    }
+    func controlsA(_ type: Supertype) -> Bool {
+        return !permanents.filter({ $0.isType(type) }).isEmpty
+    }
+    func controlsA(_ type: Subtype) -> Bool {
+        return !permanents.filter({ $0.isType(type) }).isEmpty
+    }
     
     func getCardsInExile() -> [Object] {
         return Game.shared.exile.filter({ $0.getOwner() === self })
@@ -566,10 +575,14 @@ class Player: Targetable {
         object.revealToOwner()
         object.getOwner().hand.append(object)
     }
+    func putIntoGraveyard(_ object: Object) {
+        removeObjectFromCurrentZone(object)
+        object.reveal()
+        object.getOwner().graveyard.append(object)
+    }
     
     func counter(_ object: Object) {
-        removeObjectFromCurrentZone(object)
-        object.getOwner().graveyard.append(object)
+        putIntoGraveyard(object)
     }
     
     func discard(_ amount: Int = 1) {
@@ -577,10 +590,7 @@ class Player: Targetable {
     }
     
     func discardCard(_ object: Object) {
-        let index = hand.firstIndex(where: { $0 == object })!
-        hand.remove(at: index)
-        object.reveal()
-        graveyard.append(object)
+        putIntoGraveyard(object)
     }
     
     func discardHand() {
@@ -601,6 +611,7 @@ class Player: Targetable {
         object.triggerAbilities(.ThisDies)
         // TODO, if creature that would cause trigger dies at same time, still triggers
         if object.isType(.Creature) {
+            triggerAbilities(.CreatureYouControlDies)
             triggerAbilities(.AnotherCreatureYouControlDies, exclusion: object)
             if !object.isToken() {
                 // TODO, if multiple things die at same tame, all should trigger multiple times

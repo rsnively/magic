@@ -36,6 +36,7 @@ enum Subtype {
     case Berserker
     case Bird
     case Boar
+    case Brushwagg
     case Camel
     case Cat
     case Centaur
@@ -84,6 +85,7 @@ enum Subtype {
     case Gold
     case Golem
     case Gorgon
+    case Gremlin
     case Griffin
     case Harpy
     case Hellion
@@ -109,9 +111,11 @@ enum Subtype {
     case Knight
     case Kraken
     case Lammasu
+    case Leech
     case Lizard
     case Merfolk
     case Minotaur
+    case Mole
     case Monk
     case Mouse
     case Mountain
@@ -126,8 +130,10 @@ enum Subtype {
     case Ogre
     case Ooze
     case Orc
+    case Otter
     case Owl
     case Ox
+    case Pangolin
     case Pegasus
     case Phoenix
     case Pirate
@@ -142,9 +148,11 @@ enum Subtype {
     case Satyr
     case Scarecrow
     case Scout
+    case Scorpion
     case Serpent
     case Shade
     case Shaman
+    case Shark
     case Sheep
     case Siren
     case Skeleton
@@ -178,7 +186,9 @@ enum Subtype {
     case Weird
     case Wizard
     case Wolf
+    case Wolverine
     case Wurm
     case Yeti
     case Zombie
+    case Whale
 }

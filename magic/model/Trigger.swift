@@ -12,6 +12,7 @@ enum Trigger {
     case CreatureOpponentControlsBecomesTappedBesidesAttacking
     case CreatureWithFlyingAttacks
     case CreatureYouControlAttacksAlone
+    case CreatureYouControlDies
     case DragonEntersBattlefieldUnderYourControl
     case EachEndStep
     case EachOpponentsUpkeep
@@ -28,6 +29,7 @@ enum Trigger {
     case ThisBecomesTapped
     case ThisBecomesTargetOfSpellOrAbility
     case ThisBlocks
+    case ThisDealsDamageToOpponent
     case ThisDealsCombatDamageToPlayer
     case ThisDealtDamage
     case ThisDies

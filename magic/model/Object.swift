@@ -568,6 +568,9 @@ class Object: Targetable, Hashable, NSCopying {
             removeCounter(type)
         }
     }
+    func removeAllCounters() {
+        counters.removeAll()
+    }
     func getCounters(_ type: Counter) -> Int {
         return counters[type] ?? 0
     }
@@ -1010,6 +1013,9 @@ class Object: Targetable, Hashable, NSCopying {
         removeFromCombat()
         getOwner().putIntoHand(self);
     }
+    func putIntoGraveyard() {
+        getOwner().putIntoGraveyard(self);
+    }
     
     func putOntoBattlefield(tapped: Bool = false) {
         getController().addPermanent(self, tapped: tapped);
@@ -1093,9 +1099,14 @@ class Object: Targetable, Hashable, NSCopying {
                     objectRecipient.damagedByDeathtouch = true
                 }
             }
-            if let _ = recipient as? Player {
-                if amount > 0 && combatDamage {
-                    triggerAbilities(.ThisDealsCombatDamageToPlayer)
+            if let playerRecipient = recipient as? Player {
+                if amount > 0 {
+                    if playerRecipient !== getController() {
+                        triggerAbilities(.ThisDealsDamageToOpponent)
+                    }
+                    if combatDamage {
+                        triggerAbilities(.ThisDealsCombatDamageToPlayer)
+                    }
                 }
             }
         }
