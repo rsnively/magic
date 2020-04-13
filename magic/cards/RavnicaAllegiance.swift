@@ -2152,7 +2152,7 @@ enum RNA {
     static func Sharktocrab() -> Card {
         let sharktocrab = Card(name: "Sharktocrab", rarity: .Uncommon, set: set, number: 206)
         sharktocrab.setManaCost("2GU")
-        sharktocrab.setType(.Creature, .Fish, .Octopus, .Crab)
+        sharktocrab.setType(.Creature, .Shark, .Octopus, .Crab)
         sharktocrab.adapt(1, Cost.Mana("2GU"))
         sharktocrab.addTriggeredAbility(
             trigger: .ThisGetsPlusOnePlusOneCounter,
