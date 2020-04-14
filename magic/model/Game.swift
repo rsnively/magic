@@ -321,6 +321,7 @@ class Game: NSObject {
         }
         else if currentPhase == .BeginCombat {
             getActivePlayer().triggerAbilities(.YourBeginCombat)
+            bothPlayers({ $0.triggerAbilities(.BeginningOfEachCombat) })
         }
         else if currentPhase == .Attack {
             declaringAttackers = true

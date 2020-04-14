@@ -145,12 +145,12 @@ enum THB {
 //        WoeStrider,
 //        TheAkroanWar,
 //        AnaxHardenedInTheForge,
-//        ArenaTrickster,
-//        AspectOfManticore,
+        ArenaTrickster,
+        AspectOfManticore,
 //        BloodAspirant,
-//        CarelessCelebrant,
+        CarelessCelebrant,
 //        DreamshaperShaman,
-//        DreamstalkerManticore,
+        DreamstalkerManticore,
 //        EscapeVelocity,
 //        FatefulEnd,
 //        FinalFlare,
@@ -160,10 +160,10 @@ enum THB {
 //        HeroesOfTheRevel,
 //        ImpendingDoom,
 //        IncendiaryOracle,
-//        Infuriate,
-//        IroassBlessing,
+        Infuriate,
+        IroassBlessing,
 //        IrreverentRevelers,
-//        NyxbornBrute,
+        NyxbornBrute,
 //        OmenOfTheForge,
 //        OreadOfMountainsBlaze,
 //        OxOfAgonas,
@@ -174,16 +174,16 @@ enum THB {
 //        SatyrsCunning,
 //        SkophosMazeWarden,
 //        SkophosWarleader,
-//        StampedeRider,
+        StampedeRider,
 //        StormHerald,
-//        StormsWrath,
+        StormsWrath,
 //        TectonicGiant,
 //        ThrillOfPossibility,
 //        TheTriumphOfAnax,
 //        UnderworldBreach,
 //        UnderworldFires,
 //        UnderworldRageHound,
-//        WrapInFlames,
+        WrapInFlames,
     ]
 
     static func RandomCard() -> Card {
@@ -1225,6 +1225,180 @@ enum THB {
         return venomousHierophant
     }
     // 123 Woe Strider
+    // 124 The Akroan War
+    // 125 Anax, Hardened in the Forge
+    static func ArenaTrickster() -> Card {
+        let arenaTrickster = Card(name: "Arena Trickster", rarity: .Common, set: set, number: 126)
+        arenaTrickster.setManaCost("3R")
+        arenaTrickster.setType(.Creature, .Human, .Shaman)
+        arenaTrickster.addTriggeredAbility(
+            trigger: .YouCastFirstSpellEachOpponentsTurn,
+            effect: { arenaTrickster.addCounter(.PlusOnePlusOne) })
+        arenaTrickster.setFlavorText("todo")
+        arenaTrickster.power = 3
+        arenaTrickster.toughness = 3
+        return arenaTrickster
+    }
+    static func AspectOfManticore() -> Card {
+        let aspectOfManticore = Card(name: "Aspect of Manticore", rarity: .Common, set: set, number: 127)
+        aspectOfManticore.setManaCost("2R")
+        aspectOfManticore.setType(.Enchantment, .Aura)
+        aspectOfManticore.flash = true
+        aspectOfManticore.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { aspectOfManticore.attachedTo?.giveKeywordUntilEndOfTurn(.FirstStrike) })
+        aspectOfManticore.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0.pumped(2, 0) },
+            layer: .PowerToughnessChanging)
+        return aspectOfManticore
+    }
+    // 128 Blood Aspirant
+    static func CarelessCelebrant() -> Card {
+        let carelessCelebrant = Card(name: "Careless Celebrant", rarity: .Uncommon, set: set, number: 129)
+        carelessCelebrant.setManaCost("1R")
+        carelessCelebrant.setType(.Creature, .Satyr, .Shaman)
+        carelessCelebrant.addTriggeredAbility(
+            trigger: .ThisDies,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isCreatureOrPlaneswalker() && $0.getController() !== carelessCelebrant.getController() },
+                    zones: [.Battlefield]),
+                effect: { carelessCelebrant.damage(to: $0, 2) }))
+        carelessCelebrant.setFlavorText("todo")
+        carelessCelebrant.power = 2
+        carelessCelebrant.toughness = 1
+        return carelessCelebrant
+    }
+    // 130 Dreamshaper Shaman
+    static func DreamstalkerManticore() -> Card {
+        let dreamstalkerManticore = Card(name: "Dreamstalker Manticore", rarity: .Uncommon, set: set, number: 131)
+        dreamstalkerManticore.setManaCost("2R")
+        dreamstalkerManticore.setType(.Enchantment, .Creature, .Manticore)
+        dreamstalkerManticore.addTriggeredAbility(
+            trigger: .YouCastFirstSpellEachOpponentsTurn,
+            effect: TargetedEffect(
+                restriction: TargetingRestriction.AnyTarget(),
+                effect: { dreamstalkerManticore.damage(to: $0, 1) }))
+        dreamstalkerManticore.setFlavorText("todo")
+        dreamstalkerManticore.power = 4
+        dreamstalkerManticore.toughness = 2
+        return dreamstalkerManticore
+    }
+    // 132 Escape Velocity
+    // 133 Fateful End
+    // 134 Final Flare
+    // 135 Flummoxed Cyclops
+    // 136 Furious Rise
+    // 137 Hero of the Games
+    // 138 Heroes of the Revel
+    // 139 Impending Doom
+    // 140 Incendiary Oracle
+    static func Infuriate() -> Card {
+        let infuriate = Card(name: "Infuriate", rarity: .Common, set: set, number: 141)
+        infuriate.setManaCost("R")
+        infuriate.setType(.Instant)
+        infuriate.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0.pump(3, 2) }))
+        infuriate.setFlavorText("todo")
+        return infuriate
+    }
+    static func IroassBlessing() -> Card {
+        let iroassBlessing = Card(name: "Iroas's Blessing", rarity: .Common, set: set, number: 142)
+        iroassBlessing.setManaCost("3R")
+        iroassBlessing.setType(.Enchantment, .Aura)
+        iroassBlessing.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.isCreatureOrPlaneswalker() && $0.getController() !== iroassBlessing.getController() },
+                    zones: [.Battlefield]),
+                effect: { iroassBlessing.damage(to: $0, 4) }))
+        iroassBlessing.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureYouControl(source: iroassBlessing),
+            effect: { $0.pumped(1, 1) },
+            layer: .PowerToughnessChanging)
+        iroassBlessing.setFlavorText("todo")
+        return iroassBlessing
+    }
+    // 143 Irreverent Revelers
+    static func NyxbornBrute() -> Card {
+        let nyxbornBrute = Card(name: "Nyxborn Brute", rarity: .Common, set: set, number: 144)
+        nyxbornBrute.setManaCost("3RR")
+        nyxbornBrute.setType(.Enchantment, .Creature, .Cyclops)
+        nyxbornBrute.setFlavorText("todo")
+        nyxbornBrute.power = 7
+        nyxbornBrute.toughness = 3
+        return nyxbornBrute
+    }
+    // 145 Omen of the Forge
+    // 146 Oread of Mountain's Blaze
+    // 147 Ox of Agonas
+    // 148 Phoenix of Ash
+    // 149 Portent of Betrayal
+    // 150 Purphoros, Bronze-Blooded
+    // 151 Purphoros's Intervention
+    // 152 Satyr's Cunning
+    // 153 Skophos Maze-Warden
+    // 154 Skophos Warleader
+    static func StampedeRider() -> Card {
+        let stampedeRider = Card(name: "Stampede Rider", rarity: .Common, set: set, number: 155)
+        stampedeRider.setManaCost("2R")
+        stampedeRider.setType(.Creature, .Satyr)
+        stampedeRider.trample = true
+        stampedeRider.addTriggeredAbility(
+            trigger: .BeginningOfEachCombat,
+            effect: { stampedeRider.pump(1, 1) },
+            effectOptional: false,
+            restriction: { !stampedeRider.getController().getCreatures().filter({ $0.getPower() >= 4 }).isEmpty })
+        stampedeRider.setFlavorText("todo")
+        stampedeRider.power = 2
+        stampedeRider.toughness = 3
+        return stampedeRider
+    }
+    // 156 Storm Herald
+    static func StormsWrath() -> Card {
+        let stormsWrath = Card(name: "Storm's Wrath", rarity: .Rare, set: set, number: 157)
+        stormsWrath.setManaCost("2RR")
+        stormsWrath.setType(.Sorcery)
+        stormsWrath.addEffect({
+            Game.shared.bothPlayers({ player in
+                player.getPermanents().filter({ $0.isCreatureOrPlaneswalker() }).forEach({ stormsWrath.damage(to: $0, 4) })
+            })
+        })
+        stormsWrath.setFlavorText("todo")
+        return stormsWrath
+    }
+    // 158 Tectonic Giant
+    // 159 Thrill of Possibility
+    // 160 The Triumph of Anax
+    // 161 Underworld Breach
+    // 162 Underworld Fires
+    // 163 Underworld Rage-Hound
+    static func WrapInFlames() -> Card {
+        let wrapInFlames = Card(name: "Wrap in Flames", rarity: .Common, set: set, number: 164)
+        wrapInFlames.setManaCost("3R")
+        wrapInFlames.setType(.Sorcery)
+        wrapInFlames.addEffect(TargetedEffect.MultiObject(
+            restrictions: [
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true),
+                TargetingRestriction.TargetCreature(optional: true)
+            ],
+            effect: { targets in
+                for target in targets {
+                    if let actualTarget = target {
+                        wrapInFlames.damage(to: actualTarget, 1)
+                        actualTarget.giveKeywordUntilEndOfTurn(.CantBlock)
+                    }
+                }
+            },
+            distinctTargets: true))
+        wrapInFlames.setFlavorText("todo")
+        return wrapInFlames
+    }
+    
     
     static func Goat() -> Token {
         let goat = Token(name: "Goat", set: set, number: 1)

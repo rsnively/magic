@@ -113,6 +113,7 @@ enum Subtype {
     case Lammasu
     case Leech
     case Lizard
+    case Manticore
     case Merfolk
     case Minotaur
     case Mole

@@ -8,6 +8,7 @@ enum Trigger {
     case AnotherCreatureEntersBattlefieldUnderYourControl
     case AnotherCreatureYouControlDies
     case AnotherCreatureOrPlaneswalkerYouControlDies
+    case BeginningOfEachCombat
     case CreatureEntersBattlefieldUnderYourControl
     case CreatureOpponentControlsBecomesTappedBesidesAttacking
     case CreatureWithFlyingAttacks
