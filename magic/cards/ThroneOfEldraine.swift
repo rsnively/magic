@@ -1730,6 +1730,7 @@ enum ELD {
                 return object
             },
             layer: .PowerToughnessCDA,
+            // todo Crashes in sideboard
             allZones: true)
         shamblingSuit.setFlavorText("\"The young squire gripped her sword as the clanking stranger emerged. It was no knight that had come to challenge her.\"\n--Beyond the Great Henge")
         shamblingSuit.toughness = 3

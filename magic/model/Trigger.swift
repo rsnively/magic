@@ -24,6 +24,7 @@ enum Trigger {
     case Landfall
     case LandPutIntoAGraveyardFromPlay
     case NontokenCreatureYouControlDies
+    case OpponentCastsInstantOrSorcery
     case OpponentDrawsCard
     case ThisAttacks
     case ThisBecomesBlocked

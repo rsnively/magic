@@ -184,6 +184,91 @@ enum THB {
 //        UnderworldFires,
 //        UnderworldRageHound,
         WrapInFlames,
+        ArastaOfTheEndlessWeb,
+//        TheBindingOfTheTitans,
+//        ChainwebAracnir,
+//        DestinySpinner,
+//        DryadOfTheIlysianGrove,
+//        TheFirstIroanGames,
+        GiftOfStrength,
+        HydrasGrowth,
+        HyraxTowerScout,
+//        IlysianCaryatid,
+//        InspireAwe,
+        KlothyssDesign,
+//        LoathsomeChimera,
+//        MantleOfTheWolf,
+        MossViper,
+        MysticRepeal,
+//        NessianBoar,
+        NessianHornbeetle,
+        NessianWanderer,
+        NexusWardens,
+//        NyleaKeenEyed,
+        NyleasForerunner,
+        NyleasHuntmaster,
+//        NyleasIntervention,
+        NyxHerald,
+//        NyxbloomAncient,
+        NyxbornColossus,
+//        OmenOfTheHunt,
+        PheresBandBrawler,
+        Plummet,
+//        RelentlessPursuit,
+//        RenataCalledToTheHunt,
+//        ReturnToNature,
+        SetessanChampion,
+        SetessanPetitioner,
+        SetessanSkirmisher,
+        SetessanTraining,
+//        Skola Grovedancer,
+//        VoraciousTyphon,
+        WarbriarBlessing,
+//        WolfwillowHaven,
+//        AcolyteOfAffliction,
+//        AllureOfTheUnknown,
+//        AshiokNightmareMuse,
+//        AtrisOracleOfHalfTruths,
+//        BronzehideLion,
+//        CalixDestinysHand,
+//        DalakosCrafterOfWonders,
+//        DevourerOfMemory,
+//        DreamTrawler,
+//        EnigmaticIncarnation,
+        EutropiaTheTwiceFavored,
+//        GalliaOfTheEndlessDance,
+//        HaktosTheUnscarred,
+//        HeroOfTheNyxborn,
+//        KlothysGodOfDestiny,
+//        KroxaTitanOfDeathsHunger,
+//        KunorosHoundOfAthreos,
+//        MischievousChimera,
+//        PolukranosUnchained,
+//        RiseToGlory,
+//        SionaCaptainOfThePyleas,
+//        SlaughterPriestOfMogis,
+//        StaggeringInsight,
+//        UroTitanOfNaturesWrath,
+        WardenOfTheChained,
+//        AltarOfThePantheon,
+        BronzeSword,
+//        EntrancingLyre,
+//        MirrorShield,
+//        NyxLotus,
+        Shadowspear,
+        SoulGuideLantern,
+//        ThaumaturgesFamiliar,
+//        ThunderingChariot,
+        TravelersAmulet,
+//        WingsOfHubris,
+//        FieldOfRuin,
+//        LabyrinthOfSkophos,
+//        TempleOfAbandon,
+//        TempleOfDeceit,
+//        TempleOfEnlightenment,
+//        TempleOfEpiphany,
+//        TempleOfPlenty,
+//        UnknownShores,
     ]
 
     static func RandomCard() -> Card {
@@ -1398,7 +1483,463 @@ enum THB {
         wrapInFlames.setFlavorText("todo")
         return wrapInFlames
     }
-    
+    static func ArastaOfTheEndlessWeb() -> Card {
+        let arasta = Card(name: "Arasta of the Endless Web", rarity: .Rare, set: set, number: 165)
+        arasta.setManaCost("2GG")
+        arasta.setType(.Legendary, .Enchantment, .Creature, .Spider)
+        arasta.reach = true
+        arasta.addTriggeredAbility(
+            trigger: .OpponentCastsInstantOrSorcery,
+            effect: { arasta.getController().createToken(Spider()) })
+        arasta.setFlavorText("todo")
+        arasta.power = 3
+        arasta.toughness = 5
+        return arasta
+    }
+    // 166 The Binding of the Titans
+    // 167 Chainweb Aracnir
+    // 168 Destiny Spinner
+    // 169 Dryad of teh Ilysian Grove
+    // 170 The First Iroan Games
+    static func GiftOfStrength() -> Card {
+        let giftOfStrength = Card(name: "Gift of Strength", rarity: .Common, set: set, number: 171)
+        giftOfStrength.setManaCost("1G")
+        giftOfStrength.setType(.Instant)
+        giftOfStrength.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: {
+                $0.pump(3, 3)
+                $0.giveKeywordUntilEndOfTurn(.Reach)
+        }))
+        giftOfStrength.setFlavorText("todo")
+        return giftOfStrength
+    }
+    static func HydrasGrowth() -> Card {
+        let hydrasGrowth = Card(name: "Hydra's Growth", rarity: .Uncommon, set: set, number: 172)
+        hydrasGrowth.setManaCost("2G")
+        hydrasGrowth.setType(.Enchantment, .Aura)
+        hydrasGrowth.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { hydrasGrowth.attachedTo?.addCounter(.PlusOnePlusOne) })
+        hydrasGrowth.addTriggeredAbility(
+            trigger: .YourUpkeep,
+            effect: { hydrasGrowth.attachedTo?.addCounters(.PlusOnePlusOne, hydrasGrowth.attachedTo!.getCounters(.PlusOnePlusOne)) })
+        hydrasGrowth.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreature(),
+            effect: { $0 },
+            layer: .NoEffect)
+        return hydrasGrowth
+    }
+    static func HyraxTowerScout() -> Card {
+        let hyraxTowerScout = Card(name: "Hyrax Tower Scout", rarity: .Common, set: set, number: 173)
+        hyraxTowerScout.setManaCost("3G")
+        hyraxTowerScout.setType(.Creature, .Human, .Scout)
+        hyraxTowerScout.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { $0.untap() }))
+        hyraxTowerScout.setFlavorText("todo")
+        hyraxTowerScout.power = 3
+        hyraxTowerScout.toughness = 3
+        return hyraxTowerScout
+    }
+    // 174 Ilysian Caryatid
+    // 175 Inspire Awe
+    static func KlothyssDesign() -> Card {
+        let klothyssDesign = Card(name: "Klothys's Design", rarity: .Uncommon, set: set, number: 176)
+        klothyssDesign.setManaCost("5G")
+        klothyssDesign.setType(.Sorcery)
+        klothyssDesign.addEffect({
+            let x = klothyssDesign.getController().devotion(.Green)
+            klothyssDesign.getController().getCreatures().forEach({ $0.pump(x, x) })
+        })
+        klothyssDesign.setFlavorText("todo")
+        return klothyssDesign
+    }
+    // 177 Loathsome Chimera
+    // 178 Mantle of the Wolf
+    static func MossViper() -> Card {
+        let mossViper = Card(name: "Moss Viper", rarity: .Common, set: set, number: 179)
+        mossViper.setManaCost("G")
+        mossViper.setType(.Creature, .Snake)
+        mossViper.deathtouch = true
+        mossViper.setFlavorText("todo")
+        mossViper.power = 1
+        mossViper.toughness = 1
+        return mossViper
+    }
+    static func MysticRepeal() -> Card {
+        let mysticRepeal = Card(name: "Mystic Repeal", rarity: .Uncommon, set: set, number: 180)
+        mysticRepeal.setManaCost("G")
+        mysticRepeal.setType(.Instant)
+        mysticRepeal.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.TargetEnchantment(),
+            effect: { $0.putOnBottomOfLibrary() }))
+        mysticRepeal.setFlavorText("todo")
+        return mysticRepeal
+    }
+    // 181 Nessian Boar
+    static func NessianHornbeetle() -> Card {
+        let nessianHornbeetle = Card(name: "Nessian Hornbeetle", rarity: .Uncommon, set: set, number: 182)
+        nessianHornbeetle.setManaCost("1G")
+        nessianHornbeetle.setType(.Creature, .Insect)
+        nessianHornbeetle.addTriggeredAbility(
+            trigger: .BeginningOfEachCombat,
+            effect: { nessianHornbeetle.addCounter(.PlusOnePlusOne)},
+            effectOptional: false,
+            restriction: { !nessianHornbeetle.getController().getCreatures().filter({ $0 != nessianHornbeetle && $0.getPower() >= 4 }).isEmpty })
+        nessianHornbeetle.setFlavorText("todo")
+        nessianHornbeetle.power = 2
+        nessianHornbeetle.toughness = 2
+        return nessianHornbeetle
+    }
+    static func NessianWanderer() -> Card {
+        let nessianWanderer = Card(name: "Nessian Wanderer", rarity: .Uncommon, set: set, number: 183)
+        nessianWanderer.setManaCost("1G")
+        nessianWanderer.setType(.Creature, .Satyr, .Scout)
+        nessianWanderer.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: {
+                nessianWanderer.getController().chooseCard(
+                    from: nessianWanderer.getController().getLibrary().suffix(3),
+                    restriction: { $0.isLand() },
+                    action: { chosen, rest in
+                        chosen?.reveal()
+                        chosen?.putIntoHand()
+                        nessianWanderer.getController().putOnBottomOfLibrary(&rest, random: true)
+                })
+        })
+        nessianWanderer.power = 1
+        nessianWanderer.toughness = 3
+        return nessianWanderer
+    }
+    static func NexusWardens() -> Card {
+        let nexusWardens = Card(name: "Nexus Wardens", rarity: .Common, set: set, number: 184)
+        nexusWardens.setManaCost("2G")
+        nexusWardens.setType(.Creature, .Satyr, .Archer)
+        nexusWardens.reach = true
+        nexusWardens.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: { nexusWardens.getController().gainLife(2) })
+        nexusWardens.setFlavorText("todo")
+        nexusWardens.power = 1
+        nexusWardens.toughness = 4
+        return nexusWardens
+    }
+    // 185 Nylea, Keen-Eyed
+    static func NyleasForerunner() -> Card {
+        let nyleasForerunner = Card(name: "Nylea's Forerunner", rarity: .Common, set: set, number: 186)
+        nyleasForerunner.setManaCost("4G")
+        nyleasForerunner.setType(.Enchantment, .Creature, .Beast)
+        nyleasForerunner.trample = true
+        nyleasForerunner.addStaticAbility(
+            requirement: AbilityRequirement.OtherCreaturesYouControl(source: nyleasForerunner),
+            effect: { $0.withKeyword(.Trample) },
+            layer: .AbilityAddingOrRemoving)
+        nyleasForerunner.setFlavorText("todo")
+        nyleasForerunner.power = 5
+        nyleasForerunner.toughness = 3
+        return nyleasForerunner
+    }
+    static func NyleasHuntmaster() -> Card {
+        let nyleasHuntmaster = Card(name: "Nylea's Huntmaster", rarity: .Uncommon, set: set, number: 187)
+        nyleasHuntmaster.setManaCost("3G")
+        nyleasHuntmaster.setType(.Creature, .Centaur, .Shaman)
+        nyleasHuntmaster.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureYouControl(source: nyleasHuntmaster),
+                effect: { $0.pump(nyleasHuntmaster.getController().devotion(.Green), 0) }))
+        nyleasHuntmaster.setFlavorText("todo")
+        nyleasHuntmaster.power = 4
+        nyleasHuntmaster.toughness = 3
+        return nyleasHuntmaster
+    }
+    // 188 Nylea's Intervention
+    static func NyxHerald() -> Card {
+        let nyxHerald = Card(name: "Nyx Herald", rarity: .Uncommon, set: set, number: 189)
+        nyxHerald.setManaCost("2G")
+        nyxHerald.setType(.Enchantment, .Creature, .Centaur, .Shaman)
+        nyxHerald.addTriggeredAbility(
+            trigger: .YourBeginCombat,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { $0.getController() === nyxHerald.getController() && $0.isCreature() && ($0.isEnchanted() || $0.isEnchantment()) },
+                    zones: [.Battlefield]),
+                effect: { target in
+                    target.pump(1, 1)
+                    target.giveKeywordUntilEndOfTurn(.Trample)
+            }))
+        nyxHerald.setFlavorText("todo")
+        nyxHerald.power = 2
+        nyxHerald.toughness = 3
+        return nyxHerald
+    }
+    // 190 Nyxbloom Ancient
+    static func NyxbornColossus() -> Card {
+        let nyxbornColossus = Card(name: "Nyxborn Colossus", rarity: .Common, set: set, number: 191)
+        nyxbornColossus.setManaCost("3GGG")
+        nyxbornColossus.setType(.Enchantment, .Creature, .Giant)
+        nyxbornColossus.setFlavorText("todo")
+        nyxbornColossus.power = 6
+        nyxbornColossus.toughness = 7
+        return nyxbornColossus
+    }
+    // 192 Omen of the Hunt
+    static func PheresBandBrawler() -> Card {
+        let pheresBandBrawler = Card(name: "Pheres-Band Brawler", rarity: .Uncommon, set: set, number: 193)
+        pheresBandBrawler.setManaCost("4GG")
+        pheresBandBrawler.setType(.Creature, .Centaur, .Warrior)
+        pheresBandBrawler.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureYouDontControl(source: pheresBandBrawler, optional: true),
+                effect: { pheresBandBrawler.fight($0) }))
+        pheresBandBrawler.power = 4
+        pheresBandBrawler.toughness = 4
+        return pheresBandBrawler
+    }
+    static func Plummet() -> Card {
+        let plummet = Card(name: "Plummet", rarity: .Common, set: set, number: 194)
+        plummet.setManaCost("1G")
+        plummet.setType(.Instant)
+        plummet.addEffect(TargetedEffect.SingleObject(
+            restriction: TargetingRestriction.SingleObject(
+                restriction: { return $0.isType(.Creature) && $0.flying },
+                zones: [.Battlefield]),
+            effect: { target in let _ = target.destroy() }))
+        plummet.setFlavorText("todo")
+        return plummet
+    }
+    // 195 Relentless Pursuit
+    // 196 Renata, Called to the Hunt
+    // 197 Return to Nature
+    static func SetessanChampion() -> Card {
+        let setessanChampion = Card(name: "Setessan Champion", rarity: .Rare, set: set, number: 198)
+        setessanChampion.setManaCost("2G")
+        setessanChampion.setType(.Creature, .Human, .Warrior)
+        setessanChampion.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: {
+                setessanChampion.addCounter(.PlusOnePlusOne)
+                setessanChampion.getController().drawCard()
+        })
+        setessanChampion.setFlavorText("todo")
+        setessanChampion.power = 1
+        setessanChampion.toughness = 3
+        return setessanChampion
+    }
+    static func SetessanPetitioner() -> Card {
+        let setessanPetitioner = Card(name: "Setessan Petitioner", rarity: .Uncommon, set: set, number: 199)
+        setessanPetitioner.setManaCost("1GG")
+        setessanPetitioner.setType(.Creature, .Human, .Druid)
+        setessanPetitioner.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { setessanPetitioner.getController().gainLife(setessanPetitioner.getController().devotion(.Green)) })
+        setessanPetitioner.setFlavorText("todo")
+        setessanPetitioner.power = 2
+        setessanPetitioner.toughness = 2
+        return setessanPetitioner
+    }
+    static func SetessanSkirmisher() -> Card {
+        let setessanSkirmisher = Card(name: "Setessan Skirmisher", rarity: .Common, set: set, number: 200)
+        setessanSkirmisher.setManaCost("1G")
+        setessanSkirmisher.setType(.Creature, .Human, .Warrior)
+        setessanSkirmisher.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: { setessanSkirmisher.pump(1, 1) })
+        setessanSkirmisher.setFlavorText("todo")
+        setessanSkirmisher.power = 2
+        setessanSkirmisher.toughness = 1
+        return setessanSkirmisher
+    }
+    static func SetessanTraining() -> Card {
+        let setessanTraining = Card(name: "Setessan Training", rarity: .Common, set: set, number: 201)
+        setessanTraining.setManaCost("1G")
+        setessanTraining.setType(.Enchantment, .Aura)
+        setessanTraining.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: { setessanTraining.getController().drawCard() })
+        setessanTraining.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureYouControl(source: setessanTraining),
+            effects: [
+                ({ $0.pumped(1, 0) }, .PowerToughnessChanging),
+                ({ $0.withKeyword(.Trample) }, .AbilityAddingOrRemoving)
+            ])
+        setessanTraining.setFlavorText("todo")
+        return setessanTraining
+    }
+    // 202 Skola Grovedancer
+    // 203 Voracious Typhon
+    static func WarbriarBlessing() -> Card {
+        let warbriarBlessing = Card(name: "Warbriar Blessing", rarity: .Common, set: set, number: 204)
+        warbriarBlessing.setManaCost("1G")
+        warbriarBlessing.setType(.Enchantment, .Aura)
+        warbriarBlessing.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreatureYouDontControl(source: warbriarBlessing, optional: true),
+                effect: { warbriarBlessing.attachedTo?.fight($0) }))
+        warbriarBlessing.addEnchantAbility(
+            restriction: TargetingRestriction.TargetCreatureYouControl(source: warbriarBlessing),
+            effect: { $0.pumped(0, 2) },
+            layer: .PowerToughnessChanging)
+        return warbriarBlessing
+    }
+    // 205 Wolfwillow Haven
+    // 206 Acolyte of Affliction
+    // 207 Allure of the Unknown
+    // 208 Ashiok, Nightmare Muse
+    // 209 Atris, Oracle of Half-Truths
+    // 210 Bronzehide Lion
+    // 211 Calix, Destiny's Hand
+    // 212 Dalakos, Crafter of Wonders
+    // 213 Devourer of Memory
+    // 214 Dream Trawler
+    // 215 Enigmatic Incarnation
+    static func EutropiaTheTwiceFavored() -> Card {
+        let eutropia = Card(name: "Eutropia, the Twice-Favored", rarity: .Uncommon, set: set, number: 216)
+        eutropia.setManaCost("1GU")
+        eutropia.setType(.Legendary, .Creature, .Human, .Wizard)
+        eutropia.addTriggeredAbility(
+            trigger: .EnchantmentEntersBattlefieldUnderYourControl,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.TargetCreature(),
+                effect: { target in
+                    target.addCounter(.PlusOnePlusOne)
+                    target.giveKeywordUntilEndOfTurn(.Flying)
+        }))
+        eutropia.setFlavorText("todo")
+        eutropia.power = 2
+        eutropia.toughness = 2
+        return eutropia
+    }
+    // 217 Gallia of the Endless Dance
+    // 218 Haktos the Unscarred
+    // 219 Hero of the Nyxborn
+    // 220 Klothys, God of Destiny
+    // 221 Kroxa, Titan of Death's Hunger
+    // 222 Kunoros, Hound of Athreos
+    // 223 Mischievous Chimera
+    // 224 Polukranos, Unchained
+    // 225 Rise to Glory
+    // 226 Siona, Captain of the Pyleas
+    // 227 Slaughter-Priest of Mogis
+    // 228 Staggering Insight
+    // 229 Uro, Titan of Nature's Wrath
+    static func WardenOfTheChained() -> Card {
+        let wardenOfTheChained = Card(name: "Warden of the Chained", rarity: .Uncommon, set: set, number: 230)
+        wardenOfTheChained.setManaCost("1RG")
+        wardenOfTheChained.setType(.Creature, .Minotaur, .Warrior)
+        wardenOfTheChained.trample = true
+        wardenOfTheChained.addStaticAbility(
+            requirement: AbilityRequirement.This(wardenOfTheChained),
+            effect: { object in
+                if object.getController().getCreatures().filter({ $0 != object && $0.getPower() >= 4}).isEmpty {
+                    return object.withKeyword(.CantAttack)
+                }
+                return object
+            },
+            layer: .AbilityAddingOrRemoving)
+        wardenOfTheChained.setFlavorText("todo")
+        wardenOfTheChained.power = 4
+        wardenOfTheChained.toughness = 4
+        return wardenOfTheChained
+    }
+    // 231 Altar of the Pantheon
+    static func BronzeSword() -> Card {
+        let bronzeSword = Card(name: "Bronze Sword", rarity: .Common, set: set, number: 232)
+        bronzeSword.setManaCost("1")
+        bronzeSword.setType(.Artifact, .Equipment)
+        bronzeSword.addEquipAbility(
+            string: "{3}: Equip.",
+            cost: Cost.Mana("3"),
+            effect: { return $0.pumped(2, 0) },
+            layer: .PowerToughnessChanging)
+        bronzeSword.setFlavorText("todo")
+        return bronzeSword
+    }
+    // 233 Entrancing Lyre
+    // 234 Mirror Shield
+    // 235 Nyx Lotus
+    static func Shadowspear() -> Card {
+        let shadowspear = Card(name: "Shadowspear", rarity: .Rare, set: set, number: 236)
+        shadowspear.setManaCost("1")
+        shadowspear.setType(.Legendary, .Artifact, .Equipment)
+        shadowspear.addEquipAbility(
+            string: "{2}: Equip.",
+            cost: Cost.Mana("2"),
+            effects: [
+                ({ $0.pumped(1, 1) }, .PowerToughnessChanging),
+                ({ $0.withKeyword(.Trample) }, .AbilityAddingOrRemoving),
+                ({ $0.withKeyword(.Lifelink) }, .AbilityAddingOrRemoving),
+        ])
+        shadowspear.addActivatedAbility(
+            string: "{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.",
+            cost: Cost.Mana("1"),
+            effect: {
+                shadowspear.eachOpponent({
+                    $0.getPermanents().forEach({ permanent in
+                        permanent.removeKeywordUntilEndOfTurn(.Hexproof)
+                        permanent.removeKeywordUntilEndOfTurn(.Indestructible)
+                    })
+                })
+        })
+        shadowspear.setFlavorText("todo")
+        return shadowspear
+    }
+    static func SoulGuideLantern() -> Card {
+        let soulGuideLantern = Card(name: "Soul-Guide Lantern", rarity: .Uncommon, set: set, number: 237)
+        soulGuideLantern.setManaCost("1")
+        soulGuideLantern.setType(.Artifact)
+        soulGuideLantern.addTriggeredAbility(
+            trigger: .ThisETB,
+            effect: TargetedEffect.SingleObject(
+                restriction: TargetingRestriction.SingleObject(
+                    restriction: { _ in return true },
+                    zones: [.Graveyard]),
+                effect: { $0.exile() }))
+        soulGuideLantern.addActivatedAbility(
+            string: "{T}, Sacrifice ~: Exile each opponent's graveyard.",
+            cost: Cost.Tap().Sacrifice(),
+            effect: { soulGuideLantern.eachOpponent({ $0.exileGraveyard() }) })
+        soulGuideLantern.addActivatedAbility(
+            string: "{1}, {T}, Sacrifice ~: Draw a card.",
+            cost: Cost.Mana("1").Tap().Sacrifice(),
+            effect: { soulGuideLantern.getController().drawCard() })
+        return soulGuideLantern
+    }
+    // 238 Thaumaturge's Familiar
+    // 239 Thundering Chariot
+    static func TravelersAmulet() -> Card {
+        let travelersAmulet = Card(name: "Traveler's Amulet", rarity: .Common, set: set, number: 240)
+        travelersAmulet.setManaCost("1")
+        travelersAmulet.setType(.Artifact)
+        travelersAmulet.addActivatedAbility(
+            string: "{1}, Sacrifice ~: Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.",
+            cost: Cost.Mana("1").Sacrifice(),
+            effect: { travelersAmulet.getController().chooseCard(
+                from: travelersAmulet.getController().getLibrary(),
+                restriction: { $0.isBasicLand() },
+                action: { chosen, rest in
+                    chosen?.reveal()
+                    chosen?.putIntoHand()
+                    travelersAmulet.getController().shuffleLibrary()
+                })
+        })
+        travelersAmulet.setFlavorText("todo")
+        return travelersAmulet
+    }
+    // 241 Wings of Hubris
+    // 242 Field of Ruin
+    // 243 Labyrinth of Skophos
+    // 244 Temple of Abandon
+    // 245 Temple of Deceit
+    // 246 Temple of Enlightenment
+    // 247 Temple of Epiphany
+    // 248 Temple of Plenty
+    // 249 Unknown Shores
     
     static func Goat() -> Token {
         let goat = Token(name: "Goat", set: set, number: 1)
@@ -1545,8 +2086,5 @@ enum THB {
         wall.toughness = 4
         return wall
     }
-    
-    
-
 }
 

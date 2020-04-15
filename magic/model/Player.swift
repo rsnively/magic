@@ -400,6 +400,7 @@ class Player: Targetable {
         if card.isSpell() && (card.isType(.Instant) || card.isType(.Sorcery)) {
             numberInstantsOrSorceriesCastThisTurn += 1
             triggerAbilities(.YouCastInstantOrSorcery)
+            getOpponent().triggerAbilities(.OpponentCastsInstantOrSorcery)
             Game.shared.bothPlayers({ $0.triggerAbilities(.APlayerCastsInstantOrSorcery) })
             if card.isType(.Instant) {
                 triggerAbilities(.YouCastInstantSpell)

@@ -47,25 +47,25 @@ class Card: Object {
     }
     
     static func randomStandardCard() -> Card {
-//        let r = Int.random(in: 1 ... 7)
-//        if r == 1 {
-//            return GRN.RandomCard()
-//        }
-//        if r == 2 {
-//            return RNA.RandomCard()
-//        }
-//        if r == 3 {
-//            return WAR.RandomCard()
-//        }
-//        if r == 4 {
-//            return M20.RandomCard()
-//        }
-//        if r == 5 {
-//            return ELD.RandomCard()
-//        }
-//        if r == 6 {
-//            return THB.RandomCard()
-//        }
+        let r = Int.random(in: 1 ... 7)
+        if r == 1 {
+            return GRN.RandomCard()
+        }
+        if r == 2 {
+            return RNA.RandomCard()
+        }
+        if r == 3 {
+            return WAR.RandomCard()
+        }
+        if r == 4 {
+            return M20.RandomCard()
+        }
+        if r == 5 {
+            return ELD.RandomCard()
+        }
+        if r == 6 {
+            return THB.RandomCard()
+        }
         return IKO.RandomCard()
     }
     
